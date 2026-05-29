@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NSTE-ACS · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);--hb:rgba(147,197,253,.5);
+  --hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:38px;font-weight:900;line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;padding:0 12px;display:flex;align-items:center;white-space:nowrap;border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blu);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.ol{list-style:none;padding:0;margin:6px 0 12px;counter-reset:n}
+.ol li{counter-increment:n;position:relative;padding:4px 0 4px 30px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.ol li::before{content:counter(n);position:absolute;left:0;top:5px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;background:var(--bd);color:var(--t2);width:19px;height:19px;display:flex;align-items:center;justify-content:center;border-radius:3px}
+.ol li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.vs{display:grid;grid-template-columns:1fr 1fr;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px;overflow:hidden}
+.vsh{padding:9px 14px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--bd)}
+.vsh.b{background:#e8effe;color:var(--blu);border-right:1px solid var(--bd)}
+.vsh.r{background:var(--red-l);color:var(--red)}
+.vsb{padding:12px 14px}
+.vsb.br{border-right:1px solid var(--bd)}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0}
+.tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;padding:2px 9px;border-radius:4px;letter-spacing:.04em}
+.t-b{background:var(--blu-l);color:var(--blu);border:1px solid #bfdbfe}
+.t-r{background:var(--red-l);color:var(--red);border:1px solid #fca5a5}
+.t-g{background:var(--grn-l);color:var(--grn);border:1px solid #86efac}
+.t-a{background:var(--amb-l);color:var(--amb);border:1px solid #fde68a}
+.t-p{background:var(--pur-l);color:var(--pur);border:1px solid #ddd6fe}
+.t-t{background:var(--tel-l);color:var(--tel);border:1px solid #a5f3fc}
+.mn{background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:16px 20px;margin:12px 0}
+.mn-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--amb);margin-bottom:7px}
+.mn-w{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--amb);margin-bottom:10px}
+.mn ul{list-style:none;padding:0}
+.mn ul li{font-size:13px;padding:2px 0;color:var(--t2)}
+.mn ul li b{font-family:'Playfair Display',serif;font-size:18px;color:var(--amb);margin-right:5px;font-style:italic}
+details{border:1.5px solid var(--bd);border-radius:7px;margin:8px 0;overflow:hidden}
+summary{display:flex;justify-content:space-between;align-items:center;padding:10px 15px;cursor:pointer;background:var(--sf2);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);list-style:none}
+summary:hover{background:var(--bd)}
+summary::after{content:'▾';font-size:14px}
+details[open] summary::after{content:'▴'}
+details>.db{padding:14px;background:var(--sf)}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-q em{color:var(--tx);font-style:normal;font-weight:600}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.trap-why{font-size:12px;color:var(--t3);margin-top:8px;font-style:italic;line-height:1.55}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+.flow{background:#fff;border:1.5px solid var(--bd);border-radius:8px;padding:20px;margin:12px 0}
+.flow-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.flow-box{background:var(--blu-l);border:1.5px solid #bfdbfe;border-radius:6px;padding:8px 14px;font-size:12.5px;font-weight:500;color:var(--blu-d);text-align:center;min-width:130px}
+.flow-box.red{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.flow-box.grn{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.flow-box.amb{background:var(--amb-l);border-color:#fde68a;color:var(--amb)}
+.flow-arr{font-size:20px;color:var(--t3);margin-top:4px}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}.main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Annotate</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" title="Clear all" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 Study Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()" title="Hide panel">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select any text in the guide,<br>write a note below,<br>then click + Add Note.<br><br>Notes appear here as<br>sticky cards you can drag &amp; resize.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles of Internal Medicine · Part 6 · Chapter 285</div>
+  <h1>Non-ST-Segment Elevation<br>Acute Coronary Syndrome</h1>
+  <div class="hero-sub">NSTEMI &amp; Unstable Angina · Medical Boards Review Edition</div>
+  <div class="hero-authors">Robert P. Giugliano · Christopher P. Cannon · Eugene Braunwald</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">35%</div><div class="stat-l">3-vessel CAD at angiography</div></div>
+    <div class="stat-box"><div class="stat-n">1–10%</div><div class="stat-l">30-day death risk</div></div>
+    <div class="stat-box"><div class="stat-n">5–15%</div><div class="stat-l">Recurrent ACS at 1 year</div></div>
+    <div class="stat-box"><div class="stat-n">41%</div><div class="stat-l">Event rate TIMI score 6/7</div></div>
+    <div class="stat-box"><div class="stat-n">~1/3</div><div class="stat-l">ACS due to plaque erosion</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Overview</a>
+    <a class="toc-a" href="#s2">Pathophysiology</a>
+    <a class="toc-a" href="#s3">Clinical Presentation</a>
+    <a class="toc-a" href="#s4">Biomarkers &amp; ECG</a>
+    <a class="toc-a" href="#s5">Risk Stratification</a>
+    <a class="toc-a" href="#s6">Anti-Ischemic Rx</a>
+    <a class="toc-a" href="#s7">Antithrombotic Rx</a>
+    <a class="toc-a" href="#s8">Invasive Strategy</a>
+    <a class="toc-a" href="#s9">Long-Term Mgmt</a>
+    <a class="toc-a" href="#s10">Vasospastic Angina</a>
+    <a class="toc-a" href="#s11">Quick Reference</a>
+    <a class="toc-a" href="#exam">★ Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══════════ SECTION 1: OVERVIEW ═══════════ -->
+<section class="sec" id="s1">
+  <div class="sec-hd"><span class="sec-n">01</span><h2>Overview &amp; Epidemiology</h2></div>
+
+  <div class="sub">
+    <h3>ACS Classification</h3>
+    <p>Patients with acute coronary syndrome (ACS) are divided into two major groups based on the presenting ECG, which determines the urgency and direction of treatment:</p>
+    <div class="vs">
+      <div>
+        <div class="vsh b">STEMI</div>
+        <div class="vsb br">
+          <ul class="bl">
+            <li>ST-segment <b>elevation</b> on presenting ECG</li>
+            <li>Incidence is <b>declining</b> due to aspirin, statins, less smoking</li>
+            <li>Complete thrombotic occlusion typical</li>
+            <li>Immediate reperfusion priority</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="vsh r">NSTE-ACS</div>
+        <div class="vsb">
+          <ul class="bl">
+            <li>No ST elevation on ECG</li>
+            <li>Incidence <b>rising</b>: obesity, diabetes, CKD, aging</li>
+            <li>Includes NSTEMI (troponin +) and UA (troponin −)</li>
+            <li>UA proportion falling as hsTn reclassifies to NSTEMI</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>NSTEMI vs Unstable Angina — The Key Distinction</h3>
+    <p>Both NSTEMI and UA present without ST elevation, but differ critically on <b>troponin status</b>, which reflects whether myocyte necrosis has occurred:</p>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">NSTEMI</div>
+        <ul class="bl">
+          <li>Evidence of <b>myocyte necrosis</b> present</li>
+          <li>Elevated high-sensitivity cardiac troponin (hsTn)</li>
+          <li>Dynamic troponin rise and partial fall</li>
+          <li>Increasingly common due to sensitive assays</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Unstable Angina (UA)</div>
+        <ul class="bl">
+          <li><b>No myocyte necrosis</b></li>
+          <li>Troponin NOT elevated above 99th percentile</li>
+          <li>Proportion is decreasing due to hsTn reclassification</li>
+          <li>Still clinically urgent — high near-term risk</li>
+        </ul>
+      </div>
+    </div>
+    <div class="co key"><div class="co-t">🔑 Board Concept</div>The same patient who was previously diagnosed as UA may now be reclassified as NSTEMI because highly sensitive troponin assays detect smaller degrees of myocyte injury. The threshold for necrosis has not changed — our ability to detect it has.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Epidemiologic Trends</h3>
+    <ul class="bl">
+      <li><b>NSTEMI rising:</b> driven by increased obesity, diabetes mellitus, chronic kidney disease in an aging population AND wider adoption of highly sensitive troponin assays</li>
+      <li><b>STEMI declining:</b> attributed to widespread aspirin use, statin therapy, and smoking cessation campaigns</li>
+      <li><b>UA proportion falling:</b> hsTn reclassifying previous UA to NSTEMI by detecting previously undetected myocyte necrosis</li>
+    </ul>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══════════ SECTION 2: PATHOPHYSIOLOGY ═══════════ -->
+<section class="sec" id="s2">
+  <div class="sec-hd"><span class="sec-n">02</span><h2>Pathophysiology</h2></div>
+
+  <div class="sub">
+    <h3>Core Mechanism</h3>
+    <p>NSTE-ACS results from an <b>imbalance between myocardial oxygen supply and demand</b>, most commonly caused by coronary arterial thrombosis superimposed on atherosclerotic disease. There are <b>four pathologic processes</b>:</p>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Process 1</div>
+        <h4>Plaque Fissure WITH Inflammation</h4>
+        <p>Adaptive immunity dysregulation with increased activity of effector T cells. An inflammatory response triggers instability of the fibrous cap, leading to rupture and thrombosis.</p>
+        <div class="tags"><span class="tag t-r">Red (fibrin-rich) thrombus</span><span class="tag t-r">Thin fibrous cap</span><span class="tag t-r">Large lipid core</span></div>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Process 2</div>
+        <h4>Plaque Fissure WITHOUT Inflammation</h4>
+        <p>Mechanical disruption of a vulnerable plaque without a dominant inflammatory component. The lipid-rich core is exposed, triggering thrombosis via contact activation.</p>
+        <div class="tags"><span class="tag t-a">Non-inflammatory</span><span class="tag t-a">Vulnerable plaque</span></div>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Process 3</div>
+        <h4>Plaque Erosion</h4>
+        <p>Present in <b>at least one-third of ACS</b> — and recognized with increasing frequency. The plaque surface erodes without cap rupture. Neutrophils, NETs (neutrophil extracellular traps), and smooth muscle cells are prominent.</p>
+        <div class="tags"><span class="tag t-b">White (platelet-rich) thrombus</span><span class="tag t-b">Proteoglycan-rich</span><span class="tag t-b">Little/no lipid core</span></div>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Process 4</div>
+        <h4>Without Thrombosis</h4>
+        <p>Epicardial or microvascular spasm, or increased myocardial oxygen demand — typically in the presence of fixed epicardial coronary obstruction. No thrombus formation.</p>
+        <div class="tags"><span class="tag t-g">Vasospasm</span><span class="tag t-g">O₂ demand mismatch</span></div>
+      </div>
+    </div>
+    <div class="co prl"><div class="co-t">💜 Pearl — Ruptured vs Eroded Plaque</div>Ruptured plaques have a thin fibrous cap, large lipid core, macrophages, and form fibrin-rich red thrombi. Eroded plaques have intact caps with no/little lipid core, neutrophils + smooth muscle cells, and form platelet-rich white thrombi. This distinction is increasingly recognized as clinically important for therapeutic targeting.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Coronary Anatomy Findings at Angiography</h3>
+    <p>Among NSTE-ACS patients studied at angiography, the distribution of disease is:</p>
+    <div class="g4">
+      <div class="card"><div class="clabel c-r">&lt;10%</div><p>Left main coronary artery stenosis</p></div>
+      <div class="card"><div class="clabel c-r">~35%</div><p>Three-vessel coronary artery disease</p></div>
+      <div class="card"><div class="clabel c-a">~25%</div><p>Two-vessel disease</p></div>
+      <div class="card"><div class="clabel c-b">~20%</div><p>Single-vessel disease</p></div>
+    </div>
+    <div class="co wrn"><div class="co-t">⚠ Important</div>~10% of NSTE-ACS patients have <b>NO apparent critical epicardial coronary artery stenosis</b> on angiography. These patients may have coronary microcirculation obstruction and/or epicardial vessel spasm — don't assume all ACS is due to obstructive disease.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Vulnerable Plaque Morphology</h3>
+    <ul class="bl">
+      <li><b>Eccentric stenosis</b> with scalloped/overhanging edges and narrow neck on coronary angiography</li>
+      <li><b>Lipid-rich core</b> with a thin fibrous cap — classic appearance of rupture-prone plaque</li>
+      <li>Patients frequently have <b>multiple vulnerable plaques</b> at risk of disruption simultaneously</li>
+    </ul>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══════════ SECTION 3: CLINICAL PRESENTATION ═══════════ -->
+<section class="sec" id="s3">
+  <div class="sec-hd"><span class="sec-n">03</span><h2>Clinical Presentation &amp; Diagnosis</h2></div>
+
+  <div class="sub">
+    <h3>Classic Chest Discomfort — Three Key Features</h3>
+    <p>The diagnosis of NSTE-ACS is based on a combination of history, clinical findings, age, ECG, and circulating troponin. Typically, chest discomfort is severe and has <b>at least one</b> of:</p>
+    <div class="ol">
+      <li><strong>Rest occurrence:</strong> Occurring at rest or with minimal exertion, lasting &gt;10 minutes</li>
+      <li><strong>Recent onset:</strong> Of relatively recent onset — within the prior 2 weeks</li>
+      <li><strong>Crescendo pattern:</strong> Distinctly more severe, prolonged, or frequent than previous episodes</li>
+    </div>
+    <div class="co key"><div class="co-t">🔑 Location &amp; Radiation</div>Chest discomfort is typically located in the <b>substernal region</b> and radiates to the left arm, left shoulder, and/or superiorly to the neck and jaw. Recognize these patterns on boards.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Anginal Equivalents — High-Yield for Boards</h3>
+    <p>Instead of classic chest discomfort, ACS may present as <b>atypical symptoms</b> — especially in women, the elderly, and diabetics:</p>
+    <div class="g3">
+      <div class="card"><div class="clabel c-p">Equivalent 1</div><p><b>Dyspnea</b> — shortness of breath without classic chest pain</p></div>
+      <div class="card"><div class="clabel c-p">Equivalent 2</div><p><b>Epigastric discomfort</b> — may mimic GI pathology</p></div>
+      <div class="card"><div class="clabel c-p">Equivalent 3</div><p><b>Nausea or weakness</b> — nonspecific but can be the dominant presentation</p></div>
+    </div>
+    <div class="co dan"><div class="co-t">🚨 Board Alert — High-Risk Populations</div>Women, elderly patients, and patients with <b>diabetes mellitus</b> are MORE likely to present with anginal equivalents rather than classic chest pain. Failure to recognize this leads to missed ACS diagnoses.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Physical Examination</h3>
+    <p>Physical exam may be <b>unremarkable</b> in many NSTE-ACS patients (resembles stable angina). However, with large ischemic territory or large NSTEMI, findings include:</p>
+    <ul class="bl">
+      <li><b>Diaphoresis</b> and pale, cool skin</li>
+      <li><b>Sinus tachycardia</b></li>
+      <li><b>S3 and/or S4 heart sound</b></li>
+      <li><b>Basilar rales</b> (pulmonary edema)</li>
+      <li><b>Hypotension</b> and in severe cases, <b>cardiogenic shock</b></li>
+    </ul>
+    <div class="co wrn"><div class="co-t">⚠ Must Exclude Alternative Life-Threatening Diagnoses</div>An important goal of the physical exam is to identify alternative diagnoses that mimic ACS:
+    <ul class="bl" style="margin-top:6px">
+      <li><b>Pulmonary embolism</b> — sudden dyspnea, pleuritic pain, hypoxia</li>
+      <li><b>Aortic dissection</b> — tearing/ripping pain radiating to back, pulse differential</li>
+      <li><b>Cardiac tamponade</b> — Beck's triad: hypotension, JVD, muffled heart sounds</li>
+    </ul>
+    These require vastly different treatment. Mistaking dissection for ACS and giving thrombolytics = catastrophic.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>NSTEMI Diagnosis — Establishing the Criteria</h3>
+    <p>NSTEMI is established when <b>all three</b> of the following are present:</p>
+    <div class="ol">
+      <li>Clinical features consistent with NSTE-ACS (≥1 of the three chest discomfort characteristics above)</li>
+      <li><b>NO ST-segment elevation</b> on ECG</li>
+      <li>Abnormally elevated circulating troponin reflecting <b>myocyte necrosis</b>, in the absence of another explanation</li>
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══════════ SECTION 4: BIOMARKERS & ECG ═══════════ -->
+<section class="sec" id="s4">
+  <div class="sec-hd"><span class="sec-n">04</span><h2>Cardiac Biomarkers &amp; ECG</h2></div>
+
+  <div class="sub">
+    <h3>Electrocardiogram Findings</h3>
+    <ul class="bl">
+      <li><b>ST-segment depression</b> occurs in about <b>one-third</b> of NSTE-ACS patients — may be transient or persist for days after NSTEMI</li>
+      <li><b>T-wave changes</b> are more common but <b>less specific</b> for ischemia</li>
+      <li>Exception: <b>new deep T-wave inversions ≥0.3 mV</b> are highly specific and should raise concern</li>
+    </ul>
+    <div class="co key"><div class="co-t">🔑 ECG Pearl</div>The <b>absence of ST elevation</b> does not mean absence of serious disease. One-third of NSTE-ACS show only ST depression; many show only T-wave changes or a completely normal ECG. A normal ECG does NOT rule out NSTEMI.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Cardiac Troponin — The Preferred Biomarker</h3>
+    <p>High-sensitivity cardiac troponins (hsTnI or hsTnT) are the <b>preferred markers of myocardial necrosis</b> — sensitive, relatively specific, and the gold standard for NSTEMI diagnosis.</p>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Temporal Pattern</div>
+        <ul class="bl">
+          <li>Characteristic rise begins after myocyte necrosis onset</li>
+          <li><b>Peaks at 12–24 hours</b> after symptom onset</li>
+          <li>Gradually decreases thereafter</li>
+          <li>Direct relationship: <b>degree of elevation correlates with mortality</b></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">1-Hour Rule-Out Algorithm</div>
+        <ul class="bl">
+          <li>Recommended by recent practice guidelines</li>
+          <li>No abnormal elevation of hsTn at <b>0 or 1 hour</b> after presentation = low risk for MI</li>
+          <li>Enables rapid triage and early safe discharge in low-risk patients</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Myocardial Injury vs Myocardial Necrosis — Critical Distinction</h3>
+    <div class="co dan"><div class="co-t">🚨 Key Distinction</div><b>Myocardial Injury:</b> Defined as troponin elevation &gt;99th percentile of the upper reference limit in patients <em>without</em> a clear clinical history or ECG features of acute myocardial ischemia. This is NOT the same as MI!
+    <br><br><b>Myocardial Necrosis (= MI):</b> Requires the clinical context — symptoms, ECG changes — plus troponin elevation.
+    </div>
+    <p>Many non-cardiac and cardiac conditions can elevate troponin without constituting NSTEMI:</p>
+    <details>
+      <summary>Non-Cardiac &amp; Cardiac Causes of Troponin Elevation</summary>
+      <div class="db">
+        <div class="g2">
+          <div>
+            <h4>Supply/Demand Imbalance</h4>
+            <ul class="bl">
+              <li>Coronary artery spasm, microvascular dysfunction</li>
+              <li>Coronary embolism or dissection</li>
+              <li>Sustained brady- or tachyarrhythmia</li>
+              <li>Hypotension or shock</li>
+              <li>Respiratory failure, severe anemia</li>
+              <li>Severe hypertension (demand)</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Cardiac Conditions</h4>
+            <ul class="bl">
+              <li>Heart failure, myocarditis</li>
+              <li>Any cardiomyopathy type</li>
+              <li>Takotsubo syndrome</li>
+              <li>Recent coronary revascularization</li>
+              <li>Catheter ablation, defibrillator shocks</li>
+              <li>Cardiac contusion</li>
+            </ul>
+            <h4>Systemic Conditions</h4>
+            <ul class="bl">
+              <li>Sepsis, critical illness</li>
+              <li>Chronic kidney disease</li>
+              <li>Stroke, subarachnoid hemorrhage</li>
+              <li>Pulmonary embolism</li>
+              <li>Amyloidosis, sarcoidosis (infiltrative)</li>
+              <li>Chemotherapeutic agents</li>
+              <li>Strenuous exercise</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══════════ SECTION 5: RISK STRATIFICATION ═══════════ -->
+<section class="sec" id="s5">
+  <div class="sec-hd"><span class="sec-n">05</span><h2>Risk Stratification</h2></div>
+
+  <div class="sub">
+    <h3>Early Risk Assessment — Why It Matters</h3>
+    <p>Patients with documented NSTE-ACS exhibit a wide spectrum of early (30-day) risk of death, ranging from <b>1 to 10%</b>, and a recurrent ACS rate of <b>5–15% during the first year</b>. Early risk assessment guides the decision to use an invasive versus conservative strategy.</p>
+  </div>
+
+  <div class="sub">
+    <h3>TIMI Risk Score — 7 Clinical Markers</h3>
+    <p>Each of the following markers counts as 1 point (max 7 points). Risk = incidence of death, new/recurrent MI, or severe ischemia requiring urgent revascularization at 14 days:</p>
+    <div class="mn">
+      <div class="mn-l">Mnemonic — TIMI 7 Markers</div>
+      <div class="mn-w">A CEASE-3</div>
+      <ul>
+        <li><b>A</b>ge ≥65 years</li>
+        <li><b>C</b>ardiac markers elevated</li>
+        <li><b>E</b>CG: ST deviation &gt;0.5 mm on presenting ECG</li>
+        <li><b>A</b>ngina prior history (prior angina)</li>
+        <li><b>S</b>tenosis: Known CAD (≥50% stenosis)</li>
+        <li><b>E</b>pisodes ≥2 anginal episodes in prior 24h</li>
+        <li><b>3</b> or more CAD risk factors</li>
+      </ul>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>TIMI Score</th><th>Adverse Event Rate at 14 Days</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td>0–1</td><td>5%</td><td>Low risk</td></tr>
+          <tr><td>2</td><td>8%</td><td>Low-moderate risk</td></tr>
+          <tr><td>3</td><td>13%</td><td>Moderate risk</td></tr>
+          <tr><td>4</td><td>20%</td><td>Moderate-high risk</td></tr>
+          <tr><td>5</td><td>26%</td><td>High risk</td></tr>
+          <tr><td>6–7</td><td><b>41%</b></td><td>Very high risk</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>HEART Score — Emergency Department Pathway</h3>
+    <p>The HEART score assigns 0, 1, or 2 points for each domain based on degree of abnormality:</p>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">HEART Components</div>
+        <ul class="bl">
+          <li><b>H</b>istory — characteristic of ACS?</li>
+          <li><b>E</b>CG — findings</li>
+          <li><b>A</b>ge — ≥65 highest risk</li>
+          <li><b>R</b>isk factors — DM, HTN, hyperlipidemia, obesity, smoking, FH, atherosclerosis</li>
+          <li><b>T</b>roponin — elevation above reference limit</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">HEART Score Triage</div>
+        <ul class="bl">
+          <li><b>0–3:</b> Serial troponins → if &lt;99th percentile → early discharge</li>
+          <li><b>≥4:</b> Initial troponin
+            <ul class="bl">
+              <li>≥99th %ile → Cardiology consult &amp; admission → stress test/angiography</li>
+              <li>&lt;99th %ile → Observation or admission → stress test/angiography</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Multimarker Strategy</h3>
+    <p>Multimarker strategies including <b>hsTn AND brain natriuretic peptides (BNP)</b> are gaining favor to both define the pathophysiologic mechanisms and stratify risk further. This is especially useful in identifying patients who would benefit most from early invasive strategy.</p>
+    <div class="co suc"><div class="co-t">✓ Clinical Application</div>The GRACE score (Global Registry of Acute Coronary Events) is also used and incorporates age, heart rate, systolic BP, creatinine, Killip class, cardiac arrest, ST deviation, and troponin. GRACE score &gt;140 = high-risk, triggers early invasive strategy.</div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══════════ SECTION 6: ANTI-ISCHEMIC TREATMENT ═══════════ -->
+<section class="sec" id="s6">
+  <div class="sec-hd"><span class="sec-n">06</span><h2>Anti-Ischemic Treatment</h2></div>
+
+  <div class="sub">
+    <h3>Initial Management Principles</h3>
+    <p>Patients who "rule-in" for NSTE-ACS should be admitted to hospital, placed on bed rest with <b>continuous ECG monitoring</b> for ST deviation and arrhythmias — preferably on a specialized cardiac unit. Ambulation is permitted if no recurrence of ischemia and no troponin rise for 24h.</p>
+    <p>Initial anti-ischemic treatment (in addition to bed rest):</p>
+    <ul class="bl">
+      <li><b>Nitrates</b> — for pain relief and vasodilation</li>
+      <li><b>Beta-adrenergic blockers</b> — to reduce myocardial oxygen demand</li>
+      <li><b>Inhaled oxygen</b> — for patients with hypoxemia (O₂ saturation &lt;90%) or heart failure with rales</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Drug-by-Drug Guide</h3>
+
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-b">Nitrates</div>
+      <h4>Mechanism</h4>
+      <p>Nitric oxide donor → vascular smooth muscle relaxation → venodilation reduces preload → decreased myocardial wall stress and O₂ demand. Also dilates coronary arteries, improving supply.</p>
+      <h4>Dosing Protocol</h4>
+      <ul class="bl">
+        <li><b>Step 1:</b> Sublingual nitroglycerin <b>0.3–0.6 mg</b> OR buccal spray</li>
+        <li><b>Step 2:</b> If symptoms persist after 3 doses given 5 min apart → IV nitroglycerin</li>
+        <li><b>IV:</b> Start at <b>5–10 μg/min</b> (non-absorbing tubing); increase by <b>10 μg/min every 3–5 min</b></li>
+        <li><b>Stop when:</b> symptoms relieved, SBP &lt;90 mmHg, or dose reaches <b>200 μg/min</b></li>
+        <li><b>Transition:</b> Topical or oral nitrates when pain-free for 12–24h</li>
+      </ul>
+      <h4>Contraindications</h4>
+      <div class="tags">
+        <span class="tag t-r">PDE-5 inhibitor within 24h (sildenafil, vardenafil)</span>
+        <span class="tag t-r">Tadalafil within 48h</span>
+        <span class="tag t-r">Hypotension (SBP &lt;90)</span>
+        <span class="tag t-r">Right ventricular infarction</span>
+        <span class="tag t-r">Severe aortic stenosis</span>
+      </div>
+      <div class="co dan"><div class="co-t">🚨 Absolute Contraindication</div>PDE-5 inhibitors (sildenafil, vardenafil) + nitrates → profound life-threatening hypotension. This is a board-favorite. Remember: sildenafil/vardenafil = 24h window, tadalafil = 48h window (longer half-life).</div>
+    </div>
+
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-b">Beta-Adrenergic Blockers</div>
+      <h4>Mechanism</h4>
+      <p>Competitive antagonism of β₁ adrenoceptors → reduces heart rate, myocardial contractility, and conduction velocity → decreases myocardial oxygen demand. Also reduces circulating catecholamines' harmful effects on the ischemic myocardium.</p>
+      <h4>Dosing</h4>
+      <ul class="bl">
+        <li>Oral beta blockade targeted to <b>heart rate of 50–60 beats/min</b></li>
+        <li>IV route may be used in patients with severe ischemia</li>
+      </ul>
+      <h4>Contraindications — Must Know All of These</h4>
+      <div class="tags">
+        <span class="tag t-r">PR interval &gt;0.24s</span>
+        <span class="tag t-r">2nd or 3rd degree AV block</span>
+        <span class="tag t-r">HR &lt;50 beats/min</span>
+        <span class="tag t-r">SBP &lt;90 mmHg</span>
+        <span class="tag t-r">Acute or severe heart failure</span>
+        <span class="tag t-r">Cardiogenic shock (Killip III-IV)</span>
+        <span class="tag t-r">Low cardiac output</span>
+        <span class="tag t-r">Severe reactive airways disease</span>
+        <span class="tag t-r">Active bronchospasm</span>
+        <span class="tag t-r">High-degree AV block</span>
+      </div>
+      <div class="co prl"><div class="co-t">💜 Clinical Pearl</div>Beta blockers are the <b>other mainstay</b> of anti-ischemic treatment alongside nitrates. They can be started IV in severe ischemia but MUST be avoided in acute/severe heart failure or cardiogenic shock — these scenarios require the heart to compensate by tachycardia, and beta blockade removes that compensatory mechanism.</div>
+    </div>
+
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-t">Calcium Channel Blockers (CCBs)</div>
+      <h4>Mechanism</h4>
+      <p>Non-dihydropyridine CCBs (verapamil, diltiazem) slow AV nodal conduction and reduce heart rate and contractility → reduced O₂ demand. Dihydropyridines (nifedipine) primarily vasodilate.</p>
+      <h4>When to Use</h4>
+      <ul class="bl">
+        <li>Persistent symptoms or ECG ischemia despite <b>full-dose nitrates AND beta blockers</b></li>
+        <li>Contraindications to nitrates or beta blockers</li>
+        <li>Vasospastic angina — CCBs are the primary treatment</li>
+      </ul>
+      <h4>Contraindications</h4>
+      <div class="tags">
+        <span class="tag t-r">SBP &lt;90 mmHg</span>
+        <span class="tag t-r">Pulmonary edema</span>
+        <span class="tag t-r">LV dysfunction (for diltiazem/verapamil)</span>
+        <span class="tag t-r">Avoid short-acting nifedipine</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-a">Morphine / Narcotic Analgesics</div>
+      <h4>Indications</h4>
+      <ul class="bl">
+        <li>Continued <b>severe angina despite 3 sublingual nitroglycerin tablets</b></li>
+        <li>Recurrent ischemia despite adequate anti-ischemic therapy</li>
+      </ul>
+      <h4>Dose: 1–5 mg IV every 5–30 minutes</h4>
+      <h4>Contraindications</h4>
+      <div class="tags">
+        <span class="tag t-r">Hypotension</span>
+        <span class="tag t-r">Respiratory depression</span>
+        <span class="tag t-r">Confusion or obtundation</span>
+      </div>
+      <div class="co dan"><div class="co-t">🚨 Critical Drug Interaction</div>Concomitant morphine administration <b>delays absorption and blunts the antiplatelet effect</b> of oral P2Y₁₂ inhibitors (e.g., ticagrelor, clopidogrel). This is clinically important in patients receiving DAPT — consider this when timing medications.</div>
+    </div>
+
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-g">Statins — Early High-Intensity Therapy</div>
+      <h4>Mechanism</h4>
+      <p>HMG-CoA reductase inhibitors → reduce hepatic cholesterol synthesis → upregulate LDL receptors → lower circulating LDL-C. Also have pleiotropic anti-inflammatory and plaque-stabilizing effects.</p>
+      <h4>Drugs &amp; Doses</h4>
+      <ul class="bl">
+        <li><b>Atorvastatin 80 mg/day</b> — initiated early, prior to PCI, continued thereafter</li>
+        <li><b>Rosuvastatin 40 mg/day</b> — alternative high-intensity option</li>
+      </ul>
+      <p>Early administration reduces BOTH early and late recurrent ischemic events.</p>
+      <h4>When Statins Are Insufficient (&lt;50% LDL reduction)</h4>
+      <ul class="bl">
+        <li><b>Add ezetimibe 10 mg daily</b> — inhibits intestinal cholesterol absorption</li>
+        <li><b>And/or add PCSK9 inhibitor</b> (alirocumab or evolocumab) early after ACS</li>
+      </ul>
+      <div class="co suc"><div class="co-t">✓ LDL Goal</div>Target LDL-C &lt;55 mg/dL in the long-term management of NSTE-ACS. This is the guideline-recommended goal for very high cardiovascular risk patients.</div>
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══════════ SECTION 7: ANTITHROMBOTIC THERAPY ═══════════ -->
+<section class="sec" id="s7">
+  <div class="sec-hd"><span class="sec-n">07</span><h2>Antithrombotic Therapy</h2></div>
+
+  <div class="sub">
+    <h3>Antiplatelet Drugs — The Foundation</h3>
+    <p>Antithrombotic therapy (antiplatelet + anticoagulant) represents the <b>second major cornerstone</b> of NSTE-ACS treatment, after anti-ischemic therapy. Initial treatment always begins with aspirin.</p>
+
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-b">Aspirin (Cyclooxygenase Inhibitor)</div>
+      <h4>Mechanism</h4>
+      <p>Irreversibly inhibits COX-1 → prevents thromboxane A₂ synthesis → reduces platelet aggregation for the platelet's lifetime (~10 days).</p>
+      <h4>Dosing</h4>
+      <ul class="bl">
+        <li><b>Loading:</b> 150–325 mg oral (non-enteric-coated) OR 75–250 mg IV</li>
+        <li><b>Maintenance:</b> 75–100 mg/day — lower doses maintain efficacy with less bleeding</li>
+      </ul>
+      <h4>Contraindications</h4>
+      <div class="tags"><span class="tag t-r">Severe active bleeding</span><span class="tag t-r">Aspirin allergy</span></div>
+    </div>
+
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-b">P2Y₁₂ Inhibitors — Dual Antiplatelet Therapy (DAPT)</div>
+      <p>In the absence of high bleeding risk, all NSTE-ACS patients (invasive OR conservative strategy) should also receive a P2Y₁₂ receptor blocker to inhibit platelet activation.</p>
+
+      <h4>Clopidogrel (Thienopyridine — Prodrug)</h4>
+      <ul class="bl">
+        <li><b>Mechanism:</b> Inactive prodrug → CYP2C19-dependent conversion → active metabolite → irreversible P2Y₁₂ blockade</li>
+        <li><b>Loading:</b> 600 mg (if PCI planned) or 300 mg (no PCI planned)</li>
+        <li><b>Maintenance:</b> 75 mg/day</li>
+        <li><b>Benefit:</b> DAPT (aspirin + clopidogrel) confers <b>20% relative reduction</b> in CV death/MI/stroke vs aspirin alone</li>
+        <li><b>Cost:</b> Moderate increase in major bleeding (~1% absolute)</li>
+        <li><b>Limitation:</b> Up to 1/3 of patients have <b>inadequate response</b> — many due to CYP2C19 genetic variant (reduced active metabolite conversion)</li>
+      </ul>
+
+      <h4>Prasugrel (Thienopyridine — Superior to Clopidogrel)</h4>
+      <ul class="bl">
+        <li><b>Mechanism:</b> Irreversible P2Y₁₂ blockade — more rapid onset and <b>higher level</b> of inhibition than clopidogrel</li>
+        <li><b>Loading:</b> 60 mg pre-PCI</li>
+        <li><b>Maintenance:</b> 10 mg/day (reduce to 5 mg/day if body weight &lt;60 kg OR age &gt;75 years)</li>
+        <li><b>Benefit:</b> Significantly reduced CV death/MI/stroke/stent thrombosis vs clopidogrel (but increased bleeding)</li>
+        <li><b>Key restriction:</b> Approved for ACS patients following angiography when PCI is planned — <b>administer only after coronary anatomy is known</b></li>
+        <li><b>Timing:</b> Unlike ticagrelor, benefit demonstrated only with invasive strategy (scheduled PCI)</li>
+      </ul>
+      <div class="co dan"><div class="co-t">🚨 Prasugrel Absolute Contraindications</div>
+        <ul class="bl">
+          <li><b>Prior stroke or TIA</b> — high risk of intracranial bleeding</li>
+          <li><b>High risk for bleeding</b></li>
+        </ul>
+        Also: Do NOT give prasugrel before coronary anatomy is known (risk of giving it to a patient who needs CABG → severe surgical bleeding).
+      </div>
+
+      <h4>Ticagrelor (Non-Thienopyridine — Reversible)</h4>
+      <ul class="bl">
+        <li><b>Mechanism:</b> Direct, <b>reversible</b> P2Y₁₂ inhibitor — does NOT require metabolic activation</li>
+        <li><b>Loading:</b> 180 mg</li>
+        <li><b>Maintenance:</b> 90 mg twice daily</li>
+        <li><b>Key advantage over prasugrel:</b> Demonstrated benefit whether managed <b>conservatively OR with early invasive strategy</b> — broader applicability</li>
+        <li><b>Side effect:</b> Dyspnea — often transient and infrequently serious; direct P2Y₁₂-related (not bronchospasm)</li>
+        <li><b>Long-term dose reduction:</b> 1 year after ACS, reduce to <b>60 mg twice daily</b> — reduces bleeding without increased ischemic events</li>
+      </ul>
+
+      <h4>Cangrelor (IV P2Y₁₂ Inhibitor)</h4>
+      <ul class="bl">
+        <li>IV, direct, rapidly acting P2Y₁₂ inhibitor used at time of PCI</li>
+        <li><b>Dose:</b> 30 μg/kg bolus + 4 μg/kg/min infusion for 2h or duration of procedure</li>
+        <li>Benefit vs clopidogrel in PCI patients — but increased major bleeding</li>
+      </ul>
+    </div>
+
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-a">Glycoprotein IIb/IIIa Inhibitors (GPIs)</div>
+      <h4>Mechanism</h4>
+      <p>Block the final common pathway of platelet aggregation (fibrinogen cross-linking via GPIIb/IIIa receptor). Highly potent antiplatelet agents.</p>
+      <h4>Current Role — Limited</h4>
+      <ul class="bl">
+        <li>Historical trials showed only modest benefit with increased major bleeding</li>
+        <li>Most prior studies lacked concomitant P2Y₁₂ inhibitor therapy — when added to P2Y₁₂ inhibitors, routine GPIs show no additional benefit</li>
+        <li><b>Current use:</b> Reserve for PCI with <b>high coronary thrombus burden</b> on angiography OR thrombotic complications of PCI</li>
+        <li>Triple antiplatelet therapy (aspirin + P2Y₁₂ + GPI) should NOT be routine due to bleeding risk</li>
+      </ul>
+      <div class="tw" style="margin-top:10px">
+        <table>
+          <thead><tr><th>Agent</th><th>Dosing</th></tr></thead>
+          <tbody>
+            <tr><td>Eptifibatide</td><td>180 μg/kg bolus × 2 (10 min apart) + 2.0 μg/kg/min infusion up to 18h</td></tr>
+            <tr><td>Tirofiban</td><td>25 μg/kg bolus over 3 min + 0.15 μg/kg/min up to 18h</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>DAPT Duration — Critical for Long-Term Management</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Standard: 12 Months</div>
+        <ul class="bl">
+          <li>Preferred for most NSTE-ACS patients</li>
+          <li>Aspirin (75–100 mg/d) + P2Y₁₂ inhibitor (prasugrel or ticagrelor preferred over clopidogrel)</li>
+          <li>After 12 months → antiplatelet monotherapy</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Shorter: 3–6 Months</div>
+        <ul class="bl">
+          <li>High bleeding risk + low ischemic risk</li>
+          <li>After 3–6 months: stop aspirin, continue P2Y₁₂ inhibitor alone</li>
+          <li>OR de-escalate: switch from prasugrel/ticagrelor to clopidogrel at 3 months while continuing aspirin</li>
+        </ul>
+      </div>
+    </div>
+    <div class="co dan"><div class="co-t">🚨 DAPT De-escalation NOT in First 30 Days</div>De-escalation of DAPT is <b>not recommended in the first 30 days following ACS</b> as this has been associated with increased risk of ischemic events. Wait at least 30 days before any modification.</div>
+    <div class="co key"><div class="co-t">🔑 Longer DAPT (&gt;12 months)</div>Favored in patients with high atherothrombotic risk:
+      <ul class="bl">
+        <li>Stenting of left main coronary artery or proximal LAD</li>
+        <li>Proximal bifurcating coronary arteries</li>
+        <li>Recurrent MI or stent thrombosis</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Anticoagulants — Four Parenteral Options</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Agent</th><th>Mechanism</th><th>Key Features</th><th>Dose</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Unfractionated Heparin (UFH)</td>
+            <td>Enhances antithrombin III → inhibits IIa and Xa</td>
+            <td>Long the mainstay; widely studied; requires monitoring</td>
+            <td>70–100 U/kg bolus (max 5000 U) IV + 12–15 U/kg/h (ACT 250–300s)</td>
+          </tr>
+          <tr>
+            <td>Enoxaparin (LMWH)</td>
+            <td>Primarily anti-Xa; some anti-IIa</td>
+            <td><b>Superior to UFH</b> in reducing recurrent events (conservative strategy); modest bleeding increase; renally cleared</td>
+            <td>1 mg/kg SC q12h; 0.5 mg/kg IV at time of PCI. Renal dose: 1 mg/kg once daily if CrCl &lt;30 mL/min</td>
+          </tr>
+          <tr>
+            <td>Bivalirudin</td>
+            <td>Direct thrombin inhibitor</td>
+            <td>Similar efficacy to UFH/LMWH; used peri-PCI only; rarely used in conservative management</td>
+            <td>0.75 mg/kg IV bolus + 1.75 mg/kg/h infusion</td>
+          </tr>
+          <tr>
+            <td>Fondaparinux</td>
+            <td>Synthetic factor Xa inhibitor</td>
+            <td>Equivalent efficacy to enoxaparin; <b>lower major bleeding</b>; requires supplemental UFH if PCI (prevents catheter thrombosis)</td>
+            <td>2.5 mg SC daily (only prior to PCI)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co wrn"><div class="co-t">⚠ DOAC + Parenteral Anticoagulant Interaction</div>In patients who develop NSTE-ACS while receiving a direct oral anticoagulant (DOAC), the DOAC should be <b>held</b> when one of the four parenteral anticoagulants is initiated. Do not combine.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Atrial Fibrillation + NSTE-ACS — Triple Therapy Management</h3>
+    <ul class="bl">
+      <li>Duration of "triple therapy" (aspirin + clopidogrel + oral anticoagulant) should be <b>kept to a minimum</b></li>
+      <li>Stop aspirin at discharge or at 1 week post-PCI</li>
+      <li>Continue P2Y₁₂ inhibitor + DOAC for 1 year</li>
+      <li>After 1 year → <b>oral anticoagulation monotherapy</b> without antiplatelet treatment</li>
+    </ul>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══════════ SECTION 8: INVASIVE STRATEGY ═══════════ -->
+<section class="sec" id="s8">
+  <div class="sec-hd"><span class="sec-n">08</span><h2>Invasive vs Conservative Strategy</h2></div>
+
+  <div class="sub">
+    <h3>The Fundamental Question</h3>
+    <p>After initiating anti-ischemic and antithrombotic therapy, the next critical decision is <b>when and whether to perform coronary angiography</b>. Risk stratification drives this decision. Patients are classified into three tiers:</p>
+  </div>
+
+  <div class="flow">
+    <div style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--t3);margin-bottom:16px">NSTE-ACS Invasive Strategy Selection Algorithm</div>
+    <div class="g3">
+      <div>
+        <div class="flow-box red" style="font-size:13px;font-weight:700;padding:12px">Very High Risk<br><span style="font-size:11px">Immediate Invasive &lt;2 hours</span></div>
+        <div style="margin-top:8px;font-size:12px;color:var(--t2)">
+          <ul class="bl">
+            <li>Cardiogenic shock or unstable hemodynamics</li>
+            <li>Acute HF due to ongoing ischemia</li>
+            <li>Cardiac arrest post-presentation</li>
+            <li>Life-threatening arrhythmias</li>
+            <li>Mechanical complications of MI</li>
+            <li>Angina refractory to medical treatment</li>
+            <li>Recurrent dynamic ischemic ECG changes</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="flow-box amb" style="font-size:13px;font-weight:700;padding:12px">High Risk<br><span style="font-size:11px">Early Invasive &lt;24 hours</span></div>
+        <div style="margin-top:8px;font-size:12px;color:var(--t2)">
+          <ul class="bl">
+            <li><b>Confirmed NSTEMI</b></li>
+            <li>GRACE risk score &gt;140</li>
+            <li>Transient ST elevation</li>
+            <li>Dynamic ST or T-wave changes</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="flow-box" style="font-size:13px;font-weight:700;padding:12px">Non-High Risk<br><span style="font-size:11px">Selective Invasive</span></div>
+        <div style="margin-top:8px;font-size:12px;color:var(--t2)">
+          <ul class="bl">
+            <li>None of the above criteria</li>
+            <li>Clinical and non-invasive assessments guide management</li>
+            <li>Coronary angiography if: rest pain/ST changes recur, troponin becomes positive, evidence of severe ischemia on stress test, or CT angiography shows epicardial stenosis</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Evidence for Invasive Strategy</h3>
+    <ul class="bl">
+      <li>Multiple clinical trials demonstrated benefit of early invasive strategy in <b>high-risk patients</b> (multiple risk factors, ST deviation, positive biomarkers)</li>
+      <li>Immediate invasive (median 1.4–4.7h) reduced death or new MI vs delayed invasive (median 61–62h) — greater benefit in those with high-risk scores</li>
+      <li>In <b>low-risk patients</b>, outcomes from invasive and conservative strategies are similar</li>
+      <li>Radial arterial access is recommended (vs femoral) to reduce bleeding when early invasive strategy is used</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>After Angiography — Revascularization Decision</h3>
+    <div class="vs">
+      <div>
+        <div class="vsh b">Single-Stage PCI</div>
+        <div class="vsb br">
+          <p>In patients with multivessel disease, consider <b>complete coronary revascularization</b> during the index procedure — in the absence of:</p>
+          <ul class="bl">
+            <li>Cardiogenic shock</li>
+            <li>Severe comorbidities (e.g., acute kidney injury)</li>
+            <li>Coronary anatomy unfavorable or complex</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="vsh r">Staged Revascularization</div>
+        <div class="vsb">
+          <p>For patients with:</p>
+          <ul class="bl">
+            <li>High risk (cardiogenic shock)</li>
+            <li>Severe comorbidities</li>
+            <li>Complex/unfavorable anatomy</li>
+          </ul>
+          <p>→ Culprit lesion PCI first, then evaluate non-culprit lesions</p>
+        </div>
+      </div>
+    </div>
+    <div class="co key"><div class="co-t">🔑 PCI vs CABG</div>Choice between PCI and CABG (coronary artery bypass grafting) depends on coronary anatomy. CABG is preferred for unfavorable anatomy — complex multivessel disease, especially with left main stenosis and reduced LV function. A Heart Team approach guides the decision for complex cases.</div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══════════ SECTION 9: LONG-TERM MANAGEMENT ═══════════ -->
+<section class="sec" id="s9">
+  <div class="sec-hd"><span class="sec-n">09</span><h2>Long-Term Management</h2></div>
+
+  <div class="sub">
+    <h3>Hospital Discharge — A "Teachable Moment"</h3>
+    <p>Hospital discharge is described as a <b>"teachable moment"</b> — the caregiver must review and optimize the medical regimen. Risk factor modification is crucial.</p>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Lifestyle Targets</div>
+        <ul class="bl">
+          <li>Smoking cessation</li>
+          <li>Appropriate diet</li>
+          <li>Achieve and maintain optimal weight</li>
+          <li>Daily exercise</li>
+          <li>Blood pressure control</li>
+          <li>Hyperglycemia control</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Metabolic Targets</div>
+        <ul class="bl">
+          <li><b>LDL-C &lt;55 mg/dL</b> — very high CV risk goal</li>
+          <li>Blood pressure goal per guidelines</li>
+          <li>HbA1c target in diabetic patients</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Long-Term Drug Therapy — Evidence-Based</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Always Indicated</div>
+        <ul class="bl">
+          <li><b>Beta blockers</b> — long-term cardioprotection</li>
+          <li><b>High-intensity statin</b> (atorvastatin 80mg or rosuvastatin 40mg)</li>
+          <li>Add <b>ezetimibe 10mg</b> if LDL not at goal</li>
+          <li>Add <b>PCSK9 inhibitor</b> (alirocumab or evolocumab) or <b>bempedoic acid</b> if still not at goal</li>
+          <li><b>ACE inhibitor or ARB</b></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">In Selected Patients</div>
+        <ul class="bl">
+          <li><b>SGLT2 inhibitors</b> — in type 2 diabetes mellitus with established CVD</li>
+          <li><b>GLP-1 receptor agonists</b> — in type 2 DM; CV risk reduction</li>
+          <li>Long-term DAPT &gt;12 months — in high atherothrombotic risk</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Long-Term Antiplatelet Strategy Summary</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Clinical Scenario</th><th>DAPT Duration</th><th>After DAPT</th></tr></thead>
+        <tbody>
+          <tr><td>Standard NSTE-ACS (no AF, no high bleed risk)</td><td>12 months (aspirin + prasugrel or ticagrelor)</td><td>Antiplatelet monotherapy</td></tr>
+          <tr><td>High bleeding risk, low ischemic risk</td><td>3–6 months, then stop aspirin</td><td>P2Y₁₂ inhibitor monotherapy</td></tr>
+          <tr><td>High atherothrombotic risk (LM stenting, recurrent MI, stent thrombosis)</td><td>&gt;12 months</td><td>Continue DAPT beyond 12 months</td></tr>
+          <tr><td>NSTE-ACS + atrial fibrillation (on anticoagulant)</td><td>Stop aspirin at discharge or ≤1 week post-PCI</td><td>P2Y₁₂ + DOAC × 1 year → DOAC alone</td></tr>
+          <tr><td>Ticagrelor at 1 year</td><td>Reduce dose to <b>60 mg BID</b></td><td>Less bleeding, no ischemic event increase</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Health Equity Considerations</h3>
+    <div class="co wrn"><div class="co-t">⚠ Disparities in Care</div>Registries have shown that <b>women and racial minorities</b>, as well as high-risk patients including the <b>elderly and those with diabetes or chronic kidney disease</b>, are less likely to receive evidence-based pharmacologic and interventional therapies — resulting in poorer clinical outcomes and quality of life. Special attention must be directed to these groups.</div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══════════ SECTION 10: VASOSPASTIC ANGINA ═══════════ -->
+<section class="sec" id="s10">
+  <div class="sec-hd"><span class="sec-n">10</span><h2>Vasospastic Angina (Prinzmetal's)</h2></div>
+
+  <div class="sub">
+    <h3>Definition &amp; Mechanism</h3>
+    <p>Originally described by Prinzmetal in 1959 as variant angina — now renamed <b>vasospastic angina (VA)</b>. Caused by <b>focal spasm of an epicardial coronary artery</b> → transmural ischemia → LV dysfunction.</p>
+    <ul class="bl">
+      <li>Spasm mechanism: hypercontractility of coronary arterial smooth muscle driven by <b>adrenergic vasoconstrictors, leukotrienes, or serotonin</b> (exact cause not well defined)</li>
+      <li>Can lead to acute MI, ventricular tachycardia/fibrillation, or sudden cardiac death</li>
+      <li>Prevalence declining in recent decades; remains much more frequent in <b>Japan</b> than North America or Western Europe</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Characteristics — Key Differences from NSTE-ACS</h3>
+    <div class="vs">
+      <div>
+        <div class="vsh b">Vasospastic Angina</div>
+        <div class="vsb br">
+          <ul class="bl">
+            <li>Patients generally <b>younger</b></li>
+            <li>Fewer coronary risk factors (except cigarette smoking)</li>
+            <li>Pain at <b>rest</b> — classic nocturnal pattern</li>
+            <li>ECG: <b>ST elevation</b> (transient) with rest pain — NOT depression</li>
+            <li>May have associated migraine and/or Raynaud's phenomenon (generalized vasospastic disorder)</li>
+            <li>Cardiac examination unremarkable in absence of ischemia</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="vsh r">NSTE-ACS</div>
+        <div class="vsb">
+          <ul class="bl">
+            <li>Generally older patients</li>
+            <li>Multiple coronary risk factors</li>
+            <li>Pain with exertion or rest</li>
+            <li>ECG: ST <b>depression</b> or T-wave changes</li>
+            <li>No vasospastic associations</li>
+            <li>Troponin elevated in NSTEMI</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="co dan"><div class="co-t">🚨 Board Alert — ST Changes</div>Vasospastic angina causes <b>ST ELEVATION</b> — not depression — during episodes. This is unlike NSTE-ACS where ST depression is the typical finding. Don't be fooled into thinking all rest pain + ST elevation = STEMI. The transient nature and clinical context distinguish VA.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnosis</h3>
+    <ul class="bl">
+      <li>Clinical diagnosis: detection of <b>transient ST elevation with rest pain</b></li>
+      <li>Many patients have episodes of silent ischemia as well</li>
+      <li><b>Coronary angiography:</b> Transient coronary spasm is the diagnostic hallmark</li>
+      <li>Atherosclerotic plaques in at least one proximal coronary artery occur in <b>about half</b> of patients</li>
+      <li><b>Provocative testing:</b> Hyperventilation or intracoronary acetylcholine → provokes focal spasm on angiography or rest angina with ST elevation</li>
+      <li>Positive provocative test in patients without obstructive CAD = safe, identifies high-risk subgroup, endorsed by guidelines</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment</h3>
+    <div class="card">
+      <div class="clabel c-t">Primary: Calcium Channel Blockers</div>
+      <p>CCBs are the <b>main therapeutic agents</b> for vasospastic angina. They prevent coronary smooth muscle contraction by blocking L-type calcium channels.</p>
+    </div>
+    <div class="card" style="margin-top:10px">
+      <div class="clabel c-b">Nitrates</div>
+      <p>Sublingual or IV nitroglycerin is effective to relieve acute spasm. However, <b>long-term nitrate efficacy is limited by nitrate tolerance</b> — do not rely on them as sole therapy.</p>
+    </div>
+    <div class="co dan"><div class="co-t">🚨 Aspirin May WORSEN Vasospastic Angina</div>Aspirin may <b>increase the severity of ischemic episodes</b> in vasospastic angina — possibly by inhibiting prostacyclin synthesis (prostacyclin normally opposes vasoconstriction, so reducing it worsens spasm). Aspirin should only be used in vasospastic angina patients with <b>significant concurrent atherosclerosis</b>.</div>
+    <ul class="bl">
+      <li><b>Statins:</b> Shown to reduce risk of major adverse events in VA (mechanism not fully established)</li>
+      <li><b>Beta blockers:</b> Variable response in VA — not first-line</li>
+      <li><b>Cilostazol and nicorandil</b> (not available in US): may prevent recurrent episodes</li>
+      <li><b>Coronary revascularization:</b> May help if there are discrete, flow-limiting, proximal fixed obstructive lesions</li>
+      <li><b>Implantable cardioverter-defibrillator (ICD):</b> For patients with ischemia-associated ventricular fibrillation despite maximal medical therapy</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Prognosis</h3>
+    <div class="g3">
+      <div class="card"><div class="clabel c-r">Active Phase</div><p>First 6 months — frequent episodes of angina and cardiac events. After this, symptoms tend to diminish over time.</p></div>
+      <div class="card"><div class="clabel c-g">5-Year Survival</div><p><b>~90–95%</b> excellent survival — BUT up to <b>20%</b> of patients experience an MI. Serious arrhythmias = higher risk for sudden cardiac death.</p></div>
+      <div class="card"><div class="clabel c-b">Predictors</div><p>Patients with NO or mild fixed coronary obstruction have lower incidence of cardiac death/MI than those with severe obstructive lesions.</p></div>
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══════════ SECTION 11: QUICK REFERENCE ═══════════ -->
+<section class="sec" id="s11">
+  <div class="sec-hd"><span class="sec-n">11</span><h2>Quick Reference Master Table</h2></div>
+
+  <div class="sub">
+    <h3>Key Numbers — Memorize These</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Topic</th><th>Value / Threshold</th><th>Clinical Significance</th></tr></thead>
+        <tbody>
+          <tr><td>NSTE-ACS 30-day death risk</td><td>1–10%</td><td>Wide spectrum — risk stratification is critical</td></tr>
+          <tr><td>NSTE-ACS 1-year recurrent ACS</td><td>5–15%</td><td>Long-term antithrombotic therapy essential</td></tr>
+          <tr><td>TIMI score 6/7 event rate</td><td>41% at 14 days</td><td>Very high risk — early invasive strategy</td></tr>
+          <tr><td>GRACE score threshold</td><td>&gt;140 = high risk</td><td>Triggers early invasive &lt;24h</td></tr>
+          <tr><td>Plaque erosion prevalence</td><td>≥1/3 of ACS</td><td>Different mechanism from rupture</td></tr>
+          <tr><td>No epicardial stenosis at angiography</td><td>~10%</td><td>May have microvascular disease or spasm</td></tr>
+          <tr><td>New ST depression in NSTE-ACS</td><td>~1/3 of patients</td><td>Significant but many have only T-wave changes or normal ECG</td></tr>
+          <tr><td>Significant T-wave inversion</td><td>≥0.3 mV, new</td><td>Specific for ischemia when new and deep</td></tr>
+          <tr><td>Troponin peak</td><td>12–24 hours after symptom onset</td><td>Characteristic temporal pattern of NSTEMI</td></tr>
+          <tr><td>1-hour rule-out hsTn</td><td>0h AND 1h both normal</td><td>Safe rapid discharge protocol</td></tr>
+          <tr><td>Nitroglycerin SL dose</td><td>0.3–0.6 mg</td><td>Up to 3 doses, 5 min apart before IV</td></tr>
+          <tr><td>IV nitroglycerin start</td><td>5–10 μg/min</td><td>Increase by 10 μg/min q3-5min, max 200 μg/min</td></tr>
+          <tr><td>Beta blocker HR target</td><td>50–60 beats/min</td><td>Oral beta blockade target</td></tr>
+          <tr><td>Sildenafil/vardenafil nitrate window</td><td>24 hours</td><td>Absolute contraindication to nitrates</td></tr>
+          <tr><td>Tadalafil nitrate window</td><td>48 hours</td><td>Longer half-life = longer window</td></tr>
+          <tr><td>Aspirin loading dose</td><td>150–325 mg</td><td>Non-enteric-coated for rapid absorption</td></tr>
+          <tr><td>Aspirin maintenance dose</td><td>75–100 mg/day</td><td>Lower dose = less bleeding, same efficacy</td></tr>
+          <tr><td>Clopidogrel loading</td><td>600 mg (PCI) / 300 mg (no PCI)</td><td>Higher dose for PCI = faster effect</td></tr>
+          <tr><td>Clopidogrel DAPT benefit</td><td>20% relative risk reduction</td><td>CV death/MI/stroke vs aspirin alone; +1% absolute bleeding</td></tr>
+          <tr><td>Prasugrel loading</td><td>60 mg</td><td>Post-coronary anatomy (post-angiography only)</td></tr>
+          <tr><td>Prasugrel low-dose criteria</td><td>&lt;60 kg OR &gt;75 years</td><td>5 mg/day maintenance</td></tr>
+          <tr><td>Ticagrelor loading</td><td>180 mg</td><td>Reversible; works in conservative AND invasive</td></tr>
+          <tr><td>Ticagrelor maintenance</td><td>90 mg BID → 60 mg BID at 1 year</td><td>Dose reduction at 1 year reduces bleeding</td></tr>
+          <tr><td>UFH dose</td><td>70–100 U/kg (max 5000 U) + 12–15 U/kg/h</td><td>ACT target 250–300s</td></tr>
+          <tr><td>Enoxaparin renal dose adjustment</td><td>CrCl &lt;30 mL/min → 1 mg/kg once daily</td><td>Renally cleared — reduce frequency</td></tr>
+          <tr><td>Fondaparinux dose</td><td>2.5 mg SC daily</td><td>Lowest major bleeding among anticoagulants</td></tr>
+          <tr><td>Standard DAPT duration</td><td>12 months</td><td>Then monotherapy</td></tr>
+          <tr><td>DAPT de-escalation</td><td>Not before 30 days</td><td>Increased ischemic events if earlier</td></tr>
+          <tr><td>Statin dose (high intensity)</td><td>Atorvastatin 80mg OR rosuvastatin 40mg</td><td>Start pre-PCI, continue indefinitely</td></tr>
+          <tr><td>LDL-C target (long-term)</td><td>&lt;55 mg/dL</td><td>Very high CV risk goal</td></tr>
+          <tr><td>Ticagrelor dose at 1 year</td><td>Reduce to 60 mg BID</td><td>Reduces bleeding, same ischemic protection</td></tr>
+          <tr><td>VA 5-year survival</td><td>~90–95%</td><td>Good survival but 20% MI rate</td></tr>
+          <tr><td>Immediate invasive threshold</td><td>&lt;2 hours</td><td>For very high risk features</td></tr>
+          <tr><td>Early invasive threshold</td><td>&lt;24 hours</td><td>For high risk features (confirmed NSTEMI, GRACE &gt;140)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>High-Yield Distinctions</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">NSTEMI vs UA</div>
+        <p>Same presentation, same ECG (no ST elevation) — distinguished ONLY by troponin. Elevated troponin = NSTEMI. Normal troponin = UA. This has therapeutic implications.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Ticagrelor vs Prasugrel</div>
+        <p>Both superior to clopidogrel. Key difference: Ticagrelor works in BOTH conservative and invasive strategies. Prasugrel is ONLY for planned PCI (after angiography). Also: prasugrel is CI in prior TIA/stroke.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Vasospastic vs NSTEMI</div>
+        <p>Vasospastic = rest pain + ST ELEVATION (transient). NSTEMI = rest pain + ST depression or T-wave changes + troponin rise. Aspirin may worsen vasospastic angina. CCBs are primary therapy for vasospastic.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Morphine + P2Y₁₂</div>
+        <p>Morphine delays absorption and blunts antiplatelet effect of oral P2Y₁₂ inhibitors. This is a critical drug interaction. Consider timing of administration when both are needed.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Myocardial Injury vs MI</div>
+        <p>Elevated troponin alone ≠ MI. Myocardial INJURY = troponin &gt;99th percentile without clinical context. MI requires clinical features + ECG changes + troponin. Many non-cardiac causes elevate troponin.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Fondaparinux Limitation</div>
+        <p>Fondaparinux has lowest bleeding among anticoagulants but REQUIRES supplemental UFH if PCI is performed — to prevent catheter-related thrombosis at the arterial access site.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══════════ EXAM TRAPS ═══════════ -->
+<section class="sec" id="exam">
+  <div class="sec-hd"><span class="sec-n">★</span><h2>Exam Traps</h2></div>
+  <p>Expert board exam coaching — Stage A Internal Medicine Boards. Each trap shows exactly how the question is framed, the seductive wrong answer, and the correct reasoning.</p>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">The Silent Troponin Reclassification Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 58-year-old man with hypertension presents with 20 minutes of substernal chest pressure at rest, now resolved. ECG shows no ST elevation. The first troponin is negative. The question asks: <em>What is the most appropriate next step — discharge home, repeat troponin in 1 hour, or admit for CABG evaluation?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Repeat high-sensitivity troponin at 1 hour (and possibly 3 hours)</strong><br>The 1-hour rapid rule-out algorithm requires hsTn to be non-elevated at BOTH 0 and 1 hour before low risk can be established. A single negative troponin is insufficient. The patient could still be in the early phase of NSTEMI before troponin rises.</div>
+      <div class="trap-why">⚠ Trap: Students discharge the patient after one negative troponin. The board-exam keyword here is <em>"high-sensitivity troponin"</em> — the rule-out protocol mandates serial sampling. A normal 1st troponin does NOT rule out NSTEMI.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Nitrates + PDE-5 Inhibitor Timing Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 62-year-old man presents to the ED with chest pain. He used sildenafil 20 hours ago. He is hypertensive (BP 155/90). The question asks: <em>Should IV nitroglycerin be initiated?</em></div>
+      <div class="trap-a"><strong>Correct Answer: NO — sildenafil was taken within 24 hours</strong><br>Sildenafil and vardenafil require a 24-hour nitrate-free window. This patient used sildenafil 20 hours ago — still within the 24-hour prohibition. Administering nitrates could cause profound, refractory hypotension due to synergistic vasodilation.</div>
+      <div class="trap-why">⚠ Trap: Students see hypertension (BP 155/90) and think nitrates are indicated. They forget to check for recent PDE-5 inhibitor use. Board keyword: <em>tadalafil = 48h window</em> (longer half-life); sildenafil/vardenafil = 24h window. Always ask about recent sexual dysfunction medication use.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Prasugrel Contraindication — The Prior TIA Patient</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 65-year-old woman with a history of TIA 6 months ago presents with confirmed NSTEMI. She undergoes coronary angiography showing single-vessel LAD disease. PCI with stenting is planned. The question asks: <em>Which P2Y₁₂ inhibitor should be selected — prasugrel or ticagrelor?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Ticagrelor — prasugrel is CONTRAINDICATED in prior TIA/stroke</strong><br>Prasugrel is absolutely contraindicated in patients with a prior stroke or TIA due to unacceptably high risk of intracranial hemorrhage. Ticagrelor is the appropriate P2Y₁₂ inhibitor in this patient.</div>
+      <div class="trap-why">⚠ Trap: PCI is planned, which might make prasugrel seem like the natural choice (it's the agent approved for PCI). But prior TIA is an absolute contraindication. Board keyword: <em>prasugrel = CI in prior TIA/stroke</em>. Also CI: high bleeding risk.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Beta Blocker in Acute Heart Failure — The Timing Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 70-year-old woman with NSTEMI is admitted. On exam she has basilar crackles bilaterally, HR 110 bpm, and BP 100/65. She is mildly short of breath. The question asks: <em>Should beta blockade be initiated now?</em></div>
+      <div class="trap-a"><strong>Correct Answer: No — beta blockers are contraindicated in the presence of acute heart failure</strong><br>This patient has signs of acute heart failure (bilateral rales, tachycardia, low-normal BP). Beta blockers are contraindicated in acute/severe heart failure, low cardiac output, cardiogenic shock, and Killip class III or IV. Giving beta blockers here removes the compensatory tachycardia and can precipitate cardiogenic shock.</div>
+      <div class="trap-why">⚠ Trap: Students know beta blockers are a "cornerstone" of NSTE-ACS treatment and initiate them immediately. The trap is ignoring the acute heart failure signs. Board keyword: <em>Killip class III-IV = avoid beta blockers acutely</em>. Once heart failure is stabilized, beta blockers can be started at low dose.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Vasospastic Angina — Aspirin Worsens Symptoms</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 44-year-old Japanese woman with no significant cardiac history presents with episodes of chest pain at rest, occurring nightly at 3 AM. ECG during an episode shows transient ST elevation. Coronary angiography shows no significant stenosis, and acetylcholine provocation induces focal spasm. The question asks: <em>What is the most appropriate pharmacotherapy?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Calcium channel blocker (not aspirin as monotherapy)</strong><br>CCBs are the primary treatment for vasospastic angina. Crucially, aspirin may INCREASE the severity of ischemic episodes in vasospastic angina by reducing prostacyclin synthesis (prostacyclin normally opposes vasoconstriction). Aspirin should only be used if concurrent atherosclerosis is present.</div>
+      <div class="trap-why">⚠ Trap: Students immediately reach for aspirin in any coronary syndrome. In vasospastic angina without significant atherosclerosis, aspirin can paradoxically worsen spasm. Board keyword: <em>vasospastic angina + aspirin = may worsen</em>; <em>CCB = first-line</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Elevated Troponin ≠ Myocardial Infarction</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 55-year-old woman with septic shock from a UTI is found to have troponin I elevated to 3× the upper reference limit. She has no chest pain. ECG shows sinus tachycardia only. The question asks: <em>Does this patient have NSTEMI?</em></div>
+      <div class="trap-a"><strong>Correct Answer: No — this is myocardial INJURY, not MI</strong><br>Myocardial injury is defined as elevated troponin &gt;99th percentile WITHOUT a clinical history or ECG features of acute myocardial ischemia. Sepsis is a classic non-cardiac cause of troponin elevation. MI requires the clinical context: symptoms, ECG changes, AND troponin. Here, the elevated troponin reflects supply-demand imbalance from sepsis-induced hypotension and tachycardia.</div>
+      <div class="trap-why">⚠ Trap: Reflex NSTEMI diagnosis whenever troponin is elevated. Board keyword: <em>myocardial injury vs myocardial necrosis (MI)</em>. Sepsis, PE, myocarditis, CKD, strenuous exercise — all can elevate troponin without constituting MI. Always contextualize.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Morphine Blunts P2Y₁₂ Effect — Drug Interaction Timing</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 60-year-old man with NSTEMI is being prepared for PCI. He received IV morphine 30 minutes ago for pain control. He also received a 180 mg loading dose of ticagrelor. The interventional cardiologist is concerned about residual platelet activity at the time of the procedure. <em>Why might platelet inhibition be inadequate?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Morphine delays absorption and blunts the antiplatelet effect of oral P2Y₁₂ inhibitors like ticagrelor</strong><br>Morphine slows gastric motility → delayed drug absorption → reduced peak plasma concentrations of ticagrelor → inadequate platelet inhibition at the time of PCI. This is an established, clinically important drug interaction.</div>
+      <div class="trap-why">⚠ Trap: Students assume oral medications work within minutes. The interaction is particularly relevant in the peri-procedural period when adequate platelet inhibition is critical. Board keyword: <em>morphine + oral P2Y₁₂ = delayed absorption and blunted effect</em>. Consider IV cangrelor if rapid platelet inhibition is needed.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">Ticagrelor Works in Conservative Strategy — Prasugrel Does Not</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 78-year-old man with NSTEMI has multiple comorbidities making him a poor candidate for PCI. His team decides on a conservative (non-invasive) management strategy. The question asks: <em>Which P2Y₁₂ inhibitor is appropriate — clopidogrel, prasugrel, or ticagrelor?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Ticagrelor (or clopidogrel) — NOT prasugrel</strong><br>Ticagrelor demonstrated benefit in both conservatively managed patients AND those with early invasive strategy across a broad spectrum of ACS patients. Prasugrel's approval and evidence base is specifically for ACS patients with PLANNED PCI — it is NOT indicated for conservatively managed patients and should not be given before coronary anatomy is known.</div>
+      <div class="trap-why">⚠ Trap: Assuming all three P2Y₁₂ inhibitors are interchangeable. Board keyword: <em>ticagrelor = both strategies; prasugrel = invasive (PCI) only</em>. Also remember: prasugrel is contraindicated in prior TIA/stroke and this 78-year-old may also qualify for the age-based dose reduction (5 mg/day if &gt;75 years) if prasugrel were somehow chosen.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">DAPT De-escalation — The 30-Day Rule</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 65-year-old woman with NSTEMI, treated with ticagrelor and aspirin, is discharged. On day 15, she develops minor GI bleeding. Her physician considers switching her to clopidogrel (de-escalating) to reduce bleeding risk. <em>Is de-escalation appropriate at this time?</em></div>
+      <div class="trap-a"><strong>Correct Answer: No — DAPT de-escalation is NOT recommended in the first 30 days following ACS</strong><br>De-escalation of DAPT within the first 30 days is associated with increased risk of ischemic events. The first month after ACS represents the highest risk period for recurrent thrombosis, and reducing antiplatelet potency during this window can be dangerous. After 30 days, de-escalation may be considered.</div>
+      <div class="trap-why">⚠ Trap: Minor bleeding seems like a legitimate reason to de-escalate. But the board-correct answer respects the 30-day boundary. Board keyword: <em>no de-escalation in first 30 days post-ACS</em>. For truly life-threatening bleeding, the rules change — but minor GI bleeding does not override this principle in the boards context.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Fondaparinux + PCI — The Missing UFH Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with NSTEMI is treated with fondaparinux and aspirin and is subsequently taken for PCI. The interventional cardiologist asks the team what additional anticoagulation is needed at the time of PCI. <em>What should be given?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Supplemental unfractionated heparin (UFH) must be given at the time of PCI</strong><br>Fondaparinux is excellent for reducing major bleeding in NSTEMI but has a critical limitation: it CANNOT be used alone during PCI because it increases the risk of catheter-related thrombosis (thrombosis at the arterial access site). Supplemental UFH is required when fondaparinux is the background anticoagulant and PCI is performed.</div>
+      <div class="trap-why">⚠ Trap: Students think fondaparinux provides complete anticoagulation coverage and no additional agent is needed during PCI. Board keyword: <em>fondaparinux + PCI = requires supplemental UFH</em>. This is a classic pharmacology-mechanism question — fondaparinux cannot prevent catheter thrombosis because it doesn't inhibit thrombin bound to the catheter surface.</div>
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+</main>
+<footer class="footer">Harrison's Principles · Chapter 285 · Non-ST-Segment Elevation ACS · Boards Review Guide · 2026</footer>
+
+<script>
+let curColor=null,eraseMode=false,selText='',savedRange=null;
+function setHL(c){curColor=c;eraseMode=false;document.body.style.cursor='crosshair';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));const map={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};document.getElementById(map[c]).classList.add('active')}
+function setErase(){eraseMode=true;curColor=null;document.body.style.cursor='cell';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'))}
+function clearAll(){if(!confirm('Clear ALL highlights and notes?'))return;document.querySelectorAll('.hl').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize()});document.querySelectorAll('.note-anchor').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize()});try{localStorage.removeItem('bsa_nste_notes');}catch(e){}renderNotes();document.body.style.cursor='';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));curColor=null;eraseMode=false}
+document.addEventListener('mouseup',function(e){const tb=document.getElementById('toolbar');const sb=document.getElementById('sn-sidebar');const np=document.getElementById('note-popover');if(tb.contains(e.target)||sb.contains(e.target)||np.contains(e.target))return;if(eraseMode&&e.target.classList.contains('hl')){const el=e.target;el.parentNode.replaceChild(document.createTextNode(el.textContent),el);return}const sel=window.getSelection();if(!sel||sel.isCollapsed)return;const txt=sel.toString().trim();if(!txt)return;selText=txt;savedRange=sel.getRangeAt(0).cloneRange();document.getElementById('sn-ref-txt').textContent=txt.length>48?txt.substring(0,48)+'…':txt;if(curColor){try{const range=sel.getRangeAt(0);const span=document.createElement('span');span.className='hl hl-'+curColor;span.title='Click in erase mode to remove';range.surroundContents(span);sel.removeAllRanges();}catch(err){}}});
+const STORE_KEY='bsa_nste_notes';
+function getNotes(){try{return JSON.parse(localStorage.getItem(STORE_KEY)||'[]');}catch(e){return[]}}
+function saveNotes(n){try{localStorage.setItem(STORE_KEY,JSON.stringify(n));}catch(e){}}
+function addNote(){const txt=document.getElementById('sn-ta').value.trim();if(!txt)return;const id=Date.now();const notes=getNotes();notes.unshift({id,ref:selText.substring(0,80)||'—',text:txt});saveNotes(notes);if(savedRange){try{const span=document.createElement('span');span.className='note-anchor';span.dataset.noteId=id;span.title='Click to see your note';savedRange.surroundContents(span);}catch(e){}savedRange=null}document.getElementById('sn-ta').value='';selText='';document.getElementById('sn-ref-txt').textContent='—';renderNotes()}
+function deleteNote(id){saveNotes(getNotes().filter(n=>n.id!==id));document.querySelectorAll('.note-anchor[data-note-id="'+id+'"]').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el)});closePopover();renderNotes()}
+function renderNotes(){const body=document.getElementById('sn-body');const empty=document.getElementById('sn-empty');const notes=getNotes();body.querySelectorAll('.sn-note').forEach(el=>el.remove());if(!notes.length){if(empty)empty.style.display='';return}if(empty)empty.style.display='none';notes.forEach(note=>{const card=document.createElement('div');card.className='sn-note';card.dataset.noteId=note.id;const savedH=localStorage.getItem('bsa_h_'+note.id);if(savedH)card.style.height=savedH+'px';card.innerHTML=`<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span><span class="sn-note-ref">${note.ref!=='—'?'"'+note.ref+'"':'General note'}</span><button class="sn-del" onclick="deleteNote(${note.id})">×</button></div><div class="sn-note-body">${note.text.replace(/\n/g,'<br>')}</div><div class="sn-resize" title="Drag to resize"></div>`;body.appendChild(card);makeDraggable(card);makeResizable(card,note.id)})}
+function makeDraggable(card){const handle=card.querySelector('.sn-note-hd');let startY=0;handle.addEventListener('mousedown',function(e){if(e.target.classList.contains('sn-del'))return;e.preventDefault();startY=e.clientY;card.style.opacity='.7';card.style.zIndex='9999';function onMove(ev){const dy=ev.clientY-startY;const body=document.getElementById('sn-body');const cards=[...body.querySelectorAll('.sn-note')];const myIdx=cards.indexOf(card);if(dy<-30&&myIdx>0){body.insertBefore(card,cards[myIdx-1]);startY=ev.clientY}else if(dy>30&&myIdx<cards.length-1){body.insertBefore(cards[myIdx+1],card);startY=ev.clientY}}function onUp(){card.style.opacity='';card.style.zIndex='';const body=document.getElementById('sn-body');const ids=[...body.querySelectorAll('.sn-note')].map(c=>parseInt(c.dataset.noteId));const notes=getNotes();const reordered=ids.map(id=>notes.find(n=>n.id===id)).filter(Boolean);saveNotes(reordered);document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp)}document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp)})}
+function makeResizable(card,noteId){const handle=card.querySelector('.sn-resize');let startY=0,startH=0;handle.addEventListener('mousedown',function(e){e.preventDefault();e.stopPropagation();startY=e.clientY;startH=card.offsetHeight;function onMove(ev){const newH=Math.max(80,startH+(ev.clientY-startY));card.style.height=newH+'px'}function onUp(){try{localStorage.setItem('bsa_h_'+noteId,card.offsetHeight);}catch(e){}document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp)}document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp)})}
+function toggleSidebar(){const sb=document.getElementById('sn-sidebar');const tab=document.getElementById('sn-tab');sb.classList.toggle('hidden');tab.textContent=sb.classList.contains('hidden')?'📝 Notes':'◀'}
+let activePopNoteId=null;
+function showPopover(anchorEl,note){const pop=document.getElementById('note-popover');document.getElementById('np-pop-ref').textContent=note.ref!=='—'?'"'+note.ref.substring(0,55)+(note.ref.length>55?'…':'')+'"':'Your note';document.getElementById('np-pop-text').innerHTML=note.text.replace(/\n/g,'<br>');document.getElementById('pop-del-btn').onclick=()=>deleteNote(note.id);activePopNoteId=note.id;const rect=anchorEl.getBoundingClientRect();pop.style.left=Math.min(rect.left,window.innerWidth-300)+'px';pop.style.top=(rect.bottom+8)+'px';pop.classList.add('show')}
+function closePopover(){document.getElementById('note-popover').classList.remove('show');activePopNoteId=null}
+document.addEventListener('click',function(e){const anchor=e.target.closest('.note-anchor');if(anchor){e.stopPropagation();const nid=parseInt(anchor.dataset.noteId);if(activePopNoteId===nid){closePopover();return}const note=getNotes().find(n=>n.id===nid);if(note)showPopover(anchor,note);return}const pop=document.getElementById('note-popover');if(pop&&!pop.contains(e.target))closePopover()});
+const _sections=document.querySelectorAll('.sec[id]');
+const _navLinks=document.querySelectorAll('.toc-a');
+_sections.forEach(s=>new IntersectionObserver(entries=>{if(entries[0].isIntersecting){_navLinks.forEach(l=>l.classList.remove('on'));const lnk=document.querySelector('.toc-a[href="#'+s.id+'"]');if(lnk){lnk.classList.add('on');lnk.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})}}},{rootMargin:'-15% 0px -75% 0px'}).observe(s));
+renderNotes();
+</script>
+</body>
+</html>

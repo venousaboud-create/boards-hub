@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>STEMI · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);--hb:rgba(147,197,253,.5);
+  --hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:16px;line-height:1.75}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:14px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:40px;font-weight:900;line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:14px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;padding:0 12px;display:flex;align-items:center;white-space:nowrap;border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:64px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:28px;padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:22px 0}.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blu);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:15px;font-weight:600;color:var(--tx);margin:16px 0 8px}
+p{margin-bottom:10px;color:var(--t2);font-size:15.5px;line-height:1.7}
+.co{border-radius:7px;padding:14px 18px;margin:14px 0;font-size:15px;line-height:1.7;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:7px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:8px 0 14px}
+.bl li{position:relative;padding:4px 0 4px 20px;font-size:15.5px;color:var(--t2);line-height:1.65}
+.bl li::before{content:'▸';position:absolute;left:0;top:5px;color:var(--blu);font-size:11px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.ol{list-style:none;padding:0;margin:8px 0 14px;counter-reset:n}
+.ol li{counter-increment:n;position:relative;padding:5px 0 5px 32px;font-size:15.5px;color:var(--t2);line-height:1.65}
+.ol li::before{content:counter(n);position:absolute;left:0;top:6px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;background:var(--bd);color:var(--t2);width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:3px}
+.ol li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:14px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);font-weight:500;padding:10px 14px;text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}tbody tr:last-child{border-bottom:none}tbody tr:hover{background:#faf9f7}
+tbody td{padding:8px 14px;vertical-align:top;color:var(--t2)}tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:14px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:15px 17px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:14px;margin-bottom:0}
+.vs{display:grid;grid-template-columns:1fr 1fr;margin:14px 0;border:1.5px solid var(--bd);border-radius:7px;overflow:hidden}
+.vsh{padding:9px 14px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--bd)}
+.vsh.b{background:#e8effe;color:var(--blu);border-right:1px solid var(--bd)}.vsh.r{background:var(--red-l);color:var(--red)}
+.vsb{padding:13px 15px}.vsb.br{border-right:1px solid var(--bd)}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
+.tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;padding:2px 9px;border-radius:4px;letter-spacing:.04em}
+.t-b{background:var(--blu-l);color:var(--blu);border:1px solid #bfdbfe}.t-r{background:var(--red-l);color:var(--red);border:1px solid #fca5a5}
+.t-g{background:var(--grn-l);color:var(--grn);border:1px solid #86efac}.t-a{background:var(--amb-l);color:var(--amb);border:1px solid #fde68a}
+.t-p{background:var(--pur-l);color:var(--pur);border:1px solid #ddd6fe}.t-t{background:var(--tel-l);color:var(--tel);border:1px solid #a5f3fc}
+.mn{background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:16px 20px;margin:14px 0}
+.mn-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--amb);margin-bottom:7px}
+.mn-w{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--amb);margin-bottom:10px}
+.mn ul{list-style:none;padding:0}.mn ul li{font-size:15px;padding:2px 0;color:var(--t2)}
+.mn ul li b{font-family:'Playfair Display',serif;font-size:20px;color:var(--amb);margin-right:5px;font-style:italic}
+details{border:1.5px solid var(--bd);border-radius:7px;margin:9px 0;overflow:hidden}
+summary{display:flex;justify-content:space-between;align-items:center;padding:11px 16px;cursor:pointer;background:var(--sf2);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);list-style:none}
+summary:hover{background:var(--bd)}summary::after{content:'▾';font-size:14px}details[open] summary::after{content:'▴'}
+details>.db{padding:16px;background:var(--sf)}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:14px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:11px 17px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:14px;color:var(--red)}
+.trap-body{padding:16px 18px}
+.trap-q{font-size:15px;color:var(--t2);margin-bottom:14px;line-height:1.7}
+.trap-q em{color:var(--tx);font-style:normal;font-weight:600}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:12px 16px;font-size:14.5px;color:var(--grn);line-height:1.65}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.trap-why{font-size:13.5px;color:var(--t3);margin-top:9px;font-style:italic;line-height:1.6}
+.sep{border:none;border-top:1px solid var(--bd);margin:48px 0}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.footer{text-align:center;padding:28px;border-top:1.5px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}.main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<div id="toolbar">
+  <span class="albl">Annotate</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+<div id="sn-sidebar">
+  <div id="sn-hd"><span>📝 Study Notes</span><button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button></div>
+  <div id="sn-body"><div id="sn-empty">Select text, write a note,<br>then click + Add Note.<br><br>Notes appear here as<br>draggable sticky cards.</div></div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+<div id="note-popover">
+  <div id="np-pop-ref"></div><div id="np-pop-text"></div>
+  <div id="np-pop-actions"><button class="pop-btn" id="pop-del-btn">Delete</button><button class="pop-close" onclick="closePopover()">×</button></div>
+</div>
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles of Internal Medicine · Part 6 · Chapter 286</div>
+  <h1>ST-Segment Elevation<br>Myocardial Infarction</h1>
+  <div class="hero-sub">STEMI · Medical Boards Review Edition</div>
+  <div class="hero-authors">David A. Morrow · Elliott M. Antman · Joseph Loscalzo</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">605,000</div><div class="stat-l">New AMIs per year (US)</div></div>
+    <div class="stat-box"><div class="stat-n">~5%</div><div class="stat-l">Current in-hospital mortality</div></div>
+    <div class="stat-box"><div class="stat-n">~15%</div><div class="stat-l">1-year mortality after AMI</div></div>
+    <div class="stat-box"><div class="stat-n">≤90 min</div><div class="stat-l">FMC-device goal (PCI center)</div></div>
+    <div class="stat-box"><div class="stat-n">4×</div><div class="stat-l">Higher mortality if age &gt;75</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Epidemiology</a>
+    <a class="toc-a" href="#s2">Pathophysiology</a>
+    <a class="toc-a" href="#s3">Clinical Presentation</a>
+    <a class="toc-a" href="#s4">Diagnosis &amp; Labs</a>
+    <a class="toc-a" href="#s5">Reperfusion</a>
+    <a class="toc-a" href="#s6">Pharmacotherapy</a>
+    <a class="toc-a" href="#s7">Complications</a>
+    <a class="toc-a" href="#s8">Arrhythmias</a>
+    <a class="toc-a" href="#s9">Secondary Prevention</a>
+    <a class="toc-a" href="#s10">Quick Reference</a>
+    <a class="toc-a" href="#exam">★ Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ══════ S1: EPIDEMIOLOGY ══════ -->
+<section class="sec" id="s1">
+  <div class="sec-hd"><span class="sec-n">01</span><h2>Epidemiology &amp; Overview</h2></div>
+  <div class="sub">
+    <h3>Burden of Disease</h3>
+    <div class="g4">
+      <div class="card"><div class="clabel c-r">605,000</div><p>New AMIs per year in the US</p></div>
+      <div class="card"><div class="clabel c-a">200,000</div><p>Recurrent AMIs per year in the US</p></div>
+      <div class="card"><div class="clabel c-r">~50%</div><p>AMI-related deaths occur before reaching the hospital</p></div>
+      <div class="card"><div class="clabel c-b">4×</div><p>Higher mortality in patients aged &gt;75 vs younger patients</p></div>
+    </div>
+    <div class="g2">
+      <div class="card"><div class="clabel c-g">In-Hospital Mortality</div><p>Declined from <b>10%</b> (historical) to <b>~5%</b> (current era of primary PCI)</p></div>
+      <div class="card"><div class="clabel c-a">1-Year Mortality</div><p><b>~15%</b> after AMI — underscores need for aggressive secondary prevention post-discharge</p></div>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Epidemiologic Shift</h3>
+    <p>There has been a shift in the pattern of AMI over recent decades, with <b>more patients now presenting with NSTEMI than STEMI</b>. This reflects improved primary prevention (aspirin, statins, smoking cessation) reducing the incidence of complete occlusive thrombosis, alongside the rising burden of metabolic disease.</p>
+    <div class="co key"><div class="co-t">🔑 Chain of Survival Concept</div>Management of STEMI involves a highly integrated system — starting with prehospital care and extending to early hospital management — with the goal of expeditious reperfusion. The two major classes of complications driving mortality are: (1) <b>electrical complications</b> (arrhythmias) and (2) <b>mechanical complications</b> ("pump failure").</div>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- ══════ S2: PATHOPHYSIOLOGY ══════ -->
+<section class="sec" id="s2">
+  <div class="sec-hd"><span class="sec-n">02</span><h2>Pathophysiology</h2></div>
+  <div class="sub">
+    <h3>Core Mechanism</h3>
+    <p>STEMI usually occurs when coronary blood flow decreases abruptly after a <b>thrombotic occlusion</b> of an atherosclerotic coronary artery. Slowly developing high-grade stenoses do NOT typically precipitate STEMI because of the development of a rich collateral network over time. Instead, STEMI requires a <b>rapidly forming thrombus</b> at a site of vascular injury.</p>
+    <p>Triggers facilitating vascular injury: cigarette smoking, hypertension, lipid accumulation, and inflammation.</p>
+  </div>
+  <div class="sub">
+    <h3>Plaque Disruption → Thrombus Cascade</h3>
+    <div class="ol">
+      <li><strong>Plaque erosion or rupture</strong> — exposes lipid core contents to flowing blood; rupture-prone plaques have a rich lipid core and thin fibrous cap. Less than 5% of thin-capped fibroatheromas actually cause AMI during long-term follow-up.</li>
+      <li><strong>Other rupture-prone morphology</strong> — expansive remodeling, neovascularization, plaque hemorrhage, adventitial inflammation, "spotty" calcification pattern</li>
+      <li><strong>Platelet monolayer forms</strong> — initial layer at disruption site</li>
+      <li><strong>Platelet activation</strong> — agonists (collagen, ADP, epinephrine, serotonin) → thromboxane A₂ release (potent vasoconstrictor) → further platelet activation → potential fibrinolysis resistance</li>
+      <li><strong>GPIIb/IIIa conformational change</strong> — platelet receptor gains high affinity for fibrinogen → fibrinogen cross-links two platelets simultaneously → aggregation</li>
+      <li><strong>Coagulation cascade</strong> — tissue factor exposure in damaged endothelium → factors VII and X activated → prothrombin → <b>thrombin</b> → fibrinogen → <b>fibrin strands</b></li>
+      <li><strong>Complete occlusion</strong> — thrombus containing platelet aggregates and fibrin strands occludes the epicardial coronary artery → STEMI</li>
+    </div>
+    <div class="co prl"><div class="co-t">💜 Thrombin Autoamplification</div>Fluid-phase and clot-bound thrombin participate in an <b>autoamplification reaction</b> — leading to further activation of the coagulation cascade. This is why anticoagulation is so critical in STEMI management.</div>
+  </div>
+  <div class="sub">
+    <h3>Rare Causes of STEMI (Non-Atherothrombotic)</h3>
+    <div class="tags">
+      <span class="tag t-a">Coronary emboli</span><span class="tag t-a">Congenital coronary abnormalities</span>
+      <span class="tag t-a">Coronary spasm</span><span class="tag t-a">Spontaneous coronary artery dissection (SCAD)</span>
+      <span class="tag t-a">Hypercoagulability</span><span class="tag t-a">Collagen vascular disease</span>
+      <span class="tag t-a">Cocaine abuse</span><span class="tag t-a">Intracardiac thrombi/masses</span>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Determinants of Infarct Size</h3>
+    <p>The amount of myocardial damage depends on seven factors:</p>
+    <div class="ol">
+      <li><strong>Territory supplied</strong> by the affected vessel</li>
+      <li><strong>Total vs partial occlusion</strong> of the vessel</li>
+      <li><strong>Duration</strong> of coronary occlusion</li>
+      <li><strong>Collateral vessels</strong> supplying affected tissue</li>
+      <li><strong>O₂ demand</strong> of the suddenly ischemic myocardium</li>
+      <li><strong>Spontaneous fibrinolysis</strong> capacity (endogenous)</li>
+      <li><strong>Adequacy of reperfusion</strong> in the infarct zone when flow is restored</li>
+    </div>
+    <div class="co key"><div class="co-t">🔑 Ischemic Penumbra</div>While the central zone of the infarct contains irretrievably lost necrotic tissue, the surrounding <b>ischemic penumbra</b> can be salvaged by: timely reperfusion, reduced O₂ demands, preventing noxious metabolite accumulation, and blunting reperfusion injury mediators (calcium overload, free radicals). Up to <b>one-third</b> of STEMI patients achieve spontaneous reperfusion within 24h.</div>
+  </div>
+  <div class="sub">
+    <h3>Temporal Stages of STEMI Healing</h3>
+    <div class="g3">
+      <div class="card"><div class="clabel c-r">Acute</div><p>First few hours – 7 days. PMN leukocyte recruitment → early damage clearance</p></div>
+      <div class="card"><div class="clabel c-a">Healing</div><p>7–28 days. Pro-inflammatory monocytes (CCR2) → reparative monocytes (F4/80) → angiogenesis, extracellular matrix</p></div>
+      <div class="card"><div class="clabel c-g">Healed</div><p>≥29 days. Monocyte-derived fibroblasts → interstitial collagen → myocardial scar formation and ventricular remodeling</p></div>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Avoid in STEMI — Infarct Healing Disruptors</h3>
+    <div class="co dan"><div class="co-t">🚨 Avoid Glucocorticoids and NSAIDs (except aspirin)</div>These agents <b>impair infarct healing</b>, increase risk of myocardial rupture, may result in a larger infarct scar, and can increase coronary vascular resistance (reducing flow to ischemic myocardium). They are contraindicated in STEMI patients.</div>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- ══════ S3: CLINICAL PRESENTATION ══════ -->
+<section class="sec" id="s3">
+  <div class="sec-hd"><span class="sec-n">03</span><h2>Clinical Presentation</h2></div>
+  <div class="sub">
+    <h3>Precipitating Factors &amp; Timing</h3>
+    <ul class="bl">
+      <li>Precipitating factor in <b>up to 50%</b> of cases: vigorous exercise, emotional stress, medical or surgical illness</li>
+      <li>Can occur any time; <b>circadian pattern</b>: clusters in the morning within a few hours of awakening</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Classic Pain — The Defining Feature</h3>
+    <p>Pain is the most common presenting complaint. Characteristics:</p>
+    <ul class="bl">
+      <li><b>Quality:</b> Deep and visceral — heavy, squeezing, crushing (occasionally stabbing or burning)</li>
+      <li><b>Location:</b> Central chest and/or epigastrium</li>
+      <li><b>Radiation:</b> Arms (common); abdomen, back, lower jaw, neck (less common); up to occipital area</li>
+      <li><b>NOT below the umbilicus</b> — important boundary</li>
+      <li><b>Accompaniments:</b> Sweating, nausea, vomiting, anxiety, sense of impending doom</li>
+      <li><b>Persistence:</b> Does NOT subside with cessation of activity (unlike angina pectoris)</li>
+    </ul>
+    <div class="co wrn"><div class="co-t">⚠ Epigastric Location = Frequent Misdiagnosis</div>The frequent location of pain beneath the xiphoid and epigastrium + patient denial = commonly mistaken for <b>indigestion</b>. This is a classic boards scenario for missed STEMI.</div>
+  </div>
+  <div class="sub">
+    <h3>Atypical Presentations — High-Risk Groups</h3>
+    <p>Pain is <b>not uniformly present</b> in STEMI patients. The proportion of painless STEMIs is greater in:</p>
+    <div class="g2">
+      <div class="card"><div class="clabel c-r">Painless STEMI More Common In:</div><ul class="bl"><li><b>Patients with diabetes mellitus</b></li><li><b>Elderly patients</b> (increases with age)</li></ul></div>
+      <div class="card"><div class="clabel c-a">Other Atypical Presentations:</div><ul class="bl"><li>Sudden-onset breathlessness</li><li>Sudden loss of consciousness</li><li>Confusional state</li><li>Sensation of profound weakness</li><li>Appearance of an arrhythmia</li><li>Evidence of peripheral embolism</li><li>Unexplained drop in arterial pressure</li></ul></div>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Differential Diagnosis — Must Exclude</h3>
+    <div class="g3">
+      <div class="card"><div class="clabel c-r">Aortic Dissection</div><p>Tearing/ripping pain to back; pulse differential; widened mediastinum</p></div>
+      <div class="card"><div class="clabel c-r">Pulmonary Embolism</div><p>Pleuritic pain, dyspnea, hypoxia, tachycardia; right heart strain on ECG</p></div>
+      <div class="card"><div class="clabel c-r">Pericarditis</div><p>Pleuritic, positional; friction rub; <b>trapezius radiation = key differentiator from STEMI</b>; diffuse ST elevation, PR depression</p></div>
+    </div>
+    <div class="co key"><div class="co-t">🔑 Trapezius Sign — Board Favorite</div>Radiation of discomfort to the <b>trapezius muscle</b> is NOT seen in STEMI patients — it is a distinguishing feature that suggests <b>pericarditis</b>. If trapezius pain → think pericarditis, not STEMI.</div>
+  </div>
+  <div class="sub">
+    <h3>Physical Examination Findings</h3>
+    <div class="vs">
+      <div>
+        <div class="vsh b">Anterior Infarction</div>
+        <div class="vsb br">
+          <ul class="bl">
+            <li>Sympathetic hyperactivity</li>
+            <li><b>Tachycardia</b></li>
+            <li><b>Hypertension</b></li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="vsh r">Inferior Infarction</div>
+        <div class="vsb">
+          <ul class="bl">
+            <li>Parasympathetic hyperactivity</li>
+            <li><b>Bradycardia</b></li>
+            <li><b>Hypotension</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="co key"><div class="co-t">🔑 High-Yield Exam Finding</div><b>Substernal chest pain lasting &gt;30 minutes + diaphoresis</b> strongly suggests STEMI. Additional signs of LV dysfunction: S3/S4 gallop, decreased S1, paradoxical S2 splitting, transient mitral regurgitation murmur, basilar rales. Pericardial friction rub may appear in transmural STEMI. Temperature up to 38°C in first week is normal.</div>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- ══════ S4: DIAGNOSIS & LABS ══════ -->
+<section class="sec" id="s4">
+  <div class="sec-hd"><span class="sec-n">04</span><h2>Diagnosis, ECG &amp; Laboratory Findings</h2></div>
+  <div class="sub">
+    <h3>ECG — ST Elevation Criteria (Memorize These)</h3>
+    <p>New ST-elevation at the J-point in <b>2 contiguous leads</b>:</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Leads</th><th>Population</th><th>Required Elevation</th></tr></thead>
+        <tbody>
+          <tr><td>All leads except V₂–V₃</td><td>All patients</td><td><b>≥0.1 mV (1 mm)</b></td></tr>
+          <tr><td>V₂–V₃</td><td>Men ≥40 years</td><td><b>≥0.2 mV (2 mm)</b></td></tr>
+          <tr><td>V₂–V₃</td><td>Men &lt;40 years</td><td><b>≥0.25 mV (2.5 mm)</b></td></tr>
+          <tr><td>V₂–V₃</td><td>Women (any age)</td><td><b>≥0.15 mV (1.5 mm)</b> — lower threshold!</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co dan"><div class="co-t">🚨 Women Have a Lower ST Elevation Threshold in V₂–V₃</div>Women require only ≥1.5 mm of ST elevation in V₂–V₃ for diagnosis — lower than the male threshold of 2 mm. Missing this leads to under-diagnosis of STEMI in women.</div>
+    <p>Most patients with ST elevation ultimately evolve <b>Q waves</b>. Q wave development is more dependent on the <b>volume of infarcted tissue</b> than on transmurality. In absence of ST elevation, fibrinolysis is not helpful and may be harmful.</p>
+  </div>
+  <div class="sub">
+    <h3>Cardiac Biomarkers</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Cardiac Troponins (Preferred)</div>
+        <ul class="bl">
+          <li>cTnT and cTnI are preferred biomarkers — cardiac-specific amino acid sequences</li>
+          <li>Criteria for AMI: rise and/or fall with <b>≥1 value above 99th percentile</b></li>
+          <li>In STEMI: rise to <b>20–50 times</b> the upper reference limit</li>
+          <li>Remain elevated for <b>7–10 days</b> after STEMI</li>
+          <li>High-sensitivity assays are of less immediate value in STEMI (reperfusion decision made on clinical + ECG, before results available)</li>
+          <li><b>Earlier troponin peak</b> → suggests successful reperfusion (rapid washout from interstitium)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">CK-MB (Historical Use)</div>
+        <ul class="bl">
+          <li>No longer preferred; troponin is superior</li>
+          <li><b>CK-MB/CK ratio ≥2.5</b> suggests myocardial (not skeletal muscle) source</li>
+          <li><b>Useful for early reinfarction detection</b> — declines faster than troponin after STEMI, so a new rise is identifiable</li>
+          <li>Not cost-effective to measure both CK-MB and troponin routinely</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>MI Classification — The Five Types (Table 286-1)</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Type</th><th>Definition</th><th>Key Feature</th></tr></thead>
+        <tbody>
+          <tr><td>Type 1</td><td>Spontaneous MI — atherothrombotic</td><td>Plaque rupture or erosion with thrombosis</td></tr>
+          <tr><td>Type 2</td><td>Supply/demand imbalance (non-thrombotic)</td><td>Spasm, anemia, tachycardia, hypertension — no plaque disruption</td></tr>
+          <tr><td>Type 3</td><td>Cardiac death before biomarker results available</td><td>Symptoms + presumed new ischemic ECG changes → death</td></tr>
+          <tr><td>Type 4a</td><td>PCI-related MI</td><td>cTn &gt;<b>5×</b> 99th percentile within 48h of PCI</td></tr>
+          <tr><td>Type 4b/4c</td><td>Stent thrombosis / restenosis</td><td>Meet Type 1 criteria</td></tr>
+          <tr><td>Type 5</td><td>CABG-related MI</td><td>cTn &gt;<b>10×</b> 99th percentile within 48h of CABG</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Cardiac Imaging</h3>
+    <ul class="bl">
+      <li><b>2D Echocardiography:</b> Wall motion abnormalities almost universally present — useful screening tool; cannot distinguish acute from chronic infarct</li>
+      <li>Echo identifies: RV infarction, ventricular aneurysm, pericardial effusion, LV thrombus</li>
+      <li>Doppler: VSD (color flow), mitral regurgitation</li>
+      <li><b>Cardiac MRI:</b> High-resolution infarct imaging with gadolinium — bright signal in infarct zone (gadolinium percolates into intercellular region) vs dark normal myocardium</li>
+      <li>Radionuclide: rarely used; cannot distinguish acute from chronic</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Nonspecific Inflammatory Markers</h3>
+    <ul class="bl">
+      <li><b>WBC:</b> Rises within hours of pain onset → peaks at <b>12,000–15,000/μL</b>, persists 3–7 days</li>
+      <li><b>ESR:</b> Rises more slowly, peaks during first week, may remain elevated 1–2 weeks</li>
+    </ul>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- ══════ S5: REPERFUSION ══════ -->
+<section class="sec" id="s5">
+  <div class="sec-hd"><span class="sec-n">05</span><h2>Reperfusion Strategy</h2></div>
+  <div class="sub">
+    <h3>The Overarching Goal</h3>
+    <p>The overarching goal is to <b>minimize time from first medical contact (FMC) to initiation of reperfusion</b>. The primary tool for triage is the initial 12-lead ECG — ST elevation meeting criteria = candidate for reperfusion.</p>
+    <div class="co dan"><div class="co-t">🚨 Fibrinolysis WITHOUT ST Elevation = Harmful</div>In the absence of ST-segment elevation, fibrinolysis is NOT helpful, and evidence exists suggesting it may be harmful. Never give fibrinolytics for NSTE-ACS.</div>
+  </div>
+  <div class="sub">
+    <h3>Primary PCI — Preferred Strategy</h3>
+    <p>PCI (usually stenting without preceding fibrinolysis) is the <b>preferred reperfusion strategy</b> when it can be performed in a timely manner. More effective than fibrinolysis at opening occluded arteries; better short-term and long-term outcomes when performed by experienced teams at dedicated centers.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Setting</th><th>Time Goal</th><th>Recommendation</th></tr></thead>
+        <tbody>
+          <tr><td>PCI-capable hospital — send to cath lab</td><td><b>FMC-device time ≤90 min</b></td><td>Class I, LOE: A</td></tr>
+          <tr><td>Non-PCI-capable — transfer for primary PCI</td><td><b>FMC-device time ≤120 min</b></td><td>Class I, LOE: B</td></tr>
+          <tr><td>Door-in Door-out (DIDO) at transfer hospital</td><td><b>≤30 min</b></td><td>Target before transfer</td></tr>
+          <tr><td>Fibrinolysis if PCI not achievable in time</td><td><b>Door-to-needle ≤30 min</b></td><td>Class I, LOE: B</td></tr>
+          <tr><td>Post-fibrinolysis angiography (successful lysis)</td><td>3–24 hours</td><td>Transfer to PCI center for angiography</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co key"><div class="co-t">🔑 When to Prefer Primary PCI Over Fibrinolysis</div>Primary PCI is preferred unless FMC-device time anticipated &gt;120 min. Also preferred when: <b>diagnosis is in doubt</b>, <b>cardiogenic shock</b> is present, <b>high bleeding risk</b>, or symptoms have been present &gt;2–3 hours (clot less easily lysed by fibrinolytics).</div>
+  </div>
+  <div class="sub">
+    <h3>Multivessel Disease at Primary PCI</h3>
+    <div class="vs">
+      <div>
+        <div class="vsh b">STEMI WITHOUT Cardiogenic Shock</div>
+        <div class="vsb br">
+          <p>PCI of <b>nonculprit vessels</b> — either during index procedure OR within 45 days — results in lower CV events and lower need for ischemia-driven revascularization. (PRAMI, CvLPRIT, COMPLETE trials)</p>
+        </div>
+      </div>
+      <div>
+        <div class="vsh r">STEMI WITH Cardiogenic Shock</div>
+        <div class="vsb">
+          <p>Routine PCI of nonculprit arteries during initial primary PCI is <b>CONTRAINDICATED</b> — associated with increased rate of death or severe renal failure compared with culprit-only PCI.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Fibrinolytic Therapy — When PCI is Not Available</h3>
+    <p>All four approved agents promote plasminogen → plasmin → lyses fibrin thrombi. TIMI grade 3 coronary flow is the goal (full perfusion with normal flow).</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Agent</th><th>Dose / Regimen</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>tPA (alteplase)</td><td>15 mg bolus + 50 mg over 30 min + 35 mg over 60 min</td><td>Fibrin-specific; slightly higher intracranial hemorrhage than streptokinase</td></tr>
+          <tr><td>TNK (tenecteplase)</td><td><b>0.53 mg/kg single IV bolus</b> over 10 seconds</td><td>Bolus fibrinolytic; weight-based; easy to administer</td></tr>
+          <tr><td>rPA (reteplase)</td><td>10 MU bolus × 2, given 30 min apart</td><td>Double-bolus; no prolonged infusion needed</td></tr>
+          <tr><td>Streptokinase</td><td>1.5 million units IV over 1 hour</td><td>Non-fibrin-specific; cheaper; 2% allergic reactions; don't repeat within 5 days–2 years</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co dan"><div class="co-t">🚨 Absolute Contraindications to Fibrinolysis — Must Know All</div>
+      <ul class="bl">
+        <li><b>Prior cerebrovascular hemorrhage at any time</b></li>
+        <li><b>Nonhemorrhagic stroke or CVE within the past year</b></li>
+        <li><b>Marked hypertension</b>: SBP &gt;180 mmHg and/or DBP &gt;110 mmHg at any time during presentation</li>
+        <li><b>Suspicion of aortic dissection</b></li>
+        <li><b>Active internal bleeding</b> (excluding menses)</li>
+      </ul>
+    </div>
+    <details>
+      <summary>Relative Contraindications to Fibrinolysis</summary>
+      <div class="db">
+        <ul class="bl">
+          <li>Current use of anticoagulants (INR ≥2)</li>
+          <li>Recent invasive procedure or trauma (&lt;2 weeks)</li>
+          <li>Prolonged (&gt;10 min) CPR</li>
+          <li>Known bleeding diathesis</li>
+          <li>Pregnancy</li>
+          <li>Hemorrhagic ophthalmic condition (e.g., hemorrhagic diabetic retinopathy)</li>
+          <li>Active peptic ulcer disease</li>
+          <li>History of severe hypertension now adequately controlled</li>
+        </ul>
+        <div class="co wrn" style="margin-top:10px"><div class="co-t">⚠ Age and Fibrinolysis</div>Advanced age increases hemorrhagic complications but the benefit of fibrinolysis in elderly still justifies use IF: no other contraindications, substantial myocardium in jeopardy, AND timely primary PCI is not available.</div>
+      </div>
+    </details>
+    <div class="co key"><div class="co-t">🔑 Post-Fibrinolysis Management</div>
+      <ul class="bl">
+        <li><b>Failure of reperfusion</b> (persistent pain + ST elevation &gt;90 min) → <b>rescue PCI</b></li>
+        <li><b>Reocclusion</b> (re-elevation of ST + recurrent pain) → urgent transfer for PCI</li>
+        <li><b>Successful fibrinolysis</b> → transfer to PCI center, angiography 3–24h later</li>
+        <li>Angiography NOT in first 2–3h after fibrinolytic therapy</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>TIMI Flow Grading System</h3>
+    <div class="g4">
+      <div class="card"><div class="clabel c-r">Grade 0</div><p>Complete occlusion of infarct-related artery — no flow</p></div>
+      <div class="card"><div class="clabel c-a">Grade 1</div><p>Some contrast penetrates beyond obstruction — but no perfusion of distal bed</p></div>
+      <div class="card"><div class="clabel c-a">Grade 2</div><p>Full vessel into distal bed — but flow is <b>delayed</b> vs normal artery</p></div>
+      <div class="card"><div class="clabel c-g">Grade 3</div><p><b>Full perfusion with NORMAL flow</b> — the goal of reperfusion therapy</p></div>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Emergency Department — Control of Discomfort</h3>
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-b">Aspirin — First and Essential</div>
+      <p>Rapid inhibition of COX-1 → reduced thromboxane A₂. <b>160–325 mg chewed</b> in the ED (buccal absorption). Followed by daily oral <b>75–162 mg</b>. Essential across the entire spectrum of ACS.</p>
+    </div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-b">Sublingual Nitroglycerin</div>
+      <ul class="bl">
+        <li><b>0.4 mg SL</b>, up to 3 doses, 5 min apart for persistent ischemic symptoms</li>
+        <li>Mechanism: venodilation (↓preload = ↓O₂ demand) + coronary/collateral dilation (↑supply)</li>
+        <li>If good initial response followed by return of pain + ongoing ischemia → consider IV nitroglycerin</li>
+      </ul>
+      <div class="co dan"><div class="co-t">🚨 Nitrate Contraindications in STEMI</div>
+        <ul class="bl">
+          <li><b>SBP &lt;90 mmHg</b></li>
+          <li><b>Suspected RV infarction</b>: inferior ECG + elevated JVP + clear lungs + hypotension</li>
+          <li><b>PDE-5 inhibitor within 24h</b> (sildenafil, vardenafil) — profound hypotension</li>
+        </ul>
+        Idiosyncratic sudden marked hypotension from nitrates → treat with rapid IV atropine.
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-a">Morphine — Analgesic</div>
+      <ul class="bl">
+        <li><b>2–4 mg IV, every 5 minutes</b> as needed</li>
+        <li>May reduce sympathetically mediated vasoconstriction → venous pooling → ↓CO and BP → elevate legs; if severe, volume expansion with IV saline</li>
+        <li><b>Vagotonic effect</b>: bradycardia or heart block especially with inferior infarction → treat with atropine 0.5 mg IV</li>
+        <li>Slows GI absorption of oral antiplatelet therapy (but no proven increase in adverse outcomes)</li>
+      </ul>
+    </div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-b">Beta Blockers — IV then Oral</div>
+      <ul class="bl">
+        <li><b>IV metoprolol:</b> 5 mg q2–5 min × 3 doses — IF: HR &gt;60, SBP &gt;100, PR &lt;0.24s, no acute HF signs</li>
+        <li>IV beta blockers reduce: pain, infarct size, VF risk, reinfarction risk</li>
+        <li>IV no longer routinely recommended (risk of precipitating HF)</li>
+        <li><b>Oral in first 24h:</b> start if no acute HF, no low-output state, no cardiogenic shock risk, no contraindications</li>
+        <li><b>Oral regimen:</b> 50 mg q6h × 48h → then 100 mg q12h</li>
+        <li><b>Contraindicated in STEMI if:</b> acute HF, low-output, cardiogenic shock risk, bradycardia, PR &gt;0.24s, 2nd/3rd AV block, active asthma, reactive airway disease</li>
+      </ul>
+    </div>
+    <div class="co wrn"><div class="co-t">⚠ Calcium Antagonists in Acute STEMI</div>Calcium antagonists are of <b>little value in the acute STEMI setting</b>. Short-acting dihydropyridines (e.g., nifedipine) may be associated with <b>increased mortality risk</b>. Routine use is not recommended.</div>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- ══════ S6: PHARMACOTHERAPY ══════ -->
+<section class="sec" id="s6">
+  <div class="sec-hd"><span class="sec-n">06</span><h2>Hospital Pharmacotherapy</h2></div>
+  <div class="sub">
+    <h3>Antithrombotic Agents</h3>
+    <p>Primary goal: maintain patency of infarct-related artery in conjunction with reperfusion. Secondary goal: reduce mural thrombus and deep venous thrombosis.</p>
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-b">Aspirin — Mortality Reduction</div>
+      <p>The Antiplatelet Trialists' Collaboration (nearly 20,000 MI patients, 15 trials): antiplatelet therapy (mainly aspirin) showed a <b>27% relative mortality reduction</b> — from 14.2% (control) to 10.4% (treated).</p>
+    </div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-b">P2Y₁₂ Inhibitors</div>
+      <ul class="bl">
+        <li><b>Clopidogrel:</b> reduces death/reinfarction/stroke; in fibrinolysis patients, prevents reocclusion of reperfused artery</li>
+        <li><b>Prasugrel and Ticagrelor:</b> more effective than clopidogrel in preventing ischemic complications in STEMI patients undergoing PCI; both increase bleeding</li>
+        <li><b>Glycoprotein IIb/IIIa inhibitors:</b> reserved for thrombotic complications during PCI</li>
+      </ul>
+    </div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-b">Anticoagulants — Parenteral Options</div>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Agent</th><th>Dose</th><th>Key Points</th></tr></thead>
+          <tbody>
+            <tr><td>UFH (standard)</td><td>60 U/kg bolus (max 4,000 U) + 12 U/kg/h (max 1,000 U/h); aPTT 1.5–2× control</td><td>Recommended for primary PCI; combined with aspirin + streptokinase saves ~5 lives per 1,000</td></tr>
+            <tr><td>Enoxaparin (LMWH)</td><td>SC; dose per weight</td><td>Reduces death/reinfarction vs UFH in fibrinolysis patients; higher serious bleeding but net benefit favors enoxaparin</td></tr>
+            <tr><td>Fondaparinux</td><td>2.5 mg SC daily</td><td>Superior to placebo if no reperfusion; uncertain vs UFH; <b>requires supplemental UFH for PCI</b> (catheter thrombosis risk)</td></tr>
+            <tr><td>Bivalirudin</td><td>Direct thrombin inhibitor</td><td>Alternative to UFH for primary PCI; less bleeding (access site hematomas, transfusions)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="co key"><div class="co-t">🔑 Mural Thrombus Anticoagulation</div>Patients at high risk for systemic/pulmonary thromboembolism (anterior infarction, severe LV dysfunction, HF, history of embolism, echo-confirmed mural thrombus):
+      <ul class="bl">
+        <li>Full therapeutic anticoagulation (LMWH or UFH) while hospitalized</li>
+        <li>Followed by <b>at least 3 months of oral anticoagulant therapy</b></li>
+      </ul>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Beta-Adrenoceptor Blockers — Long-Term Benefits</h3>
+    <ul class="bl">
+      <li>Oral beta blocker therapy after STEMI is useful for most patients</li>
+      <li>Continue for <b>at least 1 year</b> (well-conducted, placebo-controlled trials)</li>
+      <li><b>Contraindicated in:</b> HF or severely compromised LV function, heart block, orthostatic hypotension, history of asthma</li>
+      <li>Possibly not needed in excellent prognosis (&lt;1% annual mortality, &lt;55 years, no prior MI, normal LV function, no complex VEA, no angina)</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>ACE Inhibitors — RAAS Inhibition</h3>
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-g">ACE Inhibitors</div>
+      <ul class="bl">
+        <li>Reduce mortality after STEMI; additive to aspirin + beta blockers</li>
+        <li><b>Maximum benefit:</b> high-risk patients (anterior infarction, prior MI, globally depressed LV)</li>
+        <li><b>Short-term benefit even unselectively</b> in hemodynamically stable patients (SBP &gt;100 mmHg)</li>
+        <li>Mechanism: <b>reduction in ventricular remodeling</b> after infarction</li>
+        <li>Continue indefinitely: clinically evident HF, reduced global LV function, large regional wall motion abnormality, hypertension</li>
+        <li>May also reduce rate of recurrent infarction</li>
+      </ul>
+    </div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-p">ARBs, Mineralocorticoid Antagonists, ARNI</div>
+      <ul class="bl">
+        <li><b>ARBs:</b> For ACE inhibitor-intolerant patients with clinical or radiologic signs of HF</li>
+        <li><b>Mineralocorticoid antagonists</b> (spironolactone, eplerenone): STEMI + already on ACE inhibitor + <b>LVEF ≤40%</b> + symptomatic HF OR diabetes — do NOT use if creatinine ≥2.5 (men) or ≥2.0 (women) mg/dL, or K⁺ ≥5.0 mEq/L</li>
+        <li><b>Sacubitril/valsartan (ARNI):</b> NOT more effective than ACE inhibitor in preventing <i>incident</i> HF post-MI (despite superiority in established HFrEF)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Other Agents</h3>
+    <ul class="bl">
+      <li><b>IV nitroglycerin:</b> Large RCT showed <b>no benefit</b> for major outcomes in STEMI. May be considered in: persistent hypertension, HF, or ongoing ischemia</li>
+      <li><b>Calcium antagonists:</b> Multiple trials failed to establish a role in STEMI. Routine use NOT recommended</li>
+      <li><b>Blood glucose control</b> in diabetic STEMI patients: reduces mortality rate</li>
+      <li><b>Serum magnesium:</b> Measure on admission; correct deficits to minimize arrhythmia risk; Mg goal ~2.0 mmol/L; K⁺ goal ~4.5 mmol/L</li>
+      <li><b>Colchicine</b> (0.5 mg once daily): consider for secondary prevention, especially if recurrent atherosclerotic event despite guideline-directed medical therapy</li>
+    </ul>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- ══════ S7: COMPLICATIONS ══════ -->
+<section class="sec" id="s7">
+  <div class="sec-hd"><span class="sec-n">07</span><h2>Complications &amp; Their Management</h2></div>
+  <div class="sub">
+    <h3>Killip Classification — Hemodynamic Staging</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Class</th><th>Definition</th><th>Historical Mortality</th><th>Key Feature</th></tr></thead>
+        <tbody>
+          <tr><td><b>Class I</b></td><td>No signs of pulmonary or venous congestion</td><td>0–5%</td><td>Normal</td></tr>
+          <tr><td><b>Class II</b></td><td>Moderate HF — rales at lung bases, S₃, tachypnea, right HF signs</td><td>10–20%</td><td>Diuresis often effective</td></tr>
+          <tr><td><b>Class III</b></td><td>Severe HF — pulmonary edema</td><td>35–45%</td><td>Aggressive diuresis + vasodilators</td></tr>
+          <tr><td><b>Class IV</b></td><td>Cardiogenic shock — SBP &lt;90, peripheral vasoconstriction, cyanosis, confusion, oliguria</td><td>85–95%</td><td>Mortality plateaued for 25 years</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co key"><div class="co-t">🔑 Key Hemodynamic Thresholds</div>
+      <ul class="bl">
+        <li>LV dysfunction apparent when <b>20–25%</b> of LV contraction impaired</li>
+        <li>Cardiogenic shock when infarction ≥<b>40%</b> of LV</li>
+        <li>Cardiogenic shock incidence reduced from <b>20% to ~7%</b> with modern reperfusion</li>
+        <li>Of those with cardiogenic shock: only <b>10% present with it</b>; 90% develop it during hospitalization</li>
+        <li>High LV filling (&gt;22 mmHg) + normal CO → <b>diuresis</b></li>
+        <li>Low LV filling (&lt;15 mmHg) + low CO → <b>volume expansion</b></li>
+      </ul>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Mechanical Complications — The "Surgical Three"</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Complication</th><th>Incidence</th><th>Classic Murmur</th><th>Key Differentiator</th></tr></thead>
+        <tbody>
+          <tr><td>Ventricular Septal Rupture (VSR)</td><td>0.2–3% (without reperfusion)</td><td>Harsh <b>holosystolic murmur + thrill</b>; S₃; accentuated S₂</td><td>Right heart cath: <b>O₂ step-up RA→RV</b>; large v waves; pulmonary edema + RV+LV failure</td></tr>
+          <tr><td>Free Wall Rupture</td><td>~0.3–1%</td><td>No specific murmur (often electromechanical dissociation)</td><td>JVD (29%), pulsus paradoxus (47%), pericardial effusion on echo; signs of tamponade; sudden death</td></tr>
+          <tr><td>Papillary Muscle Rupture</td><td>~0.1–1%</td><td><b>Soft murmur, NO thrill</b></td><td><b>No O₂ step-up</b> RA→RV; very high PCWP; severe pulmonary edema; posteromedial &gt; anterolateral papillary muscle</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co dan"><div class="co-t">🚨 All Three Have Bimodal Timing</div>Peak incidence within 24 hours AND 3–5 days after STEMI; range 1–14 days. This timing pattern is classic for board questions.</div>
+  </div>
+  <div class="sub">
+    <h3>Right Ventricular Infarction</h3>
+    <ul class="bl">
+      <li>~1/3 of inferior infarction patients have at least minor RV involvement</li>
+      <li>Classic triad: <b>JVD + clear lungs + hypotension</b> (without pulmonary congestion)</li>
+      <li>Kussmaul's sign and hepatomegaly may be present</li>
+      <li><b>ECG:</b> ST elevation in right-sided leads, especially <b>V₄R</b> — present in first 24h</li>
+      <li><b>Treatment:</b> Volume expansion to maintain RV preload; improve LV performance</li>
+    </ul>
+    <div class="co dan"><div class="co-t">🚨 RV Infarction + Nitrates = Dangerous</div>Nitrates should be AVOIDED in RV infarction — these patients depend on adequate preload to maintain cardiac output. Nitrates cause venodilation → ↓preload → precipitous cardiovascular collapse. Same applies to diuretics.</div>
+    <div class="co wrn"><div class="co-t">⚠ RV Infarction + Ventricular Pacing</div>RV infarction patients often respond poorly to ventricular pacing alone because of loss of atrial contribution to ventricular filling. These patients may require <b>dual-chamber AV sequential pacing</b>.</div>
+  </div>
+  <div class="sub">
+    <h3>Ventricular Remodeling</h3>
+    <p>After STEMI, the LV undergoes changes in shape, size, and thickness — referred to as <b>ventricular remodeling</b> — that generally precede clinically evident HF in the months to years after infarction. Greater dilation follows infarction of the <b>anterior wall and apex</b> → more marked hemodynamic impairment, more frequent HF, poorer prognosis. ACE inhibitors/ARBs ameliorate progressive dilation.</p>
+    <div class="co key"><div class="co-t">🔑 ACE Inhibitor for LVEF &lt;40%</div>In patients with LVEF &lt;40%, regardless of whether HF is present, prescribe ACE inhibitors (or ARBs) AND eventually beta blockers to prevent progressive remodeling and improve outcomes.</div>
+  </div>
+  <div class="sub">
+    <h3>Other Complications</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-a">Pericarditis</div>
+        <p>Friction rub and/or pericardial pain frequent in transmural STEMI. Treat with <b>aspirin 650 mg four times daily</b>.</p>
+        <div class="co dan" style="margin-top:8px"><div class="co-t">🚨 Avoid Anticoagulants in Pericarditis</div>Anticoagulants can cause tamponade in the presence of pericarditis — avoid unless compelling indication. The trapezius radiation helps distinguish from recurrent ischemia.</div>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Thromboembolism</div>
+        <ul class="bl">
+          <li>Clinically apparent in <b>~10%</b> of cases; 20% at autopsy</li>
+          <li>Contributing cause of death in 25% of post-admission STEMI deaths</li>
+          <li>LV thrombus: ~1/3 of anterior wall MIs (rare in inferior/posterior)</li>
+          <li>Anticoagulation for confirmed thrombus → 3–6 months oral anticoagulation</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <div class="clabel c-r">LV Aneurysm</div>
+      <ul class="bl">
+        <li>True aneurysm = dyskinesis/paradoxical wall motion; composed of <b>scar tissue</b> → does NOT predispose to cardiac rupture</li>
+        <li>Complications: HF, arterial embolism, ventricular arrhythmias</li>
+        <li>Apical aneurysms most common; detected by echo</li>
+        <li>Physical exam: double, diffuse, or displaced apical impulse</li>
+        <li><b>Pseudoaneurysm</b>: myocardial rupture contained by pericardium + thrombus; maintains communication with LV through narrow neck; often ruptures spontaneously → surgically repair if recognized</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- ══════ S8: ARRHYTHMIAS ══════ -->
+<section class="sec" id="s8">
+  <div class="sec-hd"><span class="sec-n">08</span><h2>Arrhythmias After STEMI</h2></div>
+  <div class="sub">
+    <h3>Overview</h3>
+    <p>The incidence of arrhythmias after STEMI is highest early in the illness. Mechanisms include autonomic imbalance, electrolyte disturbances, ischemia, and slowed conduction in ischemic zones. Most VF deaths occur in the <b>first 24h</b>, with over <b>half in the first hour</b>.</p>
+    <div class="co key"><div class="co-t">🔑 Electrolyte Targets in STEMI</div><b>Potassium goal: ~4.5 mmol/L</b> — both hypokalemia AND hypomagnesemia are risk factors for VF.<br><b>Magnesium goal: ~2.0 mmol/L</b> — measure on admission, correct all deficits.</div>
+  </div>
+  <div class="sub">
+    <h3>Ventricular Arrhythmias</h3>
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-b">Ventricular Premature Beats (VPBs)</div>
+      <ul class="bl">
+        <li>Infrequent, sporadic VPBs occur in almost all STEMI patients — <b>do not require treatment</b></li>
+        <li>Prophylactic antiarrhythmic therapy (lidocaine IV or oral agents) for VPBs is <b>CONTRAINDICATED</b> — may increase mortality rate</li>
+        <li>Beta blockers should be used routinely (without contraindications) — effective against ectopic activity and VF prevention</li>
+      </ul>
+    </div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-r">Sustained VT (Hemodynamically Stable)</div>
+      <ul class="bl">
+        <li><b>Amiodarone IV:</b> 150 mg bolus over 10 min → 1.0 mg/min × 6h → 0.5 mg/min</li>
+        <li><b>Alternative — Procainamide:</b> 15 mg/kg over 20–30 min; infusion 1–4 mg/min</li>
+        <li>If VT does not stop promptly → <b>electrical cardioversion</b></li>
+      </ul>
+    </div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-r">VF or VT with Hemodynamic Deterioration</div>
+      <ul class="bl">
+        <li><b>Unsynchronized 200 J biphasic defibrillation immediately</b></li>
+        <li>VT/VF refractory to electroshock → amiodarone 150 mg bolus, then repeat shock</li>
+      </ul>
+    </div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="clabel c-a">AIVR — Accelerated Idioventricular Rhythm</div>
+      <ul class="bl">
+        <li>Rate 60–100 bpm; often occurs transiently during fibrinolysis at time of <b>reperfusion</b> — a reperfusion rhythm</li>
+        <li><b>Benign</b> — does not presage development of classic VT</li>
+        <li>Most episodes require <b>no treatment</b> — careful monitoring is sufficient</li>
+      </ul>
+    </div>
+    <div class="co key"><div class="co-t">🔑 Primary vs Secondary VF — Critical Distinction</div>
+      <ul class="bl">
+        <li><b>Primary VF</b> (first 48h, no predisposing factors like HF/shock/bundle branch block/aneurysm): In-hospital mortality increased, but <b>long-term prognosis excellent</b> after hospital discharge</li>
+        <li><b>Secondary VF</b> (due to severe pump failure): <b>Poor prognosis</b></li>
+        <li><b>Late VF</b> (after first 48h): Increased both in-hospital AND long-term mortality → consider ICD implantation</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>ICD Implantation — Post-STEMI Algorithm</h3>
+    <div class="co wrn"><div class="co-t">⚠ Timing Is Critical — Wait Before Reassessing LVEF</div>ICD implantation should generally wait — reassess LVEF at <b>&gt;40 days after MI</b> and/or <b>&gt;90 days after revascularization</b> before implanting for primary prevention. The available evidence does not suggest a survival advantage to early ICD placement post-MI.</div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Clinical Scenario</th><th>ICD Recommendation</th></tr></thead>
+        <tbody>
+          <tr><td>NYHA Class I + LVEF ≤30%</td><td><b>ICD — Class I</b></td></tr>
+          <tr><td>NYHA Class II or III + LVEF ≤35%</td><td><b>ICD — Class I</b></td></tr>
+          <tr><td>LVEF ≤40% + NSVT + inducible sustained VT on EP study</td><td><b>ICD — Class IIa</b></td></tr>
+          <tr><td>NYHA Class IV candidate for advanced HF therapy</td><td><b>ICD — Class IIa</b></td></tr>
+          <tr><td>MI &lt;40 days or revascularization &lt;90 days</td><td>GDMT first; WCD option (Class IIb); reassess LVEF at appropriate time</td></tr>
+          <tr><td>ICD should NOT be implanted</td><td>Class III (no benefit)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co prl"><div class="co-t">💜 Wearable Cardioverter-Defibrillator (WCD)</div>An option while waiting for LVEF reassessment. However, WCD is associated with frequent alarms, skin irritation, and emotional distress — resulting in reduced wear time in many patients.</div>
+  </div>
+  <div class="sub">
+    <h3>Bradyarrhythmias and Conduction Disturbances</h3>
+    <div class="vs">
+      <div>
+        <div class="vsh b">Inferior MI — AV Block</div>
+        <div class="vsb br">
+          <ul class="bl">
+            <li>Commonly due to <b>increased vagal tone and/or adenosine release</b></li>
+            <li>Therefore transient and usually reversible</li>
+            <li><b>Better prognosis</b></li>
+            <li>Treat with atropine if hemodynamic compromise</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="vsh r">Anterior MI — AV Block</div>
+        <div class="vsb">
+          <ul class="bl">
+            <li>Due to <b>ischemic malfunction of conduction system</b></li>
+            <li>Associated with extensive myocardial necrosis</li>
+            <li><b>Worse prognosis</b> — pacing may have limited impact</li>
+            <li>In-hospital AND post-discharge mortality markedly higher</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="co key"><div class="co-t">🔑 Sinus Bradycardia Treatment</div>
+      <ul class="bl">
+        <li><b>Atropine 1.0 mg IV initially</b> (up to total 3.0 mg)</li>
+        <li>Persistent bradycardia &lt;40 bpm despite atropine → <b>electrical pacing</b></li>
+        <li>External noninvasive pacing in "demand" mode for: sinus brady &lt;50 unresponsive to drugs, Mobitz II, 3rd degree AV block, bilateral BBB</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Supraventricular Arrhythmias</h3>
+    <ul class="bl">
+      <li><b>Sinus tachycardia:</b> Most common supraventricular arrhythmia. Treat underlying cause first (anemia, fever, HF, metabolic). If due to sympathetic overstimulation → beta blocker</li>
+      <li><b>AF/flutter:</b> Often secondary to LV failure. Rate control options:
+        <ul class="bl">
+          <li>HFrEF present → digoxin</li>
+          <li>No LV systolic dysfunction → beta blockers, verapamil, or diltiazem</li>
+          <li>HR &gt;120 with HF/shock/ischemia → synchronized cardioversion</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- ══════ S9: SECONDARY PREVENTION ══════ -->
+<section class="sec" id="s9">
+  <div class="sec-hd"><span class="sec-n">09</span><h2>Secondary Prevention</h2></div>
+  <div class="sub">
+    <h3>Long-Term Drug Therapy</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Antiplatelet Therapy</div>
+        <ul class="bl">
+          <li>Long-term aspirin: <b>25% risk reduction</b> in recurrent MI/stroke/CV death (36 fewer events per 1,000 patients)</li>
+          <li><b>DAPT</b> (aspirin + P2Y₁₂: clopidogrel, prasugrel, or ticagrelor): <b>12 months</b> after STEMI — absence of high bleeding risk or bleeding complications</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">ACE Inhibitor / ARB + Aldosterone Antagonist</div>
+        <ul class="bl">
+          <li>Indefinitely in: clinically evident HF, reduced LVEF, large regional wall motion abnormality</li>
+          <li>Prevents late ventricular remodeling and recurrent ischemic events</li>
+          <li>Aldosterone antagonist: LVEF ≤40% + symptomatic HF or DM (with adequate renal function and K⁺)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Beta Blockers</div>
+        <ul class="bl">
+          <li>Chronic routine use for <b>at least 1 year</b> after STEMI supported by well-conducted placebo-controlled trials</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Anti-Inflammatory (Colchicine)</div>
+        <ul class="bl">
+          <li>Low-dose colchicine <b>0.5 mg once daily</b></li>
+          <li>May be considered as secondary prevention — especially if recurrent atherosclerotic vascular event despite guideline-directed medical therapy</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Post-Infarction Risk Stratification</h3>
+    <p>Important risk factors for increased cardiovascular risk after STEMI recovery:</p>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">High-Risk Features (Most Important)</div>
+        <ul class="bl">
+          <li>Persistent ischemia (spontaneous or provoked)</li>
+          <li>Depressed LVEF <b>(&lt;40%)</b></li>
+          <li>Rales above lung bases / congestion on imaging</li>
+          <li>Symptomatic ventricular arrhythmias</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Additional Risk Features</div>
+        <ul class="bl">
+          <li>Prior MI, age &gt;75, diabetes mellitus</li>
+          <li>Prolonged sinus tachycardia, hypotension</li>
+          <li>Silent ischemia on ECG at rest</li>
+          <li>Abnormal signal-averaged ECG</li>
+          <li>Non-patency of infarct-related artery</li>
+          <li>Persistent advanced heart block or new intraventricular conduction abnormality</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Activity &amp; Rehabilitation</h3>
+    <ul class="bl">
+      <li>Uncomplicated STEMI hospitalization: <b>3–5 days</b></li>
+      <li>Bed rest first <b>6–12h</b>; then dangling feet and sitting in chair within 24h</li>
+      <li>First 1–2 weeks at home: walking and light activity; normal sexual activity may resume</li>
+      <li>After 2 weeks: regulate activity based on exercise tolerance</li>
+      <li>Most patients return to work within <b>2–4 weeks</b></li>
+      <li>Cardiac rehabilitation program with progressive exercise — initiated in hospital, continued post-discharge; includes educational component and individualized exercise prescription</li>
+    </ul>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- ══════ S10: QUICK REFERENCE ══════ -->
+<section class="sec" id="s10">
+  <div class="sec-hd"><span class="sec-n">10</span><h2>Quick Reference Master Table</h2></div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Topic</th><th>Number / Threshold</th><th>Why It Matters</th></tr></thead>
+      <tbody>
+        <tr><td>New AMIs per year (US)</td><td>~605,000</td><td>Epidemiology</td></tr>
+        <tr><td>Recurrent AMIs per year (US)</td><td>~200,000</td><td>Epidemiology</td></tr>
+        <tr><td>Pre-hospital AMI deaths</td><td>~50%</td><td>Most deaths from VF in first hour</td></tr>
+        <tr><td>In-hospital mortality</td><td>~5% (down from 10%)</td><td>Era of primary PCI</td></tr>
+        <tr><td>1-year mortality</td><td>~15%</td><td>Secondary prevention critical</td></tr>
+        <tr><td>Mortality increase for age &gt;75</td><td>4× higher</td><td>Elderly = highest risk</td></tr>
+        <tr><td>VF deaths: within first hour</td><td>&gt;50%</td><td>Prehospital defibrillation capability essential</td></tr>
+        <tr><td>ST elevation threshold (most leads)</td><td>≥0.1 mV (1 mm)</td><td>Standard criterion</td></tr>
+        <tr><td>ST elevation V₂–V₃ men ≥40</td><td>≥0.2 mV (2 mm)</td><td>Memorize all four V₂–V₃ thresholds</td></tr>
+        <tr><td>ST elevation V₂–V₃ men &lt;40</td><td>≥0.25 mV (2.5 mm)</td><td>Young men need more elevation</td></tr>
+        <tr><td>ST elevation V₂–V₃ women</td><td>≥0.15 mV (1.5 mm)</td><td>Lower threshold — boards favorite</td></tr>
+        <tr><td>FMC-device time (PCI center)</td><td>≤90 minutes</td><td>Class I recommendation</td></tr>
+        <tr><td>FMC-device time (transfer for PCI)</td><td>≤120 minutes</td><td>If longer → fibrinolysis</td></tr>
+        <tr><td>DIDO time</td><td>≤30 minutes</td><td>Door-in Door-out at non-PCI hospital</td></tr>
+        <tr><td>Door-to-needle (fibrinolysis)</td><td>≤30 minutes</td><td>Class I recommendation</td></tr>
+        <tr><td>Post-fibrinolysis angiography</td><td>3–24 hours</td><td>If successful reperfusion</td></tr>
+        <tr><td>Failed reperfusion (ST elevation)</td><td>&gt;90 minutes post-lysis</td><td>Rescue PCI indicated</td></tr>
+        <tr><td>Aspirin in ED</td><td>160–325 mg chewed</td><td>Buccal absorption; daily 75–162 mg</td></tr>
+        <tr><td>Aspirin mortality reduction</td><td>27% relative (14.2% → 10.4%)</td><td>Antiplatelet Trialists' Collaboration</td></tr>
+        <tr><td>UFH bolus for STEMI</td><td>60 U/kg (max 4,000 U)</td><td>Primary PCI adjunct</td></tr>
+        <tr><td>UFH infusion for STEMI</td><td>12 U/kg/h (max 1,000 U/h)</td><td>aPTT target 1.5–2× control</td></tr>
+        <tr><td>UFH + aspirin + streptokinase</td><td>~5 lives saved per 1,000</td><td>Additive mortality benefit</td></tr>
+        <tr><td>tPA regimen</td><td>15 mg bolus + 50 mg/30 min + 35 mg/60 min</td><td>Fibrin-specific; TIMI 3 flow</td></tr>
+        <tr><td>TNK (tenecteplase)</td><td>0.53 mg/kg single bolus over 10s</td><td>Single-bolus; weight-based</td></tr>
+        <tr><td>Streptokinase</td><td>1.5 MU IV over 1 hour</td><td>No repeat within 5 days–2 years</td></tr>
+        <tr><td>Intracranial hemorrhage (fibrinolysis)</td><td>0.5–0.9%</td><td>Doubles in patients &gt;70 vs &lt;65</td></tr>
+        <tr><td>IV metoprolol in STEMI</td><td>5 mg q2–5 min × 3 doses</td><td>HR &gt;60, SBP &gt;100, PR &lt;0.24s, no HF</td></tr>
+        <tr><td>Oral beta blocker regimen</td><td>50 mg q6h × 48h → 100 mg q12h</td><td>Start within 24h if eligible</td></tr>
+        <tr><td>LV dysfunction threshold</td><td>20–25% LV impaired</td><td>When hemodynamic signs appear</td></tr>
+        <tr><td>Cardiogenic shock threshold</td><td>≥40% LV infarcted</td><td>Infarction of &gt;40% LV</td></tr>
+        <tr><td>Cardiogenic shock incidence</td><td>Reduced from 20% to ~7%</td><td>With modern reperfusion</td></tr>
+        <tr><td>Cardiogenic shock: present on admission</td><td>10% (90% develop during hospitalization)</td><td>Most develop later</td></tr>
+        <tr><td>Killip Class IV mortality</td><td>85–95% (plateaued 25 years)</td><td>No improvement despite advances</td></tr>
+        <tr><td>Troponin elevation duration</td><td>7–10 days after STEMI</td><td>CK-MB useful for reinfarction detection</td></tr>
+        <tr><td>Amiodarone VT regimen</td><td>150 mg/10 min → 1 mg/min × 6h → 0.5 mg/min</td><td>Hemodynamically stable sustained VT</td></tr>
+        <tr><td>VF cardioversion</td><td>200 J biphasic, unsynchronized</td><td>Also for VT with hemodynamic deterioration</td></tr>
+        <tr><td>Atropine for bradycardia</td><td>1.0 mg IV initially; total up to 3.0 mg</td><td>Persistent &lt;40 → electrical pacing</td></tr>
+        <tr><td>K⁺ goal in STEMI</td><td>~4.5 mmol/L</td><td>VF prevention</td></tr>
+        <tr><td>Mg goal in STEMI</td><td>~2.0 mmol/L</td><td>VF prevention</td></tr>
+        <tr><td>Mineralocorticoid antagonist: K⁺ cutoff</td><td>≥5.0 mEq/L → avoid</td><td>Hyperkalemia risk</td></tr>
+        <tr><td>Mineralocorticoid antagonist: creatinine cutoff</td><td>≥2.5 mg/dL (men), ≥2.0 mg/dL (women) → avoid</td><td>Renal clearance issue</td></tr>
+        <tr><td>Pericarditis treatment</td><td>Aspirin 650 mg 4× daily</td><td>Avoid anticoagulants → tamponade risk</td></tr>
+        <tr><td>LV thrombus anticoagulation</td><td>≥3 months oral anticoagulant</td><td>After therapeutic anticoagulation inpatient</td></tr>
+        <tr><td>ICD LVEF reassessment timing</td><td>&gt;40 days post-MI; &gt;90 days post-revascularization</td><td>Premature ICD placement not beneficial</td></tr>
+        <tr><td>ICD threshold (NYHA I)</td><td>LVEF ≤30%</td><td>Class I indication</td></tr>
+        <tr><td>ICD threshold (NYHA II–III)</td><td>LVEF ≤35%</td><td>Class I indication</td></tr>
+        <tr><td>DAPT duration post-STEMI</td><td>12 months</td><td>Aspirin + P2Y₁₂</td></tr>
+        <tr><td>Long-term aspirin benefit</td><td>25% risk reduction</td><td>36 fewer events per 1,000 patients</td></tr>
+        <tr><td>Colchicine for secondary prevention</td><td>0.5 mg once daily</td><td>Especially if recurrent event on GDMT</td></tr>
+        <tr><td>Uncomplicated STEMI hospitalization</td><td>3–5 days</td><td>Return to work 2–4 weeks</td></tr>
+        <tr><td>Spontaneous reperfusion in STEMI</td><td>Up to 1/3 within 24h</td><td>Reperfusion therapy still greatly helps</td></tr>
+        <tr><td>Thin-capped fibroatheromas → AMI</td><td>&lt;5% during long-term follow-up</td><td>Most vulnerable plaques don't rupture</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- ══════ EXAM TRAPS ══════ -->
+<section class="sec" id="exam">
+  <div class="sec-hd"><span class="sec-n">★</span><h2>Exam Traps</h2></div>
+  <p>Expert board exam coaching — Stage A Internal Medicine. Each trap shows the clinical vignette, the seductive wrong answer, and the board-correct reasoning.</p>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">Women and the Lower ST Elevation Threshold</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 58-year-old woman presents with 45 minutes of crushing substernal chest pressure and diaphoresis. The ECG shows 1.3 mm ST elevation in V₂ and 1.4 mm in V₃. The emergency physician says the ECG does not meet STEMI criteria. <em>Is he correct?</em></div>
+      <div class="trap-a"><strong>Correct Answer: No — this IS a STEMI in a woman</strong><br>Women require only ≥1.5 mm of ST elevation in V₂–V₃ for STEMI criteria, while men ≥40 need ≥2 mm. This patient has 1.3–1.4 mm elevation in V₂–V₃, which does not meet the threshold of 1.5 mm, but the clinical context demands serial ECGs and cardiology consultation immediately. Had she had ≥1.5 mm, it would formally meet criteria. The key is knowing the sex-specific thresholds.</div>
+      <div class="trap-why">⚠ Trap: Applying the male 2 mm threshold to women. Board keyword: <em>women = ≥0.15 mV (1.5 mm) in V₂–V₃; men ≥40 = ≥0.2 mV (2 mm); men &lt;40 = ≥0.25 mV (2.5 mm)</em>. Women are systematically underdiagnosed by applying the male threshold.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Trapezius Radiation — STEMI or Pericarditis?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 35-year-old man presents with chest pain that radiates to both trapezius muscles. It is pleuritic in nature and improves when he leans forward. ECG shows diffuse ST elevation with PR depression. <em>What is the most likely diagnosis?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Pericarditis — NOT STEMI</strong><br>Radiation to the trapezius is NOT seen in STEMI patients — it is a distinguishing feature of pericarditis. The diffuse ST elevation (rather than regional), PR depression, pleuritic quality, and positional relief all point to pericarditis. STEMI causes regional ST elevation corresponding to the territory of the occluded coronary artery.</div>
+      <div class="trap-why">⚠ Trap: Seeing "ST elevation" and automatically thinking STEMI. Board keyword: <em>trapezius radiation = pericarditis, not STEMI</em>. If anticoagulants are given for presumed STEMI in pericarditis → tamponade risk. Diffuse vs regional ST elevation is the key ECG differentiator.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Nitrates + RV Infarction = Cardiovascular Collapse</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 67-year-old man presents with inferior STEMI (ST elevation in II, III, aVF). He is hypotensive (BP 82/50) with elevated JVP and clear lung fields. The nurse is about to administer sublingual nitroglycerin for his chest pain. <em>Should this be given?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Absolutely NOT — this is RV infarction, a contraindication to nitrates</strong><br>The triad of inferior ST elevation + elevated JVP + clear lungs + hypotension = RV infarction. These patients depend entirely on adequate preload to maintain cardiac output. Nitrates cause venodilation → ↓preload → precipitous, potentially irreversible cardiovascular collapse. Treatment is volume expansion (IV fluids) to maintain RV preload.</div>
+      <div class="trap-why">⚠ Trap: Reflex nitroglycerin for any chest pain. Board keyword: <em>inferior MI + JVD + clear lungs + hypotension = RV infarct = nitroglycerin contraindicated</em>. Also avoid diuretics in RV infarction for the same reason.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Prophylactic Lidocaine — Do NOT Give</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 70-year-old man with STEMI is in the cardiac unit. He has frequent VPBs on the monitor. A resident suggests starting prophylactic IV lidocaine to prevent ventricular fibrillation. <em>Is this appropriate?</em></div>
+      <div class="trap-a"><strong>Correct Answer: No — prophylactic antiarrhythmic therapy for VPBs is CONTRAINDICATED and may increase mortality</strong><br>Infrequent VPBs occur in almost all STEMI patients and do not require therapy. Prophylactic antiarrhythmic drugs (either IV lidocaine early or oral agents later) for VPBs in the absence of clinically important ventricular tachyarrhythmias may INCREASE the mortality rate. Beta blockers are the appropriate agents for VF prevention.</div>
+      <div class="trap-why">⚠ Trap: "Warning arrhythmias" (frequent/multifocal VPBs) historically prompted prophylactic treatment. This is now known to increase mortality. Board keyword: <em>VPBs alone in STEMI → no antiarrhythmic therapy; prophylactic lidocaine = contraindicated</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Nonculprit PCI in Cardiogenic Shock — CONTRAINDICATED</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 65-year-old man presents with anterior STEMI complicated by cardiogenic shock. Coronary angiography reveals an LAD culprit lesion and a high-grade stenosis in the RCA. After successful PCI of the LAD, the interventional cardiologist proposes to also stent the RCA during the same procedure. <em>Is this appropriate?</em></div>
+      <div class="trap-a"><strong>Correct Answer: No — routine nonculprit PCI is CONTRAINDICATED in cardiogenic shock</strong><br>While nonculprit PCI during the index procedure or within 45 days is beneficial in STEMI WITHOUT cardiogenic shock (PRAMI, CvLPRIT, COMPLETE trials), it is contraindicated in cardiogenic shock — associated with increased rate of death or severe renal failure compared with culprit-only PCI.</div>
+      <div class="trap-why">⚠ Trap: Applying the "complete revascularization" strategy universally. Board keyword: <em>STEMI + cardiogenic shock + nonculprit PCI = contraindicated (culprit-only)</em>. Without shock, complete revascularization is beneficial. This is a nuanced distinction boards love to test.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Primary VF vs Secondary VF — Opposite Prognosis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 55-year-old man develops VF 6 hours after STEMI admission. He has no HF, no cardiogenic shock, and no bundle branch block. He is successfully defibrillated. <em>What is the expected long-term prognosis?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Excellent long-term prognosis — this is PRIMARY ventricular fibrillation</strong><br>Primary VF occurs in the first 48h as a direct response to acute ischemia, without predisposing factors (HF, shock, bundle branch block, ventricular aneurysm). Despite increased in-hospital mortality, long-term survival after hospital discharge is excellent.</div>
+      <div class="trap-why">⚠ Trap: Assuming all VF after STEMI carries a poor prognosis. Board keyword: <em>Primary VF (first 48h, no predisposing factors) = excellent long-term prognosis</em>. Secondary VF (due to pump failure) = poor prognosis. Late VF (after 48h) = ↑mortality + consider ICD.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">VSR vs Papillary Muscle Rupture — Murmur Distinction</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 72-year-old woman develops sudden respiratory distress 4 days after inferior STEMI. She has a loud holosystolic murmur with a palpable thrill at the left sternal border, S₃ gallop, and signs of biventricular failure. The question asks: <em>What does right heart catheterization most likely show?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Oxygen step-up from right atrium to right ventricle — consistent with ventricular septal rupture</strong><br>VSR presents with a harsh holosystolic murmur WITH a palpable thrill and biventricular failure. Right heart catheterization shows a step-up in oxygen saturation from RA to RV (left-to-right shunt) and large v waves. Papillary muscle rupture also causes a holosystolic murmur but is SOFT with NO thrill, and shows no O₂ step-up (but very high PCWP).</div>
+      <div class="trap-why">⚠ Trap: Both VSR and papillary muscle rupture cause post-MI holosystolic murmurs. The distinguishing features: <em>VSR = loud murmur + thrill + O₂ step-up RA→RV; PMR = soft murmur + no thrill + no step-up + high PCWP</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">ICD Timing — Don't Implant Too Early Post-MI</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 60-year-old man had a large anterior STEMI 20 days ago. Post-PCI LVEF is 30%. He is NYHA Class II. The cardiologist wants to implant an ICD now. <em>Is this appropriate?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Not yet — reassess LVEF after &gt;40 days from MI</strong><br>The available evidence does not suggest a survival advantage to early ICD placement after MI. LVEF should be reassessed at &gt;40 days post-MI and/or &gt;90 days post-revascularization before deciding on ICD implantation. LVEF may improve significantly with medical therapy and revascularization. While waiting, the wearable cardioverter-defibrillator (WCD) is a Class IIb option.</div>
+      <div class="trap-why">⚠ Trap: Acting on current LVEF immediately post-MI without waiting for remodeling to occur. Board keyword: <em>reassess LVEF &gt;40 days after MI, &gt;90 days after revascularization</em>. Even if LVEF remains ≤30% at that point, THEN ICD is Class I (NYHA I) or Class I (NYHA II–III with LVEF ≤35%).</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">NSAIDs/Glucocorticoids in STEMI — Dangerous</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 68-year-old man with STEMI also has significant pericarditic chest pain on day 3. A nurse practitioner suggests adding ibuprofen for the pericarditis. <em>Is this safe?</em></div>
+      <div class="trap-a"><strong>Correct Answer: No — NSAIDs (and glucocorticoids) are contraindicated in STEMI</strong><br>NSAIDs impair infarct healing, increase risk of myocardial rupture, may result in a larger infarct scar, and can increase coronary vascular resistance (reducing flow to ischemic myocardium). The correct treatment for post-MI pericarditis is aspirin 650 mg four times daily — the only exception to anti-inflammatory contraindication.</div>
+      <div class="trap-why">⚠ Trap: Using NSAIDs for valid indications (pericarditis, pain) in a patient who just had an MI. Board keyword: <em>NSAIDs and glucocorticoids (except aspirin) = contraindicated in STEMI — impair infarct healing and increase rupture risk</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">AIVR — Benign Reperfusion Rhythm, Not VT</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 59-year-old man receives tenecteplase for STEMI at a non-PCI hospital. Shortly after, the monitor shows a wide complex rhythm at 75 bpm. The rhythm is regular and the patient is hemodynamically stable and asymptomatic. <em>What is the diagnosis and what should be done?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Accelerated idioventricular rhythm (AIVR) — a benign reperfusion rhythm; no treatment needed</strong><br>AIVR (rate 60–100 bpm) frequently occurs transiently during fibrinolytic therapy at the time of reperfusion. It is benign, does not presage development of classic VT, and should be treated only with careful monitoring. Overly aggressive treatment can cause complete heart block.</div>
+      <div class="trap-why">⚠ Trap: Treating AIVR as ventricular tachycardia and administering amiodarone or antiarrhythmics. Board keyword: <em>AIVR (60–100 bpm) after fibrinolysis = reperfusion arrhythmia = benign = monitor only</em>. VT requires rate &gt;100 bpm with hemodynamic compromise to warrant intervention.</div>
+    </div>
+  </div>
+
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+
+</main>
+<footer class="footer">Harrison's Principles · Chapter 286 · ST-Segment Elevation Myocardial Infarction · Boards Review Guide · 2026</footer>
+
+<script>
+let curColor=null,eraseMode=false,selText='',savedRange=null;
+function setHL(c){curColor=c;eraseMode=false;document.body.style.cursor='crosshair';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));const map={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};document.getElementById(map[c]).classList.add('active')}
+function setErase(){eraseMode=true;curColor=null;document.body.style.cursor='cell';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'))}
+function clearAll(){if(!confirm('Clear ALL highlights and notes?'))return;document.querySelectorAll('.hl').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize()});document.querySelectorAll('.note-anchor').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize()});try{localStorage.removeItem('bsa_stemi_notes');}catch(e){}renderNotes();document.body.style.cursor='';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));curColor=null;eraseMode=false}
+document.addEventListener('mouseup',function(e){const tb=document.getElementById('toolbar');const sb=document.getElementById('sn-sidebar');const np=document.getElementById('note-popover');if(tb.contains(e.target)||sb.contains(e.target)||np.contains(e.target))return;if(eraseMode&&e.target.classList.contains('hl')){const el=e.target;el.parentNode.replaceChild(document.createTextNode(el.textContent),el);return}const sel=window.getSelection();if(!sel||sel.isCollapsed)return;const txt=sel.toString().trim();if(!txt)return;selText=txt;savedRange=sel.getRangeAt(0).cloneRange();document.getElementById('sn-ref-txt').textContent=txt.length>48?txt.substring(0,48)+'…':txt;if(curColor){try{const range=sel.getRangeAt(0);const span=document.createElement('span');span.className='hl hl-'+curColor;range.surroundContents(span);sel.removeAllRanges();}catch(err){}}});
+const STORE_KEY='bsa_stemi_notes';
+function getNotes(){try{return JSON.parse(localStorage.getItem(STORE_KEY)||'[]');}catch(e){return[]}}
+function saveNotes(n){try{localStorage.setItem(STORE_KEY,JSON.stringify(n));}catch(e){}}
+function addNote(){const txt=document.getElementById('sn-ta').value.trim();if(!txt)return;const id=Date.now();const notes=getNotes();notes.unshift({id,ref:selText.substring(0,80)||'—',text:txt});saveNotes(notes);if(savedRange){try{const span=document.createElement('span');span.className='note-anchor';span.dataset.noteId=id;span.title='Click to see your note';savedRange.surroundContents(span);}catch(e){}savedRange=null}document.getElementById('sn-ta').value='';selText='';document.getElementById('sn-ref-txt').textContent='—';renderNotes()}
+function deleteNote(id){saveNotes(getNotes().filter(n=>n.id!==id));document.querySelectorAll('.note-anchor[data-note-id="'+id+'"]').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el)});closePopover();renderNotes()}
+function renderNotes(){const body=document.getElementById('sn-body');const empty=document.getElementById('sn-empty');const notes=getNotes();body.querySelectorAll('.sn-note').forEach(el=>el.remove());if(!notes.length){if(empty)empty.style.display='';return}if(empty)empty.style.display='none';notes.forEach(note=>{const card=document.createElement('div');card.className='sn-note';card.dataset.noteId=note.id;const savedH=localStorage.getItem('bsa_h_'+note.id);if(savedH)card.style.height=savedH+'px';card.innerHTML=`<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span><span class="sn-note-ref">${note.ref!=='—'?'"'+note.ref+'"':'General note'}</span><button class="sn-del" onclick="deleteNote(${note.id})">×</button></div><div class="sn-note-body">${note.text.replace(/\n/g,'<br>')}</div><div class="sn-resize"></div>`;body.appendChild(card);makeDraggable(card);makeResizable(card,note.id)})}
+function makeDraggable(card){const handle=card.querySelector('.sn-note-hd');let startY=0;handle.addEventListener('mousedown',function(e){if(e.target.classList.contains('sn-del'))return;e.preventDefault();startY=e.clientY;card.style.opacity='.7';card.style.zIndex='9999';function onMove(ev){const dy=ev.clientY-startY;const body=document.getElementById('sn-body');const cards=[...body.querySelectorAll('.sn-note')];const myIdx=cards.indexOf(card);if(dy<-30&&myIdx>0){body.insertBefore(card,cards[myIdx-1]);startY=ev.clientY}else if(dy>30&&myIdx<cards.length-1){body.insertBefore(cards[myIdx+1],card);startY=ev.clientY}}function onUp(){card.style.opacity='';card.style.zIndex='';const body=document.getElementById('sn-body');const ids=[...body.querySelectorAll('.sn-note')].map(c=>parseInt(c.dataset.noteId));const notes=getNotes();saveNotes(ids.map(id=>notes.find(n=>n.id===id)).filter(Boolean));document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp)}document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp)})}
+function makeResizable(card,noteId){const handle=card.querySelector('.sn-resize');let startY=0,startH=0;handle.addEventListener('mousedown',function(e){e.preventDefault();e.stopPropagation();startY=e.clientY;startH=card.offsetHeight;function onMove(ev){card.style.height=Math.max(80,startH+(ev.clientY-startY))+'px'}function onUp(){try{localStorage.setItem('bsa_h_'+noteId,card.offsetHeight);}catch(e){}document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp)}document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp)})}
+function toggleSidebar(){const sb=document.getElementById('sn-sidebar');const tab=document.getElementById('sn-tab');sb.classList.toggle('hidden');tab.textContent=sb.classList.contains('hidden')?'📝 Notes':'◀'}
+let activePopNoteId=null;
+function showPopover(anchorEl,note){const pop=document.getElementById('note-popover');document.getElementById('np-pop-ref').textContent=note.ref!=='—'?'"'+note.ref.substring(0,55)+(note.ref.length>55?'…':'')+'"':'Your note';document.getElementById('np-pop-text').innerHTML=note.text.replace(/\n/g,'<br>');document.getElementById('pop-del-btn').onclick=()=>deleteNote(note.id);activePopNoteId=note.id;const rect=anchorEl.getBoundingClientRect();pop.style.left=Math.min(rect.left,window.innerWidth-300)+'px';pop.style.top=(rect.bottom+8)+'px';pop.classList.add('show')}
+function closePopover(){document.getElementById('note-popover').classList.remove('show');activePopNoteId=null}
+document.addEventListener('click',function(e){const anchor=e.target.closest('.note-anchor');if(anchor){e.stopPropagation();const nid=parseInt(anchor.dataset.noteId);if(activePopNoteId===nid){closePopover();return}const note=getNotes().find(n=>n.id===nid);if(note)showPopover(anchor,note);return}const pop=document.getElementById('note-popover');if(pop&&!pop.contains(e.target))closePopover()});
+const _sections=document.querySelectorAll('.sec[id]');
+const _navLinks=document.querySelectorAll('.toc-a');
+_sections.forEach(s=>new IntersectionObserver(entries=>{if(entries[0].isIntersecting){_navLinks.forEach(l=>l.classList.remove('on'));const lnk=document.querySelector('.toc-a[href="#'+s.id+'"]');if(lnk){lnk.classList.add('on');lnk.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})}}},{rootMargin:'-15% 0px -75% 0px'}).observe(s));
+renderNotes();
+</script>
+</body>
+</html>

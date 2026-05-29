@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Pericardial Disease · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);--hb:rgba(147,197,253,.5);
+  --hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;padding:0 12px;display:flex;align-items:center;white-space:nowrap;border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blu);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.ol{list-style:none;padding:0;margin:6px 0 12px;counter-reset:n}
+.ol li{counter-increment:n;position:relative;padding:4px 0 4px 30px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.ol li::before{content:counter(n);position:absolute;left:0;top:5px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;background:var(--bd);color:var(--t2);width:19px;height:19px;display:flex;align-items:center;justify-content:center;border-radius:3px}
+.ol li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.vs{display:grid;grid-template-columns:1fr 1fr;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px;overflow:hidden}
+.vsh{padding:9px 14px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--bd)}
+.vsh.b{background:#e8effe;color:var(--blu);border-right:1px solid var(--bd)}
+.vsh.r{background:var(--red-l);color:var(--red)}
+.vsb{padding:12px 14px}
+.vsb.br{border-right:1px solid var(--bd)}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0}
+.tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;padding:2px 9px;border-radius:4px;letter-spacing:.04em}
+.t-b{background:var(--blu-l);color:var(--blu);border:1px solid #bfdbfe}
+.t-r{background:var(--red-l);color:var(--red);border:1px solid #fca5a5}
+.t-g{background:var(--grn-l);color:var(--grn);border:1px solid #86efac}
+.t-a{background:var(--amb-l);color:var(--amb);border:1px solid #fde68a}
+.t-p{background:var(--pur-l);color:var(--pur);border:1px solid #ddd6fe}
+.t-t{background:var(--tel-l);color:var(--tel);border:1px solid #a5f3fc}
+.mn{background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:16px 20px;margin:12px 0}
+.mn-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--amb);margin-bottom:7px}
+.mn-w{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--amb);margin-bottom:10px}
+.mn ul{list-style:none;padding:0}
+.mn ul li{font-size:13px;padding:2px 0;color:var(--t2)}
+.mn ul li b{font-family:'Playfair Display',serif;font-size:18px;color:var(--amb);margin-right:5px;font-style:italic}
+details{border:1.5px solid var(--bd);border-radius:7px;margin:8px 0;overflow:hidden}
+summary{display:flex;justify-content:space-between;align-items:center;padding:10px 15px;cursor:pointer;background:var(--sf2);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);list-style:none}
+summary:hover{background:var(--bd)}
+summary::after{content:'▾';font-size:14px}
+details[open] summary::after{content:'▴'}
+details>.db{padding:14px;background:var(--sf)}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-q em{color:var(--tx);font-style:normal;font-weight:600}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.trap-why{font-size:12px;color:var(--t3);margin-top:8px;font-style:italic;line-height:1.55}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc,#summary-btn,#summary-overlay{display:none!important}.main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+
+/* ── SECTION TOGGLE (Notion-style) ── */
+.sec-hd{
+  display:flex;align-items:baseline;gap:12px;
+  margin-bottom:26px;padding-bottom:14px;
+  border-bottom:2.5px solid var(--tx);
+  cursor:pointer;user-select:none;
+  border-radius:4px;
+  transition:opacity .12s;
+}
+.sec-hd:hover{opacity:.8}
+.sec-toggle-arrow{
+  font-size:10px;color:var(--t3);flex-shrink:0;
+  display:inline-block;
+  transition:transform .2s ease;
+  transform:rotate(90deg);
+  margin-top:2px;
+}
+.sec.collapsed .sec-toggle-arrow{transform:rotate(0deg)}
+.sec.collapsed > *:not(.sec-hd){display:none}
+
+/* ── SUMMARY PAGE ───────────────────── */
+#summary-btn{
+  position:fixed;bottom:24px;right:24px;z-index:900;
+  background:var(--blu);color:#fff;border:none;border-radius:50px;
+  padding:12px 22px;font-family:'JetBrains Mono',monospace;font-size:11px;
+  font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;box-shadow:0 4px 18px rgba(30,77,183,.35);
+  transition:background .2s,transform .15s;
+}
+#summary-btn:hover{background:var(--blu-d);transform:translateY(-2px)}
+
+#summary-overlay{
+  position:fixed;inset:0;z-index:1500;
+  background:#f9f8f5;display:none;flex-direction:column;
+}
+#summary-overlay.open{display:flex}
+
+#sum-header{
+  background:#fff;border-bottom:2px solid var(--bd);
+  padding:14px 40px;display:flex;align-items:center;
+  gap:16px;flex-shrink:0;
+}
+#sum-header h2{
+  font-family:'Playfair Display',serif;font-size:20px;font-weight:700;
+  color:var(--tx);
+}
+#sum-badge{
+  font-family:'JetBrains Mono',monospace;font-size:8.5px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--t3);
+}
+#sum-header-actions{display:flex;gap:8px;margin-left:auto;align-items:center}
+.sum-hbtn{
+  font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;
+  border-radius:6px;border:1.5px solid var(--bd2);cursor:pointer;
+  background:var(--bg);color:var(--t2);transition:all .15s;white-space:nowrap;
+}
+.sum-hbtn:hover{background:var(--blu-l);border-color:var(--blu);color:var(--blu)}
+#sum-close{
+  background:var(--red);color:#fff;border:none;border-radius:6px;
+  padding:7px 16px;font-family:'JetBrains Mono',monospace;font-size:8.5px;
+  font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
+  transition:background .15s;
+}
+#sum-close:hover{background:#991b1b}
+
+#sum-body{
+  flex:1;overflow-y:auto;padding:40px;
+  max-width:860px;margin:0 auto;width:100%;
+}
+
+/* ── NOTION TOGGLE BLOCK ─────────── */
+.ntog{
+  border-radius:8px;margin-bottom:10px;
+  background:#fff;border:1.5px solid var(--bd);
+  transition:border-color .15s,box-shadow .15s;
+}
+.ntog:hover{border-color:var(--bd2)}
+.ntog.has-text{border-color:#bfdbfe;box-shadow:0 1px 6px rgba(30,77,183,.07)}
+
+/* Toggle row */
+.ntog-row{
+  display:flex;align-items:center;gap:10px;
+  padding:14px 18px;cursor:pointer;user-select:none;
+  border-radius:8px;transition:background .12s;
+}
+.ntog-row:hover{background:#f5f4f1}
+.ntog.open>.ntog-row{border-bottom:1px solid var(--bd);border-radius:8px 8px 0 0}
+
+/* Notion triangle arrow */
+.ntog-arrow{
+  width:20px;height:20px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:transform .2s ease;color:var(--t3);font-size:11px;
+}
+.ntog.open>.ntog-row>.ntog-arrow{transform:rotate(90deg);color:var(--blu)}
+
+/* Topic number pill */
+.ntog-num{
+  font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.1em;background:var(--sf2);color:var(--t3);
+  padding:2px 7px;border-radius:4px;flex-shrink:0;
+}
+
+/* Title */
+.ntog-title{
+  font-family:'Source Sans 3',sans-serif;font-size:14.5px;font-weight:600;
+  color:var(--tx);flex:1;
+}
+
+/* Character count badge on the row */
+.ntog-chars{
+  font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--grn);
+  background:var(--grn-l);border:1px solid #86efac;border-radius:4px;
+  padding:2px 7px;display:none;
+}
+.ntog.has-text .ntog-chars{display:inline}
+
+/* Inner content — hidden when closed */
+.ntog-content{display:none;padding:0}
+.ntog.open>.ntog-content{display:block}
+
+/* Hint text */
+.ntog-hint{
+  padding:14px 18px 0;font-size:12.5px;color:var(--t3);
+  font-style:italic;line-height:1.6;border-bottom:1px dashed var(--bd);
+  padding-bottom:12px;
+}
+
+/* Textarea wrapper */
+.ntog-write{padding:14px 18px}
+.ntog-ta{
+  width:100%;min-height:140px;padding:14px 16px;
+  border:1.5px solid var(--bd);border-radius:7px;
+  font-family:'Source Sans 3',sans-serif;font-size:13.5px;line-height:1.75;
+  color:var(--tx);background:#fdfdfc;resize:vertical;
+  transition:border-color .2s,box-shadow .2s,min-height .2s;
+}
+.ntog-ta:focus{
+  outline:none;border-color:var(--blu);
+  box-shadow:0 0 0 3px rgba(30,77,183,.08);
+  min-height:200px;background:#fff;
+}
+.ntog-ta::placeholder{color:#c4bfb8;font-style:italic}
+
+.ntog-ta-footer{
+  display:flex;align-items:center;gap:10px;margin-top:8px;
+}
+.ntog-save-msg{
+  font-family:'JetBrains Mono',monospace;font-size:8px;
+  color:var(--grn);letter-spacing:.1em;text-transform:uppercase;
+  opacity:0;transition:opacity .4s;
+}
+.ntog-save-msg.show{opacity:1}
+.ntog-char-count{
+  font-family:'JetBrains Mono',monospace;font-size:8px;
+  color:var(--t3);margin-left:auto;
+}
+
+/* ── REVEAL ANSWER sub-toggle ─────── */
+.ntog-reveal{
+  border-top:1px dashed var(--bd);margin:0 18px 14px;
+  border-radius:6px;overflow:hidden;
+}
+.ntog-reveal-row{
+  display:flex;align-items:center;gap:8px;padding:9px 12px;
+  cursor:pointer;background:var(--amb-l);border-radius:6px;
+  border:1px solid #fde68a;transition:background .12s;user-select:none;
+}
+.ntog-reveal.open>.ntog-reveal-row{border-radius:6px 6px 0 0}
+.ntog-reveal-row:hover{background:#fef3c7}
+.ntog-reveal-arrow{
+  font-size:10px;color:var(--amb);transition:transform .2s;flex-shrink:0;
+}
+.ntog-reveal.open>.ntog-reveal-row>.ntog-reveal-arrow{transform:rotate(90deg)}
+.ntog-reveal-label{
+  font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--amb);
+}
+.ntog-reveal-body{
+  display:none;padding:14px 14px 10px;
+  background:#fff;border:1px solid #fde68a;border-top:none;
+  border-radius:0 0 6px 6px;
+  font-family:'Source Sans 3',sans-serif;font-size:12.5px;
+  line-height:1.7;color:var(--t2);
+}
+.ntog-reveal.open>.ntog-reveal-body{display:block}
+/* Style guide content inside reveal */
+.ntog-reveal-body h2{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--tx);margin:10px 0 6px}
+.ntog-reveal-body h3{font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--blu);margin:10px 0 5px;padding-bottom:3px;border-bottom:1px solid var(--blu-l)}
+.ntog-reveal-body h4{font-size:12px;font-weight:600;color:var(--tx);margin:8px 0 4px}
+.ntog-reveal-body p{margin-bottom:6px;font-size:12.5px}
+.ntog-reveal-body ul{padding-left:14px;margin:4px 0 8px}
+.ntog-reveal-body li{margin-bottom:3px;font-size:12.5px}
+.ntog-reveal-body .co{border-radius:5px;padding:8px 11px;margin:6px 0;font-size:12px;border-left:3px solid}
+.ntog-reveal-body .key{background:var(--blu-l);border-color:var(--blu)}
+.ntog-reveal-body .dan{background:var(--red-l);border-color:var(--red)}
+.ntog-reveal-body .wrn{background:var(--amb-l);border-color:var(--amb)}
+.ntog-reveal-body .prl{background:var(--pur-l);border-color:var(--pur)}
+.ntog-reveal-body .suc{background:var(--grn-l);border-color:var(--grn)}
+.ntog-reveal-body .co-t{font-family:'JetBrains Mono',monospace;font-size:7.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:3px}
+.ntog-reveal-body table{font-size:11px;width:100%;border-collapse:collapse;margin:6px 0}
+.ntog-reveal-body thead th{background:var(--sf2);padding:5px 8px;font-family:'JetBrains Mono',monospace;font-size:7.5px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--bd);text-align:left}
+.ntog-reveal-body tbody td{padding:4px 8px;border-bottom:1px solid var(--bd);vertical-align:top}
+.ntog-reveal-body .sbar,.ntog-reveal-body .trap,.ntog-reveal-body .sep,.ntog-reveal-body .sec-hd{display:none}
+.ntog-reveal-body .g2,.ntog-reveal-body .g3,.ntog-reveal-body .g4{display:block}
+.ntog-reveal-body .card{border:1px solid var(--bd);border-radius:5px;padding:8px 10px;margin-bottom:5px}
+.ntog-reveal-body .vs{display:block;border:1px solid var(--bd);border-radius:5px;overflow:hidden;margin:6px 0}
+.ntog-reveal-body .vsh{padding:5px 10px;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--bd)}
+.ntog-reveal-body .vsh.b{background:#e8effe;color:var(--blu)}
+.ntog-reveal-body .vsh.r{background:var(--red-l);color:var(--red)}
+.ntog-reveal-body .vsb{padding:8px 10px}
+.ntog-reveal-body .mn{background:#fffbeb;border:1px solid #fde68a;border-radius:5px;padding:8px 12px;margin:5px 0}
+.ntog-reveal-body .tw{overflow-x:auto;border:1px solid var(--bd);border-radius:5px;margin:6px 0}
+
+#summary-overlay{
+  position:fixed;inset:0;z-index:1500;
+  background:var(--bg);display:none;flex-direction:column;
+  font-family:'Source Sans 3',sans-serif;
+}
+#summary-overlay.open{display:flex}
+
+#sum-header{
+  background:#fff;border-bottom:2px solid var(--bd);
+  padding:14px 32px;display:flex;align-items:center;gap:18px;flex-shrink:0;
+}
+#sum-header h2{
+  font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--tx);
+  flex:1;
+}
+#sum-badge{
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--t3);
+}
+.sum-hbtn{
+  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;
+  border-radius:6px;border:1.5px solid var(--bd2);cursor:pointer;
+  background:var(--bg);color:var(--t2);transition:all .15s;
+}
+.sum-hbtn:hover{background:var(--blu-l);border-color:var(--blu);color:var(--blu)}
+.sum-hbtn.danger{border-color:#fca5a5;color:var(--red)}
+.sum-hbtn.danger:hover{background:var(--red-l)}
+#sum-close{
+  background:var(--red);color:#fff;border:none;border-radius:6px;
+  padding:7px 16px;font-family:'JetBrains Mono',monospace;font-size:9px;
+  font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
+  transition:background .15s;
+}
+#sum-close:hover{background:#991b1b}
+
+#sum-body{display:flex;flex:1;overflow:hidden;gap:0}
+
+/* Left: prompt list */
+#sum-prompts{
+  width:240px;flex-shrink:0;border-right:1.5px solid var(--bd);
+  background:#fff;overflow-y:auto;padding:16px 0;
+}
+#sum-prompts h3{
+  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--t3);
+  padding:0 16px 10px;border-bottom:1px solid var(--bd);margin-bottom:6px;
+}
+.sum-prompt-btn{
+  display:block;width:100%;text-align:left;padding:9px 16px;border:none;
+  background:none;cursor:pointer;font-family:'Source Sans 3',sans-serif;
+  font-size:12.5px;color:var(--t2);transition:background .12s;border-left:3px solid transparent;
+  line-height:1.45;
+}
+.sum-prompt-btn:hover{background:var(--blu-l);color:var(--blu);border-left-color:var(--blu)}
+.sum-prompt-btn.active{background:var(--blu-l);color:var(--blu);border-left-color:var(--blu);font-weight:600}
+
+/* Centre: writing area */
+#sum-write{
+  flex:1;display:flex;flex-direction:column;padding:28px 36px;overflow-y:auto;
+  min-width:0;
+}
+#sum-prompt-display{
+  font-family:'Playfair Display',serif;font-size:20px;font-weight:700;
+  color:var(--tx);margin-bottom:6px;
+}
+#sum-prompt-hint{
+  font-size:12.5px;color:var(--t3);margin-bottom:18px;font-style:italic;
+}
+#sum-ta{
+  flex:1;width:100%;min-height:320px;padding:18px 20px;
+  border:1.5px solid var(--bd2);border-radius:8px;
+  font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.8;
+  color:var(--tx);background:#fff;resize:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+#sum-ta:focus{outline:none;border-color:var(--blu);box-shadow:0 0 0 3px rgba(30,77,183,.1)}
+#sum-ta::placeholder{color:var(--t3);font-style:italic}
+
+#sum-actions{display:flex;gap:10px;margin-top:14px;align-items:center;flex-wrap:wrap}
+#sum-saved-msg{font-family:'JetBrains Mono',monospace;font-size:9px;
+  color:var(--grn);letter-spacing:.1em;text-transform:uppercase;opacity:0;transition:opacity .4s}
+#sum-saved-msg.show{opacity:1}
+#sum-charcount{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);
+  margin-left:auto;letter-spacing:.05em}
+
+/* Peek toggle button */
+#sum-toggle-guide{
+  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;
+  border-radius:6px;border:1.5px solid var(--grn);cursor:pointer;
+  background:var(--grn-l);color:var(--grn);transition:all .15s;
+}
+#sum-toggle-guide:hover{background:var(--grn);color:#fff}
+#sum-toggle-guide.peeking{background:var(--amb);border-color:var(--amb);color:#fff}
+#sum-toggle-guide.peeking:hover{background:#92400e}
+
+/* Right peek panel — slides in */
+#sum-peek{
+  width:0;flex-shrink:0;overflow:hidden;
+  border-left:0px solid var(--bd);background:#fff;
+  transition:width .3s ease,border-left-width .3s ease;
+  display:flex;flex-direction:column;
+}
+#sum-peek.open{width:46%;border-left-width:2px;}
+#sum-peek-header{
+  padding:12px 20px;border-bottom:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--amb);
+  background:var(--amb-l);display:flex;align-items:center;gap:8px;
+  flex-shrink:0;
+}
+#sum-peek-header span{color:var(--t3);font-size:8px;margin-left:auto}
+#sum-peek-content{
+  flex:1;overflow-y:auto;padding:20px 24px;
+  font-family:'Source Sans 3',sans-serif;font-size:13px;line-height:1.7;color:var(--t2);
+}
+#sum-peek-content h2{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--tx);margin:14px 0 6px}
+#sum-peek-content h3{font-size:9.5px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--blu);margin:12px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--blu-l)}
+#sum-peek-content h4{font-size:12.5px;font-weight:600;color:var(--tx);margin:8px 0 4px}
+#sum-peek-content p{margin-bottom:6px;font-size:12.5px}
+#sum-peek-content ul{padding-left:14px;margin:4px 0 8px}
+#sum-peek-content li{margin-bottom:2px;font-size:12.5px}
+#sum-peek-content .co{border-radius:5px;padding:9px 12px;margin:7px 0;font-size:12px;border-left:3px solid}
+#sum-peek-content .key{background:var(--blu-l);border-color:var(--blu)}
+#sum-peek-content .dan{background:var(--red-l);border-color:var(--red)}
+#sum-peek-content .wrn{background:var(--amb-l);border-color:var(--amb)}
+#sum-peek-content .prl{background:var(--pur-l);border-color:var(--pur)}
+#sum-peek-content .suc{background:var(--grn-l);border-color:var(--grn)}
+#sum-peek-content .co-t{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+#sum-peek-content table{font-size:11px;width:100%;border-collapse:collapse;margin:8px 0}
+#sum-peek-content thead th{background:var(--sf2);padding:5px 8px;font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--bd);text-align:left}
+#sum-peek-content tbody td{padding:4px 8px;border-bottom:1px solid var(--bd);vertical-align:top}
+#sum-peek-content .sbar,.sum-peek-content .trap,.sum-peek-content .sep{display:none}
+#sum-peek-content .g2,#sum-peek-content .g3,#sum-peek-content .g4{display:block}
+#sum-peek-content .card{border:1px solid var(--bd);border-radius:5px;padding:8px 10px;margin-bottom:6px;font-size:12px}
+#sum-peek-content .mn{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:10px 14px;margin:6px 0}
+#sum-peek-content .vs{display:block;border:1px solid var(--bd);border-radius:5px;overflow:hidden;margin:8px 0}
+#sum-peek-content .vsh{padding:6px 10px;font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--bd)}
+#sum-peek-content .vsh.b{background:#e8effe;color:var(--blu)}
+#sum-peek-content .vsh.r{background:var(--red-l);color:var(--red)}
+#sum-peek-content .vsb{padding:8px 10px}
+
+</style>
+</head>
+<body>
+
+<!-- ANNOTATION TOOLBAR -->
+<div id="toolbar">
+  <span class="albl">Annotate</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" title="Clear all" onclick="clearAll()">CLEAR</button>
+</div>
+
+<!-- STICKY NOTE SIDEBAR -->
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 Study Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()" title="Hide panel">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select any text in the guide,<br>write a note below,<br>then click + Add Note.<br><br>Notes appear here as<br>sticky cards you can drag &amp; resize.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<!-- FLOATING SUMMARY BUTTON -->
+<button id="summary-btn" onclick="openSummary()">✏️ Self-Test Summary</button>
+
+<!-- SUMMARY OVERLAY PAGE -->
+<div id="summary-overlay">
+  <div id="sum-header">
+    <div>
+      <div id="sum-badge">Self-Test Mode · Pericardial Disease · Chapter 281</div>
+      <h2>Write From Memory</h2>
+    </div>
+    <div id="sum-header-actions">
+      <button class="sum-hbtn" onclick="expandAll()">Expand All</button>
+      <button class="sum-hbtn" onclick="collapseAll()">Collapse All</button>
+      <button class="sum-hbtn" onclick="clearAllSummaries()">🗑 Clear All</button>
+      <button id="sum-close" onclick="closeSummary()">✕ Back to Guide</button>
+    </div>
+  </div>
+  <div id="sum-body">
+    <div id="sum-list"></div>
+  </div>
+</div>
+
+<!-- NOTE POPOVER -->
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles of Internal Medicine, 22nd Ed · Part 6 · Chapter 281</div>
+  <h1>Pericardial Disease</h1>
+  <div class="hero-sub">Chapter 281 · Medical Boards Review Edition</div>
+  <div class="hero-authors">Joseph Loscalzo</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">85%</div><div class="stat-l">Friction rub audible in acute pericarditis</div></div>
+    <div class="stat-box"><div class="stat-n">4</div><div class="stat-l">Diagnostic features of acute pericarditis</div></div>
+    <div class="stat-box"><div class="stat-n">200 mL</div><div class="stat-l">Min. fluid for rapid tamponade</div></div>
+    <div class="stat-box"><div class="stat-n">&gt;2000 mL</div><div class="stat-l">Slowly developing effusion threshold</div></div>
+    <div class="stat-box"><div class="stat-n">25%</div><div class="stat-l">Risk of recurrent pericarditis</div></div>
+    <div class="stat-box"><div class="stat-n">5–10%</div><div class="stat-l">Pericardiectomy operative mortality</div></div>
+  </div>
+</header>
+
+<!-- STICKY NAV -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Normal Function</a>
+    <a class="toc-a" href="#s2">Acute Pericarditis</a>
+    <a class="toc-a" href="#s3">Treatment</a>
+    <a class="toc-a" href="#s4">Cardiac Tamponade</a>
+    <a class="toc-a" href="#s5">Viral / Idiopathic</a>
+    <a class="toc-a" href="#s6">Differential Diagnosis</a>
+    <a class="toc-a" href="#s7">Chronic Effusions</a>
+    <a class="toc-a" href="#s8">Constrictive Pericarditis</a>
+    <a class="toc-a" href="#s9">Quick Reference</a>
+    <a class="toc-a" href="#exam">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+<!-- SECTION 1: Normal Pericardium -->
+<section class="sec" id="s1">
+  <div class="sec-hd"><span class="sec-n">01</span><h2>Normal Functions of the Pericardium</h2></div>
+  <div class="sub">
+    <h3>Anatomy</h3>
+    <p>The pericardium is a <strong>double-layered sac</strong> consisting of two layers:</p>
+    <ul class="bl">
+      <li><strong>Visceral pericardium:</strong> The inner serous membrane directly touching the heart surface (epicardium).</li>
+      <li><strong>Parietal pericardium:</strong> The outer fibrous layer that encloses the visceral layer.</li>
+      <li><strong>Pericardial space:</strong> Contains 15–50 mL of fluid — an ultrafiltrate of plasma — that lubricates movement between layers.</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Physiologic Functions</h3>
+    <ul class="bl">
+      <li><strong>Restraining force:</strong> Prevents sudden dilation of cardiac chambers, especially the right atrium and right ventricle (e.g., during exercise when venous return surges).</li>
+      <li><strong>Anatomic anchor:</strong> Restricts the anatomic position of the heart within the mediastinum.</li>
+      <li><strong>Barrier function:</strong> Likely retards spread of infection from the lungs and pleural cavities to the heart.</li>
+    </ul>
+    <div class="co key"><div class="co-t">🔑 Clinical Pearl — Total Absence</div>Total congenital or surgical absence of the pericardium does <strong>NOT</strong> produce obvious clinical disease. However, in <strong>partial left pericardial defects</strong>, the main pulmonary artery and left atrium may bulge through — very rarely causing herniation and strangulation of the left atrium, resulting in sudden death.</div>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 2: Acute Pericarditis -->
+<section class="sec" id="s2">
+  <div class="sec-hd"><span class="sec-n">02</span><h2>Acute Pericarditis</h2></div>
+  <p>Acute pericarditis is the <strong>most common pathologic process</strong> involving the pericardium. It has four principal diagnostic features.</p>
+
+  <div class="sub">
+    <h3>Classification by Time</h3>
+    <div class="g3">
+      <div class="card"><div class="clabel c-b">Acute</div><p><strong>&lt;6 weeks</strong><br>Fibrinous or Effusive (serous/sanguineous)</p></div>
+      <div class="card"><div class="clabel c-a">Subacute</div><p><strong>6 weeks – 6 months</strong><br>Effusive-constrictive or Constrictive</p></div>
+      <div class="card"><div class="clabel c-r">Chronic</div><p><strong>&gt;6 months</strong><br>Constrictive or Adhesive (nonconstrictive)</p></div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Etiologic Classification</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">I. Infectious</div>
+        <ul class="bl">
+          <li><strong>Viral (most common):</strong> Coxsackievirus A &amp; B, echovirus, herpesviruses, mumps, adenovirus, hepatitis, HIV, post-acute COVID, mpox</li>
+          <li><strong>Pyogenic:</strong> Pneumococcus, Streptococcus, Staphylococcus, Neisseria, Legionella, Chlamydia</li>
+          <li><strong>Tuberculous</strong></li>
+          <li><strong>Fungal:</strong> Histoplasmosis, coccidioidomycosis, Candida, blastomycosis</li>
+          <li><strong>Other:</strong> Syphilitic, protozoal, parasitic</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">II. Non-Infectious</div>
+        <ul class="bl">
+          <li><strong>Acute idiopathic</strong></li>
+          <li><strong>Renal failure</strong> (uremic pericarditis)</li>
+          <li><strong>Neoplasia:</strong> Primary tumors (mesothelioma); metastatic (lung, breast, lymphoma, leukemia)</li>
+          <li><strong>Trauma:</strong> Penetrating or nonpenetrating chest wall</li>
+          <li><strong>Aortic dissection</strong> with leakage into pericardial sac</li>
+          <li><strong>Acute MI</strong></li>
+          <li><strong>Postirradiation</strong></li>
+          <li><strong>Familial Mediterranean fever</strong> and other autoinflammatory syndromes</li>
+          <li><strong>Metabolic:</strong> Myxedema, cholesterol</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" style="margin-top:10px">
+      <div class="clabel c-p">III. Autoimmune / Drug-Induced</div>
+      <ul class="bl">
+        <li><strong>Rheumatic fever</strong></li>
+        <li><strong>Collagen vascular disease:</strong> SLE, rheumatoid arthritis, ankylosing spondylitis, scleroderma, granulomatosis with polyangiitis, IgG4 disease</li>
+        <li><strong>Drug-induced:</strong> Procainamide, hydralazine, phenytoin, isoniazid, minoxidil, anticoagulants, methysergide</li>
+        <li><strong>Postcardiac injury:</strong> Postpericardiotomy, posttraumatic, post-MI (Dressler's syndrome)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>The 4 Diagnostic Features</h3>
+    <div class="ol">
+      <li>
+        <strong>Chest Pain</strong>
+        <ul class="bl">
+          <li>Often severe, <strong>retrosternal and/or left precordial</strong>, referred to neck, arms, or left shoulder.</li>
+          <li>Frequently <strong>pleuritic</strong> — sharp, worsened by inspiration and coughing (due to accompanying pleural inflammation).</li>
+          <li>Characteristically <strong>intensified by lying supine</strong> and <strong>relieved by sitting up and leaning forward</strong> — a key exam discriminator.</li>
+          <li>May radiate to the trapezius ridge (pathognomonic for pericardial irritation of the diaphragmatic pleura) or into either arm, mimicking ischemia.</li>
+          <li><strong>Pain is often ABSENT</strong> in: slowly developing tuberculous, postirradiation, neoplastic, and uremic pericarditis.</li>
+        </ul>
+        <div class="co wrn"><div class="co-t">⚠ Confusion with AMI</div>
+          Pericarditis can mimic AMI because serum biomarkers of myocardial damage may rise due to concomitant epi-myocarditis. However, elevations are <strong>modest</strong> compared to AMI, despite often extensive ECG ST-segment elevation — this dissociation is the distinguishing key. In AMI, chest pain <strong>precedes</strong> fever; in pericarditis, fever and chest pain develop <strong>simultaneously</strong> (often 10–12 days post-viral illness).
+        </div>
+      </li>
+      <li>
+        <strong>Pericardial Friction Rub</strong>
+        <ul class="bl">
+          <li>Audible at some point in <strong>~85%</strong> of patients with acute pericarditis.</li>
+          <li>May have <strong>up to 3 components per cardiac cycle</strong> — described as rasping, scratching, or grating.</li>
+          <li>Heard most frequently at <strong>end expiration</strong> with the patient <strong>upright and leaning forward</strong>.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>ECG Changes — 4 Stages</strong>
+        <div class="co key"><div class="co-t">🔑 ECG Stage Progression</div>
+          <ul class="bl">
+            <li><strong>Stage 1:</strong> Diffuse <strong>ST-segment elevation</strong> (upward concavity) in leads I, II, aVF, V2–V6 + <strong>PR-segment depression</strong> (reflects atrial injury current — earliest change). Reciprocal changes only in aVR and occasionally V1.</li>
+            <li><strong>Stage 2:</strong> ST segments return to normal (after several days).</li>
+            <li><strong>Stage 3:</strong> T waves become inverted.</li>
+            <li><strong>Stage 4:</strong> ECG returns to normal (weeks to months later).</li>
+          </ul>
+        </div>
+        <div class="co dan"><div class="co-t">🚨 Pericarditis vs AMI — ECG Key</div>
+          In pericarditis: ST elevations are <strong>upwardly concave</strong> (saddle-shaped) and <strong>diffuse</strong>. In AMI: ST elevations are <strong>upwardly convex</strong> and <strong>regional</strong>, with more prominent reciprocal depressions that normalize within 1–2 days.
+        </div>
+      </li>
+      <li>
+        <strong>Pericardial Effusion</strong>
+        <ul class="bl">
+          <li>Usually associated with pain and/or ECG changes above.</li>
+          <li>Large effusions cause <strong>electrical alternans</strong> (alternating QRS amplitude) due to swinging heart motion.</li>
+          <li>Heart sounds may be fainter; friction rub and apex impulse may disappear.</li>
+          <li>Ewart's sign: patch of dullness, increased fremitus, and egophony beneath the angle of the left scapula — due to lung compression by pericardial fluid.</li>
+          <li>Chest X-ray may show "water bottle" cardiac silhouette configuration but may be normal with small effusions.</li>
+          <li>Pericardial effusion is especially important when it develops rapidly — may lead to <strong>cardiac tamponade</strong>.</li>
+        </ul>
+      </li>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnosis</h3>
+    <ul class="bl">
+      <li><strong>Echocardiography (TTE):</strong> Most widely used — sensitive, specific, noninvasive, bedside-capable. Records pericardial fluid as echo-free space between posterior pericardium and LV epicardium, and/or between anterior RV and parietal pericardium under anterior chest wall.</li>
+      <li><strong>CT / MRI:</strong> Superior for detecting <strong>loculated effusions</strong>, pericardial thickening, and pericardial masses. MRI is particularly useful for detecting pericardial inflammation (late gadolinium enhancement).</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Predictors of Poor Prognosis (Hospitalize if Present)</h3>
+    <div class="g4">
+      <div class="card"><div class="clabel c-r">Fever</div><p>Temperature &gt;38°C</p></div>
+      <div class="card"><div class="clabel c-r">Onset</div><p>Subacute onset</p></div>
+      <div class="card"><div class="clabel c-r">Effusion</div><p>Large pericardial effusion</p></div>
+      <div class="card"><div class="clabel c-r">Host</div><p>Immunosuppression</p></div>
+      <div class="card"><div class="clabel c-r">Tamponade</div><p>Evidence of tamponade</p></div>
+      <div class="card"><div class="clabel c-a">Cause</div><p>Suspected TB, neoplasm, bacterial infection</p></div>
+    </div>
+  </div>
+
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+<!-- SECTION 3: Treatment of Acute Pericarditis -->
+<section class="sec" id="s3">
+  <div class="sec-hd"><span class="sec-n">03</span><h2>Treatment — Acute Pericarditis</h2></div>
+
+  <div class="sub">
+    <h3>First-Line: NSAIDs + Colchicine</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">NSAIDs (First-Line)</div>
+        <h4>Mechanism</h4>
+        <p>Inhibit prostaglandin synthesis → reduce inflammation and pain in the pericardium.</p>
+        <h4>Drugs &amp; Doses</h4>
+        <ul class="bl">
+          <li><strong>Aspirin:</strong> 2–4 g/day</li>
+          <li><strong>Ibuprofen:</strong> 600–800 mg three times daily</li>
+          <li><strong>Indomethacin:</strong> 25–50 mg three times daily</li>
+          <li>Always add <strong>gastric protection</strong> (e.g., omeprazole 20 mg/day)</li>
+        </ul>
+        <h4>Duration</h4>
+        <ul class="bl">
+          <li>Continue for <strong>1–2 weeks</strong> then taper over several weeks in responsive patients.</li>
+        </ul>
+        <div class="co dan"><div class="co-t">🚨 Contraindication</div>Anticoagulants should be <strong>avoided</strong> — can cause bleeding into the pericardial cavity and tamponade.</div>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Colchicine (Co-First-Line)</div>
+        <h4>Mechanism</h4>
+        <p>Concentrated in and interferes with the migration of neutrophils → reduces pericardial inflammation and recurrence risk.</p>
+        <h4>Drugs &amp; Doses</h4>
+        <ul class="bl">
+          <li><strong>&lt;70 kg:</strong> 0.5–0.6 mg once daily</li>
+          <li><strong>&gt;70 kg:</strong> 0.5–0.6 mg twice daily</li>
+          <li><strong>Duration: 3 months</strong></li>
+        </ul>
+        <h4>Benefits</h4>
+        <ul class="bl">
+          <li>Enhances response to NSAIDs</li>
+          <li>Reduces risk of <strong>recurrent pericarditis</strong></li>
+        </ul>
+        <h4>Side Effects / Contraindications</h4>
+        <div class="tags">
+          <span class="tag t-r">Diarrhea</span>
+          <span class="tag t-r">GI side effects</span>
+          <span class="tag t-a">Hepatic dysfunction (CI)</span>
+          <span class="tag t-a">Renal dysfunction (CI)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Second-Line: Glucocorticoids</h3>
+    <div class="card">
+      <div class="clabel c-a">Glucocorticoids (Second-Line / Rescue)</div>
+      <h4>Mechanism</h4>
+      <p>Broad anti-inflammatory suppression — usually suppress clinical manifestations of acute pericarditis effectively.</p>
+      <h4>Indication</h4>
+      <ul class="bl">
+        <li>Patients who have <strong>failed or do not tolerate</strong> NSAIDs and colchicine.</li>
+      </ul>
+      <h4>Drugs &amp; Doses</h4>
+      <ul class="bl">
+        <li><strong>Prednisone:</strong> 1 mg/kg/day — give for only <strong>2–4 days</strong>, then taper.</li>
+      </ul>
+      <div class="co dan"><div class="co-t">🚨 Key Caveat</div>Glucocorticoids <strong>increase the risk of subsequent recurrence</strong>. Full-dose corticosteroids should be given for only 2–4 days and then tapered. They are not first-line precisely because they worsen long-term outcomes regarding recurrence.</div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Refractory / Recurrent Pericarditis</h3>
+    <p>For patients with multiple, frequent, disabling recurrences continuing &gt;2 years, not prevented by colchicine and other NSAIDs, and not controlled by glucocorticoids:</p>
+    <ul class="bl">
+      <li><strong>Azathioprine</strong> — reported to be of benefit</li>
+      <li><strong>Anakinra</strong> — an interleukin-1β receptor antagonist; reported benefit in refractory recurrent pericarditis</li>
+      <li><strong>Pericardial stripping</strong> — rarely necessary; may not always terminate recurrences</li>
+    </ul>
+    <div class="co prl"><div class="co-t">💜 Management Setting</div>The <strong>majority</strong> of patients with acute pericarditis can be managed as <strong>outpatients</strong> with careful follow-up. Hospitalize only when specific causes are suspected or poor-prognosis predictors are present.</div>
+  </div>
+
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 4: Cardiac Tamponade -->
+<section class="sec" id="s4">
+  <div class="sec-hd"><span class="sec-n">04</span><h2>Cardiac Tamponade</h2></div>
+  <p>Accumulation of fluid in the pericardial space in a quantity sufficient to cause serious obstruction to ventricular inflow. <strong>May be fatal if not recognized and treated promptly.</strong></p>
+
+  <div class="sub">
+    <h3>Common Causes</h3>
+    <ul class="bl">
+      <li>Idiopathic pericarditis</li>
+      <li>Neoplastic disease</li>
+      <li>Tuberculosis</li>
+      <li>Bleeding: aortic dissection, cardiac operation, trauma, anticoagulant therapy</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Beck's Triad — The 3 Principal Features</h3>
+    <div class="mn">
+      <div class="mn-l">Mnemonic — Beck's Triad</div>
+      <div class="mn-w">HHS</div>
+      <ul>
+        <li><b>H</b>ypotension</li>
+        <li><b>H</b>eart sounds soft or absent</li>
+        <li><b>S</b>ystemic venous distention (JVD) with prominent x descent but <strong>absent y descent</strong></li>
+      </ul>
+    </div>
+    <div class="co key"><div class="co-t">🔑 Fluid Volume Threshold</div>
+      <ul class="bl">
+        <li>Tamponade can occur with as little as <strong>200 mL</strong> when fluid develops <strong>rapidly</strong></li>
+        <li>With slowly developing effusions, the pericardium can stretch to accommodate <strong>&gt;2000 mL</strong> before tamponade occurs</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Paradoxical Pulse</h3>
+    <p>An <strong>inspiratory decline in systolic arterial pressure of &gt;10 mmHg</strong>. Normally, some fall occurs; paradoxical pulse is an exaggeration of this normal finding.</p>
+    <h4>Mechanism</h4>
+    <ul class="bl">
+      <li>Both ventricles share a tight, incompressible covering (pericardial sac).</li>
+      <li>During inspiration, right ventricular filling increases (↑ venous return) → RV enlarges → <strong>leftward bulging of the interventricular septum</strong> → reduces LV volume, stroke volume, and arterial systolic pressure.</li>
+    </ul>
+    <div class="co wrn"><div class="co-t">⚠ Not Specific for Tamponade</div>Paradoxical pulse also occurs in approximately <strong>one-third of patients with constrictive pericarditis</strong>, and in hypovolemic shock, acute and chronic obstructive airway disease, and pulmonary embolism.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Tamponade vs Constrictive Pericarditis — Key Distinctions</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Feature</th><th>Tamponade</th><th>Constrictive Pericarditis</th><th>Restrictive Cardiomyopathy</th></tr></thead>
+        <tbody>
+          <tr><td>Pulsus paradoxus</td><td>+++</td><td>+</td><td>+</td></tr>
+          <tr><td>Prominent y descent (JVP)</td><td>Absent</td><td>+++</td><td>+</td></tr>
+          <tr><td>Prominent x descent (JVP)</td><td>+++</td><td>++</td><td>+++</td></tr>
+          <tr><td>Kussmaul's sign</td><td>Absent</td><td>+++</td><td>+</td></tr>
+          <tr><td>Pericardial knock</td><td>Absent</td><td>++</td><td>Absent</td></tr>
+          <tr><td>Electrical alternans (ECG)</td><td>++</td><td>Absent</td><td>Absent</td></tr>
+          <tr><td>Thickened pericardium (echo/CT)</td><td>Absent</td><td>+++</td><td>Absent</td></tr>
+          <tr><td>Pericardial effusion (echo)</td><td>+++</td><td>Absent</td><td>Absent</td></tr>
+          <tr><td>RV size</td><td>Usually small</td><td>Usually normal</td><td>Usually normal</td></tr>
+          <tr><td>Exaggerated respiratory variation in flow</td><td>+++</td><td>+++</td><td>Absent</td></tr>
+          <tr><td>Equalization of diastolic pressures</td><td>+++</td><td>+++</td><td>Absent</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnosis</h3>
+    <ul class="bl">
+      <li><strong>Echocardiography (emergent):</strong> Prompt diagnosis — Doppler shows tricuspid and pulmonic flow velocities increase markedly during inspiration, while pulmonic vein, mitral, and aortic flow velocities decrease. Late diastolic inward motion (collapse) of the RV free wall and right atrium on 2D echo.</li>
+      <li><strong>Transesophageal echo, CT, or cardiac MRI</strong> may be needed for loculated effusions.</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment: Pericardiocentesis</h3>
+    <div class="co dan"><div class="co-t">🚨 Emergency Treatment</div>If manifestations of tamponade appear, <strong>pericardiocentesis must be carried out at once</strong> — if left untreated, tamponade may be rapidly fatal.</div>
+    <ul class="bl">
+      <li><strong>Approach:</strong> Apical, parasternal, or most commonly <strong>subxiphoid</strong>.</li>
+      <li>Perform under <strong>echocardiographic guidance</strong> whenever possible.</li>
+      <li><strong>IV saline</strong> may be administered while preparing — but do not delay pericardiocentesis.</li>
+      <li>Measure intrapericardial pressure before withdrawing fluid; drain as completely as possible.</li>
+      <li>A small multiholed catheter may be left in place for recurrent fluid.</li>
+      <li><strong>Surgical drainage</strong> (subxiphoid thoracotomy) may be required for recurrent tamponade, loculated effusions, or when tissue is needed for diagnosis.</li>
+    </ul>
+    <h4>Pericardial Fluid Analysis</h4>
+    <ul class="bl">
+      <li>In <strong>developed nations</strong>: bloody fluid most commonly due to neoplasm, renal failure, or cardiac trauma.</li>
+      <li>In <strong>developing nations</strong>: tuberculosis is also a major cause of exudative/bloody effusion.</li>
+      <li>Analyze: RBC, WBC, cytology for neoplastic cells, cultures.</li>
+      <li>Elevated <strong>adenosine deaminase</strong> and/or <em>M. tuberculosis</em> DNA by PCR strongly supports tuberculous pericarditis — but pericardial tissue often needed to confirm.</li>
+    </ul>
+  </div>
+
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+<!-- SECTION 5: Viral / Idiopathic -->
+<section class="sec" id="s5">
+  <div class="sec-hd"><span class="sec-n">05</span><h2>Viral or Idiopathic Acute Pericarditis</h2></div>
+  <p>In many instances, acute pericarditis occurs in association with or following illnesses of known or presumed viral origin. When no viral cause can be established, the term <em>idiopathic acute pericarditis</em> is appropriate.</p>
+
+  <div class="sub">
+    <h3>Epidemiology &amp; Causative Agents</h3>
+    <ul class="bl">
+      <li>Occurs at all ages but <strong>most common in young adult males</strong>.</li>
+      <li>Often associated with pleural effusion and pneumonitis.</li>
+      <li>Causative viruses: <strong>Coxsackievirus A or B</strong>, influenza, echovirus, mumps, herpes simplex, varicella-zoster, adenovirus, cytomegalovirus.</li>
+      <li>Viral isolation and serologic studies are usually negative.</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Features</h3>
+    <ul class="bl">
+      <li><strong>Simultaneous fever and precordial pain</strong>, often 10–12 days after a presumed viral illness — key distinction from AMI (where chest pain precedes fever).</li>
+      <li>Constitutional symptoms usually mild to moderate.</li>
+      <li>Pericardial friction rub often audible.</li>
+      <li>Elevated C-reactive protein and WBC count are common.</li>
+      <li>Disease ordinarily runs its course in a <strong>few days to 4 weeks</strong>.</li>
+      <li>ST-segment alterations usually disappear after 1+ weeks; abnormal T waves may persist for <strong>years</strong> (source of confusion).</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Complications</h3>
+    <div class="g2">
+      <div class="card"><div class="clabel c-r">Most Frequent</div><p><strong>Recurrent (relapsing) pericarditis</strong> — occurs in approximately <strong>one-fourth (25%)</strong> of patients. A smaller number have multiple recurrences.</p></div>
+      <div class="card"><div class="clabel c-a">Less Frequent</div><p>Tamponade and constrictive pericarditis are possible but <strong>infrequent</strong> complications. Accumulation of some pericardial fluid is common.</p></div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Postcardiac Injury Syndrome (Dressler's)</h3>
+    <p>Acute pericarditis appearing after previous injury to the myocardium with blood in the pericardial cavity. Mechanism: hypersensitivity (or autoimmune) reaction to antigens from injured myocardial tissue and/or pericardium.</p>
+    <ul class="bl">
+      <li><strong>Triggers:</strong> Cardiac surgery (postpericardiotomy syndrome), blunt or penetrating cardiac trauma, cardiac catheter perforation, rarely AMI.</li>
+      <li><strong>Timing:</strong> Pain usually develops <strong>1–4 weeks</strong> after cardiac injury.</li>
+      <li><strong>Recurrences:</strong> Common — can occur up to 2 years or more post-injury.</li>
+      <li><strong>Features:</strong> Fever, pleuritis, pneumonitis accompany pericarditis; illness usually subsides in 1–2 weeks.</li>
+      <li><strong>Pericarditis type:</strong> May be fibrinous or pericardial effusion (often serosanguinous; rarely causes tamponade).</li>
+      <li><strong>Treatment:</strong> Often only aspirin and analgesics needed; if severe/recurrent — NSAID, colchicine, or glucocorticoid.</li>
+    </ul>
+    <div class="co prl"><div class="co-t">💜 Differentiation from Idiopathic</div>Postcardiac injury pericarditis is differentiated from acute idiopathic pericarditis primarily by <strong>timing</strong>: occurrence within days to weeks of a chest blow, cardiac perforation, cardiac operation, or AMI.</div>
+  </div>
+
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 6: Differential Diagnosis -->
+<section class="sec" id="s6">
+  <div class="sec-hd"><span class="sec-n">06</span><h2>Differential Diagnosis of Acute Pericarditis</h2></div>
+  <p>Because there is no specific test for acute idiopathic pericarditis, the diagnosis is one of <strong>exclusion</strong>. All other disorders that may be associated with acute fibrinous pericarditis must be considered.</p>
+
+  <div class="sub">
+    <h3>Key Diagnoses to Distinguish</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Acute MI (Most Common Error)</div>
+        <p>A common diagnostic error is mistaking acute viral/idiopathic pericarditis for AMI and vice versa. Key distinctions:</p>
+        <ul class="bl">
+          <li>In pericarditis: fever and pain occur <strong>simultaneously</strong>; ST elevations are <strong>diffuse and concave</strong>; biomarker elevation is <strong>modest</strong></li>
+          <li>In AMI: pain precedes fever; ST elevations are <strong>regional and convex</strong>; biomarkers markedly elevated</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">SLE / Drug-Induced Lupus</div>
+        <p>Most important collagen vascular cause to distinguish. When pericarditis occurs without obvious underlying disorder, SLE may be suggested by:</p>
+        <ul class="bl">
+          <li>Rise in <strong>antinuclear antibody (ANA)</strong> titers</li>
+          <li>Drugs: hydralazine, procainamide (drug-induced lupus)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Pyogenic (Purulent) Pericarditis</div>
+        <p>Usually secondary to:</p>
+        <ul class="bl">
+          <li>Cardiothoracic operations</li>
+          <li>Extension from lungs/pleural cavities</li>
+          <li>Esophageal rupture into pericardial sac</li>
+          <li>Rupture of valvular ring abscess (infective endocarditis)</li>
+          <li>HIV-associated infections</li>
+        </ul>
+        <p>Generally accompanied by fever, chills, septicemia. <strong>Generally poor prognosis. Requires immediate drainage + vigorous antibiotics.</strong></p>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Uremic Pericarditis</div>
+        <p>Occurs in up to <strong>one-third</strong> of patients with severe renal dysfunction. Also seen in patients on chronic dialysis (<em>dialysis-associated pericarditis</em>).</p>
+        <ul class="bl">
+          <li>Friction rub common; pain usually absent or mild</li>
+          <li>Fibrinous; associated with serosanguinous effusions; frank hemorrhage may occur before dialysis</li>
+          <li>Treatment: NSAID + intensification of dialysis</li>
+          <li>Occasionally requires pericardiocentesis</li>
+          <li>If recurrent/persistent: pericardial window or pericardiectomy</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Neoplastic Pericarditis</div>
+        <p>Most common metastatic tumors:</p>
+        <ul class="bl">
+          <li>Carcinoma of the lung and breast</li>
+          <li>Malignant melanoma</li>
+          <li>Lymphoma and leukemia</li>
+        </ul>
+        <p>Complications: pain, tamponade, atrial arrhythmias. Diagnosis by pericardial fluid cytology or pericardial biopsy. Mediastinal irradiation may cause acute or chronic constrictive pericarditis.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Other Collagen Vascular Diseases</div>
+        <p>Rheumatoid arthritis, scleroderma, and polyarteritis nodosa may cause acute pericarditis. Other evidence of these diseases is usually obvious at presentation.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 7: Chronic Pericardial Effusions -->
+<section class="sec" id="s7">
+  <div class="sec-hd"><span class="sec-n">07</span><h2>Chronic Pericardial Effusions</h2></div>
+  <p>Sometimes encountered without an antecedent history of acute pericarditis. May cause few symptoms per se; often detected by finding an <strong>enlarged cardiac silhouette</strong> on chest roentgenogram.</p>
+
+  <div class="sub">
+    <h3>Common Causes</h3>
+    <ul class="bl">
+      <li><strong>Tuberculosis</strong></li>
+      <li><strong>Myxedema</strong> (hypothyroidism)</li>
+      <li>Neoplasms, SLE, rheumatoid arthritis</li>
+      <li>Mycotic infections</li>
+      <li>Radiation therapy to the chest</li>
+      <li>Chylopericardium</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Pericardial Fluid Analysis</h3>
+    <ul class="bl">
+      <li><strong>Grossly sanguineous pericardial fluid</strong> is most commonly due to neoplasm, tuberculosis, renal failure, or slow leakage from an aortic dissection.</li>
+      <li>Aspiration and analysis are often helpful in diagnosis.</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment</h3>
+    <ul class="bl">
+      <li>Pericardiocentesis may resolve large effusions.</li>
+      <li><strong>Pericardiectomy</strong> may be required for recurrence.</li>
+      <li><strong>Intrapericardial instillation of sclerosing agents</strong> may prevent reaccumulation — most commonly used for recurrent neoplastic effusions.</li>
+    </ul>
+  </div>
+
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+<!-- SECTION 8: Chronic Constrictive Pericarditis -->
+<section class="sec" id="s8">
+  <div class="sec-hd"><span class="sec-n">08</span><h2>Chronic Constrictive Pericarditis</h2></div>
+  <p>Results when healing of an acute fibrinous or serofibrinous pericarditis (or resorption of a chronic effusion) is followed by obliteration of the pericardial cavity with granulation tissue formation. The tissue contracts into a <strong>firm scar encasing the heart</strong>, which may calcify.</p>
+
+  <div class="sub">
+    <h3>Etiology</h3>
+    <ul class="bl">
+      <li>In <strong>developing nations:</strong> High percentage are of <strong>tuberculous</strong> origin.</li>
+      <li>In <strong>North America / Western Europe:</strong> Tuberculosis is now an uncommon cause.</li>
+      <li><strong>Other causes:</strong> Acute/relapsing viral or idiopathic pericarditis, trauma with organized blood clot, cardiac surgery, mediastinal irradiation, purulent infection, histoplasmosis, neoplastic disease (breast cancer, lung cancer, lymphoma), rheumatoid arthritis, SLE, chronic renal failure on dialysis.</li>
+      <li>In many patients, the cause is <strong>undetermined</strong> — an asymptomatic or forgotten bout of viral pericarditis may have been the inciting event.</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Pathophysiology</h3>
+    <p>The core abnormality: the rigid, thickened pericardium limits ventricular filling.</p>
+    <div class="vs">
+      <div>
+        <div class="vsh b">Constrictive Pericarditis</div>
+        <div class="vsb br">
+          <ul class="bl">
+            <li>Ventricular filling is <strong>unimpeded during early diastole</strong></li>
+            <li>Filling is reduced <strong>abruptly</strong> when the elastic limit of the pericardium is reached ("square root" sign)</li>
+            <li>y descent is the <strong>most prominent</strong> deflection in JVP — reflects rapid early ventricular filling that is then abruptly halted</li>
+            <li>Atrial pressure pulses display <strong>M-shaped contour</strong> with prominent x AND y descents</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="vsh r">Cardiac Tamponade</div>
+        <div class="vsb">
+          <ul class="bl">
+            <li>Ventricular filling is <strong>impeded throughout diastole</strong></li>
+            <li>y descent is <strong>absent or diminished</strong></li>
+            <li>Prominent x descent</li>
+            <li>Pericardial effusion present</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="co key"><div class="co-t">🔑 Shared Hemodynamics</div>In both constrictive pericarditis and cardiac tamponade: ventricular end-diastolic and stroke volumes are reduced; end-diastolic pressures in both ventricles and mean pressures in atria, pulmonary veins, and systemic veins are all elevated to <strong>similar levels</strong> (within 5 mmHg of one another) — equalization of diastolic pressures. Despite this, systolic function may be normal or only slightly impaired at rest.</div>
+    <p>In advanced cases, the fibrotic process may extend into the myocardium causing myocardial scarring and atrophy, leading to venous congestion from combined pericardial and myocardial lesions.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical &amp; Laboratory Findings</h3>
+    <h4>Symptoms</h4>
+    <ul class="bl">
+      <li>Weakness, fatigue, weight gain</li>
+      <li>Increased abdominal girth, abdominal discomfort, edema</li>
+      <li>Exertional dyspnea (common); orthopnea may occur but usually not severe</li>
+      <li>In advanced cases: anasarca, skeletal muscle wasting, cachexia</li>
+    </ul>
+    <h4>Physical Examination</h4>
+    <ul class="bl">
+      <li><strong>Neck veins:</strong> Distended even after intensive diuresis; may remain distended — Kussmaul's sign (venous pressure fails to decline or rises during inspiration). Characteristic M-shaped JVP waveform.</li>
+      <li><strong>Pulse pressure:</strong> Normal or reduced. Paradoxical pulse in ~one-third of cases.</li>
+      <li><strong>Congestive hepatomegaly:</strong> Pronounced, may impair hepatic function, cause jaundice.</li>
+      <li><strong>Ascites:</strong> Common and usually more prominent than dependent edema — a key distinguishing feature.</li>
+      <li>Pleural effusions and splenomegaly may also be present.</li>
+      <li><strong>Broadbent's sign:</strong> Apical pulse is reduced and may retract in systole.</li>
+      <li><strong>Pericardial knock:</strong> Early third heart sound at cardiac apex — occurs with abrupt cessation of ventricular filling; often conspicuous.</li>
+    </ul>
+    <h4>ECG / CXR</h4>
+    <ul class="bl">
+      <li>ECG: Low voltage QRS, diffuse flattening or inversion of T waves; atrial fibrillation in ~one-third of patients.</li>
+      <li>CXR: Normal or slightly enlarged heart; <strong>pericardial calcification most common in tuberculous pericarditis</strong>. Note: calcification may occur without constriction, and constriction may occur without calcification.</li>
+    </ul>
+    <div class="co wrn"><div class="co-t">⚠ Classic Misdiagnosis</div>Because murmurs and cardiac enlargement may be inconspicuous/absent, <strong>hepatic enlargement and intractable ascites may lead to a mistaken diagnosis of hepatic cirrhosis</strong>. This error can be avoided by inspecting the neck veins — they will be distended with characteristic M-shaped waveform.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Imaging</h3>
+    <ul class="bl">
+      <li><strong>Echocardiography:</strong> Pericardial thickening, dilated IVC and hepatic veins, sharp halt to rapid LV filling in early diastole with normal LV systolic function. Distinctive pattern of exaggerated respiratory variation in transvalvular flow (mitral and tricuspid) by Doppler. Cannot definitively establish or exclude diagnosis.</li>
+      <li><strong>CT and MRI:</strong> More accurate than echo for pericardial thickening. MRI is superior for evaluating myocardial involvement.</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Differential: Constrictive Pericarditis vs Other Causes of Right Heart Failure</h3>
+    <ul class="bl">
+      <li><strong>Cor pulmonale:</strong> Systemic venous hypertension, but advanced parenchymal pulmonary disease is usually apparent and Kussmaul's sign is negative (venous pressure falls during inspiration).</li>
+      <li><strong>Tricuspid stenosis:</strong> Can simulate constriction (hepatomegaly, ascites, venous distention) — but characteristic murmur and accompanying mitral stenosis murmur usually present.</li>
+      <li><strong>Restrictive cardiomyopathy:</strong> Similar pathophysiology — critical distinction because constrictive pericarditis is <strong>surgically correctable</strong>. Use Doppler echo (respiratory variation in transvalvular flow) and CT/MRI.</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment: Pericardiectomy</h3>
+    <div class="card">
+      <div class="clabel c-b">Surgical Treatment</div>
+      <h4>Indication</h4>
+      <p><strong>Pericardial resection (pericardiectomy) is the only definitive treatment</strong> of constrictive pericarditis and should be as complete as possible.</p>
+      <h4>Preoperative workup</h4>
+      <ul class="bl">
+        <li>Coronary arteriography in patients aged <strong>&gt;50 years</strong> to exclude concomitant coronary artery disease.</li>
+      </ul>
+      <h4>Outcomes</h4>
+      <ul class="bl">
+        <li>Benefits from cardiac decortication are usually <strong>progressive over a period of months</strong>.</li>
+        <li><strong>Operative mortality: 5–10%</strong> even in experienced centers.</li>
+        <li>Patients with most severe disease (especially secondary to radiation therapy) are at highest risk.</li>
+        <li>Surgical treatment should be carried out <strong>as early as possible</strong>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Subacute Effusive-Constrictive Pericarditis</h3>
+    <p>Combination of tense effusion in pericardial space AND constriction by thickened pericardium. Shares features with both tamponade and constrictive pericarditis.</p>
+    <ul class="bl">
+      <li><strong>Causes:</strong> Tuberculosis, multiple attacks of idiopathic pericarditis, radiation, traumatic pericarditis, renal failure, scleroderma, neoplasms.</li>
+      <li>After pericardiocentesis, physiologic findings may shift from tamponade to constriction.</li>
+      <li><strong>Diagnosis:</strong> Pericardiocentesis followed by pericardial biopsy.</li>
+      <li><strong>Treatment:</strong> Wide excision of both visceral and parietal pericardium.</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Tuberculous Pericardial Disease</h3>
+    <p>Common cause of chronic pericardial effusion, especially in the developing world where TB and HIV are endemic.</p>
+    <ul class="bl">
+      <li>May present as: pericardial effusion, chronic constrictive pericarditis, or subacute effusive-constrictive pericarditis.</li>
+      <li>Clinical picture: chronic, systemic illness in a patient with pericardial effusion.</li>
+      <li><strong>Consider if:</strong> Known TB, HIV, fever, chest pain, weight loss, enlarged cardiac silhouette of undetermined origin.</li>
+      <li>If diagnosis remains obscure despite detailed analysis: <strong>pericardial biopsy</strong> (preferably by limited thoracotomy). If specimen shows granulomas with caseation → antituberculous chemotherapy.</li>
+      <li>If biopsy shows thickened pericardium after 2–4 weeks of antituberculous therapy → <strong>pericardiectomy</strong> to prevent constriction. Tubercular cardiac constriction should be treated surgically while patient receives antituberculous chemotherapy.</li>
+    </ul>
+  </div>
+
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+<!-- SECTION 9: Quick Reference Table -->
+<section class="sec" id="s9">
+  <div class="sec-hd"><span class="sec-n">09</span><h2>Quick-Reference Master Table</h2></div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Parameter</th><th>Value / Key Fact</th><th>Clinical Significance</th></tr></thead>
+      <tbody>
+        <tr><td>Normal pericardial fluid</td><td>15–50 mL</td><td>Ultrafiltrate of plasma; lubricates movement</td></tr>
+        <tr><td>Pericardial friction rub</td><td>~85% of acute pericarditis</td><td>Up to 3 components/cardiac cycle; end-expiration, sitting forward</td></tr>
+        <tr><td>Pericardial effusion for rapid tamponade</td><td>As little as 200 mL</td><td>Rate of accumulation matters more than volume</td></tr>
+        <tr><td>Pericardial effusion for slow tamponade</td><td>&gt;2000 mL</td><td>Pericardium has time to stretch and adapt</td></tr>
+        <tr><td>Paradoxical pulse threshold</td><td>&gt;10 mmHg inspiratory decline in SBP</td><td>Classic for tamponade; also 1/3 constrictive, COPD, PE</td></tr>
+        <tr><td>Aspirin dose (acute pericarditis)</td><td>2–4 g/day</td><td>1–2 weeks, then taper over several weeks</td></tr>
+        <tr><td>Ibuprofen dose</td><td>600–800 mg TID</td><td>With gastric protection (omeprazole 20 mg/day)</td></tr>
+        <tr><td>Indomethacin dose</td><td>25–50 mg TID</td><td>Alternative NSAID</td></tr>
+        <tr><td>Colchicine dose (&lt;70 kg)</td><td>0.5–0.6 mg once daily × 3 months</td><td>Reduces recurrence; inhibits neutrophil migration</td></tr>
+        <tr><td>Colchicine dose (&gt;70 kg)</td><td>0.5–0.6 mg twice daily × 3 months</td><td>Colchicine CI: hepatic or renal dysfunction</td></tr>
+        <tr><td>Prednisone (second-line)</td><td>1 mg/kg/day × 2–4 days then taper</td><td>Increases recurrence risk — not first-line</td></tr>
+        <tr><td>Uremic pericarditis prevalence</td><td>Up to 1/3 of severe renal dysfunction</td><td>Intensify dialysis; NSAID; rarely pericardiocentesis</td></tr>
+        <tr><td>Recurrent pericarditis rate</td><td>~25% (1 in 4 patients)</td><td>Most frequent complication of viral/idiopathic</td></tr>
+        <tr><td>Postcardiac injury pain onset</td><td>1–4 weeks after injury</td><td>Recurrences up to 2+ years post-injury</td></tr>
+        <tr><td>Atrial fibrillation in constrictive pericarditis</td><td>~1/3 of patients</td><td>ECG low voltage + diffuse T-wave changes</td></tr>
+        <tr><td>Pericardiectomy operative mortality</td><td>5–10%</td><td>Even in experienced centers; highest in radiation-induced</td></tr>
+        <tr><td>Coronary arteriography pre-pericardiectomy</td><td>Age &gt;50 years</td><td>Exclude concomitant CAD before surgery</td></tr>
+        <tr><td>Equalization of diastolic pressures</td><td>Within 5 mmHg of one another</td><td>Occurs in both tamponade AND constrictive pericarditis</td></tr>
+        <tr><td>Elevated adenosine deaminase in pericardial fluid</td><td>Strongly supports TB pericarditis</td><td>Also use PCR for M. tuberculosis DNA</td></tr>
+        <tr><td>Anakinra mechanism</td><td>IL-1β receptor antagonist</td><td>Used in refractory recurrent pericarditis &gt;2 years</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sub">
+    <h3>High-Yield Distinctions</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Pericarditis ECG vs AMI ECG</div>
+        <ul class="bl">
+          <li>Pericarditis: <strong>Diffuse, concave-up</strong> ("saddle-shaped") ST elevation; PR depression; no reciprocal changes except aVR/V1</li>
+          <li>AMI: <strong>Regional, convex-up</strong> ST elevation; prominent reciprocal depressions; normalizes within 1–2 days</li>
+          <li>Pericarditis biomarkers rise modestly (epi-myocarditis) — dissociation from ST elevation extent is key</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Tamponade vs Constrictive</div>
+        <ul class="bl">
+          <li>Tamponade: y descent <strong>absent</strong>; electrical alternans; pericardial effusion</li>
+          <li>Constrictive: y descent <strong>prominent</strong>; pericardial knock; Kussmaul's sign; pericardial thickening/calcification</li>
+          <li>Both: equalized diastolic pressures; pulsus paradoxus (more prominent in tamponade)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Sitting Forward — Why It Works</div>
+        <p>Sitting up and leaning forward moves the heart away from the parietal pericardium → reduces friction rub intensity and relieves pericardial chest pain. Lying supine increases contact → worsens pain. This positional change is <strong>pathognomonic</strong> for pericardial origin of chest pain.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Ewart's Sign</div>
+        <p>Patch of dullness, increased fremitus, and egophony beneath the angle of the left scapula — due to compression of the base of the left lung by pericardial fluid. Seen with <strong>large pericardial effusions</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- EXAM TRAPS -->
+<section class="sec" id="exam">
+  <div class="sec-hd"><span class="sec-n">★</span><h2>Exam Traps</h2></div>
+  <p>Expert board exam coaching — Stage A Internal Medicine Boards. Each trap shows exactly how the question is framed and the reasoning to the correct answer.</p>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">Pericarditis Mistaken for STEMI</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 24-year-old male presents with 2 days of sharp chest pain that <em>worsens when he lies flat and improves when he leans forward</em>. He had a "cold" 10 days ago. ECG shows diffuse ST elevations in leads I, II, aVF, V2–V6 with PR-segment depression. Troponin is mildly elevated at 0.8 ng/mL. The next best step is:</div>
+      <div class="trap-a"><strong>Correct Answer: Treat for acute pericarditis with aspirin/NSAIDs + colchicine (NOT emergent cath lab activation)</strong><br>The clinical picture is classic viral pericarditis: young male, post-viral illness, pleuritic positional chest pain, diffuse concave ST elevations, PR depression, and MILD troponin elevation (epi-myocarditis). Troponin elevation in pericarditis is modest despite extensive ECG changes — this dissociation distinguishes it from STEMI.</div>
+      <div class="trap-why">⚠ Trap: Students activate the cath lab because of ST elevations + troponin elevation. The key discriminators are: (1) diffuse vs regional ST changes, (2) concave vs convex morphology, (3) PR depression, (4) positional/pleuritic nature, (5) post-viral timing. Board keyword: <strong>"leaning forward relieves pain"</strong></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Anticoagulation in Pericarditis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 55-year-old with known atrial fibrillation is started on warfarin for stroke prophylaxis. Two weeks later he develops chest pain and a pericardial friction rub. Echo shows a small pericardial effusion. He is diagnosed with acute pericarditis. Should anticoagulation be continued?</div>
+      <div class="trap-a"><strong>Correct Answer: Anticoagulants should be AVOIDED in acute pericarditis — they increase the risk of bleeding into the pericardial cavity and cardiac tamponade.</strong><br>The decision to anticoagulate in the setting of pericarditis must be carefully weighed, and the textbook states anticoagulants should be avoided due to risk of hemopericardium and tamponade.</div>
+      <div class="trap-why">⚠ Trap: Students continue warfarin because "he has AF and needs stroke prevention." The board answer prioritizes tamponade prevention. Board keyword: <strong>"anticoagulants → tamponade"</strong></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Corticosteroids Increase Recurrence</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 30-year-old woman with acute pericarditis has failed ibuprofen due to intractable GI side effects. She cannot tolerate any NSAIDs. You begin prednisone 1 mg/kg/day. For how long should full-dose corticosteroids be maintained?</div>
+      <div class="trap-a"><strong>Correct Answer: Full-dose corticosteroids should be given for only 2–4 days, then tapered — because they INCREASE the risk of subsequent recurrence.</strong><br>Glucocorticoids are second-line because while they effectively suppress acute inflammation, they paradoxically increase the likelihood of recurrent pericarditis. Rapid tapering limits this risk.</div>
+      <div class="trap-why">⚠ Trap: Students answer "2–4 weeks" extrapolating from other inflammatory conditions. Board keyword: <strong>"glucocorticoids increase recurrence"</strong></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Absent y Descent — Tamponade vs Constrictive</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 67-year-old man with known lung cancer presents with progressive dyspnea, hypotension, muffled heart sounds, and marked jugular venous distension. JVP waveform inspection reveals a <em>prominent x descent but an absent y descent</em>. Echocardiography confirms a large pericardial effusion with right atrial collapse. The diagnosis is:</div>
+      <div class="trap-a"><strong>Correct Answer: Cardiac Tamponade</strong><br>Beck's triad: hypotension, muffled heart sounds, elevated JVP. Absent y descent is the hallmark of tamponade — there is no early diastolic filling because the fluid compresses the ventricles throughout diastole. In constrictive pericarditis, the y descent is prominent (rapid early filling then abrupt halt).</div>
+      <div class="trap-why">⚠ Trap: Students confuse prominent x descent with tamponade's distinguishing feature. The <strong>absent y descent</strong> is the key. In constrictive pericarditis: prominent y descent. Board keyword: <strong>"absent y descent = tamponade"</strong></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Volume Threshold for Tamponade</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A trauma patient develops cardiac tamponade with <em>200 mL of pericardial blood</em> after a stab wound. A chronic cancer patient has <em>2500 mL of pericardial fluid</em> but no signs of tamponade. How do you explain this discrepancy?</div>
+      <div class="trap-a"><strong>Correct Answer: The RATE of accumulation determines tamponade, not the absolute volume.</strong><br>When fluid accumulates rapidly (as in trauma), even 200 mL can cause tamponade because the pericardium has no time to stretch. In slowly developing effusions, the pericardium gradually adapts, allowing over 2000 mL to accumulate before hemodynamic compromise occurs.</div>
+      <div class="trap-why">⚠ Trap: Students focus on volume thresholds rather than rate of accumulation. Board keyword: <strong>"rate matters more than volume"</strong></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Constrictive Pericarditis Mimicking Cirrhosis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 58-year-old male with a history of tuberculosis treated 15 years ago presents with progressive ascites, hepatomegaly, jaundice, and anasarca. Liver function tests are mildly elevated. He appears chronically ill. Ultrasound shows a large amount of ascites with no liver cirrhosis. The most likely diagnosis is:</div>
+      <div class="trap-a"><strong>Correct Answer: Chronic Constrictive Pericarditis</strong><br>The classic mimicry trap — hepatic congestion from elevated systemic venous pressure in constrictive pericarditis causes hepatomegaly, jaundice, and ascites that dominate the clinical picture. The key clue is the history of TB and the finding of <strong>distended neck veins</strong> with Kussmaul's sign (venous pressure doesn't fall with inspiration). Echo would show thickened pericardium.</div>
+      <div class="trap-why">⚠ Trap: Students diagnose cirrhosis given the ascites + hepatomegaly + jaundice triad. Always inspect the neck veins! Board keyword: <strong>"TB history + ascites + distended neck veins = constrictive pericarditis"</strong></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Colchicine Contraindication</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 45-year-old with recurrent pericarditis and a serum creatinine of 3.8 mg/dL is started on colchicine 0.5 mg twice daily. Three days later, he develops severe diarrhea and hepatic transaminases are markedly elevated. What went wrong?</div>
+      <div class="trap-a"><strong>Correct Answer: Colchicine is contraindicated in hepatic or renal dysfunction — it should not have been used in this patient with severe chronic kidney disease.</strong><br>Colchicine causes diarrhea and GI side effects even in normal patients; in renal/hepatic dysfunction, accumulation leads to severe toxicity. The drug must be avoided in these populations.</div>
+      <div class="trap-why">⚠ Trap: Students use colchicine because it's "first-line" without checking for contraindications. Board keyword: <strong>"colchicine contraindicated — hepatic or renal dysfunction"</strong></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">Kussmaul's Sign — Where NOT Expected</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 52-year-old presents with dyspnea, elevated JVP, and hepatomegaly. During inspiration, the jugular venous pressure <em>rises further</em> rather than falling. Which of the following diagnoses does this finding NOT support?</div>
+      <div class="trap-a"><strong>Correct Answer: Cardiac Tamponade — Kussmaul's sign is ABSENT in tamponade.</strong><br>Kussmaul's sign (JVP rises or fails to decline during inspiration) is present in constrictive pericarditis, restrictive cardiomyopathy, and right ventricular infarction. It is characteristically ABSENT in cardiac tamponade. This is a high-yield distinction.</div>
+      <div class="trap-why">⚠ Trap: Students list tamponade as a cause of elevated JVP without remembering Kussmaul's sign is specifically absent there. Board keyword: <strong>"Kussmaul's sign absent in tamponade"</strong></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">PR Depression — Earliest ECG Change</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 19-year-old presents with 1 day of chest pain and low-grade fever after a URI 2 weeks ago. His ECG shows mild PR-segment depression in multiple leads but no clear ST-segment elevation yet. What does this ECG finding represent and what is the next step?</div>
+      <div class="trap-a"><strong>Correct Answer: PR depression is the EARLIEST ECG change in acute pericarditis, reflecting atrial injury current — it may precede ST-segment elevation. Treat for acute pericarditis.</strong><br>Stage 1 ECG changes in pericarditis include both ST elevation AND PR depression (atrial injury). PR depression may occur before ST changes and is a highly specific sign of pericarditis when diffuse.</div>
+      <div class="trap-why">⚠ Trap: Students wait for ST elevation before diagnosing pericarditis. PR depression alone in the right clinical context is an early marker of pericarditis. Board keyword: <strong>"PR depression = earliest ECG change in pericarditis"</strong></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Pericardiectomy Timing</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 60-year-old with chronic constrictive pericarditis from prior mediastinal radiation has progressive heart failure. His cardiologist says surgery is the only cure. The surgeon recommends waiting until the patient is "sicker" to justify the risk. What is the correct approach?</div>
+      <div class="trap-a"><strong>Correct Answer: Surgical treatment (pericardiectomy) should be carried out as EARLY as possible — patients with the most severe disease have the highest operative mortality (5–10%).</strong><br>The risk of pericardiectomy depends on extent of myocardial involvement by the fibrotic process, severity of myocardial atrophy, and secondary hepatic/renal impairment. Waiting leads to worse outcomes. Radiation-induced constrictive pericarditis carries the highest surgical risk of all causes.</div>
+      <div class="trap-why">⚠ Trap: Students assume more severe disease = more justification = better timing. In constrictive pericarditis, the opposite is true — operate early before myocardial atrophy and organ damage occur. Board keyword: <strong>"pericardiectomy — earlier is better"</strong></div>
+    </div>
+  </div>
+
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+
+</main>
+<footer class="footer">Chapter 281 · Pericardial Disease · Harrison's Principles of Internal Medicine 22nd Ed · Boards Review · 2026</footer>
+<script>
+let curColor  = null;
+let eraseMode = false;
+let selText   = '';
+let savedRange = null;
+
+function setHL(c) {
+  curColor  = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  const map = {y:'h-y', g:'h-g', b:'h-b', p:'h-p', o:'h-o'};
+  document.getElementById(map[c]).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem('bsa_pericardial_notes'); } catch(e) {}
+  renderNotes();
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  curColor = null; eraseMode = false;
+}
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    return;
+  }
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+  if (curColor) {
+    try {
+      const range = sel.getRangeAt(0);
+      const span  = document.createElement('span');
+      span.className = 'hl hl-' + curColor;
+      span.title = 'Click in erase mode to remove';
+      range.surroundContents(span);
+      sel.removeAllRanges();
+    } catch(err) {}
+  }
+});
+
+const STORE_KEY = 'bsa_pericardial_notes';
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); }
+  catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 80) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+    } catch(e) {}
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body  = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    const savedH = localStorage.getItem('bsa_h_' + note.id);
+    if (savedH) card.style.height = savedH + 'px';
+    card.innerHTML = `
+      <div class="sn-note-hd">
+        <span class="sn-drag-icon">⠿</span>
+        <span class="sn-note-ref">${note.ref !== '—' ? '"' + note.ref + '"' : 'General note'}</span>
+        <button class="sn-del" onclick="deleteNote(${note.id})">×</button>
+      </div>
+      <div class="sn-note-body">${note.text.replace(/\n/g,'<br>')}</div>
+      <div class="sn-resize" title="Drag to resize"></div>
+    `;
+    body.appendChild(card);
+    makeDraggable(card);
+    makeResizable(card, note.id);
+  });
+}
+
+function makeDraggable(card) {
+  const handle = card.querySelector('.sn-note-hd');
+  let startY = 0;
+  handle.addEventListener('mousedown', function(e) {
+    if (e.target.classList.contains('sn-del')) return;
+    e.preventDefault();
+    startY = e.clientY;
+    card.style.opacity = '.7';
+    card.style.zIndex = '9999';
+    card.style.position = 'relative';
+    function onMove(ev) {
+      const dy = ev.clientY - startY;
+      const b = document.getElementById('sn-body');
+      const cards = [...b.querySelectorAll('.sn-note')];
+      const myIdx = cards.indexOf(card);
+      if (dy < -30 && myIdx > 0) { b.insertBefore(card, cards[myIdx - 1]); startY = ev.clientY; }
+      else if (dy > 30 && myIdx < cards.length - 1) { b.insertBefore(cards[myIdx + 1], card); startY = ev.clientY; }
+    }
+    function onUp() {
+      card.style.opacity = ''; card.style.zIndex = ''; card.style.position = '';
+      const b = document.getElementById('sn-body');
+      const ids = [...b.querySelectorAll('.sn-note')].map(c => parseInt(c.dataset.noteId));
+      const ns = getNotes();
+      saveNotes(ids.map(id => ns.find(n => n.id === id)).filter(Boolean));
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      try { localStorage.setItem('bsa_h_' + noteId, card.offsetHeight); } catch(e) {}
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+function toggleSidebar() {
+  const sb  = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0,55) + (note.ref.length>55?'…':'') + '"' : 'Your note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g,'<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top  = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+
+document.addEventListener('click', function(e) {
+  const anchor = e.target.closest('.note-anchor');
+  if (anchor) {
+    e.stopPropagation();
+    const nid = parseInt(anchor.dataset.noteId);
+    if (activePopNoteId === nid) { closePopover(); return; }
+    const note = getNotes().find(n => n.id === nid);
+    if (note) showPopover(anchor, note);
+    return;
+  }
+  const pop = document.getElementById('note-popover');
+  if (pop && !pop.contains(e.target)) closePopover();
+});
+
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s =>
+  new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      _navLinks.forEach(l => l.classList.remove('on'));
+      const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+      if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' }); }
+    }
+  }, { rootMargin:'-15% 0px -75% 0px' }).observe(s)
+);
+
+/* ══ NOTION TOGGLE SUMMARY SYSTEM ═══ */
+const SUM_KEY = 'bsa_pericardial_summary_';
+
+/* Map each prompt index to a guide section id */
+const PROMPT_SECTION_MAP = ['s1','s2','s2','s2','s3','s4','s4','s4','s5','s6','s8','s8','s8','s8',''];
+
+const PROMPTS = [
+  { title: 'Normal Pericardium',              section: 's1', hint: 'Describe the anatomy, normal fluid volume, and 3 main functions. Include partial vs total absence significance.' },
+  { title: 'Acute Pericarditis — 4 Features', section: 's2', hint: 'List all 4 diagnostic features. For chest pain: quality, radiation, relieving/worsening positions. When is pain absent?' },
+  { title: 'ECG Changes — 4 Stages',          section: 's2', hint: 'All 4 ECG stages. What makes ST elevation differ from AMI? Earliest change? Which leads?' },
+  { title: 'Etiologic Classification',         section: 's2', hint: 'The 3 major categories with examples. Most common viruses? Drugs that cause pericarditis?' },
+  { title: 'Treatment — Acute Pericarditis',   section: 's3', hint: 'Full treatment ladder: drugs, doses, duration, colchicine by weight, why steroids are second-line, what to avoid, refractory options.' },
+  { title: 'Cardiac Tamponade',                section: 's4', hint: 'Pathophysiology, causes, fluid volumes for rapid vs slow tamponade, Beck\'s triad, pericardiocentesis protocol.' },
+  { title: "Beck's Triad & Paradoxical Pulse", section: 's4', hint: "Beck's triad. Paradoxical pulse: definition, threshold, mechanism, other conditions where it occurs." },
+  { title: 'Tamponade vs Constrictive',        section: 's4', hint: 'Compare JVP waveform (x & y descents), Kussmaul\'s sign, ECG, echo, effusion, equalization of diastolic pressures.' },
+  { title: 'Viral / Idiopathic Pericarditis',  section: 's5', hint: 'Demographics, fever + pain timing vs AMI, most frequent complication + incidence, Postcardiac Injury Syndrome (timing, mechanism, treatment).' },
+  { title: 'Differential Diagnosis',           section: 's6', hint: 'Distinguish: pericarditis from AMI, uremic pericarditis, pyogenic pericarditis, neoplastic, SLE-related.' },
+  { title: 'Constrictive Pericarditis — Patho',section: 's8', hint: 'Core physiologic abnormality. Filling pattern vs tamponade. Square root sign. Atrial waveform. Advanced disease.' },
+  { title: 'Constrictive — Clinical Findings', section: 's8', hint: "Symptoms, physical signs (Kussmaul's, Broadbent's, pericardial knock, JVP), classic misdiagnosis, ECG, imaging." },
+  { title: 'Pericardiectomy',                  section: 's8', hint: 'Only definitive treatment. Pre-op workup. Risk factors. Operative mortality. Timing principle.' },
+  { title: 'Tuberculous Pericarditis',         section: 's8', hint: 'Populations affected. Presentations. Diagnostic workup. When to do pericardiectomy. Role of antituberculous therapy.' },
+  { title: 'Free Summary — Everything',        section: '',   hint: 'Write a full summary of the entire chapter from memory: normal pericardium → acute pericarditis → tamponade → constrictive pericarditis → high-yield distinctions.' },
+];
+
+/* ── BUILD TOGGLE LIST ─────────────── */
+function buildSummaryList() {
+  const list = document.getElementById('sum-list');
+  list.innerHTML = '';
+  PROMPTS.forEach((p, i) => {
+    const saved = (() => { try { return localStorage.getItem(SUM_KEY + i) || ''; } catch(e){ return ''; } })();
+    const chars = saved.length;
+    const hasText = chars > 0;
+
+    /* Guide HTML for the reveal panel */
+    const guideHTML = getGuideHTML(p.section);
+
+    const block = document.createElement('div');
+    block.className = 'ntog' + (hasText ? ' has-text' : '');
+    block.dataset.idx = i;
+    block.innerHTML = `
+      <div class="ntog-row" onclick="toggleBlock(this.parentElement)">
+        <span class="ntog-arrow">▶</span>
+        <span class="ntog-num">${String(i+1).padStart(2,'0')}</span>
+        <span class="ntog-title">${p.title}</span>
+        ${hasText ? `<span class="ntog-chars">${chars} chars</span>` : ''}
+      </div>
+      <div class="ntog-content">
+        <div class="ntog-hint">${p.hint}</div>
+        <div class="ntog-write">
+          <textarea class="ntog-ta" data-idx="${i}"
+            placeholder="Write your summary here from memory…"
+            oninput="onToggleInput(this)">${escHtml(saved)}</textarea>
+          <div class="ntog-ta-footer">
+            <span class="ntog-save-msg">Saved ✓</span>
+            <span class="ntog-char-count">${chars > 0 ? chars.toLocaleString() + ' chars' : ''}</span>
+          </div>
+        </div>
+        <div class="ntog-reveal">
+          <div class="ntog-reveal-row" onclick="toggleReveal(this.parentElement,event)">
+            <span class="ntog-reveal-arrow">▶</span>
+            <span class="ntog-reveal-label">▸ Reveal Answer from Guide</span>
+          </div>
+          <div class="ntog-reveal-body">${guideHTML}</div>
+        </div>
+      </div>`;
+    list.appendChild(block);
+  });
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function getGuideHTML(sectionId) {
+  if (!sectionId) {
+    let html = '';
+    document.querySelectorAll('section.sec[id]').forEach(sec => {
+      if (sec.id !== 'exam') html += sec.innerHTML;
+    });
+    return html;
+  }
+  const sec = document.getElementById(sectionId);
+  return sec ? sec.innerHTML : '<p>See the guide for this section.</p>';
+}
+
+/* ── TOGGLE OPEN / CLOSE ───────────── */
+function toggleBlock(block) {
+  block.classList.toggle('open');
+  if (block.classList.contains('open')) {
+    const ta = block.querySelector('.ntog-ta');
+    if (ta) { ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); }
+  }
+}
+
+function toggleReveal(panel, e) {
+  e.stopPropagation();
+  panel.classList.toggle('open');
+}
+
+/* ── AUTOSAVE ON INPUT ─────────────── */
+const _saveTimers = {};
+function onToggleInput(ta) {
+  const idx = parseInt(ta.dataset.idx);
+  const val = ta.value;
+  const block = ta.closest('.ntog');
+  const footer = ta.nextElementSibling;
+  const charEl = footer.querySelector('.ntog-char-count');
+  const saveEl = footer.querySelector('.ntog-save-msg');
+  const badgeEl = block.querySelector('.ntog-chars');
+
+  /* Update char count */
+  const len = val.length;
+  charEl.textContent = len > 0 ? len.toLocaleString() + ' chars' : '';
+
+  /* Update badge in header row */
+  if (len > 0) {
+    block.classList.add('has-text');
+    if (badgeEl) { badgeEl.textContent = len.toLocaleString() + ' chars'; }
+    else {
+      const newBadge = document.createElement('span');
+      newBadge.className = 'ntog-chars';
+      newBadge.textContent = len.toLocaleString() + ' chars';
+      block.querySelector('.ntog-row').appendChild(newBadge);
+    }
+  } else {
+    block.classList.remove('has-text');
+    if (badgeEl) badgeEl.remove();
+  }
+
+  /* Debounced save */
+  clearTimeout(_saveTimers[idx]);
+  _saveTimers[idx] = setTimeout(() => {
+    try { localStorage.setItem(SUM_KEY + idx, val); } catch(e) {}
+    saveEl.classList.add('show');
+    setTimeout(() => saveEl.classList.remove('show'), 1600);
+  }, 900);
+}
+
+/* ── GLOBAL CONTROLS ───────────────── */
+function expandAll() {
+  document.querySelectorAll('.ntog').forEach(b => b.classList.add('open'));
+}
+function collapseAll() {
+  document.querySelectorAll('.ntog').forEach(b => { b.classList.remove('open'); });
+  document.querySelectorAll('.ntog-reveal').forEach(r => r.classList.remove('open'));
+}
+function clearAllSummaries() {
+  if (!confirm('Clear ALL your written summaries? This cannot be undone.')) return;
+  PROMPTS.forEach((_,i) => { try { localStorage.removeItem(SUM_KEY + i); } catch(e){} });
+  buildSummaryList();
+}
+
+/* ── OPEN / CLOSE PAGE ─────────────── */
+function openSummary() {
+  document.getElementById('summary-overlay').classList.add('open');
+  buildSummaryList();
+}
+function closeSummary() {
+  document.getElementById('summary-overlay').classList.remove('open');
+}
+
+/* ── SECTION TOGGLE INIT ─────────── */
+document.querySelectorAll('section.sec[id]').forEach(sec => {
+  const hd = sec.querySelector('.sec-hd');
+  if (!hd) return;
+  const arrow = document.createElement('span');
+  arrow.className = 'sec-toggle-arrow';
+  arrow.textContent = '▶';
+  hd.insertBefore(arrow, hd.firstChild);
+  hd.addEventListener('click', () => sec.classList.toggle('collapsed'));
+});
+
+renderNotes();
+</script>
+</body>
+</html>

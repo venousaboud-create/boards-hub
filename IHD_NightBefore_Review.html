@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="he" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>IHD Night-Before Review · Boards Stage A</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7;transition:margin-right .25s}
+body.sidebar-open{margin-right:var(--snw)}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transform:translateX(100%);transition:transform .25s}
+#sn-sidebar.open{transform:translateX(0)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;letter-spacing:.1em;text-transform:uppercase;box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.open ~ #sn-tab{right:var(--snw)}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:14px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:40px;font-weight:900;line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-bottom:16px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;padding:0 12px;display:flex;align-items:center;white-space:nowrap;border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:920px;margin:0 auto;padding:44px 52px 88px}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blu);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.ol{list-style:none;padding:0;margin:6px 0 12px;counter-reset:n}
+.ol li{counter-increment:n;position:relative;padding:4px 0 4px 30px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.ol li::before{content:counter(n);position:absolute;left:0;top:5px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;background:var(--bd);color:var(--t2);width:19px;height:19px;display:flex;align-items:center;justify-content:center;border-radius:3px}
+.ol li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p,.card ul{font-size:12.5px;margin-bottom:0}
+.vs{display:grid;grid-template-columns:1fr 1fr;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px;overflow:hidden}
+.vsh{padding:9px 14px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--bd)}
+.vsh.b{background:#e8effe;color:var(--blu);border-right:1px solid var(--bd)}
+.vsh.r{background:var(--red-l);color:var(--red)}
+.vsh.g{background:var(--grn-l);color:var(--grn)}
+.vsb{padding:12px 14px;font-size:13px;color:var(--t2)}
+.vsb.br{border-right:1px solid var(--bd)}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0}
+.tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;padding:2px 9px;border-radius:4px;letter-spacing:.04em}
+.t-b{background:var(--blu-l);color:var(--blu);border:1px solid #bfdbfe}
+.t-r{background:var(--red-l);color:var(--red);border:1px solid #fca5a5}
+.t-g{background:var(--grn-l);color:var(--grn);border:1px solid #86efac}
+.t-a{background:var(--amb-l);color:var(--amb);border:1px solid #fde68a}
+.t-p{background:var(--pur-l);color:var(--pur);border:1px solid #ddd6fe}
+.t-t{background:var(--tel-l);color:var(--tel);border:1px solid #a5f3fc}
+details{border:1.5px solid var(--bd);border-radius:7px;margin:8px 0;overflow:hidden}
+summary{display:flex;justify-content:space-between;align-items:center;padding:11px 16px;cursor:pointer;background:var(--sf2);font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;color:var(--t2);list-style:none;user-select:none}
+summary:hover{background:#e8e4dd}
+summary::after{content:'▾';font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--t3);margin-left:8px;flex-shrink:0}
+details[open] summary::after{content:'▴'}
+details>.db{padding:16px;background:var(--sf)}
+.mn{background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:16px 20px;margin:12px 0}
+.mn-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--amb);margin-bottom:7px}
+.mn-w{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--amb);margin-bottom:10px}
+.mn ul{list-style:none;padding:0}
+.mn ul li{font-size:13px;padding:2px 0;color:var(--t2)}
+.mn ul li b{font-family:'Playfair Display',serif;font-size:18px;color:var(--amb);margin-right:5px;font-style:italic}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:14px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-q em{color:var(--tx);font-style:italic;font-weight:600}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.trap-why{font-size:12px;color:var(--t3);margin-top:8px;font-style:italic;line-height:1.55}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+.pill-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.pill{display:inline-flex;align-items:center;gap:4px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;padding:3px 10px;border-radius:100px;border:1.5px solid}
+.pill-r{background:var(--red-l);color:var(--red);border-color:#fca5a5}
+.pill-g{background:var(--grn-l);color:var(--grn);border-color:#86efac}
+.pill-b{background:var(--blu-l);color:var(--blu);border-color:#bfdbfe}
+.pill-a{background:var(--amb-l);color:var(--amb);border-color:#fde68a}
+.pill-p{background:var(--pur-l);color:var(--pur);border-color:#ddd6fe}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}.main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<!-- ANNOTATION TOOLBAR -->
+<div id="toolbar">
+  <span class="albl">Annotate</span>
+  <div class="hbtn" id="h-y" onclick="setHL('y')" title="Yellow"></div>
+  <div class="hbtn" id="h-g" onclick="setHL('g')" title="Green"></div>
+  <div class="hbtn" id="h-b" onclick="setHL('b')" title="Blue"></div>
+  <div class="hbtn" id="h-p" onclick="setHL('p')" title="Pink"></div>
+  <div class="hbtn" id="h-o" onclick="setHL('o')" title="Orange"></div>
+  <div class="tsep"></div>
+  <button class="tbtn" onclick="setErase()" title="Erase">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<!-- STICKY NOTE SIDEBAR -->
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select any text in the guide, write a note, and click + Add Note. Notes appear here as draggable cards.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Type your note here…" rows="3"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<!-- NOTE POPOVER -->
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Harrison's Ch. 284–286 · Internal Medicine Boards · Stage A · 29-Question Rapid Review</div>
+  <h1>IHD Night-Before<br>Review</h1>
+  <div class="hero-sub">Stable Angina · Vasospastic · NSTE-ACS · STEMI · All 29 Questions Covered</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">7–10</div><div class="stat-l">Troponin Days</div></div>
+    <div class="stat-box"><div class="stat-n">≤90'</div><div class="stat-l">FMC-Device PCI</div></div>
+    <div class="stat-box"><div class="stat-n">PR&gt;0.24</div><div class="stat-l">BB Contraindication</div></div>
+    <div class="stat-box"><div class="stat-n">2%/yr</div><div class="stat-l">SVG Occlusion (Yr 5–7)</div></div>
+    <div class="stat-box"><div class="stat-n">EF≤35%</div><div class="stat-l">ICD Threshold</div></div>
+    <div class="stat-box"><div class="stat-n">1 Week</div><div class="stat-l">Post-STEMI Activity</div></div>
+  </div>
+</div>
+
+<!-- STICKY NAV -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#biomarkers">Biomarkers</a>
+    <a class="toc-a" href="#ett">Stress Test</a>
+    <a class="toc-a" href="#drugs-angina">Angina Drugs</a>
+    <a class="toc-a" href="#vasospastic">Vasospastic</a>
+    <a class="toc-a" href="#revascularization">PCI vs CABG</a>
+    <a class="toc-a" href="#nste-antiischemic">NSTE Anti-Ischemic</a>
+    <a class="toc-a" href="#nste-antiplatelet">NSTE Antiplatelet</a>
+    <a class="toc-a" href="#nste-anticoag">NSTE Anticoag</a>
+    <a class="toc-a" href="#nste-invasive">NSTE Invasive Strategy</a>
+    <a class="toc-a" href="#stemi-acute">STEMI Acute Rx</a>
+    <a class="toc-a" href="#stemi-complications">STEMI Complications</a>
+    <a class="toc-a" href="#stemi-secondary">Secondary Prevention</a>
+    <a class="toc-a" href="#drug-classes">Drug Classification</a>
+    <a class="toc-a" href="#quick-ref">Quick Reference</a>
+    <a class="toc-a" href="#traps">★ Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 1: BIOMARKERS
+════════════════════════════════════════════════════ -->
+<section class="sec" id="biomarkers">
+  <div class="sec-hd">
+    <span class="sec-n">01</span>
+    <h2>Cardiac Biomarkers</h2>
+  </div>
+
+  <div class="co key"><div class="co-t">🔑 Board Anchor</div>
+    After MI, <strong>troponin remains elevated for 7–10 days</strong> — this is comparable to CK elevation in duration but far more specific. Troponin is preferred because it has cardiac-specific sequences (cTnT and cTnI) and shows rises 20–50× the upper reference limit in STEMI.
+  </div>
+
+  <details open>
+    <summary>Troponin Kinetics — What You MUST Know</summary>
+    <div class="db">
+      <div class="tw"><table>
+        <thead><tr><th>Biomarker</th><th>Rises</th><th>Peaks</th><th>Returns to Normal</th><th>Key Use</th></tr></thead>
+        <tbody>
+          <tr><td>hsTroponin (cTnI/T)</td><td>1–3h post-symptom</td><td>12–24h</td><td><strong>7–10 days</strong></td><td>NSTEMI/STEMI diagnosis; gold standard</td></tr>
+          <tr><td>CK-MB</td><td>4–6h</td><td>18–24h</td><td>48–72h</td><td>Re-infarction detection (faster decline)</td></tr>
+          <tr><td>Myoglobin</td><td>1–2h</td><td>4–6h</td><td>18–24h</td><td>Not cardiac-specific; rarely used</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="co dan"><div class="co-t">⚠ Myocardial Injury ≠ MI</div>
+        Troponin &gt;99th percentile <strong>without</strong> clinical context (symptoms + ECG) = <strong>Myocardial Injury</strong>, NOT MI.<br>
+        Common non-MI causes: sepsis, PE, CKD, myocarditis, Takotsubo, stroke/SAH, strenuous exercise, chemotherapy, CKD.
+      </div>
+
+      <div class="co prl"><div class="co-t">💜 1-Hour Rule-Out Algorithm</div>
+        For NSTE-ACS: hsTn must be <strong>non-elevated at BOTH 0h AND 1h</strong> to safely rule out NSTEMI. A single negative troponin is NEVER sufficient.
+      </div>
+
+      <div class="co suc"><div class="co-t">✓ Earlier Troponin Peak = Reperfusion Success</div>
+        In STEMI treated with PCI or fibrinolytics: an <strong>earlier-than-expected troponin peak</strong> (rapid washout from interstitium) suggests successful reperfusion of the infarct-related artery.
+      </div>
+    </div>
+  </details>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 2: EXERCISE STRESS TEST
+════════════════════════════════════════════════════ -->
+<section class="sec" id="ett">
+  <div class="sec-hd">
+    <span class="sec-n">02</span>
+    <h2>Exercise Stress Test (ETT)</h2>
+  </div>
+
+  <div class="co key"><div class="co-t">🔑 Core Principle</div>
+    ETT (Exercise Treadmill Test) is the best initial investigation for intermediate pre-test probability patients who <strong>can exercise</strong> and have an <strong>interpretable baseline ECG</strong>. When ECG is uninterpretable or patient cannot exercise → add imaging (nuclear, stress echo, CMR).
+  </div>
+
+  <details open>
+    <summary>Criteria for POSITIVE ETT — Memorize These</summary>
+    <div class="db">
+      <p>A positive ETT requires <strong>ischemic ST changes</strong>, not just symptoms. The key criteria are:</p>
+      <ul class="bl">
+        <li><strong>Horizontal or downsloping ST depression ≥0.1 mV (1 mm)</strong>, measured at J+0.08s (80ms after J-point) — this is the gold standard criterion</li>
+        <li>ST depression ≥0.2 mV (2 mm) in any lead = strongly positive</li>
+        <li>SBP drop &gt;10 mmHg during exercise (hemodynamic compromise)</li>
+        <li>Development of ventricular tachyarrhythmia during exercise</li>
+        <li>Symptoms + any of the above = highest specificity</li>
+      </ul>
+      <div class="co wrn"><div class="co-t">⚠ What Does NOT Make ETT Positive</div>
+        <ul class="bl">
+          <li><strong>Upsloping ST</strong> at 0.1 mV from baseline is <strong>NOT considered positive</strong> — it has very low specificity</li>
+          <li><strong>Atrial flutter/fibrillation</strong> appearing during exercise = NOT a positive test for ischemia</li>
+          <li>Blood pressure drop (alone, without ST changes)</li>
+          <li>Non-specific ST changes in the absence of ≥1 mm horizontal/downsloping depression</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>False Negatives — When ETT Misses Ischemia</summary>
+    <div class="db">
+      <div class="co dan"><div class="co-t">🚨 Circumflex Territory = Classic False Negative</div>
+        The <strong>left circumflex (LCX) territory</strong> (posterolateral wall) is <strong>not well represented on the standard 12-lead ECG</strong>. Isolated LCX disease can cause significant ischemia with completely normal ST changes on ETT → <strong>false negative</strong>.<br><br>
+        <strong>Solution:</strong> Add imaging modality (nuclear SPECT, stress echo, or cardiac MRI) when intermediate/high pretest probability despite negative ETT — especially in women and those with possible circumflex disease.
+      </div>
+      <div class="g2">
+        <div class="card"><div class="clabel c-r">Causes of False Negative ETT</div>
+          <ul class="bl">
+            <li>Isolated circumflex territory disease (most common)</li>
+            <li>Submaximal exercise (didn't achieve target HR)</li>
+            <li>Single-vessel disease with small territory</li>
+            <li>Anti-ischemic medication masking response</li>
+          </ul>
+        </div>
+        <div class="card"><div class="clabel c-a">ECG Non-Interpretable → Can't Use ETT Alone</div>
+          <ul class="bl">
+            <li>LBBB</li>
+            <li>WPW pattern</li>
+            <li>Paced rhythm</li>
+            <li>≥1 mm resting ST depression</li>
+            <li>LV hypertrophy with repolarization abnormalities</li>
+            <li>Digitalis effect</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Prognostic Significance — High vs Good Prognosis Findings</summary>
+    <div class="db">
+      <div class="vs">
+        <div>
+          <div class="vsh r">Poor Prognosis Features</div>
+          <div class="vsb br">
+            <ul class="bl">
+              <li><strong>Increased lung uptake</strong> on nuclear scan (↑ pulmonary congestion)</li>
+              <li>Large or multiple perfusion defects</li>
+              <li>↓ LV EF during exercise on echo/radionuclide</li>
+              <li>Unable to complete Stage II Bruce (&lt;6 min)</li>
+              <li>ST depression ≥1 mm before Stage II completion</li>
+              <li>ST depression ≥2 mm at any stage</li>
+              <li>ST depression persisting &gt;5 min post-exercise</li>
+              <li>SBP drop &gt;10 mmHg during exercise</li>
+              <li>VT during exercise</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="vsh g">Good Prognosis Features</div>
+          <div class="vsb">
+            <ul class="bl">
+              <li><strong>Completing Stage III Bruce</strong> without ischemia</li>
+              <li>Normal perfusion scan or negative stress echo</li>
+              <li>Normal LV function throughout test</li>
+              <li>No hemodynamic compromise</li>
+            </ul>
+            <div class="co suc"><div class="co-t">✓ Board Key</div>
+              A 50-year-old <strong>symptomatic man with typical angina</strong> who has a <strong>positive ETT</strong> (≥1 mm downsloping ST depression) has approximately <strong>98% probability of obstructive CAD</strong> — the test is confirming very high pre-test probability. In this setting, the test adds minimal diagnostic value (Bayes' theorem) but is important for prognosis and treatment planning.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 3: ANGINA DRUGS
+════════════════════════════════════════════════════ -->
+<section class="sec" id="drugs-angina">
+  <div class="sec-hd">
+    <span class="sec-n">03</span>
+    <h2>Stable Angina — Drug Therapy</h2>
+  </div>
+
+  <div class="co dan"><div class="co-t">🚨 High-Yield Rule</div>
+    <strong>Nitrates are NOT indicated for silent ischemia without symptoms</strong> (CAD present, no angina). They are purely symptomatic agents. Beta-blockers and statins address prognosis and risk reduction in asymptomatic CAD.
+  </div>
+
+  <details open>
+    <summary>Nitrates — Mechanism, Doses, Tolerance, Contraindications</summary>
+    <div class="db">
+      <div class="sub"><h3>Mechanism</h3></div>
+      <ul class="bl">
+        <li>Metabolized → releases <strong>NO</strong> → activates guanylyl cyclase → ↑ cGMP → vascular smooth muscle relaxation</li>
+        <li><strong>Venodilation</strong> → ↓ LVEDV/LVEDP → ↓ wall tension → ↓ MVO₂ (primary effect)</li>
+        <li>Dilation of epicardial coronary arteries and collaterals (↑ supply)</li>
+        <li>Antithrombotic: NO-mediated ↓ intraplatelet Ca²⁺ → ↓ platelet aggregation</li>
+      </ul>
+      <div class="tw"><table>
+        <thead><tr><th>Preparation</th><th>Dose</th><th>Key Notes</th></tr></thead>
+        <tbody>
+          <tr><td>SL NTG tablet/spray</td><td>0.3–0.6 mg PRN</td><td>Up to 3 doses, 5 min apart; also <strong>prophylactic</strong> before exercise</td></tr>
+          <tr><td>NTG ointment 2%</td><td>0.5–2 inches q8h</td><td>Nitrate-free interval overnight</td></tr>
+          <tr><td>NTG transdermal patch</td><td>0.2–0.8 mg/h</td><td><strong>Remove at bedtime</strong> for 10–12h nitrate-free interval</td></tr>
+          <tr><td>Isosorbide dinitrate</td><td>10–40 mg 2–3×/d</td><td>Eccentric schedule (not equal spacing)</td></tr>
+          <tr><td>Isosorbide 5-mononitrate SR</td><td>30–240 mg once daily</td><td>Most convenient long-acting oral</td></tr>
+        </tbody>
+      </table></div>
+      <div class="co dan"><div class="co-t">⚠ Nitrate Tolerance</div>
+        Maintain <strong>10–12 hour nitrate-free interval daily</strong>. Continuous exposure depletes intracellular thiols → tolerance. Remove patch at bedtime. This is why continuous-wear patches fail.
+      </div>
+      <div class="co dan"><div class="co-t">⚠ Nitrate Contraindications — Know All</div>
+        <ul class="bl">
+          <li>SBP &lt;90 mmHg (hypotension)</li>
+          <li><strong>RV infarction</strong> (depends on preload — nitrates → cardiovascular collapse)</li>
+          <li>PDE-5 inhibitors: <strong>Sildenafil/Vardenafil within 24h</strong>, <strong>Tadalafil within 48h</strong></li>
+          <li>Severe aortic stenosis</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>Beta-Blockers — Selectivity, Doses, Dangers</summary>
+    <div class="db">
+      <div class="sub"><h3>Mechanism</h3></div>
+      <p>Competitive antagonism of β adrenoceptors → ↓ HR, ↓ arterial pressure, ↓ contractility → ↓ MVO₂. Effect most prominent <strong>during exercise</strong>. ↓ Mortality and reinfarction post-MI.</p>
+
+      <div class="co dan"><div class="co-t">🚨 NEVER Stop Abruptly</div>
+        Sudden discontinuation → rebound adrenergic stimulation → ↑↑ HR, ↑ MVO₂ → intensified ischemia → MI. <strong>Taper over ≥2 weeks</strong> when discontinuing.
+      </div>
+
+      <div class="tw"><table>
+        <thead><tr><th>Drug</th><th>Selectivity</th><th>Dose (Angina)</th><th>Key Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Metoprolol</td><td>β₁-selective</td><td>50–200 mg BID</td><td>Preferred in mild asthma/COPD or DM</td></tr>
+          <tr><td>Atenolol</td><td>β₁-selective</td><td>50–200 mg/d</td><td>Preferred in mild asthma/COPD or DM</td></tr>
+          <tr><td>Bisoprolol</td><td>β₁-selective</td><td>10 mg/d</td><td>Most selective</td></tr>
+          <tr><td><strong>Propranolol</strong></td><td><strong>Non-selective (β₁+β₂)</strong></td><td>80–120 mg BID</td><td>Blocks β₁ (heart) AND β₂ (bronchi, glucose). Not safe in asthma or insulin-dependent DM</td></tr>
+          <tr><td>Carvedilol</td><td>Non-selective (β₁+β₂+α₁)</td><td>6.25–25 mg BID</td><td>Also blocks α → additional vasodilation</td></tr>
+          <tr><td>Labetalol</td><td>Non-selective (β+α)</td><td>200–600 mg BID</td><td>IV form used in hypertensive urgency</td></tr>
+          <tr><td>Nebivolol</td><td>β₁-selective</td><td>5–40 mg/d</td><td>Also produces NO-mediated vasodilation</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="g2">
+        <div class="card"><div class="clabel c-r">Relative Contraindications to BB</div>
+          <ul class="bl">
+            <li>Asthma / active bronchospasm</li>
+            <li>Significant AV conduction disturbances</li>
+            <li>Severe bradycardia (&lt;50 bpm)</li>
+            <li>Raynaud's phenomenon</li>
+            <li>History of depression</li>
+          </ul>
+        </div>
+        <div class="card"><div class="clabel c-a">Absolute BB Contraindications in STEMI/NSTE-ACS</div>
+          <ul class="bl">
+            <li><strong>PR interval &gt;0.24 seconds (0.24s)</strong></li>
+            <li>2nd or 3rd degree AV block</li>
+            <li>HR &lt;50 bpm</li>
+            <li>SBP &lt;90 mmHg</li>
+            <li><strong>Acute/severe heart failure</strong> (pulmonary edema, Killip III/IV)</li>
+            <li>Cardiogenic shock</li>
+            <li>Active bronchospasm</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Calcium Channel Blockers — DHP vs Non-DHP, Combinations</summary>
+    <div class="db">
+      <div class="vs">
+        <div>
+          <div class="vsh b">Dihydropyridines (DHP)</div>
+          <div class="vsb br">
+            <p><strong>Drugs:</strong> Amlodipine, felodipine, nicardipine, nifedipine SR</p>
+            <ul class="bl">
+              <li>Potent peripheral vasodilators</li>
+              <li>Minimal negative inotropy</li>
+              <li><strong>SAFE to combine with beta-blockers</strong></li>
+              <li>Good for angina + hypertension</li>
+              <li>Vasospastic angina responds very well</li>
+              <li><strong>Short-acting nifedipine IR: AVOID</strong> — reflex tachycardia → ↑ MVO₂ → may precipitate MI</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="vsh r">Non-Dihydropyridines (Non-DHP)</div>
+          <div class="vsb">
+            <p><strong>Drugs:</strong> Verapamil, Diltiazem</p>
+            <ul class="bl">
+              <li>Significant negative chronotropy and inotropy</li>
+              <li>Slow AV conduction</li>
+              <li><strong>Verapamil + Beta-blocker = ABSOLUTELY AVOID</strong> → severe bradycardia, AV block, acute HF</li>
+              <li>Diltiazem + Beta-blocker: acceptable <em>only</em> if normal LV function and no conduction disturbances</li>
+              <li>Can worsen LV failure</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="co prl"><div class="co-t">💜 When to Choose CCB Over BB</div>
+        <ul class="bl">
+          <li>Inadequate response to BB + nitrate combination</li>
+          <li>Asthma or COPD (use DHP CCB)</li>
+          <li>Significant AV conduction disturbances (use DHP CCB)</li>
+          <li><strong>Vasospastic (Prinzmetal) angina</strong> — CCBs are first-line</li>
+          <li>Symptomatic peripheral arterial disease</li>
+          <li>Ischemic heart disease without structural disease + HF signs: <strong>Verapamil + metoprolol = most dangerous combination</strong></li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Ranolazine — Late INa Inhibitor</summary>
+    <div class="db">
+      <p><strong>Mechanism:</strong> Inhibits late inward Na⁺ current (late Iₙₐ) → limits Na⁺-mediated Ca²⁺ overload → ↓ diastolic wall stiffness → improves perfusion. Does NOT significantly lower HR or BP.</p>
+      <p><strong>Dose:</strong> 500–1000 mg twice daily. Start at 500 mg BID.</p>
+      <div class="co dan"><div class="co-t">⚠ Key Drug Interactions (CYP3A Inhibitors)</div>
+        Diltiazem, verapamil, ketoconazole, macrolides, HIV protease inhibitors, grapefruit juice — all <strong>↑ ranolazine plasma levels → QTc prolongation</strong>. If adding diltiazem, reduce ranolazine to 500 mg BID.
+      </div>
+      <p><strong>Contraindications:</strong> Hepatic impairment, significant QTc prolongation.</p>
+    </div>
+  </details>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 4: VASOSPASTIC ANGINA
+════════════════════════════════════════════════════ -->
+<section class="sec" id="vasospastic">
+  <div class="sec-hd">
+    <span class="sec-n">04</span>
+    <h2>Vasospastic Angina (Prinzmetal's)</h2>
+  </div>
+
+  <div class="co key"><div class="co-t">🔑 Classic Presentation</div>
+    <strong>Young patient</strong> (fewer CV risk factors), rest pain especially at <strong>night or early morning</strong>, <strong>ST elevation</strong> (not depression!) during episodes, episodes self-terminate. ECG normalizes between attacks. Coronary angiography: <strong>focal spasm</strong> ± proximal plaque; spasm in ~50% without significant stenosis.
+  </div>
+
+  <details open>
+    <summary>Key Distinguishing Features — vs NSTE-ACS</summary>
+    <div class="db">
+      <div class="vs">
+        <div>
+          <div class="vsh b">Vasospastic Angina</div>
+          <div class="vsb br">
+            <ul class="bl">
+              <li><strong>Younger</strong> patients, fewer risk factors</li>
+              <li>Cigarette smoking = main risk factor</li>
+              <li>Pain at <strong>rest</strong>, classic nocturnal pattern</li>
+              <li>ECG: <strong>ST ELEVATION</strong> (transient)</li>
+              <li>Associated with Raynaud's, migraine</li>
+              <li>Troponin: may be slightly elevated during prolonged spasm, but not typical pattern</li>
+              <li>Provocation: acetylcholine or hyperventilation</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="vsh r">NSTE-ACS</div>
+          <div class="vsb">
+            <ul class="bl">
+              <li>Older patients, multiple CV risk factors</li>
+              <li>Pain with exertion or rest</li>
+              <li>ECG: <strong>ST depression</strong> or T-wave changes</li>
+              <li>Troponin elevated (NSTEMI)</li>
+              <li>No vasospastic associations</li>
+              <li>Plaque rupture/erosion mechanism</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>Treatment — CCBs First-Line, Aspirin Caution</summary>
+    <div class="db">
+      <ul class="ol">
+        <li><strong>Calcium Channel Blockers — FIRST-LINE</strong>: Prevent coronary smooth muscle contraction. Both DHP (amlodipine) and non-DHP (diltiazem, verapamil) effective. High doses often needed.</li>
+        <li><strong>Nitrates</strong>: Effective for acute spasm relief (SL NTG). Long-term efficacy limited by nitrate tolerance — cannot rely as sole therapy.</li>
+        <li><strong>Statins</strong>: Shown to reduce major adverse events in vasospastic angina.</li>
+        <li><strong>Aspirin: USE WITH CAUTION</strong> — may <em>increase severity</em> of ischemic episodes by inhibiting prostacyclin synthesis (prostacyclin normally opposes vasoconstriction). Only use aspirin if significant concurrent atherosclerosis is present.</li>
+      </ul>
+      <div class="co dan"><div class="co-t">🚨 Beta-Blockers in Vasospastic Angina</div>
+        Beta-blockers have <strong>variable response</strong> in vasospastic angina and are <strong>NOT first-line</strong>. Non-selective BB (propranolol) may worsen vasospasm by blocking β₂-mediated vasodilation. CCBs are always preferred.
+      </div>
+      <div class="co prl"><div class="co-t">💜 Beta-Blockers in Acute Decompensated HF</div>
+        A separate but commonly tested concept: Beta-blockers (even β₁-selective) have <strong>negative inotropic and chronotropic effects</strong>. In <strong>acute decompensated heart failure (acute pulmonary edema)</strong>, they can worsen cardiac output. Use with extreme caution; the acute setting is a relative contraindication. Beta-blockers are started at very low doses only when patient is stable/compensated.
+      </div>
+    </div>
+  </details>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 5: PCI vs CABG
+════════════════════════════════════════════════════ -->
+<section class="sec" id="revascularization">
+  <div class="sec-hd">
+    <span class="sec-n">05</span>
+    <h2>Coronary Revascularization — PCI vs CABG</h2>
+  </div>
+
+  <div class="co key"><div class="co-t">🔑 Guiding Principle</div>
+    In <strong>stable IHD</strong>, revascularization is for <strong>symptom relief</strong>, NOT to reduce MI or mortality (ISCHEMIA trial). In ACS (especially STEMI), early PCI reduces mortality.
+  </div>
+
+  <details open>
+    <summary>Prefer CABG Over PCI — The Indications</summary>
+    <div class="db">
+      <ul class="bl">
+        <li><strong>Left main coronary artery stenosis &gt;50%</strong> — most critical; CABG improves survival</li>
+        <li><strong>3-vessel disease</strong> — especially if EF &lt;35% (greatest survival benefit)</li>
+        <li><strong>2-vessel disease with proximal LAD involvement</strong> — especially with ↓ EF or diabetes</li>
+        <li><strong>T2DM + multivessel CAD</strong> — CABG + optimal medical therapy &gt; PCI for death, MI, and repeat revascularization</li>
+        <li>Lesions anatomically unsuitable for PCI (small diffuse disease, complex bifurcation)</li>
+        <li>Hibernating myocardium with LV dysfunction (viable tissue → revascularization restores function)</li>
+      </ul>
+      <div class="co suc"><div class="co-t">✓ Exception: When PCI is Preferred Over CABG</div>
+        <ul class="bl">
+          <li>1- or 2-vessel disease without proximal LAD, normal LV — PCI appropriate</li>
+          <li>Left main + <strong>proximal LAD disease</strong> → PCI is acceptable (not required to go CABG)</li>
+          <li>Poor surgical candidate (high operative risk) → PCI even if anatomy favors CABG</li>
+          <li>Patient preference for less invasive procedure (when anatomy is suitable for PCI)</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>CABG Outcomes — Numbers to Memorize</summary>
+    <div class="db">
+      <div class="tw"><table>
+        <thead><tr><th>Outcome</th><th>Number/Rate</th></tr></thead>
+        <tbody>
+          <tr><td>Operative mortality (appropriate candidates)</td><td>&lt;1%</td></tr>
+          <tr><td>Angina abolished/greatly reduced</td><td>~90% of patients</td></tr>
+          <tr><td><strong>Saphenous vein graft (SVG) occlusion — First postoperative year</strong></td><td><strong>10–20%</strong></td></tr>
+          <tr><td><strong>SVG occlusion rate — Years 5–7</strong></td><td><strong>~2%/year</strong></td></tr>
+          <tr><td><strong>SVG occlusion rate — After year 7</strong></td><td><strong>~4%/year</strong></td></tr>
+          <tr><td>Return to work (patients)</td><td>2–4 weeks (uncomplicated)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="co prl"><div class="co-t">💜 Why IMA Graft is Superior to SVG</div>
+        Internal mammary artery (IMA) → LAD anastomosis: <strong>much better long-term patency</strong> than saphenous vein graft. The IMA is a living conduit with anti-atherogenic properties. SVG progressively occludes due to atherosclerosis. IMA graft to LAD → <strong>better survival</strong> than SVG → LAD.
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Post-DES Treatment — DAPT Protocol</summary>
+    <div class="db">
+      <div class="co key"><div class="co-t">🔑 DES = Drug-Eluting Stent</div>
+        After DES implantation, patients require <strong>dual antiplatelet therapy (DAPT)</strong> to prevent in-stent thrombosis:<br>
+        <strong>Aspirin + P2Y₁₂ inhibitor (clopidogrel OR prasugrel OR ticagrelor) for ideally 12 months</strong><br><br>
+        The most commonly asked combination: <strong>Aspirin + Clopidogrel</strong> OR <strong>Aspirin + Prasugrel</strong> (prasugrel is more potent, preferred in ACS with planned PCI).
+      </div>
+      <ul class="bl">
+        <li>DES has <strong>delayed endothelialization</strong> → prolonged risk of subacute/late stent thrombosis</li>
+        <li>Restenosis rate with DES: &lt;5% (vs 10–30% with bare metal stent BMS)</li>
+        <li>Fondaparinux alone during PCI = dangerous (catheter thrombosis) → always add UFH if doing PCI on fondaparinux</li>
+      </ul>
+    </div>
+  </details>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 6: NSTE-ACS ANTI-ISCHEMIC
+════════════════════════════════════════════════════ -->
+<section class="sec" id="nste-antiischemic">
+  <div class="sec-hd">
+    <span class="sec-n">06</span>
+    <h2>NSTE-ACS — Anti-Ischemic Treatment</h2>
+  </div>
+
+  <details open>
+    <summary>Beta-Blocker Contraindications in Acute NSTE-ACS — THE LIST</summary>
+    <div class="db">
+      <div class="co dan"><div class="co-t">🚨 Absolute Contraindications — Memorize All 7</div>
+        <div class="pill-row">
+          <span class="pill pill-r">PR &gt;0.24 seconds</span>
+          <span class="pill pill-r">2nd/3rd AV Block</span>
+          <span class="pill pill-r">HR &lt;50 bpm</span>
+          <span class="pill pill-r">SBP &lt;90 mmHg</span>
+          <span class="pill pill-r">Acute/Severe HF</span>
+          <span class="pill pill-r">Cardiogenic Shock (Killip III/IV)</span>
+          <span class="pill pill-r">Active Bronchospasm</span>
+        </div>
+        <br>
+        <strong>The most commonly tested:</strong> <em>Pulmonary edema</em> (= acute heart failure) is a contraindication because the heart compensates by tachycardia, and blocking this → cardiovascular collapse.
+      </div>
+      <p>Beta-blockers are the <strong>other mainstay</strong> alongside nitrates. Target HR: <strong>50–60 bpm</strong>. Once heart failure is stabilized, beta-blockers are re-introduced at low doses. Do not withhold indefinitely once decompensation resolves.</p>
+    </div>
+  </details>
+
+  <details open>
+    <summary>Nitrates in NSTE-ACS — Protocol and Contraindications</summary>
+    <div class="db">
+      <ul class="ol">
+        <li>SL NTG 0.3–0.6 mg (up to 3 doses, 5 min apart)</li>
+        <li>If symptoms persist → <strong>IV nitroglycerin: start 5–10 μg/min; increase by 10 μg/min q3–5 min</strong></li>
+        <li>Stop IV NTG when: symptoms relieved, SBP &lt;90 mmHg, or dose reaches 200 μg/min</li>
+        <li>Transition to oral/topical nitrates when pain-free for 12–24h</li>
+      </ul>
+      <div class="co dan"><div class="co-t">🚨 PDE-5 Inhibitor Windows — Board Favorite</div>
+        <ul class="bl">
+          <li><strong>Sildenafil (Viagra) / Vardenafil (Levitra):</strong> Nitrates contraindicated for <strong>24 hours</strong> after use</li>
+          <li><strong>Tadalafil (Cialis):</strong> Nitrates contraindicated for <strong>48 hours</strong> (longer half-life)</li>
+          <li>Mechanism: synergistic vasodilation → profound, potentially irreversible hypotension</li>
+        </ul>
+      </div>
+      <div class="co wrn"><div class="co-t">⚠ Nitrates CONTRAINDICATED with Aortic Stenosis</div>
+        In NSTEMI with severe aortic stenosis + hypertension: <strong>nitrates are the treatment</strong> for ischemia relief and BP control. The contraindication is <em>severe</em> AS with fixed low output, not moderate AS. However, use with caution and monitor BP closely as afterload reduction can drop CO.
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>CCBs in NSTE-ACS — When to Use</summary>
+    <div class="db">
+      <ul class="bl">
+        <li>Persistent ischemia despite <strong>full-dose nitrates AND beta-blockers</strong></li>
+        <li>Contraindication to nitrates or beta-blockers</li>
+        <li><strong>Vasospastic angina</strong> — CCBs are the primary treatment</li>
+        <li>Avoid short-acting nifedipine (reflex tachycardia)</li>
+        <li>Avoid non-DHPs (verapamil, diltiazem) when: SBP &lt;90, pulmonary edema, or LV dysfunction</li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary>Morphine in NSTE-ACS — Critical Drug Interaction</summary>
+    <div class="db">
+      <p><strong>Use for:</strong> Continued severe angina despite 3 SL NTG tablets, or recurrent ischemia despite adequate anti-ischemic therapy.</p>
+      <div class="co dan"><div class="co-t">🚨 Morphine Blunts P2Y₁₂ Absorption</div>
+        Morphine slows GI motility → <strong>delayed absorption and blunted antiplatelet effect</strong> of oral P2Y₁₂ inhibitors (ticagrelor, clopidogrel). This is critical when timing DAPT before PCI. Consider IV cangrelor if rapid platelet inhibition is needed.
+      </div>
+    </div>
+  </details>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 7: NSTE-ACS ANTIPLATELET
+════════════════════════════════════════════════════ -->
+<section class="sec" id="nste-antiplatelet">
+  <div class="sec-hd">
+    <span class="sec-n">07</span>
+    <h2>NSTE-ACS — Antiplatelet Therapy</h2>
+  </div>
+
+  <details open>
+    <summary>P2Y₁₂ Inhibitors — The Three Agents Compared</summary>
+    <div class="db">
+      <div class="tw"><table>
+        <thead><tr><th>Drug</th><th>Class</th><th>Loading</th><th>Maintenance</th><th>Key Points</th></tr></thead>
+        <tbody>
+          <tr><td>Clopidogrel</td><td>Thienopyridine (prodrug)</td><td>600 mg (PCI) / 300 mg</td><td>75 mg/d</td><td>CYP2C19-dependent; up to 1/3 are non-responders; DAPT → 20% relative RRR vs aspirin alone</td></tr>
+          <tr><td>Prasugrel</td><td>Thienopyridine (prodrug)</td><td>60 mg</td><td>10 mg/d (5 mg if &lt;60 kg or &gt;75 yr)</td><td><strong>ONLY for planned PCI — after angiography</strong>; more potent; CI: prior TIA/stroke</td></tr>
+          <tr><td>Ticagrelor</td><td>Non-thienopyridine (reversible, direct)</td><td>180 mg</td><td>90 mg BID (→ 60 mg BID at 1 yr)</td><td><strong>Works in BOTH invasive AND conservative strategy</strong>; side effect: dyspnea (not bronchospasm); no CYP activation needed</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="vs">
+        <div>
+          <div class="vsh b">Ticagrelor — Broader Use</div>
+          <div class="vsb br">
+            <ul class="bl">
+              <li>Conservative AND invasive management</li>
+              <li>No metabolic activation needed</li>
+              <li>Reversible P2Y₁₂ binding</li>
+              <li>Prior TIA/stroke: <strong>NOT a contraindication</strong></li>
+              <li>Dose reduction at 1 year (60 mg BID) — less bleeding, same protection</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="vsh r">Prasugrel — Restricted Use</div>
+          <div class="vsb">
+            <ul class="bl">
+              <li><strong>Only</strong> for planned PCI, after coronary anatomy known</li>
+              <li><strong>CI: Prior TIA or stroke</strong> (intracranial hemorrhage risk)</li>
+              <li>Do NOT give before angiography</li>
+              <li>High bleeding risk patients: avoid</li>
+              <li>Age &gt;75 or &lt;60 kg: reduce to 5 mg/d</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>DAPT Duration — Standard, Short, Long</summary>
+    <div class="db">
+      <div class="tw"><table>
+        <thead><tr><th>Scenario</th><th>DAPT Duration</th><th>After DAPT</th></tr></thead>
+        <tbody>
+          <tr><td>Standard NSTE-ACS (no AF, no high bleed risk)</td><td><strong>12 months</strong></td><td>Antiplatelet monotherapy</td></tr>
+          <tr><td>High bleeding risk, low ischemic risk</td><td>3–6 months → stop aspirin</td><td>P2Y₁₂ inhibitor monotherapy</td></tr>
+          <tr><td>High atherothrombotic risk (LM stenting, recurrent MI, stent thrombosis)</td><td>&gt;12 months</td><td>Continue DAPT</td></tr>
+          <tr><td>NSTE-ACS + AF (on anticoagulant)</td><td>Stop aspirin at discharge or ≤1 week post-PCI</td><td>P2Y₁₂ + DOAC × 1 year → DOAC alone</td></tr>
+        </tbody>
+      </table></div>
+      <div class="co dan"><div class="co-t">🚨 No DAPT De-escalation in First 30 Days</div>
+        De-escalation of DAPT within the first <strong>30 days post-ACS</strong> is associated with increased risk of ischemic events. The first month is the highest risk period. Wait at least 30 days before any DAPT modification, even for minor bleeding.
+      </div>
+    </div>
+  </details>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 8: NSTE-ACS ANTICOAGULATION
+════════════════════════════════════════════════════ -->
+<section class="sec" id="nste-anticoag">
+  <div class="sec-hd">
+    <span class="sec-n">08</span>
+    <h2>NSTE-ACS — Anticoagulant Therapy</h2>
+  </div>
+
+  <div class="co key"><div class="co-t">🔑 Four Parenteral Options for NSTE-ACS</div>
+    UFH → Enoxaparin (LMWH) → Fondaparinux → Bivalirudin. Know their key differences.
+  </div>
+
+  <details open>
+    <summary>Fondaparinux vs Enoxaparin — Most Tested Comparison</summary>
+    <div class="db">
+      <div class="vs">
+        <div>
+          <div class="vsh b">Fondaparinux (Indirect Factor Xa Inhibitor)</div>
+          <div class="vsb br">
+            <ul class="bl">
+              <li>Dose: <strong>2.5 mg SC once daily</strong></li>
+              <li><strong>Equivalent efficacy</strong> to enoxaparin for recurrent events</li>
+              <li><strong>LOWER major bleeding</strong> than enoxaparin</li>
+              <li>Preferred for NSTE-ACS when NOT going urgently to PCI</li>
+              <li><strong>CRITICAL LIMITATION:</strong> Cannot be used alone during PCI → causes catheter-related thrombosis</li>
+              <li>If PCI planned: must add <strong>supplemental UFH</strong> at time of procedure</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="vsh r">Enoxaparin (LMWH — Anti-Xa)</div>
+          <div class="vsb">
+            <ul class="bl">
+              <li>Dose: 1 mg/kg SC q12h</li>
+              <li>Superior to UFH in conservative strategy (fewer recurrent events)</li>
+              <li>More bleeding than fondaparinux</li>
+              <li><strong>Renally cleared</strong>: reduce to 1 mg/kg once daily if CrCl &lt;30</li>
+              <li>Can be used directly at PCI (0.5 mg/kg IV bolus)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tw"><table>
+        <thead><tr><th>Agent</th><th>Mechanism</th><th>Dose</th><th>Key Features</th></tr></thead>
+        <tbody>
+          <tr><td>UFH</td><td>Antithrombin III → inhibits IIa + Xa</td><td>70–100 U/kg bolus + 12–15 U/kg/h; ACT 250–300s</td><td>Standard, widely studied, requires monitoring</td></tr>
+          <tr><td>Enoxaparin</td><td>Anti-Xa (some anti-IIa)</td><td>1 mg/kg q12h SC</td><td>Superior to UFH conservative; renally cleared</td></tr>
+          <tr><td><strong>Fondaparinux</strong></td><td>Indirect factor Xa inhibitor</td><td><strong>2.5 mg SC daily</strong></td><td><strong>Lowest major bleeding; needs supplemental UFH for PCI</strong></td></tr>
+          <tr><td>Bivalirudin</td><td>Direct thrombin inhibitor</td><td>0.75 mg/kg bolus + 1.75 mg/kg/h</td><td>Peri-PCI use; less access site bleeding; rarely conservative</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </details>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 9: NSTE-ACS INVASIVE STRATEGY
+════════════════════════════════════════════════════ -->
+<section class="sec" id="nste-invasive">
+  <div class="sec-hd">
+    <span class="sec-n">09</span>
+    <h2>NSTE-ACS — Invasive Strategy Selection</h2>
+  </div>
+
+  <details open>
+    <summary>Three-Tier Risk Classification → Timing of Catheterization</summary>
+    <div class="db">
+      <div class="g3">
+        <div class="card" style="border-color:var(--red)">
+          <div class="clabel c-r">Very High Risk → Immediate Invasive (&lt;2 hours)</div>
+          <ul class="bl">
+            <li>Cardiogenic shock or unstable hemodynamics</li>
+            <li>Acute HF due to ongoing ischemia</li>
+            <li>Cardiac arrest post-presentation</li>
+            <li>Life-threatening arrhythmias</li>
+            <li>Mechanical complications of MI</li>
+            <li>Angina refractory to medical treatment</li>
+            <li>Recurrent dynamic ischemic ECG changes</li>
+          </ul>
+        </div>
+        <div class="card" style="border-color:var(--amb)">
+          <div class="clabel c-a">High Risk → Early Invasive (&lt;24 hours)</div>
+          <ul class="bl">
+            <li><strong>Confirmed NSTEMI</strong> (troponin +)</li>
+            <li><strong>GRACE risk score &gt;140</strong></li>
+            <li>Transient ST elevation</li>
+            <li>Dynamic ST or T-wave changes</li>
+          </ul>
+        </div>
+        <div class="card" style="border-color:var(--grn)">
+          <div class="clabel c-g">Non-High Risk → Selective Invasive</div>
+          <ul class="bl">
+            <li>None of the above criteria</li>
+            <li>Clinical + non-invasive assessments first</li>
+            <li>Angiography if: rest pain recurs, troponin becomes +, severe ischemia on stress test, or CT angio shows stenosis</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="co prl"><div class="co-t">💜 Post-Angiography: Complete vs Staged Revascularization</div>
+        <ul class="bl">
+          <li><strong>Single-stage PCI (complete revascularization):</strong> Preferred if multivessel disease without cardiogenic shock, severe comorbidities, or complex anatomy</li>
+          <li><strong>Staged PCI:</strong> If cardiogenic shock, severe comorbidities (AKI), or complex/unfavorable anatomy → culprit lesion first, then evaluate non-culprit lesions</li>
+        </ul>
+      </div>
+
+      <div class="co wrn"><div class="co-t">⚠ The Conservative Strategy (Non-Invasive)</div>
+        For non-high-risk patients, initial conservative management (medical therapy) is acceptable. If angina recurs, troponin turns positive, or stress test shows severe ischemia → proceed to angiography. <strong>Ticagrelor</strong> (and clopidogrel) are appropriate in conservative strategy. <strong>Prasugrel is NOT</strong> for conservative management.
+      </div>
+    </div>
+  </details>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 10: STEMI ACUTE MANAGEMENT
+════════════════════════════════════════════════════ -->
+<section class="sec" id="stemi-acute">
+  <div class="sec-hd">
+    <span class="sec-n">10</span>
+    <h2>STEMI — Acute Management</h2>
+  </div>
+
+  <div class="co key"><div class="co-t">🔑 The Goal: Minimize Time to Reperfusion</div>
+    <strong>Primary PCI is preferred</strong> when achievable within 90 min (PCI center) or 120 min (transfer). If PCI cannot be done in time → fibrinolysis (door-to-needle ≤30 min). <strong>NEVER give fibrinolytics for NSTE-ACS or without ST elevation</strong> — may be harmful.
+  </div>
+
+  <details open>
+    <summary>Initial ED Management — The First Drugs</summary>
+    <div class="db">
+      <ul class="ol">
+        <li><strong>Aspirin 160–325 mg chewed</strong> — buccal absorption; first and most essential. Follow with 75–162 mg daily.</li>
+        <li><strong>Heparin (UFH)</strong> — 60 U/kg bolus (max 4,000 U) + 12 U/kg/h (max 1,000 U/h); maintain aPTT 1.5–2× control. UFH combined with streptokinase saves ~5 lives per 1,000 patients.</li>
+        <li><strong>P2Y₁₂ Inhibitor</strong> — add clopidogrel, prasugrel (post-angiography only), or ticagrelor to aspirin</li>
+        <li><strong>SL Nitroglycerin</strong> — 0.4 mg, up to 3 doses, for ischemic pain; <em>not</em> if RV infarction, SBP &lt;90, or PDE-5 inhibitor within 24–48h</li>
+        <li><strong>IV Morphine</strong> — 2–4 mg IV q5 min PRN for severe pain (slows GI absorption of oral antiplatelets)</li>
+        <li><strong>Beta-Blocker</strong> — IV metoprolol 5 mg q2–5 min × 3 doses IF: HR &gt;60, SBP &gt;100, PR &lt;0.24s, no acute HF</li>
+      </ul>
+    </div>
+  </details>
+
+  <details open>
+    <summary>Beta-Blockers in STEMI — Timing and Contraindications</summary>
+    <div class="db">
+      <p><strong>Oral beta-blocker in first 24h:</strong> Start if no acute HF, no low-output state, no cardiogenic shock risk, no conduction disturbances. Regimen: <strong>50 mg q6h × 48h → 100 mg q12h.</strong></p>
+      <div class="co dan"><div class="co-t">🚨 Beta-Blocker Contraindications in STEMI — Same as NSTE-ACS</div>
+        <div class="pill-row">
+          <span class="pill pill-r">PR &gt;0.24s</span>
+          <span class="pill pill-r">2nd/3rd AV block</span>
+          <span class="pill pill-r">HR &lt;50</span>
+          <span class="pill pill-r">SBP &lt;90</span>
+          <span class="pill pill-r">Acute HF / Pulmonary Edema</span>
+          <span class="pill pill-r">Cardiogenic shock</span>
+          <span class="pill pill-r">Reactive airway disease</span>
+        </div>
+      </div>
+      <div class="co prl"><div class="co-t">💜 Beta-Blockers for VPBs in STEMI</div>
+        VPBs (ventricular premature beats) occur in almost all STEMI patients and do <strong>NOT require specific antiarrhythmic therapy</strong>. <strong>Prophylactic lidocaine is CONTRAINDICATED</strong> — increases mortality. <strong>Beta-blockers</strong> are the appropriate preventive agent for VF.
+      </div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>Reperfusion — PCI Times, Fibrinolysis, and Fibrinolysis Contraindications</summary>
+    <div class="db">
+      <div class="tw"><table>
+        <thead><tr><th>Setting</th><th>Time Goal</th></tr></thead>
+        <tbody>
+          <tr><td>PCI-capable hospital</td><td><strong>FMC-device ≤90 minutes</strong></td></tr>
+          <tr><td>Transfer for primary PCI</td><td><strong>FMC-device ≤120 minutes</strong></td></tr>
+          <tr><td>Door-in Door-out (DIDO) at transfer hospital</td><td><strong>≤30 minutes</strong></td></tr>
+          <tr><td>Fibrinolysis (if PCI not available)</td><td><strong>Door-to-needle ≤30 minutes</strong></td></tr>
+          <tr><td>Post-fibrinolysis angiography (successful reperfusion)</td><td><strong>3–24 hours</strong></td></tr>
+          <tr><td>Failed reperfusion (ST still elevated &gt;90 min after lytic)</td><td>Rescue PCI immediately</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="co dan"><div class="co-t">🚨 Absolute Contraindications to Fibrinolysis</div>
+        <ul class="bl">
+          <li>Prior cerebrovascular hemorrhage at any time</li>
+          <li>Non-hemorrhagic stroke/CVE within past year</li>
+          <li>SBP &gt;180 mmHg AND/OR DBP &gt;110 mmHg at presentation</li>
+          <li>Suspected aortic dissection</li>
+          <li>Active internal bleeding (excluding menses)</li>
+        </ul>
+      </div>
+
+      <div class="co wrn"><div class="co-t">⚠ Multibressel Disease at Primary PCI</div>
+        <ul class="bl">
+          <li><strong>STEMI WITHOUT cardiogenic shock:</strong> PCI of non-culprit vessels (during index or within 45 days) → lower CV events (COMPLETE, PRAMI, CvLPRIT trials)</li>
+          <li><strong>STEMI WITH cardiogenic shock:</strong> Routine non-culprit PCI during initial primary PCI is <strong>CONTRAINDICATED</strong> → increased death/severe renal failure</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>ST Elevation ECG Criteria — Sex-Specific Thresholds</summary>
+    <div class="db">
+      <div class="tw"><table>
+        <thead><tr><th>Leads</th><th>Population</th><th>Required Elevation</th></tr></thead>
+        <tbody>
+          <tr><td>All leads except V₂–V₃</td><td>All patients</td><td>≥0.1 mV (1 mm)</td></tr>
+          <tr><td>V₂–V₃</td><td>Men ≥40 years</td><td>≥0.2 mV (2 mm)</td></tr>
+          <tr><td>V₂–V₃</td><td>Men &lt;40 years</td><td>≥0.25 mV (2.5 mm)</td></tr>
+          <tr><td>V₂–V₃</td><td><strong>Women (any age)</strong></td><td><strong>≥0.15 mV (1.5 mm) — LOWER THRESHOLD!</strong></td></tr>
+        </tbody>
+      </table></div>
+      <div class="co prl"><div class="co-t">💜 AIVR — Benign Reperfusion Rhythm</div>
+        Accelerated Idioventricular Rhythm (AIVR): rate 60–100 bpm, wide complex, <strong>occurs transiently during fibrinolysis at reperfusion</strong>. This is a <strong>benign reperfusion rhythm</strong> — does NOT presage VT. <strong>No treatment needed</strong> — monitor only. Do NOT give amiodarone for AIVR.
+      </div>
+    </div>
+  </details>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 11: STEMI COMPLICATIONS
+════════════════════════════════════════════════════ -->
+<section class="sec" id="stemi-complications">
+  <div class="sec-hd">
+    <span class="sec-n">11</span>
+    <h2>STEMI — Complications</h2>
+  </div>
+
+  <details open>
+    <summary>Inferior STEMI + Bradycardia — Why Adenosine?</summary>
+    <div class="db">
+      <div class="co key"><div class="co-t">🔑 Inferior STEMI → AV Block Mechanism</div>
+        The <strong>right coronary artery (RCA)</strong> supplies the inferior wall AND the AV node (in ~90% of patients). When the RCA is occluded in inferior STEMI, ischemic myocardium releases <strong>adenosine</strong> — which is a potent inhibitor of AV nodal conduction. This causes <strong>AV block (1st, 2nd, or even complete/3rd degree)</strong> and bradycardia in inferior MI.<br><br>
+        Key: AV block in inferior STEMI is usually <strong>transient, nodal level, and responds to atropine</strong>. AV block in anterior STEMI (LAD occlusion) is usually infranodal and carries much worse prognosis.
+      </div>
+      <div class="vs">
+        <div>
+          <div class="vsh b">Inferior STEMI + AV Block</div>
+          <div class="vsb br">
+            <ul class="bl">
+              <li>RCA occlusion → adenosine release from ischemic tissue</li>
+              <li>AV block at AV NODE level</li>
+              <li>Junctional escape rhythm: narrow complex</li>
+              <li>Usually temporary, hemodynamically stable</li>
+              <li>Responds to <strong>atropine</strong></li>
+              <li>Good prognosis</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="vsh r">Anterior STEMI + AV Block</div>
+          <div class="vsb">
+            <ul class="bl">
+              <li>LAD occlusion → large infarct involving bundle branches</li>
+              <li>AV block at INFRANODAL level (His-Purkinje)</li>
+              <li>Wide complex escape rhythm</li>
+              <li>Does NOT respond to atropine</li>
+              <li>Requires <strong>temporary pacing</strong></li>
+              <li>Very poor prognosis (large infarct)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>RV Infarction — The Triad + Nitrate Danger</summary>
+    <div class="db">
+      <div class="co dan"><div class="co-t">🚨 RV Infarction = Nitrates Absolutely Contraindicated</div>
+        RV infarction patients depend entirely on adequate preload (high RV filling pressure) to maintain cardiac output. <strong>Nitrates cause venodilation → ↓ preload → precipitous cardiovascular collapse</strong>. Same applies to diuretics.
+      </div>
+      <div class="co key"><div class="co-t">🔑 Classic Triad of RV Infarction</div>
+        <strong>JVD + Clear Lungs + Hypotension</strong> (no pulmonary congestion despite low BP) in the setting of inferior MI (ST elevation in II, III, aVF).<br>
+        Confirm with <strong>V₄R lead</strong> — ST elevation in right-sided leads (present in first 24h)<br>
+        Treatment: <strong>Volume expansion (IV fluids)</strong> to maintain RV preload + improve LV performance
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Mechanical Complications — The Surgical Three</summary>
+    <div class="db">
+      <div class="tw"><table>
+        <thead><tr><th>Complication</th><th>Classic Murmur</th><th>Key Differentiator</th><th>RHC Finding</th></tr></thead>
+        <tbody>
+          <tr><td>Ventricular Septal Rupture (VSR)</td><td>Harsh holosystolic + <strong>thrill</strong>, S₃</td><td>Right heart cath: <strong>O₂ step-up RA→RV</strong> (left-to-right shunt)</td><td>O₂ step-up RA to RV; large v waves</td></tr>
+          <tr><td>Free Wall Rupture</td><td>No murmur (EMD)</td><td>Signs of tamponade; pulsus paradoxus; sudden death</td><td>Pericardial effusion; tamponade physiology</td></tr>
+          <tr><td>Papillary Muscle Rupture (PMR)</td><td>Soft murmur, <strong>NO thrill</strong></td><td><strong>No O₂ step-up RA→RV</strong>; very high PCWP; severe pulmonary edema</td><td>Very elevated PCWP; no step-up</td></tr>
+        </tbody>
+      </table></div>
+      <div class="co wrn"><div class="co-t">⚠ Bimodal Timing — Classic Board Pattern</div>
+        All three mechanical complications peak within 24h AND again at 3–5 days after STEMI (range 1–14 days). This bimodal timing is a high-yield board fact.
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Killip Classification — Hemodynamic Staging</summary>
+    <div class="db">
+      <div class="tw"><table>
+        <thead><tr><th>Class</th><th>Definition</th><th>Historical Mortality</th></tr></thead>
+        <tbody>
+          <tr><td>Class I</td><td>No signs of pulmonary or venous congestion</td><td>0–5%</td></tr>
+          <tr><td>Class II</td><td>Moderate HF — basilar rales, S₃, tachypnea</td><td>10–20%</td></tr>
+          <tr><td>Class III</td><td>Severe HF — pulmonary edema</td><td>35–45%</td></tr>
+          <tr><td>Class IV</td><td>Cardiogenic shock — SBP &lt;90, peripheral vasoconstriction, cyanosis, oliguria</td><td>85–95%</td></tr>
+        </tbody>
+      </table></div>
+      <p><strong>Cardiogenic shock threshold:</strong> ≥40% of LV infarcted. LV dysfunction apparent when 20–25% of LV contraction impaired.</p>
+    </div>
+  </details>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 12: SECONDARY PREVENTION
+════════════════════════════════════════════════════ -->
+<section class="sec" id="stemi-secondary">
+  <div class="sec-hd">
+    <span class="sec-n">12</span>
+    <h2>Post-MI Secondary Prevention</h2>
+  </div>
+
+  <details open>
+    <summary>ICD Implantation — Timing and Thresholds</summary>
+    <div class="db">
+      <div class="co dan"><div class="co-t">🚨 Critical Timing Rule — Do NOT Implant Too Early</div>
+        ICD implantation should wait — reassess LVEF at <strong>&gt;40 days post-MI</strong> and/or <strong>&gt;90 days post-revascularization</strong>. Early ICD placement has not shown survival advantage. LVEF may improve significantly with medical therapy and revascularization.
+      </div>
+      <div class="tw"><table>
+        <thead><tr><th>Clinical Scenario</th><th>ICD Indication</th></tr></thead>
+        <tbody>
+          <tr><td>NYHA Class I + LVEF ≤30%</td><td>ICD — Class I (PRIMARY PREVENTION)</td></tr>
+          <tr><td>NYHA Class II–III + LVEF ≤35%</td><td>ICD — Class I (PRIMARY PREVENTION)</td></tr>
+          <tr><td>Out-of-hospital cardiac arrest (VT/VF after MI)</td><td>ICD — SECONDARY PREVENTION</td></tr>
+          <tr><td>LVEF 30–45%, within 40 days of MI</td><td>Reassess — do NOT implant yet; consider wearable cardioverter-defibrillator (WCD)</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>Return to Activity After STEMI</summary>
+    <div class="db">
+      <div class="co suc"><div class="co-t">✓ Timeline After Uncomplicated STEMI</div>
+        <ul class="bl">
+          <li>Hospitalization: <strong>3–5 days</strong> (uncomplicated STEMI)</li>
+          <li>Bed rest: first 6–12h; then chair/feet dangling within 24h</li>
+          <li><strong>First 1–2 weeks at home:</strong> light walking, light household activities; normal sexual activity may resume</li>
+          <li><strong>After ~1 week:</strong> able to return to mild/sedentary activities</li>
+          <li><strong>Most patients return to work: within 2–4 weeks</strong></li>
+          <li>After 2 weeks: regulate activity based on exercise tolerance</li>
+          <li>Cardiac rehabilitation: initiated in-hospital, continued post-discharge</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Long-Term Drug Therapy — Evidence-Based</summary>
+    <div class="db">
+      <div class="tw"><table>
+        <thead><tr><th>Drug Class</th><th>Indication</th><th>Duration</th></tr></thead>
+        <tbody>
+          <tr><td>Aspirin</td><td>All post-STEMI patients</td><td>Indefinitely (25% risk reduction)</td></tr>
+          <tr><td>P2Y₁₂ inhibitor + Aspirin (DAPT)</td><td>All post-STEMI</td><td>12 months standard</td></tr>
+          <tr><td>Beta-blocker</td><td>All (unless contraindicated)</td><td><strong>At least 1 year</strong> — well-conducted RCT evidence</td></tr>
+          <tr><td>High-intensity statin (atorva 80 or rosuva 40)</td><td>All post-ACS</td><td>Indefinitely; LDL target &lt;55 mg/dL</td></tr>
+          <tr><td>ACE inhibitor/ARB</td><td>LVEF &lt;40%, HF, anterior MI, DM, HTN</td><td>Indefinitely; prevents remodeling</td></tr>
+          <tr><td>Mineralocorticoid antagonist (eplerenone/spironolactone)</td><td>LVEF ≤40% + symptomatic HF or DM</td><td>Indefinitely IF: Cr &lt;2.5 (men) or &lt;2.0 (women), K⁺ &lt;5.0</td></tr>
+          <tr><td>Colchicine 0.5 mg/d</td><td>Recurrent atherosclerotic events on GDMT</td><td>Secondary prevention</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </details>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 13: DRUG CLASSIFICATION
+════════════════════════════════════════════════════ -->
+<section class="sec" id="drug-classes">
+  <div class="sec-hd">
+    <span class="sec-n">13</span>
+    <h2>Beta-Blocker Classification — Critical for Boards</h2>
+  </div>
+
+  <details open>
+    <summary>Selectivity: β₁ vs Non-Selective vs α+β</summary>
+    <div class="db">
+      <div class="tw"><table>
+        <thead><tr><th>Drug</th><th>Receptor Selectivity</th><th>Clinical Implication</th></tr></thead>
+        <tbody>
+          <tr><td>Metoprolol, Atenolol, Bisoprolol, Nebivolol, Esmolol</td><td><strong>β₁-selective</strong> (cardioselective)</td><td>Preferred in asthma/COPD (less bronchoconstriction) and DM (less hypoglycemia masking)</td></tr>
+          <tr><td><strong>Propranolol</strong>, Nadolol, Timolol</td><td><strong>Non-selective (β₁ + β₂)</strong></td><td>Blocks cardiac (β₁) AND bronchial/vascular (β₂). <strong>AVOID in asthma</strong> and insulin-requiring DM</td></tr>
+          <tr><td>Carvedilol, Labetalol</td><td><strong>α₁ + β₁ + β₂ (α+β)</strong></td><td>Additional vasodilation via α-blockade; preferred in HFrEF (carvedilol) and hypertensive urgency (labetalol IV)</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="mn">
+        <div class="mn-l">Mnemonic</div>
+        <div class="mn-w">CAB → selective BB</div>
+        <ul>
+          <li><b>C</b>arvedilol — α+β (NOT selective)</li>
+          <li><b>A</b>tenolol — β₁-selective</li>
+          <li><b>B</b>isoprolol — β₁-selective</li>
+          <li>Add: Metoprolol = β₁-selective, Propranolol = non-selective</li>
+        </ul>
+      </div>
+
+      <div class="co key"><div class="co-t">🔑 Propranolol — Board High-Yield</div>
+        Propranolol is the <strong>prototype non-selective beta-blocker</strong> (blocks both β₁ and β₂). It has large volume of distribution, crosses the blood-brain barrier (→ nightmares, depression). <strong>Widely used in:</strong> angina, hypertension, migraine prophylaxis, essential tremor, thyrotoxicosis (to control tachycardia and symptoms). <strong>Avoid in asthma</strong> due to β₂ blockade → bronchoconstriction.
+      </div>
+    </div>
+  </details>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 14: QUICK REFERENCE TABLE
+════════════════════════════════════════════════════ -->
+<section class="sec" id="quick-ref">
+  <div class="sec-hd">
+    <span class="sec-n">14</span>
+    <h2>Quick-Reference Master Table</h2>
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr><th>Topic</th><th>Value / Rule</th><th>Why It Matters</th></tr></thead>
+    <tbody>
+      <tr><td>Troponin elevated duration post-MI</td><td><strong>7–10 days</strong></td><td>CK-MB is better for re-infarction detection (falls faster)</td></tr>
+      <tr><td>1-hour hsTn rule-out</td><td>Both 0h AND 1h normal</td><td>Single negative troponin insufficient</td></tr>
+      <tr><td>BB contraindication: PR interval</td><td><strong>PR &gt;0.24 seconds</strong></td><td>Risk of complete AV block</td></tr>
+      <tr><td>BB contraindication: HR</td><td><strong>HR &lt;50 bpm</strong></td><td>Worsens bradycardia</td></tr>
+      <tr><td>BB contraindication: SBP</td><td><strong>SBP &lt;90 mmHg</strong></td><td>Worsens hypotension</td></tr>
+      <tr><td>BB in acute HF</td><td><strong>CONTRAINDICATED acutely</strong></td><td>Removes compensatory tachycardia; start only after stabilization</td></tr>
+      <tr><td>Nitrate + Sildenafil/Vardenafil</td><td><strong>24-hour window</strong></td><td>Profound hypotension</td></tr>
+      <tr><td>Nitrate + Tadalafil</td><td><strong>48-hour window</strong></td><td>Longer half-life</td></tr>
+      <tr><td>RV infarction triad</td><td>JVD + Clear lungs + Hypotension</td><td>Confirm with V₄R lead ST elevation</td></tr>
+      <tr><td>RV infarction: nitrates</td><td><strong>ABSOLUTELY CONTRAINDICATED</strong></td><td>↓ Preload → cardiovascular collapse</td></tr>
+      <tr><td>PCI: FMC-device time (PCI center)</td><td><strong>≤90 minutes</strong></td><td>Class I recommendation</td></tr>
+      <tr><td>PCI: FMC-device time (transfer)</td><td><strong>≤120 minutes</strong></td><td>If longer → fibrinolysis preferred</td></tr>
+      <tr><td>Fibrinolysis: door-to-needle</td><td><strong>≤30 minutes</strong></td><td>Class I recommendation</td></tr>
+      <tr><td>Post-fibrinolysis angiography</td><td><strong>3–24 hours</strong></td><td>After successful reperfusion</td></tr>
+      <tr><td>Rescue PCI (failed fibrinolysis)</td><td>ST still elevated &gt;90 min post-lytic</td><td>Immediate transfer to PCI center</td></tr>
+      <tr><td>AIVR after fibrinolysis</td><td><strong>Benign reperfusion rhythm, 60–100 bpm</strong></td><td>No treatment needed; monitor only</td></tr>
+      <tr><td>Prophylactic lidocaine for VPBs</td><td><strong>CONTRAINDICATED</strong></td><td>Increases mortality</td></tr>
+      <tr><td>Beta-blocker for VPBs in STEMI</td><td>YES — preferred agent</td><td>Prevents VF</td></tr>
+      <tr><td>ICD reassessment post-MI</td><td><strong>&gt;40 days post-MI; &gt;90 days post-revascularization</strong></td><td>LVEF may improve; early ICD not beneficial</td></tr>
+      <tr><td>ICD threshold (NYHA I)</td><td>LVEF ≤30%</td><td>Class I primary prevention</td></tr>
+      <tr><td>ICD threshold (NYHA II–III)</td><td>LVEF ≤35%</td><td>Class I primary prevention</td></tr>
+      <tr><td>Return to work post-STEMI</td><td><strong>2–4 weeks</strong></td><td>Uncomplicated STEMI</td></tr>
+      <tr><td>Mild activity post-STEMI</td><td><strong>After ~1 week</strong></td><td>Walking, light activity at home</td></tr>
+      <tr><td>SVG occlusion: first year</td><td><strong>10–20%</strong></td><td>High early failure rate</td></tr>
+      <tr><td>SVG occlusion: years 5–7</td><td><strong>~2%/year</strong></td><td>Stable intermediate phase</td></tr>
+      <tr><td>SVG occlusion: after year 7</td><td><strong>~4%/year</strong></td><td>Late accelerated failure</td></tr>
+      <tr><td>ETT false negative: circumflex</td><td>LCX not well represented on 12-lead ECG</td><td>Use imaging modality for intermediate probability</td></tr>
+      <tr><td>ETT: upsloping ST &lt;1 mm</td><td>NOT positive for ischemia</td><td>Must be horizontal or downsloping ≥0.1 mV</td></tr>
+      <tr><td>ETT: 98% PPV</td><td>Symptomatic man &gt;50 with positive ETT</td><td>Very high pre-test probability drives PPV</td></tr>
+      <tr><td>Fondaparinux vs Enoxaparin</td><td>Same efficacy, less major bleeding</td><td>But needs supplemental UFH for PCI</td></tr>
+      <tr><td>Prasugrel: NOT before angiography</td><td>Only after coronary anatomy known</td><td>Avoid if patient ends up needing CABG</td></tr>
+      <tr><td>Prasugrel CI: prior TIA/stroke</td><td>Absolute contraindication</td><td>High intracranial hemorrhage risk</td></tr>
+      <tr><td>Ticagrelor: both strategies</td><td>Conservative AND invasive</td><td>Prasugrel: invasive ONLY</td></tr>
+      <tr><td>DAPT de-escalation</td><td>NOT before 30 days post-ACS</td><td>Highest ischemic risk period</td></tr>
+      <tr><td>Verapamil + Beta-blocker</td><td><strong>ABSOLUTELY AVOID</strong></td><td>Severe bradycardia, AV block, acute HF</td></tr>
+      <tr><td>Diltiazem + Beta-blocker</td><td>Acceptable IF normal LV + no conduction disturbance</td><td>Diltiazem has less inotropy than verapamil</td></tr>
+      <tr><td>Propranolol selectivity</td><td>Non-selective: β₁ + β₂</td><td>Avoid in asthma/COPD</td></tr>
+      <tr><td>Inferior MI AV block cause</td><td>Adenosine release from ischemic myocardium</td><td>RCA occlusion → AV node ischemia + adenosine → AV block</td></tr>
+      <tr><td>ST elevation V₂–V₃ women</td><td>≥1.5 mm (lower than male threshold of 2 mm)</td><td>Women systematically underdiagnosed if male criteria applied</td></tr>
+      <tr><td>Vasospastic angina ECG</td><td>ST ELEVATION (not depression) during episodes</td><td>Transient, normalizes between attacks</td></tr>
+      <tr><td>Aspirin in vasospastic angina</td><td>May WORSEN spasm (inhibits prostacyclin)</td><td>Only use if significant concurrent atherosclerosis</td></tr>
+      <tr><td>Cardiogenic shock + nonculprit PCI</td><td><strong>CONTRAINDICATED</strong></td><td>↑ Death/renal failure (vs culprit-only)</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 15: EXAM TRAPS (from all 29 Qs)
+════════════════════════════════════════════════════ -->
+<section class="sec" id="traps">
+  <div class="sec-hd">
+    <span class="sec-n">★</span>
+    <h2>Exam Traps — Derived from All 29 Questions</h2>
+  </div>
+
+  <p style="color:var(--t3);font-style:italic;margin-bottom:20px">Each trap is modeled on your exact question bank. Vignette → Distractor → Correct Answer → Why.</p>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">BB Contraindication in NSTEMI — Pulmonary Edema</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 60-year-old man with NSTEMI is admitted. He has bilateral basal crackles, HR 112, SpO₂ 90% on room air, and BP 95/60. Which condition should prevent you from giving a beta-blocker <em>right now</em>?</div>
+      <div class="trap-a"><strong>Pulmonary edema (acute heart failure)</strong><br>Beta-blockers are contraindicated in acute/severe HF (Killip Class III) because they remove the compensatory tachycardia and further decrease cardiac output. The crackles + tachycardia + low BP = acute decompensated HF. Once stabilized, beta-blockers can be carefully introduced.</div>
+      <div class="trap-why">⚠ Distractor: Students see NSTEMI and reflexively give BB. The key is READING THE CLINICAL SIGNS first. Board keyword: <em>pulmonary edema = absolute BB contraindication in acute setting</em>. PR &gt;0.24, HR &lt;50, SBP &lt;90 are the other absolute contraindications.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Vasospastic Angina — CCBs Are First-Line, Not BB</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 31-year-old woman with no CV risk factors has episodes of chest pain lasting 30 minutes, mainly at night and at rest. ECG during an episode shows ST elevation. Coronary angiography shows no stenosis but provocation test induces focal spasm. What is the most appropriate treatment?</div>
+      <div class="trap-a"><strong>Calcium channel blockers (CCBs)</strong><br>This is vasospastic (Prinzmetal's) angina. CCBs are the mainstay — they prevent coronary smooth muscle spasm. Nitrates are second-line (limited by tolerance). Beta-blockers are NOT first-line and non-selective BB (propranolol) may worsen spasm.</div>
+      <div class="trap-why">⚠ Distractor: The young age + chest pain might trigger a reflex to give aspirin and beta-blockers. In vasospastic angina: (1) CCBs first-line, (2) aspirin may worsen spasm, (3) BB variable/not first-line. Board keyword: <em>rest pain + ST elevation (transient) + young patient = vasospastic angina = CCBs</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">PCI vs CABG — When PCI is Acceptable for LAD Disease</span></div>
+    <div class="trap-body">
+      <div class="trap-q">In which of the following patients would you prefer PCI over CABG? (A) Left main disease. (B) 3-vessel disease + EF 30%. (C) T2DM with 3-vessel disease. (D) <em>Proximal LAD disease with 2-vessel involvement</em>.</div>
+      <div class="trap-a"><strong>Proximal LAD disease with 2-vessel involvement</strong> (Option D) — PCI is acceptable here, though CABG is often preferred. The absolute CABG indications are: left main, 3-vessel with reduced EF, T2DM with multivessel disease.</div>
+      <div class="trap-why">⚠ Distractor: Proximal LAD sounds very concerning (which it is), but it's NOT an absolute CABG indication like left main disease is. 2-vessel disease with proximal LAD ESPECIALLY with ↓EF or DM → lean toward CABG, but PCI remains an option in the absence of those factors. Board keyword: <em>left main &gt;50% → CABG; proximal LAD alone → PCI possible</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Troponin Duration — 7–10 Days, Not 48–72h</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient had an MI. How long after the event can troponin levels remain elevated with normal renal function?</div>
+      <div class="trap-a"><strong>7–10 days</strong><br>Cardiac troponin (cTnI and cTnT) remains elevated for 7–10 days post-MI, far longer than CK-MB (which returns to normal in 48–72h). This makes CK-MB more useful for detecting re-infarction — a new rise after initial decline is detectable because CK-MB falls faster.</div>
+      <div class="trap-why">⚠ Distractor: Students confuse troponin with CK-MB duration. Board keyword: <em>Troponin = 7–10 days; CK-MB = 48–72h → CK-MB is used to detect reinfarction</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Acute Decompensated HF — Beta-Blockers Require Caution</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 70-year-old man with EF 50% presents to the ED with pulmonary edema, BP 120/80, HR 104, SpO₂ 88%. B-lines on POCUS, global LV hypokinesis on echo. Which drug is MOST likely to worsen his condition?</div>
+      <div class="trap-a"><strong>Beta-blockers</strong><br>In acute decompensated heart failure, beta-blockers can worsen cardiac output by removing the compensatory tachycardia and reducing contractility. They are contraindicated in the acute phase. Treatment priorities: diuresis (furosemide IV), non-invasive ventilation (CPAP/BiPAP), and vasodilators (nitrates if not hypotensive).</div>
+      <div class="trap-why">⚠ Distractor: BB are standard long-term therapy in HFrEF. But in acute decompensated HF, they should be held or reduced. Board keyword: <em>acute decompensated HF = hold/avoid BB acutely</em>. Restart carefully at very low doses once compensation achieved.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Nitrates Have No Indication in Silent Ischemia Without Symptoms</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Which treatment has NO indication in patients with silent ischemia (asymptomatic ischemia) who have known coronary artery disease?</div>
+      <div class="trap-a"><strong>Nitrates</strong><br>Nitrates are purely SYMPTOMATIC agents — they relieve anginal pain and ischemic discomfort. They have no proven benefit for asymptomatic (silent) ischemia in terms of reducing events or improving prognosis. Beta-blockers, aspirin, and statins all have evidence in asymptomatic CAD. Nitrates do not.</div>
+      <div class="trap-why">⚠ Distractor: Students associate nitrates with ischemia generally. But nitrates address symptoms, not pathophysiology. Board keyword: <em>nitrates = symptomatic only; no indication for silent ischemia</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Return to Sexual/Physical Activity After Uncomplicated STEMI</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 55-year-old man had an uncomplicated STEMI treated with PCI. He was discharged in good condition. He asks how soon he can return to mild physical activity. What is the answer?</div>
+      <div class="trap-a"><strong>After 1 week (approximately 7 days)</strong><br>For uncomplicated STEMI: hospitalization is 3–5 days. In the first 1–2 weeks at home, light activity and normal sexual activity may resume. After 2 weeks, activity is regulated by exercise tolerance. Most patients return to work within 2–4 weeks.</div>
+      <div class="trap-why">⚠ Distractor: Students often choose 6 weeks (like post-cardiac surgery) or 1 month. The correct timeline for uncomplicated STEMI is much earlier. Board keyword: <em>uncomplicated STEMI: mild activity after 1 week; work after 2–4 weeks</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">Increased Lung Uptake on Nuclear Stress = Poor Prognosis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Which finding on nuclear myocardial perfusion imaging indicates the WORST prognosis?</div>
+      <div class="trap-a"><strong>Increased pulmonary (lung) uptake of the tracer</strong><br>Increased lung uptake on nuclear stress imaging indicates significantly elevated LV filling pressures (pulmonary congestion) during stress — reflecting severely impaired LV function during exercise. This is one of the most powerful indicators of poor prognosis on nuclear imaging. It is associated with large ischemic territory and compromised LV reserve.</div>
+      <div class="trap-why">⚠ Distractor: Students may choose multiple perfusion defects (also a bad sign) but increased lung uptake specifically signals the highest-risk patients requiring urgent intervention. Board keyword: <em>↑ lung uptake on nuclear scan = severe LV dysfunction during stress = very poor prognosis</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Drug-Eluting Stent — DAPT Protocol</span></div>
+    <div class="trap-body">
+      <div class="trap-q">What is the most appropriate antiplatelet therapy after implantation of a Drug-Eluting Stent (DES)?</div>
+      <div class="trap-a"><strong>Aspirin + Prasugrel (or clopidogrel/ticagrelor) for 12 months</strong><br>DES requires DAPT (dual antiplatelet therapy) for at least 12 months to prevent in-stent thrombosis, which is the main risk with drug-eluting stents due to delayed endothelialization. The drug coating (sirolimus, paclitaxel) reduces restenosis (&lt;5%) but extends the period of bare metal exposed to blood.</div>
+      <div class="trap-why">⚠ Distractor: Aspirin alone or warfarin alone are not sufficient. Fondaparinux alone is never used post-stent. Board keyword: <em>DES = DAPT (aspirin + P2Y12) for 12 months standard; fondaparinux requires supplemental UFH if used at time of PCI</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">CABG: Saphenous Vein Graft Occlusion Rates</span></div>
+    <div class="trap-body">
+      <div class="trap-q">What is the most accurate statement regarding CABG outcomes?</div>
+      <div class="trap-a"><strong>Saphenous vein graft (SVG) has a risk of occlusion of ~2%/year beginning in year 2 (the "second year" transition)</strong><br>SVG patency rates: 10–20% occlusion in the first postoperative year. Then ~2%/year at years 5–7 (stable phase). Then ~4%/year after year 7 (late acceleration). The IMA graft has far superior long-term patency.</div>
+      <div class="trap-why">⚠ Distractor: The question uses "second year" rates. The key numbers: first year = 10–20%; years 5–7 = 2%/year. The SVG eventually fails due to accelerated atherosclerosis. IMA patency is significantly better. Board keyword: <em>SVG: 10–20% fail first year; then 2%/yr for several years</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">ETT: 98% PPV in Symptomatic Man &gt;50 — Bayes' Theorem</span></div>
+    <div class="trap-body">
+      <div class="trap-q">What does a positive ETT mean in a symptomatic man over 50 with typical chest pain?</div>
+      <div class="trap-a"><strong>~98% probability that obstructive CAD is present</strong><br>Pre-test probability drives post-test probability (Bayes' theorem). A symptomatic man &gt;50 with typical angina has HIGH pre-test probability. When the ETT is positive, the probability of obstructive CAD approaches 98%. The test mainly helps risk-stratify and plan management, not diagnose (which is almost certain from clinical features alone).</div>
+      <div class="trap-why">⚠ Distractor: Students think ETT alone "diagnoses" CAD. In reality, a positive ETT in a high-pretest-probability patient adds to confirmation, but the probability was already very high. Board keyword: <em>positive ETT in man &gt;50 with typical angina = ~98% CAD probability</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 12</span><span class="trap-title">Atrial Flutter During ETT ≠ Positive Test for Ischemia</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient develops atrial flutter during exercise treadmill testing. Does this make the test positive for ischemia?</div>
+      <div class="trap-a"><strong>NO — atrial flutter/fibrillation during ETT is NOT a criterion for a positive ischemia test</strong><br>A positive ETT requires ischemic ST changes (≥1 mm horizontal or downsloping ST depression) or hemodynamic compromise. Arrhythmias during exercise (including AF, flutter, SVT) may be clinically significant but do NOT constitute a positive ischemia test by ECG criteria.</div>
+      <div class="trap-why">⚠ Distractor: Any abnormality during exercise testing seems like a positive result. The specific definition requires horizontal/downsloping ST depression ≥0.1 mV. Upsloping ST is also NOT positive. Board keyword: <em>ETT positive criteria = horizontal or downsloping ST ≥1 mm; NOT arrhythmias alone</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 13</span><span class="trap-title">STEMI Initial Treatment — Heparin + Aspirin + Reperfusion</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 50-year-old man presents with chest pain and BP 80/60 mmHg. ECG (attached to question) shows inferior ST elevation. What is the treatment NOW?</div>
+      <div class="trap-a"><strong>Aspirin + Heparin (UFH) + immediate reperfusion (primary PCI)</strong><br>STEMI management: (1) Aspirin 160–325 mg chewed immediately. (2) UFH (60 U/kg bolus, max 4000 U) + infusion. (3) P2Y12 inhibitor (ticagrelor or prasugrel for planned PCI). (4) Reperfusion: Primary PCI is preferred; if not available, fibrinolysis. Note: hypotension (BP 80/60) suggests possible inferior STEMI + RV infarction → give IV fluids first, AVOID nitrates.</div>
+      <div class="trap-why">⚠ Distractor: With low BP, students might hesitate or give nitrates for pain. In inferior STEMI + hypotension: think RV infarction first (nitrates contraindicated). Volume expansion is the treatment. Board keyword: <em>inferior MI + hypotension + JVD + clear lungs = RV infarction = IV fluids, not nitrates</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 14</span><span class="trap-title">STEMI + PR &gt;0.24 — Beta-Blocker Contraindicated</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 55-year-old man presents with chest pain and ST elevation on ECG. His ECG also shows a PR interval of 0.28 seconds. What is correct regarding beta-blocker therapy?</div>
+      <div class="trap-a"><strong>Beta-blocker should be avoided/contraindicated</strong> — PR interval &gt;0.24 seconds is an absolute contraindication to beta-blocker therapy in STEMI.<br>The beta-blocker further slows AV conduction → risk of complete (3rd degree) AV block.</div>
+      <div class="trap-why">⚠ Distractor: STEMI = give BB (it's guideline-directed). BUT only after checking contraindications. A prolonged PR means the AV node is already conducting slowly; BB → complete AV block. Board keyword: <em>PR &gt;0.24s = BB contraindicated; check PR before every beta-blocker order in STEMI</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 15</span><span class="trap-title">Fondaparinux = Same Efficacy, Less Bleeding — But Needs UFH for PCI</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Comparing Fondaparinux to Enoxaparin in NSTE-ACS (non-ST-elevation ACS) without urgent revascularization — what is the key difference?</div>
+      <div class="trap-a"><strong>Fondaparinux has equivalent efficacy to Enoxaparin BUT causes significantly fewer major bleeding complications</strong>.<br>However, if PCI is performed: supplemental UFH MUST be added at the time of PCI because fondaparinux cannot prevent catheter-related thrombosis.</div>
+      <div class="trap-why">⚠ Distractor: Students might say fondaparinux is MORE effective (not true — equivalent) or that it can be used alone during PCI (it cannot). Board keyword: <em>fondaparinux = same efficacy + less bleeding; but needs UFH supplement at PCI</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 16</span><span class="trap-title">Inferior STEMI + Bradycardia = Adenosine (Not Atropine-Resistant AV Block)</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 69-year-old man presents with acute MI and wide-complex bradycardia. Which statement best explains why LAD occlusion is less likely to cause this picture?</div>
+      <div class="trap-a"><strong>LAD occlusion causes an anterior STEMI and infranodal block — which manifests as wide-complex bradycardia that does NOT respond to atropine and requires pacing</strong>. In contrast, inferior STEMI (RCA occlusion) releases adenosine from ischemic myocardium, causing AV NODE-level block (narrow escape, responds to atropine, usually temporary).<br><br>The answer is that <strong>LAD (proximal) occlusion can cause wide complex bradycardia due to infranodal conduction system damage</strong> — which is mechanistically different from the adenosine-mediated AV block in inferior MI.</div>
+      <div class="trap-why">⚠ Distractor: Students think all AV block in MI = inferior MI. Anterior MI with large LAD territory can destroy the bundle branches → wide complex bradycardia. Board keyword: <em>Inferior STEMI AV block = adenosine = nodal = atropine responds; Anterior STEMI AV block = infranodal = pacing required</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 17</span><span class="trap-title">NSTE-ACS Invasive Strategy — Confirmed NSTEMI = Early Invasive (&lt;24h)</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 66-year-old man with hypertension and diabetes presents with chest pain for 2 hours, then resolution. Troponin at 6 hours is 0.1 (elevated). ECG: non-specific ST changes. What is the appropriate management strategy?</div>
+      <div class="trap-a"><strong>Early invasive strategy — catheterization within 24 hours</strong><br>A confirmed NSTEMI (elevated troponin) is a HIGH-RISK criterion requiring early invasive strategy (&lt;24 hours). GRACE score &gt;140, dynamic ST/T changes, and transient ST elevation are the other high-risk triggers.</div>
+      <div class="trap-why">⚠ Distractor: The pain resolved — students might think the patient is stable and can wait. Elevated troponin = confirmed NSTEMI = early invasive (&lt;24h). Board keyword: <em>confirmed NSTEMI (troponin +) = high risk = early invasive &lt;24h</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 18</span><span class="trap-title">Upsloping ST on ETT — NOT a Positive Finding</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 40-year-old woman with diabetes has an upsloping ST segment of 0.1 mV from baseline during exercise, measured at J+80ms. Is this a positive ETT for ischemia?</div>
+      <div class="trap-a"><strong>No — upsloping ST at 0.1 mV is NOT a positive ETT finding for ischemia</strong>. A positive ETT requires <strong>horizontal or downsloping</strong> ST depression ≥0.1 mV (1 mm). Upsloping ST has very low specificity and high false-positive rate. Additionally, because she has circumflex territory (LCX territory), even a truly negative ETT can be false negative for her disease.</div>
+      <div class="trap-why">⚠ Distractor: Any ST change during exercise triggers a positive interpretation. Wrong — must be horizontal or downsloping. Board keyword: <em>upsloping ST = NOT positive; LCX disease = most common false negative territory</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 19</span><span class="trap-title">Prinzmetal Angina — Calcium Channel Blockers, Not Beta-Blockers</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 21-year-old man is brought by ambulance for severe chest pain that woke him from sleep. His ECG (showed in question) has ST elevation. He feels better after nitroglycerin. Troponin returns negative twice. What treatment is most appropriate?</div>
+      <div class="trap-a"><strong>Calcium Channel Blockers (CCBs)</strong><br>This is Prinzmetal (vasospastic) angina — young patient, rest pain, ST elevation during attack (not depression), transient, responded to nitroglycerin, negative troponin. CCBs are first-line. Nitrates work acutely but tolerance limits long-term use. Beta-blockers are NOT first-line (may worsen spasm via non-selective beta-blockade).</div>
+      <div class="trap-why">⚠ Distractor: ST elevation → STEMI treatment (aspirin, heparin, PCI). But here, the ST elevation is transient, the patient is young without risk factors, and troponin is negative. Vasospasm, not thrombosis. Board keyword: <em>Prinzmetal = transient ST elevation at rest = CCBs; aspirin may worsen</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 20</span><span class="trap-title">Verapamil + Metoprolol = Most Dangerous Combination in Stable IHD</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Which combination of medications should be MOST avoided in patients with ischemic heart disease who do not have structural heart disease or conduction system disease?</div>
+      <div class="trap-a"><strong>Verapamil + Metoprolol</strong><br>Verapamil (non-DHP CCB) + any beta-blocker = additive suppression of SA node, AV conduction, and myocardial contractility → severe bradycardia, complete AV block, and/or acute heart failure. This combination is ABSOLUTELY avoided.</div>
+      <div class="trap-why">⚠ Distractor: Diltiazem + bisoprolol seems equally dangerous, but diltiazem can be carefully combined with BB in patients with normal LV and no conduction disturbances. Verapamil is the one that is completely prohibited with any beta-blocker. Board keyword: <em>Verapamil + any BB = absolutely forbidden; Diltiazem + BB = acceptable with caution in normal LV</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 21</span><span class="trap-title">STEMI — Beta-Blocker Prevents VT/VF, Not Lidocaine</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 60-year-old man with STEMI is in the cardiac unit with frequent VPBs on the monitor. Which drug is recommended as the most effective prophylactic treatment against ventricular arrhythmias?</div>
+      <div class="trap-a"><strong>β-Blocker</strong><br>Beta-blockers are the most effective prophylactic agents against VF in STEMI. They reduce VPBs and VF by attenuating catecholamine effects on the ischemic myocardium. In contrast, prophylactic lidocaine (IV or oral antiarrhythmics) for VPBs is CONTRAINDICATED — it actually increases mortality.</div>
+      <div class="trap-why">⚠ Distractor: VPBs → reach for antiarrhythmics (lidocaine, amiodarone). Wrong — do not treat isolated VPBs with antiarrhythmics in STEMI. Board keyword: <em>VPBs in STEMI: no lidocaine (increases mortality); beta-blockers = VF prevention of choice</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 22</span><span class="trap-title">ICD After MI — EF ≤35%, Reassess &gt;40 Days</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 50-year-old man had an Out-of-Hospital Cardiac Arrest, was resuscitated, and had an anterior STEMI. He is now being treated. When and based on what should you consider ICD implantation?</div>
+      <div class="trap-a"><strong>Reassess EF &gt;40 days post-MI and/or &gt;90 days post-revascularization. ICD indicated if EF remains ≤30% (NYHA I) or ≤35% (NYHA II–III)</strong><br>Early ICD placement does not improve survival. LVEF may improve significantly with revascularization and medical therapy. The Out-of-Hospital VF is a secondary prevention indication regardless (any EF).</div>
+      <div class="trap-why">⚠ Distractor: LVEF is 30% right now → implant ICD now. Wrong — timing matters. Wait &gt;40 days unless secondary prevention (prior VT/VF). Board keyword: <em>ICD: reassess EF &gt;40 days post-MI; EF ≤30% (NYHA I) or ≤35% (NYHA II–III) = Class I indication</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 23</span><span class="trap-title">Inferior STEMI + CAVB — Adenosine as the Mechanism</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 55-year-old man is admitted with inferior wall STEMI and complete AV block (CAVB). What is the MOST LIKELY mechanism causing this arrhythmia?</div>
+      <div class="trap-a"><strong>Release of adenosine from ischemic inferior myocardium</strong><br>In inferior STEMI (RCA territory), ischemic myocardial cells release adenosine. Adenosine is a potent inhibitor of AV nodal conduction → AV block (1st, 2nd, or complete). This is usually transient, at the nodal level, narrow-escape rhythm, and atropine-responsive.</div>
+      <div class="trap-why">⚠ Distractor: Complete RCA occlusion causing complete AVB → students think pacing immediately. The mechanism is adenosine release, and most cases are transient. Atropine (1 mg IV) is first-line. Temporary pacing only if persistent or hemodynamically unstable. Board keyword: <em>inferior MI + AV block = adenosine from ischemic myocardium = nodal block = usually temporary = atropine first</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 24</span><span class="trap-title">Propranolol — Non-Selective β₁ and β₂</span></div>
+    <div class="trap-body">
+      <div class="trap-q">What is correct about Propranolol?</div>
+      <div class="trap-a"><strong>Propranolol is a non-selective beta-blocker (blocks both β₁ and β₂ receptors)</strong><br>β₁ blockade: ↓ HR, ↓ contractility, ↓ AV conduction. β₂ blockade: bronchoconstriction (dangerous in asthma/COPD), impairs glycogenolysis (masks hypoglycemia in DM). Propranolol is the prototype but is NOT used when selectivity matters (asthma, DM).</div>
+      <div class="trap-why">⚠ Distractor: Propranolol is classified as "beta-blocker" generically, so students assume it's β₁-selective like metoprolol. Board keyword: <em>Propranolol = non-selective (β₁+β₂); Metoprolol/Atenolol = β₁-selective; Carvedilol = α+β₁+β₂</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 25</span><span class="trap-title">NSTEMI + PDE-5 Inhibitor + Aortic Stenosis — Nitrates Needed</span></div>
+    <div class="trap-body">
+      <div class="trap-q">An 80-year-old hypertensive diabetic patient with known aortic stenosis presents with NSTEMI. He has severe hypertension (180/100) and ST elevation changes. He uses sildenafil (but last dose was 30 hours ago). What drug would best improve his condition?</div>
+      <div class="trap-a"><strong>Nitrates</strong><br>Sildenafil was taken 30 hours ago (beyond the 24-hour window), so nitrates can be safely given. Nitrates are the treatment for ongoing ischemia + severe hypertension in this setting. They reduce preload, lower BP, and relieve ischemic pain. Aortic stenosis with fixed output is a relative caution but not an absolute contraindication when the patient has severe hypertension + ischemia.</div>
+      <div class="trap-why">⚠ Distractor: The sildenafil use + aortic stenosis might make students avoid nitrates. However, 30 hours &gt; 24-hour window for sildenafil → safe to use. Board keyword: <em>sildenafil/vardenafil window = 24h; tadalafil = 48h; check timing before withholding needed treatment</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 26</span><span class="trap-title">NSTE-ACS — Fondaparinux is the Safest Anticoagulant for Urgent Revascularization? NO</span></div>
+    <div class="trap-body">
+      <div class="trap-q">What is the most correct statement regarding anticoagulation choice in NSTE-ACS?</div>
+      <div class="trap-a"><strong>Fondaparinux is safer than LMWH (less major bleeding) for NSTE-ACS managed without immediate PCI, but requires supplemental UFH if PCI is performed</strong>.<br>If urgent revascularization is planned, UFH or bivalirudin are preferable because they can be used directly during PCI without the catheter-thrombosis risk that fondaparinux carries.</div>
+      <div class="trap-why">⚠ Distractor: Fondaparinux = best anticoagulant for NSTE-ACS universally. Wrong — it requires UFH supplementation for PCI. When urgent PCI is certain upfront, UFH is the logical primary anticoagulant. Board keyword: <em>fondaparinux = less bleeding for conservative/delayed PCI; always add UFH if doing PCI</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 27</span><span class="trap-title">STEMI CAVB + Lateral Wall Ischemia — LAD Can Cause Wide Complex Bradycardia</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 55-year-old man is admitted with anterior STEMI and complete AV block with wide complex. BP 140/60, no fever. What is the most likely mechanism?</div>
+      <div class="trap-a"><strong>LAD occlusion → large anterior infarction involving the His-Purkinje system → infranodal conduction block → wide complex bradycardia</strong>.<br>Unlike inferior STEMI where adenosine mediates a nodal-level block (narrow complex, atropine-responsive), anterior STEMI can cause infranodal block by direct tissue destruction of the bundle branches → wide complex escape rhythm → requires temporary transvenous pacing, NOT atropine.</div>
+      <div class="trap-why">⚠ Distractor: All complete AV block in STEMI = inferior. Wrong — large anterior infarcts (proximal LAD) can destroy infranodal conduction, causing wide complex block that doesn't respond to atropine. Board keyword: <em>anterior STEMI + wide complex bradycardia = infranodal block = pacing needed, not atropine</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 28</span><span class="trap-title">NSTE-ACS Catheterization Timing — Conservative Approach for Low-Risk</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 66-year-old man with hypertension and diabetes presents with chest pain for 2 minutes, resolved on its own. ECG: no ST changes. Troponin: 0.1 mV elevation at presentation. What strategy is correct?</div>
+      <div class="trap-a"><strong>Early invasive catheterization within 24 hours</strong> (high-risk: confirmed NSTEMI = troponin elevated).<br>Even with brief pain that resolved, a positive troponin = NSTEMI = high risk → early invasive (&lt;24h). If troponin were negative and symptoms resolved, selective conservative approach would be appropriate with further risk stratification.</div>
+      <div class="trap-why">⚠ Distractor: Pain resolved → conservative management/discharge. Wrong — troponin is elevated. This is NSTEMI, not just stable angina. Board keyword: <em>troponin+ = NSTEMI = early invasive &lt;24h regardless of symptom resolution</em>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 29</span><span class="trap-title">Acute Decompensated HF + Ischemia — Treat the HF FIRST with LNBB</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 70-year-old man with known EF 50%, treated with furosemide and amlodipine, presents with pulmonary edema and ischemia on ECG. POCUS shows B-lines and global hypokinesis. What is the BEST immediate drug to improve the hemodynamic picture?</div>
+      <div class="trap-a"><strong>Beta-blockers (specifically initiated after stabilization)</strong> — but the ACUTE treatment is: IV furosemide, IV nitrates (if not hypotensive), and CPAP/BiPAP. Beta-blockers are indicated chronically but <em>contraindicated acutely</em> in decompensated HF. Once compensation is achieved, beta-blockers are added at very low doses.<br><br>If the question asks what drug is MOST CONTRAINDICATED in acute decompensated HF with ischemia → beta-blockers.</div>
+      <div class="trap-why">⚠ This trap combines two concepts: (1) BB contraindicated acutely in decompensated HF, and (2) BB are beneficial chronically in HFrEF + ischemia. Board keyword: <em>acute pulmonary edema = BB contraindicated NOW; treat with diuretics + nitrates + CPAP</em>.</div>
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">Harrison's Ch. 284–286 · Stable Angina · NSTE-ACS · STEMI · IHD Night-Before Review · Stage A Boards · May 2026</footer>
+
+<script>
+let curColor=null,eraseMode=false,selText='',savedRange=null;
+function setHL(c){curColor=c;eraseMode=false;document.body.style.cursor='crosshair';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));const map={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};document.getElementById(map[c]).classList.add('active');}
+function setErase(){eraseMode=true;curColor=null;document.body.style.cursor='cell';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));}
+function clearAll(){if(!confirm('Clear ALL highlights and notes?'))return;document.querySelectorAll('.hl').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});document.querySelectorAll('.note-anchor').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});try{localStorage.removeItem('bsa_ihdreview');}catch(e){}renderNotes();document.body.style.cursor='';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));curColor=null;eraseMode=false;}
+document.addEventListener('mouseup',function(e){const tb=document.getElementById('toolbar');const sb=document.getElementById('sn-sidebar');const np=document.getElementById('note-popover');if(tb.contains(e.target)||sb.contains(e.target)||np.contains(e.target))return;if(eraseMode&&e.target.classList.contains('hl')){const el=e.target;el.parentNode.replaceChild(document.createTextNode(el.textContent),el);return;}const sel=window.getSelection();if(!sel||sel.isCollapsed)return;const txt=sel.toString().trim();if(!txt)return;selText=txt;savedRange=sel.getRangeAt(0).cloneRange();document.getElementById('sn-ref-txt').textContent=txt.length>48?txt.substring(0,48)+'…':txt;if(curColor){try{const range=sel.getRangeAt(0);const span=document.createElement('span');span.className='hl hl-'+curColor;span.title='Click in erase mode to remove';range.surroundContents(span);sel.removeAllRanges();}catch(err){}}});
+const STORE_KEY='bsa_ihdreview';
+function getNotes(){try{return JSON.parse(localStorage.getItem(STORE_KEY)||'[]');}catch(e){return[];}}
+function saveNotes(n){try{localStorage.setItem(STORE_KEY,JSON.stringify(n));}catch(e){}}
+function addNote(){const txt=document.getElementById('sn-ta').value.trim();if(!txt)return;const id=Date.now();const notes=getNotes();notes.unshift({id,ref:selText.substring(0,80)||'—',text:txt});saveNotes(notes);if(savedRange){try{const span=document.createElement('span');span.className='note-anchor';span.dataset.noteId=id;span.title='Click to see your note';savedRange.surroundContents(span);}catch(e){}savedRange=null;}document.getElementById('sn-ta').value='';selText='';document.getElementById('sn-ref-txt').textContent='—';renderNotes();}
+function deleteNote(id){saveNotes(getNotes().filter(n=>n.id!==id));document.querySelectorAll('.note-anchor[data-note-id="'+id+'"]').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);});closePopover();renderNotes();}
+function renderNotes(){const body=document.getElementById('sn-body');const empty=document.getElementById('sn-empty');const notes=getNotes();body.querySelectorAll('.sn-note').forEach(el=>el.remove());if(!notes.length){if(empty)empty.style.display='';return;}if(empty)empty.style.display='none';notes.forEach(note=>{const card=document.createElement('div');card.className='sn-note';card.dataset.noteId=note.id;const savedH=localStorage.getItem('bsa_h_'+note.id);if(savedH)card.style.height=savedH+'px';card.innerHTML=`<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span><span class="sn-note-ref">${note.ref!=='—'?'"'+note.ref+'"':'General note'}</span><button class="sn-del" onclick="deleteNote(${note.id})">×</button></div><div class="sn-note-body">${note.text.replace(/\n/g,'<br>')}</div><div class="sn-resize" title="Drag to resize"></div>`;body.appendChild(card);makeDraggable(card);makeResizable(card,note.id);});}
+function makeDraggable(card){const handle=card.querySelector('.sn-note-hd');let startY=0;handle.addEventListener('mousedown',function(e){if(e.target.classList.contains('sn-del'))return;e.preventDefault();startY=e.clientY;card.style.opacity='.7';card.style.zIndex='9999';function onMove(ev){const dy=ev.clientY-startY;const body=document.getElementById('sn-body');const cards=[...body.querySelectorAll('.sn-note')];const myIdx=cards.indexOf(card);if(dy<-30&&myIdx>0){body.insertBefore(card,cards[myIdx-1]);startY=ev.clientY;}else if(dy>30&&myIdx<cards.length-1){body.insertBefore(cards[myIdx+1],card);startY=ev.clientY;}}function onUp(){card.style.opacity='';card.style.zIndex='';const body=document.getElementById('sn-body');const ids=[...body.querySelectorAll('.sn-note')].map(c=>parseInt(c.dataset.noteId));const notes=getNotes();const reordered=ids.map(id=>notes.find(n=>n.id===id)).filter(Boolean);saveNotes(reordered);document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp);}document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp);});}
+function makeResizable(card,noteId){const handle=card.querySelector('.sn-resize');let startY=0,startH=0;handle.addEventListener('mousedown',function(e){e.preventDefault();e.stopPropagation();startY=e.clientY;startH=card.offsetHeight;function onMove(ev){const newH=Math.max(80,startH+(ev.clientY-startY));card.style.height=newH+'px';}function onUp(){try{localStorage.setItem('bsa_h_'+noteId,card.offsetHeight);}catch(e){}document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp);}document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp);});}
+function toggleSidebar(){const sb=document.getElementById('sn-sidebar');const tab=document.getElementById('sn-tab');sb.classList.toggle('open');if(sb.classList.contains('open')){document.body.classList.add('sidebar-open');tab.textContent='◀';}else{document.body.classList.remove('sidebar-open');tab.textContent='📝 Notes';}}
+let activePopNoteId=null;
+function showPopover(anchorEl,note){const pop=document.getElementById('note-popover');document.getElementById('np-pop-ref').textContent=note.ref!=='—'?'"'+note.ref.substring(0,55)+(note.ref.length>55?'…':'')+'"':'Your note';document.getElementById('np-pop-text').innerHTML=note.text.replace(/\n/g,'<br>');document.getElementById('pop-del-btn').onclick=()=>deleteNote(note.id);activePopNoteId=note.id;const rect=anchorEl.getBoundingClientRect();pop.style.left=Math.min(rect.left,window.innerWidth-300)+'px';pop.style.top=(rect.bottom+8)+'px';pop.classList.add('show');}
+function closePopover(){document.getElementById('note-popover').classList.remove('show');activePopNoteId=null;}
+document.addEventListener('click',function(e){const anchor=e.target.closest('.note-anchor');if(anchor){e.stopPropagation();const nid=parseInt(anchor.dataset.noteId);if(activePopNoteId===nid){closePopover();return;}const note=getNotes().find(n=>n.id===nid);if(note)showPopover(anchor,note);return;}const pop=document.getElementById('note-popover');if(pop&&!pop.contains(e.target))closePopover();});
+const _sections=document.querySelectorAll('.sec[id]');
+const _navLinks=document.querySelectorAll('.toc-a');
+_sections.forEach(s=>new IntersectionObserver(entries=>{if(entries[0].isIntersecting){_navLinks.forEach(l=>l.classList.remove('on'));const lnk=document.querySelector('.toc-a[href="#'+s.id+'"]');if(lnk){lnk.classList.add('on');lnk.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}}},{rootMargin:'-15% 0px -75% 0px'}).observe(s));
+renderNotes();
+</script>
+</body>
+</html>
