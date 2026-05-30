@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Acute Kidney Injury · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7;margin-right:var(--snw)}
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  /* 4-color semantic system */
+  --navy:#1a3a6b;   --navy-l:#e8eef8;   --navy-d:#122a52;
+  --red:#b91c1c;    --red-l:#fef2f2;    --red-d:#991b1b;
+  --amb:#92400e;    --amb-l:#fef3c7;    --amb-d:#78350f;
+  --grn:#14532d;    --grn-l:#dcfce7;    --grn-d:#166534;
+  /* aliases */
+  --blu:#1a3a6b;--blu-l:#e8eef8;--blu-d:#122a52;
+  --pur:#1a3a6b;--pur-l:#e8eef8;
+  --tel:#1a3a6b;--tel-l:#e8eef8;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:58px;--snw:320px;
+}
+
+/* TOOLBAR */
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+
+/* SIDEBAR */
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-tab{position:fixed;right:0;top:calc(var(--nav) + 60px);z-index:801;background:var(--pur);color:#fff;border:none;padding:8px 6px;border-radius:8px 0 0 8px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;letter-spacing:.1em;transition:background .2s}
+#sn-tab:hover{background:var(--blu-d)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;line-height:1.6}
+.sn-card{background:#fff;border:1.5px solid var(--bd);border-radius:10px;padding:10px 12px;position:relative;min-height:80px;resize:vertical;overflow:auto;cursor:grab;user-select:none}
+.sn-card:active{cursor:grabbing}
+.sn-card-ref{font-size:9.5px;font-style:italic;color:var(--t3);margin-bottom:5px;line-height:1.4}
+.sn-card-text{font-size:12px;color:var(--tx);line-height:1.5;white-space:pre-wrap;word-break:break-word;user-select:text}
+.sn-card-del{position:absolute;top:6px;right:8px;background:none;border:none;color:var(--t3);cursor:pointer;font-size:14px;line-height:1}
+.sn-card-del:hover{color:var(--red)}
+
+/* NOTE POPOVER */
+#note-popover{position:fixed;z-index:1200;background:#fff;border:1.5px solid var(--pur);border-radius:10px;padding:12px 14px;max-width:280px;box-shadow:0 6px 24px rgba(0,0,0,.15);display:none}
+#note-popover.show{display:block}
+#np-pop-ref{font-size:9px;font-style:italic;color:var(--t3);margin-bottom:6px;border-bottom:1px solid var(--bd);padding-bottom:5px}
+#np-pop-text{font-size:12px;color:var(--tx);line-height:1.5;white-space:pre-wrap;margin-bottom:8px}
+#pop-del-btn{font-size:10px;color:var(--red);background:none;border:1px solid var(--red);border-radius:5px;padding:2px 8px;cursor:pointer}
+.note-anchor{border-bottom:2px dotted var(--pur);cursor:pointer;color:inherit}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:700;background:#fff;border-bottom:1.5px solid var(--bd);height:var(--nav);display:flex;align-items:center;padding:0 16px;overflow-x:auto;gap:0;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);text-decoration:none;white-space:nowrap;padding:6px 12px;border-radius:6px;transition:background .15s,color .15s;flex-shrink:0}
+.toc-a:hover{background:var(--blu-l);color:var(--blu)}
+.toc-a.on{background:var(--blu-l);color:var(--blu);font-weight:600}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#1e3a6e 0%,#1e4db7 60%,#0e7490 100%);color:#fff;padding:56px 40px 40px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;opacity:.7;margin-bottom:10px}
+.hero h1{font-family:'Playfair Display',serif;font-size:38px;font-weight:900;line-height:1.1;margin-bottom:8px}
+.hero-sub{opacity:.8;font-size:14px;max-width:540px;margin-bottom:28px}
+.stat-row{display:flex;gap:16px;flex-wrap:wrap}
+.stat-box{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:14px 20px;min-width:130px}
+.stat-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;line-height:1}
+.stat-lbl{font-size:10px;opacity:.75;margin-top:3px;letter-spacing:.05em}
+
+/* MAIN */
+.main{max-width:100%;padding:32px 40px 60px}
+.sec{scroll-margin-top:calc(var(--nav) + 12px);margin-bottom:48px}
+.sec-tag{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);margin-bottom:18px;line-height:1.2}
+.sec h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--blu);margin:22px 0 10px}
+.sec h4{font-family:'Source Sans 3',sans-serif;font-size:13.5px;font-weight:600;color:var(--t2);margin:16px 0 7px;text-transform:uppercase;letter-spacing:.06em}
+p{margin-bottom:10px;color:var(--t2)}
+ul,ol{margin:8px 0 12px 20px;color:var(--t2)}
+li{margin-bottom:4px}
+li ul{margin:3px 0 3px 18px}
+b,strong{color:var(--tx);font-weight:600}
+.sep{border:none;border-top:2px solid var(--bd);margin:36px 0}
+
+/* CARDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0}
+.g4{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:12px;padding:14px 16px}
+.card-t{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-blu{border-color:var(--blu);background:var(--blu-l)}.c-blu .card-t{color:var(--blu)}
+.c-red{border-color:var(--red);background:var(--red-l)}.c-red .card-t{color:var(--red)}
+.c-grn{border-color:var(--grn);background:var(--grn-l)}.c-grn .card-t{color:var(--grn)}
+.c-amb{border-color:var(--amb);background:var(--amb-l)}.c-amb .card-t{color:var(--amb)}
+.c-pur{border-color:var(--pur);background:var(--pur-l)}.c-pur .card-t{color:var(--pur)}
+.c-tel{border-color:var(--tel);background:var(--tel-l)}.c-tel .card-t{color:var(--tel)}
+
+/* VS BOX */
+.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin:14px 0;border:1.5px solid var(--bd);border-radius:12px;overflow:hidden}
+.vs-l{background:var(--blu-l);padding:14px 16px}
+.vs-m{background:var(--sf2);display:flex;align-items:center;justify-content:center;padding:0 10px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:var(--t3)}
+.vs-r{background:var(--red-l);padding:14px 16px}
+.vs-t{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px}
+.vs-l .vs-t{color:var(--blu)}.vs-r .vs-t{color:var(--red)}
+
+/* ALERT BOX */
+.alert{border-radius:10px;padding:13px 16px;margin:13px 0;display:flex;gap:10px;align-items:flex-start}
+.alert-ico{font-size:16px;flex-shrink:0;margin-top:1px}
+.alert.warn{background:var(--amb-l);border:1.5px solid var(--amb)}
+.alert.info{background:var(--blu-l);border:1.5px solid var(--blu)}
+.alert.danger{background:var(--red-l);border:1.5px solid var(--red)}
+.alert.pearl{background:var(--grn-l);border:1.5px solid var(--grn)}
+
+/* DRUG BOX */
+.drug-box{background:var(--sf);border:2px solid var(--tel);border-radius:14px;padding:18px 20px;margin:16px 0}
+.drug-box h3{color:var(--tel);margin-top:0}
+.drug-row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.drug-pill{background:var(--tel-l);border:1px solid var(--tel);border-radius:20px;padding:2px 10px;font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--tel)}
+.drug-prop{margin:6px 0;font-size:13px}
+.drug-prop b{color:var(--tel);min-width:120px;display:inline-block}
+
+/* FLOWCHART */
+.flow{display:flex;flex-direction:column;align-items:center;gap:4px;margin:16px 0}
+.flow-box{background:var(--sf);border:1.5px solid var(--bd);border-radius:10px;padding:10px 20px;text-align:center;font-size:12.5px;max-width:400px;width:100%}
+.flow-box.blue{background:var(--blu-l);border-color:var(--blu);color:var(--blu-d);font-weight:600}
+.flow-box.green{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.flow-box.red{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.flow-box.amber{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.flow-arr{font-size:20px;color:var(--t3);line-height:1}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:12.5px}
+th{background:var(--sf2);color:var(--tx);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:9px 11px;border:1px solid var(--bd);text-align:left}
+td{padding:8px 11px;border:1px solid var(--bd);vertical-align:top;color:var(--t2)}
+tr:hover td{background:#fafaf8}
+
+/* LEARNED/REVIEW */
+.sec-footer{display:flex;gap:10px;margin-top:20px;padding-top:14px;border-top:1px solid var(--bd)}
+.lbtn{border:1.5px solid var(--bd);background:var(--sf);border-radius:20px;padding:5px 14px;font-size:11px;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:all .2s;color:var(--t2)}
+.lbtn:hover{border-color:var(--grn);color:var(--grn)}
+.lbtn.learned{background:var(--grn);border-color:var(--grn);color:#fff}
+.lbtn:nth-child(2):hover{border-color:var(--amb);color:var(--amb)}
+.lbtn:nth-child(2).review{background:var(--amb);border-color:var(--amb);color:#fff}
+
+/* TRAP */
+.trap{background:var(--sf);border:2px solid var(--pur);border-radius:14px;padding:18px 20px;margin:16px 0}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--pur);margin-bottom:6px}
+.trap-q{font-family:'Playfair Display',serif;font-style:italic;color:var(--tx);margin-bottom:10px;font-size:14.5px}
+.trap-section{margin-top:8px;font-size:12.5px}
+.trap-section b{color:var(--pur);display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px;font-family:'JetBrains Mono',monospace}
+.trap-kw{display:inline-block;background:var(--pur-l);border:1px solid var(--pur);border-radius:6px;padding:2px 10px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--pur);margin-top:8px}
+
+/* FOOTER */
+.footer{text-align:center;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--t3);padding:24px 0 40px;letter-spacing:.1em}
+
+/* HIGHLIGHT MARKS */
+mark.hy{background:var(--hy);border-radius:2px}
+mark.hg{background:var(--hg);border-radius:2px}
+mark.hb{background:var(--hb);border-radius:2px}
+mark.hpk{background:var(--hpk);border-radius:2px}
+mark.ho{background:var(--ho);border-radius:2px}
+
+/* PRINT */
+
+/* ── TOGGLE PANEL SYSTEM ────────────── */
+.toggle-panel{border:2px solid var(--bd);border-radius:14px;margin:14px 0;overflow:hidden}
+.toggle-header{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;cursor:pointer;user-select:none;background:var(--sf2);transition:background .15s}
+.toggle-header:hover{background:var(--bd)}
+.toggle-header-left{display:flex;align-items:center;gap:10px}
+.toggle-tag{font-family:"JetBrains Mono",monospace;font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;padding:3px 10px;border-radius:20px}
+.toggle-title{font-family:"Playfair Display",serif;font-size:16px;font-weight:700;color:var(--tx)}
+.toggle-arrow{font-size:14px;color:var(--t3);transition:transform .25s;flex-shrink:0}
+.toggle-arrow.open{transform:rotate(180deg)}
+.toggle-body{padding:18px 20px;background:var(--sf);border-top:1px solid var(--bd);display:none}
+.toggle-body.open{display:block}
+
+/* Semantic toggle variants */
+.toggle-panel.navy .toggle-header{background:var(--navy-l);border-color:var(--navy)}
+.toggle-panel.navy .toggle-tag{background:var(--navy);color:#fff}
+.toggle-panel.navy .toggle-title{color:var(--navy-d)}
+.toggle-panel.navy .toggle-arrow{color:var(--navy)}
+.toggle-panel.navy{border-color:var(--navy)}
+.toggle-panel.navy .toggle-body{background:#f4f7fc}
+
+.toggle-panel.red .toggle-header{background:var(--red-l);border-color:var(--red)}
+.toggle-panel.red .toggle-tag{background:var(--red);color:#fff}
+.toggle-panel.red .toggle-title{color:var(--red-d)}
+.toggle-panel.red .toggle-arrow{color:var(--red)}
+.toggle-panel.red{border-color:var(--red)}
+.toggle-panel.red .toggle-body{background:#fff8f8}
+
+.toggle-panel.amber .toggle-header{background:var(--amb-l);border-color:var(--amb)}
+.toggle-panel.amber .toggle-tag{background:var(--amb);color:#fff}
+.toggle-panel.amber .toggle-title{color:var(--amb-d)}
+.toggle-panel.amber .toggle-arrow{color:var(--amb)}
+.toggle-panel.amber{border-color:var(--amb)}
+.toggle-panel.amber .toggle-body{background:#fffdf5}
+
+.toggle-panel.green .toggle-header{background:var(--grn-l);border-color:var(--grn)}
+.toggle-panel.green .toggle-tag{background:var(--grn);color:#fff}
+.toggle-panel.green .toggle-title{color:var(--grn-d)}
+.toggle-panel.green .toggle-arrow{color:var(--grn)}
+.toggle-panel.green{border-color:var(--grn)}
+.toggle-panel.green .toggle-body{background:#f6fef8}
+
+/* ── WIDE LAYOUT GRID ───────────────── */
+.wide-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:16px 0}
+.wide-grid.col2{grid-template-columns:1fr 1fr}
+.wide-grid.col4{grid-template-columns:1fr 1fr 1fr 1fr}
+@media(max-width:900px){.wide-grid,.wide-grid.col2,.wide-grid.col4{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.wide-grid,.wide-grid.col2,.wide-grid.col4{grid-template-columns:1fr}}
+
+/* ── SEMANTIC LEGEND BAR ────────────── */
+.legend-bar{display:flex;gap:12px;flex-wrap:wrap;padding:12px 18px;background:var(--sf);border:1.5px solid var(--bd);border-radius:10px;margin-bottom:24px;align-items:center}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;font-family:"JetBrains Mono",monospace;color:var(--t2)}
+.legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.legend-dot.navy{background:var(--navy)}
+.legend-dot.red{background:var(--red)}
+.legend-dot.amber{background:var(--amb)}
+.legend-dot.green{background:var(--grn)}
+
+/* ── RESTYLED ALERT BOXES (semantic) ── */
+.alert.navy{background:var(--navy-l);border:2px solid var(--navy)}
+.alert.navy .alert-ico{color:var(--navy)}
+
+/* ── SEMANTIC CARD OVERRIDES ─────────── */
+.c-navy{border-color:var(--navy)!important;background:var(--navy-l)!important}.c-navy .card-t{color:var(--navy)!important}
+.c-blu{border-color:var(--navy)!important;background:var(--navy-l)!important}.c-blu .card-t{color:var(--navy)!important}
+.c-tel{border-color:var(--navy)!important;background:var(--navy-l)!important}.c-tel .card-t{color:var(--navy)!important}
+.c-amb{border-color:var(--amb)!important;background:var(--amb-l)!important}.c-amb .card-t{color:var(--amb-d)!important}
+.c-grn{border-color:var(--grn)!important;background:var(--grn-l)!important}.c-grn .card-t{color:var(--grn-d)!important}
+.c-red{border-color:var(--red)!important;background:var(--red-l)!important}.c-red .card-t{color:var(--red-d)!important}
+.c-pur{border-color:var(--navy)!important;background:var(--navy-l)!important}.c-pur .card-t{color:var(--navy)!important}
+
+/* ── DRUG BOX SEMANTIC ───────────────── */
+.drug-box{border-color:var(--navy)!important}
+.drug-box h3{color:var(--navy)!important}
+.drug-pill{background:var(--navy-l)!important;border-color:var(--navy)!important;color:var(--navy)!important}
+.drug-prop b{color:var(--navy)!important}
+
+/* ── TRAP SEMANTIC ───────────────────── */
+.trap{border-color:var(--navy)!important}
+.trap-num{color:var(--navy)!important}
+.trap-kw{background:var(--navy-l)!important;border-color:var(--navy)!important;color:var(--navy)!important}
+
+/* ── NAV SEMANTIC ────────────────────── */
+.toc-a.on{background:var(--navy-l);color:var(--navy);font-weight:600}
+.toc-a:hover{background:var(--navy-l);color:var(--navy)}
+
+/* ── VS BOX SEMANTIC ─────────────────── */
+.vs-l{background:var(--navy-l)!important}
+.vs-l .vs-t{color:var(--navy)!important}
+.flow-box.blue{background:var(--navy-l)!important;border-color:var(--navy)!important;color:var(--navy-d)!important}
+
+/* ── SECTION HEADINGS ────────────────── */
+.sec h3{color:var(--navy)!important}
+
+/* ── HERO UPDATE ─────────────────────── */
+.hero{background:linear-gradient(135deg,#0d2444 0%,#1a3a6b 55%,#14532d 100%)!important}
+
+/* ── LEARNED/REVIEW SEMANTIC ─────────── */
+.lbtn:hover{border-color:var(--grn)!important;color:var(--grn)!important}
+.lbtn.learned{background:var(--grn)!important;border-color:var(--grn)!important}
+.lbtn:nth-child(2):hover{border-color:var(--amb)!important;color:var(--amb-d)!important}
+.lbtn:nth-child(2).review{background:var(--amb)!important;border-color:var(--amb)!important}
+
+/* ── SIDEBAR NOTE ANCHOR ─────────────── */
+.note-anchor{border-bottom:2px dotted var(--navy)!important}
+#sn-toggle-btn:hover{color:var(--navy)!important}
+#sn-tab{background:var(--navy)!important}
+@media print{#toolbar,#sn-sidebar,#sn-tab,.nav,.sec-footer{display:none!important}body{margin:0}}
+</style>
+</head>
+<body>
+
+<!-- ANNOTATION TOOLBAR -->
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('hy',this)"></button>
+  <button class="hbtn" id="h-g" title="Green" onclick="setHL('hg',this)"></button>
+  <button class="hbtn" id="h-b" title="Blue" onclick="setHL('hb',this)"></button>
+  <button class="hbtn" id="h-p" title="Pink" onclick="setHL('hpk',this)"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('ho',this)"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" id="erase-btn" title="Erase" onclick="setHL('erase',this)">✏️</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Add Note" onclick="addNote()">📝</button>
+</div>
+
+<!-- STICKY NOTE SIDEBAR -->
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 Study Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text, then click 📝 to add a note.<br><br>Notes appear here as draggable cards.</div>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">◀ Notes</button>
+
+<!-- NOTE POPOVER -->
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <button id="pop-del-btn">🗑 Delete</button>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Chapter 321 · Nephrology · Boards Review</div>
+  <h1>Acute Kidney Injury</h1>
+  <p class="hero-sub">Harrison's Principles of Internal Medicine · Waikar & Bonventre · Comprehensive Stage A Boards Guide</p>
+  <div class="stat-row">
+    <div class="stat-box"><div class="stat-num">5–7%</div><div class="stat-lbl">of hospital admissions</div></div>
+    <div class="stat-box"><div class="stat-num">30%</div><div class="stat-lbl">of ICU admissions</div></div>
+    <div class="stat-box"><div class="stat-num">500</div><div class="stat-lbl">per 100,000/yr incidence</div></div>
+    <div class="stat-box"><div class="stat-num">&gt;50%</div><div class="stat-lbl">ICU morbidity</div></div>
+    <div class="stat-box"><div class="stat-num">4×</div><div class="stat-lbl">incidence increase since 1988</div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="toc-a" href="#def">Definition</a>
+  <a class="toc-a" href="#epi">Epidemiology</a>
+  <a class="toc-a" href="#etio">Etiology</a>
+  <a class="toc-a" href="#prerenal">Prerenal</a>
+  <a class="toc-a" href="#intrinsic">Intrinsic</a>
+  <a class="toc-a" href="#nephrotoxin">Nephrotoxins</a>
+  <a class="toc-a" href="#postrenal">Postrenal</a>
+  <a class="toc-a" href="#dx">Diagnosis</a>
+  <a class="toc-a" href="#labs">Labs</a>
+  <a class="toc-a" href="#complications">Complications</a>
+  <a class="toc-a" href="#treatment">Treatment</a>
+  <a class="toc-a" href="#qr">Quick Ref</a>
+  <a class="toc-a" href="#traps">Exam Traps</a>
+</nav>
+
+
+<div class="main" style="padding-bottom:0;padding-top:20px">
+<div class="legend-bar">
+  <span style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:4px">Color Key</span>
+  <span class="legend-item"><span class="legend-dot navy"></span>Mechanism / key concept</span>
+  <span class="legend-item"><span class="legend-dot red"></span>Contraindication / critical danger</span>
+  <span class="legend-item"><span class="legend-dot amber"></span>Caution / important note</span>
+  <span class="legend-item"><span class="legend-dot green"></span>Treatment success / clinical pearl</span>
+</div>
+</div>
+<main class="main">
+
+<!-- DEFINITION -->
+<section class="sec" id="def">
+  <div class="sec-tag">Section 1</div>
+  <h2>Definition & Staging</h2>
+
+  <p><strong>AKI</strong> is defined as impairment of kidney filtration and excretory function over days to weeks (generally known/expected to have occurred within 7 days), resulting in retention of nitrogenous and other waste products normally cleared by the kidneys.</p>
+
+  <div class="toggle-panel navy">
+    <div class="toggle-header">
+      <div class="toggle-header-left">
+        <span class="toggle-tag">📋 Mechanism</span>
+        <span class="toggle-title">KDIGO Definition — Diagnostic Criteria</span>
+      </div>
+      <span class="toggle-arrow open">▼</span>
+    </div>
+    <div class="toggle-body open">
+      <ul>
+        <li>Rise in SCr ≥ <strong>0.3 mg/dL within 48 hours</strong></li>
+        <li>Rise in SCr ≥ <strong>1.5× baseline within 7 days</strong></li>
+        <li>Urine output <strong>&lt;0.5 mL/kg/h for &gt;6 hours</strong></li>
+      </ul>
+      <p style="margin-top:10px;color:var(--t2)">Any ONE criterion is sufficient. AKI is a <strong>clinical diagnosis, not structural</strong> — a patient may have AKI with or without parenchymal injury.</p>
+    </div>
+  </div>
+
+  <div class="alert warn"><div class="alert-ico">⚠️</div><div><strong>Critical Concept:</strong> AKI is a <em>clinical diagnosis</em>, NOT a structural one. A patient may have AKI with or without actual injury to the kidney parenchyma — making the term technically a misnomer. Prerenal azotemia has no parenchymal damage.</div></div>
+
+  <h3>KDIGO Staging System</h3>
+  <table>
+    <tr><th>Stage</th><th>Serum Creatinine Criterion</th><th>Urine Output Criterion</th></tr>
+    <tr><td><strong>1</strong></td><td>1.5–1.9× baseline OR ≥0.3 mg/dL increase</td><td>&lt;0.5 mL/kg/h for 6–12 h</td></tr>
+    <tr><td><strong>2</strong></td><td>2.0–2.9× baseline</td><td>&lt;0.5 mL/kg/h for ≥12 h</td></tr>
+    <tr><td><strong>3</strong></td><td>≥3.0× baseline OR SCr ≥4.0 mg/dL OR initiation of RRT OR (in &lt;18 yr) eGFR &lt;35 mL/min/1.73m²</td><td>&lt;0.3 mL/kg/h for ≥24 h OR anuria ≥12 h</td></tr>
+  </table>
+
+  <div class="alert pearl"><div class="alert-ico">💎</div><div><strong>Clinical Pearl:</strong> AKI can range from asymptomatic lab changes to overwhelming, rapidly fatal derangements in volume, waste excretion, electrolyte balance, and acid-base homeostasis.</div></div>
+
+  <div class="sec-footer">
+    <button class="lbtn" onclick="toggleLearn(this,'def-l')">✓ Learned</button>
+    <button class="lbtn" onclick="toggleReview(this,'def-r')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- EPIDEMIOLOGY -->
+<section class="sec" id="epi">
+  <div class="sec-tag">Section 2</div>
+  <h2>Epidemiology</h2>
+
+  <div class="g2">
+    <div class="card c-blu">
+      <div class="card-t">Hospital-Acquired AKI</div>
+      <ul>
+        <li>Complicates <strong>5–7%</strong> of acute-care admissions</li>
+        <li>Complicates <strong>up to 30%</strong> of ICU admissions</li>
+        <li>ICU morbidity exceeds <strong>50%</strong> in many studies</li>
+        <li>Incidence grown <strong>&gt;4-fold</strong> since 1988 in USA</li>
+        <li>Yearly incidence: <strong>500/100,000</strong> — higher than stroke</li>
+      </ul>
+    </div>
+    <div class="card c-amb">
+      <div class="card-t">Community-Acquired AKI</div>
+      <ul>
+        <li>Volume depletion</li>
+        <li>Heart failure</li>
+        <li>Adverse medication effects</li>
+        <li>Urinary tract obstruction</li>
+        <li>Malignancy</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Most Common Hospital Settings for AKI</h3>
+  <ul>
+    <li><strong>Sepsis</strong> (most common)</li>
+    <li>Major surgical procedures</li>
+    <li>Critical illness involving heart or liver failure</li>
+    <li>Nephrotoxic medication administration</li>
+  </ul>
+
+  <h3>Long-Term Implications</h3>
+  <div class="wide-grid">
+    <div class="card c-red">
+      <div class="card-t">Mortality Risk</div>
+      <p>Significantly increased in-hospital and long-term mortality; longer length of stay; increased costs</p>
+    </div>
+    <div class="card c-red">
+      <div class="card-t">CKD Risk</div>
+      <p>AKI increases risk of future CKD. Survivors of dialysis-requiring AKI: <strong>up to 10%</strong> develop ESKD</p>
+    </div>
+    <div class="card c-red">
+      <div class="card-t">Cardiovascular Risk</div>
+      <p>AKI associated with increased risk of future cardiovascular disease events (mechanisms not fully understood)</p>
+    </div>
+  </div>
+
+  <h3>AKI in the Developing World</h3>
+  <p>Epidemiology differs due to demographics, economics, environmental factors, and comorbid disease burden. Region-specific etiologies include:</p>
+  <ul>
+    <li><strong>Envenomations:</strong> snakes, spiders, caterpillars, bees</li>
+    <li><strong>Infectious causes:</strong> malaria, leptospirosis</li>
+    <li><strong>Crush injuries/rhabdomyolysis</strong> from earthquakes</li>
+    <li>Resources to diagnose and manage AKI are often limited</li>
+  </ul>
+
+  <div class="sec-footer">
+    <button class="lbtn" onclick="toggleLearn(this,'epi-l')">✓ Learned</button>
+    <button class="lbtn" onclick="toggleReview(this,'epi-r')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ETIOLOGY OVERVIEW -->
+<section class="sec" id="etio">
+  <div class="sec-tag">Section 3</div>
+  <h2>Etiology Overview</h2>
+
+  <p>The causes of AKI are traditionally divided into three broad categories:</p>
+
+  <div class="wide-grid">
+    <div class="card c-blu">
+      <div class="card-t">1 · Prerenal Azotemia</div>
+      <p><strong>Most common.</strong> Results from inadequate renal plasma flow → reduced intraglomerular hydrostatic pressure → ↓ GFR</p>
+      <ul>
+        <li>Hypovolemia</li>
+        <li>↓ Cardiac output</li>
+        <li>Impaired autoregulation (NSAIDs, ACE-I/ARB)</li>
+        <li>Hepatorenal syndrome</li>
+      </ul>
+    </div>
+    <div class="card c-red">
+      <div class="card-t">2 · Intrinsic AKI</div>
+      <p>Direct injury to renal parenchyma</p>
+      <ul>
+        <li>Sepsis-associated</li>
+        <li>Ischemia (ATN)</li>
+        <li>Nephrotoxins (exo/endogenous)</li>
+        <li>Glomerulonephritis</li>
+        <li>Tubulointerstitial nephritis</li>
+        <li>Vascular (TTP-HUS, vasculitis)</li>
+      </ul>
+    </div>
+    <div class="card c-amb">
+      <div class="card-t">3 · Postrenal AKI</div>
+      <p>Obstruction of urine flow → ↑ retrograde hydrostatic pressure → ↓ GFR</p>
+      <ul>
+        <li>Bladder outlet obstruction (BPH)</li>
+        <li>Bilateral ureteral obstruction</li>
+        <li>Unilateral (if solitary kidney)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-footer">
+    <button class="lbtn" onclick="toggleLearn(this,'etio-l')">✓ Learned</button>
+    <button class="lbtn" onclick="toggleReview(this,'etio-r')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- PRERENAL -->
+<section class="sec" id="prerenal">
+  <div class="sec-tag">Section 4</div>
+  <h2>Prerenal Azotemia</h2>
+
+  <h3>Mechanisms of Normal GFR Autoregulation</h3>
+  <p>Normal GFR is maintained by renal blood flow and the relative resistances of afferent/efferent arterioles. Under reduced perfusion, compensatory responses include:</p>
+  <ul>
+    <li><strong>Afferent vasodilation:</strong> myogenic reflex + vasodilatory prostaglandins (prostacyclin, PGE₂) + NO via tubuloglomerular feedback from macula densa</li>
+    <li><strong>Efferent vasoconstriction:</strong> angiotensin II → maintains GFR despite ↓ renal blood flow (raises filtration fraction)</li>
+    <li><strong>Neurohormonal response:</strong> angiotensin II, norepinephrine, vasopressin → enhanced Na⁺/water reabsorption</li>
+  </ul>
+
+  <div class="toggle-panel amber">
+    <div class="toggle-header">
+      <div class="toggle-header-left">
+        <span class="toggle-tag">⚠️ Caution</span>
+        <span class="toggle-title">Autoregulation Limit</span>
+      </div>
+      <span class="toggle-arrow open">▼</span>
+    </div>
+    <div class="toggle-body open">
+      <p>Even in healthy adults, renal autoregulation fails once systolic BP falls below <strong>80 mmHg</strong>. Beyond this threshold, GFR drops proportionally with perfusion pressure regardless of compensatory mechanisms.</p>
+    </div>
+  </div>
+
+  <h3>How Drugs Disrupt Autoregulation</h3>
+  <div class="vs">
+    <div class="vs-l">
+      <div class="vs-t">NSAIDs</div>
+      <ul>
+        <li>Inhibit prostaglandin synthesis</li>
+        <li>Block afferent vasodilation</li>
+        <li>↑ Afferent resistance → ↓ GFR</li>
+        <li>Risk especially when renal perfusion ↓</li>
+      </ul>
+    </div>
+    <div class="vs-m">vs.</div>
+    <div class="vs-r">
+      <div class="vs-t">ACE-I / ARB</div>
+      <ul>
+        <li>Block angiotensin II action</li>
+        <li>Dilate efferent arteriole</li>
+        <li>↓ Filtration fraction → ↓ GFR</li>
+        <li>Especially dangerous in bilateral RAS or solitary kidney</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="toggle-panel red">
+    <div class="toggle-header">
+      <div class="toggle-header-left">
+        <span class="toggle-tag">🚨 Critical Danger</span>
+        <span class="toggle-title">NSAIDs + ACE-I/ARB — Highest Risk Combination</span>
+      </div>
+      <span class="toggle-arrow open">▼</span>
+    </div>
+    <div class="toggle-body open">
+      <p>Using NSAIDs together with ACE-I or ARBs <strong>blocks both autoregulatory mechanisms simultaneously</strong>:</p>
+      <ul>
+        <li><strong>NSAIDs</strong> → eliminate prostaglandin-mediated afferent vasodilation</li>
+        <li><strong>ACE-I/ARB</strong> → eliminate angiotensin II–mediated efferent vasoconstriction</li>
+      </ul>
+      <p style="margin-top:8px">Result: catastrophic fall in GFR, especially dangerous in bilateral RAS or solitary functioning kidney.</p>
+    </div>
+  </div>
+
+  <h3>Factors That Impair Autoregulatory Response</h3>
+  <ul>
+    <li><strong>Atherosclerosis, chronic hypertension, older age:</strong> hyalinosis + myointimal hyperplasia → structural narrowing → impaired afferent vasodilation</li>
+    <li><strong>CKD:</strong> afferent vasodilation may already be at maximal capacity</li>
+    <li><strong>Coexisting insults:</strong> sepsis, vasoactive/nephrotoxic drugs, rhabdomyolysis, burns, pancreatitis</li>
+  </ul>
+
+  <h3>SGLT-2 Inhibitors — Important Exception</h3>
+  <div class="toggle-panel green">
+    <div class="toggle-header">
+      <div class="toggle-header-left">
+        <span class="toggle-tag">💎 Pearl</span>
+        <span class="toggle-title">SGLT-2 Inhibitors — Protective, Not Harmful</span>
+      </div>
+      <span class="toggle-arrow">▼</span>
+    </div>
+    <div class="toggle-body">
+      <p><strong>SGLT-2 inhibitors</strong> lower intraglomerular pressure and induce natriuresis, yet do <strong>NOT</strong> increase AKI risk — in fact, recent studies suggest a <em>protective effect</em> against AKI. This distinguishes them from ACE-I/ARBs despite a superficially similar hemodynamic effect.</p>
+    </div>
+  </div>
+
+  <h3>Hepatorenal Syndrome</h3>
+  <ul>
+    <li>AKI complicating advanced liver disease — diagnosis of <strong>exclusion</strong></li>
+    <li>Hemodynamics resemble prerenal azotemia but in the setting of <strong>total-body volume overload</strong></li>
+    <li>Mechanism: primary arterial vasodilation in splanchnic circulation → systemic hypotension → vasoconstrictor activation</li>
+    <li>Triggered by: volume depletion, spontaneous bacterial peritonitis</li>
+  </ul>
+  <div class="g2">
+    <div class="card c-red">
+      <div class="card-t">Type 1 HRS — Severe</div>
+      <ul>
+        <li>AKI persists despite volume administration and diuretic withdrawal</li>
+        <li>Particularly poor prognosis</li>
+      </ul>
+    </div>
+    <div class="card c-amb">
+      <div class="card-t">Type 2 HRS — Less Severe</div>
+      <ul>
+        <li>Less severe form</li>
+        <li>Characterized mainly by refractory ascites</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-footer">
+    <button class="lbtn" onclick="toggleLearn(this,'pre-l')">✓ Learned</button>
+    <button class="lbtn" onclick="toggleReview(this,'pre-r')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- INTRINSIC AKI -->
+<section class="sec" id="intrinsic">
+  <div class="sec-tag">Section 5</div>
+  <h2>Intrinsic AKI</h2>
+
+  <p>Most common causes: <strong>sepsis, ischemia, and nephrotoxins</strong> (both endogenous and exogenous). Intrinsic AKI can be classified anatomically by the major site of damage.</p>
+
+  <h3>Sepsis-Associated AKI</h3>
+  <ul>
+    <li>&gt;1 million sepsis cases/year in USA; AKI complicates <strong>&gt;50%</strong> of severe sepsis cases</li>
+    <li>AKI greatly increases the <strong>risk of death</strong> in sepsis</li>
+    <li>AKI can occur even <strong>without overt hypotension</strong> (decreased GFR without frank shock)</li>
+    <li>Reduced urine output is common</li>
+  </ul>
+  <h4>Pathophysiology of Sepsis-AKI</h4>
+  <ul>
+    <li><strong>Generalized arterial vasodilation</strong> mediated by cytokines → upregulation of inducible NO synthase → can cause afferent vasodilation (early) or renal vasoconstriction (from SNS, RAAS, vasopressin, endothelin)</li>
+    <li><strong>Endothelial damage:</strong> ↑ microvascular leukocyte adhesion and migration, thrombosis, ↑ permeability, ↑ interstitial pressure, ↓ local tubular blood flow, reactive oxygen species → tubular cell injury</li>
+    <li>Postmortem studies: Frank tubular necrosis often absent — <strong>inflammation, mitochondrial dysfunction, and interstitial edema</strong> may be the dominant contributors</li>
+    <li>AKI also <strong>predisposes to sepsis</strong> (bidirectional relationship)</li>
+  </ul>
+
+  <div class="alert info"><div class="alert-ico">🦠</div><div><strong>Viral AKI:</strong> Hantavirus, dengue, SARS-CoV-2 can cause AKI. SARS-CoV-2 mechanisms: cytokine storm → diffuse intrarenal vasoconstriction + generalized hypercoagulable state → impaired intrarenal blood flow.</div></div>
+
+  <h3>Ischemia-Associated AKI</h3>
+  <div class="g2">
+    <div class="card c-tel">
+      <div class="card-t">Kidney's Unique Vulnerability</div>
+      <ul>
+        <li>Receives <strong>20%</strong> of cardiac output</li>
+        <li>Accounts for <strong>10%</strong> of resting O₂ consumption</li>
+        <li>Only <strong>0.5%</strong> of body mass</li>
+        <li>Renal medulla = one of most hypoxic regions in the body</li>
+      </ul>
+    </div>
+    <div class="card c-red">
+      <div class="card-t">Outer Medulla Vulnerability</div>
+      <ul>
+        <li>Vascular architecture makes outer medulla most vulnerable</li>
+        <li>↑ Leukocyte-endothelial interactions → ↓ local blood flow</li>
+        <li><strong>S3 segment</strong> of proximal tubule most at risk</li>
+        <li>Depends on oxidative metabolism; mitochondrial dysfunction → impaired ATP generation</li>
+      </ul>
+    </div>
+  </div>
+
+  <h4>Mechanisms Reducing GFR in Ischemia</h4>
+  <ul>
+    <li><strong>Preglomerular vasoconstriction:</strong> tubuloglomerular feedback activation from enhanced solute delivery to macula densa (after proximal tubule injury), increased basal vascular tone, ↓ vasodilator responsiveness</li>
+    <li><strong>Backleak</strong> of filtrate across damaged tubular epithelium</li>
+    <li><strong>Tubular obstruction</strong> from necrotic debris</li>
+    <li><strong>Mitochondrial dysfunction</strong> → reactive oxygen species</li>
+  </ul>
+
+  <div class="alert warn"><div class="alert-ico">⚠️</div><div>Transient ischemia alone in a <strong>normal kidney</strong> is usually NOT sufficient to cause severe AKI — even after total interruption of renal blood flow (e.g., suprarenal aortic clamping). Prerenal azotemia and ischemia-associated AKI represent a <em>continuum</em>.</div></div>
+
+  <h3>Postoperative AKI</h3>
+  <p>Procedures most commonly associated with AKI:</p>
+  <ul>
+    <li>Cardiac surgery with <strong>cardiopulmonary bypass</strong> (especially combined valve + bypass) — severe AKI requiring dialysis in ~1%</li>
+    <li>Vascular procedures with <strong>aortic cross-clamping</strong></li>
+    <li>Major intraperitoneal procedures</li>
+  </ul>
+  <h4>CPB-Specific Mechanisms of AKI</h4>
+  <ul>
+    <li>Ischemia from sustained hypoperfusion</li>
+    <li>Extracorporeal circuit activation of leukocytes and inflammation</li>
+    <li>Hemolysis → pigment nephropathy</li>
+    <li>Aortic injury → atheroemboli</li>
+    <li>Longer CPB duration = higher AKI risk</li>
+  </ul>
+
+  <h3>Burns & Acute Pancreatitis</h3>
+  <ul>
+    <li>Burns: AKI affects <strong>25%</strong> of those with &gt;10% total body surface area involvement</li>
+    <li>Mechanisms: severe hypovolemia, dysregulated inflammation, ↑ sepsis risk, ↑ acute lung injury risk</li>
+    <li>Massive fluid resuscitation → <strong>abdominal compartment syndrome</strong> (intra-abdominal pressure &gt;20 mmHg → renal vein compression → ↓ GFR)</li>
+  </ul>
+
+  <h3>Glomerulonephritis</h3>
+  <ul>
+    <li>Less common (~5%) cause of AKI</li>
+    <li><strong>Early recognition is critical</strong> — can respond to timely immunosuppression or plasma exchange, potentially reversing AKI</li>
+    <li>Diseases involving glomerular podocytes, mesangial, and/or endothelial cells → compromise filtration barrier and renal blood flow</li>
+  </ul>
+
+  <h3>Anticoagulant-Related Nephropathy</h3>
+  <p>Excessive anticoagulation (warfarin or others) → glomerular hemorrhage → obstructing RBC casts in tubules → tubular injury.</p>
+
+  <div class="sec-footer">
+    <button class="lbtn" onclick="toggleLearn(this,'intr-l')">✓ Learned</button>
+    <button class="lbtn" onclick="toggleReview(this,'intr-r')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- NEPHROTOXINS -->
+<section class="sec" id="nephrotoxin">
+  <div class="sec-tag">Section 6</div>
+  <h2>Nephrotoxin-Associated AKI</h2>
+
+  <p>The kidney's high susceptibility to nephrotoxins is due to <strong>extremely high blood perfusion</strong> and <strong>concentration of filtered substances</strong> along the nephron. All structures are vulnerable. Risk factors: older age, CKD, prerenal azotemia, hypoalbuminemia.</p>
+
+  <div class="drug-box">
+    <h3>Contrast Agents (Iodinated)</h3>
+    <div class="drug-row"><span class="drug-pill">CI-AKI</span><span class="drug-pill">Contrast-Associated AKI</span></div>
+    <div class="drug-prop"><b>Terminology:</b> "Contrast nephropathy" → now "contrast-associated AKI" (CA-AKI) or "contrast-induced AKI" (CI-AKI — smaller subgroup)</div>
+    <div class="drug-prop"><b>Risk:</b> Negligible with normal renal function; ↑ in CKD, especially diabetic kidney disease + congestive heart failure</div>
+    <div class="drug-prop"><b>Typical course:</b> SCr rises 24–48h post-exposure → peaks 3–5 days → resolves within 1 week</div>
+    <div class="drug-prop"><b>High-risk:</b> Multiple myeloma + renal disease</div>
+    <div class="drug-prop"><b>Gadolinium:</b> High-dose → nephrogenic systemic fibrosis (NSF) in advanced CKD/AKI. Group I gadolinium agents (rare now); Group II agents have very low AKI risk</div>
+    <div class="alert pearl" style="margin-top:10px"><div class="alert-ico">💎</div><div>Dialysis-requiring AKI from contrast is uncommon EXCEPT when significant preexisting CKD coexists with CHF or other ischemic insults.</div></div>
+  </div>
+
+  <div class="drug-box">
+    <h3>Aminoglycosides</h3>
+    <div class="drug-row"><span class="drug-pill">Gentamicin</span><span class="drug-pill">Tobramycin</span><span class="drug-pill">Amikacin</span></div>
+    <div class="drug-prop"><b>Mechanism:</b> Freely filtered → accumulate in renal cortex (concentrations >> plasma) → tubular necrosis</div>
+    <div class="drug-prop"><b>Incidence:</b> Nonoliguric AKI in 10–30% of courses, even with therapeutic plasma levels</div>
+    <div class="drug-prop"><b>Timing:</b> AKI typically manifests after <strong>5–7 days</strong> of therapy; can appear even after drug discontinuation</div>
+    <div class="drug-prop"><b>Labs:</b> Hypomagnesemia (common finding)</div>
+  </div>
+
+  <div class="drug-box">
+    <h3>Amphotericin B</h3>
+    <div class="drug-prop"><b>Mechanisms:</b> (1) Renal vasoconstriction via ↑ tubuloglomerular feedback; (2) Direct tubular toxicity via reactive oxygen species; (3) Binds tubular membrane cholesterol → pores</div>
+    <div class="drug-prop"><b>Dose-dependent:</b> Nephrotoxicity is dose AND duration dependent</div>
+    <div class="drug-prop"><b>Clinical features:</b> Polyuria, hypomagnesemia, hypocalcemia, nongap metabolic acidosis</div>
+  </div>
+
+  <div class="drug-box">
+    <h3>Vancomycin</h3>
+    <div class="drug-prop"><b>Risk factors:</b> High trough levels + combined with other nephrotoxic antibiotics</div>
+    <div class="drug-prop"><b>Mechanism:</b> Tubular injury OR crystallization in tubules → intratubular obstruction</div>
+  </div>
+
+  <div class="drug-box">
+    <h3>Acyclovir & Antiviral Agents</h3>
+    <div class="drug-row"><span class="drug-pill">Acyclovir</span><span class="drug-pill">Foscarnet</span><span class="drug-pill">Pentamidine</span><span class="drug-pill">Tenofovir</span><span class="drug-pill">Cidofovir</span></div>
+    <div class="drug-prop"><b>Acyclovir:</b> Precipitates in tubules → AKI by tubular obstruction, especially with IV bolus at high doses (500 mg/m²) or hypovolemia</div>
+    <div class="drug-prop"><b>Others:</b> Associated with AKI via tubular toxicity</div>
+  </div>
+
+  <div class="drug-box">
+    <h3>Chemotherapeutic Agents</h3>
+    <div class="drug-row"><span class="drug-pill">Cisplatin</span><span class="drug-pill">Carboplatin</span><span class="drug-pill">Ifosfamide</span><span class="drug-pill">Bevacizumab</span><span class="drug-pill">Mitomycin C</span><span class="drug-pill">Gemcitabine</span></div>
+    <div class="drug-prop"><b>Cisplatin/Carboplatin:</b> Accumulated by proximal tubular cells → necrosis + apoptosis; intensive hydration reduces risk but remains dose-limiting toxicity</div>
+    <div class="drug-prop"><b>Ifosfamide:</b> Hemorrhagic cystitis + tubular toxicity → Type II RTA (Fanconi syndrome), polyuria, hypokalemia, modest ↓ GFR</div>
+    <div class="drug-prop"><b>Bevacizumab (anti-VEGF):</b> Proteinuria + hypertension via glomerular microvasculature injury (thrombotic microangiopathy)</div>
+    <div class="drug-prop"><b>Checkpoint inhibitors</b> (ipilimumab, nivolumab, pembrolizumab, tremelimumab): Immune-related adverse events → <strong>acute interstitial nephritis</strong>. Risk factors: low GFR, PPI use, extrarenal immune events</div>
+  </div>
+
+  <h3>Toxic Ingestions</h3>
+  <ul>
+    <li><strong>Ethylene glycol</strong> (antifreeze) → metabolized to oxalic acid, glycolaldehyde, glyoxylate → direct tubular injury + tubular obstruction</li>
+    <li><strong>Diethylene glycol</strong> → metabolite HEAA → tubular injury; has caused outbreaks from adulterated pharmaceuticals</li>
+    <li><strong>Melamine</strong> (food contamination) → nephrolithiasis + AKI via intratubular obstruction or direct toxicity</li>
+    <li><strong>Aristolochic acid</strong> → "Chinese herb nephropathy" + "Balkan nephropathy"</li>
+  </ul>
+
+  <h3>Endogenous Toxins</h3>
+  <div class="g2">
+    <div class="card c-amb">
+      <div class="card-t">Rhabdomyolysis</div>
+      <ul>
+        <li>Myoglobin released from injured muscle cells</li>
+        <li>Causes: traumatic crush injuries, muscle ischemia (vascular/orthopedic surgery), compression in coma, seizures, excessive exercise, heat stroke, malignant hyperthermia, infections, metabolic disorders (hypophosphatemia, hypothyroidism), myopathies</li>
+        <li>Pathogenesis: intrarenal vasoconstriction + direct proximal tubular toxicity + mechanical obstruction when myoglobin precipitates with Tamm-Horsfall protein (uromodulin) — favored by <strong>acidic urine</strong></li>
+      </ul>
+    </div>
+    <div class="card c-amb">
+      <div class="card-t">Hemolysis</div>
+      <ul>
+        <li>Hemoglobin released during massive hemolysis → pigment nephropathy</li>
+        <li>Similar mechanism to myoglobin nephropathy</li>
+        <li>Labs: red/brown urine that persists in supernatant after centrifugation</li>
+      </ul>
+    </div>
+    <div class="card c-red">
+      <div class="card-t">Tumor Lysis Syndrome</div>
+      <ul>
+        <li>Follows cytotoxic therapy in high-grade lymphomas or ALL</li>
+        <li>Massive uric acid release (serum levels often &gt;15 mg/dL) → precipitation in renal tubules</li>
+        <li>Features: hyperkalemia, hyperphosphatemia, hypocalcemia</li>
+        <li>Can occur spontaneously or with solid tumors/myeloma</li>
+      </ul>
+    </div>
+    <div class="card c-red">
+      <div class="card-t">Myeloma Light Chains</div>
+      <ul>
+        <li>Glomerular damage AND/OR direct tubular toxicity</li>
+        <li>Bind Tamm-Horsfall protein → obstructing intratubular casts</li>
+        <li>Hypercalcemia (seen in myeloma) → intense renal vasoconstriction + inhibition of Na⁺/water reabsorption → volume depletion</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Acute Tubulointerstitial Nephritis (AIN)</h3>
+  <ul>
+    <li>Drugs responsible for <strong>~75%</strong> of biopsy-proven acute interstitial nephritis</li>
+    <li>Common culprits: PPIs, NSAIDs, antibiotics (penicillins, cephalosporins, quinolones, sulfonamides, rifampin), immune checkpoint inhibitors</li>
+    <li>Non-drug causes: TINU syndrome, lupus, viral infection (COVID, HIV, hantavirus), Legionella</li>
+    <li>Clinical: eosinophilia, sterile pyuria, often nonoliguric; fever, arthralgias, pruritic rash (classic triad)</li>
+    <li><strong>Absence of systemic hypersensitivity does NOT exclude AIN</strong> — kidney biopsy may be needed</li>
+  </ul>
+
+  <div class="sec-footer">
+    <button class="lbtn" onclick="toggleLearn(this,'neph-l')">✓ Learned</button>
+    <button class="lbtn" onclick="toggleReview(this,'neph-r')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- POSTRENAL -->
+<section class="sec" id="postrenal">
+  <div class="sec-tag">Section 7</div>
+  <h2>Postrenal AKI</h2>
+
+  <p>Occurs when normally unidirectional urine flow is acutely blocked (partially or totally) → ↑ retrograde hydrostatic pressure → impaired glomerular filtration.</p>
+
+  <div class="alert warn"><div class="alert-ico">⚠️</div><div><strong>Key Concept:</strong> Normal urinary flow rate does NOT rule out partial obstruction — GFR is normally two orders of magnitude higher than urinary flow rate. Preserved urine output can mask significant postrenal obstruction.</div></div>
+
+  <h3>Requirements for AKI</h3>
+  <ul>
+    <li>For moderate-to-severe AKI: obstruction must affect <strong>both kidneys</strong> (unless asymmetric baseline function)</li>
+    <li>Unilateral obstruction may cause AKI in: significant underlying CKD with ↓ renal reserve, or (rarely) reflex vasospasm of contralateral kidney</li>
+  </ul>
+
+  <h3>Causes by Level of Obstruction</h3>
+  <table>
+    <tr><th>Location</th><th>Causes</th></tr>
+    <tr><td><strong>Bladder neck / urethra</strong></td><td>BPH, prostate cancer, neurogenic bladder, anticholinergic drugs, strictures, obstructed Foley catheter, blood clots, calculi</td></tr>
+    <tr><td><strong>Ureter (bilateral or solitary kidney)</strong></td><td>Intraluminal: calculi, blood clots, sloughed renal papillae<br>Wall infiltration: neoplasia<br>External compression: retroperitoneal fibrosis, neoplasia, abscess, inadvertent surgical damage</td></tr>
+  </table>
+
+  <h3>Pathophysiology of Postrenal AKI</h3>
+  <div class="flow">
+    <div class="flow-box blue">Acute ureteral/bladder obstruction</div>
+    <div class="flow-arr">↓</div>
+    <div class="flow-box">↑ Intratubular pressure → initial afferent vasodilation → brief hyperemia</div>
+    <div class="flow-arr">↓</div>
+    <div class="flow-box red">Intrarenal vasoconstriction: ↑ angiotensin II, thromboxane A₂, vasopressin; ↓ NO production</div>
+    <div class="flow-arr">↓</div>
+    <div class="flow-box amber">↓ Glomerular perfusion + possible ↓ in ultrafiltration coefficient → ↓ GFR</div>
+  </div>
+
+  <div class="alert pearl"><div class="alert-ico">💎</div><div><strong>Clinical Pearl:</strong> Prompt recognition and relief of urinary tract obstruction can forestall permanent structural damage. Obstruction can be present WITHOUT radiologic abnormalities (volume depletion, retroperitoneal fibrosis, tumor encasement, early in course) — if high suspicion, perform antegrade or retrograde pyelography.</div></div>
+
+  <div class="sec-footer">
+    <button class="lbtn" onclick="toggleLearn(this,'post-l')">✓ Learned</button>
+    <button class="lbtn" onclick="toggleReview(this,'post-r')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- DIAGNOSIS -->
+<section class="sec" id="dx">
+  <div class="sec-tag">Section 8</div>
+  <h2>Diagnostic Evaluation</h2>
+
+  <h3>AKI vs. CKD — Key Distinction</h3>
+  <div class="vs">
+    <div class="vs-l">
+      <div class="vs-t">AKI</div>
+      <ul>
+        <li>Normal-sized kidneys on US</li>
+        <li>Recent rise in SCr</li>
+        <li>No normocytic anemia (unless other cause)</li>
+        <li>Serial SCr showing continued substantial rise</li>
+      </ul>
+    </div>
+    <div class="vs-m">vs.</div>
+    <div class="vs-r">
+      <div class="vs-t">CKD</div>
+      <ul>
+        <li>eGFR &lt;60 OR ACR &gt;30 mg/g for ≥3 months</li>
+        <li>Small, shrunken kidneys with cortical thinning</li>
+        <li>Normocytic anemia (in absence of blood loss)</li>
+        <li>Secondary hyperparathyroidism, hyperphosphatemia, hypocalcemia</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="toggle-panel amber">
+    <div class="toggle-header">
+      <div class="toggle-header-left">
+        <span class="toggle-tag">⚠️ Caution</span>
+        <span class="toggle-title">AKI on CKD — Cannot Be Ruled Out</span>
+      </div>
+      <span class="toggle-arrow open">▼</span>
+    </div>
+    <div class="toggle-body open">
+      <p>No set of tests can definitively rule out AKI superimposed on CKD — AKI is a <strong>frequent complication</strong> in CKD patients.</p>
+      <p style="margin-top:6px"><strong>"Acute kidney disease"</strong> = renal dysfunction persisting &gt;1 week but &lt;3 months.</p>
+    </div>
+  </div>
+
+  <h3>History & Physical — Clues to Etiology</h3>
+  <div class="g2">
+    <div class="card c-blu">
+      <div class="card-t">Prerenal Clues</div>
+      <ul>
+        <li>Vomiting, diarrhea, poor fluid intake</li>
+        <li>Glycosuria → polyuria (osmotic diuresis)</li>
+        <li>NSAIDs, ACE-I/ARB, diuretics (medications)</li>
+        <li>Signs: orthostatic hypotension, tachycardia, ↓ JVP, dry mucous membranes, ↓ skin turgor</li>
+        <li>Heart failure, liver disease, nephrotic syndrome → ↓ effective circulating volume</li>
+      </ul>
+    </div>
+    <div class="card c-amb">
+      <div class="card-t">Postrenal Clues</div>
+      <ul>
+        <li>Prostatic disease history</li>
+        <li>Nephrolithiasis history</li>
+        <li>Pelvic/para-aortic malignancy</li>
+        <li>Colicky flank pain → groin = ureteric obstruction</li>
+        <li>Nocturia, urinary frequency/hesitancy = prostatic disease</li>
+        <li>Abdominal fullness, suprapubic pain = bladder enlargement</li>
+      </ul>
+    </div>
+    <div class="card c-red">
+      <div class="card-t">Intrinsic / Glomerular Clues</div>
+      <ul>
+        <li>Palpable purpura + pulmonary hemorrhage/sinusitis → systemic vasculitis with GN</li>
+        <li>SLE history → lupus nephritis</li>
+        <li>Pregnancy → preeclampsia</li>
+        <li>Tense abdomen → abdominal compartment syndrome</li>
+        <li>Limb ischemia → rhabdomyolysis</li>
+      </ul>
+    </div>
+    <div class="card c-pur">
+      <div class="card-t">Allergic Interstitial Nephritis Clues</div>
+      <ul>
+        <li>Fever, arthralgias, pruritic erythematous rash</li>
+        <li>Recent new medication (PPIs, NSAIDs, antibiotics)</li>
+        <li><strong>Absence of systemic features does NOT exclude AIN</strong></li>
+        <li>Biopsy for definitive diagnosis</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-footer">
+    <button class="lbtn" onclick="toggleLearn(this,'dx-l')">✓ Learned</button>
+    <button class="lbtn" onclick="toggleReview(this,'dx-r')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- LABS & URINE -->
+<section class="sec" id="labs">
+  <div class="sec-tag">Section 9</div>
+  <h2>Laboratory Findings & Urine Studies</h2>
+
+  <h3>Urinalysis & Urine Sediment</h3>
+  <table>
+    <tr><th>Finding</th><th>Diagnosis to Consider</th></tr>
+    <tr><td>Normal / hyaline casts</td><td>Prerenal azotemia, postrenal AKI</td></tr>
+    <tr><td>RBCs + RBC casts</td><td>GN, vasculitis, malignant hypertension, thrombotic microangiopathy</td></tr>
+    <tr><td>WBCs + WBC casts</td><td>Interstitial nephritis, GN, pyelonephritis, allograft rejection</td></tr>
+    <tr><td>Renal tubular epithelial (RTE) cells + granular "muddy brown" casts</td><td>ATN (ischemic, sepsis-related, nephrotoxins)</td></tr>
+    <tr><td>Eosinophiluria</td><td>Allergic interstitial nephritis, atheroembolic disease, pyelonephritis, cystitis, GN (limited diagnostic accuracy)</td></tr>
+    <tr><td>Oxalate crystals</td><td>Ethylene glycol toxicity</td></tr>
+    <tr><td>Uric acid crystals</td><td>Tumor lysis syndrome, acute uric acid nephropathy</td></tr>
+    <tr><td>Drug crystalluria</td><td>Acyclovir, indinavir, sulfadiazine, amoxicillin</td></tr>
+    <tr><td>Pigmented casts</td><td>Myoglobinuria (rhabdomyolysis), hemoglobinuria (hemolysis), ATN</td></tr>
+  </table>
+
+  <h3>Urine Output Patterns</h3>
+  <ul>
+    <li><strong>Complete anuria</strong> (early in AKI): uncommon — suggests complete urinary tract obstruction, renal artery occlusion, overwhelming septic shock, severe ischemia with cortical necrosis, or severe proliferative GN/vasculitis</li>
+    <li><strong>Oliguria</strong> (&lt;400 mL/24h): usually denotes more severe AKI (lower GFR); associated with worse clinical outcomes</li>
+    <li><strong>Nonoliguric AKI</strong>: seen in nephrogenic DI (long-standing obstruction), tubulointerstitial disease, cisplatin/aminoglycoside nephrotoxicity</li>
+  </ul>
+
+  <h3>Proteinuria in AKI</h3>
+  <ul>
+    <li><strong>Mild (&lt;1 g/day):</strong> ischemic or nephrotoxin-induced AKI (without preexisting CKD)</li>
+    <li><strong>Greater proteinuria:</strong> glomerular ultrafiltration barrier damage OR light chains (myeloma — NOT detected by dipstick; requires sulfosalicylic acid test or immunoelectrophoresis)</li>
+    <li><strong>Heavy/nephrotic range (&gt;3.5 g/day):</strong> GN, vasculitis, NSAIDs (affecting glomerulus + tubulointerstitium)</li>
+  </ul>
+
+  <h3>Renal Failure Indices</h3>
+  <table>
+    <tr><th>Index</th><th>Prerenal</th><th>Intrinsic (ATN)</th><th>Pitfalls</th></tr>
+    <tr><td><strong>BUN:Creatinine ratio</strong></td><td>&gt;20:1</td><td>Normal (~10–15:1)</td><td>Also ↑ in GI bleed, hyperalimentation, ↑ catabolism, glucocorticoids</td></tr>
+    <tr><td><strong>FeNa</strong></td><td>&lt;1%</td><td>&gt;1%</td><td>CKD can have FeNa &gt;1% despite prerenal; diuretics cause FeNa &gt;1% despite hypovolemia; early sepsis/rhabdomyolysis/contrast can have FeNa &lt;1%</td></tr>
+    <tr><td><strong>Urine osmolality</strong></td><td>&gt;500 mOsm/kg</td><td>&lt;350 mOsm/kg</td><td>Unreliable in elderly, CKD; not specific</td></tr>
+    <tr><td><strong>Urine specific gravity</strong></td><td>&gt;1.018</td><td>~1.010 (isosthenuria)</td><td>Less reliable than osmolality</td></tr>
+  </table>
+
+  <div class="toggle-panel navy">
+    <div class="toggle-header">
+      <div class="toggle-header-left">
+        <span class="toggle-tag">🔵 Mechanism</span>
+        <span class="toggle-title">FeNa — Formula &amp; Interpretation</span>
+      </div>
+      <span class="toggle-arrow open">▼</span>
+    </div>
+    <div class="toggle-body open">
+      <p><strong>FeNa (%) = (Urine Na × Plasma Cr) / (Plasma Na × Urine Cr) × 100</strong></p>
+      <ul style="margin-top:8px">
+        <li>FeNa &lt;1% → suggestive of prerenal (avid tubular Na⁺ reabsorption)</li>
+        <li>FeNa &gt;1% → suggests intrinsic AKI (impaired tubular reabsorption)</li>
+        <li>Most useful in <strong>oliguric patients NOT on diuretics without CKD</strong></li>
+        <li>Low FeNa ≠ proof of prerenal — can be &lt;1% in early sepsis, rhabdomyolysis, contrast nephropathy</li>
+        <li>CKD baseline FeNa may be &gt;1% despite superimposed prerenal state</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Blood Laboratory Findings</h3>
+  <ul>
+    <li><strong>Hyperkalemia, hyperphosphatemia, hypocalcemia:</strong> common in AKI</li>
+    <li><strong>Marked hyperphosphatemia + hypocalcemia:</strong> suggest rhabdomyolysis or tumor lysis syndrome</li>
+    <li><strong>↑ Anion gap:</strong> uremia (retention of phosphate, hippurate, sulfate, urate)</li>
+    <li><strong>↑ Anion gap + osmolal gap:</strong> suggest ethylene glycol poisoning</li>
+    <li><strong>Low anion gap:</strong> suggests multiple myeloma (unmeasured cationic proteins)</li>
+    <li><strong>Schistocytes + ↑ LDH + anemia + thrombocytopenia:</strong> TTP/HUS</li>
+    <li><strong>TTP/HUS workup:</strong> ADAMTS13 levels, Shiga toxin E. coli testing, genetic evaluation of complement regulatory proteins (atypical HUS — 60–70% have mutations in alternative complement pathway genes)</li>
+    <li><strong>GN/vasculitis:</strong> ↓ complement, ↑ ANA, ↑ ANCA, anti-GBM antibodies, cryoglobulins</li>
+  </ul>
+
+  <h3>Novel Biomarkers</h3>
+  <ul>
+    <li><strong>KIM-1 (Kidney Injury Molecule-1):</strong> type 1 transmembrane protein; abundantly expressed in proximal tubular cells injured by ischemia or nephrotoxins (cisplatin); NOT expressed without tubular injury; detectable in urine and plasma</li>
+    <li><strong>NGAL (Neutrophil Gelatinase-Associated Lipocalin):</strong> also known as lipocalin-2 or siderocalin; first found in human neutrophil granules; binds iron siderophore complexes; tissue-protective effects in proximal tubule; detected in plasma/urine within <strong>2 hours</strong> of CPB-associated AKI; FDA-approved (2023) for early identification of AKI in <strong>pediatric patients</strong></li>
+    <li><strong>suPAR (Soluble Urokinase Plasminogen Activator Receptor):</strong> plasma levels predict subsequent development of AKI</li>
+    <li><strong>IGFBP7 + TIMP-2 (cell-cycle arrest biomarkers):</strong> FDA-approved (2014) combination urinary test for predicting moderate-to-severe AKI risk in critically ill patients</li>
+    <li><strong>CXCL9:</strong> recently reported to help distinguish tubulointerstitial nephritis (dominant interstitial inflammation) from other causes</li>
+    <li><strong>Furosemide stress test:</strong> In oliguric AKI, IV furosemide 1.0–1.5 mg/kg; urine output &lt;200 mL over 2h → higher risk of progression + need for RRT</li>
+  </ul>
+
+  <h3>Radiologic Evaluation</h3>
+  <ul>
+    <li><strong>Always consider postrenal AKI</strong> — treat early for best results</li>
+    <li>Simple bladder catheterization → rules out urethral obstruction</li>
+    <li>Renal ultrasound or CT: hydroureteronephrosis = obstruction</li>
+    <li>If high suspicion persists with normal imaging → antegrade or retrograde pyelography</li>
+    <li>AKI: normal-sized kidneys expected; CKD: usually smaller (except diabetic nephropathy, HIV-associated, infiltrative diseases)</li>
+    <li>Enlarged kidneys in AKI → consider acute interstitial nephritis or infiltrative diseases</li>
+  </ul>
+
+  <h3>Kidney Biopsy</h3>
+  <p>Indicated when prerenal AKI, postrenal AKI, and ischemic/nephrotoxic AKI are deemed unlikely AND other diagnoses are being considered: GN, vasculitis, interstitial nephritis, myeloma kidney, HUS/TTP, allograft dysfunction. Risk: bleeding (severe and life-threatening in thrombocytopenia/coagulopathy).</p>
+
+  <div class="sec-footer">
+    <button class="lbtn" onclick="toggleLearn(this,'labs-l')">✓ Learned</button>
+    <button class="lbtn" onclick="toggleReview(this,'labs-r')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- COMPLICATIONS -->
+<section class="sec" id="complications">
+  <div class="sec-tag">Section 10</div>
+  <h2>Complications of AKI</h2>
+
+  <div class="g2">
+    <div class="card c-red">
+      <div class="card-t">Hypervolemia</div>
+      <ul>
+        <li>Major complication of oliguric/anuric AKI</li>
+        <li>Impaired salt/water excretion → weight gain, edema, ↑ JVP, pulmonary edema</li>
+        <li>AKI may induce/exacerbate acute lung injury (↑ vascular permeability, inflammatory infiltration)</li>
+        <li>Recovery: polyuric phase (osmotic diuresis from retained urea + delayed tubular recovery)</li>
+      </ul>
+    </div>
+    <div class="card c-red">
+      <div class="card-t">Hyperkalemia</div>
+      <ul>
+        <li>Especially severe in: rhabdomyolysis, hemolysis, tumor lysis (release of intracellular K⁺)</li>
+        <li>Muscle weakness</li>
+        <li>Most dangerous: cardiac conduction effects → potentially fatal arrhythmias</li>
+      </ul>
+    </div>
+    <div class="card c-red">
+      <div class="card-t">Metabolic Acidosis</div>
+      <ul>
+        <li>Usually elevated anion gap (retained phosphate, hippurate, sulfate, urate)</li>
+        <li>Can worsen with coexisting sepsis, DKA, or respiratory acidosis</li>
+      </ul>
+    </div>
+    <div class="card c-red">
+      <div class="card-t">Hyperphosphatemia + Hypocalcemia</div>
+      <ul>
+        <li>Especially in catabolic patients or rhabdomyolysis/hemolysis/TLS</li>
+        <li>Metastatic calcium phosphate deposition → hypocalcemia</li>
+        <li>Also from vitamin D–PTH–FGF-23 axis disruption</li>
+        <li>Hypocalcemia symptoms: perioral paresthesias, muscle cramps, seizures, carpopedal spasms, ↑ QT interval</li>
+      </ul>
+    </div>
+    <div class="card c-amb">
+      <div class="card-t">Uremia</div>
+      <ul>
+        <li>Elevated BUN = hallmark (direct/indirect toxic effects)</li>
+        <li>Mental status changes, bleeding complications</li>
+        <li>↑ PTH, advanced glycosylation end products, "middle molecules"</li>
+        <li>Correlation of BUN with uremic symptoms is extremely variable</li>
+      </ul>
+    </div>
+    <div class="card c-amb">
+      <div class="card-t">Bleeding & Anemia</div>
+      <ul>
+        <li>AKI uremia → ↓ erythropoiesis + platelet dysfunction</li>
+        <li>Anemia usually multifactorial</li>
+        <li>Exacerbated by coexisting sepsis, liver disease, DIC</li>
+      </ul>
+    </div>
+    <div class="card c-tel">
+      <div class="card-t">Cardiac Complications</div>
+      <ul>
+        <li>Arrhythmias, pericarditis, pericardial effusion</li>
+        <li>Volume overload + uremia → cardiac injury, impaired function</li>
+        <li>Animal studies: cellular apoptosis, capillary vascular congestion, mitochondrial dysfunction in heart after renal ischemia-reperfusion</li>
+      </ul>
+    </div>
+    <div class="card c-tel">
+      <div class="card-t">Malnutrition & Infections</div>
+      <ul>
+        <li>AKI = severely hypercatabolic state → malnutrition is major complication</li>
+        <li>Infections: common precipitant AND dreaded complication of AKI</li>
+        <li>Impaired host immunity described in ESKD, may be operative in severe AKI</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-footer">
+    <button class="lbtn" onclick="toggleLearn(this,'comp-l')">✓ Learned</button>
+    <button class="lbtn" onclick="toggleReview(this,'comp-r')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- TREATMENT -->
+<section class="sec" id="treatment">
+  <div class="sec-tag">Section 11</div>
+  <h2>Prevention & Treatment</h2>
+
+  <h3>General Principles (All Types)</h3>
+  <ul>
+    <li>Optimization of hemodynamics</li>
+    <li>Correction of fluid and electrolyte imbalances</li>
+    <li>Discontinuation of nephrotoxic medications</li>
+    <li>Dose adjustment of administered medications</li>
+    <li>Maintain mean arterial pressure <strong>&gt;65 mmHg</strong></li>
+    <li>Nutrition: <strong>20–30 kcal/kg/day</strong> (KDIGO); enteral route preferred</li>
+  </ul>
+
+  <h3>Fluid Management — Prerenal</h3>
+  <ul>
+    <li><strong>Oliguria alone is NOT an indication for fluid</strong> — intravascular hypovolemia should be the only indication</li>
+    <li>Target replacement fluid composition to type of fluid lost</li>
+    <li>Severe acute blood loss → packed RBCs</li>
+    <li>Crystalloids preferred over colloids</li>
+    <li>Hydroxyethyl starch: <strong>no longer available</strong> for hospitalized patients (increased AKI risk)</li>
+    <li><strong>0.9% saline</strong> (most commonly used) → can cause/exacerbate hyperchloremic metabolic acidosis</li>
+    <li>Buffered crystalloids (Ringer's lactate, Hartmann's, Plasma-Lyte): slightly hypotonic, preferred in hypernatremia</li>
+    <li>Bicarbonate solutions useful in metabolic acidosis</li>
+  </ul>
+
+  <h3>Cirrhosis & Hepatorenal Syndrome</h3>
+  <ul>
+    <li>Definitive treatment: <strong>orthotopic liver transplantation</strong></li>
+    <li>Bridge therapies: norepinephrine, <strong>terlipressin</strong> (vasopressin analogue), or octreotide + midodrine + IV albumin (25–50 g, max 100 g/day)</li>
+    <li>Albumin may prevent AKI in those treated with antibiotics for spontaneous bacterial peritonitis</li>
+    <li>Rule out peritonitis with ascitic fluid cell count and culture before volume administration</li>
+  </ul>
+
+  <h3>Specific Treatment — Intrinsic AKI</h3>
+  <div class="g2">
+    <div class="card c-grn">
+      <div class="card-t">GN / Vasculitis</div>
+      <p>Immunosuppressive agents, anticomplement therapies, and/or plasmapheresis — early recognition is essential</p>
+    </div>
+    <div class="card c-grn">
+      <div class="card-t">Allergic Interstitial Nephritis</div>
+      <p>Discontinue offending agent. Glucocorticoids used (not tested in RCTs) when AKI persists/worsens despite drug cessation</p>
+    </div>
+    <div class="card c-grn">
+      <div class="card-t">Scleroderma Renal Crisis</div>
+      <p>ACE inhibitors</p>
+    </div>
+    <div class="card c-grn">
+      <div class="card-t">Idiopathic TTP</div>
+      <p>Medical emergency → prompt plasma exchange</p>
+    </div>
+    <div class="card c-grn">
+      <div class="card-t">Atypical HUS</div>
+      <p>Pharmacologic blockade of complement activation (e.g., eculizumab)</p>
+    </div>
+    <div class="card c-grn">
+      <div class="card-t">✅ Rhabdomyolysis Treatment</div>
+      <p>Early aggressive volume repletion (may initially require <strong>10 L/day</strong>). Alkaline fluids (75 mmol/L NaHCO₃ in 0.45% saline) may prevent cast formation — watch for hypocalcemia. Target urine flow <strong>200–300 mL/h</strong> with diuretics if needed.</p>
+    </div>
+  </div>
+
+  <h3>Electrolyte Management</h3>
+  <table>
+    <tr><th>Problem</th><th>Treatment</th></tr>
+    <tr><td><strong>Hyperkalemia</strong></td><td>Restrict K⁺ intake; D/C K-sparing diuretics, ACE-I, ARBs, NSAIDs; loop diuretics; K-binding agents (sodium zirconium cyclosilicate, patiromer, polystyrene sulfonate); insulin + glucose; inhaled beta-agonist; calcium gluconate/chloride (1g) to stabilize myocardium</td></tr>
+    <tr><td><strong>Metabolic acidosis</strong></td><td>NaHCO₃ if pH &lt;7.2, serum HCO₃ &lt;15 mmol/L; RRT if severe</td></tr>
+    <tr><td><strong>Hyperphosphatemia</strong></td><td>Restrict dietary phosphate; phosphate binders (calcium acetate, sevelamer, aluminum hydroxide) taken with meals</td></tr>
+    <tr><td><strong>Hypocalcemia</strong></td><td>Calcium carbonate or calcium gluconate if symptomatic; monitor ionized Ca²⁺ (not total Ca²⁺) when hypoalbuminemia present</td></tr>
+    <tr><td><strong>Volume overload</strong></td><td>Salt/water restriction; diuretics; if severe → IV furosemide bolus 200 mg followed by drip 10–40 mg/h ± thiazide; ultrafiltration</td></tr>
+    <tr><td><strong>Hyponatremia</strong></td><td>Restrict free water; minimize hypotonic IVF including dextrose-containing</td></tr>
+  </table>
+
+  <h3>Nutrition in AKI</h3>
+  <ul>
+    <li>Energy: <strong>20–30 kcal/kg/day</strong></li>
+    <li>Protein:
+      <ul>
+        <li>Noncatabolic AKI without dialysis: <strong>0.8–1.0 g/kg/day</strong></li>
+        <li>Patients on dialysis: <strong>1.0–1.5 g/kg/day</strong></li>
+        <li>Hypercatabolic + continuous RRT: up to <strong>1.7 g/kg/day</strong></li>
+      </ul>
+    </li>
+    <li>Trace elements + water-soluble vitamins should be supplemented in patients receiving dialysis or CRRT</li>
+  </ul>
+
+  <h3>Dialysis — Indications & Modalities</h3>
+  <div class="toggle-panel red">
+    <div class="toggle-header">
+      <div class="toggle-header-left">
+        <span class="toggle-tag">🚨 Critical</span>
+        <span class="toggle-title">Dialysis Indications — AEIOU Mnemonic</span>
+      </div>
+      <span class="toggle-arrow open">▼</span>
+    </div>
+    <div class="toggle-body open">
+      <ul>
+        <li><strong>A</strong>cidosis — refractory metabolic acidosis</li>
+        <li><strong>E</strong>lectrolytes — refractory hyperkalemia</li>
+        <li><strong>I</strong>ngestions — certain toxic ingestions</li>
+        <li><strong>O</strong>verload — volume overload refractory to medical management</li>
+        <li><strong>U</strong>remia — asterixis, pericardial rub/effusion, encephalopathy, uremic bleeding</li>
+        <li><strong>BUN &gt;100 mg/dL</strong> empirically (without clinical signs of renal recovery)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="toggle-panel amber">
+    <div class="toggle-header">
+      <div class="toggle-header-left">
+        <span class="toggle-tag">⚠️ Caution</span>
+        <span class="toggle-title">Timing of Dialysis — Balance Is Key</span>
+      </div>
+      <span class="toggle-arrow open">▼</span>
+    </div>
+    <div class="toggle-body open">
+      <ul>
+        <li>RCTs have NOT shown early vs. late initiation improves survival; early initiation may <strong>increase adverse events</strong></li>
+        <li>Do NOT await a life-threatening complication to start dialysis</li>
+        <li>Do NOT initiate unnecessarily early — risks include infection, bleeding, procedural complications, hypotension</li>
+      </ul>
+    </div>
+  </div>
+
+  <table>
+    <tr><th>Modality</th><th>Mechanism</th><th>Notes</th></tr>
+    <tr><td><strong>Hemodialysis (IHD)</strong></td><td>Diffusive + convective clearance; 3–4 h/day, 3–4×/week</td><td>Most common for AKI; major complication = hypotension (can perpetuate AKI)</td></tr>
+    <tr><td><strong>CVVH</strong></td><td>Convective clearance; large plasma water removal + replacement</td><td>CRRT modality; preferred in hemodynamic instability, cerebral edema, significant volume overload</td></tr>
+    <tr><td><strong>CVVHD</strong></td><td>Diffusive clearance; lower flow rates than IHD</td><td>CRRT modality</td></tr>
+    <tr><td><strong>CVVHDF</strong></td><td>Combined diffusive + convective</td><td>Hybrid CRRT modality</td></tr>
+    <tr><td><strong>SLED / EDD</strong></td><td>Higher blood/dialysate flow than CVVHD; treatment reduced to ≤12h</td><td>Some CRRT advantages without 24-h staffing requirement</td></tr>
+    <tr><td><strong>Peritoneal dialysis</strong></td><td>Diffusive + convective across peritoneal membrane; osmotic gradient via dextrose in dialysate</td><td>Rarely used for AKI in US adults; widely used internationally; rediscovered during COVID-19 pandemic; better tolerated in hypotensive patients; insufficient for hypercatabolic patients</td></tr>
+  </table>
+
+  <div class="alert info"><div class="alert-ico">📋</div><div>Studies have failed to show continuous therapies are superior to intermittent for survival. Choice is often dictated by technology availability and staff expertise. Daily IHD and high-dose CRRT do not confer demonstrable survival advantage — but avoid undertreatment.</div></div>
+
+  <div class="sec-footer">
+    <button class="lbtn" onclick="toggleLearn(this,'tx-l')">✓ Learned</button>
+    <button class="lbtn" onclick="toggleReview(this,'tx-r')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- QUICK REFERENCE TABLE -->
+<section class="sec" id="qr">
+  <div class="sec-tag">Section 12 · High-Yield Summary</div>
+  <h2>Quick-Reference Master Table</h2>
+
+  <table>
+    <tr><th>Parameter</th><th>Value / Detail</th></tr>
+    <tr><td>AKI Definition (KDIGO)</td><td>SCr ↑ ≥0.3 mg/dL/48h OR ≥1.5× baseline/7d OR UO &lt;0.5 mL/kg/h for &gt;6h</td></tr>
+    <tr><td>Stage 1 SCr</td><td>1.5–1.9× baseline OR ≥0.3 mg/dL</td></tr>
+    <tr><td>Stage 2 SCr</td><td>2.0–2.9× baseline</td></tr>
+    <tr><td>Stage 3 SCr</td><td>≥3.0× baseline OR ≥4.0 mg/dL OR RRT required OR eGFR &lt;35 (if &lt;18y)</td></tr>
+    <tr><td>Stage 3 UO</td><td>&lt;0.3 mL/kg/h for ≥24h OR anuria ≥12h</td></tr>
+    <tr><td>Autoregulation failure BP</td><td>Systolic &lt;80 mmHg</td></tr>
+    <tr><td>FeNa prerenal</td><td>&lt;1%</td></tr>
+    <tr><td>FeNa intrinsic (ATN)</td><td>&gt;1%</td></tr>
+    <tr><td>Urine osmolality prerenal</td><td>&gt;500 mOsm/kg</td></tr>
+    <tr><td>BUN:Cr ratio prerenal</td><td>&gt;20:1</td></tr>
+    <tr><td>Aminoglycoside AKI onset</td><td>5–7 days into therapy; can occur after discontinuation</td></tr>
+    <tr><td>Contrast AKI SCr peak</td><td>3–5 days; resolves within 1 week</td></tr>
+    <tr><td>AIN: % due to drugs</td><td>~75%</td></tr>
+    <tr><td>GN: % of AKI causes</td><td>~5%</td></tr>
+    <tr><td>Burns AKI risk</td><td>25% with &gt;10% TBSA burns</td></tr>
+    <tr><td>Abdominal compartment syndrome pressure</td><td>&gt;20 mmHg → renal vein compression</td></tr>
+    <tr><td>IGFBP7 + TIMP-2 FDA approval</td><td>2014 — predict moderate-to-severe AKI in critically ill</td></tr>
+    <tr><td>NGAL FDA approval</td><td>2023 — early identification of AKI in pediatric patients</td></tr>
+    <tr><td>Furosemide stress test</td><td>1.0–1.5 mg/kg IV; &lt;200 mL over 2h = high risk of progression</td></tr>
+    <tr><td>MAP target in AKI</td><td>&gt;65 mmHg</td></tr>
+    <tr><td>Rhabdomyolysis initial fluids</td><td>May require 10 L/day initially</td></tr>
+    <tr><td>Rhabdomyolysis target UO</td><td>200–300 mL/h</td></tr>
+    <tr><td>Dialysis trigger BUN</td><td>Often used empirically at BUN &gt;100 mg/dL</td></tr>
+    <tr><td>Energy intake goal in AKI</td><td>20–30 kcal/kg/day</td></tr>
+    <tr><td>Protein (noncatabolic, no dialysis)</td><td>0.8–1.0 g/kg/day</td></tr>
+    <tr><td>Protein (dialysis)</td><td>1.0–1.5 g/kg/day</td></tr>
+    <tr><td>Protein (hypercatabolic, CRRT)</td><td>Up to 1.7 g/kg/day</td></tr>
+    <tr><td>Tumor lysis uric acid level</td><td>Often &gt;15 mg/dL</td></tr>
+    <tr><td>Atypical HUS complement mutations</td><td>60–70% have mutations in alternative complement pathway genes</td></tr>
+    <tr><td>Hemodialysis frequency</td><td>3–4 h/day, 3–4×/week</td></tr>
+    <tr><td>ESKD risk after dialysis-requiring AKI</td><td>Up to 10% of survivors</td></tr>
+    <tr><td>AKI hospital incidence increase</td><td>&gt;4× since 1988 in USA</td></tr>
+    <tr><td>AKI yearly incidence</td><td>500/100,000 population (higher than stroke)</td></tr>
+  </table>
+
+  <div class="sec-footer">
+    <button class="lbtn" onclick="toggleLearn(this,'qr-l')">✓ Learned</button>
+    <button class="lbtn" onclick="toggleReview(this,'qr-r')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- EXAM TRAPS -->
+<section class="sec" id="traps">
+  <div class="sec-tag">★ Section 13 · Exam Traps</div>
+  <h2>Board Exam Traps</h2>
+
+  <div class="trap">
+    <div class="trap-num">★ Trap 01 · Number Trap</div>
+    <div class="trap-q">A 74-year-old man with BPH and hypertension develops AKI. His serum creatinine rises from 1.0 to 2.1 mg/dL over 3 days. His urine output is 450 mL/24h. Which KDIGO AKI stage is he in?</div>
+    <div class="trap-section"><b>Tempting Wrong Answer</b>He has &gt;400 mL/day, so "preserved urine output" — might seem like Stage 1 or nonoliguric. Creatinine doubling might seem like Stage 2 or 3.</div>
+    <div class="trap-section"><b>Correct Answer</b><strong>Stage 2 AKI.</strong> SCr 2.1 vs. baseline 1.0 = 2.1× baseline, which falls in the Stage 2 range (2.0–2.9× baseline). Urine output of 450 mL/day exceeds the Stage 1 UO criterion of &lt;400 mL/day, so UO does not contribute to staging here. Either SCr OR UO criterion — take the higher stage.</div>
+    <div class="trap-section"><b>Mechanism</b>KDIGO staging takes the HIGHER of the two criteria (SCr or UO). The absolute SCr rise of 1.1 mg/dL alone would be Stage 1 (≥0.3 criterion), but the ratio 2.1× baseline pushes it to Stage 2.</div>
+    <div class="trap-kw">Board Keyword: "Take the HIGHER stage from either criterion"</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-num">★ Trap 02 · Drug Interaction Trap</div>
+    <div class="trap-q">A 68-year-old man with bilateral renal artery stenosis, heart failure, and osteoarthritis is started on lisinopril for heart failure. He takes ibuprofen daily for joint pain. Two weeks later his creatinine doubles. What is the mechanism?</div>
+    <div class="trap-section"><b>Tempting Wrong Answer</b>Blame only the ACE-I (heart failure is its indication, so residents hesitate to implicate it alone).</div>
+    <div class="trap-section"><b>Correct Answer</b><strong>Combined blockade of both autoregulatory mechanisms.</strong> NSAIDs eliminate afferent vasodilation (by blocking prostaglandin-mediated dilation). ACE-I eliminates efferent vasoconstriction (by blocking angiotensin II). Together, both compensatory mechanisms are ablated, causing catastrophic fall in GFR — especially devastating in bilateral RAS where efferent constriction is already critical to maintaining GFR.</div>
+    <div class="trap-section"><b>Mechanism</b>Normal GFR in ↓ perfusion requires: afferent dilation (prostaglandins, NO) AND efferent constriction (angiotensin II). NSAIDs + ACE-I/ARB eliminate both simultaneously.</div>
+    <div class="trap-kw">Board Keyword: "NSAIDs + ACE-I/ARB = highest risk combination"</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-num">★ Trap 03 · Look-Alike Trap</div>
+    <div class="trap-q">A 58-year-old woman develops AKI after starting omeprazole for GERD 3 weeks ago. She has sterile pyuria, mild eosinophilia, and a nonoliguric AKI. No rash or fever. Renal biopsy shows tubulointerstitial inflammation. What is the diagnosis and next step?</div>
+    <div class="trap-section"><b>Tempting Wrong Answer</b>Absence of rash and fever (classic triad) makes AIN "less likely" — some residents exclude the diagnosis without these features.</div>
+    <div class="trap-section"><b>Correct Answer</b><strong>Acute Interstitial Nephritis (AIN) due to PPI.</strong> Next step: discontinue omeprazole. Consider glucocorticoids if AKI persists/worsens despite drug cessation. PPIs are one of the most common drug causes of AIN.</div>
+    <div class="trap-section"><b>Mechanism</b>The classic triad (fever, rash, eosinophilia) is present in a minority of AIN cases. Absence of systemic hypersensitivity does NOT exclude AIN — biopsy is needed for definitive diagnosis when cause is unclear.</div>
+    <div class="trap-kw">Board Keyword: "Absence of rash/fever does NOT exclude AIN"</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-num">★ Trap 04 · Timing Trap</div>
+    <div class="trap-q">A 62-year-old man receives IV contrast for a CT abdomen. His baseline creatinine is 1.2 mg/dL. 12 hours later it is 1.3 mg/dL and he is asymptomatic. When should you expect the SCr to peak in contrast-induced AKI?</div>
+    <div class="trap-section"><b>Tempting Wrong Answer</b>Within 24 hours of contrast exposure (confusing "onset" with "peak"). Some may try to treat aggressively because creatinine is rising.</div>
+    <div class="trap-section"><b>Correct Answer</b><strong>Contrast-induced AKI peaks at 3–5 days after exposure and typically resolves within 1 week.</strong> SCr begins rising at 24–48h but does NOT peak until 3–5 days.</div>
+    <div class="trap-section"><b>Mechanism</b>Classic CI-AKI course: SCr rise begins 24–48h → peaks 3–5 days → resolves by 7 days. Dialysis-requiring AKI uncommon unless significant pre-existing CKD + CHF coexist.</div>
+    <div class="trap-kw">Board Keyword: "Contrast AKI: onset 24–48h, peak 3–5 days, resolves by 1 week"</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-num">★ Trap 05 · Mechanism Trap</div>
+    <div class="trap-q">A 72-year-old with cirrhosis and ascites develops AKI with SCr rising from 0.8 to 2.4 mg/dL over 5 days. His FeNa is 0.6%, suggesting avid sodium retention. He is given 3L of IV saline with no improvement in creatinine. What is the most likely diagnosis?</div>
+    <div class="trap-section"><b>Tempting Wrong Answer</b>Prerenal azotemia — FeNa &lt;1% and liver disease context.</div>
+    <div class="trap-section"><b>Correct Answer</b><strong>Hepatorenal Syndrome (most likely Type 1).</strong> Key distinguishing feature: AKI persists despite volume resuscitation and withholding of diuretics. HRS is a diagnosis of exclusion that mimics prerenal azotemia hemodynamically but occurs in the setting of total-body volume overload (not depletion). FeNa can be &lt;1% in HRS.</div>
+    <div class="trap-section"><b>Mechanism</b>Primary splanchnic arterial vasodilation (mediated by vasodilators like NO) → ↓ effective arterial blood volume → activation of RAAS + vasopressin → renal vasoconstriction despite total body Na⁺ and water excess.</div>
+    <div class="trap-kw">Board Keyword: "AKI persists despite volume challenge + diuretic withdrawal = hepatorenal syndrome"</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-num">★ Trap 06 · Trial/Evidence Trap</div>
+    <div class="trap-q">An ICU patient develops oliguric AKI with Stage 3 creatinine. Which of the following interventions has been shown to improve survival — early initiation of dialysis vs. standard (late) initiation?</div>
+    <div class="trap-section"><b>Tempting Wrong Answer</b>Early dialysis improves outcomes by preventing complications.</div>
+    <div class="trap-section"><b>Correct Answer</b><strong>Neither has been shown to be superior in randomized controlled trials.</strong> Earlier versus later initiation of dialysis has NOT demonstrated improved survival and may increase the risk of adverse events. The correct clinical approach: avoid waiting for a life-threatening complication, but also avoid unnecessarily early initiation.</div>
+    <div class="trap-section"><b>Mechanism</b>Early dialysis risks: IV line placement, procedural complications, bleeding, infection, hypotension (which can perpetuate AKI). Late dialysis risks: avoidable volume, electrolyte, and metabolic complications. Balance is key.</div>
+    <div class="trap-kw">Board Keyword: "RCTs show NO survival benefit of early over late dialysis initiation"</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-num">★ Trap 07 · Population Trap (SGLT-2 Inhibitors)</div>
+    <div class="trap-q">A 55-year-old man with type 2 diabetes and stage 3 CKD is started on empagliflozin. His nephrologist notes that empagliflozin lowers intraglomerular pressure. Should this agent be avoided due to AKI risk?</div>
+    <div class="trap-section"><b>Tempting Wrong Answer</b>Yes — lower intraglomerular pressure from SGLT-2 inhibitors is analogous to ACE-I/ARB mechanism and should increase AKI risk.</div>
+    <div class="trap-section"><b>Correct Answer</b><strong>No — SGLT-2 inhibitors do NOT appear to increase AKI risk.</strong> In fact, recent studies suggest a <em>protective effect</em> against AKI, despite their effects on lowering intraglomerular pressure and inducing natriuresis. This is mechanistically distinct from ACE-I/ARB effects on the efferent arteriole.</div>
+    <div class="trap-section"><b>Mechanism</b>The mechanism of AKI protection with SGLT-2 inhibitors is not yet fully clarified. Unlike ACE-I/ARBs (which dilate the efferent arteriole), SGLT-2 inhibitors primarily reduce tubuloglomerular feedback pressure.</div>
+    <div class="trap-kw">Board Keyword: "SGLT-2 inhibitors = AKI protective, NOT harmful"</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-num">★ Trap 08 · Number Trap (FeNa Limitations)</div>
+    <div class="trap-q">A 44-year-old woman with severe sepsis develops oliguria and AKI. Her FeNa is 0.7%. The team diagnoses prerenal azotemia and withholds additional evaluation. Is this correct?</div>
+    <div class="trap-section"><b>Tempting Wrong Answer</b>Yes — FeNa &lt;1% confirms prerenal state; treat with fluids.</div>
+    <div class="trap-section"><b>Correct Answer</b><strong>No — FeNa &lt;1% in sepsis does NOT indicate prerenal azotemia.</strong> Several causes of ischemia-associated and nephrotoxin-associated AKI can present with FeNa &lt;1%: early sepsis, rhabdomyolysis, and contrast nephropathy. A low FeNa is suggestive of, but NOT synonymous with, effective intravascular volume depletion.</div>
+    <div class="trap-section"><b>Mechanism</b>In early sepsis, tubular sodium reabsorption may remain relatively intact (intact tubular function initially) → FeNa &lt;1% despite intrinsic AKI developing. FeNa is most useful in oliguric patients NOT on diuretics and without CKD.</div>
+    <div class="trap-kw">Board Keyword: "FeNa &lt;1% in sepsis ≠ prerenal — early sepsis can have FeNa &lt;1%"</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-num">★ Trap 09 · Look-Alike Trap (Rhabdomyolysis vs. Hemolysis)</div>
+    <div class="trap-q">A 28-year-old marathon runner collapses at the finish line. Labs show urine that is dark red-brown and tests heme-positive on dipstick. Microscopy shows very few RBCs. Serum creatine kinase is 42,000 U/L. What is the diagnosis and key pathophysiologic mechanism?</div>
+    <div class="trap-section"><b>Tempting Wrong Answer</b>Gross hematuria and heme-positive dipstick = bleeding → evaluate for renal trauma or bladder injury.</div>
+    <div class="trap-section"><b>Correct Answer</b><strong>Rhabdomyolysis with myoglobinuria.</strong> Heme-positive dipstick with few or no RBCs on microscopy = pigment nephropathy (myoglobin or hemoglobin). The massively elevated CK confirms rhabdomyolysis. Key mechanisms: intrarenal vasoconstriction + direct proximal tubular toxicity + mechanical obstruction (myoglobin precipitates with Tamm-Horsfall protein in acidic urine).</div>
+    <div class="trap-section"><b>Mechanism</b>Myoglobin (MW ~17,000 Da) is freely filtered → accumulates in tubules → precipitates with uromodulin (Tamm-Horsfall protein) in acidic pH → obstructing casts → AKI. Treatment: aggressive fluid resuscitation; consider alkalinization of urine.</div>
+    <div class="trap-kw">Board Keyword: "Heme-positive + few RBCs = pigment nephropathy, NOT hematuria"</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-num">★ Trap 10 · Mechanism Trap (Postrenal)</div>
+    <div class="trap-q">A 76-year-old man with BPH undergoes evaluation for AKI. His urine output is 800 mL/day, and the team initially rules out postrenal obstruction because urine output is "preserved." Is this reasoning correct?</div>
+    <div class="trap-section"><b>Tempting Wrong Answer</b>Yes — preserved urine output excludes significant obstruction.</div>
+    <div class="trap-section"><b>Correct Answer</b><strong>No — normal or even elevated urine output does NOT rule out partial obstruction.</strong> GFR is normally two orders of magnitude higher than urinary flow rate. A patient with 30% residual filtration can still produce "adequate" urine while having significant AKI from partial obstruction. Always image the urinary tract when the clinical scenario suggests obstruction.</div>
+    <div class="trap-section"><b>Mechanism</b>In partial obstruction, glomerular filtration is partially maintained → urine still formed → output preserved but significantly reduced from baseline. The ratio GFR:urine flow rate is ~100:1 normally, meaning small amounts of filtration through an obstructed system can maintain "preserved" urine output.</div>
+    <div class="trap-kw">Board Keyword: "Preserved urine output does NOT exclude postrenal obstruction"</div>
+  </div>
+
+  <div class="sec-footer">
+    <button class="lbtn" onclick="toggleLearn(this,'trap-l')">✓ Learned</button>
+    <button class="lbtn" onclick="toggleReview(this,'trap-r')">⚑ Review</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">Chapter 321 · Acute Kidney Injury · Harrison's Principles of Internal Medicine · Boards Review · 2025</footer>
+
+<script>
+/* ── STORAGE KEY ── */
+const SK = 'AKI-boards-2025';
+
+/* ── HIGHLIGHT STATE ── */
+let curHL = null;
+
+function setHL(color, btn) {
+  if (curHL === color) { curHL = null; document.querySelectorAll('.hbtn,.tbtn').forEach(b => b.classList.remove('active')); return; }
+  curHL = color;
+  document.querySelectorAll('.hbtn,.tbtn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+/* ── MOUSE-UP: APPLY HIGHLIGHT OR NOTE ── */
+let lastSel = null;
+
+document.addEventListener('mouseup', function(e) {
+  if (e.target.closest('#toolbar') || e.target.closest('#sn-sidebar') || e.target.closest('#note-popover')) return;
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  lastSel = sel.toString().trim();
+  if (!curHL || lastSel.length === 0) return;
+  if (curHL === 'erase') { eraseHL(sel); return; }
+  applyHL(sel, curHL);
+  sel.removeAllRanges();
+});
+
+function applyHL(sel, cls) {
+  try {
+    const range = sel.getRangeAt(0);
+    const mark = document.createElement('mark');
+    mark.className = cls;
+    range.surroundContents(mark);
+  } catch (err) {}
+}
+
+function eraseHL(sel) {
+  try {
+    const range = sel.getRangeAt(0);
+    const marks = document.querySelectorAll('mark');
+    marks.forEach(m => {
+      if (range.intersectsNode(m)) {
+        const parent = m.parentNode;
+        while (m.firstChild) parent.insertBefore(m.firstChild, m);
+        parent.removeChild(m);
+      }
+    });
+  } catch (err) {}
+}
+
+function clearAll() {
+  document.querySelectorAll('mark').forEach(m => {
+    const p = m.parentNode;
+    while (m.firstChild) p.insertBefore(m.firstChild, m);
+    p.removeChild(m);
+  });
+}
+
+/* ── NOTES SYSTEM ── */
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(SK + '-notes') || '[]'); } catch { return []; }
+}
+function saveNotes(notes) {
+  try { localStorage.setItem(SK + '-notes', JSON.stringify(notes)); } catch {}
+}
+
+function addNote() {
+  const sel = window.getSelection();
+  const ref = (sel && !sel.isCollapsed) ? sel.toString().trim().substring(0, 100) : '—';
+  const text = prompt('Your note:', '');
+  if (text === null || text.trim() === '') return;
+  const notes = getNotes();
+  const id = Date.now();
+  notes.push({ id, ref, text: text.trim(), order: notes.length });
+  saveNotes(notes);
+
+  if (ref !== '—' && sel && !sel.isCollapsed) {
+    try {
+      const range = sel.getRangeAt(0);
+      const anchor = document.createElement('span');
+      anchor.className = 'note-anchor';
+      anchor.dataset.noteId = id;
+      anchor.title = text.trim().substring(0, 60);
+      range.surroundContents(anchor);
+      sel.removeAllRanges();
+    } catch {}
+  }
+  renderNotes();
+}
+
+function deleteNote(id) {
+  let notes = getNotes().filter(n => n.id !== id);
+  saveNotes(notes);
+  document.querySelectorAll(`.note-anchor[data-note-id="${id}"]`).forEach(a => {
+    const p = a.parentNode;
+    while (a.firstChild) p.insertBefore(a.firstChild, a);
+    p.removeChild(a);
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const notes = getNotes();
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  body.querySelectorAll('.sn-card').forEach(c => c.remove());
+  if (notes.length === 0) { empty.style.display = ''; return; }
+  empty.style.display = 'none';
+  notes.forEach((note, idx) => {
+    const card = document.createElement('div');
+    card.className = 'sn-card';
+    card.dataset.idx = idx;
+    card.innerHTML = `<div class="sn-card-ref">${note.ref !== '—' ? '"' + note.ref.substring(0,60) + '"' : 'General note'}</div><div class="sn-card-text">${note.text.replace(/</g,'&lt;')}</div><button class="sn-card-del" onclick="deleteNote(${note.id})">×</button>`;
+    card.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', idx); card.style.opacity = '0.5'; });
+    card.addEventListener('dragend', () => { card.style.opacity = '1'; });
+    card.addEventListener('dragover', e => e.preventDefault());
+    card.addEventListener('drop', e => {
+      e.preventDefault();
+      const from = parseInt(e.dataTransfer.getData('text/plain'));
+      const to = idx;
+      if (from === to) return;
+      const notes2 = getNotes();
+      const [moved] = notes2.splice(from, 1);
+      notes2.splice(to, 0, moved);
+      saveNotes(notes2);
+      renderNotes();
+    });
+    card.draggable = true;
+    body.appendChild(card);
+  });
+}
+
+/* ── SECTION STATUS ── */
+function toggleLearn(btn, key) {
+  btn.classList.toggle('learned');
+  if (btn.classList.contains('learned')) { btn.textContent = '✓ Learned!'; try { localStorage.setItem(SK + '-' + key, 'learned'); } catch {} }
+  else { btn.textContent = '✓ Learned'; try { localStorage.removeItem(SK + '-' + key); } catch {} }
+}
+function toggleReview(btn, key) {
+  btn.classList.toggle('review');
+  if (btn.classList.contains('review')) { btn.textContent = '⚑ Needs Review'; try { localStorage.setItem(SK + '-' + key, 'review'); } catch {} }
+  else { btn.textContent = '⚑ Review'; try { localStorage.removeItem(SK + '-' + key); } catch {} }
+}
+
+/* ── SIDEBAR TOGGLE ── */
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  const hidden = sb.classList.contains('hidden');
+  tab.textContent = hidden ? '📝 Notes' : '◀';
+  document.body.style.marginRight = hidden ? '0' : 'var(--snw)';
+}
+
+/* ── POPOVER ── */
+let activePopNoteId = null;
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0,55) + (note.ref.length > 55 ? '…' : '') + '"' : 'Your note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  const anchor = e.target.closest('.note-anchor');
+  if (anchor) {
+    e.stopPropagation();
+    const nid = parseInt(anchor.dataset.noteId);
+    if (activePopNoteId === nid) { closePopover(); return; }
+    const note = getNotes().find(n => n.id === nid);
+    if (note) showPopover(anchor, note);
+    return;
+  }
+  const pop = document.getElementById('note-popover');
+  if (pop && !pop.contains(e.target)) closePopover();
+});
+
+/* ── NAV TRACKING ── */
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s =>
+  new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      _navLinks.forEach(l => l.classList.remove('on'));
+      const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+      if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+    }
+  }, { rootMargin: '-15% 0px -75% 0px' }).observe(s)
+);
+
+/* ── INIT ── */
+renderNotes();
+
+/* ── TOGGLE PANELS ──────────────────── */
+function initToggles() {
+  document.querySelectorAll('.toggle-header').forEach(hdr => {
+    hdr.addEventListener('click', () => {
+      const body = hdr.nextElementSibling;
+      const arrow = hdr.querySelector('.toggle-arrow');
+      body.classList.toggle('open');
+      if (arrow) arrow.classList.toggle('open');
+    });
+  });
+}
+initToggles();
+</script>
+</body>
+</html>
