@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Chronic Kidney Disease · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 48px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;padding:0 12px;display:flex;align-items:center;white-space:nowrap;border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+
+.main{max-width:100%;margin:0;padding:32px 48px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:center;gap:16px;margin-bottom:0;padding:14px 0;border-bottom:2.5px solid var(--tx);cursor:pointer;user-select:none;transition:background .15s;border-radius:4px 4px 0 0}.sec-hd:hover{background:rgba(0,0,0,.025)}.sec-body{overflow:hidden;transition:max-height .35s ease,opacity .35s ease;max-height:9999px;opacity:1;margin-top:22px}.sec-body.collapsed{max-height:0;opacity:0;margin-top:0}.sec-toggle{margin-left:auto;font-size:18px;color:var(--t3);transition:transform .3s;flex-shrink:0}.sec-hd.collapsed-hd .sec-toggle{transform:rotate(-90deg)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blu);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--grn-l);border-color:var(--grn)}.prl .co-t{color:var(--grn)}
+.tel{background:var(--blu-l);border-color:var(--blu)}.tel .co-t{color:var(--blu)}
+/* 4-color legend bar */
+#color-legend{display:flex;gap:0;border:1.5px solid var(--bd);border-radius:7px;overflow:hidden;margin:0 0 24px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.cl-item{flex:1;display:flex;align-items:center;gap:7px;padding:8px 14px;border-right:1px solid var(--bd)}
+.cl-item:last-child{border-right:none}
+.cl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.cl-navy{background:var(--blu-l);}.cl-dot-navy{background:var(--blu)}
+.cl-red{background:var(--red-l);}.cl-dot-red{background:var(--red)}
+.cl-amb{background:var(--amb-l);}.cl-dot-amb{background:var(--amb)}
+.cl-grn{background:var(--grn-l);}.cl-dot-grn{background:var(--grn)}
+.cl-item span{color:var(--t2)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.ol{list-style:none;padding:0;margin:6px 0 12px;counter-reset:n}
+.ol li{counter-increment:n;position:relative;padding:4px 0 4px 30px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.ol li::before{content:counter(n);position:absolute;left:0;top:5px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;background:var(--bd);color:var(--t2);width:19px;height:19px;display:flex;align-items:center;justify-content:center;border-radius:3px}
+.ol li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:12px 0}
+@media(max-width:600px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.vs{display:grid;grid-template-columns:1fr 1fr;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px;overflow:hidden}
+.vsh{padding:9px 14px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--bd)}
+.vsh.b{background:#e8effe;color:var(--blu);border-right:1px solid var(--bd)}
+.vsh.r{background:var(--red-l);color:var(--red)}
+.vsb{padding:12px 14px}
+.vsb.br{border-right:1px solid var(--bd)}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0}
+.tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;padding:2px 9px;border-radius:4px;letter-spacing:.04em}
+.t-b{background:var(--blu-l);color:var(--blu);border:1px solid #bfdbfe}
+.t-r{background:var(--red-l);color:var(--red);border:1px solid #fca5a5}
+.t-g{background:var(--grn-l);color:var(--grn);border:1px solid #86efac}
+.t-a{background:var(--amb-l);color:var(--amb);border:1px solid #fde68a}
+.t-p{background:var(--pur-l);color:var(--pur);border:1px solid #ddd6fe}
+.t-t{background:var(--tel-l);color:var(--tel);border:1px solid #a5f3fc}
+.mn{background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:16px 20px;margin:12px 0}
+.mn-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--amb);margin-bottom:7px}
+.mn-w{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--amb);margin-bottom:10px}
+.mn ul{list-style:none;padding:0}
+.mn ul li{font-size:13px;padding:2px 0;color:var(--t2)}
+.mn ul li b{font-family:'Playfair Display',serif;font-size:18px;color:var(--amb);margin-right:5px;font-style:italic}
+details{border:1.5px solid var(--bd);border-radius:7px;margin:8px 0;overflow:hidden}
+summary{display:flex;justify-content:space-between;align-items:center;padding:10px 15px;cursor:pointer;background:var(--sf2);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);list-style:none}
+summary:hover{background:var(--bd)}
+summary::after{content:'▾';font-size:14px}
+details[open] summary::after{content:'▴'}
+details>.db{padding:14px;background:var(--sf)}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-q em{color:var(--tx);font-style:normal;font-weight:600}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.trap-why{font-size:12px;color:var(--t3);margin-top:8px;font-style:italic;line-height:1.55}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+.flow{background:var(--sf);border:1.5px solid var(--bd);border-radius:8px;padding:16px;margin:12px 0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.flow-box{background:var(--blu-l);border:1.5px solid #bfdbfe;border-radius:6px;padding:7px 18px;font-size:12.5px;color:var(--blu-d);font-weight:500;text-align:center;max-width:380px;width:100%}
+.flow-box.r{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.flow-box.g{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.flow-box.a{background:var(--amb-l);border-color:#fde68a;color:var(--amb)}
+.flow-arrow{font-size:18px;color:var(--t3);line-height:1}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}.main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<!-- ANNOTATION TOOLBAR -->
+<div id="toolbar">
+  <span class="albl">Annotate</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green" onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue" onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink" onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn wide" title="Collapse all sections" onclick="toggleAllSections(false)">⊟ All</button>
+  <button class="tbtn wide" title="Expand all sections" onclick="toggleAllSections(true)">⊞ All</button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" title="Clear all" onclick="clearAll()">CLEAR</button>
+</div>
+
+<!-- STICKY NOTE SIDEBAR -->
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 Study Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()" title="Hide panel">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select any text in the guide,<br>write a note below,<br>then click + Add Note.<br><br>Notes appear here as sticky cards you can drag &amp; resize.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<!-- NOTE POPOVER -->
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles of Internal Medicine · Part 9 · Disorders of the Kidney and Urinary Tract</div>
+  <h1>Chronic Kidney Disease</h1>
+  <div class="hero-sub">Chapter 322 · Medical Boards Review Edition</div>
+  <div class="hero-authors">Joanne M. Bargman · Karl L. Skorecki</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">6%</div><div class="stat-l">US Adults w/ CKD Stage 1–2</div></div>
+    <div class="stat-box"><div class="stat-n">4.5%</div><div class="stat-l">US Adults w/ CKD Stage 3–4</div></div>
+    <div class="stat-box"><div class="stat-n">10%</div><div class="stat-l">Post-AKI → ESKD</div></div>
+    <div class="stat-box"><div class="stat-n">5th</div><div class="stat-l">Projected YLL Rank by 2040</div></div>
+    <div class="stat-box"><div class="stat-n">20%</div><div class="stat-l">Adult CKD attributable to genetics</div></div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Pathophysiology</a>
+    <a class="toc-a" href="#s2">Risk Factors &amp; Staging</a>
+    <a class="toc-a" href="#s3">Etiology &amp; Epidemiology</a>
+    <a class="toc-a" href="#s4">Uremia</a>
+    <a class="toc-a" href="#s5">Fluid &amp; Electrolytes</a>
+    <a class="toc-a" href="#s6">Ca/Phos &amp; Bone</a>
+    <a class="toc-a" href="#s7">Cardiovascular</a>
+    <a class="toc-a" href="#s8">Hematologic</a>
+    <a class="toc-a" href="#s9">Neuro &amp; GI</a>
+    <a class="toc-a" href="#s10">Evaluation</a>
+    <a class="toc-a" href="#s11">Treatment</a>
+    <a class="toc-a" href="#s12">Quick Reference</a>
+    <a class="toc-a" href="#exam">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+<div id="color-legend">
+  <div class="cl-item cl-navy"><div class="cl-dot cl-dot-navy"></div><span>🔵 Navy — Mechanism / Key Concept</span></div>
+  <div class="cl-item cl-red"><div class="cl-dot cl-dot-red"></div><span>🔴 Red — Contraindication / Danger</span></div>
+  <div class="cl-item cl-amb"><div class="cl-dot cl-dot-amb"></div><span>🟡 Amber — Caution / Important Note</span></div>
+  <div class="cl-item cl-grn"><div class="cl-dot cl-dot-grn"></div><span>🟢 Green — Treatment / Clinical Pearl</span></div>
+</div>
+
+<!-- SECTION 1: PATHOPHYSIOLOGY -->
+<section class="sec" id="s1">
+  <div class="sec-hd"><span class="sec-n">01</span><h2>Pathophysiology of CKD</h2><span class="sec-toggle">▾</span></div>
+
+  <div class="sub">
+    <h3>Two Broad Mechanisms of Damage</h3>
+    <p>CKD results from two converging pathways — an initiating disease-specific insult, followed by a universal maladaptive response that perpetuates injury regardless of the original cause.</p>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Mechanism 1 — Disease Specific</div>
+        <p>Initiating injury specific to the underlying etiology:</p>
+        <ul class="bl">
+          <li><b>Genetic abnormalities</b> in renal development</li>
+          <li><b>Immune complex deposition</b> and inflammation (glomerulonephritis)</li>
+          <li><b>Metabolic injury</b> (hyperglycemia → diabetic nephropathy)</li>
+          <li><b>Microvascular perturbation</b> (hypertension)</li>
+          <li><b>Toxin exposure</b> affecting vascular, glomerular, or tubulointerstitial compartments</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Mechanism 2 — Nonspecific Universal</div>
+        <p>Once nephron number falls, surviving nephrons undergo compensatory hyperfiltration and hypertrophy — initially helpful, ultimately maladaptive:</p>
+        <ul class="bl">
+          <li><b>Increased intraglomerular pressure</b> → distortion of glomerular architecture</li>
+          <li><b>Abnormal podocyte function</b> → disruption of filtration barrier</li>
+          <li><b>Sclerosis and dropout</b> of remaining nephrons</li>
+          <li>Mediated by vasoactive hormones, cytokines, and growth factors</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>The RAS and Tubuloglomerular Feedback Loop</h3>
+    <p>Increased intrarenal activity of the renin-angiotensin system (RAS), together with reduced tubuloglomerular feedback, contributes both to initial compensatory hyperfiltration AND to the subsequent maladaptive hypertrophy and sclerosis. This is the mechanistic basis for why a reduction in nephron number may lead to progressive decline in kidney function over many years — even after the initial injury resolves.</p>
+    <div class="co key"><div class="co-t">🔑 Core Concept</div>The short-term adaptations of hyperfiltration and hypertrophy become <b>maladaptive</b> over time — increased pressure and flow within the nephron predisposes to glomerular scarring and further nephron dropout. This self-perpetuating cycle explains why CKD tends to progress even after the original insult is removed.</div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 2: RISK FACTORS & STAGING -->
+<section class="sec" id="s2">
+  <div class="sec-hd"><span class="sec-n">02</span><h2>Risk Factors &amp; Staging</h2><span class="sec-toggle">▾</span></div>
+
+  <div class="sub">
+    <h3>Risk Factors for CKD</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-r">Noncommunicable Diseases</div>
+        <ul class="bl">
+          <li>Diabetes mellitus</li>
+          <li>Increased BMI / sedentary lifestyle</li>
+          <li>Autoinflammatory disease (lupus, vasculitis, cancer immunotherapy)</li>
+          <li>Nephrotoxic exposures (antineoplastic agents)</li>
+          <li>Hypertension (risk factor, cause, OR consequence)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Communicable Diseases</div>
+        <ul class="bl">
+          <li>Streptococcal infection</li>
+          <li>Mycobacterial infection</li>
+          <li>HIV infection (HIVAN)</li>
+          <li>SARS-CoV-2</li>
+          <li>HBV, HCV</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Genetic Factors</div>
+        <ul class="bl">
+          <li>Monogenic inheritance — high OR low/medium penetrance</li>
+          <li>Polygenic risk factors</li>
+          <li>APOL1 variants (sub-Saharan African ancestry) — non-Mendelian, odds ratio &gt;2</li>
+          <li>Accounts for up to <b>20% of adult-onset CKD</b></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Childhood-Related</div>
+        <ul class="bl">
+          <li>Premature and SGA birth</li>
+          <li>Persistent asymptomatic microscopic hematuria</li>
+          <li>Childhood kidney disease (even if resolved)</li>
+          <li>Treated childhood cancer</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Demographic / Other</div>
+        <ul class="bl">
+          <li>Age, male sex</li>
+          <li>Population ancestry</li>
+          <li>Family history of kidney disease</li>
+          <li>Prior acute kidney injury</li>
+          <li>Preeclampsia</li>
+          <li>Kidney donation or other nephrectomy</li>
+          <li>Tobacco use</li>
+        </ul>
+      </div>
+    </div>
+    <div class="co suc"><div class="co-t">✅ Monitoring</div>Adults with risk factors should be monitored <b>yearly</b> for: urinary albumin excretion, decline in eGFR, and blood pressure.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Staging of CKD — GFR + Albuminuria</h3>
+    <p>CKD staging uses <b>both GFR and urinary albumin excretion rate (UACR)</b> — together these predict risk of all-cause mortality, cardiovascular mortality, and CKD progression.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Stage</th><th>GFR (mL/min/1.73m²)</th><th>Clinical State</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>&gt;90</td><td>Usually asymptomatic — recognized by lab testing</td><td>Treat underlying disease; annual monitoring if risk factors</td></tr>
+          <tr><td>2</td><td>60–89</td><td>Usually asymptomatic</td><td>Monitor GFR trend; recheck if stable, refer if declining</td></tr>
+          <tr><td>3</td><td>30–59</td><td>Lab complications emerge; some symptoms</td><td>Nephrology referral if GFR declining, proteinuria, or uncontrolled HTN</td></tr>
+          <tr><td>4</td><td>15–29</td><td>Clinical complications prominent; all organs affected</td><td>Prepare for renal replacement therapy; patient education</td></tr>
+          <tr><td>5</td><td>&lt;15</td><td>Uremic syndrome; toxins accumulate; ESKD</td><td>Dialysis or transplantation</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co wrn"><div class="co-t">⚠ Age-Related GFR Decline</div>Normal annual GFR decline is ~1 mL/min/year after the 3rd decade (peak GFR ~120). Mean GFR at age 70 = ~70 mL/min. Even a mild serum creatinine elevation in an <b>elderly woman</b> may represent a GFR &lt;50 mL/min — never dismiss a "normal" creatinine without calculating eGFR.</div>
+  </div>
+
+  <div class="sub">
+    <h3>eGFR Estimation</h3>
+    <p>GFR is estimated (eGFR) using serum creatinine + patient parameters. The two recommended equations:</p>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">MDRD Equation</div>
+        <p>eGFR = 1.86 × (SCr)⁻¹·¹⁵⁴ × (age)⁻⁰·²⁰³<br>× 0.742 if female</p>
+        <p style="font-size:11.5px;color:var(--t3);margin-top:6px">Race multiplier (1.21 for African ancestry) currently under review</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">CKD-EPI Equation</div>
+        <p>GFR = 141 × min(SCr/κ,1)^α × max(SCr/κ,1)⁻¹·²⁰⁹ × 0.993^Age × 1.018 (female)</p>
+        <p style="font-size:11.5px;color:var(--t3);margin-top:6px">κ=0.7 female, 0.9 male; α=−0.329 female, −0.411 male. Race multiplier under review.</p>
+      </div>
+    </div>
+    <div class="co key"><div class="co-t">🔑 eGFR Validity Rule</div>eGFR is only valid in <b>steady state</b> — serum creatinine must be neither rising nor falling over days. New race-free equations are recommended. Cystatin-C can be used when precise GFR is needed for dosing decisions.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Albuminuria (UACR)</h3>
+    <p>Urinary albumin-to-creatinine ratio (UACR) in spot first-morning urine has replaced 24-hour collections. Persistently elevated UACR (&gt;2.5 mg/mmol male, &gt;3.5 mg/mmol female) on 2–3 occasions marks both primary kidney disease and systemic microvascular disease — even with a <b>negative conventional dipstick</b>.</p>
+    <div class="co prl"><div class="co-t">💜 Kidney Failure Risk Equation</div>Available at <em>www.kidneyfailurerisk.com</em>. Uses: age, sex, region (North American vs. non–North American), GFR, and UACR. Validated globally; risk appears higher in North America.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Genetics of CKD</h3>
+    <p>Up to 20% of adult-onset CKD has a genetic basis. Key monogenic causes include:</p>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-p">Most Common Mendelian Causes</div>
+        <ul class="bl">
+          <li><b>ADPKD:</b> ADPKD1, ADPKD2, IFT140, GANAB, DNAJB2, ALG9</li>
+          <li><b>Type IV collagen nephropathy (Alport):</b> COL4A3, COL4A4, COL4A5</li>
+          <li><b>Autosomal dominant tubulointerstitial kidney disease:</b> UMOD, MUC1, HNF1B</li>
+          <li><b>Nephronophthisis:</b> NPHP genes</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">APOL1 — Non-Mendelian High-Risk</div>
+        <ul class="bl">
+          <li>Sub-Saharan African ancestry; odds ratio &gt;2</li>
+          <li>Associated with: FSGS, HIV nephropathy, SARS-CoV-2 nephropathy, CKD with HTN, lupus nephritis</li>
+          <li>Arose as evolutionary protection against tropical pathogens</li>
+          <li>Requires acquired "second hit" (e.g., elevated IFN-γ) to trigger disease</li>
+          <li>Specific APOL1 inhibitor: <b>Inaxaplin</b> — reduces proteinuria in FSGS with high-risk genotype</li>
+        </ul>
+      </div>
+    </div>
+    <div class="co tel"><div class="co-t">🔭 When to Consider Genetic Testing</div>Family history of unexplained kidney failure; parental consanguinity; extrarenal features (dysmorphic features, hearing/vision loss, autism spectrum); FSGS; steroid-resistant nephrotic syndrome; young-onset unexplained progressive CKD; cystic kidney disease.</div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 3: ETIOLOGY & EPIDEMIOLOGY -->
+<section class="sec" id="s3">
+  <div class="sec-hd"><span class="sec-n">03</span><h2>Etiology &amp; Epidemiology</h2><span class="sec-toggle">▾</span></div>
+
+  <div class="sub">
+    <h3>Prevalence</h3>
+    <ul class="bl">
+      <li><b>≥6%</b> of US adults have CKD stages 1–2</li>
+      <li><b>4.5%</b> of US adults have CKD stages 3–4</li>
+      <li>Projected global years of life lost (YLL) due to CKD: ~26 million (2016) → <b>52.5 million (2040)</b></li>
+      <li>CKD predicted to rise from 16th to <b>5th</b> in global YLL rankings by 2040</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Leading Etiologies (accounting for &gt;90% worldwide)</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Etiology</th><th>Key Points</th></tr></thead>
+        <tbody>
+          <tr><td>Diabetic Nephropathy</td><td>Most common in North America &amp; Europe; usually type 2 DM</td></tr>
+          <tr><td>Glomerulonephritis</td><td>Variable geographic contribution; includes IgA, membranous, FSGS</td></tr>
+          <tr><td>Hypertension-Associated CKD</td><td>Includes vascular/ischemic kidney disease and primary glomerulopathy with secondary HTN. Note: some "hypertensive CKD" may actually be subclinical primary glomerulopathy (FSGS/global glomerulosclerosis) causing the HTN</td></tr>
+          <tr><td>ADPKD</td><td>Most common Mendelian CKD; gene-specific therapy now available</td></tr>
+          <tr><td>Other Cystic &amp; Tubulointerstitial Nephropathy</td><td>Includes nephronophthisis, medullary cystic disease</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co wrn"><div class="co-t">⚠ Hypertension — Cause or Consequence?</div>When no primary glomerular/tubulointerstitial process is evident, CKD is often attributed to hypertension. However, some patients may have a subclinical primary glomerulopathy (FSGS) where <b>elevated blood pressure is actually a consequence</b> of the kidney disease, not the cause.</div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 4: UREMIA -->
+<section class="sec" id="s4">
+  <div class="sec-hd"><span class="sec-n">04</span><h2>Pathophysiology &amp; Biochemistry of Uremia</h2><span class="sec-toggle">▾</span></div>
+
+  <div class="sub">
+    <h3>What Is Uremia?</h3>
+    <p>Uremia is the syndrome of symptoms, signs, and laboratory disturbances resulting from reduced kidney function. Urea and creatinine rise with reduced excretory capacity, but these <b>do not themselves cause</b> the uremic syndrome — they are merely measurable but incomplete surrogate markers for retained toxins.</p>
+    <div class="co dan"><div class="co-t">🚨 Board Pearl</div>Monitoring urea and creatinine alone in a patient with impaired kidney function represents a "vast oversimplification" of the uremic state. Large numbers of water-soluble, hydrophobic, protein-bound, charged, and uncharged nitrogen-containing compounds accumulate when GFR declines.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Three Spheres of Uremic Dysfunction</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-r">Sphere 1 — Toxin Accumulation</div>
+        <p>Retained solutes that normally undergo renal excretion. Includes water-soluble, protein-bound, charged/uncharged nitrogenous metabolites. PTH itself is considered a uremic toxin.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Sphere 2 — Loss of Kidney Functions</div>
+        <p>Beyond excretion: loss of fluid/electrolyte homeostasis, erythropoietin production, calcitriol synthesis, insulin degradation, hormone regulation (PTH, FGF-23, sex hormones, prolactin).</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Sphere 3 — Systemic Inflammation</div>
+        <p>Elevated CRP and acute-phase reactants; decreased albumin and fetuin (negative acute-phase reactants). Drives the <b>malnutrition-inflammation-atherosclerosis/calcification syndrome</b> → accelerated vascular disease.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 5: FLUID, ELECTROLYTES, ACID-BASE -->
+<section class="sec" id="s5">
+  <div class="sec-hd"><span class="sec-n">05</span><h2>Fluid, Electrolyte &amp; Acid-Base Disorders</h2><span class="sec-toggle">▾</span></div>
+
+  <div class="sub">
+    <h3>Sodium and Water Homeostasis</h3>
+    <p>Many forms of kidney disease disrupt sodium balance so that dietary intake exceeds excretion → sodium retention → extracellular fluid volume (ECFV) expansion. ECFV expansion contributes to hypertension, which accelerates nephron hyperfiltration and injury.</p>
+    <ul class="bl">
+      <li><b>Isonatremic ECFV expansion</b> is the typical result (water intake does not exceed renal clearance capacity)</li>
+      <li><b>Hyponatremia</b> is uncommon in CKD; when present → water restriction</li>
+      <li><b>ECFV depletion</b> (from GI loss, overzealous diuretics) → prerenal component → acute-on-chronic renal failure</li>
+      <li>"Sick day rule": Patients on diuretics should hold them if experiencing vomiting/diarrhea until resuming normal intake</li>
+    </ul>
+    <div class="co key"><div class="co-t">🔑 Treatment of Sodium Excess</div>
+      <ul class="bl">
+        <li>Salt restriction (first line)</li>
+        <li>Loop diuretics (furosemide, bumetanide, torsemide) — higher doses needed in CKD due to diuretic resistance</li>
+        <li>Thiazide (chlorthalidone) — shown to reduce blood pressure even in stage 4 CKD</li>
+        <li>Loop + metolazone combination if resistant</li>
+        <li>Intractable edema + hypertension → indication to initiate dialysis</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Potassium Homeostasis</h3>
+    <p>GFR decline is NOT always paralleled by a decline in urinary potassium excretion, because potassium secretion is predominantly mediated by aldosterone-dependent mechanisms in the distal nephron. Additionally, augmented GI potassium excretion serves as a backup defense.</p>
+    <h4>Causes of Hyperkalemia in CKD</h4>
+    <ul class="bl">
+      <li>Increased dietary potassium intake</li>
+      <li>Hemolysis; transfusion of stored red blood cells</li>
+      <li>Metabolic acidosis (shifts K⁺ out of cells)</li>
+      <li>Medications: <b>RAS inhibitors</b>, spironolactone, amiloride, eplerenone, triamterene, nonsteroidal mineralocorticoid receptor antagonists</li>
+      <li>Conditions with hyporeninemic hypoaldosteronism: <b>diabetes mellitus</b>, obstructive uropathy, sickle cell nephropathy — cause disproportionate hyperkalemia relative to GFR decline</li>
+    </ul>
+    <div class="co suc"><div class="co-t">✅ Treatment of Hyperkalemia</div>
+      <ul class="bl">
+        <li>Dietary potassium restriction</li>
+        <li>Kaliuretic diuretics (promote urinary K⁺ excretion)</li>
+        <li>Potassium-binding resins: calcium resonium, sodium polystyrene, <b>patiromer</b>, calcium zirconium cyclosilicate (newer agents)</li>
+        <li>Dose adjustment/avoidance of potassium-retaining medications</li>
+        <li>Gliflozins (SGLT2i) — counterbalancing effects on potassium handling → net preservation of K⁺ homeostasis</li>
+        <li>Intractable hyperkalemia → dialysis indication (uncommon)</li>
+      </ul>
+    </div>
+    <div class="co prl"><div class="co-t">💜 RAS Inhibitor Dilemma</div>Despite the risk of hyperkalemia, the benefits of RAS inhibitors in slowing CKD progression and reducing cardiovascular complications usually outweigh risks — use cautiously with <b>close potassium monitoring</b>. Co-administration of potassium-lowering agents (patiromer) can enable continued RAS inhibitor use.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Metabolic Acidosis</h3>
+    <p>Common in CKD. Kidneys can still acidify the urine but produce less ammonia → cannot excrete sufficient protons for most diets.</p>
+    <div class="flow">
+      <div class="flow-box">Declining GFR → Reduced ammonia production</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box">Early CKD: <b>Non-anion-gap</b> (hyperchloremic) metabolic acidosis</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box">Advanced CKD: Anion retention → <b>Anion-gap metabolic acidosis</b> added</div>
+    </div>
+    <ul class="bl">
+      <li>pH rarely &lt;7.32; usually mild</li>
+      <li>Diabetic nephropathy and tubulointerstitial disease (obstructive uropathy) → <b>non-anion-gap + hyperkalemia</b> at earlier stages</li>
+      <li>Even modest metabolic acidosis → protein catabolism + CKD progression</li>
+    </ul>
+    <div class="co suc"><div class="co-t">✅ Treatment</div>Alkali supplementation (sodium bicarbonate) when serum HCO₃⁻ falls below <b>20–23 mmol/L</b>. Studies suggest bicarbonate supplementation in stages 3–5 CKD is associated with slower progression to dialysis. Account for sodium load when ECFV expansion is present.</div>
+    <div class="co wrn"><div class="co-t">⚠ Hyperkalemia Worsens Acidosis</div>Hyperkalemia further depresses ammonia production → worsens acid-base balance. This explains the common pairing of hyperkalemia + metabolic acidosis in CKD, especially diabetic nephropathy.</div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 6: CALCIUM, PHOSPHORUS, BONE -->
+<section class="sec" id="s6">
+  <div class="sec-hd"><span class="sec-n">06</span><h2>Disorders of Calcium, Phosphate &amp; Bone</h2><span class="sec-toggle">▾</span></div>
+
+  <div class="sub">
+    <h3>Pathophysiology of Secondary Hyperparathyroidism</h3>
+    <p>Changes begin when GFR falls below <b>60 mL/min</b>, through a series of interrelated mechanisms:</p>
+    <div class="flow">
+      <div class="flow-box">↓ GFR → ↓ Phosphate excretion → Phosphate retention</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box">↑ FGF-23 (by osteocytes) + ↑ PTH + Parathyroid gland hypertrophy</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box a">FGF-23 → ↓ Calcitriol production + ↑ Calcitriol degradation</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box r">↓ Calcitriol → Hypocalcemia → More PTH (direct + via Ca-sensing receptor)<br>Loss of Klotho-dependent FGF-23 inhibition of PTH</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box r">Secondary Hyperparathyroidism → High-Turnover Bone Disease</div>
+    </div>
+    <div class="co dan"><div class="co-t">🚨 FGF-23 — Independent Cardiovascular Risk</div>Elevated FGF-23 is an independent risk factor for <b>left ventricular hypertrophy</b> and is associated with increased mortality in CKD, dialysis, and kidney transplant patients.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Types of CKD Bone Disease</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-r">High-Turnover Bone Disease (Osteitis Fibrosa Cystica)</div>
+        <p><b>Cause:</b> Secondary hyperparathyroidism (elevated PTH)</p>
+        <p><b>Histology:</b> Abnormal osteoid, bone marrow fibrosis, bone cysts ("brown tumors" due to hemorrhage)</p>
+        <p><b>Clinical:</b> Bone pain, fragility, brown tumors with compression syndromes, resistance to erythropoiesis-stimulating agents (bone marrow fibrosis). PTH itself causes muscle weakness + cardiac fibrosis.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Adynamic Bone Disease</div>
+        <p><b>Cause:</b> Excessive PTH suppression, chronic inflammation. More common in diabetics and older patients.</p>
+        <p><b>Mechanism:</b> Reduced bone volume and mineralization; inability to repair normal microfractures</p>
+        <p><b>Complications:</b> ↑ Fractures, bone pain, <b>↑ vascular and cardiac calcification</b>, tumoral calcinosis (calcium deposits in soft tissue)</p>
+        <p><b>Note:</b> Most severe musculoskeletal pain often comes from this type</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Osteomalacia</div>
+        <p><b>Cause:</b> Reduced production and action of 1,25(OH)₂D₃ (calcitriol)</p>
+        <p><b>Result:</b> Accumulation of nonmineralized osteoid</p>
+        <p>Distinct from adynamic disease and osteitis fibrosa</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Cardiovascular Calcification</h3>
+    <ul class="bl">
+      <li>Strong association between <b>hyperphosphatemia and cardiovascular mortality</b></li>
+      <li>CKD patients have coronary artery and heart valve calcification orders of magnitude greater than general population</li>
+      <li>Proportional to age and hyperphosphatemia; associated with <b>low PTH and low bone turnover</b></li>
+      <li>Mechanism: Ingested calcium cannot be incorporated into low-turnover bone → deposits in vascular bed</li>
+      <li>Hyperphosphatemia induces vascular smooth muscle cells to adopt an <b>osteoblast-like phenotype</b> → vascular ossification</li>
+    </ul>
+
+    <h4>Calciphylaxis</h4>
+    <p>Devastating condition, nearly exclusive to advanced CKD. Heralded by painful livedo reticularis → subcutaneous nodules → patches of ischemic necrosis (especially on legs, thighs, abdomen, breasts). Pathology: vascular occlusion + extensive calcification.</p>
+    <ul class="bl">
+      <li>Originally linked to severe Ca/P dysregulation + advanced hyperparathyroidism</li>
+      <li>Increasingly seen <b>without</b> severe hyperparathyroidism</li>
+      <li><b>Warfarin is a risk factor</b>: decreases vitamin K–dependent activation of matrix GLA protein (prevents vascular calcification) → if calciphylaxis develops, discontinue warfarin and use alternative anticoagulation</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of Ca/Phos Disorders</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Phosphate-Binding Agents (taken with meals)</div>
+        <ul class="bl">
+          <li><b>Calcium acetate / calcium carbonate:</b> Effective but risk hypercalcemia (especially in low-turnover bone disease)</li>
+          <li><b>Sevelamer:</b> Non-calcium polymer; does NOT cause hypercalcemia; may attenuate vascular calcification</li>
+          <li><b>Lanthanum:</b> Non-calcium polymer; similar benefits to sevelamer</li>
+          <li><b>Tenapanor:</b> Sodium-proton inhibitor that decreases GI phosphate absorption</li>
+        </ul>
+        <div class="co prl"><div class="co-t">💜 Pearl</div>Sevelamer and lanthanum preferred when hypercalcemia is a concern or in adynamic bone disease.</div>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Vitamin D &amp; Calcimimetics</div>
+        <ul class="bl">
+          <li><b>Calcitriol:</b> Directly suppresses PTH; risk of hypercalcemia and hyperphosphatemia via increased GI absorption</li>
+          <li><b>Paricalcitol:</b> Calcitriol analogue; suppresses PTH with less hypercalcemia</li>
+          <li><b>Cinacalcet / Etelcalcetide:</b> Calcimimetics — enhance Ca-sensing receptor sensitivity in parathyroid gland → dose-dependent reduction in PTH and plasma calcium</li>
+        </ul>
+        <div class="co key"><div class="co-t">🔑 PTH Target</div>KDOQI guidelines: PTH target = <b>2–9× upper limit of normal</b>. Very low PTH → adynamic bone disease + ectopic calcification risk.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 7: CARDIOVASCULAR -->
+<section class="sec" id="s7">
+  <div class="sec-hd"><span class="sec-n">07</span><h2>Cardiovascular Abnormalities</h2><span class="sec-toggle">▾</span></div>
+
+  <div class="sub">
+    <h3>Overview</h3>
+    <p>Cardiovascular disease is the <b>leading cause of morbidity and mortality</b> at every stage of CKD. Incremental cardiovascular risk vs. age/sex-matched population: <b>10- to 200-fold</b> depending on stage. Most patients with CKD die of cardiovascular disease before reaching stage 5. Of those who reach stage 5, <b>30–45%</b> already have advanced cardiovascular complications.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Vascular Disease — Traditional + CKD-Specific Risk Factors</h3>
+    <div class="vs">
+      <div>
+        <div class="vsh b">Traditional ("Classic") Risk Factors</div>
+        <div class="vsb br">
+          <ul class="bl">
+            <li>Hypertension</li>
+            <li>Diabetes mellitus</li>
+            <li>Hypervolemia</li>
+            <li>Dyslipidemia</li>
+            <li>Sympathetic overactivity</li>
+            <li>Hyperhomocysteinemia</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="vsh r">CKD-Specific (Nontraditional) Risk Factors</div>
+        <div class="vsb">
+          <ul class="bl">
+            <li>Anemia</li>
+            <li>Hyperphosphatemia</li>
+            <li>Hyperparathyroidism</li>
+            <li>Increased FGF-23</li>
+            <li>Sleep apnea</li>
+            <li>Systemic inflammation (↓ fetuin → ↑ vascular calcification)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="co wrn"><div class="co-t">⚠ Cardiac Troponin in CKD</div>Frequently elevated in CKD <b>without acute ischemia</b>. This complicates the diagnosis of acute MI. Use <b>serial measurements and trends</b> over hours — a single elevated level is not diagnostic. Consistently elevated levels = independent prognostic factor for adverse CV events.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Heart Failure in CKD</h3>
+    <ul class="bl">
+      <li>Myocardial ischemia + LV hypertrophy + diastolic dysfunction + cardiomyopathy + salt/water retention → heart failure</li>
+      <li>Can occur with preserved (diastolic) or reduced (systolic) ejection fraction</li>
+      <li>"Low-pressure" pulmonary edema in advanced CKD: "bat wing" distribution on CXR, responds to dialysis (increased alveolar capillary permeability in uremic state)</li>
+      <li>AV fistula for hemodialysis → high cardiac output → high-output heart failure</li>
+      <li>Advanced malnutrition-inflammation state can <b>reverse classic risk factors</b> (HTN, hyperlipidemia) → reduced LV function, weight loss, poor prognosis</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Hypertension Management in CKD</h3>
+    <div class="co key"><div class="co-t">🔑 Blood Pressure Target</div><b>&lt;130/80 mmHg</b> in CKD patients with diabetes OR proteinuria &gt;1g/24h, if achievable without prohibitive adverse effects.</div>
+    <div class="card" style="margin-top:12px">
+      <div class="clabel c-b">ACE Inhibitors / ARBs — First-Line for Proteinuric CKD</div>
+      <h4>Mechanism</h4>
+      <p>Slow CKD decline beyond blood pressure reduction alone. Reduce intraglomerular hypertension by <b>disproportionately reducing efferent arteriolar vasoconstriction</b> → ↓ intraglomerular filtration pressure.</p>
+      <h4>Key Considerations</h4>
+      <ul class="bl">
+        <li>Never combine ACE inhibitor + ARB — greater AKI and cardiac event risk</li>
+        <li>GFR drop up to <b>30% of baseline</b> is acceptable and reflects effective glomerular unloading (tolerate if stable)</li>
+        <li>Can be continued even at eGFR &lt;30 mL/min with monitoring — discontinuation associated with ↑ risk of death and CV events (but lower risk of starting RRT)</li>
+        <li>Risk of hyperkalemia — co-administer potassium-lowering agents (patiromer) if needed</li>
+        <li>Can precipitate AKI in ischemic renovascular disease (especially in combination)</li>
+      </ul>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <div class="clabel c-g">SGLT2 Inhibitors (Gliflozins) — Emerging Cornerstone</div>
+      <h4>Mechanism (see tubuloglomerular feedback)</h4>
+      <p>Inhibit SGLT2 in the proximal tubule → ↓ Na⁺ reabsorption → ↑ Na⁺ delivery to macula densa → <b>afferent arteriolar constriction</b> (restored tubuloglomerular feedback) → ↓ intraglomerular pressure. Also: direct proximal tubule cytoprotection.</p>
+      <ul class="bl">
+        <li>Indicated in <b>both diabetic and nondiabetic</b> kidney disease to slow GFR decline</li>
+        <li>Reduces major cardiovascular events in CKD including stage 4</li>
+        <li>Counterbalancing effects on potassium homeostasis</li>
+        <li>Net preservation of K⁺ balance allows RAS inhibitor co-use</li>
+      </ul>
+      <div class="co prl"><div class="co-t">💜 Clinical Pearl</div>GLP-1 receptor agonists have also been shown to reduce major cardiovascular events and CKD in at-risk patients.</div>
+    </div>
+    <div class="co tel"><div class="co-t">🔭 Calcium Channel Blockers</div>Among CCBs, <b>diltiazem and verapamil</b> may have superior antiproteinuric and renoprotective effects compared to dihydropyridines (amlodipine, nifedipine). However, all can be useful for systemic hypertension control in conditions like ADPKD where intraglomerular hypertension is less prominent.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Pericardial Disease</h3>
+    <ul class="bl">
+      <li>Chest pain with respiratory accentuation + friction rub = uremic pericarditis</li>
+      <li>ECG: PR-interval depression + diffuse ST elevation</li>
+      <li>Observed in advanced uremia; less common with timely dialysis; now mainly in <b>underdialyzed nonadherent patients</b></li>
+    </ul>
+    <div class="co dan"><div class="co-t">🚨 Treatment</div>Uremic pericarditis = <b>absolute indication</b> for urgent initiation of dialysis (or intensification if already on dialysis). Because of hemorrhage propensity, hemodialysis should be performed <b>without heparin</b>. Consider drainage for recurrent effusion or tamponade signs.</div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 8: HEMATOLOGIC -->
+<section class="sec" id="s8">
+  <div class="sec-hd"><span class="sec-n">08</span><h2>Hematologic Abnormalities</h2><span class="sec-toggle">▾</span></div>
+
+  <div class="sub">
+    <h3>Anemia of CKD</h3>
+    <p>Normocytic, normochromic anemia evident as early as <b>stage 3</b>; nearly universal by stage 4. Primary cause: insufficient erythropoietin (EPO) production by the diseased kidney.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Cause of Anemia</th><th>Mechanism</th></tr></thead>
+        <tbody>
+          <tr><td>EPO deficiency</td><td>Diseased kidney cannot produce sufficient EPO</td></tr>
+          <tr><td>Reduced RBC lifespan</td><td>Uremic toxins damage red cell membrane</td></tr>
+          <tr><td>Bleeding diathesis</td><td>Uremic platelet dysfunction → chronic blood loss</td></tr>
+          <tr><td>Iron deficiency</td><td>Poor dietary absorption + GI blood loss</td></tr>
+          <tr><td>Hyperparathyroidism / bone marrow fibrosis</td><td>Inhibits erythropoiesis; resistance to ESA</td></tr>
+          <tr><td>Chronic inflammation</td><td>Inflammatory cytokines inhibit erythropoiesis</td></tr>
+          <tr><td>Folate / B12 deficiency</td><td>Poor intake or losses</td></tr>
+          <tr><td>Comorbidities</td><td>Hypothyroidism, HIV, autoimmune disease, immunosuppressives</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Consequences of Anemia</h4>
+    <ul class="bl">
+      <li>Decreased tissue oxygen delivery; increased cardiac output; ventricular dilation + hypertrophy</li>
+      <li>Fatigue, reduced exercise tolerance, angina, heart failure</li>
+      <li>Decreased cognition and mental acuity</li>
+      <li>Impaired host defense against infection</li>
+      <li>Growth restriction in children</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of Anemia</h3>
+    <div class="card">
+      <div class="clabel c-r">Erythropoiesis-Stimulating Agents (ESAs)</div>
+      <p>Recombinant EPO has transformed CKD care — eliminated regular transfusions, reducing transfusion infections, iron overload, and allosensitization (critical for future transplant).</p>
+      <h4>Iron Supplementation (Essential)</h4>
+      <ul class="bl">
+        <li>Must ensure adequate iron stores before starting ESA</li>
+        <li>Demand by marrow often exceeds available iron (check transferrin saturation + ferritin)</li>
+        <li>Oral iron for pre-dialysis or peritoneal dialysis patients (if GI tolerated)</li>
+        <li>IV iron infusion if GI intolerance — note: ↑ susceptibility to bacterial infection</li>
+        <li>Also ensure adequate B12 and folate</li>
+      </ul>
+      <h4>ESA Targets</h4>
+      <p>Normalization of hemoglobin NOT beneficial in CKD. Current target: <b>Hgb 100–115 g/L</b>. Higher targets associated with ↑ stroke risk (type 2 DM) and thromboembolic events.</p>
+      <div class="co prl"><div class="co-t">💜 ESA Resistance — Think About</div>Acute or chronic inflammation, inadequate dialysis, severe hyperparathyroidism (bone marrow fibrosis), chronic blood loss/hemolysis, infection, or malignancy.</div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <div class="clabel c-p">HIF Prolyl-Hydroxylase Inhibitors (New Class)</div>
+      <p>Inhibit endogenous hypoxia-inducible factor (HIF) degradation → ↑ endogenous EPO production + ↑ GI iron absorption. Similar effectiveness to ESAs in trials, but some cardiovascular, retinal, and tumor vasculogenesis concerns remain under investigation.</p>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Abnormal Hemostasis</h3>
+    <p>CKD causes both a <b>bleeding tendency</b> AND a <b>thrombotic tendency</b> — a unique coexistence.</p>
+    <div class="vs">
+      <div>
+        <div class="vsh b">Bleeding Tendency</div>
+        <div class="vsb br">
+          <ul class="bl">
+            <li>Prolonged bleeding time</li>
+            <li>↓ Activity of platelet factor III</li>
+            <li>Abnormal platelet aggregation and adhesiveness</li>
+            <li>Impaired prothrombin consumption</li>
+            <li>Clinical: easy bruising, prolonged surgical bleeding, menorrhagia, GI bleeding</li>
+          </ul>
+          <p style="font-size:12px;margin-top:6px"><b>Treatment:</b> DDAVP (desmopressin), cryoprecipitate, IV conjugated estrogens, blood transfusions, ESA therapy, tranexamic acid (severe). Optimal dialysis corrects prolonged bleeding time.</p>
+        </div>
+      </div>
+      <div>
+        <div class="vsh r">Thrombotic Tendency</div>
+        <div class="vsb">
+          <ul class="bl">
+            <li>Greater susceptibility to thromboembolism</li>
+            <li>Especially if <b>nephrotic-range proteinuria</b> → hypoalbuminemia + renal loss of anticoagulant factors → thrombophilic state</li>
+          </ul>
+          <p style="font-size:12px;margin-top:6px"><b>Anticoagulation nuances:</b> Warfarin for AFib must be individualized — greater bleeding risk + calciphylaxis risk. Low-molecular-weight heparin may need dose adjustment (monitor factor Xa). Unfractionated heparin preferred in hospitalized patients. Apixaban increasingly used in CKD/dialysis. Most new oral anticoagulants are renally eliminated.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 9: NEURO, GI, ENDOCRINE, DERMATOLOGY -->
+<section class="sec" id="s9">
+  <div class="sec-hd"><span class="sec-n">09</span><h2>Neuromuscular, GI, Endocrine &amp; Dermatologic Manifestations</h2><span class="sec-toggle">▾</span></div>
+
+  <div class="sub">
+    <h3>Neuromuscular Abnormalities</h3>
+    <p>CNS, peripheral, and autonomic neuropathy plus muscle abnormalities are well-recognized. Subtle manifestations begin at <b>stage 3 CKD</b>.</p>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">CNS Complications</div>
+        <ul class="bl">
+          <li><b>Early (stage 3):</b> Mild memory disturbances, concentration difficulty, sleep disturbance</li>
+          <li><b>Later:</b> Neuromuscular irritability — hiccups, cramps, twitching</li>
+          <li><b>Advanced (untreated):</b> Asterixis, myoclonus, seizures, coma</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Peripheral Neuropathy (evident at stage 4)</div>
+        <ul class="bl">
+          <li>Sensory &gt; motor involvement</li>
+          <li>Lower extremities &gt; upper</li>
+          <li>Distal &gt; proximal</li>
+          <li><b>Restless leg syndrome:</b> Ill-defined discomfort in legs/feet, relieved by movement</li>
+          <li>Peripheral neuropathy without another cause (e.g., diabetes) = indication for renal replacement therapy</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Gastrointestinal &amp; Nutritional Abnormalities</h3>
+    <ul class="bl">
+      <li><b>Uremic fetor:</b> Urine-like breath odor from urea breakdown → ammonia in saliva; often accompanied by metallic taste (dysgeusia)</li>
+      <li>Gastritis, peptic disease, mucosal ulcerations at any GI level → abdominal pain, nausea, vomiting, GI bleeding</li>
+      <li>Constipation (worsened by calcium and iron supplements)</li>
+      <li>Uremic toxin retention → anorexia, nausea, vomiting</li>
+      <li><b>Protein-energy malnutrition</b> is common in advanced CKD — often indication for RRT initiation</li>
+      <li>Metabolic acidosis + inflammatory cytokines → protein catabolism</li>
+    </ul>
+    <div class="co wrn"><div class="co-t">⚠ Protein Restriction</div>May reduce nausea/vomiting but risks malnutrition. Should only be done in consultation with a <b>registered dietitian specializing in CKD</b>.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Endocrine &amp; Metabolic Disturbances</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-t">Glucose Metabolism</div>
+        <ul class="bl">
+          <li>Glucose intolerance common but fasting glucose usually normal or only slightly elevated</li>
+          <li>↓ Renal degradation of insulin → elevated plasma insulin levels; insulin dose reduction often needed as CKD worsens</li>
+          <li><b>Metformin</b> contraindicated when GFR &lt; ~half of normal</li>
+          <li><b>Sulfonylureas</b> contraindicated when GFR &lt; normal/2</li>
+          <li>Gliptins require dose reduction in renal failure</li>
+          <li><b>SGLT2 inhibitors:</b> Stabilize GFR via TGF loop correction; major renoprotective and CV benefit</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Reproductive &amp; Hormonal</div>
+        <ul class="bl">
+          <li><b>Women:</b> Low estrogen, menstrual abnormalities, infertility, ↑ spontaneous abortion. At GFR ~40 mL/min → only ~20% of pregnancies lead to live births; pregnancy may hasten CKD progression</li>
+          <li><b>Men:</b> Reduced testosterone, sexual dysfunction, oligospermia</li>
+          <li><b>Adolescents:</b> Delayed sexual maturation even on dialysis</li>
+          <li>Many abnormalities improve with intensive dialysis or successful transplantation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Dermatologic Abnormalities</h3>
+    <ul class="bl">
+      <li><b>Pruritus:</b> Common, one of most vexing uremic manifestations. First line: rule out unrelated skin disorders (scabies), treat hyperphosphatemia. Treatments: moisturizers, mild topical glucocorticoids, oral antihistamines, UV radiation. <b>Kappa opioid receptor agonists</b> reduce pruritus intensity and improve quality of life.</li>
+      <li><b>Pigmentation:</b> Increased in advanced CKD — deposition of retained urochromes</li>
+      <li><b>Nephrogenic fibrosing dermopathy:</b> Progressive subcutaneous induration on arms and legs; seen in CKD patients exposed to <b>gadolinium-based MRI contrast</b>. CKD stage 3 → minimize gadolinium exposure; stages 4–5 → avoid unless medically necessary. Rapid hemodialysis after exposure may mitigate risk.</li>
+    </ul>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 10: EVALUATION -->
+<section class="sec" id="s10">
+  <div class="sec-hd"><span class="sec-n">10</span><h2>Evaluation &amp; Diagnosis of CKD</h2><span class="sec-toggle">▾</span></div>
+
+  <div class="sub">
+    <h3>History — Key Elements</h3>
+    <ul class="bl">
+      <li>CKD symptoms are often <b>subtle or absent</b> until renal failure supervenes — patients are frequently surprised by the diagnosis</li>
+      <li>Pain in the kidney region and decreased urine volume are <b>NOT</b> typical features</li>
+      <li>History of hypertension, diabetes, abnormal urinalyses, preeclampsia, early pregnancy loss</li>
+      <li><b>Drug history:</b> NSAIDs, COX-2 inhibitors, antimicrobials, chemotherapy, antiretrovirals, proton pump inhibitors, phosphate-containing bowel cathartics, lithium</li>
+      <li>Uremic symptoms: appetite, weight loss, nausea, hiccups, peripheral edema, cramps, pruritus, restless legs</li>
+      <li>Family history of kidney disease + manifestations in auditory/visual/integumentary → consider heritable CKD (Alport's, Fabry's, cystinosis)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Physical Examination</h3>
+    <ul class="bl">
+      <li>Blood pressure + target organ damage from hypertension</li>
+      <li><b>Fundoscopy</b> especially important in diabetics (diabetic retinopathy = associated with diabetic nephropathy)</li>
+      <li>Edema, sensory polyneuropathy</li>
+      <li><b>Asterixis or pericardial friction rub</b> (not attributable to other causes) = uremic syndrome is present</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Laboratory Workup</h3>
+    <ul class="bl">
+      <li>Serum and urine protein electrophoresis (all patients &gt;35 with unexplained CKD + anemia → rule out multiple myeloma)</li>
+      <li>If hematuria/proteinuria: test for lupus, hepatitis B and C, HIV</li>
+      <li>Serial renal function measurements → confirm chronicity, pace of deterioration</li>
+      <li>Ca, phosphorus, PTH → metabolic bone disease</li>
+      <li>Hemoglobin, iron, B12, folate</li>
+      <li>24-hour urine collection (or UACR): protein &gt;300 mg → indication for ACE inhibitor, ARB, SGLT2 inhibitors; associated with higher progression risk</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Imaging</h3>
+    <p><b>Renal ultrasound</b> is the most useful imaging study:</p>
+    <ul class="bl">
+      <li>Verifies two kidneys, symmetry, size, masses, obstruction</li>
+      <li><b>Bilaterally small kidneys</b> → CKD of long-standing duration</li>
+      <li><b>Normal-sized kidneys despite CKD</b>: exceptions are diabetic nephropathy (enlarged at onset), amyloidosis, HIV nephropathy</li>
+      <li>Discrepancy &gt;1 cm in length → consider unilateral developmental abnormality or renovascular disease</li>
+      <li><b>ADPKD:</b> Enlarged kidneys with multiple cysts</li>
+    </ul>
+    <div class="co dan"><div class="co-t">🚨 Contrast Caution</div>IV or intraarterial contrast dye should be avoided in CKD (especially diabetic nephropathy). When unavoidable: avoid hypovolemia, minimize dye load, use least nephrotoxic preparation, consider sodium bicarbonate ± N-acetylcysteine (evidence less robust). Gadolinium: minimize in stage 3; avoid in stages 4–5 unless medically necessary.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Kidney Biopsy</h3>
+    <p><b>Contraindicated with bilaterally small kidneys</b> (technically difficult, high bleeding risk, too much scarring to yield diagnosis, window for disease-specific therapy has passed).</p>
+    <p>Other contraindications: uncontrolled hypertension, active UTI, bleeding diathesis (including ongoing anticoagulation), severe obesity.</p>
+    <ul class="bl">
+      <li>Preferred approach: ultrasound-guided percutaneous</li>
+      <li>If indicated (suspicion of concomitant active process): measure bleeding time first; if elevated → give <b>desmopressin</b> immediately before procedure</li>
+      <li>Biopsy is NOT always indicated — in a patient with 15–20 years of type 1 DM + retinopathy + nephrotic proteinuria + no hematuria, diabetic nephropathy is very likely → biopsy unnecessary</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Distinguishing CKD from AKI</h3>
+    <div class="co key"><div class="co-t">🔑 Critical Initial Step</div>Distinguish newly diagnosed CKD from acute or subacute renal failure — the latter may respond to targeted therapy. Previous serum creatinine measurements are key: <b>normal creatinine in recent months</b> → consider reversible process; <b>elevated creatinine in past</b> → chronic process. Even confirmed CKD may have a superimposed acute process.</div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 11: TREATMENT -->
+<section class="sec" id="s11">
+  <div class="sec-hd"><span class="sec-n">11</span><h2>Treatment &amp; Slowing CKD Progression</h2><span class="sec-toggle">▾</span></div>
+
+  <div class="sub">
+    <h3>Framework of Therapy</h3>
+    <p>CKD therapy divides into: (1) interventions directed at the <b>specific etiology</b>, and (2) interventions that <b>attenuate the common pathway</b> of glomerular hyperfiltration. Fortunately, the same interventions that slow CKD also reduce cardiovascular complications.</p>
+    <div class="co key"><div class="co-t">🔑 Emergent Etiology-Directed Therapies</div>
+      <ul class="bl">
+        <li><b>ADPKD:</b> Genome-specific therapies (tolvaptan)</li>
+        <li><b>Type 1 hyperoxaluria:</b> siRNA therapy (lumasiran)</li>
+        <li><b>APOL1-mediated kidney disease (AMKD):</b> Inaxaplin — specific inhibitor of APOL1 channel function; decreases proteinuria in FSGS with high-risk APOL1 genotype</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Slowing CKD Progression — Key Interventions</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Intervention</th><th>Mechanism</th><th>Evidence / Indication</th></tr></thead>
+        <tbody>
+          <tr><td>ACE inhibitors / ARBs</td><td>Efferent arteriolar vasodilation → ↓ intraglomerular pressure; ↓ proteinuria</td><td>Both diabetic and nondiabetic CKD; first-line for proteinuric CKD. Never combine.</td></tr>
+          <tr><td>SGLT2 inhibitors (gliflozins)</td><td>Restored tubuloglomerular feedback → afferent constriction → ↓ hyperfiltration. Also direct tubular cytoprotection.</td><td>Both diabetic and nondiabetic CKD including stage 4; also reduces major CV events</td></tr>
+          <tr><td>Blood pressure control (&lt;130/80)</td><td>Reduces proteinuria and systemic pressure on glomerular capillaries</td><td>CKD with DM or proteinuria &gt;1g/24h</td></tr>
+          <tr><td>GLP-1 receptor agonists</td><td>Reduce major CV events and CKD progression in at-risk patients</td><td>Emerging; studies positive for CKD + cardiovascular outcomes</td></tr>
+          <tr><td>Bicarbonate supplementation</td><td>Corrects metabolic acidosis → ↓ protein catabolism; slower progression to dialysis</td><td>HCO₃⁻ &lt;20–23 mmol/L in CKD stages 3–5</td></tr>
+          <tr><td>Dietary salt restriction</td><td>↓ ECFV, ↓ blood pressure, ↓ proteinuria</td><td>All CKD patients</td></tr>
+          <tr><td>Phosphate restriction + binders</td><td>↓ FGF-23, PTH; reduce vascular calcification</td><td>CKD stages 3–5</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co wrn"><div class="co-t">⚠ Monitor for Reversible Acceleration of CKD Decline</div>Any accelerated rate of GFR decline should prompt search for: ECFV depletion, uncontrolled HTN, UTI, new obstruction, nephrotoxin exposure (NSAIDs, radiocontrast), flare of underlying disease (lupus, vasculitis).</div>
+  </div>
+
+  <div class="sub">
+    <h3>Medication Dose Adjustment in CKD</h3>
+    <ul class="bl">
+      <li>Loading dose: usually not affected by CKD (renal elimination not used in calculation)</li>
+      <li>Maintenance doses: require adjustment for many drugs — reduced dosage or extended intervals</li>
+      <li><b>Avoid:</b> metformin (contraindicated when GFR &lt;~30–45), meperidine, most sulfonylureas, NSAIDs/COX-2 inhibitors</li>
+      <li>Many antibiotics, antihypertensives, antiarrhythmics require dose adjustment</li>
+      <li>Online resources: http://www.globalrph.com/index_renal.htm</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Preparation for Renal Replacement Therapy (RRT)</h3>
+    <h4>Clear Indications for RRT Initiation</h4>
+    <ul class="bl">
+      <li>Anorexia and nausea not attributable to reversible causes</li>
+      <li>Evidence of malnutrition</li>
+      <li>Fluid/electrolyte abnormalities refractory to other measures: <b>hyperkalemia</b> or ECFV overload</li>
+      <li>Uremic pericarditis (absolute indication — see cardiovascular section)</li>
+      <li>Peripheral neuropathy without another cause</li>
+      <li>Encephalopathy (now a late indication with timely dialysis)</li>
+    </ul>
+    <div class="co key"><div class="co-t">🔑 Timing of RRT</div>Do NOT use an arbitrary urea or creatinine level to determine timing. Patients may be accustomed to chronic uremia and deny symptoms, then feel dramatically better with dialysis. Early preparation avoids problems with vascular access (fistula) or peritoneal catheter malfunction.</div>
+    <h4>Patient Education — Start No Later Than Stage 4</h4>
+    <ul class="bl">
+      <li>Hemodialysis (in-center and home-based)</li>
+      <li>Peritoneal dialysis</li>
+      <li>Kidney transplantation</li>
+      <li>Nondialytic conservative care</li>
+      <li>Patients with education are more likely to choose home-based therapy (less expensive; associated with improved quality of life)</li>
+    </ul>
+    <h4>Kidney Transplantation</h4>
+    <p>Offers the best potential for complete rehabilitation — dialysis replaces only a small fraction of kidney's filtration function and none of its endocrine/anti-inflammatory functions. Preemptive transplantation (from living donor) is preferred over transplanting after a period of dialysis when renal failure is irreversible.</p>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 12: QUICK REFERENCE -->
+<section class="sec" id="s12">
+  <div class="sec-hd"><span class="sec-n">12</span><h2>Quick-Reference Master Table</h2><span class="sec-toggle">▾</span></div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Parameter</th><th>Threshold / Value</th><th>Clinical Significance</th></tr></thead>
+      <tbody>
+        <tr><td>CKD Stage 1</td><td>GFR &gt;90</td><td>Asymptomatic; requires risk factors for monitoring</td></tr>
+        <tr><td>CKD Stage 2</td><td>GFR 60–89</td><td>Usually asymptomatic</td></tr>
+        <tr><td>CKD Stage 3</td><td>GFR 30–59</td><td>Lab complications emerge; refer if GFR declining/proteinuria/uncontrolled HTN</td></tr>
+        <tr><td>CKD Stage 4</td><td>GFR 15–29</td><td>Prepare for RRT; patient education; gadolinium: avoid unless necessary</td></tr>
+        <tr><td>CKD Stage 5 (ESKD)</td><td>GFR &lt;15</td><td>Uremic syndrome; dialysis or transplant</td></tr>
+        <tr><td>Normal GFR decline with age</td><td>~1 mL/min/year after 3rd decade</td><td>Mean GFR at age 70 = ~70 mL/min</td></tr>
+        <tr><td>BP target (DM or proteinuria &gt;1g)</td><td>&lt;130/80 mmHg</td><td>Reduces proteinuria + CKD progression</td></tr>
+        <tr><td>UACR threshold (male)</td><td>&gt;2.5 mg/mmol (persistent)</td><td>Marker of glomerular injury + systemic microvascular disease</td></tr>
+        <tr><td>UACR threshold (female)</td><td>&gt;3.5 mg/mmol (persistent)</td><td>Even with negative dipstick</td></tr>
+        <tr><td>eGFR for ACE/ARB GFR drop tolerance</td><td>Up to 30% of baseline</td><td>Acceptable — reflects effective glomerular unloading</td></tr>
+        <tr><td>Bicarbonate supplementation threshold</td><td>HCO₃⁻ &lt;20–23 mmol/L</td><td>Avoid protein catabolism; slower progression to dialysis</td></tr>
+        <tr><td>PTH target (CKD)</td><td>2–9× upper limit of normal</td><td>KDOQI recommendation; too low → adynamic bone disease</td></tr>
+        <tr><td>Hemoglobin target (anemia treatment)</td><td>100–115 g/L</td><td>Normalization NOT beneficial; ↑ stroke/thromboembolic risk</td></tr>
+        <tr><td>Gadolinium — stage 3</td><td>Minimize exposure</td><td>Risk of nephrogenic fibrosing dermopathy</td></tr>
+        <tr><td>Gadolinium — stages 4–5</td><td>Avoid unless medically necessary</td><td>Can use rapid HD after procedure to mitigate risk</td></tr>
+        <tr><td>Pregnancy risk (GFR ~40)</td><td>~80% spontaneous abortion rate</td><td>Only ~20% of pregnancies lead to live births</td></tr>
+        <tr><td>Genetics contribution to CKD</td><td>Up to 20% of adult-onset</td><td>Screen with gene panels, chromosomal microarrays, or WES in appropriate cases</td></tr>
+        <tr><td>GFR for secondary hyperparathyroidism onset</td><td>Below 60 mL/min</td><td>FGF-23 rises first, sometimes before measurable GFR reduction</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sub" style="margin-top:24px">
+    <h3>High-Yield Distinctions</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">ACE Inhibitor Alone vs. Combination ACEi + ARB</div>
+        <p><b>ACE inhibitor OR ARB</b> — recommended for proteinuric CKD. <b>NEVER combine</b> ACE inhibitor + ARB — demonstrated greater AKI and adverse cardiac events from combination therapy.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Calcium-Containing vs. Non-Calcium Phosphate Binders</div>
+        <p><b>Calcium acetate/carbonate:</b> Risk of hypercalcemia (especially in low-turnover/adynamic bone disease). <b>Sevelamer/lanthanum:</b> No hypercalcemia risk; may attenuate vascular calcification — preferred when hypercalcemia is a concern.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">ESA Use — Normalized Hgb Target?</div>
+        <p>Do NOT normalize hemoglobin in CKD — shown NOT beneficial and may increase stroke risk (type 2 DM) and thromboembolic events. Target: <b>Hgb 100–115 g/L</b>.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Warfarin in CKD</div>
+        <p>Warfarin decreases matrix GLA protein activation → risk of vascular calcification and <b>calciphylaxis</b>. In CKD patients requiring anticoagulation, warfarin avoidance is preferred; apixaban increasingly used. Warfarin for AFib: individualize — bleeding risk must be weighed.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Hypertension as Cause vs. Consequence</div>
+        <p>Hypertension in CKD may be the CAUSE (essential hypertension → nephrosclerosis) OR the CONSEQUENCE (primary glomerulopathy such as FSGS → secondary HTN). A patient labeled as "hypertensive CKD" may actually have primary FSGS.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">SGLT2 Inhibitors — Beyond Diabetes</div>
+        <p>Gliflozins are now indicated for CKD protection in BOTH diabetic and nondiabetic kidney disease, and even in stage 4 CKD. They counterbalance RAS inhibitor–induced hyperkalemia.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- EXAM TRAPS -->
+<section class="sec" id="exam">
+  <div class="sec-hd"><span class="sec-n">★</span><h2>Exam Traps</h2><span class="sec-toggle">▾</span></div>
+  <p>Expert board exam coaching — Stage A Internal Medicine Boards. Each trap shows exactly how the question is framed and the reasoning to the correct answer.</p>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">The "Normal Creatinine" in an Elderly Woman</span></div>
+    <div class="trap-body">
+      <div class="trap-q">An 82-year-old woman is found to have a serum creatinine of <em>1.0 mg/dL</em>, which is listed as "within normal limits" on her lab report. She is being started on a renally dosed antibiotic. Is dose adjustment needed?</div>
+      <div class="trap-a"><strong>Correct Answer: YES — dose adjustment is needed.</strong><br>Even a "normal" creatinine in an elderly woman may reflect a GFR &lt;50 mL/min due to reduced muscle mass and lower creatinine production. The serum creatinine concentration must be used to calculate eGFR; it cannot be interpreted in isolation. Creatinine ≤1.0 mg/dL in an 80-year-old woman commonly corresponds to CKD stage 3.</div>
+      <div class="trap-why">⚠ Trap: Students see "normal creatinine" and assume normal kidney function. The key: <b>creatinine is a surrogate that must be interpreted in the context of muscle mass, age, and sex.</b> The eGFR equation is mandatory.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">ACE Inhibitor + ARB Combination</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 55-year-old man with diabetic nephropathy and persistent proteinuria despite maximum-dose lisinopril has his eGFR decline from 55 to 48 mL/min over 6 months. His physician considers adding losartan to further reduce proteinuria. What is the most important concern with this approach?</div>
+      <div class="trap-a"><strong>Correct Answer: Do NOT combine ACE inhibitor + ARB.</strong><br>While additive antiproteinuric effects might seem appealing, the combination of ACE inhibitor and ARB has been demonstrated to cause a greater incidence of acute kidney injury and adverse cardiac events, with no net benefit. The correct approach is to optimize other agents (e.g., add SGLT2 inhibitor) rather than dual RAS blockade.</div>
+      <div class="trap-why">⚠ Trap: The logic "more RAS blockade = more renoprotection" seems sound mechanistically. The key: <b>clinical trial data show harm from ACE inhibitor + ARB combination</b>. SGLT2 inhibitors are the preferred add-on to ACE inhibitors/ARBs for further renoprotection.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Phosphate Binder Selection — Hypercalcemia Risk</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 62-year-old woman with stage 4 CKD on hemodialysis has markedly elevated serum phosphate. Bone biopsy shows <em>adynamic bone disease</em> with very low PTH. Which phosphate binder is most appropriate?</div>
+      <div class="trap-a"><strong>Correct Answer: Sevelamer or Lanthanum (non-calcium-containing binder)</strong><br>In adynamic bone disease, ingested calcium cannot be incorporated into bones with low turnover and instead deposits in vascular and soft tissues. Calcium-based binders (calcium acetate, calcium carbonate) would worsen hypercalcemia and accelerate vascular calcification. Sevelamer/lanthanum do not predispose to hypercalcemia and may actually attenuate vascular calcium deposition.</div>
+      <div class="trap-why">⚠ Trap: Students default to "calcium-based" phosphate binders as first choice. The key: <b>adynamic bone disease + low-turnover = calcium binders contraindicated</b> due to hypercalcemia and vascular calcification risk.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Uremic Pericarditis — Urgent Action</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 58-year-old man with stage 5 CKD not yet on dialysis presents with pleuritic chest pain and a friction rub on auscultation. ECG shows PR-interval depression and diffuse ST elevation. What is the most appropriate next step?</div>
+      <div class="trap-a"><strong>Correct Answer: Urgent initiation of hemodialysis (without heparin)</strong><br>Uremic pericarditis is an absolute indication for urgent initiation of dialysis. Because of the propensity for hemorrhage into pericardial fluid, hemodialysis must be performed <b>without heparin</b>. NSAIDs or colchicine could adversely affect renal function and are not first-line here.</div>
+      <div class="trap-why">⚠ Trap: Students may choose NSAIDs or colchicine (standard pericarditis treatment). The key distinguishing word: <b>"uremic"</b> — always means urgent dialysis, and always without anticoagulation due to hemorrhagic risk.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Hemoglobin Target in CKD — Don't Normalize</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 68-year-old man with stage 4 CKD has a hemoglobin of 9.2 g/dL. He is started on ESA therapy. The nurse asks about the hemoglobin target. What is the correct target range?</div>
+      <div class="trap-a"><strong>Correct Answer: Target Hgb 100–115 g/L (10–11.5 g/dL) — do NOT normalize to 12–13 g/dL</strong><br>Randomized controlled trials of ESAs in CKD failed to show improved cardiovascular outcomes when targeting normal hemoglobin. ESA use to achieve near-normal Hgb was associated with increased risk of stroke (type 2 DM) and thromboembolic events, and possibly faster CKD progression.</div>
+      <div class="trap-why">⚠ Trap: Students assume "higher is better" for hemoglobin. The key: <b>normalization of Hgb in CKD = harm, not benefit</b>. This is a trial trap — know that the TREAT and CREATE trials showed excess cardiovascular events with higher Hgb targets.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Warfarin and Calciphylaxis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 65-year-old woman on peritoneal dialysis for ESKD, on chronic warfarin for atrial fibrillation, develops a painful nodule on the abdomen that progresses to ischemic skin necrosis. The most important intervention (beyond local wound care) is:</div>
+      <div class="trap-a"><strong>Correct Answer: Discontinue warfarin and switch to an alternative anticoagulant</strong><br>Warfarin inhibits vitamin K–dependent activation of matrix GLA protein, which normally prevents vascular calcification. Loss of this protection → calciphylaxis. Discontinuation of warfarin is mandatory once calciphylaxis develops. Alternative anticoagulation based on the specific indication should be chosen (apixaban is used increasingly in dialysis patients).</div>
+      <div class="trap-why">⚠ Trap: Students focus on pain management or local care and miss the essential step. The key: <b>warfarin + CKD/dialysis = calciphylaxis risk</b>. The board keyword is "warfarin" in a dialysis patient with progressive skin necrosis.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">SGLT2 Inhibitors Beyond Diabetes</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 52-year-old woman with <em>non-diabetic</em> focal segmental glomerulosclerosis and CKD stage 3 with persistent proteinuria is well-controlled on an ACE inhibitor. What additional therapy has been shown to slow GFR decline and reduce cardiovascular events in this patient?</div>
+      <div class="trap-a"><strong>Correct Answer: SGLT2 inhibitor (gliflozin) — indicated in both diabetic AND nondiabetic CKD</strong><br>SGLT2 inhibitors restore tubuloglomerular feedback by increasing sodium delivery to the macula densa → afferent arteriolar constriction → reduced intraglomerular hyperfiltration. This mechanism and clinical benefit applies to nondiabetic CKD and extends to stage 4 CKD. They also preserve potassium homeostasis.</div>
+      <div class="trap-why">⚠ Trap: Students assume gliflozins are only for diabetic kidney disease. The key: <b>SGLT2 inhibitors are now indicated for nondiabetic CKD as well</b>, based on trials like DAPA-CKD. The mechanism is glucose-independent.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">GFR Drop After Starting ACE Inhibitor — Stop or Continue?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 60-year-old man with CKD stage 3 and proteinuria starts lisinopril. Two weeks later, his creatinine rises and eGFR falls from 52 to 38 mL/min (a 27% drop). He feels well. What is the correct management?</div>
+      <div class="trap-a"><strong>Correct Answer: Continue the ACE inhibitor with close monitoring — this is an acceptable response</strong><br>A nonprogressive decline in eGFR up to 30% may reflect effective reduction of intraglomerular hypertension (reduced hyperfiltration) and is tolerable if stable over time. Discontinuing the ACE inhibitor in this scenario was associated with increased risk of death and cardiovascular events in clinical studies, with only a modest reduction in starting kidney replacement therapy. A progressive rise in creatinine beyond this range should prompt evaluation for renovascular disease.</div>
+      <div class="trap-why">⚠ Trap: Students immediately stop the ACE inhibitor when creatinine rises. The key: <b>up to 30% eGFR decline is the acceptable threshold</b>; beyond 30% or with a progressive rise → investigate for renovascular disease. Stable 27% drop = continue with monitoring.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Metabolic Acidosis Type Progression in CKD</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 48-year-old man with CKD stage 3 secondary to obstructive uropathy has blood gas showing pH 7.33, HCO₃⁻ 16 mmol/L, and an <em>elevated chloride with normal anion gap</em>. Which statement best describes expected progression of his acid-base disorder?</div>
+      <div class="trap-a"><strong>Correct Answer: As CKD progresses, an anion-gap metabolic acidosis will be ADDED to the existing non-anion-gap acidosis</strong><br>In early CKD, reduced ammonia production → non-anion-gap (hyperchloremic) metabolic acidosis. As GFR declines further, total acid excretion becomes severely limited (&lt;30–40 mmol/day) and accumulation of organic acid anions adds an anion-gap component. The two types of metabolic acidosis can coexist in advanced CKD. Obstructive uropathy and sickle cell nephropathy tend to cause earlier and more severe distal nephron potassium secretion abnormalities + hyperchloremic acidosis.</div>
+      <div class="trap-why">⚠ Trap: Students expect a single acidosis type in CKD. The key: <b>CKD acidosis evolves from non-anion-gap → mixed non-anion-gap + anion-gap</b> as GFR falls. Don't stop at "non-anion-gap" — it will change.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">APOL1 — When to Test and Why</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 38-year-old Black man of West African descent presents with focal segmental glomerulosclerosis (FSGS) and CKD stage 2. Family history: his father had unexplained CKD. What genetic test is most relevant and why?</div>
+      <div class="trap-a"><strong>Correct Answer: APOL1 high-risk genotype testing — important for diagnosis, risk stratification, and potential targeted therapy</strong><br>APOL1 variants (common in sub-Saharan African ancestry) confer a several-fold higher risk for FSGS, HIV nephropathy, SARS-CoV-2–associated nephropathy, and CKD with hypertension. Identifying high-risk genotypes enables: (1) accurate disease attribution, (2) prognostic counseling, (3) eligibility for inaxaplin (APOL1 channel inhibitor shown to reduce proteinuria in APOL1-mediated FSGS). Acquired triggers (e.g., elevated IFN-γ) transform genetic risk into disease.</div>
+      <div class="trap-why">⚠ Trap: Students overlook genetic testing in a patient with apparent "secondary" FSGS. The key: <b>APOL1 status fundamentally changes diagnosis, prognosis, and treatment eligibility</b> — inaxaplin is a targeted therapy only for APOL1 high-risk genotypes.</div>
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">Chapter 322 · Chronic Kidney Disease · Harrison's Principles of Internal Medicine · Boards Review Edition · Bargman &amp; Skorecki</footer>
+
+<script>
+let curColor=null,eraseMode=false,selText='',savedRange=null;
+function setHL(c){curColor=c;eraseMode=false;document.body.style.cursor='crosshair';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));const map={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};document.getElementById(map[c]).classList.add('active');}
+function setErase(){eraseMode=true;curColor=null;document.body.style.cursor='cell';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));}
+function clearAll(){if(!confirm('Clear ALL highlights and notes?'))return;document.querySelectorAll('.hl').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});document.querySelectorAll('.note-anchor').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});try{localStorage.removeItem('bsa_ckd_notes');}catch(e){}renderNotes();document.body.style.cursor='';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));curColor=null;eraseMode=false;}
+document.addEventListener('mouseup',function(e){const tb=document.getElementById('toolbar');const sb=document.getElementById('sn-sidebar');const np=document.getElementById('note-popover');if(tb.contains(e.target)||sb.contains(e.target)||np.contains(e.target))return;if(eraseMode&&e.target.classList.contains('hl')){const el=e.target;el.parentNode.replaceChild(document.createTextNode(el.textContent),el);return;}const sel=window.getSelection();if(!sel||sel.isCollapsed)return;const txt=sel.toString().trim();if(!txt)return;selText=txt;savedRange=sel.getRangeAt(0).cloneRange();document.getElementById('sn-ref-txt').textContent=txt.length>48?txt.substring(0,48)+'…':txt;if(curColor){try{const range=sel.getRangeAt(0);const span=document.createElement('span');span.className='hl hl-'+curColor;span.title='Click in erase mode to remove';range.surroundContents(span);sel.removeAllRanges();}catch(err){}}});
+const STORE_KEY='bsa_ckd_notes';
+function getNotes(){try{return JSON.parse(localStorage.getItem(STORE_KEY)||'[]');}catch(e){return[];}}
+function saveNotes(n){try{localStorage.setItem(STORE_KEY,JSON.stringify(n));}catch(e){}}
+function addNote(){const txt=document.getElementById('sn-ta').value.trim();if(!txt)return;const id=Date.now();const notes=getNotes();notes.unshift({id,ref:selText.substring(0,80)||'—',text:txt});saveNotes(notes);if(savedRange){try{const span=document.createElement('span');span.className='note-anchor';span.dataset.noteId=id;span.title='Click to see your note';savedRange.surroundContents(span);}catch(e){}savedRange=null;}document.getElementById('sn-ta').value='';selText='';document.getElementById('sn-ref-txt').textContent='—';renderNotes();}
+function deleteNote(id){saveNotes(getNotes().filter(n=>n.id!==id));document.querySelectorAll('.note-anchor[data-note-id="'+id+'"]').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);});closePopover();renderNotes();}
+function renderNotes(){const body=document.getElementById('sn-body');const empty=document.getElementById('sn-empty');const notes=getNotes();body.querySelectorAll('.sn-note').forEach(el=>el.remove());if(!notes.length){if(empty)empty.style.display='';return;}if(empty)empty.style.display='none';notes.forEach(note=>{const card=document.createElement('div');card.className='sn-note';card.dataset.noteId=note.id;const savedH=localStorage.getItem('bsa_h_'+note.id);if(savedH)card.style.height=savedH+'px';card.innerHTML=`<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span><span class="sn-note-ref">${note.ref!=='—'?'"'+note.ref+'"':'General note'}</span><button class="sn-del" onclick="deleteNote(${note.id})">×</button></div><div class="sn-note-body">${note.text.replace(/\n/g,'<br>')}</div><div class="sn-resize" title="Drag to resize"></div>`;body.appendChild(card);makeDraggable(card);makeResizable(card,note.id);});}
+function makeDraggable(card){const handle=card.querySelector('.sn-note-hd');let startY=0;handle.addEventListener('mousedown',function(e){if(e.target.classList.contains('sn-del'))return;e.preventDefault();startY=e.clientY;card.style.opacity='.7';card.style.zIndex='9999';card.style.position='relative';function onMove(ev){const dy=ev.clientY-startY;const body=document.getElementById('sn-body');const cards=[...body.querySelectorAll('.sn-note')];const myIdx=cards.indexOf(card);if(dy<-30&&myIdx>0){body.insertBefore(card,cards[myIdx-1]);startY=ev.clientY;}else if(dy>30&&myIdx<cards.length-1){body.insertBefore(cards[myIdx+1],card);startY=ev.clientY;}}function onUp(){card.style.opacity='';card.style.zIndex='';card.style.position='';const body=document.getElementById('sn-body');const ids=[...body.querySelectorAll('.sn-note')].map(c=>parseInt(c.dataset.noteId));const notes=getNotes();const reordered=ids.map(id=>notes.find(n=>n.id===id)).filter(Boolean);saveNotes(reordered);document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp);}document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp);});}
+function makeResizable(card,noteId){const handle=card.querySelector('.sn-resize');let startY=0,startH=0;handle.addEventListener('mousedown',function(e){e.preventDefault();e.stopPropagation();startY=e.clientY;startH=card.offsetHeight;function onMove(ev){const newH=Math.max(80,startH+(ev.clientY-startY));card.style.height=newH+'px';}function onUp(){try{localStorage.setItem('bsa_h_'+noteId,card.offsetHeight);}catch(e){}document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp);}document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp);});}
+function toggleSidebar(){const sb=document.getElementById('sn-sidebar');const tab=document.getElementById('sn-tab');sb.classList.toggle('hidden');tab.textContent=sb.classList.contains('hidden')?'📝 Notes':'◀';}
+let activePopNoteId=null;
+function showPopover(anchorEl,note){const pop=document.getElementById('note-popover');document.getElementById('np-pop-ref').textContent=note.ref!=='—'?'"'+note.ref.substring(0,55)+(note.ref.length>55?'…':'')+'"':'Your note';document.getElementById('np-pop-text').innerHTML=note.text.replace(/\n/g,'<br>');document.getElementById('pop-del-btn').onclick=()=>deleteNote(note.id);activePopNoteId=note.id;const rect=anchorEl.getBoundingClientRect();pop.style.left=Math.min(rect.left,window.innerWidth-300)+'px';pop.style.top=(rect.bottom+8)+'px';pop.classList.add('show');}
+function closePopover(){document.getElementById('note-popover').classList.remove('show');activePopNoteId=null;}
+document.addEventListener('click',function(e){const anchor=e.target.closest('.note-anchor');if(anchor){e.stopPropagation();const nid=parseInt(anchor.dataset.noteId);if(activePopNoteId===nid){closePopover();return;}const note=getNotes().find(n=>n.id===nid);if(note)showPopover(anchor,note);return;}const pop=document.getElementById('note-popover');if(pop&&!pop.contains(e.target))closePopover();});
+const _sections=document.querySelectorAll('.sec[id]');const _navLinks=document.querySelectorAll('.toc-a');
+_sections.forEach(s=>new IntersectionObserver(entries=>{if(entries[0].isIntersecting){_navLinks.forEach(l=>l.classList.remove('on'));const lnk=document.querySelector('.toc-a[href="#'+s.id+'"]');if(lnk){lnk.classList.add('on');lnk.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}}},{rootMargin:'-15% 0px -75% 0px'}).observe(s));
+renderNotes();
+
+/* ── COLLAPSE / EXPAND ALL ──────────── */
+function toggleAllSections(expand) {
+  document.querySelectorAll('.sec').forEach(sec => {
+    const hd = sec.querySelector('.sec-hd');
+    let body = sec.querySelector('.sec-body');
+    if (!body) {
+      const children = [...sec.children];
+      const hdIdx = hd ? children.indexOf(hd) : 0;
+      const toWrap = children.slice(hdIdx + 1);
+      if (!toWrap.length) return;
+      body = document.createElement('div');
+      body.className = 'sec-body';
+      toWrap.forEach(el => body.appendChild(el));
+      sec.appendChild(body);
+    }
+    if (expand) {
+      body.classList.remove('collapsed');
+      if (hd) hd.classList.remove('collapsed-hd');
+    } else {
+      body.classList.add('collapsed');
+      if (hd) hd.classList.add('collapsed-hd');
+    }
+  });
+}
+
+/* ── SECTION TOGGLE ─────────────────── */
+document.querySelectorAll('.sec-hd').forEach(hd => {
+  hd.addEventListener('click', function(e) {
+    // Don't toggle if clicking a button inside the header
+    if (e.target.closest('button')) return;
+    const sec = hd.closest('.sec');
+    // Find the sec-body (all siblings after hd until sbar)
+    let body = sec.querySelector('.sec-body');
+    if (!body) {
+      // Wrap content after sec-hd into a sec-body div
+      const children = [...sec.children];
+      const hdIdx = children.indexOf(hd);
+      const toWrap = children.slice(hdIdx + 1);
+      if (!toWrap.length) return;
+      body = document.createElement('div');
+      body.className = 'sec-body';
+      toWrap.forEach(el => body.appendChild(el));
+      sec.appendChild(body);
+    }
+    const collapsed = body.classList.toggle('collapsed');
+    hd.classList.toggle('collapsed-hd', collapsed);
+  });
+});
+
+</script>
+</body>
+</html>
