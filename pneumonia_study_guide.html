@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pneumonia — Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf8f3;
+    --paper: #f4f0e8;
+    --ink: #1a1510;
+    --ink-light: #3d3528;
+    --ink-muted: #7a6e5f;
+    --rule: #d4cabb;
+    --accent-red: #c0392b;
+    --accent-blue: #1a4a7a;
+    --accent-teal: #0e6655;
+    --accent-amber: #b7860b;
+    --accent-purple: #6c3483;
+    --accent-slate: #2c3e50;
+    --highlight-red: #fdf0ee;
+    --highlight-blue: #eef4fb;
+    --highlight-teal: #edfaf5;
+    --highlight-amber: #fdf8e1;
+    --highlight-purple: #f5eef8;
+    --highlight-slate: #eaecee;
+    --shadow: rgba(26,21,16,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.75;
+    padding: 0;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--accent-slate);
+    color: #fff;
+    padding: 60px 40px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -45deg, transparent, transparent 20px,
+      rgba(255,255,255,0.03) 20px, rgba(255,255,255,0.03) 40px
+    );
+  }
+  .header-inner { position: relative; max-width: 1100px; margin: 0 auto; }
+  .header-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 80px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -1px;
+  }
+  .header h1 span { color: #7fb3e8; }
+  .header-meta {
+    margin-top: 20px;
+    display: flex; gap: 24px; flex-wrap: wrap;
+    font-size: 13px; color: rgba(255,255,255,0.6);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .header-meta strong { color: rgba(255,255,255,0.9); }
+
+  /* ── TOC ── */
+  .toc-wrap {
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 28px 40px;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+  .toc-inner { max-width: 1100px; margin: 0 auto; }
+  .toc-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 10px;
+  }
+  .toc-links {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .toc-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 5px 12px;
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: all .15s;
+  }
+  .toc-links a:hover {
+    background: var(--accent-blue);
+    color: white; border-color: var(--accent-blue);
+  }
+
+  /* ── LAYOUT ── */
+  .content { max-width: 1100px; margin: 0 auto; padding: 48px 40px 80px; }
+
+  /* ── SECTION HEADERS ── */
+  .section-block { margin-bottom: 56px; }
+  .section-header {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 28px; padding-bottom: 16px;
+    border-bottom: 2px solid currentColor;
+  }
+  .section-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px; font-weight: 900; line-height: 1;
+    opacity: 0.12;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 700; line-height: 1.2;
+  }
+  .section-subtitle {
+    font-size: 13px; font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase; letter-spacing: 2px; margin-top: 4px;
+  }
+
+  /* Colors per section */
+  .s-red  { color: var(--accent-red);    }
+  .s-blue { color: var(--accent-blue);   }
+  .s-teal { color: var(--accent-teal);   }
+  .s-amber{ color: var(--accent-amber);  }
+  .s-purple{color: var(--accent-purple); }
+  .s-slate{ color: var(--accent-slate);  }
+
+  /* ── CARDS ── */
+  .card {
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    border-left: 5px solid;
+    box-shadow: 0 1px 6px var(--shadow);
+  }
+  .card-red    { background: var(--highlight-red);    border-color: var(--accent-red);    }
+  .card-blue   { background: var(--highlight-blue);   border-color: var(--accent-blue);   }
+  .card-teal   { background: var(--highlight-teal);   border-color: var(--accent-teal);   }
+  .card-amber  { background: var(--highlight-amber);  border-color: var(--accent-amber);  }
+  .card-purple { background: var(--highlight-purple); border-color: var(--accent-purple); }
+  .card-slate  { background: var(--highlight-slate);  border-color: var(--accent-slate);  }
+  .card-white  { background: #fff; border-color: var(--rule); border-left-color: #ccc;   }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px; font-weight: 700; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; padding: 2px 8px; border-radius: 20px;
+    font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    display: inline-block;
+  }
+  .badge-red    { background: var(--accent-red);    color: #fff; }
+  .badge-blue   { background: var(--accent-blue);   color: #fff; }
+  .badge-teal   { background: var(--accent-teal);   color: #fff; }
+  .badge-amber  { background: var(--accent-amber);  color: #fff; }
+  .badge-purple { background: var(--accent-purple); color: #fff; }
+  .badge-slate  { background: var(--accent-slate);  color: #fff; }
+
+  /* ── BULLETS ── */
+  ul { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  li::marker { color: var(--ink-muted); }
+  ul ul { margin-top: 6px; padding-left: 20px; }
+  ul ul li { font-size: 14.5px; color: var(--ink-light); }
+  ul ul ul { padding-left: 18px; }
+  ul ul ul li { font-size: 13.5px; color: var(--ink-muted); }
+
+  /* ── HIGHLIGHT SPANS ── */
+  .hl-red    { background: #fadbd8; padding: 1px 5px; border-radius: 3px; color: var(--accent-red);    font-weight: 600; }
+  .hl-blue   { background: #d6eaf8; padding: 1px 5px; border-radius: 3px; color: var(--accent-blue);   font-weight: 600; }
+  .hl-teal   { background: #d1f2eb; padding: 1px 5px; border-radius: 3px; color: var(--accent-teal);   font-weight: 600; }
+  .hl-amber  { background: #fdebd0; padding: 1px 5px; border-radius: 3px; color: var(--accent-amber);  font-weight: 600; }
+  .hl-purple { background: #e8daef; padding: 1px 5px; border-radius: 3px; color: var(--accent-purple); font-weight: 600; }
+  .drug      { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent-teal); background: #e8f8f5; padding: 1px 5px; border-radius: 3px; }
+  .dose      { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--accent-amber); }
+
+  /* ── PEARL BOX ── */
+  .pearl {
+    background: #fffef0;
+    border: 1.5px dashed #c8b400;
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 14.5px;
+  }
+  .pearl-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── FLOWCHART ── */
+  .flow { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 24px 0; }
+  .flow-box {
+    padding: 12px 22px; border-radius: 6px;
+    font-size: 14px; font-weight: 600; text-align: center;
+    font-family: 'JetBrains Mono', monospace; min-width: 260px;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  .flow-arrow { font-size: 22px; color: var(--ink-muted); line-height: 1; padding: 2px 0; }
+  .flow-split { display: flex; gap: 20px; align-items: flex-start; }
+  .flow-branch { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .flow-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--ink-muted); letter-spacing: 1px;
+    padding: 0 8px;
+  }
+  .flow-row { display: flex; gap: 20px; align-items: center; }
+  .flow-h { flex-direction: row; align-items: center; gap: 12px; }
+
+  .fb-red    { background: #fadbd8; color: var(--accent-red);    border: 1.5px solid var(--accent-red);    }
+  .fb-blue   { background: #d6eaf8; color: var(--accent-blue);   border: 1.5px solid var(--accent-blue);   }
+  .fb-teal   { background: #d1f2eb; color: var(--accent-teal);   border: 1.5px solid var(--accent-teal);   }
+  .fb-amber  { background: #fdebd0; color: var(--accent-amber);  border: 1.5px solid var(--accent-amber);  }
+  .fb-purple { background: #e8daef; color: var(--accent-purple); border: 1.5px solid var(--accent-purple); }
+  .fb-slate  { background: #eaecee; color: var(--accent-slate);  border: 1.5px solid var(--accent-slate);  }
+  .fb-green  { background: #d5f5e3; color: #1e8449;              border: 1.5px solid #1e8449;              }
+
+  /* ── GRID ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 720px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  /* ── TABLES ── */
+  .table-wrap { overflow-x: auto; margin: 20px 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  thead tr { background: var(--accent-slate); color: #fff; }
+  thead th {
+    padding: 12px 16px; text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1px; font-weight: 600;
+    text-transform: uppercase;
+  }
+  tbody tr:nth-child(even) { background: var(--paper); }
+  tbody tr:hover { background: #e8f0fa; }
+  td { padding: 11px 16px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  td:first-child { font-weight: 600; color: var(--ink-light); }
+
+  /* ── QUICK REF MASTER TABLE ── */
+  .master { background: var(--accent-slate); color: #fff; border-radius: 8px; overflow: hidden; }
+  .master thead tr { background: rgba(0,0,0,0.3); }
+  .master tbody tr:nth-child(even) { background: rgba(255,255,255,0.05); }
+  .master tbody tr:hover { background: rgba(255,255,255,0.12); }
+  .master td { color: rgba(255,255,255,0.88); border-color: rgba(255,255,255,0.1); }
+  .master td:first-child { color: #7fb3e8; }
+
+  /* ── DIVIDER ── */
+  hr { border: none; border-top: 1px solid var(--rule); margin: 40px 0; }
+
+  /* ── STAGE DIAGRAM ── */
+  .stages { display: flex; gap: 0; margin: 20px 0; }
+  .stage {
+    flex: 1; padding: 14px 10px;
+    text-align: center; font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stage-num { font-size: 22px; font-weight: 700; display: block; margin-bottom: 4px; }
+  .stage-name { font-weight: 600; font-size: 12px; display: block; margin-bottom: 6px; }
+  .stage-desc { font-size: 11px; color: var(--ink-muted); line-height: 1.4; display: block; }
+  .s1 { background: #fdebd0; color: #935116; border-radius: 6px 0 0 6px; }
+  .s2 { background: #fadbd8; color: var(--accent-red); }
+  .s3 { background: #d6eaf8; color: var(--accent-blue); }
+  .s4 { background: #d1f2eb; color: var(--accent-teal); border-radius: 0 6px 6px 0; }
+  .stage-arrow { display: flex; align-items: center; color: var(--ink-muted); font-size: 18px; }
+
+
+  /* ── BOARD WEIGHT ── */
+  .weight-bar {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+  }
+  .weight-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 14px;
+  }
+  .weight-rows { display: flex; flex-direction: column; gap: 8px; }
+  .weight-row { display: flex; align-items: center; gap: 12px; }
+  .weight-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--ink-light); width: 220px; flex-shrink: 0;
+  }
+  .weight-track { flex: 1; height: 10px; background: var(--rule); border-radius: 5px; overflow: hidden; }
+  .weight-fill { height: 100%; border-radius: 5px; }
+  .wf-high { background: var(--accent-red); }
+  .wf-med  { background: var(--accent-amber); }
+  .wf-low  { background: var(--accent-teal); }
+  .wf-min  { background: var(--ink-muted); }
+  .weight-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    color: var(--ink-muted); width: 80px; flex-shrink: 0; text-align: right;
+  }
+  .weight-num strong { color: var(--ink); }
+  .exam-badge {
+    display: inline-flex; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    padding: 3px 10px; border-radius: 20px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase; margin-left: 12px; vertical-align: middle;
+  }
+  .eb-high { background: #fdf0ee; color: var(--accent-red);   border: 1px solid #f5c0bb; }
+  .eb-med  { background: #fdf8e1; color: var(--accent-amber);  border: 1px solid #e8d090; }
+  .eb-low  { background: #edfaf5; color: var(--accent-teal);   border: 1px solid #a8d8cc; }
+  .eb-min  { background: var(--highlight-slate); color: var(--ink-muted); border: 1px solid var(--rule); }
+
+  /* ── PRINT ── */
+  @media print {
+    .toc-wrap { position: static; }
+    .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <span class="header-tag">Chapter 131 · Boards Study Guide</span>
+    <h1>Pneu<span>mo</span>nia</h1>
+    <div class="header-meta">
+      <span><strong>Authors:</strong> Mandell LA, Niederman MS</span>
+      <span><strong>Coverage:</strong> CAP · HAP · VAP · Pathophysiology · Treatment</span>
+      <span><strong>Source:</strong> Harrison's Principles of Internal Medicine</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ TOC -->
+<div class="toc-wrap">
+  <div class="toc-inner">
+    <div class="toc-label">Contents</div>
+    <div class="toc-links">
+      <a href="#s1">Definition &amp; Classification</a>
+      <a href="#s2">Pathophysiology</a>
+      <a href="#s3">Pathology</a>
+      <a href="#s4">CAP Etiology</a>
+      <a href="#s5">Epidemiology</a>
+      <a href="#s6">Clinical Manifestations</a>
+      <a href="#s7">Diagnosis</a>
+      <a href="#s8">Severity &amp; Site of Care</a>
+      <a href="#s9">Antibiotic Resistance</a>
+      <a href="#s10">CAP Treatment</a>
+      <a href="#s11">VAP</a>
+      <a href="#s12">HAP</a>
+      <a href="#s13">Master Quick-Reference</a>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- EXAM WEIGHT BAR -->
+  <div class="weight-bar">
+    <div class="weight-title">📊 Board Question Distribution (27 total) — Study time proportional to bar width</div>
+    <div class="weight-rows">
+      <div class="weight-row">
+        <span class="weight-label">CAP Treatment (pg 1028)</span>
+        <div class="weight-track"><div class="weight-fill wf-high" style="width:100%"></div></div>
+        <span class="weight-num"><strong>10 Qs</strong> · 37%</span>
+      </div>
+      <div class="weight-row">
+        <span class="weight-label">Resistance + Outpatient Tx (pg 1027)</span>
+        <div class="weight-track"><div class="weight-fill wf-high" style="width:80%"></div></div>
+        <span class="weight-num"><strong>8 Qs</strong> · 30%</span>
+      </div>
+      <div class="weight-row">
+        <span class="weight-label">Etiology &amp; Epidemiology (pg 1024)</span>
+        <div class="weight-track"><div class="weight-fill wf-med" style="width:60%"></div></div>
+        <span class="weight-num"><strong>6 Qs</strong> · 22%</span>
+      </div>
+      <div class="weight-row">
+        <span class="weight-label">Clinical Manifestations (pg 1025)</span>
+        <div class="weight-track"><div class="weight-fill wf-low" style="width:30%"></div></div>
+        <span class="weight-num"><strong>3 Qs</strong> · 11%</span>
+      </div>
+      <div class="weight-row">
+        <span class="weight-label">Diagnosis (pg 1026)</span>
+        <div class="weight-track"><div class="weight-fill wf-low" style="width:30%"></div></div>
+        <span class="weight-num"><strong>3 Qs</strong> · 11%</span>
+      </div>
+      <div class="weight-row">
+        <span class="weight-label">VAP Treatment (pg 1032)</span>
+        <div class="weight-track"><div class="weight-fill wf-min" style="width:20%"></div></div>
+        <span class="weight-num"><strong>2 Qs</strong> · 7%</span>
+      </div>
+    </div>
+  </div>
+
+<!-- ═══════════════════════════════════════════════════════ S1: DEFINITION -->
+<div class="section-block" id="s1">
+<div style="background:#f0f4f8; border:1px solid #c8d4e0; border-radius:6px; padding:10px 16px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#5a6a7a;">ℹ️ &nbsp;<strong>Low exam weight</strong> — read once for context; don't over-study this section.</div>
+
+  <div class="section-header s-slate">
+    <div class="section-num">01</div>
+    <div>
+      <div class="section-title">Definition &amp; Classification<span class="exam-badge eb-min">background only</span></div>
+      <div class="section-subtitle">What is pneumonia, and how do we categorize it?</div>
+    </div>
+  </div>
+
+  <div class="card card-slate">
+    <div class="card-title">Core Definition</div>
+    <ul>
+      <li>Pneumonia = <strong>infection of the pulmonary parenchyma</strong> (alveoli and surrounding tissue)</li>
+      <li>Despite significant morbidity and mortality, it is <em>often misdiagnosed, mistreated, and underestimated</em></li>
+    </ul>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-blue">
+      <div class="card-title"><span class="badge badge-blue">CAP</span> Community-Acquired</div>
+      <ul>
+        <li>Acquired outside hospital or healthcare settings</li>
+        <li>Most common type encountered in clinical practice</li>
+        <li>~7 million+ cases/year in the US</li>
+        <li>Aspiration pneumonia accounts for <span class="hl-blue">5–15% of CAP</span> cases</li>
+      </ul>
+    </div>
+    <div class="card card-red">
+      <div class="card-title"><span class="badge badge-red">HAP</span> Hospital-Acquired</div>
+      <ul>
+        <li>Onset ≥48 h after hospital admission</li>
+        <li>~70% of HAP acquired <em>outside</em> the ICU</li>
+        <li>~30% in the ICU; 35% of all HAP patients need mechanical ventilation</li>
+        <li>Ventilated HAP = distinct entity with unique challenges</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card card-amber">
+    <div class="card-title"><span class="badge badge-amber">VAP</span> Ventilator-Associated Pneumonia</div>
+    <ul>
+      <li>Onset <strong>≥48 h after initiation of mechanical ventilation</strong></li>
+      <li>Most-studied subset of HAP — forms the evidence base for hospital pneumonia principles</li>
+      <li>Prevalence: <span class="hl-amber">6–52 cases per 100 ventilated patients</span></li>
+    </ul>
+  </div>
+
+  <div class="card card-white">
+    <div class="card-title">🚫 Healthcare-Associated Pneumonia (HCAP) — <em>Discontinued</em></div>
+    <ul>
+      <li>HCAP category has been <strong>abandoned</strong></li>
+      <li><strong>WHY?</strong> It did NOT reliably predict infection with resistant pathogens</li>
+      <li>It was associated with <em>increased use of broad-spectrum antibiotics</em> without benefit</li>
+      <li><strong>Better approach:</strong> Assess patients individually based on risk factors for resistant organisms:
+        <ul>
+          <li>Certain comorbid illnesses</li>
+          <li>Recent hospitalization</li>
+          <li>Recent antibiotic therapy</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="pearl">
+      <span class="pearl-icon">💡</span>
+      <span><strong>Pearl:</strong> Don't just ask "where did they get sick?" — ask "what risk factors do they have for resistant organisms?" This is the modern paradigm.</span>
+    </div>
+  </div>
+
+  <div class="card card-teal">
+    <div class="card-title">Aspiration Pneumonia — A Continuum</div>
+    <ul>
+      <li>Caused by <strong>macroaspiration</strong> of oropharyngeal or gastric contents</li>
+      <li>Best thought of as a <em>point on the continuum</em> that includes CAP and HAP (not a separate category)</li>
+      <li>Airways or pulmonary parenchyma may be involved</li>
+      <li>Typical patient: risk factors for macroaspiration + gravity-dependent pulmonary involvement</li>
+      <li>Pathogens = those usually associated with CAP or HAP (anaerobes still play a role in poor dentition, lung abscess, necrotizing pneumonia, empyema)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ S2: PATHOPHYSIOLOGY -->
+<div class="section-block" id="s2">
+<div style="background:#f0f4f8; border:1px solid #c8d4e0; border-radius:6px; padding:10px 16px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#5a6a7a;">ℹ️ &nbsp;<strong>Low exam weight</strong> — read once for context; don't over-study this section.</div>
+
+  <div class="section-header s-red">
+    <div class="section-num">02</div>
+    <div>
+      <div class="section-title">Pathophysiology<span class="exam-badge eb-min">background only</span></div>
+      <div class="section-subtitle">Why does pneumonia happen, and how does it cause disease?</div>
+    </div>
+  </div>
+
+  <div class="card card-red">
+    <div class="card-title">Old vs. New Paradigm</div>
+    <div class="grid-2">
+      <div>
+        <strong style="color: var(--ink-muted)">❌ Old View (Abandoned)</strong>
+        <ul>
+          <li>Lungs were thought to be <em>sterile</em></li>
+          <li>Pneumonia = invasion of a sterile space by a pathogen</li>
+          <li>Microaspiration of oropharyngeal organisms → infection</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="color: var(--accent-red)">✅ Current View</strong>
+        <ul>
+          <li>Lungs have a <strong>complex lung microbiota</strong></li>
+          <li>Pneumonia = <em>emergent phenomenon</em> dependent on multiple mechanisms</li>
+          <li>Includes self-accelerating positive feedback loops</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-white">
+    <div class="card-title">Lung Microbiota — Determinants</div>
+    <p style="margin-bottom: 10px; font-size: 14.5px;">Three factors govern the composition of the lung microbiota:</p>
+    <ul>
+      <li><strong>Microbial entry:</strong> via inhalation, microaspiration, direct mucosal dispersion</li>
+      <li><strong>Microbial elimination:</strong> hairs, turbinates, mucociliary clearance, cough/gag reflexes, innate/adaptive immunity</li>
+      <li><strong>Regional growth conditions:</strong> pH, oxygen tension, temperature</li>
+    </ul>
+    <div class="pearl">
+      <span class="pearl-icon">🔬</span>
+      <span>Mechanical barriers (hairs, turbinates, mucociliary clearance, cough/gag reflexes) are necessary but <strong>insufficient</strong> to block all bacterial access to lower airways.</span>
+    </div>
+  </div>
+
+  <div class="card card-red">
+    <div class="card-title">🔄 The Positive Feedback Model of Pneumonia Development</div>
+    <div class="flow">
+      <div class="flow-box fb-amber">Inflammatory trigger event<br><small>(viral infection + microaspiration in CAP; macroaspiration in aspiration PNA)</small></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-box fb-red">Epithelial / endothelial injury<br>→ Release of cytokines, chemokines, catecholamines</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-box fb-red">Selective growth promotion of<br><em>S. pneumoniae</em>, <em>P. aeruginosa</em></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-box fb-red">↑ Bacterial growth → ↑ Nutrient availability<br>→ Release of more growth factors</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-box fb-red">Self-accelerating POSITIVE FEEDBACK LOOP</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-box fb-slate">Full-fledged Pneumonia Syndrome<br>(if innate/adaptive immunity overwhelmed)</div>
+    </div>
+  </div>
+
+  <div class="card card-blue">
+    <div class="card-title">Inflammatory Cascade → Clinical Findings</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Mediator</th><th>Source</th><th>Effect</th><th>Clinical Finding</th></tr></thead>
+        <tbody>
+          <tr><td>IL-6, TNF</td><td>Macrophages, inflammatory cells</td><td>Systemic inflammation</td><td>Fever, rigors</td></tr>
+          <tr><td>IL-8, G-CSF</td><td>Chemokines</td><td>↑ Local neutrophil recruitment</td><td>Purulent sputum, leukocytosis</td></tr>
+          <tr><td>Macrophage/neutrophil mediators</td><td>Alveolar cells</td><td>Alveolar capillary leak</td><td>Hypoxemia, radiographic infiltrates</td></tr>
+          <tr><td>Bacterial toxins</td><td>Pathogens</td><td>Amplify inflammatory response</td><td>Worsening systemic illness</td></tr>
+          <tr><td>Hypoxic vasoconstriction interference</td><td>Certain bacteria</td><td>Fluid-filled alveoli + blood flow mismatch</td><td>Severe hypoxemia</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card card-teal">
+    <div class="card-title">Respiratory Failure — Why It Happens (Mechanistic Chain)</div>
+    <ul>
+      <li><strong>Capillary leak</strong> → alveolar flooding → ↓ compliance</li>
+      <li><strong>Hypoxemia</strong> → ↑ respiratory drive</li>
+      <li><strong>↑ secretions + bronchospasm</strong> → worsening dyspnea</li>
+      <li><strong>↓ Lung volume + intrapulmonary shunting</strong> → respiratory failure</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ S3: PATHOLOGY -->
+<div class="section-block" id="s3">
+<div style="background:#f0f4f8; border:1px solid #c8d4e0; border-radius:6px; padding:10px 16px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#5a6a7a;">ℹ️ &nbsp;<strong>Low exam weight</strong> — read once for context; don't over-study this section.</div>
+
+  <div class="section-header s-purple">
+    <div class="section-num">03</div>
+    <div>
+      <div class="section-title">Pathology — The Four Stages<span class="exam-badge eb-min">background only</span></div>
+      <div class="section-subtitle">Classic lobar pneumococcal pneumonia staging</div>
+    </div>
+  </div>
+
+  <div class="stages">
+    <div class="stage s1">
+      <span class="stage-num">1</span>
+      <span class="stage-name">Edema</span>
+      <span class="stage-desc">Proteinaceous exudate in alveoli. Bacteria present. Initial inflammatory response.</span>
+    </div>
+    <div class="stage-arrow">→</div>
+    <div class="stage s2">
+      <span class="stage-num">2</span>
+      <span class="stage-name">Red Hepatization</span>
+      <span class="stage-desc">Erythrocytes flood intraalveolar exudate → red appearance. Named for liver-like consistency.</span>
+    </div>
+    <div class="stage-arrow">→</div>
+    <div class="stage s3">
+      <span class="stage-num">3</span>
+      <span class="stage-name">Gray Hepatization</span>
+      <span class="stage-desc">RBCs lysed + degraded. Neutrophils predominate. Fibrin deposition abundant. Bacteria disappear. Infection being contained — gas exchange improving.</span>
+    </div>
+    <div class="stage-arrow">→</div>
+    <div class="stage s4">
+      <span class="stage-num">4</span>
+      <span class="stage-name">Resolution</span>
+      <span class="stage-desc">Macrophages re-emerge as dominant cell. Neutrophil debris, bacteria, and fibrin cleared. Inflammatory response resolved.</span>
+    </div>
+  </div>
+
+  <div class="card card-purple">
+    <div class="card-title">Key Pathologic Distinctions</div>
+    <ul>
+      <li><strong>Lobar pattern:</strong> More common in bacterial CAP</li>
+      <li><strong>Bronchopneumonia pattern:</strong> Most common in nosocomial (HAP/VAP) pneumonias</li>
+      <li><strong>VAP:</strong> Respiratory bronchiolitis may precede a radiologically apparent infiltrate</li>
+      <li><strong>Viral and <em>Pneumocystis</em> pneumonias:</strong> Represent <em>alveolar</em> (not interstitial) processes — despite appearance on imaging</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ S4: CAP ETIOLOGY -->
+<div class="section-block" id="s4">
+<div style="background:#fff8e1; border:2px solid var(--accent-amber); border-radius:6px; padding:12px 18px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent-amber);">⚡ &nbsp;<strong>HIGH EXAM PRIORITY</strong> — This section generates the most board questions. Master every detail.</div>
+
+  <div class="section-header s-blue">
+    <div class="section-num">04</div>
+    <div>
+      <div class="section-title">CAP — Etiology &amp; Microbiology<span class="exam-badge eb-med">★ 6 Qs · pg 1024</span></div>
+      <div class="section-subtitle">Know your bugs by setting and risk factors</div>
+    </div>
+  </div>
+
+  <div class="card card-blue">
+    <div class="card-title">Typical vs. Atypical Pathogens</div>
+    <div class="grid-2">
+      <div>
+        <strong>Typical Bacteria</strong>
+        <ul>
+          <li><em>Streptococcus pneumoniae</em> — #1 bacterial CAP</li>
+          <li><em>Haemophilus influenzae</em></li>
+          <li><em>Staphylococcus aureus</em> (selected patients)</li>
+          <li><em>Klebsiella pneumoniae</em> (gram-negative)</li>
+          <li><em>Pseudomonas aeruginosa</em> (gram-negative)</li>
+        </ul>
+      </div>
+      <div>
+        <strong>Atypical Organisms</strong> <span class="badge badge-blue">Cannot Gram stain / culture standard</span>
+        <ul>
+          <li><em>Mycoplasma pneumoniae</em> — more in ambulatory cases</li>
+          <li><em>Chlamydia pneumoniae</em> — now &lt;1% of CAP</li>
+          <li><em>Legionella</em> spp. — severe cases; outbreaks; hotel/cruise</li>
+          <li>Respiratory viruses: influenza, parainfluenza, RSV, coronaviruses, metapneumovirus, adenovirus</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pearl">
+      <span class="pearl-icon">💡</span>
+      <span>Atypical organisms are <strong>intrinsically resistant to all β-lactams</strong>. They require treatment with a macrolide, fluoroquinolone, or tetracycline — this is why empiric CAP coverage routinely includes atypicals.</span>
+    </div>
+  </div>
+
+  <div class="card card-blue">
+    <div class="card-title">Pathogens by Site of Care (Table 131-1)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Setting</th><th>Top Pathogens</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Outpatient</td>
+            <td><em>S. pneumoniae, M. pneumoniae, H. influenzae, C. pneumoniae</em>, respiratory viruses</td>
+          </tr>
+          <tr>
+            <td>Hospitalized (non-ICU)</td>
+            <td><em>S. pneumoniae, M. pneumoniae, C. pneumoniae, H. influenzae, Legionella</em> spp., respiratory viruses</td>
+          </tr>
+          <tr>
+            <td>Hospitalized (ICU)</td>
+            <td><em>S. pneumoniae, S. aureus, Legionella</em> spp., gram-negative bacilli, <em>H. influenzae</em>, respiratory viruses</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card card-slate">
+    <div class="card-title">Epidemiologic Risk Factors → Pathogens (Table 131-2)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Risk Factor / Exposure</th><th>Think of These Pathogens</th></tr></thead>
+        <tbody>
+          <tr><td>Alcoholism</td><td><em>S. pneumoniae</em>, oral anaerobes, <em>K. pneumoniae, Acinetobacter</em> spp., <em>M. tuberculosis</em></td></tr>
+          <tr><td>COPD / smoking</td><td><em>H. influenzae, P. aeruginosa, Legionella, S. pneumoniae, Moraxella catarrhalis, C. pneumoniae</em></td></tr>
+          <tr><td>Structural lung disease (bronchiectasis)</td><td><em>P. aeruginosa, Burkholderia cepacia, S. aureus</em></td></tr>
+          <tr><td>Dementia / stroke / ↓ consciousness</td><td>Oral anaerobes, gram-negative enteric bacteria</td></tr>
+          <tr><td>Lung abscess</td><td>CA-MRSA, oral anaerobes, endemic fungi, <em>M. tuberculosis</em>, nontuberculous mycobacteria</td></tr>
+          <tr><td>Ohio / St. Lawrence river valley</td><td><em>Histoplasma capsulatum</em></td></tr>
+          <tr><td>Southwestern United States</td><td>Hantavirus, <em>Coccidioides</em> spp.</td></tr>
+          <tr><td>Southeast Asia travel</td><td><em>Burkholderia pseudomallei</em>, avian influenza</td></tr>
+          <tr><td>Hotel / cruise ship (prior 2 weeks)</td><td><em>Legionella</em> spp.</td></tr>
+          <tr><td>Local influenza activity</td><td>Influenza virus, <em>S. pneumoniae, S. aureus</em></td></tr>
+          <tr><td>Exposure to infected humans</td><td>SARS-CoV-2</td></tr>
+          <tr><td>Exposure to birds</td><td><em>H. capsulatum, Chlamydia psittaci</em></td></tr>
+          <tr><td>Exposure to rabbits</td><td><em>Francisella tularensis</em></td></tr>
+          <tr><td>Exposure to sheep / goats / parturient cats</td><td><em>Coxiella burnetii</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card card-red">
+    <div class="card-title"><span class="badge badge-red">High Yield</span> CA-MRSA — Key Points</div>
+    <ul>
+      <li>Can cause primary CAP — important to recognize</li>
+      <li>Two sources: spread from hospital setting + <strong>genetically distinct community strains</strong></li>
+      <li>CA-MRSA strains have <strong>type IV SCCmec</strong> (vs. type II/III in hospital strains)</li>
+      <li>CA-MRSA strains carry genes for <strong>Panton-Valentine leukocidin (PVL)</strong>:
+        <ul>
+          <li>Membrane-tropic toxin creating cytolytic pores in neutrophils, monocytes, macrophages</li>
+          <li>Associated with necrotizing pneumonia, cavitary lesions, gross hemoptysis</li>
+        </ul>
+      </li>
+      <li>CA-MRSA often susceptible to: TMP-SMX, clindamycin, tetracycline, vancomycin, linezolid</li>
+      <li>Risk factors: MRSA colonization at other sites, post-viral (influenza), cavitary/necrotizing pneumonia, empyema</li>
+    </ul>
+    <div class="pearl">
+      <span class="pearl-icon">🩸</span>
+      <span><strong>Gross hemoptysis</strong> in a pneumonia patient → think CA-MRSA necrotizing pneumonia until proven otherwise.</span>
+    </div>
+  </div>
+
+  <div class="card card-amber">
+    <div class="card-title">Viral Pathogens — Growing Importance</div>
+    <ul>
+      <li>Viruses detected in respiratory tract of <span class="hl-amber">20–30% of healthy adults</span> AND 20–30% of pneumonia patients</li>
+      <li>Most common: influenza, parainfluenza, RSV</li>
+      <li>PCR of nasopharyngeal swabs = standard for viral diagnosis (including influenza, coronaviruses)</li>
+      <li>SARS-CoV-2 / COVID-19: changed etiologic profile of CAP; ultimate role still evolving</li>
+      <li>Whether viruses are true etiologic pathogens, co-pathogens, or colonizers often cannot be determined</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ S5: EPIDEMIOLOGY -->
+<div class="section-block" id="s5">
+<div style="background:#fff8e1; border:2px solid var(--accent-amber); border-radius:6px; padding:12px 18px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent-amber);">⚡ &nbsp;<strong>HIGH EXAM PRIORITY</strong> — This section generates the most board questions. Master every detail.</div>
+
+  <div class="section-header s-teal">
+    <div class="section-num">05</div>
+    <div>
+      <div class="section-title">Epidemiology<span class="exam-badge eb-med">★ pg 1024</span></div>
+      <div class="section-subtitle">Numbers matter on boards</div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card card-teal">
+      <div class="card-title">CAP Burden (US)</div>
+      <ul>
+        <li><span class="hl-teal">7 million+</span> cases/year</li>
+        <li>Incidence: <strong>16–23 per 1,000 adults/year</strong></li>
+        <li>Hospitalization: 650/100,000/year</li>
+        <li>Elderly: rises to <strong>2,000/100,000/year</strong></li>
+        <li>~30% of patients hospitalized → 1.5 million admissions</li>
+        <li><strong>8th leading cause of death</strong> (with influenza)</li>
+        <li>&gt;60,000 deaths/year</li>
+      </ul>
+    </div>
+    <div class="card card-teal">
+      <div class="card-title">Mortality Rates</div>
+      <ul>
+        <li>Outpatients: <span class="hl-teal">&lt;5%</span></li>
+        <li>Hospitalized: <span class="hl-amber">12–40%</span></li>
+        <li>Depends on whether ICU care needed</li>
+        <li>18% of hospitalized CAP patients readmitted within 1 month</li>
+        <li>#1 cause of death from infection in patients &gt;65 years</li>
+        <li>1-year mortality following CAP <strong>exceeds 30-day mortality</strong> (especially elderly)</li>
+      </ul>
+    </div>
+    <div class="card card-teal">
+      <div class="card-title">Cost</div>
+      <ul>
+        <li>Overall yearly CAP cost: <span class="hl-teal">~$17 billion</span></li>
+        <li>Inpatient cost exceeds outpatient by <strong>factor of 20</strong></li>
+        <li>Hospitalization accounts for most CAP expenditures</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card card-blue">
+    <div class="card-title">Risk Factors for CAP &amp; Pneumococcal Pneumonia</div>
+    <ul>
+      <li><strong>General CAP risks:</strong> alcoholism, asthma, immunosuppression, institutionalization, age &gt;70</li>
+      <li><strong>Elderly:</strong> ↓ cough/gag reflexes, ↓ antibody and Toll-like receptor responses</li>
+      <li><strong>Pneumococcal CAP:</strong> dementia, seizures, heart failure, CVD, alcoholism, tobacco, COPD, HIV</li>
+      <li><strong>CA-MRSA:</strong> skin colonization/infection with CA-MRSA; post-viral infection</li>
+      <li><strong>Enterobacteriaceae:</strong> recent hospitalization, antibiotics, comorbidities (alcoholism, HF, renal failure)</li>
+      <li><strong>P. aeruginosa:</strong> severe structural lung disease (bronchiectasis, CF, severe COPD)</li>
+      <li><strong>Legionella:</strong> diabetes, hematologic malignancy, cancer, severe renal disease, HIV, smoking, male gender, recent hotel/cruise</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ S6: CLINICAL MANIFESTATIONS -->
+<div class="section-block" id="s6">
+<div style="background:#f0f4f8; border:1px solid #c8d4e0; border-radius:6px; padding:10px 16px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#5a6a7a;">ℹ️ &nbsp;<strong>Low exam weight</strong> — read once for context; don't over-study this section.</div>
+
+  <div class="section-header s-amber">
+    <div class="section-num">06</div>
+    <div>
+      <div class="section-title">Clinical Manifestations<span class="exam-badge eb-low">3 Qs · pg 1025</span></div>
+      <div class="section-subtitle">What does pneumonia look like? — Link to mechanism</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-amber">
+      <div class="card-title">Constitutional Symptoms</div>
+      <ul>
+        <li><strong>Fever and/or tachycardia</strong> (IL-6, TNF-mediated)</li>
+        <li><strong>Chills / sweats</strong></li>
+        <li><strong>Fatigue, headache, myalgias, arthralgias</strong></li>
+        <li><strong>GI symptoms:</strong> nausea, vomiting, diarrhea (especially Legionella)</li>
+      </ul>
+    </div>
+    <div class="card card-amber">
+      <div class="card-title">Respiratory Symptoms</div>
+      <ul>
+        <li><strong>Cough:</strong> nonproductive OR productive (mucoid → purulent → blood-tinged)</li>
+        <li><strong>Gross hemoptysis</strong> → think <span class="hl-red">CA-MRSA necrotizing pneumonia</span></li>
+        <li><strong>Dyspnea</strong> (severity-dependent; capillary leak → ↓ compliance → ↑ drive)</li>
+        <li><strong>Chest pain</strong> (pleuritic, if pleural involvement)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card card-amber">
+    <div class="card-title">Physical Examination Findings</div>
+    <ul>
+      <li><strong>Vital signs:</strong> ↑ RR (tachypnea), ↑ HR, fever</li>
+      <li><strong>Use of accessory muscles</strong> (↓ compliance → ↑ work of breathing)</li>
+      <li><strong>Palpation:</strong> ↑ or ↓ tactile fremitus</li>
+      <li><strong>Percussion:</strong> dull → flat (consolidated lung → pleural fluid, respectively)</li>
+      <li><strong>Auscultation:</strong> crackles, bronchial breath sounds, ± pleural friction rub</li>
+      <li><strong>Elderly patients:</strong> may present <em>atypically</em> — new-onset or worsening confusion, or worsening of chronic illness with FEW respiratory complaints</li>
+      <li><strong>Severe:</strong> septic shock and organ failure</li>
+    </ul>
+    <div class="pearl">
+      <span class="pearl-icon">👴</span>
+      <span><strong>Pearl:</strong> In the elderly, <em>altered mental status</em> may be the ONLY presenting sign. Always consider pneumonia in an elderly patient with new confusion.</span>
+    </div>
+  </div>
+
+  <div class="card card-white">
+    <div class="card-title">Sensitivity and Specificity of Clinical Findings</div>
+    <ul>
+      <li>Physical exam: sensitivity <span class="hl-red">58%</span>, specificity <span class="hl-red">67%</span> — both low</li>
+      <li>Chest radiography often unable to differentiate CAP from other conditions</li>
+      <li>Etiologic determination in only <span class="hl-red">7.6%</span> of &gt;17,000 emergency department CAP cases</li>
+      <li>In &gt;50% of cases, specific etiology NOT determined</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ S7: DIAGNOSIS -->
+<div class="section-block" id="s7">
+<div style="background:#f0f4f8; border:1px solid #c8d4e0; border-radius:6px; padding:10px 16px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#5a6a7a;">ℹ️ &nbsp;<strong>Low exam weight</strong> — read once for context; don't over-study this section.</div>
+
+  <div class="section-header s-purple">
+    <div class="section-num">07</div>
+    <div>
+      <div class="section-title">Diagnosis<span class="exam-badge eb-low">3 Qs · pg 1026</span></div>
+      <div class="section-subtitle">Two questions: Is this pneumonia? What is the pathogen?</div>
+    </div>
+  </div>
+
+  <div class="card card-purple">
+    <div class="card-title">The Two Diagnostic Questions</div>
+    <div class="grid-2">
+      <div>
+        <strong>Q1: Is this pneumonia?</strong>
+        <ul>
+          <li>Answered by <strong>clinical + radiographic</strong> methods</li>
+          <li>Requires: cough + sputum production + fever + dyspnea + <strong>new infiltrate on CXR</strong></li>
+          <li>Differential: acute bronchitis, COPD exacerbation, HF, PE</li>
+        </ul>
+      </div>
+      <div>
+        <strong>Q2: What is the pathogen?</strong>
+        <ul>
+          <li>Answered by <strong>laboratory techniques</strong></li>
+          <li>Often NOT known at onset → empiric therapy</li>
+          <li>Identifying specific/unexpected pathogens → de-escalation, resistance tracking, public safety</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-blue">
+    <div class="card-title">Radiographic Findings &amp; Their Implications</div>
+    <ul>
+      <li><strong>Cavitation / multilobar involvement</strong> → increased severity</li>
+      <li><strong>Pneumatoceles</strong> → <em>S. aureus</em> infection</li>
+      <li><strong>Upper-lobe cavitating lesion</strong> → tuberculosis</li>
+      <li><strong>Gravity-dependent location</strong> → aspiration pneumonia</li>
+      <li><strong>CT scan</strong>: useful for suspected loculated effusion, cavitary disease, or postobstructive pneumonia (tumor/foreign body)</li>
+    </ul>
+  </div>
+
+  <div class="card card-white">
+    <div class="card-title">Diagnostic Tools — Detail</div>
+
+    <div style="margin-bottom: 18px;">
+      <strong class="s-slate">🔬 Sputum Gram Stain &amp; Culture</strong>
+      <ul>
+        <li><strong>Main purpose:</strong> Ensure specimen suitability for culture</li>
+        <li><strong>Suitable specimen criteria:</strong> &gt;25 neutrophils AND &lt;10 squamous epithelial cells per low-power field</li>
+        <li>Can identify: <em>S. pneumoniae, S. aureus</em>, gram-negative bacteria</li>
+        <li>Sensitivity and specificity are <span class="hl-red">highly variable</span></li>
+        <li>Even in proven pneumococcal bacteremia, positive sputum cultures ≤50%</li>
+        <li><strong>Recommended only for hospitalized patients</strong> — especially severe cases, MRSA/Pseudomonas risk</li>
+      </ul>
+    </div>
+
+    <div style="margin-bottom: 18px;">
+      <strong class="s-slate">🩸 Blood Cultures</strong>
+      <ul>
+        <li>Yield disappointingly low: only <span class="hl-amber">5–14%</span> positive (even before antibiotics)</li>
+        <li>Most common: <em>S. pneumoniae</em>, then <em>S. aureus</em>, then <em>P. aeruginosa</em></li>
+        <li><strong>Not required for all hospitalized CAP patients</strong></li>
+        <li><strong>Recommended for:</strong> neutropenia, asplenia, complement deficiencies, chronic liver disease, severe CAP, MRSA/<em>P. aeruginosa</em> risk</li>
+        <li>Value: susceptibility data → narrow therapy + track resistance patterns nationally</li>
+      </ul>
+    </div>
+
+    <div style="margin-bottom: 18px;">
+      <strong class="s-slate">🧪 Urinary Antigen Tests</strong>
+      <ul>
+        <li>Two tests available: <strong>Pneumococcal</strong> and <strong>Legionella</strong> urinary antigen</li>
+        <li><strong>Legionella:</strong> Detects serogroup 1 only (accounts for most community-acquired Legionnaires'); sensitivity 70%, specificity 99%</li>
+        <li><strong>Pneumococcal:</strong> Sensitivity 70%, specificity &gt;90%; can give false-positive in colonized children</li>
+        <li>Both detect antigen even <strong>after antibiotic therapy started</strong></li>
+        <li>Pneumococcal antigen: reserve for severe cases; Legionella antigen: severe cases + relevant epidemiologic factors</li>
+      </ul>
+    </div>
+
+    <div style="margin-bottom: 18px;">
+      <strong class="s-slate">🧬 PCR (Polymerase Chain Reaction)</strong>
+      <ul>
+        <li>Multiplex PCR panels test for multiple viral AND bacterial pathogens</li>
+        <li>Dramatically improve response times vs. standard cultures</li>
+        <li>Nasopharyngeal swab PCR = standard for influenza, coronaviruses</li>
+        <li>Can detect: <em>Legionella</em>, <em>M. pneumoniae</em>, <em>C. pneumoniae</em>, mycobacteria</li>
+        <li>Limitation: upper-airway flora contamination may require quantitative assays</li>
+        <li>Cost-effectiveness NOT definitively established</li>
+      </ul>
+    </div>
+
+    <div style="margin-bottom: 18px;">
+      <strong class="s-slate">📊 Biomarkers — CRP &amp; Procalcitonin (PCT)</strong>
+      <ul>
+        <li>Acute-phase reactants elevated in bacterial infections</li>
+        <li><strong>PCT:</strong> Insufficiently accurate for <em>diagnosing</em> bacterial CAP; should NOT be used as basis for withholding antibiotics</li>
+        <li><strong>CRP:</strong> Even less sensitive than PCT for detecting bacterial pathogens</li>
+        <li><strong>Appropriate use:</strong> In conjunction with history, exam, imaging, labs → facilitate antibiotic stewardship</li>
+        <li>PCT can guide <em>duration</em> of therapy in ICU/VAP patients</li>
+      </ul>
+    </div>
+
+    <div>
+      <strong class="s-slate">🧫 Serology</strong>
+      <ul>
+        <li>4-fold rise in specific IgM between acute and convalescent samples = diagnostic of infection</li>
+        <li>Largely fallen out of favor: delays in getting convalescent results, interpretation difficulties</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ S8: SEVERITY -->
+<div class="section-block" id="s8">
+<div style="background:#f0f4f8; border:1px solid #c8d4e0; border-radius:6px; padding:10px 16px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#5a6a7a;">ℹ️ &nbsp;<strong>Low exam weight</strong> — read once for context; don't over-study this section.</div>
+
+  <div class="section-header s-red">
+    <div class="section-num">08</div>
+    <div>
+      <div class="section-title">Severity Assessment &amp; Site of Care<span class="exam-badge eb-low">pg 1026</span></div>
+      <div class="section-subtitle">PSI, CURB-65, and ICU criteria</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-blue">
+      <div class="card-title"><span class="badge badge-blue">PSI</span> Pneumonia Severity Index</div>
+      <ul>
+        <li>Points for 20 variables: age, comorbidities, abnormal physical and lab findings</li>
+        <li>Assigns to one of five classes:</li>
+      </ul>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Class</th><th>Mortality</th><th>Disposition</th></tr></thead>
+          <tbody>
+            <tr><td>I</td><td>0.1%</td><td>Outpatient</td></tr>
+            <tr><td>II</td><td>0.6%</td><td>Outpatient</td></tr>
+            <tr><td>III</td><td>2.8%</td><td>Observation unit</td></tr>
+            <tr><td>IV</td><td>8.2%</td><td>Inpatient</td></tr>
+            <tr><td>V</td><td>29.2%</td><td>Inpatient ± ICU</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul><li><strong>Greater efficacy</strong> and more robustly validated than CURB-65, but more complex to calculate</li></ul>
+    </div>
+    <div class="card card-teal">
+      <div class="card-title"><span class="badge badge-teal">CURB-65</span> Severity Score</div>
+      <ul>
+        <li><strong>C</strong> — Confusion</li>
+        <li><strong>U</strong> — Urea &gt;7 mmol/L (BUN &gt;20 mg/dL)</li>
+        <li><strong>R</strong> — Respiratory rate ≥30/min</li>
+        <li><strong>B</strong> — BP: systolic ≤90 or diastolic ≤60 mmHg</li>
+        <li><strong>65</strong> — Age ≥65 years</li>
+      </ul>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Score</th><th>30-day Mortality</th><th>Disposition</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>1.5%</td><td>Outpatient</td></tr>
+            <tr><td>1–2</td><td>Low–moderate</td><td>Hospitalize (if not due solely to age)</td></tr>
+            <tr><td>≥3</td><td>22% overall</td><td>ICU consideration</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-red">
+    <div class="card-title"><span class="badge badge-red">ICU</span> Criteria for Severe CAP (Table 131-3)</div>
+    <div class="grid-2">
+      <div>
+        <strong>Major Criteria (Either alone → ICU)</strong>
+        <ul>
+          <li>Respiratory failure requiring <strong>invasive mechanical ventilation</strong></li>
+          <li>Septic shock requiring <strong>vasopressors</strong></li>
+        </ul>
+      </div>
+      <div>
+        <strong>Minor Criteria (≥3 of 9 → ICU or high-level monitoring)</strong>
+        <ul>
+          <li>RR ≥30 breaths/min</li>
+          <li>PaO₂/FiO₂ ratio ≤250</li>
+          <li>Multilobar infiltrates</li>
+          <li>Confusion/disorientation</li>
+          <li>Uremia (BUN ≥20 mg/dL)</li>
+          <li>Leukopenia (WBC &lt;4,000 cells/μL)</li>
+          <li>Thrombocytopenia (plt &lt;100,000 cells/μL)</li>
+          <li>Hypothermia (core temp &lt;36°C)</li>
+          <li>Hypotension requiring aggressive fluids</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pearl">
+      <span class="pearl-icon">⚠️</span>
+      <span><strong>Key point:</strong> Mortality rates were <em>higher</em> among less-ill patients admitted to a medical floor who later deteriorated vs. equally ill patients initially managed in the ICU. <strong>Late admission to ICU = worse outcomes.</strong></span>
+    </div>
+  </div>
+
+  <div class="card card-white">
+    <div class="card-title">Other Indications for Hospitalization</div>
+    <ul>
+      <li>Unable to maintain oral intake</li>
+      <li>Compliance concerns (cognitive impairment, homelessness)</li>
+      <li>O₂ saturation on room air &lt;92%</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ S9: RESISTANCE -->
+<div class="section-block" id="s9">
+<div style="background:#fff8e1; border:2px solid var(--accent-amber); border-radius:6px; padding:12px 18px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent-amber);">⚡ &nbsp;<strong>HIGH EXAM PRIORITY</strong> — This section generates the most board questions. Master every detail.</div>
+
+  <div class="section-header s-amber">
+    <div class="section-num">09</div>
+    <div>
+      <div class="section-title">Antibiotic Resistance<span class="exam-badge eb-high">★★ 8 Qs · pg 1027</span></div>
+      <div class="section-subtitle">The threats that shape our antibiotic choices</div>
+    </div>
+  </div>
+
+  <div class="card card-amber">
+    <div class="card-title">S. pneumoniae Resistance Mechanisms</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Antibiotic Class</th><th>Mechanism of Resistance</th><th>Key Numbers</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>β-Lactams / Penicillins</td>
+            <td>
+              (1) Direct DNA incorporation → remodeling of penicillin-binding proteins (via viridans streptococci contact)<br>
+              (2) Natural transformation<br>
+              (3) Gene mutations
+            </td>
+            <td>Only <strong>0.6%</strong> of US pneumococci resist ceftriaxone/cefotaxime</td>
+          </tr>
+          <tr>
+            <td>Macrolides</td>
+            <td>
+              <em>ermB gene</em>: ribosomal methylation in 23S rRNA → high-level resistance (MIC ≥64 μg/mL)<br>
+              <em>mef gene (M phenotype)</em>: efflux pump → low-level resistance (MIC &lt;16 μg/mL)
+            </td>
+            <td>ermB: ~40%; mef: ~60% of US resistant isolates. US prevalence: <strong>~40%</strong> macrolide-resistant</td>
+          </tr>
+          <tr>
+            <td>Fluoroquinolones</td>
+            <td>Mutations in gyrA (topoisomerase II) and parC (topoisomerase IV) genes; ± efflux pump</td>
+            <td>Resistance usually <strong>&lt;2%</strong></td>
+          </tr>
+          <tr>
+            <td>Doxycycline</td>
+            <td>—</td>
+            <td><strong>87.5%</strong> of pneumococci susceptible in US and Canada</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pearl">
+      <span class="pearl-icon">💊</span>
+      <span><strong>#1 risk factor for antibiotic-resistant pneumococcal infection:</strong> Use of a <em>specific antibiotic within the previous 3 months</em>. Always take antibiotic history — use a drug from a DIFFERENT class.</span>
+    </div>
+  </div>
+
+  <div class="card card-amber">
+    <div class="card-title">MDR (Multidrug-Resistant) Strains</div>
+    <ul>
+      <li>Defined as: resistant to drugs from <strong>≥3 antimicrobial classes</strong> with different mechanisms</li>
+      <li>Pneumococcal penicillin resistance often co-occurs with macrolide, tetracycline, TMP-SMX resistance</li>
+      <li>In US, <span class="hl-amber">58.9% of penicillin-resistant pneumococcal blood isolates</span> also resist macrolides</li>
+      <li>High-level macrolide resistance more common in Europe; lower-level predominates in North America</li>
+      <li>If macrolide resistance &gt;25% locally → do NOT use as empiric monotherapy</li>
+    </ul>
+  </div>
+
+  <div class="card card-red">
+    <div class="card-title">CA-MRSA Resistance Details</div>
+    <ul>
+      <li>Methicillin resistance determined by <strong><em>mecA</em> gene</strong> → encodes resistance to ALL β-lactam drugs</li>
+      <li>≥5 SCCmec types: hospital strains = types II/III; CA-MRSA = <strong>type IV</strong></li>
+      <li>CA-MRSA: less resistant overall; often susceptible to TMP-SMX, clindamycin, tetracycline, vancomycin, linezolid</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ S10: CAP TREATMENT -->
+<div class="section-block" id="s10">
+<div style="background:#fdf0ee; border:2px solid var(--accent-red); border-radius:6px; padding:12px 18px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent-red);">🔴 &nbsp;<strong>HIGHEST EXAM PRIORITY (67% of questions)</strong> — Spend the majority of your study time here: resistance mechanisms, MIC breakpoints, outpatient/inpatient regimens, MRSA/Pseudomonas algorithm, treatment duration.</div>
+
+  <div class="section-header s-teal">
+    <div class="section-num">10</div>
+    <div>
+      <div class="section-title">CAP Treatment<span class="exam-badge eb-high">★★★ 18 Qs · pg 1027–1028</span></div>
+      <div class="section-subtitle">Outpatient, inpatient, and special situations</div>
+    </div>
+  </div>
+
+  <div class="card card-teal">
+    <div class="card-title">Treatment Principles</div>
+    <ul>
+      <li>Initial therapy almost always <strong>empirical</strong> (etiology rarely known at outset)</li>
+      <li>Initiate treatment <strong>as expeditiously as possible</strong></li>
+      <li>ATS/IDSA guidelines consider: likely pathogens, resistance risk, severity, site of care, MRSA/<em>P. aeruginosa</em> risk</li>
+    </ul>
+  </div>
+
+  <div class="card card-blue">
+    <div class="card-title"><span class="badge badge-blue">Outpatients</span> Initial Treatment Strategy (Table 131-4)</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Patient Group</th><th>Recommended Regimen</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>No comorbidities, no resistance risk factors</strong></td>
+            <td>
+              <span class="drug">Amoxicillin</span> <span class="dose">1 g TID</span> + <span class="drug">Macrolide</span> or <span class="drug">Doxycycline</span> <span class="dose">100 mg BID</span><br>
+              <em>OR</em> Monotherapy: <span class="drug">Doxycycline</span> <span class="dose">100 mg BID</span><br>
+              <em>OR</em> Monotherapy: <span class="drug">Macrolide</span> (only if local pneumococcal resistance &lt;25%)
+            </td>
+          </tr>
+          <tr>
+            <td><strong>With comorbidities ± resistance risk factors</strong><br><small>Heart/lung/liver/kidney disease, DM, alcoholism, malignancy, asplenia</small></td>
+            <td>
+              <span class="drug">Amoxicillin/clavulanate</span> <span class="dose">500/125 mg TID or 875/125 mg BID</span> or <span class="drug">Cephalosporin</span> (cefpodoxime <span class="dose">200 mg BID</span> or cefuroxime <span class="dose">500 mg BID</span>) + <span class="drug">Macrolide</span> or <span class="drug">Doxycycline</span> <span class="dose">100 mg BID</span><br>
+              <em>OR</em> <span class="drug">Respiratory Fluoroquinolone</span>: levofloxacin <span class="dose">750 mg/d</span>, moxifloxacin <span class="dose">400 mg/d</span>, or gemifloxacin <span class="dose">320 mg/d</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ul>
+      <li><strong>Macrolide options:</strong> Azithromycin <span class="dose">500 mg day 1, then 250 mg × 4 days</span>; Clarithromycin <span class="dose">500 mg BID</span>; Clarithromycin ER <span class="dose">1000 mg/d</span></li>
+      <li><strong>Newer alternatives:</strong> Lefamulin (pleuromutilin) and Omadacycline (tetracycline) — for patients unable to take β-lactams who want to avoid fluoroquinolones</li>
+    </ul>
+    <div class="pearl">
+      <span class="pearl-icon">🔄</span>
+      <span>If a patient received a drug from a particular class in the <strong>past 3 months</strong>, choose a drug from a DIFFERENT class to minimize resistance.</span>
+    </div>
+  </div>
+
+  <div class="card card-teal">
+    <div class="card-title"><span class="badge badge-teal">Inpatients</span> Initial Treatment Strategy (Table 131-5)</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Severity</th><th>Risk for MRSA / P. aer.</th><th>Recommended Regimen</th></tr></thead>
+        <tbody>
+          <tr>
+            <td rowspan="3"><strong>Nonsevere</strong></td>
+            <td>No risk factors</td>
+            <td>β-Lactam + Macrolide <em>OR</em> Respiratory fluoroquinolone</td>
+          </tr>
+          <tr>
+            <td>Prior respiratory isolation of MRSA or Pseudomonas</td>
+            <td>Add coverage for MRSA <em>or</em> <em>P. aeruginosa</em></td>
+          </tr>
+          <tr>
+            <td>Recent hospitalization + antibiotics ± local validation</td>
+            <td>Add coverage only if <strong>cultures positive</strong></td>
+          </tr>
+          <tr>
+            <td rowspan="3"><strong>Severe</strong></td>
+            <td>No risk factors</td>
+            <td>β-Lactam + Macrolide <em>OR</em> β-Lactam + Respiratory fluoroquinolone</td>
+          </tr>
+          <tr>
+            <td>Prior respiratory isolation</td>
+            <td>Add MRSA or <em>P. aeruginosa</em> coverage</td>
+          </tr>
+          <tr>
+            <td>Recent hospitalization + antibiotics</td>
+            <td>Add MRSA or <em>P. aeruginosa</em> coverage</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top: 14px;">
+      <strong>β-Lactam options:</strong> <span class="drug">Ampicillin-sulbactam</span> <span class="dose">1.5–3 g q6h</span>, <span class="drug">Ceftriaxone</span> <span class="dose">1–2 g/d</span>, <span class="drug">Cefotaxime</span> <span class="dose">1–2 g q8h</span>, <span class="drug">Ceftaroline</span> <span class="dose">600 mg q12h</span>, <span class="drug">Ertapenem</span> <span class="dose">1 g/d</span><br><br>
+      <strong>For MRSA:</strong> <span class="drug">Vancomycin</span> <span class="dose">15 mg/kg q12h</span> (adjust per levels) or <span class="drug">Linezolid</span> <span class="dose">600 mg q12h</span><br><br>
+      <strong>For P. aeruginosa:</strong> <span class="drug">Piperacillin-tazobactam</span> <span class="dose">4.5 g q6h</span>, <span class="drug">Cefepime</span> <span class="dose">2 g q8h</span>, <span class="drug">Ceftazidime</span> <span class="dose">2 g q8h</span>, <span class="drug">Imipenem</span> <span class="dose">500 mg q6h</span>, <span class="drug">Meropenem</span> <span class="dose">1 g q8h</span>, or <span class="drug">Aztreonam</span> <span class="dose">2 g q8h</span>
+    </div>
+
+    <div class="pearl">
+      <span class="pearl-icon">🔬</span>
+      <span>Prefer <strong>linezolid over vancomycin</strong> for MRSA CAP — better lung penetration + inhibits bacterial exotoxin production. Especially preferred in renal insufficiency and high-MIC MRSA.</span>
+    </div>
+  </div>
+
+  <div class="card card-red">
+    <div class="card-title">MRSA / P. aeruginosa Risk Assessment Algorithm (Figure 131-1)</div>
+    <div class="flow">
+      <div class="flow-box fb-slate">Hospitalized CAP Patient</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-row">
+        <div class="flow-branch">
+          <div class="flow-label">NONSEVERE</div>
+          <div class="flow-box fb-blue">Assess MRSA/<br>Pseudomonas Risk</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-row">
+            <div class="flow-branch">
+              <div class="flow-label">No Risk</div>
+              <div class="flow-arrow">▼</div>
+              <div class="flow-box fb-green">Standard Regimen</div>
+            </div>
+            <span style="font-size:20px; color:#aaa; padding:20px 0;">|</span>
+            <div class="flow-branch">
+              <div class="flow-label">Prior Resp. Isolation</div>
+              <div class="flow-arrow">▼</div>
+              <div class="flow-box fb-red">Add MRSA/<br>Pseudomonas Tx</div>
+            </div>
+            <span style="font-size:20px; color:#aaa; padding:20px 0;">|</span>
+            <div class="flow-branch">
+              <div class="flow-label">Recent Hosp + Abx</div>
+              <div class="flow-arrow">▼</div>
+              <div class="flow-box fb-amber">Cultures first;<br>Add only if +</div>
+            </div>
+          </div>
+        </div>
+        <span style="font-size:30px; color:#aaa; padding:0 20px; align-self:center;">||</span>
+        <div class="flow-branch">
+          <div class="flow-label">SEVERE</div>
+          <div class="flow-box fb-red">Assess MRSA/<br>Pseudomonas Risk</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-row">
+            <div class="flow-branch">
+              <div class="flow-label">No Risk</div>
+              <div class="flow-arrow">▼</div>
+              <div class="flow-box fb-blue">β-Lactam + Macro<br>OR + FQ</div>
+            </div>
+            <span style="font-size:20px; color:#aaa; padding:20px 0;">|</span>
+            <div class="flow-branch">
+              <div class="flow-label">Prior Resp. Isolation</div>
+              <div class="flow-arrow">▼</div>
+              <div class="flow-box fb-red">Add MRSA/<br>Pseudomonas Tx</div>
+            </div>
+            <span style="font-size:20px; color:#aaa; padding:20px 0;">|</span>
+            <div class="flow-branch">
+              <div class="flow-label">Recent Hosp + Abx</div>
+              <div class="flow-arrow">▼</div>
+              <div class="flow-box fb-red">Add extended Tx<br>empirically</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-teal">
+    <div class="card-title">Treatment Duration, Switch, and Adjunctive Measures</div>
+    <ul>
+      <li><strong>Duration:</strong> <span class="hl-teal">5 days</span> usually sufficient for uncomplicated CAP</li>
+      <li>Longer courses needed: not clinically stabilized, bacteremia, metastatic infection, virulent pathogen (MRSA, <em>P. aeruginosa</em>)</li>
+      <li>Select patients doing well and clinically stable: may discontinue after <span class="hl-teal">3 days</span></li>
+      <li><strong>IV→PO switch:</strong> When patient can ingest/absorb drugs + hemodynamically stable + clinically improving</li>
+      <li>Fluoroquinolones: very well absorbed → may be given orally from outset to selected patients</li>
+    </ul>
+
+    <div style="margin-top: 14px;">
+      <strong>Adjunctive Measures:</strong>
+      <ul>
+        <li>Adequate hydration</li>
+        <li>Oxygen therapy for hypoxemia</li>
+        <li>Vasopressor treatment + assisted ventilation when necessary</li>
+        <li><strong>Glucocorticoids</strong> in severe CAP requiring mechanical ventilation or with shock:
+          <ul>
+            <li>Mortality benefit shown especially with high systemic inflammation (CRP &gt;15 mg/dL)</li>
+            <li>Therapy continued for <span class="dose">8–14 days</span> by intermittent or continuous infusion</li>
+            <li>COVID-19 severe: Dexamethasone + JAK inhibitor or IL-6 inhibitor for rapidly increasing O₂ needs</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card card-white">
+    <div class="card-title">Special Situations</div>
+    <ul>
+      <li><strong>Proven influenza:</strong> Oseltamivir + appropriate antibacterial therapy; be vigilant for MRSA superinfection</li>
+      <li><strong>Viral pathogen only (no bacterial pathogen identified):</strong> Antibacterial treatment can be discontinued</li>
+      <li><strong>Severe illness:</strong> Always consider bacterial-viral coinfection</li>
+      <li><strong>Aspiration pneumonia:</strong> Routine anaerobe coverage unnecessary UNLESS poor dentition, lung abscess, or necrotizing pneumonia</li>
+    </ul>
+  </div>
+
+  <div class="card card-amber">
+    <div class="card-title">Failure to Improve — Approach at Day 3</div>
+    <ul>
+      <li><strong>Noninfectious mimics:</strong> pulmonary edema, PE, lung carcinoma, radiation/hypersensitivity pneumonitis, connective tissue disease</li>
+      <li><strong>If truly CAP:</strong>
+        <ul>
+          <li>Pathogen resistant to drug</li>
+          <li>Sequestered focus (lung abscess, empyema) preventing antibiotic access</li>
+          <li>Wrong drug or wrong dose/frequency</li>
+          <li>Unexpected pathogen (CA-MRSA, <em>M. tuberculosis</em>, fungus)</li>
+          <li>Nosocomial superinfection (pulmonary or extrapulmonary)</li>
+        </ul>
+      </li>
+      <li>Reassessment: may include CT or bronchoscopy</li>
+    </ul>
+  </div>
+
+  <div class="card card-blue">
+    <div class="card-title">Complications of Severe CAP</div>
+    <ul>
+      <li>Respiratory failure, shock, multiorgan failure, exacerbation of comorbidities</li>
+      <li><strong>Metastatic infection</strong> (brain abscess, endocarditis): unusual; requires high suspicion</li>
+      <li><strong>Lung abscess</strong>: CA-MRSA, <em>P. aeruginosa</em>, oral anaerobes, rarely <em>S. pneumoniae</em></li>
+      <li><strong>Complicated pleural effusion:</strong> Drain if pH &lt;7.2, glucose &lt;2.2 mmol/L, LDH &gt;1000 U/L, or bacteria seen/cultured</li>
+      <li><strong>Cardiovascular events</strong> (especially elderly, pneumococcal/influenza):
+        <ul>
+          <li>CHF, arrhythmia, MI, stroke</li>
+          <li>Can be acute OR delayed up to 1 year</li>
+          <li>Mechanisms: ↑ myocardial load, destabilization of atherosclerotic plaques by inflammation</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card card-white">
+    <div class="card-title">Follow-up &amp; Prognosis</div>
+    <ul>
+      <li>Fever and leukocytosis resolve in <span class="hl-blue">2–4 days</span> in otherwise healthy patients</li>
+      <li>Physical findings may persist longer</li>
+      <li>Chest radiograph clearance: <span class="hl-amber">4–12 weeks</span> (depends on age, lung disease, pathogen)</li>
+      <li>Hospitalized patients: follow-up CXR ~4–6 weeks after discharge</li>
+      <li>Relapse/recurrence in same segment → consider underlying neoplasm or focal bronchiectasis</li>
+      <li>Outpatient nonsmokers with resolved symptoms (5–7 days): follow-up CXR not necessary</li>
+      <li><strong>Prevention:</strong> Vaccination (per National Advisory Committees on Immunization Practices)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ S11: VAP -->
+<div class="section-block" id="s11">
+<div style="background:#f0f4f8; border:1px solid #c8d4e0; border-radius:6px; padding:10px 16px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#5a6a7a;">ℹ️ &nbsp;<strong>Low exam weight</strong> — read once for context; don't over-study this section.</div>
+
+  <div class="section-header s-red">
+    <div class="section-num">11</div>
+    <div>
+      <div class="section-title">Ventilator-Associated Pneumonia (VAP)<span class="exam-badge eb-min">2 Qs · pg 1032</span></div>
+      <div class="section-subtitle">The most studied — and most deadly — hospital pneumonia</div>
+    </div>
+  </div>
+
+  <div class="card card-red">
+    <div class="card-title">Epidemiology Key Numbers</div>
+    <ul>
+      <li>Prevalence: <span class="hl-red">6–52 cases per 100 patients</span> (depends on population)</li>
+      <li>On any given ICU day: <span class="hl-red">10% of patients have pneumonia</span> (VAP in overwhelming majority)</li>
+      <li>Highest hazard ratio in <strong>first 5 days</strong> of ventilation; then ~1%/day</li>
+      <li>Cumulative rate in patients ventilated ≥30 days: as high as <span class="hl-red">70%</span></li>
+      <li>COVID-19 increased VAP frequency after years of decline</li>
+    </ul>
+  </div>
+
+  <div class="card card-slate">
+    <div class="card-title">Microbiology — Core vs. MDR Pathogens (Table 131-6)</div>
+    <div class="grid-2">
+      <div>
+        <strong>Non-MDR (Core Pathogens)</strong>
+        <ul>
+          <li><em>S. pneumoniae</em>, other Streptococcus spp.</li>
+          <li><em>H. influenzae</em></li>
+          <li>Methicillin-sensitive <em>S. aureus</em></li>
+          <li>Antibiotic-sensitive Enterobacteriaceae: <em>E. coli, K. pneumoniae, Proteus, Enterobacter, Serratia</em></li>
+        </ul>
+      </div>
+      <div>
+        <strong>MDR Pathogens</strong>
+        <ul>
+          <li><em>Pseudomonas aeruginosa</em></li>
+          <li>Methicillin-resistant <em>S. aureus</em> (MRSA)</li>
+          <li><em>Acinetobacter</em> spp.</li>
+          <li>Antibiotic-resistant Enterobacteriaceae (ESBL-positive, carbapenem-resistant)</li>
+          <li><em>Legionella pneumophila</em></li>
+          <li><em>Burkholderia cepacia, Aspergillus</em> spp.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pearl">
+      <span class="pearl-icon">📅</span>
+      <span>If VAP develops in the first <strong>5–7 days</strong>, core pathogens predominate. Prior antibiotic treatment → MDR pathogens even early in hospital course.</span>
+    </div>
+  </div>
+
+  <div class="card card-red">
+    <div class="card-title">Pathogenesis — Three Critical Factors</div>
+    <ul>
+      <li><strong>1. Colonization of oropharynx</strong> with pathogenic microorganisms</li>
+      <li><strong>2. Aspiration</strong> of these organisms from oropharynx into lower respiratory tract</li>
+      <li><strong>3. Compromise of normal host defense mechanisms</strong></li>
+    </ul>
+    <div style="margin-top: 14px;">
+      <strong>The endotracheal tube — the most important risk factor:</strong>
+      <ul>
+        <li>Bypasses normal mechanical barriers preventing aspiration</li>
+        <li>Microaspiration exacerbated by secretions pooling above the cuff</li>
+        <li>Damages tracheal mucosa → facilitates tracheal colonization</li>
+        <li>Bacteria form <strong>glycocalyx biofilm</strong> on tube surface → protect from antibiotics + host defenses</li>
+        <li>Bacteria dislodged during suctioning → reinoculate trachea</li>
+        <li>Glycocalyx fragments embolize to distal airways, carrying bacteria</li>
+      </ul>
+    </div>
+    <div class="pearl">
+      <span class="pearl-icon">🦠</span>
+      <span>Antibiotic exposure is the greatest risk factor for <em>P. aeruginosa</em> VAP. Pseudomonal VAP is <em>rare</em> in patients without prior antibiotic exposure.</span>
+    </div>
+  </div>
+
+  <div class="card card-amber">
+    <div class="card-title">Prevention Strategies (Table 131-7)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Pathogenic Mechanism</th><th>Prevention Strategy</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td>Elimination of normal flora → pathogenic overgrowth</td><td>Avoid prolonged antibiotic courses; oral chlorhexidine</td><td>Conflicting</td></tr>
+          <tr><td>Large-volume oropharyngeal aspiration at intubation</td><td>Short-course prophylactic antibiotics (comatose); short course inhaled aminoglycosides</td><td>RCT evidence</td></tr>
+          <tr><td>Gastroesophageal reflux</td><td>Postpyloric enteral feeding; avoid high gastric residuals</td><td>Conflicting</td></tr>
+          <tr><td>Bacterial overgrowth of stomach</td><td>Avoid pH-raising agents; selective digestive decontamination</td><td>Conflicting</td></tr>
+          <tr><td>Cross-infection from colonized patients</td><td><strong>Hand washing (alcohol-based);</strong> infection control education; isolation; clean reusable equipment</td><td>RCT evidence</td></tr>
+          <tr><td>Microaspiration around ETT cuff (secretions pooled)</td><td><strong>Head of bed ≥30° (preferably 45°);</strong> continuous aspiration of subglottic secretions (specialized ETT); minimize sedation/transport; prophylactic PEEP 5–8 cm</td><td>RCT evidence</td></tr>
+          <tr><td>Prolonged duration of ventilation</td><td><strong>Daily sedation awakening; weaning protocols</strong></td><td>RCT evidence</td></tr>
+          <tr><td>Endotracheal intubation itself</td><td><strong>Noninvasive ventilation</strong> when possible</td><td>RCT evidence</td></tr>
+          <tr><td>Abnormal swallowing function</td><td>Early percutaneous tracheostomy</td><td>RCT evidence</td></tr>
+          <tr><td>Altered lower respiratory host defenses</td><td>Tight glycemic control; lower hemoglobin transfusion threshold</td><td>Conflicting</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card card-slate">
+    <div class="card-title">VAP Diagnosis — The Dilemma</div>
+    <ul>
+      <li>No single set of criteria is reliably diagnostic</li>
+      <li>Clinical CAP criteria → <strong>overdiagnosis</strong> of VAP because:
+        <ul>
+          <li>Frequent tracheal colonization in intubated patients</li>
+          <li>Multiple alternative causes of radiographic infiltrates (pulmonary edema, ARDS, contusion, hemorrhage, infarction)</li>
+          <li>High frequency of other fever/leukocytosis causes (C. diff, central line infection, sinusitis, UTI, drug fever)</li>
+        </ul>
+      </li>
+    </ul>
+    <div style="margin-top: 14px;">
+      <strong>Two Diagnostic Approaches:</strong>
+      <div class="grid-2">
+        <div>
+          <strong>Quantitative Culture:</strong>
+          <ul>
+            <li>Endotracheal aspirate threshold: <span class="hl-blue">10⁶ cfu/mL</span></li>
+            <li>Protected specimen brush: <span class="hl-blue">10³ cfu/mL</span></li>
+            <li>More distal = more specific but less sensitive</li>
+            <li>Less antibiotic use; ideally withhold antibiotics until results (unless critically ill)</li>
+            <li>Limitation: New antibiotic in 24–48 h → false-negative results</li>
+          </ul>
+        </div>
+        <div>
+          <strong>Clinical Approach (IDSA/ATS Guideline Recommendation):</strong>
+          <ul>
+            <li>Semiquantitative cultures + clinical criteria</li>
+            <li>Absence of bacteria in Gram-stained ETT aspirates → pneumonia unlikely</li>
+            <li>Absence of MDR pathogen → can de-escalate empiric therapy</li>
+            <li>Individualized per institution based on colonization rates, expertise, antibiotic history</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-red">
+    <div class="card-title">VAP Empirical Treatment (Table 131-8)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Risk Category</th><th>Recommended Antibiotics</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>No risk factors for resistant gram-negative pathogen</strong></td>
+            <td>
+              <span class="drug">Piperacillin-tazobactam</span> <span class="dose">4.5 g IV q6h</span><br>
+              <span class="drug">Cefepime</span> <span class="dose">2 g IV q8h</span><br>
+              <span class="drug">Levofloxacin</span> <span class="dose">750 mg IV q24h</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Risk factors for resistant gram-negative pathogen</strong><br><small>(prior abx, prior hosp, local antibiogram)</small></td>
+            <td>
+              Choose one from EACH column:<br>
+              <em>Column A (β-lactam):</em> Pip-tazo, Cefepime, Ceftazidime, Imipenem, Meropenem, ± newer agents (ceftazidime-avibactam, ceftolozane-tazobactam, imipenem-relebactam)<br>
+              <em>Column B (additional):</em> Amikacin <span class="dose">15–20 mg/kg q24h</span>, Gentamicin <span class="dose">5–7 mg/kg q24h</span>, Tobramycin <span class="dose">5–7 mg/kg q24h</span>, Ciprofloxacin <span class="dose">400 mg IV q8h</span>, Levofloxacin <span class="dose">750 mg IV q24h</span>, Colistin (loading dose 5 mg/kg then maintenance), Polymyxin B
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Risk factors for MRSA</strong> (add to above)</td>
+            <td>
+              <span class="drug">Linezolid</span> <span class="dose">600 mg IV q12h</span> <em>OR</em><br>
+              <span class="drug">Vancomycin</span> (trough 15–20 mg/dL)
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top: 14px;">
+      <strong>Newer agents for resistant organisms:</strong>
+      <ul>
+        <li>Resistant <em>P. aeruginosa</em>: Ceftazidime-avibactam, ceftolozane-tazobactam, imipenem-relebactam, plazomicin</li>
+        <li>Carbapenem-resistant Enterobacteriaceae: Ceftazidime-avibactam, imipenem-relebactam, meropenem-vaborbactam</li>
+        <li>Metallo-β-lactamase Enterobacteriaceae: Ceftazidime-avibactam or cefiderocol</li>
+        <li><em>Acinetobacter</em>: Cefiderocol ± sulbactam-durlobactam</li>
+        <li><em>Stenotrophomonas</em>: Cefiderocol</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card card-amber">
+    <div class="card-title">VAP Treatment Duration &amp; Failure</div>
+    <ul>
+      <li><strong>Duration:</strong> <span class="hl-teal">7–8 day course</span> = as effective as 2 weeks + less emergence of resistant strains</li>
+      <li>Exceptions: inappropriate initial therapy, resistant organisms (e.g., carbapenemase-producing Acinetobacter)</li>
+      <li>Procalcitonin can guide duration in these exceptions</li>
+    </ul>
+    <div style="margin-top: 12px;">
+      <strong>VAP Failure Rates (strikingly high):</strong>
+      <ul>
+        <li>MRSA VAP treated with standard-dose vancomycin: <span class="hl-red">40% clinical failure rate</span></li>
+        <li>Linezolid: <span class="hl-teal">~15% more efficacious</span> than adjusted-dose vancomycin</li>
+        <li>VAP due to <em>Pseudomonas</em>: <span class="hl-red">40–50% failure rate</span> regardless of regimen</li>
+        <li>Biofilm on ETT → persistence + reintroduction of organism → recurrent VAP by same pathogen</li>
+        <li>~50% of recurrent Pseudomonas VAP caused by a new strain</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card card-slate">
+    <div class="card-title">VAP Prognosis</div>
+    <ul>
+      <li>Crude mortality: <span class="hl-red">50–70%</span></li>
+      <li>Attributable mortality: exceeded 25% in matched-cohort study; more recent studies: <span class="hl-amber">5–10%</span></li>
+      <li>VAP complicating COVID-19: higher attributable mortality than other VAP</li>
+      <li>VAP in trauma patients: NOT associated with attributable mortality (patients otherwise healthy pre-injury)</li>
+      <li>MDR pathogens → significantly greater attributable mortality than non-MDR</li>
+      <li><em>S. maltophilia</em> VAP: marker for severely immunocompromised host</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ S12: HAP -->
+<div class="section-block" id="s12">
+<div style="background:#f0f4f8; border:1px solid #c8d4e0; border-radius:6px; padding:10px 16px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#5a6a7a;">ℹ️ &nbsp;<strong>Low exam weight</strong> — read once for context; don't over-study this section.</div>
+
+  <div class="section-header s-purple">
+    <div class="section-num">12</div>
+    <div>
+      <div class="section-title">Hospital-Acquired Pneumonia (HAP) — Non-Ventilated</div>
+      <div class="section-subtitle">Similar to VAP but with important differences</div>
+    </div>
+  </div>
+
+  <div class="card card-purple">
+    <div class="card-title">Key Differences from VAP</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Feature</th><th>HAP (Non-ventilated)</th><th>VAP</th></tr></thead>
+        <tbody>
+          <tr><td>MDR Pathogen Frequency</td><td>Lower</td><td>Higher</td></tr>
+          <tr><td>Host Immunity</td><td>Generally better</td><td>Compromised</td></tr>
+          <tr><td>Monotherapy rate</td><td>Higher (due to lower MDR prevalence)</td><td>Lower (often need combination)</td></tr>
+          <tr><td>Mortality</td><td>Lower</td><td>Higher</td></tr>
+          <tr><td>Antibiotic failure risk</td><td>Lower</td><td>Higher</td></tr>
+          <tr><td>Culture data availability</td><td>Less (blood cultures &lt;15% positive; hard to collect LRT samples)</td><td>More (direct deep LRT access)</td></tr>
+          <tr><td>De-escalation</td><td>Less likely (limited culture data)</td><td>More structured approach</td></tr>
+          <tr><td>Anaerobes</td><td>More common (macroaspiration risk; lower O₂ tension)</td><td>Less common</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pearl">
+      <span class="pearl-icon">💡</span>
+      <span>Anaerobes in HAP contribute only to <em>polymicrobial</em> pneumonias. Specific anaerobic coverage is usually not needed since many recommended antibiotics already cover anaerobes.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ S13: MASTER TABLE -->
+<div class="section-block" id="s13">
+  <div class="section-header s-slate">
+    <div class="section-num">13</div>
+    <div>
+      <div class="section-title">Master Quick-Reference Table</div>
+      <div class="section-subtitle">Everything you need, one view</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table class="master">
+      <thead>
+        <tr>
+          <th>Topic</th>
+          <th>Key Points</th>
+          <th>Numbers / Drugs</th>
+          <th>Boards Pearl</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CAP Definition</td>
+          <td>Infection of pulmonary parenchyma acquired in community</td>
+          <td>7M+ cases/yr US; $17B cost</td>
+          <td>HCAP category discontinued — risk-stratify individually</td>
+        </tr>
+        <tr>
+          <td>VAP Definition</td>
+          <td>Pneumonia onset ≥48h after mechanical ventilation</td>
+          <td>6–52 cases/100 ventilated pts; 10% of ICU pts on any day</td>
+          <td>70% cumulative rate if ventilated ≥30 days</td>
+        </tr>
+        <tr>
+          <td>Pathophysiology</td>
+          <td>Emergent phenomenon via positive feedback loop; lungs NOT sterile</td>
+          <td>IL-6/TNF → fever; IL-8/G-CSF → neutrophilia; capillary leak → hypoxemia</td>
+          <td>Pneumonia ≠ invasion of sterile space — it's a disrupted microbiota</td>
+        </tr>
+        <tr>
+          <td>Pathology Stages</td>
+          <td>Edema → Red hepatization → Gray hepatization → Resolution</td>
+          <td>Gray hepatization: neutrophils dominant, fibrin abundant, bacteria gone</td>
+          <td>Macrophage returns in resolution phase; viral/PCP = alveolar not interstitial</td>
+        </tr>
+        <tr>
+          <td>Top CAP Pathogen</td>
+          <td>S. pneumoniae (outpatient + hospitalized)</td>
+          <td>ICU adds S. aureus, Legionella, gram-negatives</td>
+          <td>Legionella risk: hotel stay, cruise ship, diabetes, HIV, hematologic malignancy</td>
+        </tr>
+        <tr>
+          <td>Atypical Organisms</td>
+          <td>M. pneumoniae, C. pneumoniae, Legionella, viruses</td>
+          <td>C. pneumoniae now &lt;1% of CAP; macrolide resistance 40% US</td>
+          <td>Intrinsically resistant to ALL β-lactams — must add macrolide or FQ</td>
+        </tr>
+        <tr>
+          <td>CA-MRSA</td>
+          <td>PVL toxin → necrotizing pneumonia; type IV SCCmec</td>
+          <td>Risk: prior MRSA colonization, post-influenza, cavitary disease</td>
+          <td>Gross hemoptysis + pneumonia → CA-MRSA until proven otherwise</td>
+        </tr>
+        <tr>
+          <td>Clinical Diagnosis</td>
+          <td>Cough + sputum + fever + dyspnea + new CXR infiltrate</td>
+          <td>Sensitivity 58%, specificity 67%; etiology determined in only 7.6%</td>
+          <td>Elderly may present with confusion ONLY — low threshold to suspect PNA</td>
+        </tr>
+        <tr>
+          <td>Sputum Gram Stain</td>
+          <td>Must have &gt;25 PMNs, &lt;10 squamous cells/LPF to be valid</td>
+          <td>Positive culture ≤50% even in bacteremic pneumococcal PNA</td>
+          <td>Recommended only for hospitalized pts; greatest value = unexpected/resistant bug</td>
+        </tr>
+        <tr>
+          <td>Blood Cultures</td>
+          <td>Not required for all hospitalized CAP; yield 5–14%</td>
+          <td>Order for: asplenia, neutropenia, complement deficiency, severe CAP, MRSA/Pseudomonas risk</td>
+          <td>Susceptibility data helps narrow therapy + track national resistance</td>
+        </tr>
+        <tr>
+          <td>Urinary Antigens</td>
+          <td>Pneumococcal: Sn 70%, Sp &gt;90%; Legionella: Sn 70%, Sp 99%</td>
+          <td>Both work even after antibiotics started; Legionella detects serogroup 1 only</td>
+          <td>Reserve pneumococcal for severe cases; Legionella for severe + epidemiologic clues</td>
+        </tr>
+        <tr>
+          <td>Biomarkers</td>
+          <td>PCT insufficient for diagnosing bacterial CAP; CRP even less specific</td>
+          <td>Do NOT withhold antibiotics based on PCT alone; PCT guides duration in VAP</td>
+          <td>Use biomarkers as adjuncts, not decision-making tools for empiric therapy</td>
+        </tr>
+        <tr>
+          <td>PSI Score</td>
+          <td>5 classes; Class I = 0.1% mortality; Class V = 29.2%</td>
+          <td>More validated than CURB-65; harder to calculate</td>
+          <td>Neither PSI nor CURB-65 determines ICU need — use major/minor criteria</td>
+        </tr>
+        <tr>
+          <td>CURB-65</td>
+          <td>C-U-R-B-65; Score 0 = outpatient; ≥3 = ICU consideration (22% mortality)</td>
+          <td>Score 1–2 + due to age alone → may not need hospitalization</td>
+          <td>Simpler but less validated than PSI</td>
+        </tr>
+        <tr>
+          <td>Severe CAP ICU Criteria</td>
+          <td>Major: vent or vasopressors. Minor: any 3 of 9 criteria</td>
+          <td>Late ICU admission = worse outcomes vs. same-severity patient admitted early</td>
+          <td>BUN ≥20, plt &lt;100k, temp &lt;36°C, WBC &lt;4000 all count as minor criteria</td>
+        </tr>
+        <tr>
+          <td>Macrolide Resistance</td>
+          <td>ermB gene (high-level); mef gene (low-level)</td>
+          <td>US prevalence ~40%; if &gt;25% locally → NO macrolide monotherapy</td>
+          <td>#1 risk factor for resistant pneumococcal infection: antibiotic use in past 3 months</td>
+        </tr>
+        <tr>
+          <td>Outpatient CAP Tx (no comorbid)</td>
+          <td>Amoxicillin + macrolide or doxycycline; OR doxycycline mono; OR macrolide mono (if local resistance &lt;25%)</td>
+          <td>Amox 1 g TID; doxy 100 mg BID</td>
+          <td>Always cover atypicals; avoid last used antibiotic class</td>
+        </tr>
+        <tr>
+          <td>Inpatient Non-Severe CAP Tx</td>
+          <td>β-Lactam + macrolide OR respiratory fluoroquinolone</td>
+          <td>Ceftriaxone 1–2 g/d; azithromycin 500 mg/d; levo 750 mg/d</td>
+          <td>FQ monotherapy results in lower mortality than β-lactam monotherapy</td>
+        </tr>
+        <tr>
+          <td>MRSA Treatment</td>
+          <td>Linezolid preferred over vancomycin in MRSA CAP</td>
+          <td>Linezolid 600 mg q12h; Vanco 15 mg/kg q12h (adjust to levels)</td>
+          <td>Linezolid inhibits exotoxin production + better lung penetration</td>
+        </tr>
+        <tr>
+          <td>CAP Treatment Duration</td>
+          <td>5 days uncomplicated; 3 days if doing well and stable; longer if MRSA/Pseudomonas/bacteremia</td>
+          <td>Steroids (CRP &gt;15 mg/dL) for 8–14 days in severe CAP</td>
+          <td>IV→PO switch when: absorbing orals + hemodynamically stable + improving clinically</td>
+        </tr>
+        <tr>
+          <td>VAP Pathogenesis</td>
+          <td>ETT is #1 risk factor; bypasses mechanical barriers; enables biofilm</td>
+          <td>3 factors: oropharyngeal colonization, aspiration, impaired host defense</td>
+          <td>Only ~1/3 of colonized patients develop VAP — inoculum overwhelming host defense is final step</td>
+        </tr>
+        <tr>
+          <td>VAP Empiric Tx (MDR risk)</td>
+          <td>Two agents for gram-negatives (anti-pseudomonal) + MRSA coverage</td>
+          <td>Pip-tazo + amikacin + linezolid as example triple regimen</td>
+          <td>Monotherapy if &lt;15% predicted mortality AND single agent covers ≥90% of local GNRs</td>
+        </tr>
+        <tr>
+          <td>VAP Treatment Duration</td>
+          <td>7–8 days = as effective as 14 days with less resistance emergence</td>
+          <td>Exceptions: carbapenemase-producing Acinetobacter, initial inappropriate therapy</td>
+          <td>MRSA VAP vancomycin failure rate 40%; Pseudomonas VAP failure 40–50% regardless of regimen</td>
+        </tr>
+        <tr>
+          <td>HAP vs. VAP</td>
+          <td>HAP = non-intubated; higher non-MDR frequency; better host defenses; lower mortality</td>
+          <td>Blood cultures &lt;15% positive in HAP; limited culture data → less de-escalation</td>
+          <td>Anaerobes more common in HAP — but usually don't need specific anti-anaerobic coverage</td>
+        </tr>
+        <tr>
+          <td>CAP Prevention</td>
+          <td>Vaccination (pneumococcal, influenza) per national immunization guidelines</td>
+          <td>Pneumococcal vaccine → decreasing incidence of pneumococcal PNA</td>
+          <td>VAP prevention priority = avoid intubation; minimize duration; daily sedation hold + weaning protocols</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="text-align:center; margin-top: 48px; padding: 24px; background: var(--paper); border-radius: 8px; border: 1px solid var(--rule);">
+    <div style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--ink-light); margin-bottom: 8px;">End of Study Guide</div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-muted); letter-spacing: 2px;">Based exclusively on: Mandell LA, Niederman MS — Pneumonia, Chapter 131, Harrison's Principles of Internal Medicine</div>
+  </div>
+</div>
+
+</div><!-- /.content -->
+</body>
+</html>
