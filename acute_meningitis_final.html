@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acute Meningitis — Deep Review</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900&display=swap');
+:root{
+  --bg:#f7f6f3; --surface:#ffffff; --surface2:#f2f1ee; --border:#e0ddd6; --border2:#ccc9c0;
+  --text:#1a1814; --text2:#4a4640; --text3:#7a7570; --navy:#17202a;
+  --red:#c0392b; --redlt:#fdf0ef; --redmd:#f5c6c2;
+  --blue:#1a5276; --bluelt:#eaf2f8; --bluemd:#aed6f1;
+  --green:#1a6b38; --greenlt:#eafaf1; --greenmd:#a9dfbf;
+  --orange:#b7600a; --orangelt:#fef5e7; --orangemd:#fad7a0;
+  --purple:#5b2c8b; --purplelt:#f4eeff; --purplemd:#d2b4de;
+  --teal:#0e6655; --teallt:#e8f8f5; --tealmd:#a2d9ce;
+  --yellow:#7d6608; --yellowlt:#fefbd8; --yellowmd:#f9e79f;
+  --r:11px; --rsm:6px; --shadow:0 2px 14px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14.5px;line-height:1.75;}
+/* HERO */
+.hero{background:var(--navy);color:#fff;padding:56px 48px 44px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(192,57,43,.22),transparent 70%);}
+.hero-badge{display:inline-flex;background:rgba(192,57,43,.25);border:1px solid rgba(192,57,43,.45);color:#f1948a;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:18px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:3.2em;font-weight:900;line-height:1.06;color:#fff;margin-bottom:10px;}
+.hero-sub{color:rgba(255,255,255,.60);font-size:.95em;max-width:640px;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;}
+.hero-tag{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.70);font-size:.76em;font-weight:600;padding:3px 12px;border-radius:20px;}
+/* LAYOUT */
+.container{max-width:1120px;margin:0 auto;padding:44px 32px;}
+/* TOC */
+.toc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:26px 30px;margin-bottom:44px;box-shadow:var(--shadow);}
+.toc-lbl{font-size:.72em;text-transform:uppercase;letter-spacing:.12em;color:var(--text3);font-weight:700;margin-bottom:14px;}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px;}
+.toc-a{display:flex;align-items:center;gap:8px;color:var(--blue);text-decoration:none;font-size:.88em;font-weight:500;padding:6px 10px;border-radius:var(--rsm);}
+.toc-a:hover{background:var(--bluelt);}
+.toc-n{font-family:'IBM Plex Mono',monospace;font-size:.72em;color:var(--text3);min-width:20px;}
+/* SECTION */
+.sec-head{display:flex;align-items:center;gap:14px;margin:56px 0 18px;}
+.sec-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25em;flex-shrink:0;}
+.sec-head h2{font-family:'Playfair Display',serif;font-size:1.85em;font-weight:700;color:var(--text);}
+.sec-rule{height:3px;border-radius:2px;margin-bottom:22px;}
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px 26px;margin-bottom:18px;box-shadow:var(--shadow);}
+.card-title{font-size:.97em;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;color:var(--text);}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+@media(max-width:700px){.g2,.g3{grid-template-columns:1fr;}}
+.cr{border-left:4px solid var(--red);background:var(--redlt);border-top:1px solid var(--redmd);border-right:1px solid var(--redmd);border-bottom:1px solid var(--redmd);}
+.cb{border-left:4px solid var(--blue);background:var(--bluelt);border-top:1px solid var(--bluemd);border-right:1px solid var(--bluemd);border-bottom:1px solid var(--bluemd);}
+.cg{border-left:4px solid var(--green);background:var(--greenlt);border-top:1px solid var(--greenmd);border-right:1px solid var(--greenmd);border-bottom:1px solid var(--greenmd);}
+.co{border-left:4px solid var(--orange);background:var(--orangelt);border-top:1px solid var(--orangemd);border-right:1px solid var(--orangemd);border-bottom:1px solid var(--orangemd);}
+.cp{border-left:4px solid var(--purple);background:var(--purplelt);border-top:1px solid var(--purplemd);border-right:1px solid var(--purplemd);border-bottom:1px solid var(--purplemd);}
+.ct{border-left:4px solid var(--teal);background:var(--teallt);border-top:1px solid var(--tealmd);border-right:1px solid var(--tealmd);border-bottom:1px solid var(--tealmd);}
+.cy{border-left:4px solid var(--yellow);background:var(--yellowlt);border-top:1px solid var(--yellowmd);border-right:1px solid var(--yellowmd);border-bottom:1px solid var(--yellowmd);}
+/* LISTS — enumerated or bulleted even inside tables */
+ul.b{list-style:none;padding:0;margin:0;}
+ul.b>li{position:relative;padding-left:18px;margin-bottom:6px;color:var(--text);}
+ul.b>li::before{content:'▸';position:absolute;left:0;color:var(--text3);font-size:.75em;top:4px;}
+ul.sub>li{position:relative;padding-left:14px;margin-bottom:3px;font-size:.91em;color:var(--text2);}
+ul.sub>li::before{content:'–';position:absolute;left:0;color:var(--text3);}
+ol.b{padding-left:22px;margin:0;}
+ol.b>li{margin-bottom:6px;color:var(--text);}
+td ul.b>li,td ol.b>li{margin-bottom:3px;}
+/* TABLES */
+.tw{overflow-x:auto;margin-bottom:20px;border-radius:var(--r);box-shadow:var(--shadow);}
+table{width:100%;border-collapse:collapse;font-size:.88em;background:var(--surface);}
+thead th{background:var(--navy);color:#fff;padding:11px 15px;text-align:left;font-weight:700;font-size:.82em;letter-spacing:.04em;}
+tbody tr{border-bottom:1px solid var(--border);}
+tbody tr:nth-child(even){background:var(--surface2);}
+tbody tr:last-child{border-bottom:none;}
+tbody td{padding:10px 15px;vertical-align:top;color:var(--text2);}
+tbody td strong{color:var(--text);}
+td.tr{border-left:3px solid var(--red);}
+td.tb{border-left:3px solid var(--blue);}
+td.tg{border-left:3px solid var(--green);}
+td.to{border-left:3px solid var(--orange);}
+td.tp{border-left:3px solid var(--purple);}
+td.tt{border-left:3px solid var(--teal);}
+/* ALERTS */
+.alert{border-radius:var(--rsm);padding:12px 16px;margin-bottom:12px;font-size:.91em;display:flex;gap:10px;align-items:flex-start;}
+.ai{font-size:1.1em;flex-shrink:0;margin-top:1px;}
+.ar{background:var(--redlt);border:1px solid var(--redmd);color:var(--red);}
+.ab{background:var(--bluelt);border:1px solid var(--bluemd);color:var(--blue);}
+.ag{background:var(--greenlt);border:1px solid var(--greenmd);color:var(--green);}
+.ao{background:var(--orangelt);border:1px solid var(--orangemd);color:var(--orange);}
+.ay{background:var(--yellowlt);border:1px solid var(--yellowmd);color:var(--yellow);}
+/* FLOWCHART */
+.flow{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:26px;margin-bottom:18px;box-shadow:var(--shadow);}
+.fb{background:var(--surface2);border:2px solid var(--border2);border-radius:8px;padding:10px 18px;text-align:center;font-weight:600;font-size:.88em;margin:0 auto;max-width:520px;}
+.fb.r{background:var(--redlt);border-color:var(--redmd);color:var(--red);}
+.fb.g{background:var(--greenlt);border-color:var(--greenmd);color:var(--green);}
+.fb.o{background:var(--orangelt);border-color:var(--orangemd);color:var(--orange);}
+.fb.b{background:var(--bluelt);border-color:var(--bluemd);color:var(--blue);}
+.fb.y{background:var(--yellowlt);border-color:var(--yellowmd);color:var(--yellow);}
+.fa{text-align:center;font-size:1.3em;color:var(--text3);padding:4px 0;}
+.fl{font-size:.78em;color:var(--text3);font-style:italic;text-align:center;margin:2px 0;}
+.frow{display:flex;gap:12px;align-items:flex-start;justify-content:center;margin:6px 0;}
+/* DRUG CARD */
+.drug{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:16px;overflow:hidden;box-shadow:var(--shadow);}
+.drug-h{padding:12px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);}
+.drug-name{font-family:'IBM Plex Mono',monospace;font-size:.95em;font-weight:700;}
+.drug-b{padding:18px 20px;}
+.drug-row{display:flex;gap:8px;margin-bottom:9px;font-size:.90em;align-items:flex-start;}
+.drug-lbl{min-width:120px;font-weight:700;color:var(--text3);text-transform:uppercase;font-size:.72em;letter-spacing:.06em;margin-top:3px;flex-shrink:0;}
+.pearl{background:var(--yellowlt);border:1px solid var(--yellowmd);border-radius:var(--rsm);padding:11px 15px;font-size:.90em;margin-bottom:10px;display:flex;gap:8px;color:var(--yellow);}
+/* TAGS */
+.tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.06em;padding:2px 8px;border-radius:20px;text-transform:uppercase;margin-right:3px;}
+.tgr{background:var(--redmd);color:var(--red);}
+.tgb{background:var(--bluemd);color:var(--blue);}
+.tgg{background:var(--greenmd);color:var(--green);}
+.tgo{background:var(--orangemd);color:var(--orange);}
+.tgp{background:var(--purplemd);color:var(--purple);}
+.tgt{background:var(--tealmd);color:var(--teal);}
+/* Q-TAG */
+.q{display:inline-flex;background:var(--surface2);border:1px solid var(--border2);color:var(--text3);font-size:.70em;font-weight:700;font-family:'IBM Plex Mono',monospace;padding:1px 6px;border-radius:4px;margin-left:3px;}
+/* HIGHLIGHTS */
+.hr{background:var(--redmd);padding:1px 5px;border-radius:3px;color:var(--red);font-weight:700;}
+.hg{background:var(--greenmd);padding:1px 5px;border-radius:3px;color:var(--green);font-weight:700;}
+.ho{background:var(--orangemd);padding:1px 5px;border-radius:3px;color:var(--orange);font-weight:700;}
+.hy{background:var(--yellowmd);padding:1px 5px;border-radius:3px;color:var(--yellow);font-weight:700;}
+/* SCENARIO */
+.scen{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--rsm);padding:16px 18px;margin-bottom:12px;}
+.scen-q{font-weight:700;color:var(--text);margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.scen-a{color:var(--green);font-weight:700;margin-bottom:6px;}
+.scen-w{color:var(--text2);font-size:.91em;}
+/* TRAP */
+.trap{background:var(--surface);border:1px solid var(--redmd);border-radius:var(--r);margin-bottom:22px;overflow:hidden;box-shadow:0 2px 16px rgba(192,57,43,.08);}
+.trap-h{background:linear-gradient(90deg,var(--redlt),var(--surface));border-bottom:1px solid var(--redmd);padding:13px 22px;display:flex;align-items:center;gap:12px;}
+.trap-num{background:var(--red);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.88em;flex-shrink:0;}
+.trap-title{font-weight:700;font-size:.96em;color:var(--text);}
+.trap-b{padding:20px 22px;}
+.trap-sec{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.trap-sec:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+.tl{font-size:.70em;text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin-bottom:5px;}
+.tltrap{color:var(--red);}
+.tltruth{color:var(--green);}
+.tlmatters{color:var(--orange);}
+.tlcase{color:var(--blue);}
+.case-box{background:var(--bluelt);border:1px solid var(--bluemd);border-radius:var(--rsm);padding:14px 16px;font-size:.89em;color:var(--text2);}
+.case-box strong{color:var(--green);}
+.case-box .x{color:var(--red);text-decoration:line-through;}
+.mono{font-family:'IBM Plex Mono',monospace;}
+.dvd{height:1px;background:var(--border);margin:10px 0;}
+.footer{text-align:center;padding:40px 0 20px;color:var(--text3);font-size:.84em;border-top:1px solid var(--border);margin-top:56px;}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-badge">&#9877; Deep Review &middot; Boards Prep &middot; Stage A Resident</div>
+  <h1>Acute Meningitis</h1>
+  <p class="hero-sub">Teaching material built from 18 exam questions + Harrison's Chapter 143 &mdash; every mechanism explained, every scenario dissected, every trap exposed.</p>
+  <div class="hero-tags">
+    <span class="hero-tag">Bacterial Meningitis</span><span class="hero-tag">Viral Meningitis</span>
+    <span class="hero-tag">CSF Analysis</span><span class="hero-tag">Dexamethasone Protocol</span>
+    <span class="hero-tag">Empirical Therapy</span><span class="hero-tag">Listeria</span>
+    <span class="hero-tag">Meningococcal Prophylaxis</span><span class="hero-tag">LP Timing</span>
+  </div>
+</div>
+<div class="container">
+<div class="toc">
+  <div class="toc-lbl">&#128203; Contents</div>
+  <div class="toc-grid">
+    <a href="#s1"  class="toc-a"><span class="toc-n">01</span>Etiology &amp; Risk Factors</a>
+    <a href="#s2"  class="toc-a"><span class="toc-n">02</span>Pathophysiology</a>
+    <a href="#s3"  class="toc-a"><span class="toc-n">03</span>Clinical Presentation</a>
+    <a href="#s4"  class="toc-a"><span class="toc-n">04</span>CSF Analysis &mdash; Full Comparison</a>
+    <a href="#s5"  class="toc-a"><span class="toc-n">05</span>Diagnosis &amp; LP Timing</a>
+    <a href="#s6"  class="toc-a"><span class="toc-n">06</span>Empirical Antibiotic Therapy</a>
+    <a href="#s7"  class="toc-a"><span class="toc-n">07</span>Pathogen-Specific Therapy</a>
+    <a href="#s8"  class="toc-a"><span class="toc-n">08</span>Dexamethasone &mdash; Complete Protocol</a>
+    <a href="#s9"  class="toc-a"><span class="toc-n">09</span>Viral Meningitis</a>
+    <a href="#s10" class="toc-a"><span class="toc-n">10</span>Meningococcal Prophylaxis</a>
+    <a href="#s11" class="toc-a"><span class="toc-n">11</span>Q-by-Q Scenario Breakdown</a>
+    <a href="#s12" class="toc-a"><span class="toc-n">12</span>Master Reference Table</a>
+    <a href="#s13" class="toc-a"><span class="toc-n">13</span>&#9888;&#65039; Exam Traps</a>
+  </div>
+</div>
+
+
+<div id="s1">
+<div class="sec-head">
+  <div class="sec-icon" style="background:var(--redlt);border:1px solid var(--redmd);">&#129440;</div>
+  <h2>Etiology &amp; Risk Factors</h2>
+</div>
+<div class="sec-rule" style="background:var(--red);"></div>
+<div class="tw"><table>
+<thead><tr><th>Organism</th><th>Frequency</th><th>Key Population</th><th>Classic Clue</th><th>Mortality</th></tr></thead>
+<tbody>
+<tr>
+<td class="tr"><strong>S. pneumoniae</strong></td><td>~50%</td>
+<td><ol class="b"><li>Adults &gt;20 yrs</li><li>Alcoholics</li><li>Basilar skull fracture</li><li>Asplenic / diabetics</li></ol></td>
+<td>Most common overall; may coexist with pneumonia, otitis, sinusitis</td>
+<td><strong style="color:var(--red)">~20%</strong></td>
+</tr>
+<tr>
+<td class="tb"><strong>N. meningitidis</strong></td><td>~25%</td>
+<td><ol class="b"><li>Young adults</li><li>Complement deficiency (incl. properdin)</li><li>Eculizumab users</li></ol></td>
+<td><ol class="b"><li><strong>Petechial/purpuric rash</strong></li><li>Epidemics every 8&ndash;12 yrs</li><li>Fulminant &mdash; death in hours</li></ol></td>
+<td>3&ndash;7%</td>
+</tr>
+<tr>
+<td class="tg"><strong>Group B Strep</strong></td><td>~15%</td>
+<td><ol class="b"><li>Neonates (classic)</li><li>Adults &gt;50 with underlying disease (increasing)</li></ol></td>
+<td>Increasing in elderly; penicillin G is drug of choice</td><td>3&ndash;7%</td>
+</tr>
+<tr>
+<td class="to"><strong>Listeria monocytogenes</strong></td><td>~10%</td>
+<td><ol class="b"><li><strong>Alcoholics</strong> <span class="q">Q1</span></li><li>Age &gt;55 or &lt;1 month</li><li>Pregnant women</li><li>Transplant recipients <span class="q">Q3</span></li><li>Malignancy / chemo <span class="q">Q5</span></li><li>Chronic steroids / HIV <span class="q">Q7</span></li></ol></td>
+<td><ol class="b"><li><strong>Gram-positive rods</strong> on Gram stain</li><li>Food-borne: deli meats, soft cheeses, hotdogs, coleslaw</li><li>Cephalosporins = ZERO coverage</li></ol></td>
+<td><strong style="color:var(--orange)">~15%</strong></td>
+</tr>
+<tr>
+<td class="tp"><strong>H. influenzae type b</strong></td><td>&lt;10%</td>
+<td><ol class="b"><li>Unvaccinated children</li><li>Elderly</li></ol></td>
+<td>Dramatically reduced by Hib vaccine; non-b strains emerging</td><td>3&ndash;7%</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="g2">
+<div class="card co">
+<div class="card-title">&#127919; Listeria &mdash; The Exam Favourite</div>
+<p style="color:var(--text2);font-size:.91em;margin-bottom:12px;">Why it dominates: it targets vulnerable populations AND cephalosporins miss it entirely &mdash; making the antibiotic choice a life-or-death decision.</p>
+<p style="font-weight:700;margin-bottom:6px;">Risk Factors (all tested across Q1/Q3/Q5/Q7):</p>
+<ol class="b">
+<li>Alcoholism &mdash; impaired cell-mediated immunity</li>
+<li>Age &gt;55 years &mdash; immunosenescence</li>
+<li>Organ transplant &mdash; iatrogenic immunosuppression</li>
+<li>Malignancy + chemotherapy</li>
+<li>Pregnancy &mdash; altered immune state</li>
+<li>Chronic high-dose steroids</li>
+<li>HIV / AIDS</li>
+<li>Neonates (&lt;1 month old)</li>
+</ol>
+<div class="dvd" style="margin:12px 0;"></div>
+<p style="font-weight:700;margin-bottom:6px;">Gram Stain Morphology &mdash; Critical Distinction:</p>
+<ol class="b">
+<li><strong>Listeria:</strong> gram-positive <em>rods</em> (bacilli)</li>
+<li><strong>Pneumococcus:</strong> gram-positive <em>diplococci</em> (paired cocci)</li>
+<li><strong>Meningococcus:</strong> gram-negative <em>diplococci</em></li>
+</ol>
+<div class="pearl" style="margin-top:12px;"><span>&#128142;</span><span>Gram-positive rods in CSF from alcoholic / transplant / elderly = Listeria until proven otherwise. Add ampicillin immediately. Ceftriaxone alone is insufficient and dangerous.</span></div>
+</div>
+<div class="card cr">
+<div class="card-title">&#128308; Pneumococcal Risk Factors <span class="q">Q10</span></div>
+<p style="color:var(--text2);font-size:.91em;margin-bottom:10px;">Q10: which is a PROVEN risk factor for pneumococcal meningitis specifically?</p>
+<ol class="b">
+<li><strong>Basilar skull fracture</strong> with CSF rhinorrhea or otorrhea &mdash; creates direct anatomical access from nasopharynx &rarr; subarachnoid space</li>
+<li>Active pneumococcal pneumonia, sinusitis, or otitis media</li>
+<li>Alcoholism &mdash; multiple immune defects</li>
+<li>Diabetes mellitus</li>
+<li>Splenectomy / functional asplenia &mdash; loss of opsonization</li>
+<li>Hypogammaglobulinemia</li>
+<li>Complement deficiency</li>
+<li>Head trauma with CSF leak (rhinorrhea or otorrhea)</li>
+</ol>
+<div class="alert ao" style="margin-top:10px;">
+<span class="ai">&#9888;&#65039;</span>
+<div>"Living in crowded places" = meningococcal risk (NOT pneumococcal). Skull fracture is the classic pneumococcal-specific risk. Chronic steroids = Listeria/fungal risk primarily.</div>
+</div>
+</div>
+</div>
+
+<div class="card cb">
+<div class="card-title">&#128309; N. meningitidis &mdash; Key Mechanisms &amp; Vaccination Nuances</div>
+<div class="g2">
+<div>
+<p style="font-weight:700;margin-bottom:6px;">Pathogenesis:</p>
+<ol class="b">
+<li>Colonizes nasopharynx &rarr; asymptomatic carrier state OR invasive disease</li>
+<li>Risk depends on bacterial virulence + host immune defense</li>
+<li><strong>Complement deficiency (including properdin)</strong> = highest susceptibility</li>
+<li>Eculizumab (complement inhibitor) &rarr; must vaccinate BEFORE starting therapy</li>
+<li>Fulminant form: can progress to death within hours of symptom onset</li>
+</ol>
+</div>
+<div>
+<p style="font-weight:700;margin-bottom:6px;">Vaccination nuances (tested):</p>
+<ol class="b">
+<li>Serogroup B vaccine does <strong>NOT</strong> reduce nasopharyngeal carriage &rarr; person-to-person spread continues</li>
+<li>Conjugate vaccines (A/C/W/Y) DO reduce carriage in vaccinated individuals</li>
+<li>Serogroup B polysaccharide is poorly immunogenic &rarr; vaccine uses outer membrane proteins</li>
+</ol>
+<p style="font-weight:700;margin-bottom:6px;margin-top:10px;">Rash progression:</p>
+<ol class="b">
+<li>Maculopapular (mimics viral exanthem) &rarr; petechial &rarr; purpuric &rarr; skin necrosis</li>
+<li>Location: trunk, lower extremities, mucous membranes, conjunctiva, palms/soles</li>
+<li>Biopsy of petechiae may show organism on Gram stain</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="s2">
+<div class="sec-head">
+  <div class="sec-icon" style="background:var(--bluelt);border:1px solid var(--bluemd);">&#9881;&#65039;</div>
+  <h2>Pathophysiology</h2>
+</div>
+<div class="sec-rule" style="background:var(--blue);"></div>
+<div class="flow">
+<div class="card-title" style="justify-content:center;color:var(--text2);margin-bottom:20px;">Complete Pathogenesis Cascade &mdash; Why Neurologic Injury Continues Even After Antibiotics</div>
+<div class="fb">Bacteria colonize nasopharynx &rarr; enter bloodstream<br><small style="font-weight:400;">Evade phagocytosis via polysaccharide capsule</small></div>
+<div class="fa">&darr;</div>
+<div class="fb">Reach CSF via choroid plexus or cerebral capillary endothelium<br><small style="font-weight:400;">Multiply rapidly &mdash; CSF has few WBCs, little complement/IgG</small></div>
+<div class="fa">&darr;</div>
+<div class="fb r"><strong>Antibiotic lysis &rarr; Cell-wall component release</strong><br>LPS (gram-neg) &middot; Teichoic acid &middot; Peptidoglycan (pneumococcus)</div>
+<div class="fa">&darr;</div>
+<div class="fb r"><strong>TNF-&alpha; + IL-1&beta;</strong> released by microglia, astrocytes, monocytes, CSF leukocytes<br><small style="font-weight:400;">Appear in CSF within 1&ndash;2h of LPS inoculation</small></div>
+<div class="fa">&darr;</div>
+<div class="frow">
+<div class="fb b" style="max-width:200px;font-size:.83em;">&uarr; BBB permeability &rarr; Vasogenic edema &rarr; Serum proteins leak into SAS</div>
+<div class="fb o" style="max-width:200px;font-size:.83em;">Leukocyte adhesion &rarr; CSF migration &rarr; degranulation &rarr; toxic metabolites &rarr; Cytotoxic edema</div>
+<div class="fb" style="max-width:200px;font-size:.83em;color:var(--purple);background:var(--purplelt);border-color:var(--purplemd);">CSF exudate obstructs outflow &rarr; Hydrocephalus &rarr; Interstitial edema</div>
+</div>
+<div class="fa">&darr;</div>
+<div class="fb o">Vasculitis &rarr; Arterial thrombosis &rarr; Ischemia/Infarction<br>Venous sinus thrombosis &rarr; Cortical vein thrombophlebitis</div>
+<div class="fa">&darr;</div>
+<div class="fb r"><strong>&uarr; Intracranial Pressure &rarr; Coma &rarr; Cerebral Herniation</strong></div>
+</div>
+<div class="card cy">
+<div class="card-title">&#11088; Core Concept: Why Neurologic Injury Outlasts the Bacteria &mdash; &amp; Why Dexamethasone Timing Is Critical</div>
+<ol class="b">
+<li>Neurologic injury results primarily from the <strong>host immune response</strong>, not direct bacterial killing</li>
+<li>Once TNF-&alpha; and IL-1&beta; are released, the inflammatory cascade continues even after CSF is fully sterilized by antibiotics</li>
+<li>Dexamethasone inhibits TNF-&alpha;/IL-1&beta; synthesis at mRNA level &mdash; but <strong>only BEFORE macrophages are activated by endotoxin</strong></li>
+<li>Antibiotic lysis releases endotoxin &rarr; activates macrophages &rarr; this is the point of no return</li>
+<li>Therefore: dexa must be given <span class="hg">20 minutes BEFORE antibiotics</span></li>
+<li>Three types of edema coexist: <strong>vasogenic</strong> (BBB breakdown) + <strong>cytotoxic</strong> (cell death) + <strong>interstitial</strong> (hydrocephalus)</li>
+</ol>
+</div>
+<div class="g2">
+<div class="card cr">
+<div class="card-title">Three Types of Edema</div>
+<ol class="b">
+<li><strong>Vasogenic:</strong> TNF-&alpha;/IL-1&beta; &uarr; BBB permeability &rarr; serum proteins leak into brain tissue</li>
+<li><strong>Cytotoxic:</strong> Neutrophil degranulation &rarr; reactive oxygen species &rarr; cell membrane injury &rarr; cell death</li>
+<li><strong>Interstitial:</strong> Proteinaceous exudate obstructs CSF outflow + impairs resorption at arachnoid granulations &rarr; obstructive + communicating hydrocephalus</li>
+</ol>
+</div>
+<div class="card co">
+<div class="card-title">Vascular Complications</div>
+<ol class="b">
+<li>Narrowing of basal arteries &mdash; purulent exudate compresses vessel walls</li>
+<li>Vasculitis &mdash; inflammatory infiltration &rarr; intimal thickening</li>
+<li>Middle cerebral artery branch thrombosis &rarr; stroke</li>
+<li>Major cerebral venous sinus thrombosis</li>
+<li>Cortical vein thrombophlebitis &rarr; hemorrhage &rarr; focal seizures</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="s3">
+<div class="sec-head">
+  <div class="sec-icon" style="background:var(--greenlt);border:1px solid var(--greenmd);">&#129657;</div>
+  <h2>Clinical Presentation</h2>
+</div>
+<div class="sec-rule" style="background:var(--green);"></div>
+<div class="g3">
+<div class="card cg">
+<div class="card-title">Classic Triad (each &gt;80%)</div>
+<ol class="b"><li>Fever</li><li>Headache</li><li>Nuchal rigidity</li></ol>
+<div class="alert ao" style="margin-top:10px;"><span class="ai">&#9888;&#65039;</span><span>Triad absent in: elderly, immunocompromised, profoundly obtunded</span></div>
+</div>
+<div class="card co">
+<div class="card-title">Consciousness &amp; ICP</div>
+<ul class="b">
+<li>Decreased consciousness: <strong>&gt;75%</strong></li>
+<li>Opening pressure &gt;180 mmH&sub2;O: <strong>90%</strong></li>
+<li>Opening pressure &gt;400 mmH&sub2;O: <strong>20%</strong></li>
+<li>Cerebral herniation: 1&ndash;8% of cases</li>
+</ul>
+</div>
+<div class="card cr">
+<div class="card-title">Seizures (15&ndash;40%)</div>
+<ul class="b">
+<li><strong>Focal:</strong> arterial ischemia, cortical venous thrombosis</li>
+<li><strong>Generalized/status:</strong> hyponatremia, cerebral anoxia, cefepime toxicity</li>
+</ul>
+</div>
+</div>
+<div class="card">
+<div class="card-title">Signs of Raised ICP &mdash; All Must Be Recognized</div>
+<div class="g2">
+<ol class="b">
+<li>Deteriorating level of consciousness</li>
+<li>Papilledema</li>
+<li>Dilated, poorly reactive pupils</li>
+<li>Sixth nerve palsy (CN VI)</li>
+</ol>
+<ol class="b" start="5">
+<li>Decerebrate posturing</li>
+<li><strong>Cushing reflex:</strong> bradycardia + hypertension + irregular respirations</li>
+<li>Focal neurological deficits &rarr; CT before LP <span class="q">Q8</span></li>
+</ol>
+</div>
+<div class="alert ar" style="margin-top:12px;">
+<span class="ai">&#128680;</span>
+<span><strong>Focal neurological signs = do NOT perform LP until CT rules out herniation risk.</strong> Start antibiotics + dexamethasone immediately while CT is arranged. <span class="q">Q8</span></span>
+</div>
+</div>
+<div class="card cb">
+<div class="card-title">Meningeal Signs &mdash; Kernig&apos;s &amp; Brudzinski&apos;s</div>
+<div class="g2">
+<div>
+<p style="font-weight:700;margin-bottom:6px;">Kernig&apos;s sign:</p>
+<ol class="b">
+<li>Patient supine, thigh flexed on abdomen, knee flexed at 90&deg;</li>
+<li>Attempt to passively extend the knee</li>
+<li>Pain or resistance = positive</li>
+</ol>
+</div>
+<div>
+<p style="font-weight:700;margin-bottom:6px;">Brudzinski&apos;s sign:</p>
+<ol class="b">
+<li>Patient supine</li>
+<li>Passive flexion of the neck</li>
+<li>Spontaneous flexion of hips and knees = positive</li>
+</ol>
+</div>
+</div>
+<div class="alert ao" style="margin-top:10px;">
+<span class="ai">&#9888;&#65039;</span>
+<span>Sensitivity and specificity of both signs are uncertain. May be absent in elderly, immunocompromised, or obtunded patients. Cervical spine disease = false positives for nuchal rigidity.</span>
+</div>
+</div>
+</div>
+
+
+<div id="s4">
+<div class="sec-head">
+  <div class="sec-icon" style="background:var(--purplelt);border:1px solid var(--purplemd);">&#129514;</div>
+  <h2>CSF Analysis &mdash; Full Comparison</h2>
+</div>
+<div class="sec-rule" style="background:var(--purple);"></div>
+<div class="tw"><table>
+<thead><tr><th>Parameter</th><th style="color:#f1948a;">Bacterial</th><th style="color:#aed6f1;">Viral</th><th style="color:#a2d9ce;">TB / Fungal</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>Opening pressure</strong></td>
+<td class="tr"><ul class="b"><li>&gt;180 mmH&sub2;O in <strong>90%</strong></li><li>&gt;400 mmH&sub2;O in 20%</li></ul></td>
+<td class="tb"><ul class="b"><li>100&ndash;350 mmH&sub2;O</li><li>Normal to mildly elevated</li></ul></td>
+<td class="tt">Elevated</td>
+</tr>
+<tr>
+<td><strong>White blood cells</strong></td>
+<td class="tr"><ul class="b"><li>10&ndash;10,000/&micro;L</li><li><strong>PMN predominance</strong></li><li>&gt;100 cells/&micro;L in 90%</li></ul></td>
+<td class="tb"><ul class="b"><li>25&ndash;500/&micro;L typical</li><li>Can reach thousands (LCMV, mumps)</li><li><strong>Lymphocytes predominate</strong></li><li>PMNs in first 48h or WNV (45%)</li></ul></td>
+<td class="tt"><ul class="b"><li>10&ndash;500/&micro;L</li><li>Lymphocytes predominate</li></ul></td>
+</tr>
+<tr>
+<td><strong>Glucose</strong></td>
+<td class="tr"><ul class="b"><li><strong>&lt;40 mg/dL</strong> in ~60%</li><li>Can be zero</li><li>CSF/serum ratio &lt;0.4 highly suggestive</li></ul></td>
+<td class="tb"><ul class="b"><li><strong>Normal</strong> &mdash; hallmark of viral</li><li>May be &darr; in mumps/LCMV (10&ndash;30%)</li></ul></td>
+<td class="tt"><ul class="b"><li>20&ndash;40 mg/dL (&darr;)</li><li>Can mimic bacterial</li></ul></td>
+</tr>
+<tr>
+<td><strong>CSF/serum glucose</strong></td>
+<td class="tr"><ul class="b"><li>&lt;0.6 = abnormal</li><li><strong>&lt;0.4 = highly suggestive bacterial</strong></li></ul></td>
+<td class="tb"><ul class="b"><li>&ge;0.6 (normal)</li></ul></td>
+<td class="tt"><ul class="b"><li>&lt;0.4 (low)</li></ul></td>
+</tr>
+<tr>
+<td><strong>Protein</strong></td>
+<td class="tr"><ul class="b"><li>&gt;45 mg/dL in 90%</li><li>Can be &gt;300 mg/dL</li></ul></td>
+<td class="tb"><ul class="b"><li>20&ndash;80 mg/dL</li><li>Normal or mildly elevated</li></ul></td>
+<td class="tt"><ul class="b"><li>1&ndash;5 g/L (markedly elevated)</li></ul></td>
+</tr>
+<tr>
+<td><strong>Gram stain</strong></td>
+<td class="tr">Positive in &gt;60%</td>
+<td class="tb">Negative</td>
+<td class="tt">AFB smear positive only 10&ndash;40%</td>
+</tr>
+<tr>
+<td><strong>Culture</strong></td>
+<td class="tr">Positive in &gt;80%</td>
+<td class="tb">Positive in 30&ndash;70%</td>
+<td class="tt">4&ndash;8 weeks; positive ~50%; gold standard</td>
+</tr>
+<tr>
+<td><strong>RBC</strong></td>
+<td class="tr">Absent in non-traumatic tap</td>
+<td class="tb">Absent</td>
+<td class="tt">Absent</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="g2">
+<div class="card cr">
+<div class="card-title">&#128273; Q4: &ldquo;Most Pathognomonic CSF Finding in Meningitis?&rdquo;</div>
+<p style="color:var(--text2);font-size:.91em;margin-bottom:12px;">The four options given were:</p>
+<ol class="b">
+<li>Protein 40 mg/dL &mdash; <span class="hr">NORMAL</span> (normal &lt;45 mg/dL) &rarr; not diagnostic</li>
+<li>Glucose 80 mg/dL &mdash; <span class="hr">NORMAL</span> &rarr; not diagnostic at all</li>
+<li>RBC 250/&micro;L &mdash; traumatic tap or SAH &rarr; nonspecific</li>
+<li>Opening pressure 200 mmH&sub2;O &mdash; <span class="hg">ABNORMAL</span> (threshold is 180; seen in &gt;90% of bacterial meningitis) &rarr; most pathognomonic from given list</li>
+</ol>
+<div class="pearl" style="margin-top:10px;"><span>&#128142;</span><span>Among those exact four options, opening pressure 200 is the only truly abnormal value. In general, CSF glucose &lt;40 mg/dL is the most diagnostically specific for bacterial meningitis, but it was not listed as a clearly abnormal option in Q4.</span></div>
+</div>
+<div class="card co">
+<div class="card-title">&#128208; CSF Glucose Ratio &mdash; Calculation (Q2)</div>
+<p style="font-weight:700;margin-bottom:8px;">From Q2: Blood glucose 150 mg/dL, CSF glucose 50 mg/dL</p>
+<div style="background:var(--surface2);border:1px solid var(--border2);border-radius:6px;padding:14px;text-align:center;margin-bottom:14px;">
+<span class="mono" style="font-size:1.1em;">Ratio = 50 &divide; 150 = <span style="color:var(--red);font-weight:700;">0.33</span></span><br>
+<span style="font-size:.86em;color:var(--text3);">0.33 &lt; 0.4 &rarr; Highly suggestive of bacterial / TB / fungal</span>
+</div>
+<ol class="b">
+<li>Normal ratio: <strong>&ge;0.6</strong></li>
+<li>Abnormal: <strong>&lt;0.6</strong></li>
+<li>Highly suggestive of bacterial: <strong>&lt;0.4</strong></li>
+<li>Also low in: TB, fungal, carcinomatous meningitis</li>
+<li>D50 given in ER does NOT significantly alter CSF glucose unless hours have elapsed</li>
+</ol>
+</div>
+</div>
+
+<div class="card cp">
+<div class="card-title">&#128203; Q2 Fully Parsed &mdash; Subacute Meningitis + Low Glucose</div>
+<div class="scen">
+<div class="scen-q">75yo man, fever for <em>several weeks</em>, neck stiffness, headache. CSF: 30 lymphocytes/&micro;L, glucose 50 mg/dL vs blood glucose 150 mg/dL &rarr; ratio = 0.33. Most likely pathogen?<br>Options: West Nile virus / M. tuberculosis / HSV-2 / HHV-6</div>
+<div class="scen-a">&#10003; Answer: M. tuberculosis</div>
+<div class="scen-w">
+<ol class="b">
+<li><strong>Subacute course (weeks):</strong> TB builds over days-to-weeks. WNV and HSV-2 are acute.</li>
+<li><strong>Lymphocytic pleocytosis + LOW glucose (ratio 0.33 &lt;0.4):</strong> Hallmark of TB meningitis. Viral causes have NORMAL glucose.</li>
+<li><strong>West Nile virus:</strong> glucose NORMAL &rarr; ruled out by low glucose</li>
+<li><strong>HSV-2:</strong> acute onset, glucose usually normal &rarr; ruled out by subacute course + low glucose</li>
+<li><strong>HHV-6:</strong> mainly immunocompromised, glucose normal &rarr; ruled out</li>
+</ol>
+<p style="margin-top:8px;">TB classic CSF: lymphocytes 10&ndash;500/&micro;L, protein 1&ndash;5 g/L, glucose 20&ndash;40 mg/dL, subacute course, night sweats, fever.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="s5">
+<div class="sec-head">
+  <div class="sec-icon" style="background:var(--orangelt);border:1px solid var(--orangemd);">&#8987;</div>
+  <h2>Diagnosis &amp; LP Timing</h2>
+</div>
+<div class="sec-rule" style="background:var(--orange);"></div>
+<div class="flow">
+<div class="card-title" style="justify-content:center;color:var(--text2);margin-bottom:20px;">Decision Algorithm &mdash; LP vs CT First <span class="q">Q8</span></div>
+<div class="fb">Suspected Bacterial Meningitis &rarr; <strong>Draw blood cultures immediately</strong></div>
+<div class="fa">&darr;</div>
+<div class="fb o">Does patient have ANY of:<br>1. Focal neurological deficits &nbsp; 2. Papilledema &nbsp; 3. Altered consciousness &nbsp; 4. Immunocompromise &nbsp; 5. Recent head trauma?</div>
+<div class="frow" style="margin-top:8px;">
+<div style="flex:1;text-align:center;">
+<div class="fl">YES &rarr; any of the above</div>
+<div class="fb r" style="max-width:240px;font-size:.84em;margin-top:4px;"><strong>CT HEAD FIRST</strong><br>Then LP if safe</div>
+</div>
+<div style="flex:1;text-align:center;">
+<div class="fl">NO &rarr; immunocompetent, no focal signs, normal consciousness</div>
+<div class="fb g" style="max-width:240px;font-size:.84em;margin-top:4px;"><strong>DIRECT LP</strong><br>No imaging needed first</div>
+</div>
+</div>
+<div class="fa">&darr;</div>
+<div class="fb y"><strong>IN ALL CASES:</strong> Antibiotics + Dexamethasone start immediately after blood cultures &mdash; NEVER delayed for CT or LP<br>Goal: antibiotics within <strong>60 minutes</strong> of ER arrival</div>
+</div>
+<div class="g2">
+<div class="card cg">
+<div class="card-title">&#10003; Effect of Pre-LP Antibiotics on CSF</div>
+<ol class="b">
+<li>WBC count: <strong>NOT significantly altered</strong> for hours after antibiotics start</li>
+<li>Glucose concentration: <strong>NOT significantly altered</strong></li>
+<li>Gram stain: still positive in many cases</li>
+<li>PCR: bacterial DNA still detectable</li>
+<li>Culture: may be reduced &rarr; this is why blood cultures are drawn FIRST before antibiotics</li>
+</ol>
+<div class="alert ab" style="margin-top:10px;"><span class="ai">&#128161;</span><span>Antibiotics given hours before LP will not significantly alter CSF WBC count or glucose &mdash; stated explicitly in Harrison&apos;s Chapter 143.</span></div>
+</div>
+<div class="card cr">
+<div class="card-title">&#10060; Q8: Focal Signs Present &mdash; What Comes Next?</div>
+<p style="color:var(--text2);font-size:.91em;margin-bottom:10px;">Scenario: fever + headache + neck stiffness + <strong>focal neurological signs</strong></p>
+<ol class="b">
+<li><strong>CT head first</strong> &mdash; focal signs = risk of herniation with immediate LP</li>
+<li>Simultaneously: draw blood cultures</li>
+<li>Simultaneously: start antibiotics + dexamethasone (do NOT wait for CT results)</li>
+<li>After CT clears herniation: perform LP</li>
+</ol>
+<div class="alert ar" style="margin-top:10px;"><span class="ai">&#128680;</span><span>Q8 answer = CT head. Do NOT LP first when focal signs present. Start antibiotics + dexa while CT is being done.</span></div>
+</div>
+</div>
+</div>
+
+
+<div id="s6">
+<div class="sec-head">
+  <div class="sec-icon" style="background:var(--greenlt);border:1px solid var(--greenmd);">&#128138;</div>
+  <h2>Empirical Antibiotic Therapy</h2>
+</div>
+<div class="sec-rule" style="background:var(--green);"></div>
+<div class="alert ar"><span class="ai">&#128680;</span><div><strong>Medical Emergency:</strong> Goal is antibiotic therapy within 60 minutes of ER arrival. Empirical therapy begins BEFORE culture results, CSF PCR, or Gram stain are available.</div></div>
+<div class="tw"><table>
+<thead><tr><th>Clinical Situation</th><th>Empirical Regimen</th><th>Rationale</th></tr></thead>
+<tbody>
+<tr>
+<td class="tb"><strong>Immunocompetent adult &lt;55 yrs</strong></td>
+<td><ol class="b"><li><span class="tag tgg">Ceftriaxone/Cefotaxime</span></li><li>+ <span class="tag tgo">Vancomycin</span></li><li>+ <span class="tag tgp">Acyclovir</span></li></ol></td>
+<td><ul class="b"><li>Cover S. pneumoniae (incl. PCN-resistant), N. meningitidis, H. influenzae</li><li>Acyclovir: HSV encephalitis = #1 differential</li></ul></td>
+</tr>
+<tr>
+<td class="to"><strong>Adult &gt;55 OR alcoholism OR immunocompromised OR transplant</strong> <span class="q">Q1</span><span class="q">Q3</span><span class="q">Q5</span><span class="q">Q7</span></td>
+<td><ol class="b"><li><span class="tag tgr">Ampicillin</span></li><li>+ <span class="tag tgg">Ceftriaxone</span></li><li>+ <span class="tag tgo">Vancomycin</span></li></ol></td>
+<td><ul class="b"><li><strong>Ampicillin essential &mdash; covers Listeria</strong></li><li>Cephalosporins have zero Listeria activity</li></ul></td>
+</tr>
+<tr>
+<td class="tp"><strong>PCN allergy + Listeria risk</strong> <span class="q">Q5</span><span class="q">Q7</span></td>
+<td><ol class="b"><li><span class="tag tgt">TMP-SMX</span></li><li>+ <span class="tag tgg">Ceftriaxone</span></li><li>+ <span class="tag tgo">Vancomycin</span></li></ol></td>
+<td><ul class="b"><li>TMP-SMX replaces ampicillin for Listeria coverage</li><li>Dose: TMP 10&ndash;20 mg/kg/day + SMX 50&ndash;100 mg/kg/day q6h</li></ul></td>
+</tr>
+<tr>
+<td class="tr"><strong>Hospital-acquired / post-neurosurgery / neutropenic</strong></td>
+<td><ol class="b"><li><span class="tag tgo">Vancomycin</span></li><li>+ <span class="tag tgb">Ceftazidime</span> or <span class="tag tgb">Meropenem</span></li></ol></td>
+<td><ul class="b"><li>Cover Staph (MRSA) + Pseudomonas aeruginosa</li><li>Ceftriaxone does NOT cover Pseudomonas</li></ul></td>
+</tr>
+<tr>
+<td class="tt"><strong>All adults (universal add-on)</strong></td>
+<td><span class="tag tgp">Acyclovir</span></td>
+<td><ul class="b"><li>HSV encephalitis cannot be clinically distinguished from bacterial meningitis</li><li>Add empirically in all adult patients</li></ul></td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="card co">
+<div class="card-title">&#129513; Why Each Antibiotic &mdash; The Clinical Logic</div>
+<div class="g2">
+<ol class="b">
+<li><strong>Ceftriaxone/Cefotaxime:</strong> covers susceptible S. pneumoniae, N. meningitidis, H. influenzae, Group B Strep &mdash; but NOT Listeria, NOT Pseudomonas</li>
+<li><strong>Vancomycin:</strong> for PCN/cephalosporin-resistant S. pneumoniae and MRSA &mdash; but dexamethasone DECREASES its CSF penetration</li>
+<li><strong>Ampicillin:</strong> the only standard first-line agent for Listeria in community-acquired meningitis</li>
+<li><strong>TMP-SMX:</strong> replaces ampicillin for Listeria in PCN-allergic patients</li>
+</ol>
+<ol class="b" start="5">
+<li><strong>Ceftazidime:</strong> Pseudomonas activity &mdash; used when nosocomial/post-neurosurgery meningitis</li>
+<li><strong>Meropenem:</strong> carbapenem with Listeria + Pseudomonas + resistant pneumococci activity &mdash; not as monotherapy</li>
+<li><strong>Acyclovir:</strong> HSV-1/HSV-2 encephalitis &mdash; NOT ganciclovir (ganciclovir = CMV only) <span class="q">Q15</span></li>
+<li><strong>Cefepime:</strong> 4th-gen; Pseudomonas activity; associated with seizures/encephalopathy in critically ill &mdash; limits use</li>
+</ol>
+</div>
+</div>
+
+<div class="card cp">
+<div class="card-title">&#128138; Q15: 40yo, Fever + Maculopapular Rash + Focal Neuro Signs &mdash; Empirical Treatment?</div>
+<div class="scen">
+<div class="scen-q">40yo man, fever, maculopapular rash, headache, focal neurological signs. What empirical treatment?<br>Options: Ertapenem / Vancomycin / Acyclovir / Ganciclovir</div>
+<div class="scen-a">&#10003; Answer: Acyclovir</div>
+<div class="scen-w">
+<p style="margin-bottom:8px;"><strong>The focal neurological signs are the key:</strong> They point toward HSV encephalitis. HSV-1 encephalitis is the #1 condition mimicking bacterial meningitis with focal features.</p>
+<ol class="b">
+<li><strong>Acyclovir &rarr; correct:</strong> empirical for HSV encephalitis; standard add-on in all adult regimens. Focal signs clinch the indication.</li>
+<li><strong>Ertapenem &rarr; wrong:</strong> limited CNS penetration; lacks MRSA coverage; not standard first-line here</li>
+<li><strong>Vancomycin alone &rarr; wrong:</strong> insufficient spectrum; does not cover HSV; given only as part of combination</li>
+<li><strong>Ganciclovir &rarr; wrong:</strong> covers CMV only, not HSV. The rule: Acyclovir = HSV/VZV; Ganciclovir = CMV. Never interchange.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="s7">
+<div class="sec-head">
+  <div class="sec-icon" style="background:var(--teallt);border:1px solid var(--tealmd);">&#127919;</div>
+  <h2>Pathogen-Specific Therapy</h2>
+</div>
+<div class="sec-rule" style="background:var(--teal);"></div>
+
+<div class="drug">
+<div class="drug-h" style="background:var(--redlt);border-bottom-color:var(--redmd);">
+<span style="font-size:1.2em;">&#128308;</span>
+<span class="drug-name" style="color:var(--red);">S. pneumoniae &mdash; Pneumococcal Meningitis</span>
+<span class="tag tgr">Mortality ~20%</span>
+</div>
+<div class="drug-b">
+<div class="drug-row"><span class="drug-lbl">Empirical start</span><span>Ceftriaxone/Cefotaxime + Vancomycin &mdash; always start both while awaiting susceptibility results</span></div>
+<div class="drug-row"><span class="drug-lbl">PCN-sensitive (MIC &lt;0.06)</span><span>Penicillin G alone</span></div>
+<div class="drug-row"><span class="drug-lbl">PCN-intermediate</span><span>Ceftriaxone or Cefotaxime or Cefepime</span></div>
+<div class="drug-row"><span class="drug-lbl">PCN-resistant or ceph MIC &gt;1</span><span>Ceftriaxone + Vancomycin; if cephalosporin MIC &gt;1 &micro;g/mL &rarr; Vancomycin is drug of choice</span></div>
+<div class="drug-row"><span class="drug-lbl">Rifampin role</span><span>Synergy with vancomycin ONLY &mdash; NEVER as monotherapy (resistance develops rapidly when used alone)</span></div>
+<div class="drug-row"><span class="drug-lbl">Duration</span><span>2 weeks IV</span></div>
+<div class="drug-row"><span class="drug-lbl">Critical action</span><span>Repeat LP at <strong>24&ndash;36 hours</strong> after antibiotics to confirm CSF sterilization. Failure to sterilize = presumptive antibiotic resistance.</span></div>
+<div class="drug-row"><span class="drug-lbl">Escalation</span><span>If IV vancomycin fails at 48h &rarr; add <strong>intraventricular vancomycin</strong> (preferred over intrathecal &mdash; achieves better drug levels in cerebral ventricles)</span></div>
+<div class="pearl"><span>&#128142;</span><span>Dexamethasone DECREASES vancomycin CSF penetration &rarr; increase dose to <strong>45&ndash;60 mg/kg/day</strong> when co-administering dexamethasone. <span class="q">Q14</span><span class="q">Q16</span></span></div>
+</div>
+</div>
+
+<div class="drug">
+<div class="drug-h" style="background:var(--bluelt);border-bottom-color:var(--bluemd);">
+<span style="font-size:1.2em;">&#128309;</span>
+<span class="drug-name" style="color:var(--blue);">N. meningitidis &mdash; Meningococcal Meningitis</span>
+<span class="tag tgb">Mortality 3&ndash;7%</span>
+</div>
+<div class="drug-b">
+<div class="drug-row"><span class="drug-lbl">Drug of choice</span><span>Penicillin G (if susceptible). Ceftriaxone/Cefotaxime if PCN-resistant &mdash; test all CSF isolates for susceptibility (resistance increasing globally)</span></div>
+<div class="drug-row"><span class="drug-lbl">Duration</span><span>7 days IV for uncomplicated meningococcal meningitis</span></div>
+<div class="drug-row"><span class="drug-lbl">Prophylaxis</span><span>See Section 10 below &mdash; all close contacts including healthcare workers with oropharyngeal exposure</span></div>
+</div>
+</div>
+
+<div class="drug">
+<div class="drug-h" style="background:var(--orangelt);border-bottom-color:var(--orangemd);">
+<span style="font-size:1.2em;">&#129504;</span>
+<span class="drug-name" style="color:var(--orange);">Listeria monocytogenes <span class="q">Q1</span><span class="q">Q3</span><span class="q">Q5</span><span class="q">Q7</span></span>
+<span class="tag tgo">Mortality ~15%</span>
+</div>
+<div class="drug-b">
+<div class="drug-row"><span class="drug-lbl">Drug of choice</span><span><strong>Ampicillin &ge; 3 weeks</strong> &mdash; minimum duration; critically ill need &ge;3 weeks</span></div>
+<div class="drug-row"><span class="drug-lbl">Add (critical illness)</span><span>Gentamicin &mdash; loading dose 2 mg/kg, then 7.5 mg/kg/day q8h; adjust for renal function</span></div>
+<div class="drug-row"><span class="drug-lbl">PCN allergy</span><span><strong>TMP-SMX</strong> &mdash; trimethoprim 10&ndash;20 mg/kg/day + sulfamethoxazole 50&ndash;100 mg/kg/day q6h; established alternative</span></div>
+<div class="drug-row"><span class="drug-lbl">Meropenem</span><span>Active against Listeria in vitro, but NOT the standard-of-care alternative in PCN allergy &mdash; TMP-SMX is preferred</span></div>
+<div class="drug-row"><span class="drug-lbl">NEVER use</span><span>Any cephalosporin (1st through 4th generation) &mdash; zero activity against Listeria. Most important pearl for Q1/Q3/Q5/Q7.</span></div>
+<div class="pearl"><span>&#128142;</span><span>Q5: chemo + PCN allergy + gram-positive CSF &rarr; TMP-SMX. Q7: kidney disease + PCN allergy + gram-positive rods &rarr; TMP-SMX. Ceftriaxone alone in these cases is a dangerous error.</span></div>
+</div>
+</div>
+
+<div class="drug">
+<div class="drug-h" style="background:var(--purplelt);border-bottom-color:var(--purplemd);">
+<span style="font-size:1.2em;">&#128992;</span>
+<span class="drug-name" style="color:var(--purple);">Gram-Negative Bacilli (incl. Pseudomonas)</span>
+</div>
+<div class="drug-b">
+<div class="drug-row"><span class="drug-lbl">Standard gram-neg</span><span>Ceftriaxone, Cefotaxime, or Ceftazidime &mdash; equally efficacious for non-Pseudomonas gram-negative bacilli</span></div>
+<div class="drug-row"><span class="drug-lbl">Pseudomonas aeruginosa</span><span><strong>Ceftazidime OR Meropenem</strong> &mdash; ceftriaxone and cefotaxime do NOT provide adequate Pseudomonas CNS coverage</span></div>
+<div class="drug-row"><span class="drug-lbl">Duration</span><span>3 weeks IV for gram-negative bacillary meningitis</span></div>
+</div>
+</div>
+
+<div class="drug">
+<div class="drug-h" style="background:var(--greenlt);border-bottom-color:var(--greenmd);">
+<span style="font-size:1.2em;">&#128994;</span>
+<span class="drug-name" style="color:var(--green);">Staphylococci</span>
+</div>
+<div class="drug-b">
+<div class="drug-row"><span class="drug-lbl">MSSA</span><span>Nafcillin &mdash; drug of choice for methicillin-sensitive S. aureus</span></div>
+<div class="drug-row"><span class="drug-lbl">MRSA / PCN allergy</span><span>Vancomycin. If CSF not sterilized at 48h &rarr; add intraventricular or intrathecal vancomycin 20 mg once daily</span></div>
+</div>
+</div>
+</div>
+
+
+<div id="s8">
+<div class="sec-head">
+  <div class="sec-icon" style="background:var(--redlt);border:1px solid var(--redmd);">&#128137;</div>
+  <h2>Dexamethasone &mdash; Complete Protocol</h2>
+</div>
+<div class="sec-rule" style="background:var(--red);"></div>
+<div class="alert ar" style="margin-bottom:18px;"><span class="ai">&#128680;</span><div><strong>Most-tested topic in these 18 questions &mdash; appears in Q11, Q12, Q13, Q14, Q16, Q18.</strong> Every dose, timing, mechanism, interaction, and limitation must be mastered.</div></div>
+
+<div class="card cy">
+<div class="card-title">&#11088; The Exact Protocol &mdash; Memorize Every Number</div>
+<div class="g3">
+<div style="text-align:center;padding:10px;">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:2em;font-weight:700;color:var(--yellow);line-height:1;">10 mg</div>
+<div style="color:var(--text2);font-size:.88em;">Per dose (IV only)</div>
+</div>
+<div style="text-align:center;padding:10px;">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:2em;font-weight:700;color:var(--yellow);line-height:1;">q6h &times; 4d</div>
+<div style="color:var(--text2);font-size:.88em;"><strong>4 times/day</strong> &times; 4 days = 16 total doses</div>
+</div>
+<div style="text-align:center;padding:10px;">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:2em;font-weight:700;color:var(--green);line-height:1;">&minus;20 min</div>
+<div style="color:var(--text2);font-size:.88em;">Before first antibiotic dose</div>
+</div>
+</div>
+<div class="dvd" style="margin:14px 0;"></div>
+<div class="g2">
+<ol class="b">
+<li><strong>Drug:</strong> Dexamethasone IV &mdash; NOT hydrocortisone, NOT prednisone <span class="q">Q18</span></li>
+<li><strong>Route:</strong> Intravenous only &mdash; NOT intrathecal, NOT oral <span class="q">Q13</span></li>
+<li><strong>Timing:</strong> 15&ndash;20 min BEFORE or concurrent with first antibiotic dose <span class="q">Q11</span><span class="q">Q13</span><span class="q">Q14</span><span class="q">Q18</span></li>
+</ol>
+<ol class="b" start="4">
+<li><strong>Cutoff:</strong> If &gt;6h after antibiotics &rarr; unlikely to provide significant benefit <span class="q">Q12</span><span class="q">Q16</span></li>
+<li><strong>Do NOT double the dose</strong> if patient is already on steroids <span class="q">Q14</span></li>
+<li><strong>No bloodwork required</strong> before giving &mdash; do not delay for labs <span class="q">Q18</span></li>
+</ol>
+</div>
+</div>
+
+<div class="g2">
+<div class="card cr">
+<div class="card-title">&#129514; Mechanism &mdash; Why 20 Min BEFORE Is Non-Negotiable</div>
+<div class="flow" style="padding:16px;margin-bottom:0;">
+<div class="fb r" style="font-size:.83em;">Antibiotics &rarr; bacterial lysis &rarr; endotoxin / LPS / teichoic acid released into SAS</div>
+<div class="fa">&darr;</div>
+<div class="fb r" style="font-size:.83em;">Macrophages + microglia activated by endotoxin &rarr; produce TNF-&alpha; + IL-1&beta;</div>
+<div class="fa">&darr;</div>
+<div class="fl">Dexamethasone must block here &mdash; but ONLY before this activation step</div>
+<div class="fb g" style="font-size:.83em;margin-top:4px;">Dexa given BEFORE &rarr; blocks mRNA synthesis &rarr; TNF-&alpha;/IL-1&beta; never produced</div>
+<div class="fa">&darr;</div>
+<div class="fb r" style="font-size:.83em;">Dexa given AFTER activation &rarr; TNF-&alpha; already released &rarr; cascade cannot be stopped</div>
+</div>
+</div>
+<div class="card cb">
+<div class="card-title">&#128202; Mechanisms of Benefit &amp; Trial Results</div>
+<p style="font-weight:700;margin-bottom:6px;">Mechanisms (all from Harrison&apos;s):</p>
+<ol class="b">
+<li>Inhibits TNF-&alpha; + IL-1&beta; synthesis at mRNA level</li>
+<li>Decreases CSF outflow resistance &rarr; reduces hydrocephalus</li>
+<li>Stabilizes blood-brain barrier (reduces permeability)</li>
+<li>Reduces meningeal inflammation and purulent exudate</li>
+<li>Reduces sensorineural hearing loss (H. influenzae, S. pneumoniae)</li>
+</ol>
+<div class="dvd" style="margin:10px 0;"></div>
+<p style="font-weight:700;margin-bottom:6px;">European RCT key results:</p>
+<ul class="b">
+<li>Unfavorable outcomes: 15% vs 25% (p=0.03)</li>
+<li>Death: 7% vs 15% (p=0.04)</li>
+<li>Benefit most striking in <strong>S. pneumoniae meningitis</strong></li>
+<li>Also reduces hearing loss in H. influenzae and N. meningitidis</li>
+</ul>
+</div>
+</div>
+
+<div class="card cr">
+<div class="card-title">&#9888;&#65039; Critical Interaction: Dexamethasone + Vancomycin <span class="q">Q14</span><span class="q">Q16</span></div>
+<div class="g2">
+<div>
+<div class="alert ar" style="margin-bottom:8px;"><span class="ai">&#10060;</span><span><strong>THE TRAP:</strong> &ldquo;Dexamethasone improves BBB penetration of vancomycin&rdquo; &mdash; sounds logical but is WRONG</span></div>
+<div class="alert ag"><span class="ai">&#10003;</span><span><strong>THE TRUTH:</strong> Dexamethasone reduces BBB permeability &rarr; DECREASES vancomycin penetration into CSF</span></div>
+</div>
+<div>
+<p style="font-weight:700;margin-bottom:6px;">Clinical consequences:</p>
+<ol class="b">
+<li>Increase vancomycin dose to <strong>45&ndash;60 mg/kg/day</strong> when co-administered with dexamethasone</li>
+<li>Monitor serum vancomycin levels closely</li>
+<li>Dexamethasone also delays CSF sterilization in experimental pneumococcal meningitis</li>
+<li>If IV vancomycin still fails &rarr; intraventricular route needed</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div class="g2">
+<div class="card cg">
+<div class="card-title">&#10003; Where Dexamethasone Works</div>
+<ol class="b">
+<li>S. pneumoniae meningitis &mdash; greatest benefit</li>
+<li>H. influenzae meningitis &mdash; reduces hearing loss</li>
+<li>N. meningitidis &mdash; reduces death and hearing loss</li>
+<li>High-income countries</li>
+<li>Early hospital presentation</li>
+<li>Microbiologically confirmed bacterial meningitis</li>
+<li>HIV-negative patients with TB meningitis (dose 12&ndash;16 mg/d &times; 3 weeks, then taper)</li>
+</ol>
+</div>
+<div class="card cr">
+<div class="card-title">&#10060; Where Dexamethasone Does NOT Work</div>
+<ol class="b">
+<li>Given &gt;6 hours after antibiotics started</li>
+<li><strong>Sub-Saharan Africa + Southeast Asia</strong> &mdash; 3 large RCTs showed NO benefit<br><small style="color:var(--text3);">Reasons: late presentation, pre-antibiotic treatment, malnutrition, HIV, unproven bacterial diagnosis</small></li>
+<li>Patients with negative Gram stain + culture in low-income countries &rarr; do NOT give</li>
+<li>&ldquo;Greatest benefit in meningococcal&rdquo; &rarr; FALSE; greatest benefit = pneumococcal <span class="q">Q18</span></li>
+</ol>
+</div>
+</div>
+
+<div class="card co">
+<div class="card-title">&#128203; Quick Answer Key &mdash; All 6 Dexa Questions</div>
+<div class="tw"><table>
+<thead><tr><th>Question</th><th>What Is Tested</th><th>Correct Answer</th></tr></thead>
+<tbody>
+<tr><td><span class="q">Q11</span> Correct protocol in pneumococcal meningitis?</td><td>Dose and frequency</td><td><strong>IV Dexamethasone 10 mg &times; q6h (4 times/day) &times; 4 days</strong></td></tr>
+<tr><td><span class="q">Q12</span> 40yo healthy man &mdash; what is correct?</td><td>6-hour cutoff</td><td><strong>Dexamethasone NOT effective if given &gt;6h after antibiotics</strong></td></tr>
+<tr><td><span class="q">Q13</span> 60yo with 90 PMNs in CSF &mdash; when to give?</td><td>Exact timing</td><td><strong>IV Dexamethasone 20 min BEFORE antibiotics &mdash; NOT intrathecal</strong></td></tr>
+<tr><td><span class="q">Q14</span> What is correct about dexa?</td><td>Vancomycin interaction trap</td><td><strong>Given 20 min before antibiotics</strong> &mdash; NOT &ldquo;improves vancomycin penetration&rdquo; (trap)</td></tr>
+<tr><td><span class="q">Q16</span> What is correct about steroids?</td><td>True vs false statements</td><td><strong>Can lower penetration of vancomycin into CSF (TRUE)</strong></td></tr>
+<tr><td><span class="q">Q18</span> What is correct about steroids?</td><td>Multiple distractors</td><td><strong>Give 20 min before antibiotics</strong> &mdash; NOT prednisone, NOT 6x/day, NOT greatest in meningococcal</td></tr>
+</tbody>
+</table></div>
+</div>
+</div>
+
+
+<div id="s9">
+<div class="sec-head">
+  <div class="sec-icon" style="background:var(--bluelt);border:1px solid var(--bluemd);">&#129440;</div>
+  <h2>Viral Meningitis</h2>
+</div>
+<div class="sec-rule" style="background:var(--blue);"></div>
+<div class="tw"><table>
+<thead><tr><th>Rank</th><th>Virus</th><th>CSF Glucose</th><th>Key Clinical Features</th><th>Season</th></tr></thead>
+<tbody>
+<tr>
+<td class="tr"><strong>1st &mdash; Most Common</strong></td>
+<td><strong>Enteroviruses</strong> (coxsackievirus, echovirus) <span class="q">Q17</span></td>
+<td>Normal</td>
+<td><ul class="b"><li>&gt;85% of identifiable viral causes</li><li>Most common in children &lt;15 yrs</li><li>Sporadic or epidemic clusters</li><li>Associated: hand-foot-mouth, herpangina, myopericarditis</li><li>Diagnose: CSF RT-PCR (sensitivity &gt;95%)</li></ul></td>
+<td>Summer/fall</td>
+</tr>
+<tr>
+<td class="tb"><strong>2nd</strong></td>
+<td><strong>HSV-2</strong> (uncomplicated meningitis) <span class="q">Q17</span></td>
+<td>Usually normal</td>
+<td><ul class="b"><li>~5% overall; higher in adults outside summer</li><li>Associated with genital herpes &mdash; many have no active lesions at presentation</li><li>20% of patients &rarr; recurrent attacks (Mollaret&apos;s meningitis)</li><li>Diagnose: HSV CSF PCR (more sensitive than culture)</li><li>Treat with Acyclovir</li></ul></td>
+<td>Year-round</td>
+</tr>
+<tr>
+<td class="tg"><strong>Common</strong></td>
+<td><strong>VZV</strong></td>
+<td>Normal</td>
+<td><ul class="b"><li>3&ndash;20% (highly variable)</li><li>Chickenpox or shingles &mdash; but can occur WITHOUT any rash</li><li>Diagnose: CSF PCR + intrathecal VZV antibody synthesis</li></ul></td>
+<td>Year-round</td>
+</tr>
+<tr>
+<td class="tg"><strong>Common</strong></td>
+<td><strong>Arboviruses (WNV)</strong></td>
+<td>Normal</td>
+<td><ul class="b"><li><strong>45% have PMN pleocytosis</strong> &mdash; persists &gt;1 week (unique exception)</li><li>Glucose is NORMAL despite PMNs &mdash; key distinction from bacterial</li><li>Diagnose: CSF IgM (&gt;80% sensitivity by end of week 1)</li><li>CSF PCR only ~70% sensitive &mdash; serology preferred</li></ul></td>
+<td>Summer/fall</td>
+</tr>
+<tr>
+<td class="to"><strong>Less Common</strong></td>
+<td><strong>CMV</strong> <span class="q">Q17</span></td>
+<td>Can be low (immunocompromised)</td>
+<td><ul class="b"><li>Mainly in immunocompromised (HIV, transplant)</li><li>PMN pleocytosis with low glucose possible in immunocompromised</li><li>Treat with <strong>Ganciclovir</strong> &mdash; NOT acyclovir (critical distinction)</li></ul></td>
+<td>Year-round</td>
+</tr>
+<tr>
+<td class="tp"><strong>Rare</strong></td>
+<td>EBV, HIV, HHV-6, Mumps, LCMV</td>
+<td>Normal (mumps/LCMV may be low 10&ndash;30%)</td>
+<td><ul class="b"><li>Mumps: parotitis, orchitis, hypoglycorrhachia 10&ndash;30%; CSF can exceed 1000 cells/&micro;L in 25%</li><li>LCMV: rodent exposure; late fall/winter; CSF pleocytosis often &gt;1000 cells/&micro;L</li><li>HIV: meningitis at primary infection in 5&ndash;10%; cranial nerve palsies (V, VII, VIII)</li></ul></td>
+<td>Varies</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="alert ao" style="margin-bottom:18px;">
+<span class="ai">&#127919;</span>
+<div><strong>Q17: &ldquo;Least common cause of viral meningitis from options?&rdquo;</strong><br>
+Options: HSV-2 / CMV / Enterovirus / Coxsackie / West Nile<br>
+&rarr; <strong>Answer: CMV</strong> &mdash; Less Common category; mainly immunocompromised. Enteroviruses (including coxsackievirus) = most common by far. HSV-2 and WNV are both more common than CMV.</div>
+</div>
+
+<div class="g2">
+<div class="card cb">
+<div class="card-title">&#10003; TRUE Statements About Viral Meningitis <span class="q">Q9</span></div>
+<ol class="b">
+<li>Lymphocyte count <strong>CAN reach thousands/&micro;L</strong> &mdash; especially LCMV (often &gt;1000) and mumps &#10003;</li>
+<li>After full workup (PCR + culture + serology): <strong>no etiology found in ~40%</strong> &mdash; completely normal and expected &#10003;</li>
+<li>Treatment is primarily <strong>supportive</strong> &mdash; analgesics, antipyretics, antiemetics, hydration &#10003;</li>
+<li>Adults: <strong>excellent prognosis</strong>, full recovery expected &#10003;</li>
+<li>Add IV Acyclovir for HSV-1/2, severe EBV/VZV meningitis &#10003;</li>
+</ol>
+</div>
+<div class="card cr">
+<div class="card-title">&#10060; FALSE Statements (Exam Traps) <span class="q">Q9</span></div>
+<ol class="b">
+<li><strong>&ldquo;Low CSF glucose is typical of viral meningitis&rdquo;</strong> &#10060; &mdash; glucose is NORMAL; low glucose = bacterial/TB/fungal</li>
+<li><strong>&ldquo;PMN predominance is typical of viral meningitis&rdquo;</strong> &#10060; &mdash; lymphocytes predominate; PMNs unusual (exceptions: first 48h, WNV)</li>
+<li><strong>&ldquo;CSF immunoglobulins higher than serum = diagnostic of viral&rdquo;</strong> &#10060; &mdash; not a standard criterion</li>
+<li><strong>&ldquo;Stupor, coma, or marked confusion occur in viral meningitis&rdquo;</strong> &#10060; &mdash; these indicate encephalitis, not simple viral meningitis</li>
+<li><strong>&ldquo;Seizures and focal neurological signs are typical&rdquo;</strong> &#10060; &mdash; suggest encephalitis, not simple meningitis</li>
+</ol>
+</div>
+</div>
+
+<div class="card co">
+<div class="card-title">&#9888;&#65039; The WNV PMN Exception &mdash; Commonly Tested</div>
+<ol class="b">
+<li>WNV meningitis shows PMN pleocytosis in <strong>~45%</strong> of cases &mdash; far more than any other viral cause</li>
+<li>This PMN predominance can persist for <strong>&gt;1 week</strong> &mdash; much longer than the transient 48h seen with other viruses</li>
+<li>Despite PMNs: glucose is <strong>NORMAL</strong>, Gram stain negative, cultures negative &mdash; this combination points away from bacterial</li>
+<li>Diagnosis: <strong>CSF IgM</strong> &mdash; sensitivity &gt;80% by end of week 1; prevalence increases progressively during first week</li>
+<li>CSF RT-PCR for WNV: only ~70% sensitive &mdash; serology is more reliable</li>
+<li>No hypoglycorrhachia + negative Gram stain + negative cultures = distinguishes from bacterial</li>
+</ol>
+</div>
+</div>
+
+
+<div id="s10">
+<div class="sec-head">
+  <div class="sec-icon" style="background:var(--teallt);border:1px solid var(--tealmd);">&#128737;&#65039;</div>
+  <h2>Meningococcal Prophylaxis</h2>
+</div>
+<div class="sec-rule" style="background:var(--teal);"></div>
+
+<div class="card ct">
+<div class="card-title">&#128101; Who Qualifies as a &ldquo;Close Contact&rdquo;? <span class="q">Q6</span></div>
+<p style="color:var(--text2);font-size:.91em;margin-bottom:10px;">Definition = anyone with contact with oropharyngeal secretions of the index case:</p>
+<div class="g2">
+<ol class="b">
+<li>Kissing</li>
+<li>Sharing toys, beverages, or cigarettes</li>
+<li>Household members living with the index case</li>
+<li>Dormitory roommates</li>
+</ol>
+<ol class="b" start="5">
+<li><strong>Healthcare workers</strong> who performed intubation, suctioning, or mouth-to-mouth resuscitation without appropriate PPE &mdash; this includes the doctor in Q6</li>
+<li>The index case themselves &mdash; receives prophylaxis after completing treatment to eradicate nasopharyngeal carriage</li>
+</ol>
+</div>
+<div class="alert ao" style="margin-top:10px;"><span class="ai">&#9888;&#65039;</span><span><strong>Q6:</strong> Doctor performed intubation without protection &rarr; oropharyngeal secretion exposure &rarr; <strong>NEEDS prophylaxis</strong>. Healthcare workers are NOT exempt.</span></div>
+</div>
+
+<div class="tw"><table>
+<thead><tr><th>Agent</th><th>Dose / Regimen</th><th>Efficacy</th><th>Key Notes</th></tr></thead>
+<tbody>
+<tr>
+<td class="tt"><strong>Rifampin</strong> (first-line oral)</td>
+<td><ul class="b"><li>Adults: 600 mg PO q12h &times; 2 days</li><li>Children &gt;1 yr: 10 mg/kg q12h &times; 2 days</li></ul></td>
+<td>~100% effective</td>
+<td><ul class="b"><li>Reduces nasopharyngeal carriage</li><li><strong>NOT in pregnant women</strong></li><li>Must complete full 2-day course</li></ul></td>
+</tr>
+<tr>
+<td class="tb"><strong>Ceftriaxone IM</strong> (preferred in pregnancy)</td>
+<td><ul class="b"><li>Adults: 250 mg IM &times; 1 single dose</li></ul></td>
+<td>Very effective</td>
+<td><ul class="b"><li><strong>Safe in pregnant women</strong></li><li>Single injection &mdash; excellent compliance</li></ul></td>
+</tr>
+<tr>
+<td class="tg"><strong>Azithromycin</strong></td>
+<td>500 mg PO &times; 1 single dose</td>
+<td>Effective</td>
+<td>Alternative single-dose option</td>
+</tr>
+<tr>
+<td class="to"><strong>Ciprofloxacin</strong></td>
+<td>500 mg PO &times; 1 single dose</td>
+<td>Effective</td>
+<td>Adults only; increasing resistance in some regions</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="card cr">
+<div class="card-title">&#10060; What Is NOT Used / Common Exam Distractors <span class="q">Q6</span></div>
+<ol class="b">
+<li><strong>Penicillin:</strong> does NOT eliminate nasopharyngeal carriage &rarr; INEFFECTIVE for prophylaxis despite being effective treatment</li>
+<li><strong>&ldquo;Prophylaxis only works in the first 4&ndash;8 hours&rdquo;:</strong> FALSE &mdash; this was a specific distractor in Q6. Prophylaxis is effective even after longer exposure periods.</li>
+<li><strong>&ldquo;The doctor doesn&apos;t need treatment&rdquo;:</strong> FALSE &mdash; any healthcare worker with oropharyngeal exposure requires prophylaxis</li>
+<li><strong>Amoxicillin:</strong> same issue as penicillin &mdash; does not clear carriage</li>
+</ol>
+</div>
+</div>
+
+
+<div id="s11">
+<div class="sec-head">
+  <div class="sec-icon" style="background:var(--purplelt);border:1px solid var(--purplemd);">&#128203;</div>
+  <h2>Question-by-Question Scenario Breakdown</h2>
+</div>
+<div class="sec-rule" style="background:var(--purple);"></div>
+<p style="color:var(--text3);margin-bottom:22px;">Every clinical scenario from the 18 questions &mdash; with the answer, full reasoning, and why each distractor fails.</p>
+
+<div class="card co">
+<div class="card-title"><span class="q">Q1</span> Alcoholic + Confusion + Fever + Neck Stiffness + Gram-positive organisms in CSF</div>
+<div class="scen">
+<div class="scen-q">Alcoholic patient, confusion, stiff neck, fever. Gram stain shows gram-positive organisms. Most likely organism?<br>Options: Listeria monocytogenes / Nocardia / Corynebacterium striatum / Bacillus anthracis / Pneumococcus</div>
+<div class="scen-a">&#10003; Answer: Listeria monocytogenes</div>
+<div class="scen-w">
+<ol class="b">
+<li><strong>Alcoholism = Listeria risk factor</strong> (impaired cell-mediated immunity)</li>
+<li><strong>Gram-positive rods = Listeria morphology</strong> (Pneumococcus = gram-positive cocci in pairs, not rods)</li>
+<li>Nocardia: branching gram-positive rods but primarily pulmonary/disseminated, rarely pure meningitis</li>
+<li>Corynebacterium striatum: gram-positive rods but usually contaminant, not a typical meningitis pathogen</li>
+<li>Bacillus anthracis: anthrax &mdash; not typical community-acquired meningitis</li>
+<li>Pneumococcus: most common overall, but morphology is cocci not rods</li>
+<li><strong>Treatment needed: Ampicillin &plusmn; Gentamicin (NOT ceftriaxone)</strong></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div class="card cp">
+<div class="card-title"><span class="q">Q3</span> Kidney Transplant + 750 WBCs + Gram-positive organisms in CSF &mdash; Best Treatment?</div>
+<div class="scen">
+<div class="scen-q">50yo woman, kidney transplant (immunocompromised), fever, headache. CSF: 750 leukocytes, high protein, low glucose, gram-positive organisms. Best treatment?<br>Options: Vancomycin / Ceftriaxone / Ganciclovir / Ampicillin / Gentamicin</div>
+<div class="scen-a">&#10003; Answer: Ceftriaxone (as backbone); complete regimen = Ampicillin + Ceftriaxone + Vancomycin</div>
+<div class="scen-w">
+<ol class="b">
+<li>Transplant = immunocompromised &rarr; Listeria must be covered &rarr; needs Ampicillin</li>
+<li>Gram-positive organisms in immunocompromised host = Listeria OR pneumococcus</li>
+<li>Full regimen: Ampicillin (Listeria) + Ceftriaxone (pneumococcus/gram-neg) + Vancomycin (resistant pneumococcus)</li>
+<li>Ganciclovir = CMV treatment only &rarr; completely wrong for bacterial meningitis</li>
+<li>Vancomycin alone: misses Listeria and gram-negatives &rarr; insufficient</li>
+<li>Gentamicin alone: adjunct only, not primary monotherapy</li>
+<li>Ceftriaxone alone: misses Listeria entirely &rarr; dangerous in a transplant patient</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div class="card cp">
+<div class="card-title"><span class="q">Q5</span> Lymphoma Chemotherapy + PCN Allergy + Gram-positive organisms</div>
+<div class="scen">
+<div class="scen-q">50yo woman on chemotherapy for lymphoma, known penicillin allergy, fever. CSF: low glucose, gram-positive organisms, mononuclear cells. Best treatment?<br>Options: Meropenem / TMP-SMX / Ceftriaxone / Ceftazidime</div>
+<div class="scen-a">&#10003; Answer: TMP-SMX (Trimethoprim-Sulfamethoxazole)</div>
+<div class="scen-w">
+<ol class="b">
+<li>Immunocompromised (chemo/lymphoma) + gram-positive mononuclear picture = <strong>Listeria meningitis</strong></li>
+<li>Penicillin allergy &rarr; cannot use ampicillin &rarr; TMP-SMX is the established alternative</li>
+<li>Meropenem: active against Listeria in vitro but not standard-of-care alternative for PCN allergy</li>
+<li>Ceftriaxone: ZERO Listeria coverage &rarr; dangerous wrong answer</li>
+<li>Ceftazidime: for Pseudomonas aeruginosa &rarr; wrong organism entirely</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div class="card ct">
+<div class="card-title"><span class="q">Q6</span> Healthcare Worker Prophylaxis After Intubating Meningococcal Patient</div>
+<div class="scen">
+<div class="scen-q">Doctor intubated meningococcal patient without protection. What preventive treatment is recommended?<br>Options: Can give penicillin to contacts / Rifampin effective ~100% / Prophylaxis only in first 4&ndash;8 hours / Single IM injection very effective / Doctor doesn&apos;t need treatment</div>
+<div class="scen-a">&#10003; Answer: Rifampin ~100% effective (TRUE) AND Single IM ceftriaxone injection is very effective (TRUE)</div>
+<div class="scen-w">
+<ol class="b">
+<li>Doctor had oropharyngeal secretion contact during intubation &rarr; qualifies as close contact &rarr; <strong>needs prophylaxis</strong></li>
+<li>Rifampin ~100% effective: TRUE statement from Harrison&apos;s (given as 600mg q12h &times; 2 days)</li>
+<li>Single IM ceftriaxone (250mg): very effective, preferred in pregnancy</li>
+<li>&ldquo;Only effective in first 4&ndash;8 hours&rdquo;: FALSE &mdash; prophylaxis is effective beyond this window</li>
+<li>Penicillin: NOT used (does not eradicate nasopharyngeal carriage)</li>
+<li>&ldquo;Doctor doesn&apos;t need treatment&rdquo;: FALSE &mdash; oropharyngeal contact = close contact = must receive prophylaxis</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div class="card co">
+<div class="card-title"><span class="q">Q7</span> 35yo + Kidney Disease + PCN Allergy + Gram-positive rods + Mononuclear CSF</div>
+<div class="scen">
+<div class="scen-q">35yo woman, chronic kidney disease, known PCN allergy. CSF: 700 mononuclear cells, glucose 30 mg/dL (blood 100 mg/dL = ratio 0.30), high protein, gram-positive organisms on direct smear. What is correct regarding treatment?<br>Options: Add IV Doxycycline / Empirical ceftriaxone sufficient / Dexamethasone improves prognosis / IV TMP-SMX is treatment of choice</div>
+<div class="scen-a">&#10003; Answer: IV TMP-SMX is the treatment of choice</div>
+<div class="scen-w">
+<ol class="b">
+<li>Chronic kidney disease (immunosuppression) + gram-positive rods + mononuclear cells + low glucose = <strong>Listeria meningitis</strong></li>
+<li>Penicillin allergy &rarr; cannot use ampicillin &rarr; TMP-SMX is the established alternative for Listeria</li>
+<li>Add IV Doxycycline: no role in Listeria treatment &rarr; wrong</li>
+<li>Empirical ceftriaxone alone: misses Listeria entirely &rarr; dangerous</li>
+<li>Dexamethasone improves prognosis: while true in general, this doesn&apos;t address which antibiotic to use &mdash; TMP-SMX is the direct answer to the antibiotic question</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div class="card cb">
+<div class="card-title"><span class="q">Q12</span> 40yo Healthy Man &mdash; What Is Correct About His Management?</div>
+<div class="scen">
+<div class="scen-q">40yo healthy man, fever, headache, neck stiffness on exam. What is correct?<br>Options: Should add ampicillin / Adding dexa + vancomycin improves prognosis / Dexa NOT effective after 6h of antibiotics / Should give vancomycin to cover S. aureus / Antibiotics raise CSF WBC count within hours</div>
+<div class="scen-a">&#10003; Answer: Dexamethasone is NOT effective if given &gt;6 hours after starting antibiotic therapy</div>
+<div class="scen-w">
+<ol class="b">
+<li>Add ampicillin: 40yo HEALTHY man, no Listeria risk factors &rarr; ampicillin NOT needed &#10060;</li>
+<li>Dexamethasone + vancomycin: partially correct but the most SPECIFIC testable fact here is the 6-hour timing cutoff</li>
+<li><strong>Dexa not effective after &gt;6h of antibiotics: TRUE &#10003;</strong></li>
+<li>Vancomycin to cover S. aureus: S. aureus is not a community-acquired target in a healthy 40yo; vancomycin is for resistant pneumococcus &#10060;</li>
+<li>Antibiotics raise CSF WBC count: FALSE &mdash; antibiotics do NOT raise WBC count &#10060;</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="s12">
+<div class="sec-head">
+  <div class="sec-icon" style="background:var(--surface2);border:1px solid var(--border2);">&#128202;</div>
+  <h2>Master Quick-Reference Table</h2>
+</div>
+<div class="sec-rule" style="background:var(--text3);"></div>
+<div class="tw"><table>
+<thead><tr><th>Topic</th><th>The Fact</th><th>Exam Trap Avoided</th></tr></thead>
+<tbody>
+<tr><td><strong>Most common bacterial (adults)</strong></td><td>S. pneumoniae ~50%</td><td>Always the first organism to cover empirically</td></tr>
+<tr><td><strong>Highest mortality</strong></td><td>S. pneumoniae ~20%</td><td>Listeria 15%, Meningococcus 3&ndash;7%</td></tr>
+<tr><td><strong>Alcoholic + meningitis organism</strong></td><td>Listeria monocytogenes &rarr; add ampicillin</td><td>Cephalosporins = zero Listeria activity</td></tr>
+<tr><td><strong>Transplant / chemo + meningitis</strong></td><td>Listeria risk &rarr; add ampicillin or TMP-SMX if PCN allergy</td><td>Ceftriaxone alone is dangerous in these patients</td></tr>
+<tr><td><strong>PCN allergy + Listeria coverage</strong></td><td>TMP-SMX (established alternative)</td><td>Not ceftriaxone, not meropenem as standard</td></tr>
+<tr><td><strong>Q4: most pathognomonic from given options</strong></td><td>Opening pressure 200 mmH&sub2;O &mdash; only abnormal value in those options</td><td>Protein 40 and glucose 80 are NORMAL; RBC is nonspecific</td></tr>
+<tr><td><strong>Low CSF glucose threshold</strong></td><td>&lt;40 mg/dL; ratio &lt;0.4 highly suggestive of bacterial</td><td>Also low in TB, fungal, carcinomatous &mdash; not 100% specific</td></tr>
+<tr><td><strong>Dexa drug</strong></td><td>Dexamethasone IV 10 mg</td><td>NOT hydrocortisone, NOT prednisone, NOT intrathecal</td></tr>
+<tr><td><strong>Dexa frequency</strong></td><td>q6h (4 times per day) &times; 4 days</td><td>NOT q12h (2x/day) &mdash; that is too infrequent</td></tr>
+<tr><td><strong>Dexa timing</strong></td><td>15&ndash;20 min BEFORE or concurrent with antibiotics</td><td>Useless if &gt;6h after antibiotics started</td></tr>
+<tr><td><strong>Dexa + Vancomycin</strong></td><td>Dexa DECREASES vancomycin CSF penetration</td><td>Opposite of what sounds logical &mdash; increase vancomycin dose</td></tr>
+<tr><td><strong>Dexa greatest benefit</strong></td><td>S. pneumoniae meningitis</td><td>NOT meningococcal as greatest benefit (trap in Q18)</td></tr>
+<tr><td><strong>Dexa in Africa</strong></td><td>NOT effective &mdash; 3 negative RCTs</td><td>&ldquo;Proven effective in Africa&rdquo; = FALSE</td></tr>
+<tr><td><strong>Repeat LP (pneumococcal)</strong></td><td>At 24&ndash;36h to confirm CSF sterilization</td><td>Failure = presumptive antibiotic resistance</td></tr>
+<tr><td><strong>Rifampin in treatment</strong></td><td>Synergy only &mdash; NEVER monotherapy</td><td>Rapid resistance when used alone</td></tr>
+<tr><td><strong>Nosocomial/post-neurosurgery</strong></td><td>Vancomycin + Ceftazidime or Meropenem</td><td>Ceftriaxone misses Pseudomonas</td></tr>
+<tr><td><strong>Most common viral cause</strong></td><td>Enteroviruses (&gt;85%)</td><td>Coxsackievirus IS a type of enterovirus</td></tr>
+<tr><td><strong>Least common viral cause (Q17)</strong></td><td>CMV</td><td>Less common; mainly immunocompromised</td></tr>
+<tr><td><strong>HSV meningitis (uncomplicated)</strong></td><td>HSV-2 in adults &rarr; treat with Acyclovir</td><td>Ganciclovir = CMV. Never interchange.</td></tr>
+<tr><td><strong>HSV encephalitis (focal signs)</strong></td><td>HSV-1 &rarr; treat empirically with IV Acyclovir</td><td>Focal neuro signs = include Acyclovir in regimen (Q15)</td></tr>
+<tr><td><strong>Viral CSF glucose</strong></td><td>Normal &mdash; hallmark of viral meningitis</td><td>Low glucose in &ldquo;viral&rdquo; presentation = think TB/fungal/bacterial</td></tr>
+<tr><td><strong>WNV CSF paradox</strong></td><td>45% have PMN pleocytosis despite being viral; glucose still normal</td><td>PMN + normal glucose + negative Gram stain &rarr; consider WNV; diagnose by CSF IgM</td></tr>
+<tr><td><strong>Subacute + lymphocytic + low glucose</strong></td><td>TB meningitis</td><td>Not WNV, not HSV (both have normal glucose)</td></tr>
+<tr><td><strong>Skull fracture risk (Q10)</strong></td><td>Basilar skull fracture + CSF rhinorrhea = pneumococcal risk</td><td>Direct anatomical access from nasopharynx to subarachnoid space</td></tr>
+<tr><td><strong>Focal signs &rarr; next step (Q8)</strong></td><td>CT head first, then LP</td><td>Start antibiotics + dexa immediately while getting CT</td></tr>
+<tr><td><strong>Meningococcal prophylaxis</strong></td><td><ul class="b"><li>Rifampin 600mg q12h &times; 2 days</li><li>OR Ceftriaxone 250mg IM &times; 1 dose</li></ul></td><td>Penicillin NOT used (doesn&apos;t clear carriage)</td></tr>
+<tr><td><strong>Prophylaxis in pregnancy</strong></td><td>Ceftriaxone IM (single dose)</td><td>Rifampin contraindicated in pregnancy</td></tr>
+</tbody>
+</table></div>
+</div>
+
+
+<div id="s13">
+<div class="sec-head">
+  <div class="sec-icon" style="background:var(--redlt);border:1px solid var(--redmd);">&#9888;&#65039;</div>
+  <h2>Exam Traps &mdash; Board Coach Section</h2>
+</div>
+<div class="sec-rule" style="background:var(--red);"></div>
+<div class="alert ar" style="margin-bottom:22px;">
+<span class="ai">&#127919;</span>
+<div>Each trap: what the exam wants you to think &rarr; the truth &rarr; why it matters &rarr; how it appears in a case (correct answer in green).</div>
+</div>
+
+<div class="trap">
+<div class="trap-h"><div class="trap-num">1</div><div class="trap-title">Ceftriaxone Covers All Community-Acquired Bacterial Meningitis</div></div>
+<div class="trap-b">
+<div class="trap-sec"><div class="tl tltrap">&#9889; The Trap</div><p style="color:var(--text2);">&ldquo;Ceftriaxone is the empirical drug of choice and covers all important organisms in community-acquired bacterial meningitis &mdash; no need to add anything else.&rdquo;</p></div>
+<div class="trap-sec"><div class="tl tltruth">&#10003; The Truth</div><p style="color:var(--text2);">Cephalosporins of ALL generations have <strong>zero activity against Listeria monocytogenes.</strong> In patients over 55, alcoholics, immunocompromised individuals, or transplant recipients, <strong>ampicillin MUST be added.</strong> In PCN-allergic patients with Listeria risk, TMP-SMX is the alternative. Ceftriaxone alone in these patients leaves Listeria completely untreated and carries 15% mortality risk.</p></div>
+<div class="trap-sec"><div class="tl tlmatters">&#128293; Why It Matters</div><p style="color:var(--text2);">Four questions (Q1, Q3, Q5, Q7) test this exact point from different angles &mdash; alcoholic, transplant patient, chemo patient, kidney disease. The exam always provides a vulnerable host and tempts you to select ceftriaxone alone.</p></div>
+<div class="trap-sec"><div class="tl tlcase">&#128203; In a Case &mdash; Q1, Q3, Q5, Q7</div>
+<div class="case-box">Alcoholic, 60yo man, fever, neck stiffness, confusion. CSF: gram-positive rods.<br>Options: <span class="x">Ceftriaxone</span> / <span class="x">Ganciclovir</span> / Vancomycin / Ampicillin / Gentamicin<br><br>
+<strong>Correct: Ampicillin (&plusmn; Gentamicin in critically ill) &mdash; gram-positive rods + alcoholic = Listeria. Ceftriaxone alone misses it entirely.</strong></div>
+</div>
+</div>
+</div>
+
+<div class="trap">
+<div class="trap-h"><div class="trap-num">2</div><div class="trap-title">Dexamethasone Can Be Given Anytime and Still Be Beneficial</div></div>
+<div class="trap-b">
+<div class="trap-sec"><div class="tl tltrap">&#9889; The Trap</div><p style="color:var(--text2);">&ldquo;As long as you give dexamethasone during hospitalization, it will help reduce inflammation and prevent neurological sequelae.&rdquo;</p></div>
+<div class="trap-sec"><div class="tl tltruth">&#10003; The Truth</div><p style="color:var(--text2);">Dexamethasone is ONLY effective if given <strong>20 minutes before or concurrent with the first antibiotic dose.</strong> If given more than 6 hours after antibiotics, it provides no significant benefit. The mechanism is time-locked: macrophages must be blocked BEFORE they are activated by endotoxin from bacterial lysis. Once activated, the cascade cannot be stopped by dexa.</p></div>
+<div class="trap-sec"><div class="tl tlmatters">&#128293; Why It Matters</div><p style="color:var(--text2);">Six questions (Q11&ndash;Q18) test this from different angles. The exam offers &ldquo;4 hours after&rdquo; and &ldquo;6 hours after&rdquo; as distractors. Only &ldquo;20 minutes before&rdquo; or &ldquo;concurrent&rdquo; is correct.</p></div>
+<div class="trap-sec"><div class="tl tlcase">&#128203; In a Case &mdash; Q13</div>
+<div class="case-box">60yo man, fever, CSF: 90 neutrophils, glucose 30, protein 60. Antibiotics being prepared. When should dexamethasone be given?<br>Options: <span class="x">6h after antibiotics</span> / <span class="x">4h after antibiotics</span> / <span class="x">Intrathecal route</span> / IV 20 min before antibiotics<br><br>
+<strong>Correct: Give IV Dexamethasone 20 minutes BEFORE antibiotics. Intrathecal is NEVER the correct route for dexamethasone.</strong></div>
+</div>
+</div>
+</div>
+
+<div class="trap">
+<div class="trap-h"><div class="trap-num">3</div><div class="trap-title">Dexamethasone Improves Vancomycin&apos;s CSF Penetration</div></div>
+<div class="trap-b">
+<div class="trap-sec"><div class="tl tltrap">&#9889; The Trap</div><p style="color:var(--text2);">&ldquo;Dexamethasone stabilizes the blood-brain barrier, allowing vancomycin to penetrate the CSF more effectively.&rdquo;</p></div>
+<div class="trap-sec"><div class="tl tltruth">&#10003; The Truth</div><p style="color:var(--text2);">Exact opposite. Dexamethasone <strong>reduces BBB permeability</strong> (the anti-edema mechanism) &mdash; this same effect <strong>decreases vancomycin penetration into CSF.</strong> The vancomycin dose must therefore be increased to 45&ndash;60 mg/kg/day when dexamethasone is co-administered.</p></div>
+<div class="trap-sec"><div class="tl tlmatters">&#128293; Why It Matters</div><p style="color:var(--text2);">Under-dosing vancomycin while on dexamethasone = inadequate CNS coverage for resistant pneumococcus = treatment failure. Sounds counter-intuitive, which is exactly why it is a favourite board topic.</p></div>
+<div class="trap-sec"><div class="tl tlcase">&#128203; In a Case &mdash; Q14, Q16</div>
+<div class="case-box">What is correct about dexamethasone in bacterial meningitis?<br>Options: Given 20 min before antibiotics / Given as single dose / <span class="x">Improves BBB penetration of Vancomycin</span> / Double dose if on steroids<br><br>
+<strong>Correct: Given 20 minutes before antibiotics. &ldquo;Improves vancomycin penetration&rdquo; is the trap &mdash; dexamethasone REDUCES it.</strong></div>
+</div>
+</div>
+</div>
+
+<div class="trap">
+<div class="trap-h"><div class="trap-num">4</div><div class="trap-title">Low CSF Glucose Is a Feature of Viral Meningitis</div></div>
+<div class="trap-b">
+<div class="trap-sec"><div class="tl tltrap">&#9889; The Trap</div><p style="color:var(--text2);">&ldquo;Low CSF glucose is a feature of meningitis in general, including viral &mdash; both bacterial and viral can cause hypoglycorrhachia.&rdquo;</p></div>
+<div class="trap-sec"><div class="tl tltruth">&#10003; The Truth</div><p style="color:var(--text2);"><strong>Normal glucose is the hallmark of viral meningitis.</strong> Low glucose redirects you to bacterial, TB, fungal, or carcinomatous meningitis. Only viral exceptions: mumps and LCMV (hypoglycorrhachia in 10&ndash;30%). In any classic viral scenario, glucose is normal.</p></div>
+<div class="trap-sec"><div class="tl tlmatters">&#128293; Why It Matters</div><p style="color:var(--text2);">This confusion leads to: (1) withholding antibiotics from a bacterial meningitis patient; (2) misinterpreting subacute TB meningitis as viral because &ldquo;it is lymphocytic.&rdquo; Glucose is the most powerful discriminating feature on the CSF profile.</p></div>
+<div class="trap-sec"><div class="tl tlcase">&#128203; In a Case &mdash; Q2, Q9</div>
+<div class="case-box">75yo man, weeks of headache, CSF: 30 lymphocytes, glucose 50 mg/dL, blood glucose 150 mg/dL (ratio = 0.33). Most likely pathogen?<br>Options: <span class="x">West Nile virus</span> / M. tuberculosis / <span class="x">HSV-2</span> / <span class="x">HHV-6</span><br><br>
+<strong>Correct: M. tuberculosis &mdash; subacute course + lymphocytic + LOW glucose ratio (0.33 &lt; 0.4) = TB meningitis. WNV and HSV-2 have normal glucose.</strong></div>
+</div>
+</div>
+</div>
+
+<div class="trap">
+<div class="trap-h"><div class="trap-num">5</div><div class="trap-title">PMN Pleocytosis Always Means Bacterial Meningitis</div></div>
+<div class="trap-b">
+<div class="trap-sec"><div class="tl tltrap">&#9889; The Trap</div><p style="color:var(--text2);">&ldquo;Neutrophil (PMN) predominance in the CSF is pathognomonic of bacterial meningitis. No viral infection causes neutrophilia in the CSF.&rdquo;</p></div>
+<div class="trap-sec"><div class="tl tltruth">&#10003; The Truth</div>
+<p style="color:var(--text2);">PMNs can predominate in viral meningitis in specific situations:</p>
+<ol class="b">
+<li>In the <strong>first 48 hours</strong> of any viral meningitis</li>
+<li><strong>West Nile Virus</strong> &mdash; PMN pleocytosis in 45% of cases, persisting &gt;1 week</li>
+<li>Eastern equine encephalitis, Echovirus 9, Mumps (25% of cases)</li>
+</ol>
+<p style="color:var(--text2);margin-top:8px;">Key distinguishing feature: <strong>glucose is NORMAL despite PMN pleocytosis in viral</strong> &mdash; unlike bacterial where PMN + low glucose go together.</p>
+</div>
+<div class="trap-sec"><div class="tl tlmatters">&#128293; Why It Matters</div><p style="color:var(--text2);">A WNV patient in summer with PMN-predominant CSF could be wrongly treated as bacterial. Normal glucose + negative Gram stain + negative cultures + CSF IgM positivity confirm WNV.</p></div>
+<div class="trap-sec"><div class="tl tlcase">&#128203; In a Case &mdash; Q9</div>
+<div class="case-box">What is correct about viral meningitis?<br>Options: <span class="x">Low glucose is typical</span> / IgG higher than serum / <span class="x">PMN predominance is typical</span> / Lymphocytes can reach thousands/&micro;L / Cause found in most after workup<br><br>
+<strong>Correct: Lymphocytes CAN reach thousands/&micro;L (LCMV, mumps). PMN predominance is NOT typical. Low glucose is NOT typical of viral meningitis.</strong></div>
+</div>
+</div>
+</div>
+
+<div class="trap">
+<div class="trap-h"><div class="trap-num">6</div><div class="trap-title">Skull Fracture Is a Trauma Problem, Not an Infection Risk Factor</div></div>
+<div class="trap-b">
+<div class="trap-sec"><div class="tl tltrap">&#9889; The Trap</div><p style="color:var(--text2);">&ldquo;Infection risk factors for meningitis are immunological &mdash; crowded living, steroid use. Skull fracture is about trauma, not infection.&rdquo;</p></div>
+<div class="trap-sec"><div class="tl tltruth">&#10003; The Truth</div><p style="color:var(--text2);"><strong>Basilar skull fracture with CSF rhinorrhea or otorrhea</strong> is one of the most classically tested pneumococcal meningitis risk factors. The fracture creates direct anatomical continuity between the nasopharynx (colonized by S. pneumoniae) and the subarachnoid space &mdash; allowing direct bacterial invasion bypassing normal mucosal defenses.</p></div>
+<div class="trap-sec"><div class="tl tlmatters">&#128293; Why It Matters</div><p style="color:var(--text2);">The exam pairs skull fracture with &ldquo;crowded living&rdquo; (meningococcal risk) and &ldquo;chronic steroids&rdquo; (Listeria/fungal risk) as distractors. Skull fracture is specifically and classically linked to pneumococcal meningitis.</p></div>
+<div class="trap-sec"><div class="tl tlcase">&#128203; In a Case &mdash; Q10</div>
+<div class="case-box">Which is a proven risk factor for pneumococcal meningitis?<br>Options: <span class="x">Hyperactivity of immune system</span> / <span class="x">Living in crowded places</span> / Skull fracture / <span class="x">Chronic steroid treatment</span><br><br>
+<strong>Correct: Skull fracture (basilar, with CSF rhinorrhea/otorrhea) &mdash; creates direct anatomical access from nasopharynx to subarachnoid space.</strong></div>
+</div>
+</div>
+</div>
+
+<div class="trap">
+<div class="trap-h"><div class="trap-num">7</div><div class="trap-title">Acyclovir and Ganciclovir Are Interchangeable Antivirals for Herpes CNS Infections</div></div>
+<div class="trap-b">
+<div class="trap-sec"><div class="tl tltrap">&#9889; The Trap</div><p style="color:var(--text2);">&ldquo;Both acyclovir and ganciclovir are antiherpes drugs &mdash; either one is appropriate for viral CNS infections including encephalitis.&rdquo;</p></div>
+<div class="trap-sec"><div class="tl tltruth">&#10003; The Truth</div>
+<p style="color:var(--text2);">They have completely different spectra and are NOT interchangeable:</p>
+<ol class="b">
+<li><strong>Acyclovir:</strong> covers HSV-1, HSV-2, VZV &mdash; first-line for HSV encephalitis and VZV meningitis</li>
+<li><strong>Ganciclovir:</strong> covers CMV (cytomegalovirus) &mdash; not clinically effective against HSV</li>
+<li>HSV encephalitis mortality without treatment: up to 70% &mdash; selecting ganciclovir instead of acyclovir = essentially no treatment</li>
+</ol>
+</div>
+<div class="trap-sec"><div class="tl tlmatters">&#128293; Why It Matters</div><p style="color:var(--text2);">The exam will present focal neurological signs + fever + headache and ask what to add empirically. Focal signs &rarr; HSV encephalitis &rarr; acyclovir. Ganciclovir is always the wrong answer in this scenario.</p></div>
+<div class="trap-sec"><div class="tl tlcase">&#128203; In a Case &mdash; Q15</div>
+<div class="case-box">40yo man, fever, maculopapular rash, headache, focal neurological signs. Empirical treatment?<br>Options: <span class="x">Ertapenem</span> / <span class="x">Vancomycin alone</span> / Acyclovir / <span class="x">Ganciclovir</span><br><br>
+<strong>Correct: Acyclovir &mdash; focal neuro signs + fever = HSV encephalitis in differential &rarr; IV Acyclovir empirically. Ganciclovir = CMV only, not HSV.</strong></div>
+</div>
+</div>
+</div>
+
+<div class="trap">
+<div class="trap-h"><div class="trap-num">8</div><div class="trap-title">Dexamethasone Is Universally Effective &mdash; Including in Africa</div></div>
+<div class="trap-b">
+<div class="trap-sec"><div class="tl tltrap">&#9889; The Trap</div><p style="color:var(--text2);">&ldquo;Large clinical trials proved dexamethasone reduces mortality and complications in all patients with bacterial meningitis worldwide.&rdquo;</p></div>
+<div class="trap-sec"><div class="tl tltruth">&#10003; The Truth</div>
+<p style="color:var(--text2);">The landmark European RCT showed clear benefit. However, <strong>three large RCTs in sub-Saharan Africa and Southeast Asia showed NO benefit</strong> from dexamethasone. Attributed reasons:</p>
+<ol class="b">
+<li>Late presentation to hospital with advanced disease</li>
+<li>Antibiotic pretreatment before hospital arrival</li>
+<li>Malnutrition</li>
+<li>HIV coinfection</li>
+<li>Inclusion of patients without microbiologically proven bacterial meningitis</li>
+</ol>
+<p style="color:var(--text2);margin-top:8px;"><strong>Guideline:</strong> Patients in sub-Saharan Africa with negative CSF Gram stain and culture should NOT receive dexamethasone.</p>
+</div>
+<div class="trap-sec"><div class="tl tlmatters">&#128293; Why It Matters</div><p style="color:var(--text2);">&ldquo;Proven in Africa&rdquo; is a specifically FALSE statement. This tests whether you know the geographic limitations of the European data.</p></div>
+<div class="trap-sec"><div class="tl tlcase">&#128203; In a Case &mdash; Q16, Q18</div>
+<div class="case-box">What is correct about steroids in meningitis?<br>Options: <span class="x">Effective up to 12h after antibiotics</span> / Can lower vancomycin CSF penetration / <span class="x">Effective in ALL meningitis</span> / <span class="x">Proven effective in meningococcal meningitis in Africa</span><br><br>
+<strong>Correct: Can lower the penetration of vancomycin into CSF (TRUE). &ldquo;Proven in Africa&rdquo; = FALSE. &ldquo;Effective in all&rdquo; = FALSE. &ldquo;Effective at 12h&rdquo; = FALSE.</strong></div>
+</div>
+</div>
+</div>
+
+<div class="trap">
+<div class="trap-h"><div class="trap-num">9</div><div class="trap-title">Always Perform LP Before Starting Antibiotics</div></div>
+<div class="trap-b">
+<div class="trap-sec"><div class="tl tltrap">&#9889; The Trap</div><p style="color:var(--text2);">&ldquo;You must confirm bacterial meningitis by LP before starting antibiotics &mdash; otherwise cultures will be negative and you lose the diagnostic opportunity.&rdquo;</p></div>
+<div class="trap-sec"><div class="tl tltruth">&#10003; The Truth</div>
+<p style="color:var(--text2);">Bacterial meningitis is a medical emergency. <strong>Never delay antibiotics for LP.</strong> Correct sequence:</p>
+<ol class="b">
+<li>Draw blood cultures immediately</li>
+<li>Start antibiotics + dexamethasone immediately</li>
+<li>If no focal signs: perform LP directly</li>
+<li>If focal signs: CT head first, then LP after CT clears</li>
+<li>Never delay antibiotics waiting for LP or CT results</li>
+</ol>
+<p style="color:var(--text2);margin-top:8px;">Antibiotics given hours before LP will NOT significantly alter CSF WBC count, glucose, Gram stain, or PCR detection of bacterial DNA.</p>
+</div>
+<div class="trap-sec"><div class="tl tlmatters">&#128293; Why It Matters</div><p style="color:var(--text2);">Each hour of antibiotic delay increases mortality. The goal is antibiotics within 60 minutes of ER arrival. Culture may be slightly reduced by pre-LP antibiotics &mdash; hence blood cultures are drawn first.</p></div>
+<div class="trap-sec"><div class="tl tlcase">&#128203; In a Case &mdash; Q8</div>
+<div class="case-box">Patient with fever, headache, neck stiffness, and focal neurological signs. Next step?<br>Options: CT head / MRI head / <span class="x">Lumbar puncture</span> / Start antibiotics<br><br>
+<strong>Correct: CT head FIRST (focal signs = herniation risk). Simultaneously draw blood cultures and start antibiotics + dexamethasone. Do NOT wait for CT results before giving antibiotics.</strong></div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="footer">
+  <p>Based on Harrison&apos;s Principles of Internal Medicine &mdash; Chapter 143: Acute Meningitis (Roos &amp; Tyler)</p>
+  <p style="margin-top:4px;">Built from 18 exam questions &middot; All mechanisms explained &middot; Every scenario dissected &middot; 9 Exam Traps</p>
+</div>
+</div>
+</body>
+</html>
