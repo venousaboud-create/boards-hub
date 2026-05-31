@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>UTI Organized · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:310px;
+}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+
+/* ── TOOLBAR ── */
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}
+#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+
+/* ── SIDEBAR ── */
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);
+  display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3)}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-search-wrap{padding:8px 10px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-search{width:100%;padding:5px 9px;border:1.5px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;background:var(--bg);color:var(--tx)}
+#sn-search:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:0}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-group{margin-bottom:12px}
+.sn-group-hd{position:sticky;top:0;z-index:10;background:var(--pur-l);
+  border:1px solid #ddd6fe;border-radius:5px;padding:4px 10px;margin-bottom:6px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--pur)}
+.sn-group-badge{background:var(--pur);color:#fff;border-radius:10px;padding:1px 7px;font-size:8px}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:90px;position:relative;overflow:hidden;margin-bottom:7px}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.06em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-note-actions{display:flex;gap:3px;flex-shrink:0}
+.sn-act-btn{cursor:pointer;border:none;background:none;font-size:12px;color:#a89a30;
+  line-height:1;padding:1px 3px;border-radius:3px}
+.sn-act-btn:hover{background:rgba(0,0,0,.07)}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:50px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;
+  cursor:se-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-selref .sn-section-tag{background:var(--blu-l);color:var(--blu);border-radius:3px;padding:1px 5px;font-size:7px;margin-left:5px}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;
+  background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+
+/* ── NOTE ANCHOR ── */
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+
+/* ── INLINE POPUP ── */
+#note-popup{position:fixed;z-index:2500;background:#fff;border:1.5px solid var(--pur);
+  border-radius:10px;box-shadow:0 8px 32px rgba(109,40,217,.22);padding:14px 16px;
+  max-width:300px;min-width:180px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popup.show{display:block}
+#note-popup::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popup::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-section-tag{font-family:'JetBrains Mono',monospace;font-size:7.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;background:var(--blu-l);color:var(--blu);
+  border-radius:3px;padding:2px 7px;display:inline-block;margin-bottom:6px}
+#np-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:6px;font-weight:500}
+#np-ta{width:100%;padding:7px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:60px;
+  background:var(--bg);color:var(--tx);margin-bottom:8px}
+#np-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+.np-actions{display:flex;gap:6px;align-items:center}
+.np-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:4px;cursor:pointer;transition:all .15s}
+#np-save{background:var(--pur);color:#fff;border:none}#np-save:hover{background:#5b21b6}
+#np-del{background:var(--red-l);color:var(--red);border:1.5px solid #fca5a5}#np-del:hover{background:#fee2e2}
+#np-jump{background:var(--grn-l);color:var(--grn);border:1.5px solid #86efac}#np-jump:hover{background:#dcfce7}
+.np-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.np-close:hover{color:var(--red)}
+.np-view-mode{display:block}.np-edit-mode{display:none}
+#note-popup.editing .np-view-mode{display:none}
+#note-popup.editing .np-edit-mode{display:block}
+#np-display-text{color:var(--t2);line-height:1.55;font-size:12.5px;margin-bottom:10px}
+
+/* ── STATUS ── */
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:38px;font-weight:900;line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative;margin-top:18px}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+
+/* ── NAV ── */
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+
+/* ── MAIN ── */
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blu);margin-bottom:10px;
+  padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+
+/* ── CALLOUTS ── */
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+
+/* ── LISTS ── */
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.ol{list-style:none;padding:0;margin:6px 0 12px;counter-reset:n}
+.ol li{counter-increment:n;position:relative;padding:4px 0 4px 30px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.ol li::before{content:counter(n);position:absolute;left:0;top:5px;
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  background:var(--bd);color:var(--t2);width:19px;height:19px;
+  display:flex;align-items:center;justify-content:center;border-radius:3px}
+.ol li strong{color:var(--tx);font-weight:600}
+
+/* ── TABLES ── */
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+
+/* ── GRID CARDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+
+/* ── VS BOX ── */
+.vs{display:grid;grid-template-columns:1fr 1fr;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px;overflow:hidden}
+.vsh{padding:9px 14px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--bd)}
+.vsh.b{background:#e8effe;color:var(--blu);border-right:1px solid var(--bd)}
+.vsh.r{background:var(--red-l);color:var(--red)}
+.vsb{padding:12px 14px}
+.vsb.br{border-right:1px solid var(--bd)}
+
+/* ── TAGS ── */
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0}
+.tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;padding:2px 9px;border-radius:4px;letter-spacing:.04em}
+.t-b{background:var(--blu-l);color:var(--blu);border:1px solid #bfdbfe}
+.t-r{background:var(--red-l);color:var(--red);border:1px solid #fca5a5}
+.t-g{background:var(--grn-l);color:var(--grn);border:1px solid #86efac}
+.t-a{background:var(--amb-l);color:var(--amb);border:1px solid #fde68a}
+.t-p{background:var(--pur-l);color:var(--pur);border:1px solid #ddd6fe}
+.t-t{background:var(--tel-l);color:var(--tel);border:1px solid #a5f3fc}
+
+/* ── EXAM TRAPS ── */
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-q em{color:var(--tx);font-style:normal;font-weight:600}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.trap-why{font-size:12px;color:var(--t3);margin-top:8px;font-style:italic;line-height:1.55}
+
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popup,.toc{display:none!important}.main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<!-- TOOLBAR -->
+<div id="toolbar">
+  <span class="albl">Annotate</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<!-- SIDEBAR -->
+<div id="sn-sidebar">
+  <div id="sn-hd"><span>📝 Study Notes</span><button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button></div>
+  <div id="sn-search-wrap"><input id="sn-search" type="text" placeholder="Search notes…" oninput="filterNotes(this.value)"></div>
+  <div id="sn-body">
+    <div id="sn-empty">Select any text in the guide,<br>write a note below.<br><br>Notes are auto-tagged by section<br>and grouped here with search.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em><span id="sn-cur-section-tag" class="sn-section-tag" style="display:none"></span></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<!-- INLINE POPUP -->
+<div id="note-popup">
+  <div id="np-section-tag"></div>
+  <div id="np-ref"></div>
+  <div class="np-view-mode">
+    <div id="np-display-text"></div>
+    <div class="np-actions">
+      <button class="np-btn" onclick="switchToEdit()">✏ Edit</button>
+      <button class="np-btn" id="np-del" onclick="deleteNoteFromPopup()">🗑 Delete</button>
+      <button class="np-btn" id="np-jump" onclick="jumpToAnchor()">↗ Jump</button>
+      <button class="np-close" onclick="closePopup()">×</button>
+    </div>
+  </div>
+  <div class="np-edit-mode">
+    <textarea id="np-ta" placeholder="Write your note…"></textarea>
+    <div class="np-actions">
+      <button class="np-btn" id="np-save" onclick="saveFromPopup()">💾 Save</button>
+      <button class="np-btn" style="background:var(--bg);border:1.5px solid var(--bd2);color:var(--t3)" onclick="switchToView()">Cancel</button>
+      <button class="np-close" onclick="closePopup()">×</button>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-badge">Organized Study Notes · Stage A Boards Review</div>
+  <h1>Urinary Tract Infections</h1>
+  <div class="hero-sub">Cystitis · Prostatitis · Pyelonephritis · CAUTI · Prevention</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">80%</div><div class="stat-l">Women with ≥1 lifetime UTI</div></div>
+    <div class="stat-box"><div class="stat-n">75–90%</div><div class="stat-l">Cystitis due to E. coli</div></div>
+    <div class="stat-box"><div class="stat-n">2.6/yr</div><div class="stat-l">Mean reinfections (recurrent UTI)</div></div>
+    <div class="stat-box"><div class="stat-n">14%</div><div class="stat-l">Lifetime UTI prevalence in men</div></div>
+    <div class="stat-box"><div class="stat-n">&gt;20%</div><div class="stat-l">Resistance to TMP-SMX/FQ in US</div></div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">What is UTI?</a>
+    <a class="toc-a" href="#s2">Definitions</a>
+    <a class="toc-a" href="#s3">Epidemiology</a>
+    <a class="toc-a" href="#s4">Risk Factors</a>
+    <a class="toc-a" href="#s5">Etiology</a>
+    <a class="toc-a" href="#s6">Syndromes</a>
+    <a class="toc-a" href="#s7">Diagnosis</a>
+    <a class="toc-a" href="#s8">Treatment</a>
+    <a class="toc-a" href="#s9">Special Populations</a>
+    <a class="toc-a" href="#s10">Prevention</a>
+    <a class="toc-a" href="#s11">Prognosis</a>
+    <a class="toc-a" href="#exam">⚠ Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══ S1: WHAT IS UTI ═══ -->
+<section class="sec" id="s1" data-section="What is a UTI">
+  <div class="sec-hd"><span class="sec-n">01</span><h2>What is a UTI?</h2></div>
+  <ul class="bl">
+    <li>An infection <strong>somewhere along the urinary tract</strong> that produces <strong>clinical symptoms</strong></li>
+    <li>Caused by either:
+      <ul class="bl" style="margin-top:4px">
+        <li>Bladder invasion by a <strong>new urinary pathogen</strong></li>
+        <li>A <strong>shift in the existing urinary bacteria's balance</strong> with the host</li>
+      </ul>
+    </li>
+    <li>Both causes result in <strong>local tissue injury and inflammation</strong></li>
+  </ul>
+
+  <div class="co dan">
+    <div class="co-t">⚠ Key Distinction — UTI vs ASB</div>
+    <div class="g2" style="margin-top:8px">
+      <div>
+        <strong style="color:var(--blu)">UTI</strong> = bacteria + <strong>symptoms</strong><br>
+        → Almost always needs treatment<br>
+        → Both have bacteria + pyuria in urine
+      </div>
+      <div>
+        <strong style="color:var(--red)">ASB</strong> = bacteria <strong>without symptoms</strong><br>
+        → Usually does NOT need treatment<br>
+        → Treating ASB unnecessarily may <strong>increase future UTI risk</strong> (allows more virulent/resistant pathogens to colonize)
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Two Exceptions Where ASB MUST Be Treated</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Pregnant Patients</div>
+        <p>Untreated ASB → pyelonephritis, preterm delivery, low birth weight</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Pre-Urologic Procedures</div>
+        <p>Procedures causing mucosal injury (e.g., lithotripsy, TURP) — bacteria can enter bloodstream</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ S2: DEFINITIONS ═══ -->
+<section class="sec" id="s2" data-section="Definitions">
+  <div class="sec-hd"><span class="sec-n">02</span><h2>Definitions to Know</h2></div>
+  <div class="tw"><table>
+    <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td>Cystitis</td><td>Symptomatic infection of the <strong>bladder</strong></td></tr>
+      <tr><td>Prostatitis</td><td>Symptomatic infection of the <strong>prostate</strong></td></tr>
+      <tr><td>Pyelonephritis</td><td>Symptomatic infection of the <strong>kidneys</strong></td></tr>
+      <tr><td>Uncomplicated UTI</td><td>Infection confined to the bladder, no catheter</td></tr>
+      <tr><td>Complicated UTI</td><td>Extends beyond the bladder (prostatitis, pyelonephritis, bacteremia, or UTI with catheter)</td></tr>
+      <tr><td>Recurrent UTI</td><td>Not necessarily complicated — individual episodes can each be uncomplicated</td></tr>
+    </tbody>
+  </table></div>
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ S3: EPIDEMIOLOGY ═══ -->
+<section class="sec" id="s3" data-section="Epidemiology">
+  <div class="sec-hd"><span class="sec-n">03</span><h2>Epidemiology</h2></div>
+
+  <div class="sub">
+    <h3>Who Gets UTI? (by age)</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-t">Neonates</div>
+        <p>Slightly more common in <strong>males</strong> (congenital urinary tract anomalies)</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Age 1–50</div>
+        <p>Predominantly <strong>females</strong>. Up to <strong>80% of women</strong> have at least one UTI in their lifetime. Most male UTI only with catheterization or anatomic abnormality.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">After Age 50</div>
+        <p>Men <strong>catch up</strong> — prostatic hypertrophy causes obstruction → UTI incidence nearly equals women.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>ASB Prevalence</h3>
+    <ul class="bl">
+      <li>~<strong>5%</strong> in women age 20–40</li>
+      <li>Up to <strong>40–50%</strong> in elderly women and men</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Recurrent UTI Numbers</h3>
+    <ul class="bl">
+      <li><strong>20–30%</strong> of women who've had one UTI will have recurrent episodes</li>
+      <li>Rate: <strong>0.3–7.6 infections/patient/year</strong>, average ~<strong>2.6/year</strong></li>
+      <li>Early recurrence (within 2 weeks) = likely <strong>relapse</strong>, not reinfection → may indicate a sequestered focus of ongoing infection</li>
+    </ul>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ S4: RISK FACTORS ═══ -->
+<section class="sec" id="s4" data-section="Risk Factors">
+  <div class="sec-hd"><span class="sec-n">04</span><h2>Risk Factors</h2></div>
+
+  <div class="sub">
+    <h3>Risk Factors for Recurrent UTI</h3>
+    <div class="co key">
+      <div class="co-t">🔑 Most Consistently Documented</div>
+      <ul class="bl">
+        <li><strong>Frequent sexual intercourse</strong> ← most consistently documented</li>
+        <li><strong>Spermicide use</strong> ← most consistently documented</li>
+        <li>New sexual partner</li>
+        <li>First UTI before age 15</li>
+        <li>Maternal history of UTI</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>3 Risk Factor Categories</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-r">1. Impede Urine Outflow</div>
+        <ul class="bl">
+          <li>Congenital urinary tract abnormalities</li>
+          <li>Cystoceles, pelvic organ prolapse</li>
+          <li>Bladder dysfunction → overflow incontinence</li>
+          <li>Benign prostatic hypertrophy</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">2. Introduce Bacteria</div>
+        <ul class="bl">
+          <li><strong>Sexual activity</strong> — risk up to 4.8× with intercourse 5×/week</li>
+          <li>For men: insertive rectal intercourse, lack of circumcision</li>
+          <li>Urinary instrumentation (catheter, nephrostomy tube)</li>
+          <li>Foreign bodies (stents, kidney stones) → niduses for bacteria</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">3. Disrupt Mucosal Defenses</div>
+        <ul class="bl">
+          <li>Diaphragm or spermicide use (kills normal lactobacilli)</li>
+          <li>Menopause → lactobacilli replaced by Gram-negative bacteria</li>
+          <li><strong>Topical estrogens</strong> help reduce recurrent UTIs in postmenopausal women</li>
+          <li><strong>Oral estrogens should NOT be used</strong> for UTI prevention</li>
+          <li>Diabetes: 2–3× higher rates; risk increases with duration + insulin use</li>
+          <li>SGLT-2 inhibitors → increase urinary glucose → associated with UTI</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ S5: ETIOLOGY ═══ -->
+<section class="sec" id="s5" data-section="Etiology">
+  <div class="sec-hd"><span class="sec-n">05</span><h2>Etiology</h2></div>
+
+  <div class="sub">
+    <h3>Key Pathogens by Syndrome</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Syndrome</th><th>Key Pathogens</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Acute Cystitis</td><td><em>E. coli</em> <strong>75–90%</strong>; <em>S. saprophyticus</em> 5–15%; Klebsiella, Proteus, Enterobacter, Citrobacter</td><td><em>S. saprophyticus</em> more common in <strong>younger women</strong></td></tr>
+        <tr><td>CAUTI</td><td>E. coli still dominates; also Pseudomonas, enterococci, Staph aureus, Candida</td><td>More diverse bacteriology — culture essential</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="sub">
+    <h3>Antimicrobial Resistance — Growing Problem</h3>
+    <ul class="bl">
+      <li>Resistance <strong>&gt;20%</strong> to TMP-SMX, fluoroquinolones, nitrofurantoin in some US regions</li>
+      <li>~<strong>6%</strong> of isolates resistant to 3+ antibiotic classes</li>
+      <li>~<strong>9%</strong> produce extended-spectrum β-lactamase (ESBL)</li>
+    </ul>
+    <div class="co key">
+      <div class="co-t">🔑 Stewardship Principle</div>
+      <strong>Local antibiogram data is essential</strong> for guiding empirical therapy — resistance rates vary significantly by region.
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ S6: CLINICAL SYNDROMES ═══ -->
+<section class="sec" id="s6" data-section="Clinical Syndromes">
+  <div class="sec-hd"><span class="sec-n">06</span><h2>Clinical Syndromes</h2></div>
+
+  <div class="sub">
+    <h3>Asymptomatic Bacteriuria (ASB)</h3>
+    <ul class="bl">
+      <li>Positive culture + <strong>no localizing urinary symptoms</strong> and no unexplained systemic symptoms</li>
+      <li>Pyuria degree should <strong>NOT</strong> influence diagnosis — high pyuria can occur in urinary stasis</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">🚨 Challenging Scenario: Elderly Patient with Acute Altered Mental Status</div>
+      <ol class="ol">
+        <li>May not report symptoms reliably</li>
+        <li>Must first <strong>rule out sepsis</strong></li>
+        <li>Seek <strong>collateral history</strong> (caregivers)</li>
+        <li>Rule out <strong>all other causes of delirium</strong> first</li>
+        <li>"History of recurrent UTIs" in elderly often reflects <strong>history of persistent ASB</strong> — not true UTI</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Cystitis</h3>
+    <div class="vs">
+      <div>
+        <div class="vsh b">Typical Symptoms</div>
+        <div class="vsb br">
+          <ul class="bl">
+            <li>Dysuria (painful urination)</li>
+            <li>Urinary frequency</li>
+            <li>Urinary urgency</li>
+            <li>Suprapubic discomfort/tenderness</li>
+            <li>New nocturia, hesitancy, or gross hematuria</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="vsh r">🚩 Red Flags → Look Beyond Bladder</div>
+        <div class="vsb">
+          <ul class="bl">
+            <li><strong>Fever</strong></li>
+            <li><strong>Rigors</strong></li>
+            <li><strong>Unilateral back or flank pain</strong></li>
+          </ul>
+          <p style="font-size:12px;margin-top:6px">→ These are inconsistent with uncomplicated cystitis. Investigate for kidney, prostate, or bloodstream involvement.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">In Women</div>
+        <ul class="bl">
+          <li>Can treat on <strong>history alone</strong> if symptoms are clear</li>
+          <li>If unclear → urine dipstick or microscopy</li>
+          <li>Negative dipstick does <strong>NOT</strong> fully rule out UTI</li>
+          <li>Urine culture needed in: pregnancy, suspected resistant organism, recurrent UTI</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">In Men</div>
+        <ul class="bl">
+          <li>Less common — approach <strong>cautiously</strong></li>
+          <li>Must first exclude: ABP, CBP, pyelonephritis</li>
+          <li>Always obtain <strong>urine culture</strong> (differentiates bacterial prostatitis from pelvic pain syndrome)</li>
+          <li>True uncomplicated cystitis in afebrile men → <strong>7 days</strong> of treatment</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Prostatitis</h3>
+    <div class="vs">
+      <div>
+        <div class="vsh b">Acute Bacterial Prostatitis (ABP)</div>
+        <div class="vsb br">
+          <ul class="bl">
+            <li>Dysuria, frequency, prostatic/pelvic/perineal pain</li>
+            <li>Severe illness: may have fever, rigors, bladder outlet obstruction</li>
+            <li>Suspect in men with UTI + <strong>systemic symptoms without clear anatomic source</strong> (e.g., not clearly the kidney)</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="vsh r">Chronic Bacterial Prostatitis (CBP)</div>
+        <div class="vsb">
+          <ul class="bl">
+            <li>Recurrent episodes of cystitis ± pelvic/perineal pain</li>
+            <li>No systemic signs typically</li>
+            <li>Managed in <strong>outpatient setting</strong></li>
+            <li>Suspect when recurrent UTI is <strong>not catheter-related</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="co key">
+      <div class="co-t">🔑 Useful Signs in Prostatitis</div>
+      <ul class="bl">
+        <li>Elevated PSA + enlarged prostate/seminal vesicles on ultrasound → suggests prostate involvement</li>
+        <li>Men with febrile UTI → should get imaging (CT or ultrasound) to evaluate for obstruction/abnormality</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Pyelonephritis</h3>
+    <ul class="bl">
+      <li><strong>Fever is the key distinguishing feature</strong> from cystitis</li>
+      <li><strong>Mild:</strong> Low-grade fever ± lower back or costovertebral angle pain</li>
+      <li><strong>Severe:</strong> High fever, rigors, nausea, vomiting, flank pain</li>
+      <li>Symptoms are usually <strong>acute in onset</strong>, may or may not be preceded by cystitis</li>
+    </ul>
+
+    <div class="sub">
+      <h4>Complications of Pyelonephritis</h4>
+      <div class="g2">
+        <div class="card">
+          <div class="clabel c-r">Acute Papillary Necrosis</div>
+          <p>Sloughed papillae obstruct ureter → urgent intervention needed. Also occurs in sickle cell disease and analgesic nephropathy.</p>
+        </div>
+        <div class="card">
+          <div class="clabel c-a">Emphysematous Pyelonephritis</div>
+          <p>Gas production in renal/perinephric tissue. <strong>Almost exclusively in poorly controlled diabetes.</strong></p>
+        </div>
+        <div class="card">
+          <div class="clabel c-p">Xanthogranulomatous Pyelonephritis</div>
+          <p>Chronic obstruction (staghorn calculi) + infection → suppurative destruction of renal tissue. Residual tissue has <strong>yellow coloration</strong> (lipid-laden macrophages).</p>
+        </div>
+        <div class="card">
+          <div class="clabel c-t">Intraparenchymal Abscess</div>
+          <p>Suspect if <strong>continued fever/bacteremia despite antibiotics</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>CAUTI (Catheter-Associated UTI)</h3>
+    <ul class="bl">
+      <li>Bacteriuria is <strong>inevitable</strong> with catheterization → does NOT automatically mean UTI</li>
+      <li><strong>Diagnosis requires all 3:</strong>
+        <ul class="bl" style="margin-top:4px">
+          <li>Symptoms (localizing OR systemic)</li>
+          <li>Pyuria + bacteriuria (threshold <strong>≥10³ CFU/mL</strong>)</li>
+          <li>Other causes of symptoms ruled out</li>
+        </ul>
+      </li>
+      <li>Diagnostic evaluation of a febrile catheterized patient should <strong>NOT end with an abnormal urinalysis alone</strong></li>
+    </ul>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ S7: DIAGNOSTIC TOOLS ═══ -->
+<section class="sec" id="s7" data-section="Diagnostic Tools">
+  <div class="sec-hd"><span class="sec-n">07</span><h2>Diagnostic Tools</h2></div>
+
+  <div class="sub">
+    <h3>1. History</h3>
+    <ul class="bl">
+      <li>Patient-reported symptoms have <strong>high positive predictive value</strong> in uncomplicated cystitis in adult women</li>
+      <li>Woman with ≥1 localizing symptom + no complicating factors → <strong>50% probability</strong> of cystitis or pyelonephritis</li>
+      <li>If vaginal discharge and complicating factors are absent AND risk factors present → probability close to <strong>90%</strong></li>
+      <li>No need for further workup in low-risk women unless resistant pathogens suspected</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>2. Urine Dipstick (Nitrite + Leukocyte Esterase)</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Nitrite</div>
+        <ul class="bl">
+          <li>Only <strong>Enterobacterales</strong> convert nitrate → nitrite</li>
+          <li><strong>False positive:</strong> Enterobacterales ASB (bacteria but no UTI)</li>
+          <li><strong>False negative:</strong> UTI due to non-Enterobacterales (Pseudomonas, enterococci, Staph)</li>
+          <li><strong>False negative:</strong> Patient voiding frequently (not enough accumulation time)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Leukocyte Esterase</div>
+        <ul class="bl">
+          <li>Detects enzyme in neutrophils (intact or lysed)</li>
+          <li>Less sensitive and specific surrogate for pyuria</li>
+          <li><strong>Both negative</strong> → consider diagnoses other than UTI</li>
+          <li>Negative dipstick does <strong>NOT</strong> rule out bacteriuria in pregnant women — must use culture</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>3. Urine Microscopy</h3>
+    <ul class="bl">
+      <li>Pyuria in <strong>nearly all</strong> cases of cystitis</li>
+      <li>Hematuria in <strong>~30%</strong> of cystitis cases</li>
+      <li>Traditional pyuria cutoff: <strong>&gt;10 WBCs/HPF</strong></li>
+      <li>Modern data: this cutoff has <strong>poor specificity (36%)</strong> for UTI</li>
+      <li>Cutoff closer to <strong>250 WBCs/HPF</strong> may better correlate with urinary symptoms</li>
+      <li>But &gt;10 WBCs/HPF remains the accepted standard for now</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>4. Urine Culture</h3>
+    <ul class="bl">
+      <li>Confirms bacteria present + gives susceptibility data</li>
+      <li>Results take <strong>≥24h</strong> (susceptibilities add another 24–48h)</li>
+      <li>Positive culture = consistent with UTI <em>and</em> ASB → <strong>symptoms are required for diagnosis</strong></li>
+      <li>Colony count threshold: <strong>&gt;10² bacteria/mL</strong> is more sensitive (95%) than 10⁵/mL for acute cystitis</li>
+      <li><strong>Mixed bacterial species</strong> → usually contamination
+        <ul class="bl" style="margin-top:4px">
+          <li>Exceptions: long-term catheterization, chronic urinary retention, urinary-GI/genital fistula</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ S8: TREATMENT ═══ -->
+<section class="sec" id="s8" data-section="Treatment">
+  <div class="sec-hd"><span class="sec-n">08</span><h2>Treatment</h2></div>
+
+  <div class="sub">
+    <h3>General Principles</h3>
+    <ul class="bl">
+      <li>Antimicrobial therapy is warranted for <strong>any symptomatic UTI</strong></li>
+      <li>Non-antibiotic treatment (NSAIDs alone) → delays response, risks more invasive infection</li>
+      <li>Key stewardship goals: avoid treating ASB, avoid unnecessary cultures, avoid overly long courses</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">⚠ Collateral Damage — Always Consider</div>
+      <ul class="bl">
+        <li>Kills normal flora → predisposes to <em>C. difficile</em></li>
+        <li>Selects drug-resistant organisms</li>
+        <li><strong>Low collateral damage:</strong> pivmecillinam, fosfomycin, nitrofurantoin</li>
+        <li><strong>High collateral damage:</strong> TMP-SMX, quinolones, late-generation cephalosporins</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Cystitis — Drug Table</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Drug</th><th>Dose</th><th>Duration</th><th>Side Effects</th></tr></thead>
+      <tbody>
+        <tr><td>Nitrofurantoin</td><td>100 mg BID</td><td>5–7 days</td><td>Nausea, headache</td></tr>
+        <tr><td>TMP-SMX</td><td>1 DS tablet BID</td><td>Women: 3 days / Men: 7 days</td><td>Rash, nausea, hematologic effects</td></tr>
+        <tr><td>Fosfomycin</td><td>3 g sachet</td><td>Women: 1 day / Men: every other day ×3</td><td>Diarrhea, nausea</td></tr>
+        <tr><td>Pivmecillinam</td><td>400 mg BID</td><td>Women: 3–7 days</td><td>Nausea, diarrhea</td></tr>
+        <tr><td>Fluoroquinolones</td><td>Varies</td><td>Women: 3 days / Men: 7 days</td><td>GI, CNS effects</td></tr>
+        <tr><td>β-Lactams</td><td>Varies</td><td>5–7 days</td><td>GI, rash</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="g2" style="margin-top:12px">
+      <div class="card">
+        <div class="clabel c-g">✅ Preferred Agents</div>
+        <div class="tags">
+          <span class="tag t-g">TMP-SMX</span>
+          <span class="tag t-g">Nitrofurantoin</span>
+          <span class="tag t-g">Fosfomycin</span>
+          <span class="tag t-g">Pivmecillinam</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">⚠ Alternative Agents</div>
+        <div class="tags">
+          <span class="tag t-a">Fluoroquinolones</span>
+          <span class="tag t-a">β-Lactams</span>
+        </div>
+        <p style="font-size:12px;margin-top:6px">β-Lactams preferred over FQs as alternative (resistance + side effects). FDA advises <strong>against FQs</strong> for uncomplicated cystitis unless no alternatives.</p>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h4>Nitrofurantoin — Important Notes</h4>
+      <ul class="bl">
+        <li>Low resistance after &gt;70 years of use</li>
+        <li><strong>Do NOT use</strong> if creatinine clearance &lt;30 mL/min</li>
+        <li>Does <strong>NOT reach tissue levels</strong> → cannot treat pyelonephritis or prostatitis</li>
+        <li>Avoid long-term (years) prophylaxis → risk of <strong>irreversible pulmonary toxicity</strong></li>
+      </ul>
+      <h4>Fosfomycin — Important Notes</h4>
+      <ul class="bl">
+        <li>Active against <em>E. coli</em> (less reliable for other Enterobacterales)</li>
+        <li>Renal tissue levels low → <strong>do NOT use for pyelonephritis</strong></li>
+        <li>Has been used for prostatitis in MDR pathogens</li>
+      </ul>
+      <h4>β-Lactams — Important Notes</h4>
+      <ul class="bl">
+        <li>Higher failure rates and relapse than TMP-SMX or fluoroquinolones</li>
+        <li>Fail to eradicate uropathogens from <strong>vaginal reservoir</strong> (specific to women)</li>
+        <li>Amoxicillin resistance widespread in <em>E. coli</em></li>
+      </ul>
+      <div class="co prl">
+        <div class="co-t">💜 Exception: Prostatic Involvement in Men</div>
+        If prostatic involvement suspected → <strong>fluoroquinolones or TMP-SMX preferred</strong> over β-lactams (better prostate penetration)
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Prostatitis Treatment</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">ABP</div>
+        <ul class="bl">
+          <li>Fluoroquinolone or TMP-SMX for <strong>2–4 weeks</strong></li>
+          <li>Start after urine + blood cultures obtained</li>
+          <li>Prostatic abscess → urology consultation</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">CBP</div>
+        <ul class="bl">
+          <li><strong>4–6 weeks</strong> of antibiotics</li>
+          <li>Recurrences may need up to <strong>12 weeks</strong></li>
+          <li>These durations based on older data — modern RCTs still needed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Pyelonephritis Treatment</h3>
+    <ul class="bl">
+      <li>Requires therapy that reaches <strong>renal parenchyma AND blood</strong></li>
+    </ul>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Hospitalized Patients</div>
+        <ul class="bl">
+          <li>IV β-lactam empirically (based on local antibiogram + patient history)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Outpatient Patients</div>
+        <ul class="bl">
+          <li>TMP-SMX, ciprofloxacin, or levofloxacin</li>
+          <li>Consider initial dose of IV/IM β-lactam or aminoglycoside for safety</li>
+          <li>Hospitalize if: unable to take oral meds (nausea/vomiting) or unlikely to follow up</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sub">
+      <h4>Duration</h4>
+      <ul class="bl">
+        <li><strong>5–7 days</strong> oral fluoroquinolone OR</li>
+        <li><strong>7–14 days</strong> TMP-SMX (depending on clinical improvement)</li>
+        <li>Oral β-lactams less effective → use with caution + close follow-up</li>
+      </ul>
+      <div class="co dan">
+        <div class="co-t">🚫 Do NOT Use for Pyelonephritis</div>
+        Nitrofurantoin, pivmecillinam, fosfomycin — inadequate tissue levels
+      </div>
+      <h4>If No Clinical Response Within 72 Hours → Evaluate for:</h4>
+      <ul class="bl">
+        <li>Papillary necrosis with obstruction → relieve obstruction</li>
+        <li>Perinephric/cortical abscess → percutaneous drainage</li>
+        <li>Emphysematous pyelonephritis → drainage ± elective nephrectomy</li>
+        <li>Xanthogranulomatous → often nephrectomy needed</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>CAUTI Treatment</h3>
+    <ul class="bl">
+      <li>Culture is <strong>essential</strong> (diverse bacteriology)</li>
+      <li><strong>Exchange or remove catheter</strong> during treatment (removes biofilm nidus)</li>
+      <li>Ideally before sending culture → culture reflects bladder, not catheter</li>
+      <li>Duration: <strong>7–14 days</strong> based on clinical response</li>
+    </ul>
+    <div class="sub">
+      <h4>CAUTI Prevention</h4>
+      <ul class="bl">
+        <li>Avoid unnecessary catheterization; remove catheters as soon as no longer needed</li>
+        <li>Antimicrobial-impregnated catheters (silver/nitrofurazone) — <strong>NOT shown to significantly help</strong></li>
+        <li>Intermittent catheterization may be preferable to long-term indwelling catheterization (e.g., spinal cord injury)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ S9: SPECIAL POPULATIONS ═══ -->
+<section class="sec" id="s9" data-section="Special Populations">
+  <div class="sec-hd"><span class="sec-n">09</span><h2>Special Populations</h2></div>
+
+  <div class="sub">
+    <h3>Pregnant Patients</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Drug</th><th>Safety</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Aminopenicillins + Cephalosporins</td><td>✅ Drugs of choice</td><td>Widespread aminopenicillin resistance → don't use empirically without culture</td></tr>
+        <tr><td>Nitrofurantoin</td><td>⚠ Can use if β-lactams unavailable</td><td>Can be used in all trimesters if β-lactams not an option</td></tr>
+        <tr><td>TMP-SMX (sulfonamides)</td><td>⚠ Avoid if possible</td><td>Avoid 1st trimester (possible teratogenicity); avoid near term (neonatal kernicterus). ACOG: can use if no alternatives.</td></tr>
+        <tr><td>Fluoroquinolones</td><td>❌ Avoid</td><td>Adverse effects on fetal cartilage development</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="bl" style="margin-top:8px">
+      <li>ASB or cystitis: treat for <strong>5–7 days</strong></li>
+      <li>Pyelonephritis: parenteral β-lactam ± aminoglycoside</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Candiduria</h3>
+    <ul class="bl">
+      <li>Increasingly common in: ICU, broad-spectrum antibiotic use, diabetes</li>
+      <li><strong>50% are non-C. albicans</strong> species</li>
+      <li><strong>Asymptomatic:</strong> Remove catheter first → resolves in &gt;1/3 of cases; treatment generally NOT recommended</li>
+    </ul>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-g">When to Treat Candiduria</div>
+        <ul class="bl">
+          <li>Symptomatic cystitis or pyelonephritis</li>
+          <li>Asymptomatic but high risk: neutropenia, upcoming urologic manipulation, low-birth-weight infants</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Treatment</div>
+        <ul class="bl">
+          <li>Fluconazole <strong>200–400 mg/day for 7–14 days</strong> (first-line)</li>
+          <li>Bladder irrigation with amphotericin B → generally <strong>NOT recommended</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ S10: PREVENTION ═══ -->
+<section class="sec" id="s10" data-section="Prevention of Recurrent UTI">
+  <div class="sec-hd"><span class="sec-n">10</span><h2>Prevention of Recurrent UTI in Women</h2></div>
+
+  <p>Intervene when <strong>≥3 episodes/year</strong> OR when UTIs are interfering with lifestyle.</p>
+  <p><strong>Initial evaluation:</strong> Confirm diagnosis, imaging for stones, assess for urinary retention.</p>
+
+  <div class="sub">
+    <h3>Non-Antibiotic Approaches</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Increased Fluid Intake</div>
+        <p>Reduces recurrent UTIs; generally well tolerated.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Methenamine Hippurate</div>
+        <p>Converted to formaldehyde in bladder. Well tolerated; may reduce UTIs <strong>as much as antibiotic prophylaxis</strong>.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Cranberry Products</div>
+        <p>Cochrane review found <strong>significant benefit</strong> (optimal product/dose unclear).</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Lactobacillus Probiotics</div>
+        <ul class="bl">
+          <li><strong>Intravaginal</strong> → may reduce recurrent UTIs</li>
+          <li><strong>Oral</strong> → does not appear effective</li>
+          <li>Caution in immunocompromised (risk of invasive infections)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="co wrn">
+      <div class="co-t">⚠ Mannose Products</div>
+      Mixed results — insufficient evidence to recommend routinely.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Antibiotic Prophylactic Strategies (3 Options)</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">1. Continuous</div>
+        <p>Daily or thrice-weekly <strong>low-dose TMP-SMX or nitrofurantoin</strong>. Typically prescribed for <strong>6 months</strong>.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">2. Postcoital</div>
+        <p>Single dose <strong>after intercourse</strong>. Ideal when UTI is clearly linked to sexual activity.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">3. Patient-Initiated Therapy</div>
+        <ul class="bl">
+          <li>Patient gets urine culture materials + antibiotic course</li>
+          <li>Self-medicates at first symptom onset</li>
+          <li>Culture refrigerated → sent to physician for confirmation</li>
+          <li>If established patient-provider relationship → culture can be omitted if episodes respond completely</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ S11: PROGNOSIS ═══ -->
+<section class="sec" id="s11" data-section="Prognosis">
+  <div class="sec-hd"><span class="sec-n">11</span><h2>Prognosis</h2></div>
+  <ul class="bl">
+    <li>Cystitis → risk factor for recurrent cystitis and pyelonephritis</li>
+    <li>ASB in elderly/catheterized → does <strong>NOT</strong> in itself increase risk of infection or death</li>
+    <li>Recurrent UTI without anatomic abnormalities → does <strong>NOT</strong> lead to chronic pyelonephritis or renal failure</li>
+    <li>Infection alone does <strong>NOT</strong> play a primary role in chronic interstitial nephritis
+      <ul class="bl" style="margin-top:4px">
+        <li>Primary causes: analgesic overuse, obstruction, reflux, toxin exposure</li>
+      </ul>
+    </li>
+  </ul>
+  <div class="co wrn">
+    <div class="co-t">⚠ Exception</div>
+    In the presence of underlying renal abnormalities (especially <strong>obstructing stones</strong>) → infection as a secondary factor <strong>can accelerate renal parenchymal damage</strong>.
+  </div>
+  <div class="sbar">
+    <button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button>
+    <button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ EXAM TRAPS ═══ -->
+<section class="sec" id="exam" data-section="Exam Traps">
+  <div class="sec-hd"><span class="sec-n">★</span><h2>Exam Traps</h2></div>
+  <p style="margin-bottom:20px">Stage A Internal Medicine board coaching. Each trap shows the vignette, the tempting wrong answer, and the correct reasoning.</p>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">ASB in the Elderly ≠ UTI</span></div>
+    <div class="trap-body">
+      <div class="trap-q">An 82-year-old woman with dementia is confused. Staff report "she always gets UTIs." Urine culture: E. coli &gt;10⁵ CFU/mL with pyuria. No fever, no dysuria, no urgency reported. <em>You start antibiotics for UTI.</em></div>
+      <div class="trap-a"><strong>Correct Answer: WRONG — This is likely ASB, not UTI.</strong><br>No localizing urinary symptoms = ASB until proven otherwise. "History of recurrent UTIs" in elderly often reflects persistent ASB. Must rule out sepsis and other causes of delirium first. Treating ASB increases risk of future resistant UTI.</div>
+      <div class="trap-why">⚠ Trap: Positive culture + confused patient = automatic UTI diagnosis. Keyword: <strong>no localizing symptoms = ASB first, not UTI</strong>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Nitrofurantoin for Pyelonephritis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 25-year-old woman has dysuria, frequency, fever 39°C, and right flank pain. Urine culture grows susceptible E. coli. <em>You prescribe nitrofurantoin 100 mg BID for 7 days.</em></div>
+      <div class="trap-a"><strong>Correct Answer: WRONG — Nitrofurantoin must NOT be used for pyelonephritis.</strong><br>Fever + flank pain = pyelonephritis = renal tissue invasion. Nitrofurantoin does not reach adequate tissue levels. Use TMP-SMX, ciprofloxacin, or levofloxacin instead.</div>
+      <div class="trap-why">⚠ Trap: Student remembers nitrofurantoin is the preferred agent for UTI. Keyword: <strong>pyelonephritis needs tissue-level drug — nitrofurantoin, fosfomycin, pivmecillinam are bladder-only</strong>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Urine Dipstick Ruling Out UTI</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 30-year-old sexually active woman has classic dysuria and frequency. Urine dipstick is nitrite-negative and leukocyte esterase-negative. <em>You conclude she does not have UTI.</em></div>
+      <div class="trap-a"><strong>Correct Answer: Negative dipstick doesn't fully rule out UTI — clinical judgment still required.</strong><br>Both negative together should prompt consideration of other diagnoses, but cannot completely exclude UTI. S. saprophyticus (common in young women) is nitrite-negative. If high clinical suspicion, proceed with microscopy or culture.</div>
+      <div class="trap-why">⚠ Trap: Negative dipstick = UTI ruled out. Keyword: <strong>both negative = consider other diagnoses, not definitively rule out UTI</strong>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">CAUTI: Culture Positive = Treat</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A catheterized post-op patient has a urine culture growing E. coli 10⁵ CFU/mL. No fever. No urinary complaints. The nurse flags this for treatment. <em>You start antibiotics.</em></div>
+      <div class="trap-a"><strong>Correct Answer: WRONG — Bacteriuria in catheterized patients is expected and does not require treatment without symptoms.</strong><br>CAUTI diagnosis requires symptoms (localizing OR systemic) + bacteriuria + pyuria + exclusion of other causes. No symptoms = catheter-associated ASB → remove catheter if no longer needed, no antibiotics.</div>
+      <div class="trap-why">⚠ Trap: High colony count triggers treatment reflex. Keyword: <strong>catheter + bacteriuria alone ≠ CAUTI; symptoms are mandatory</strong>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Treat ASB in Pregnancy — Always</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 22-year-old at 16 weeks gestation has no urinary symptoms. Routine prenatal urine culture grows E. coli. She is feeling well. <em>You decide not to treat since she has ASB and is asymptomatic.</em></div>
+      <div class="trap-a"><strong>Correct Answer: WRONG — Pregnancy is one of only TWO exceptions where ASB must be treated.</strong><br>Untreated ASB in pregnancy → pyelonephritis, preterm delivery, low birth weight. Screen and treat with cephalosporin (preferred) or amoxicillin (if susceptible) for 5–7 days.</div>
+      <div class="trap-why">⚠ Trap: "ASB doesn't need treatment" applied universally. Keyword: <strong>pregnancy + positive culture = always treat, regardless of symptoms</strong>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Fluoroquinolone as First-Line for Uncomplicated Cystitis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A healthy 28-year-old woman presents with uncomplicated cystitis. Local susceptibility data shows &gt;95% E. coli susceptibility to ciprofloxacin. She has no allergies. <em>You prescribe ciprofloxacin 3-day course.</em></div>
+      <div class="trap-a"><strong>Correct Answer: Not preferred — FDA advises against fluoroquinolones for uncomplicated cystitis when alternatives exist.</strong><br>Preferred agents are TMP-SMX (if susceptible), nitrofurantoin, fosfomycin, or pivmecillinam. FQs: high collateral damage + rare serious toxicities (tendon rupture, aortic dissection) + drives resistance. Reserve FQs for when no alternatives.</div>
+      <div class="trap-why">⚠ Trap: High susceptibility rate makes ciprofloxacin look ideal. Keyword: <strong>FDA advisory — FQs are last resort for uncomplicated cystitis in women</strong>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Early UTI Recurrence = Reinfection?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A woman treated for cystitis returns 10 days later with the same symptoms and same organism on culture. <em>You treat her as a new UTI (reinfection) with the same regimen.</em></div>
+      <div class="trap-a"><strong>Correct Answer: Early recurrence (&lt;2 weeks) = likely RELAPSE, not reinfection.</strong><br>Relapse suggests a sequestered focus of ongoing infection (e.g., abscess, stone, prostate focus in men). Further evaluation is warranted, not just re-treatment with the same drug.</div>
+      <div class="trap-why">⚠ Trap: Second positive culture = new infection. Keyword: <strong>&lt;2 weeks recurrence = relapse → evaluate for sequestered focus</strong>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">Prostatitis Duration: Same as Cystitis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 45-year-old man has perineal pain, dysuria, and fever. ABP is diagnosed. <em>You prescribe ciprofloxacin for 7 days (same as cystitis in men).</em></div>
+      <div class="trap-a"><strong>Correct Answer: WRONG — ABP requires at least 2–4 weeks of treatment, not 7 days.</strong><br>Prostate penetration requires longer courses. ABP: 2–4 weeks. CBP: 4–6 weeks (recurrences up to 12 weeks). First get urine + blood cultures, then start fluoroquinolone or TMP-SMX.</div>
+      <div class="trap-why">⚠ Trap: Student confuses cystitis duration (7 days for men) with prostatitis. Keyword: <strong>ABP = minimum 2–4 weeks; CBP = 4–12 weeks</strong>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Emphysematous Pyelonephritis — Who Gets It?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">CT shows gas within the renal parenchyma. <em>Which underlying condition is most strongly associated with this finding?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Poorly controlled diabetes mellitus.</strong><br>Emphysematous pyelonephritis occurs almost exclusively in poorly controlled diabetics. Gas-forming organisms (usually E. coli) destroy renal parenchyma. Treatment: drainage ± elective nephrectomy.</div>
+      <div class="trap-why">⚠ Trap: Gas in organ = emphysematous = could be anything. Keyword: <strong>gas in kidney = emphysematous pyelonephritis = poorly controlled diabetes</strong>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Recurrent UTI → Causes Renal Failure?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with recurrent cystitis asks if she will eventually develop kidney damage or renal failure. <em>You reassure her that recurrent UTI leads to chronic pyelonephritis and renal insufficiency over time.</em></div>
+      <div class="trap-a"><strong>Correct Answer: WRONG — Recurrent UTI without anatomic abnormalities does NOT lead to chronic pyelonephritis or renal failure.</strong><br>Infection does not play a primary role in chronic interstitial nephritis. Primary causes: analgesic overuse, obstruction, reflux, toxin exposure. Exception: obstructing stones + infection can accelerate parenchymal damage.</div>
+      <div class="trap-why">⚠ Trap: Repeated infections = cumulative damage assumption. Keyword: <strong>recurrent UTI (no anomaly) ≠ chronic pyelonephritis ≠ renal failure — unless obstructing stones are present</strong>.</div>
+    </div>
+  </div>
+
+</section>
+
+</main>
+<footer class="footer">UTI: Organized Boards Study Guide · Stage A Internal Medicine · 2025</footer>
+
+<script>
+const STORE_KEY = 'bsa_uti_org_v1';
+let curColor=null,eraseMode=false,selText='',savedRange=null,curSection='',activeNoteId=null;
+
+function getActiveSectionName(){
+  const secs=document.querySelectorAll('.sec[data-section]');
+  let a='';
+  secs.forEach(s=>{const r=s.getBoundingClientRect();if(r.top<=window.innerHeight*.5&&r.bottom>0)a=s.getAttribute('data-section');});
+  return a||'General';
+}
+
+function setHL(c){curColor=c;eraseMode=false;document.body.style.cursor='crosshair';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));
+  ({y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'})[c] && document.getElementById(({y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'})[c]).classList.add('active');}
+function setErase(){eraseMode=true;curColor=null;document.body.style.cursor='cell';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));}
+function clearAll(){
+  if(!confirm('Clear ALL highlights and notes?'))return;
+  document.querySelectorAll('.hl').forEach(el=>el.parentNode.replaceChild(document.createTextNode(el.textContent),el));
+  document.querySelectorAll('.note-anchor').forEach(el=>el.parentNode.replaceChild(document.createTextNode(el.textContent),el));
+  try{localStorage.removeItem(STORE_KEY);}catch(e){}
+  renderNotes();closePopup();document.body.style.cursor='';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));curColor=null;eraseMode=false;}
+
+document.addEventListener('mouseup',function(e){
+  const tb=document.getElementById('toolbar'),sb=document.getElementById('sn-sidebar'),pp=document.getElementById('note-popup');
+  if(tb.contains(e.target)||sb.contains(e.target)||pp.contains(e.target))return;
+  if(eraseMode&&e.target.classList.contains('hl')){const el=e.target;el.parentNode.replaceChild(document.createTextNode(el.textContent),el);return;}
+  const sel=window.getSelection();
+  if(!sel||sel.isCollapsed)return;
+  const txt=sel.toString().trim();if(!txt)return;
+  selText=txt;savedRange=sel.getRangeAt(0).cloneRange();curSection=getActiveSectionName();
+  document.getElementById('sn-ref-txt').textContent=txt.length>45?txt.substring(0,45)+'…':txt;
+  const st=document.getElementById('sn-cur-section-tag');st.textContent=curSection;st.style.display='inline';
+  if(curColor){
+    try{const r=sel.getRangeAt(0),sp=document.createElement('span');sp.className='hl hl-'+curColor;r.surroundContents(sp);sel.removeAllRanges();}catch(e){}
+    return;
+  }
+  showNewPopup(sel,txt);
+});
+
+function showNewPopup(sel,txt){
+  const pp=document.getElementById('note-popup');pp.classList.remove('editing');activeNoteId=null;
+  document.getElementById('np-section-tag').textContent=curSection;
+  document.getElementById('np-ref').textContent=txt.length>50?'"'+txt.substring(0,50)+'…"':'"'+txt+'"';
+  document.getElementById('np-ta').value='';
+  pp.classList.add('editing');
+  const r=sel.getRangeAt(0),rect=r.getBoundingClientRect();
+  pp.style.left=Math.min(Math.max(rect.left,8),window.innerWidth-320)+'px';
+  pp.style.top=(rect.bottom+window.scrollY+8)+'px';
+  pp.style.display='block';pp.classList.add('show');
+  document.getElementById('np-ta').focus();
+}
+
+function showExistingPopup(el,note){
+  const pp=document.getElementById('note-popup');pp.classList.remove('editing');activeNoteId=note.id;
+  document.getElementById('np-section-tag').textContent=note.section||'General';
+  document.getElementById('np-ref').textContent=note.ref&&note.ref!=='—'?'"'+note.ref.substring(0,50)+'"':'Your note';
+  document.getElementById('np-display-text').innerHTML=note.text.replace(/\n/g,'<br>');
+  document.getElementById('np-ta').value=note.text;
+  const rect=el.getBoundingClientRect();
+  pp.style.left=Math.min(Math.max(rect.left,8),window.innerWidth-320)+'px';
+  pp.style.top=(rect.bottom+window.scrollY+8)+'px';
+  pp.style.display='block';pp.classList.add('show');
+}
+
+function closePopup(){const pp=document.getElementById('note-popup');pp.style.display='none';pp.classList.remove('show','editing');activeNoteId=null;}
+function switchToEdit(){document.getElementById('note-popup').classList.add('editing');}
+function switchToView(){document.getElementById('note-popup').classList.remove('editing');}
+
+function saveFromPopup(){
+  const pp=document.getElementById('note-popup'),txt=document.getElementById('np-ta').value.trim();
+  if(!txt)return;
+  if(activeNoteId!==null){
+    const notes=getNotes(),idx=notes.findIndex(n=>n.id===activeNoteId);
+    if(idx!==-1){notes[idx].text=txt;saveNotes(notes);}
+    document.getElementById('np-display-text').innerHTML=txt.replace(/\n/g,'<br>');
+    pp.classList.remove('editing');renderNotes();
+  } else {
+    const id=Date.now(),notes=getNotes();
+    notes.unshift({id,ref:selText.substring(0,80)||'—',text:txt,section:curSection});saveNotes(notes);
+    if(savedRange){try{const sp=document.createElement('span');sp.className='note-anchor';sp.dataset.noteId=id;sp.title='Click to see your note';savedRange.surroundContents(sp);}catch(e){}savedRange=null;}
+    selText='';document.getElementById('sn-ref-txt').textContent='—';document.getElementById('sn-cur-section-tag').style.display='none';
+    renderNotes();closePopup();
+  }
+}
+
+function deleteNoteFromPopup(){if(activeNoteId===null){closePopup();return;}deleteNote(activeNoteId);closePopup();}
+function jumpToAnchor(){
+  if(activeNoteId===null)return;
+  const a=document.querySelector('.note-anchor[data-note-id="'+activeNoteId+'"]');
+  if(a){a.scrollIntoView({behavior:'smooth',block:'center'});a.style.background='rgba(109,40,217,.15)';setTimeout(()=>a.style.background='',1500);}
+  closePopup();
+}
+
+document.addEventListener('click',function(e){
+  const a=e.target.closest('.note-anchor');
+  if(a){e.stopPropagation();const nid=parseInt(a.dataset.noteId);if(activeNoteId===nid){closePopup();return;}const note=getNotes().find(n=>n.id===nid);if(note)showExistingPopup(a,note);return;}
+  const pp=document.getElementById('note-popup');
+  if(pp&&pp.style.display!=='none'&&!pp.contains(e.target))closePopup();
+});
+
+function getNotes(){try{return JSON.parse(localStorage.getItem(STORE_KEY)||'[]');}catch(e){return [];}}
+function saveNotes(n){try{localStorage.setItem(STORE_KEY,JSON.stringify(n));}catch(e){}}
+
+function addNote(){
+  const txt=document.getElementById('sn-ta').value.trim();if(!txt)return;
+  const id=Date.now(),notes=getNotes();
+  notes.unshift({id,ref:selText.substring(0,80)||'—',text:txt,section:curSection||getActiveSectionName()});saveNotes(notes);
+  if(savedRange){try{const sp=document.createElement('span');sp.className='note-anchor';sp.dataset.noteId=id;sp.title='Click to see your note';savedRange.surroundContents(sp);}catch(e){}savedRange=null;}
+  document.getElementById('sn-ta').value='';selText='';
+  document.getElementById('sn-ref-txt').textContent='—';document.getElementById('sn-cur-section-tag').style.display='none';
+  renderNotes();
+}
+
+function deleteNote(id){
+  saveNotes(getNotes().filter(n=>n.id!==id));
+  document.querySelectorAll('.note-anchor[data-note-id="'+id+'"]').forEach(el=>el.parentNode.replaceChild(document.createTextNode(el.textContent),el));
+  renderNotes();
+}
+
+function renderNotes(filterText){
+  const body=document.getElementById('sn-body'),empty=document.getElementById('sn-empty');
+  let notes=getNotes();
+  if(filterText){const q=filterText.toLowerCase();notes=notes.filter(n=>n.text.toLowerCase().includes(q)||(n.ref||'').toLowerCase().includes(q)||(n.section||'').toLowerCase().includes(q));}
+  body.querySelectorAll('.sn-group').forEach(g=>g.remove());
+  if(!notes.length){if(empty)empty.style.display='';return;}
+  if(empty)empty.style.display='none';
+  const groups={};notes.forEach(n=>{const s=n.section||'General';if(!groups[s])groups[s]=[];groups[s].push(n);});
+  Object.entries(groups).forEach(([secName,secNotes])=>{
+    const gd=document.createElement('div');gd.className='sn-group';
+    const hd=document.createElement('div');hd.className='sn-group-hd';
+    hd.innerHTML='<span>'+secName+'</span><span class="sn-group-badge">'+secNotes.length+'</span>';gd.appendChild(hd);
+    secNotes.forEach(note=>{
+      const card=document.createElement('div');card.className='sn-note';card.dataset.noteId=note.id;
+      const savedH=localStorage.getItem('bsa_h_'+note.id);if(savedH)card.style.height=savedH+'px';
+      card.innerHTML='<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span><span class="sn-note-ref">'+(note.ref!=='—'?'"'+note.ref+'"':'General note')+'</span><div class="sn-note-actions"><button class="sn-act-btn" onclick="editFromSidebar('+note.id+')">✏</button><button class="sn-act-btn sn-del" onclick="deleteNote('+note.id+')">×</button></div></div><div class="sn-note-body">'+note.text.replace(/\n/g,'<br>')+'</div><div class="sn-resize"></div>';
+      gd.appendChild(card);makeDraggable(card);makeResizable(card,note.id);
+    });
+    body.appendChild(gd);
+  });
+}
+
+function editFromSidebar(id){
+  const note=getNotes().find(n=>n.id===id);if(!note)return;
+  const a=document.querySelector('.note-anchor[data-note-id="'+id+'"]');
+  if(a){a.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>showExistingPopup(a,note),400);}
+  else{const pp=document.getElementById('note-popup');activeNoteId=id;
+    document.getElementById('np-section-tag').textContent=note.section||'General';
+    document.getElementById('np-ref').textContent=note.ref!=='—'?'"'+note.ref.substring(0,50)+'"':'Your note';
+    document.getElementById('np-display-text').innerHTML=note.text.replace(/\n/g,'<br>');
+    document.getElementById('np-ta').value=note.text;
+    pp.style.left=(window.innerWidth/2-150)+'px';pp.style.top=(window.scrollY+200)+'px';
+    pp.style.display='block';pp.classList.add('show');}
+}
+
+function filterNotes(v){renderNotes(v.trim()||undefined);}
+
+function makeDraggable(card){
+  const h=card.querySelector('.sn-note-hd');let sY=0;
+  h.addEventListener('mousedown',function(e){
+    if(e.target.classList.contains('sn-act-btn'))return;e.preventDefault();sY=e.clientY;card.style.opacity='.7';
+    function mv(ev){const dy=ev.clientY-sY,b=document.getElementById('sn-body'),cs=[...b.querySelectorAll('.sn-note')],i=cs.indexOf(card);
+      if(dy<-30&&i>0){b.insertBefore(card,cs[i-1]);sY=ev.clientY;}else if(dy>30&&i<cs.length-1){b.insertBefore(cs[i+1],card);sY=ev.clientY;}}
+    function up(){card.style.opacity='';const b=document.getElementById('sn-body'),ids=[...b.querySelectorAll('.sn-note')].map(c=>parseInt(c.dataset.noteId)),notes=getNotes(),r=ids.map(id=>notes.find(n=>n.id===id)).filter(Boolean);saveNotes(r);renderNotes();document.removeEventListener('mousemove',mv);document.removeEventListener('mouseup',up);}
+    document.addEventListener('mousemove',mv);document.addEventListener('mouseup',up);});
+}
+
+function makeResizable(card,noteId){
+  const h=card.querySelector('.sn-resize');let sY=0,sH=0;
+  h.addEventListener('mousedown',function(e){e.preventDefault();e.stopPropagation();sY=e.clientY;sH=card.offsetHeight;
+    function mv(ev){card.style.height=Math.max(80,sH+(ev.clientY-sY))+'px';}
+    function up(){try{localStorage.setItem('bsa_h_'+noteId,card.offsetHeight);}catch(e){}document.removeEventListener('mousemove',mv);document.removeEventListener('mouseup',up);}
+    document.addEventListener('mousemove',mv);document.addEventListener('mouseup',up);});
+}
+
+function toggleSidebar(){const sb=document.getElementById('sn-sidebar'),tab=document.getElementById('sn-tab');sb.classList.toggle('hidden');tab.textContent=sb.classList.contains('hidden')?'📝 Notes':'◀';}
+
+const _secs=document.querySelectorAll('.sec[id]'),_lnks=document.querySelectorAll('.toc-a');
+_secs.forEach(s=>new IntersectionObserver(entries=>{if(entries[0].isIntersecting){_lnks.forEach(l=>l.classList.remove('on'));const l=document.querySelector('.toc-a[href="#'+s.id+'"]');if(l){l.classList.add('on');l.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}}},{rootMargin:'-15% 0px -75% 0px'}).observe(s));
+
+document.querySelectorAll('.lbtn,.fbtn').forEach(btn=>{
+  const type=btn.classList.contains('lbtn')?'l':'f',k=type+'btn_'+(btn.closest('.sec')?.id||'');
+  if(localStorage.getItem(k)==='1')btn.classList.add('on');
+  btn.addEventListener('click',()=>{btn.classList.toggle('on');try{localStorage.setItem(k,btn.classList.contains('on')?'1':'0');}catch(e){}});
+});
+
+renderNotes();
+</script>
+</body>
+</html>
