@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIV Board-Style Study Guide</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f8f7f4; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1a1a1a; font-size: 15px; line-height: 1.7; }
+  .page { max-width: 980px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+  /* NAV */
+  .toc { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 2rem; }
+  .toc h2 { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 0.75rem; }
+  .toc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px; }
+  .toc a { display: block; font-size: 13px; color: #185FA5; text-decoration: none; padding: 3px 6px; border-radius: 6px; }
+  .toc a:hover { background: #E6F1FB; }
+
+  /* SECTION HEADERS */
+  .section-header { display: flex; align-items: center; gap: 12px; margin: 2.5rem 0 1rem; padding-bottom: 8px; border-bottom: 2px solid; }
+  .section-header .icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .section-header h2 { font-size: 20px; font-weight: 600; }
+
+  /* COLOR THEMES */
+  .theme-blue .section-header { border-color: #378ADD; }
+  .theme-blue .section-header .icon { background: #E6F1FB; color: #185FA5; }
+  .theme-blue .section-header h2 { color: #185FA5; }
+
+  .theme-red .section-header { border-color: #E24B4A; }
+  .theme-red .section-header .icon { background: #FCEBEB; color: #A32D2D; }
+  .theme-red .section-header h2 { color: #A32D2D; }
+
+  .theme-teal .section-header { border-color: #1D9E75; }
+  .theme-teal .section-header .icon { background: #E1F5EE; color: #0F6E56; }
+  .theme-teal .section-header h2 { color: #0F6E56; }
+
+  .theme-amber .section-header { border-color: #EF9F27; }
+  .theme-amber .section-header .icon { background: #FAEEDA; color: #854F0B; }
+  .theme-amber .section-header h2 { color: #854F0B; }
+
+  .theme-purple .section-header { border-color: #7F77DD; }
+  .theme-purple .section-header .icon { background: #EEEDFE; color: #3C3489; }
+  .theme-purple .section-header h2 { color: #3C3489; }
+
+  .theme-coral .section-header { border-color: #D85A30; }
+  .theme-coral .section-header .icon { background: #FAECE7; color: #712B13; }
+  .theme-coral .section-header h2 { color: #712B13; }
+
+  /* CARDS */
+  .card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1rem; }
+  .card h3 { font-size: 15px; font-weight: 600; margin-bottom: 0.6rem; }
+  .card ul { padding-left: 1.2rem; }
+  .card ul li { margin-bottom: 4px; font-size: 14px; }
+  .card ul ul { margin-top: 4px; }
+
+  /* HIGHLIGHT BOXES */
+  .box { border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1rem; }
+  .box-blue { background: #E6F1FB; border-left: 4px solid #378ADD; }
+  .box-red { background: #FCEBEB; border-left: 4px solid #E24B4A; }
+  .box-amber { background: #FAEEDA; border-left: 4px solid #EF9F27; }
+  .box-teal { background: #E1F5EE; border-left: 4px solid #1D9E75; }
+  .box-purple { background: #EEEDFE; border-left: 4px solid #7F77DD; }
+  .box-coral { background: #FAECE7; border-left: 4px solid #D85A30; }
+  .box h4 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+  .box-blue h4 { color: #185FA5; }
+  .box-red h4 { color: #A32D2D; }
+  .box-amber h4 { color: #854F0B; }
+  .box-teal h4 { color: #0F6E56; }
+  .box-purple h4 { color: #3C3489; }
+  .box-coral h4 { color: #712B13; }
+  .box ul { padding-left: 1.1rem; }
+  .box ul li { font-size: 14px; margin-bottom: 3px; }
+
+  /* BADGE */
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; }
+  .badge-blue { background: #E6F1FB; color: #185FA5; }
+  .badge-red { background: #FCEBEB; color: #A32D2D; }
+  .badge-amber { background: #FAEEDA; color: #854F0B; }
+  .badge-teal { background: #E1F5EE; color: #0F6E56; }
+  .badge-purple { background: #EEEDFE; color: #3C3489; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 1rem; }
+  th { background: #f1efe8; font-weight: 600; text-align: left; padding: 8px 12px; border: 0.5px solid #ddd; }
+  td { padding: 7px 12px; border: 0.5px solid #ddd; vertical-align: top; }
+  tr:nth-child(even) td { background: #fafaf8; }
+
+  /* FLOWCHART */
+  .flow { display: flex; flex-direction: column; gap: 0; align-items: flex-start; }
+  .flow-step { display: flex; align-items: flex-start; gap: 12px; }
+  .flow-line { display: flex; flex-direction: column; align-items: center; }
+  .flow-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .flow-connector { width: 2px; flex: 1; min-height: 20px; }
+  .flow-content { padding-bottom: 16px; flex: 1; }
+  .flow-content strong { font-size: 14px; display: block; }
+  .flow-content span { font-size: 13px; color: #555; }
+
+  /* DRUG TABLE */
+  .drug-row td:first-child { font-weight: 600; color: #185FA5; }
+
+  /* KEY NUMBER */
+  .key-numbers { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin: 1rem 0; }
+  .kn { background: #fff; border: 0.5px solid #ddd; border-radius: 10px; padding: 12px; text-align: center; }
+  .kn .num { font-size: 26px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .kn .lbl { font-size: 11px; color: #666; }
+
+  /* PEARL */
+  .pearl { background: #FAEEDA; border: 0.5px solid #EF9F27; border-radius: 10px; padding: 0.8rem 1rem; margin: 0.75rem 0; font-size: 14px; }
+  .pearl::before { content: "⭐ Board pearl: "; font-weight: 700; color: #854F0B; }
+
+  /* TITLE */
+  .guide-title { text-align: center; padding: 2rem 0 1.5rem; }
+  .guide-title h1 { font-size: 32px; font-weight: 700; color: #185FA5; }
+  .guide-title p { color: #666; font-size: 14px; margin-top: 6px; }
+
+  hr { border: none; border-top: 0.5px solid #e5e5e5; margin: 2rem 0; }
+
+  /* TWO COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="guide-title">
+  <h1>HIV / AIDS — Board-Style Study Guide</h1>
+  <p>Focused exclusively on topics tested in your 20 exam questions · Based on Harrison's Chapter 208</p>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h2>Quick Navigation</h2>
+  <div class="toc-grid">
+    <a href="#s1">1. AIDS-defining conditions</a>
+    <a href="#s2">2. Acute HIV infection</a>
+    <a href="#s3">3. Transmission & risk</a>
+    <a href="#s4">4. Mother-to-child prevention</a>
+    <a href="#s5">5. Initial workup & ART timing</a>
+    <a href="#s6">6. OI prophylaxis (thresholds)</a>
+    <a href="#s7">7. PCP — diagnosis & treatment</a>
+    <a href="#s8">8. Cryptococcal meningitis</a>
+    <a href="#s9">9. MAC infection</a>
+    <a href="#s10">10. JC virus / PML</a>
+    <a href="#s11">11. Oral hairy leukoplakia (EBV)</a>
+    <a href="#s12">12. IRIS</a>
+    <a href="#s13">13. Non-AIDS chronic complications</a>
+    <a href="#s14">14. Drug side effects (TMP-SMX)</a>
+    <a href="#s15">Master reference table</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- S1: AIDS-DEFINING -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s1" class="theme-red">
+  <div class="section-header">
+    <div class="icon">🔴</div>
+    <h2>1. AIDS-defining conditions & staging</h2>
+  </div>
+
+  <div class="box box-blue">
+    <h4>The two ways to diagnose AIDS (CDC stage 3)</h4>
+    <ul>
+      <li><strong>CD4 &lt; 200 cells/μL</strong> in anyone &gt;6 years old — regardless of symptoms</li>
+      <li><strong>Any AIDS-defining illness</strong> (Table 208-1) — regardless of CD4 count</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>✅ AIDS-defining — must memorize</h3>
+      <ul>
+        <li>PCP (<em>Pneumocystis jirovecii</em> pneumonia)</li>
+        <li>Toxoplasmosis of brain</li>
+        <li>Cryptococcosis (extrapulmonary)</li>
+        <li>CMV retinitis / disease</li>
+        <li><strong>Kaposi's sarcoma</strong></li>
+        <li><strong>Non-Hodgkin's lymphoma</strong> (Burkitt's, immunoblastic, CNS primary)</li>
+        <li><strong>Invasive cervical carcinoma</strong></li>
+        <li>MAC disseminated</li>
+        <li>Progressive multifocal leukoencephalopathy (PML)</li>
+        <li>Esophageal candidiasis</li>
+        <li>Wasting syndrome</li>
+        <li>HIV encephalopathy</li>
+        <li>TB (any site)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>❌ NOT AIDS-defining (non-AIDS malignancies)</h3>
+      <ul>
+        <li><strong>Hodgkin's lymphoma</strong> — increased risk but NOT defining</li>
+        <li><strong>Melanoma</strong></li>
+        <li>Lung, liver, anal cancer</li>
+        <li>Multiple myeloma</li>
+        <li>Leukemia</li>
+        <li style="color:#A32D2D; font-weight:600;">Zoster in a single dermatome — NOT AIDS-defining (but signals early immune decline)</li>
+        <li style="color:#A32D2D; font-weight:600;">Recurrent bacterial pneumonia — AIDS-defining only in adults ≥6 years when recurrent</li>
+        <li style="color:#A32D2D; font-weight:600;">Meningococcal meningitis — NOT AIDS-defining</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pearl">KS occurrence is NOT strictly tied to CD4 count — it can appear even with normal CD4. All other OIs are linked to CD4 thresholds. For boards: KS = AIDS-defining; Hodgkin's lymphoma = NOT AIDS-defining.</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- S2: ACUTE HIV -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s2" class="theme-blue">
+  <div class="section-header">
+    <div class="icon">🦠</div>
+    <h2>2. Acute HIV infection</h2>
+  </div>
+
+  <div class="box box-red">
+    <h4>Key fact for boards</h4>
+    <ul>
+      <li>~50% of patients experience an acute syndrome 2–4 weeks after primary infection</li>
+      <li>The other ~50% are <strong>asymptomatic</strong> — so "most will be asymptomatic" is also defensible depending on how the question is framed</li>
+      <li>Resembles infectious mononucleosis: fever, pharyngitis, lymphadenopathy, rash, myalgias</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>What happens during acute HIV</h3>
+      <ul>
+        <li>Massive burst of plasma viremia (millions of copies/mL)</li>
+        <li>CD4 initially drops → then partially recovers</li>
+        <li>CD8 cells expand → inversion of CD4/CD8 ratio</li>
+        <li>p24 antigen detectable <em>before</em> antibodies appear</li>
+        <li>Antibodies appear 3–6 weeks (almost always within 12 weeks)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>What the peak viral load does NOT predict</h3>
+      <ul>
+        <li>Peak viremia during acute infection does <strong>NOT</strong> predict rate of disease progression</li>
+        <li>What DOES predict progression: the <strong>viral set point</strong> at ~1 year after infection</li>
+        <li>Higher set point → faster progression to AIDS</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Thrush (oropharyngeal candidiasis) in HIV — clinical significance</h3>
+    <ul>
+      <li>Occurs typically when CD4 &lt; 300/μL</li>
+      <li>59% of patients with oral candidiasis developed AIDS within the next year</li>
+      <li>Important: positive throat culture for Candida in HIV patients has NO diagnostic value (colonization is common)</li>
+      <li>Oral candidiasis = indication to start PCP prophylaxis regardless of CD4</li>
+    </ul>
+    <div class="box box-amber" style="margin-top:0.75rem; margin-bottom:0;">
+      <h4>What is NOT true about thrush in HIV</h4>
+      <ul>
+        <li>"15% positive blood culture" — FALSE. Fungemia from thrush is not standard</li>
+        <li>"Most HIV patients worldwide have thrush" — FALSE</li>
+        <li>"CD4 must be &lt;150 to get thrush" — FALSE (threshold is ~300)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- S3: TRANSMISSION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s3" class="theme-amber">
+  <div class="section-header">
+    <div class="icon">⚡</div>
+    <h2>3. HIV transmission & risk percentages</h2>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Route</th><th>Risk per 10,000 exposures</th><th>Board memory</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Blood transfusion</td><td style="color:#A32D2D; font-weight:700;">9,250 (92.5%)</td><td>Highest risk</td></tr>
+      <tr><td>Receptive anal intercourse</td><td style="color:#A32D2D; font-weight:700;">138 (~1.4%)</td><td>↑ risk vs vaginal — thin rectal mucosa, microtrauma</td></tr>
+      <tr><td>Needle sharing (IVDU)</td><td>63</td><td>~0.6%</td></tr>
+      <tr><td>Needle stick (health worker)</td><td>23</td><td>~0.23%</td></tr>
+      <tr><td>Receptive vaginal intercourse</td><td>8</td><td>Male→female more efficient</td></tr>
+      <tr><td>Insertive anal intercourse</td><td>11</td><td>Lower than receptive</td></tr>
+      <tr><td>Insertive vaginal intercourse</td><td>4</td><td>Female→male less efficient</td></tr>
+      <tr><td>Biting / spitting / tears</td><td>Negligible</td><td>Not significant</td></tr>
+    </tbody>
+  </table>
+
+  <div class="pearl">The answer to "risk of HIV from unprotected anal intercourse" is approximately 1.4% per act (~138/10,000). On boards this often appears as a "per act" question — not the lifetime risk.</div>
+
+  <div class="two-col">
+    <div class="box box-teal">
+      <h4>Why anal intercourse is highest sexual risk</h4>
+      <ul>
+        <li>Rectal mucosa is <strong>thin and fragile</strong> → microtrauma</li>
+        <li>Deposited semen sits against susceptible CD4+ cells</li>
+        <li>Langerhans cells directly below surface = easy viral entry</li>
+        <li>Vaginal mucosa = several layers thicker → more protection</li>
+      </ul>
+    </div>
+    <div class="box box-blue">
+      <h4>Factors that INCREASE transmission risk</h4>
+      <ul>
+        <li>High viral load in source patient</li>
+        <li>Genital ulcer disease (HSV, syphilis, chancroid)</li>
+        <li>Non-ulcerative STIs (gonorrhea, chlamydia)</li>
+        <li>Lack of circumcision (insertive partner)</li>
+        <li>Acute HIV infection (viral load very high)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box box-red">
+    <h4>U = U (Undetectable = Untransmittable)</h4>
+    <ul>
+      <li>If viral load suppressed to &lt;20 copies/mL by ART → essentially zero sexual transmission</li>
+      <li>Demonstrated for both heterosexual and MSM couples</li>
+      <li>&gt;125,000 sex acts studied without transmission when partner virally suppressed</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- S4: MTCT PREVENTION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s4" class="theme-teal">
+  <div class="section-header">
+    <div class="icon">👶</div>
+    <h2>4. Mother-to-child transmission (MTCT) prevention</h2>
+  </div>
+
+  <div class="box box-blue">
+    <h4>Without any intervention — transmission rates</h4>
+    <ul>
+      <li>Industrialized countries: 15–25% overall</li>
+      <li>Developing countries: 25–35%</li>
+      <li>With full ART + cesarean: rate falls to &lt;1%</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>When does transmission occur?</h3>
+    <ul>
+      <li><strong>50–65%</strong> — during <strong>delivery</strong> (most common)</li>
+      <li>23–30% — before birth (in utero)</li>
+      <li>12–20% — via breastfeeding</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Most effective MTCT prevention strategy (boards answer)</h3>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot" style="background:#1D9E75;"></div>
+          <div class="flow-connector" style="background:#9FE1CB;"></div>
+        </div>
+        <div class="flow-content">
+          <strong>ART for mother throughout pregnancy AND during delivery</strong>
+          <span>Suppresses viral load → reduces exposure of infant</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot" style="background:#1D9E75;"></div>
+          <div class="flow-connector" style="background:#9FE1CB;"></div>
+        </div>
+        <div class="flow-content">
+          <strong>Antiretroviral prophylaxis for the newborn after birth</strong>
+          <span>Typically zidovudine ± other agents for 4–6 weeks</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot" style="background:#1D9E75;"></div>
+          <div class="flow-connector" style="background:#9FE1CB;"></div>
+        </div>
+        <div class="flow-content">
+          <strong>Cesarean section delivery</strong>
+          <span>Reduces exposure to maternal blood/secretions during birth canal passage</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot" style="background:#1D9E75;"></div>
+        </div>
+        <div class="flow-content">
+          <strong>Avoid breastfeeding</strong>
+          <span>In developed countries — formula available as safe alternative</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pearl">The boards answer for "most effective single intervention to prevent MTCT" = antiretroviral therapy for the mother during pregnancy AND delivery. Cesarean alone is insufficient. Immunoglobulin to newborn is NOT recommended as primary prevention.</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- S5: INITIAL WORKUP + ART TIMING -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s5" class="theme-purple">
+  <div class="section-header">
+    <div class="icon">🔬</div>
+    <h2>5. Initial workup & when to start ART</h2>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>Initial evaluation — required tests</h3>
+      <ul>
+        <li>CD4+ T cell count</li>
+        <li>Plasma HIV RNA level</li>
+        <li>HIV resistance testing (genotype)</li>
+        <li><strong>HLA-B5701</strong> — before starting abacavir</li>
+        <li>PPD / IFN-γ release assay (TB screening)</li>
+        <li>Anti-Toxoplasma IgG antibody</li>
+        <li>RPR or VDRL (syphilis)</li>
+        <li>Hepatitis A, B, C serologies</li>
+        <li>Mini-Mental Status Exam (baseline)</li>
+        <li>Urinalysis, routine chemistries, lipids</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Which test is NOT routinely needed?</h3>
+      <ul>
+        <li><strong>Serology for toxoplasmosis for Toxoplasma</strong> is done (to know baseline)</li>
+        <li><strong>VDRL/RPR</strong> — yes, required</li>
+        <li><strong>PPD</strong> — yes, required</li>
+        <li><strong>HLA-B5701</strong> — yes, required (abacavir hypersensitivity)</li>
+        <li style="color:#A32D2D;">If the option is "complete blood count" or "routine culture" — not specifically listed as required in initial eval protocol</li>
+      </ul>
+      <div class="box box-amber" style="margin-top:0.75rem; margin-bottom:0;">
+        <h4>HLA-B5701 — why it matters</h4>
+        <ul>
+          <li>Screens for hypersensitivity to <strong>abacavir</strong></li>
+          <li>If positive → abacavir absolutely contraindicated</li>
+          <li>Also associated with slower HIV progression</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-teal">
+    <h4>When to start ART — current guidelines</h4>
+    <ul>
+      <li><strong>EVERYONE with HIV should start ART</strong> — regardless of CD4 count or viral load</li>
+      <li>Start as soon as possible after diagnosis</li>
+      <li>Exception: delay 2–4 weeks if active <strong>cryptococcal meningitis or TB</strong> (to reduce IRIS risk)</li>
+      <li>For TB + HIV with CD4 ≥50: delay ART 2–8 weeks after starting TB treatment</li>
+      <li>For TB + HIV with CD4 &lt;50: start ART as soon as possible</li>
+    </ul>
+  </div>
+
+  <div class="pearl">Old teaching was CD4 &lt;350 or &lt;500. Current answer: ALL HIV-positive patients need ART regardless of CD4. The only delay scenario is cryptococcal meningitis or active TB (IRIS concern).</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- S6: OI PROPHYLAXIS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s6" class="theme-coral">
+  <div class="section-header">
+    <div class="icon">💊</div>
+    <h2>6. Opportunistic infection prophylaxis — CD4 thresholds</h2>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Infection</th><th>Start prophylaxis when</th><th>Drug of choice</th><th>Stop when</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>PCP</strong></td>
+        <td>CD4 &lt;200/μL <em>OR</em> CD4% &lt;15 <em>OR</em> oropharyngeal candidiasis <em>OR</em> prior PCP episode</td>
+        <td>TMP-SMX 1 DS tablet daily</td>
+        <td>CD4 &gt;200 for ≥3 months on ART</td>
+      </tr>
+      <tr>
+        <td><strong>Toxoplasma</strong></td>
+        <td>CD4 &lt;100/μL <em>AND</em> IgG positive</td>
+        <td>TMP-SMX 1 DS daily (same drug as PCP prophylaxis — covers both)</td>
+        <td>CD4 &gt;200 + HIV RNA suppressed ≥3 months</td>
+      </tr>
+      <tr>
+        <td><strong>MAC</strong></td>
+        <td>CD4 &lt;<strong>50</strong>/μL (if not immediately starting ART)</td>
+        <td>Azithromycin 1200 mg/week or Clarithromycin 500 mg bid</td>
+        <td>Once fully suppressive ART in place</td>
+      </tr>
+      <tr>
+        <td><strong>Cryptococcus</strong></td>
+        <td>Primary prophylaxis NOT recommended in US</td>
+        <td>N/A primary. Secondary: Fluconazole 200 mg/day</td>
+        <td>Secondary: 1 year after therapy + CD4 &gt;100 + suppressed HIV RNA &gt;3 months</td>
+      </tr>
+      <tr>
+        <td><strong>TB (latent)</strong></td>
+        <td>PPD &gt;5 mm or positive IGRA</td>
+        <td>Isoniazid 300 mg + rifapentine weekly × 12 weeks</td>
+        <td>Complete course</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="key-numbers">
+    <div class="kn">
+      <div class="num" style="color:#185FA5;">200</div>
+      <div class="lbl">CD4 for PCP prophylaxis</div>
+    </div>
+    <div class="kn">
+      <div class="num" style="color:#0F6E56;">100</div>
+      <div class="lbl">CD4 for Toxo prophylaxis</div>
+    </div>
+    <div class="kn">
+      <div class="num" style="color:#A32D2D;">50</div>
+      <div class="lbl">CD4 for MAC prophylaxis</div>
+    </div>
+    <div class="kn">
+      <div class="num" style="color:#854F0B;">50</div>
+      <div class="lbl">CD4 for CMV retinitis exam q3-6 mo</div>
+    </div>
+  </div>
+
+  <div class="box box-red">
+    <h4>PCP prophylaxis — who ACTUALLY needs it (boards scenarios)</h4>
+    <ul>
+      <li>✅ <strong>HIV with CD4 = 90</strong> (asymptomatic) — YES, start TMP-SMX (CD4 &lt;200)</li>
+      <li>✅ HIV with prior PCP episode even if CD4 now &gt;200 — YES (prior episode = indication)</li>
+      <li>✅ HIV with oropharyngeal candidiasis — YES (regardless of CD4)</li>
+      <li>❌ COPD on prednisone 40 mg × 5 days — NOT a typical PCP prophylaxis indication (too short/low dose)</li>
+      <li>❌ Chemotherapy for lymphoma — prophylaxis considered but not the same guideline</li>
+      <li>❌ HIV + prior PCP + CD4 now &gt;200 for 4 months on ART — consider stopping (need ≥3 months sustained &gt;200)</li>
+    </ul>
+  </div>
+
+  <div class="pearl">TMP-SMX is the wonder drug of HIV — it simultaneously prevents PCP, Toxoplasma encephalitis, AND some bacterial respiratory pathogens. One pill, three protections.</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- S7: PCP -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s7" class="theme-blue">
+  <div class="section-header">
+    <div class="icon">🫁</div>
+    <h2>7. PCP (Pneumocystis jirovecii pneumonia)</h2>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>Classic presentation</h3>
+      <ul>
+        <li>Gradual onset fever, <strong>dry cough</strong>, dyspnea on exertion</li>
+        <li>Characteristic <strong>retrosternal chest pain</strong>, worse on inspiration</li>
+        <li>Can be indolent — weeks of symptoms before diagnosis</li>
+        <li>95% have CD4 &lt;200; 79% have CD4 &lt;100</li>
+        <li>Can occur in patients unaware of HIV status</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Investigations</h3>
+      <ul>
+        <li><strong>CXR:</strong> bilateral interstitial infiltrates (often faint) OR normal early</li>
+        <li>Classic dense perihilar infiltrate = UNUSUAL in AIDS</li>
+        <li><strong>ABG:</strong> PaO₂ reduced; A-a gradient elevated</li>
+        <li>LDH elevated (common)</li>
+        <li>Definitive: induced sputum, BAL, or transbronchial biopsy showing organisms</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Treatment decision — the critical branch point (boards favorite)</h3>
+    <table>
+      <thead>
+        <tr><th>Severity</th><th>Criteria</th><th>Treatment</th><th>Add steroids?</th><th>Bronchoscopy?</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-teal">Mild-moderate</span></td>
+          <td>PaO₂ &gt;70 mmHg AND A-a gradient &lt;35 mmHg</td>
+          <td>TMP-SMX oral</td>
+          <td>No</td>
+          <td>If diagnosis uncertain</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-red">Severe</span></td>
+          <td>PaO₂ <strong>&lt;70 mmHg</strong> OR A-a gradient <strong>&gt;35 mmHg</strong></td>
+          <td>TMP-SMX IV (or IV pentamidine if intolerant)</td>
+          <td><strong>YES — adjunct prednisone</strong></td>
+          <td>Yes (confirm diagnosis)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box box-red">
+    <h4>The question scenario (Image 11): CD4=96, PaO₂=60, RR=34 — answer</h4>
+    <ul>
+      <li>PaO₂ = 60 mmHg → severe (below 70 threshold)</li>
+      <li>Bilateral infiltrates on CXR, no specific organism found yet</li>
+      <li>Correct approach: <strong>Start TMP-SMX + prednisone (steroids)</strong> empirically → then bronchoscopy to confirm</li>
+      <li>Do NOT wait for bronchoscopy before starting treatment in severe disease</li>
+      <li>Do NOT use pentamidine as first-line when TMP-SMX can be used</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>TMP-SMX — drug details</h3>
+    <ul>
+      <li><strong>Dose:</strong> 15–20 mg/kg/day (based on trimethoprim component) divided q6–8h for 21 days</li>
+      <li><strong>Side effects:</strong> rash (20–85%), bone marrow suppression, hyperkalemia (blocks tubular potassium secretion), elevated creatinine (competes with tubular secretion), hepatotoxicity</li>
+      <li>~33% of patients can continue despite cutaneous reaction</li>
+      <li>Alternative: dapsone/trimethoprim, clindamycin/primaquine, atovaquone (mild-moderate); IV pentamidine (severe, TMP-SMX intolerant)</li>
+    </ul>
+  </div>
+
+  <div class="pearl">PCP treatment = 21 days total. Severe disease = add prednisone 40 mg bid × 5 days → 40 mg qday × 5 days → 20 mg qday × 11 days. Start steroids before or with antibiotics — reduces inflammation from dying organisms.</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- S8: CRYPTOCOCCAL MENINGITIS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s8" class="theme-red">
+  <div class="section-header">
+    <div class="icon">🍄</div>
+    <h2>8. Cryptococcal meningitis</h2>
+  </div>
+
+  <div class="box box-blue">
+    <h4>Epidemiology</h4>
+    <ul>
+      <li>CD4 typically &lt;100/μL; initial AIDS-defining illness in ~2% of patients</li>
+      <li>Organism: <em>Cryptococcus neoformans</em> (up to 12% = <em>C. gattii</em>)</li>
+      <li>Especially common in untreated AIDS in Africa (~5% of patients)</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>Classic presentation</h3>
+      <ul>
+        <li>Subacute meningoencephalitis: fever, headache, malaise</li>
+        <li>Seizures and focal deficits = <em>uncommon</em></li>
+        <li>CSF opening pressure usually <strong>elevated</strong></li>
+        <li>Neck stiffness may be absent</li>
+        <li>~1/3 also have pulmonary disease</li>
+        <li>Can cause cryptococcomas, cranial nerve involvement</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>CSF findings</h3>
+      <ul>
+        <li>May be <strong>normal or near-normal</strong> (WBC, protein)</li>
+        <li>Glucose may be low or normal</li>
+        <li><strong>India ink</strong> = sees organisms directly</li>
+        <li><strong>Cryptococcal antigen</strong> = highly sensitive diagnostic test</li>
+        <li>Blood cultures for fungus often positive</li>
+        <li>Do NOT rely on cell count alone — immunosuppressed patients mount poor inflammatory response</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box box-red">
+    <h4>The question scenario (Images 1 &amp; 20): CD4=103, India ink positive, 88% mononuclear CSF — treatment answer</h4>
+    <ul>
+      <li>Diagnosis: Cryptococcal meningitis</li>
+      <li>Correct treatment: <strong>Amphotericin B + flucytosine</strong> (induction phase)</li>
+      <li>NOT fluconazole alone as initial therapy for acute meningitis</li>
+      <li>NOT acyclovir (that's for HSV)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Treatment — three phases</h3>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot" style="background:#A32D2D;"></div>
+          <div class="flow-connector" style="background:#F7C1C1;"></div>
+        </div>
+        <div class="flow-content">
+          <strong>Induction (≥2 weeks)</strong>
+          <span>Amphotericin B 0.7 mg/kg/day IV <em>or</em> liposomal amphotericin 3–4 mg/kg/day IV <strong>PLUS</strong> flucytosine 25 mg/kg q6h PO</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot" style="background:#E24B4A;"></div>
+          <div class="flow-connector" style="background:#F7C1C1;"></div>
+        </div>
+        <div class="flow-content">
+          <strong>Consolidation (8 weeks)</strong>
+          <span>Fluconazole 800 mg/day PO (after CSF culture turns negative)</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot" style="background:#F09595;"></div>
+        </div>
+        <div class="flow-content">
+          <strong>Maintenance (until CD4 &gt;200 for 6 months on ART)</strong>
+          <span>Fluconazole 200 mg/day PO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-amber">
+    <h4>When to start ART after cryptococcal meningitis?</h4>
+    <ul>
+      <li>Delay ART <strong>4–6 weeks</strong> after starting antifungal therapy</li>
+      <li>Reason: Immune reconstitution (IRIS) can cause dangerous worsening of meningitis</li>
+      <li>This is an exception to "start ART immediately"</li>
+      <li>Repeat lumbar puncture may be needed to manage elevated intracranial pressure</li>
+    </ul>
+  </div>
+
+  <div class="box box-purple">
+    <h4>The question scenario (Image 6): CD4=87, India ink positive, glucose=73 — why not just fluconazole?</h4>
+    <ul>
+      <li>Fluconazole is used for <em>maintenance/secondary prophylaxis</em> — NOT for acute meningitis induction</li>
+      <li>Acute meningitis requires amphotericin B + flucytosine for induction</li>
+      <li>Starting HAART immediately = risk of IRIS worsening the meningitis</li>
+      <li>TMP-SMX covers PCP/Toxo but does NOT treat Cryptococcus</li>
+    </ul>
+  </div>
+
+  <div class="pearl">India ink in CSF = Cryptococcus until proven otherwise. Treatment = AmB + flucytosine (not fluconazole alone). Hold ART for 4–6 weeks to prevent IRIS.</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- S9: MAC -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s9" class="theme-teal">
+  <div class="section-header">
+    <div class="icon">🔬</div>
+    <h2>9. Mycobacterium avium complex (MAC)</h2>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>Key facts</h3>
+      <ul>
+        <li>CD4 at diagnosis: average <strong>10/μL</strong> — this is a very late complication</li>
+        <li>Prophylaxis starts at CD4 &lt;<strong>50</strong>/μL</li>
+        <li>Most common presentation: <strong>disseminated disease</strong> with fever, weight loss, night sweats</li>
+        <li>≥85% are mycobacteremic</li>
+        <li>Common in US patients; rare in Africa</li>
+        <li>Source: environmental (soil, water) — not person-to-person</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Treatment</h3>
+      <ul>
+        <li>Macrolide (clarithromycin) + ethambutol = backbone</li>
+        <li>Consider adding rifabutin, ciprofloxacin, or amikacin for extensive disease</li>
+        <li>Continue until: symptoms resolve + cultures negative + CD4 &gt;100 for 3–6 months on ART</li>
+        <li>Prophylaxis: azithromycin 1200 mg/week or clarithromycin 500 mg bid</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pearl">MAC prophylaxis threshold = CD4 &lt;50. MAC disease average CD4 = 10. If the question says CD4 = 50 and asks when to start MAC prophylaxis — the threshold is strictly &lt;50, so at exactly 50 you haven't crossed it yet. The answer for CD4 at which MAC becomes a major risk = 50/μL.</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- S10: PML/JC -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s10" class="theme-purple">
+  <div class="section-header">
+    <div class="icon">🧠</div>
+    <h2>10. JC virus — Progressive Multifocal Leukoencephalopathy (PML)</h2>
+  </div>
+
+  <div class="box box-blue">
+    <h4>The question scenario (Image 2): 50yo HIV, refuses treatment, right hand weakness + speech difficulty, white matter lesions on MRI, CSF: elevated cells, normal glucose, elevated protein</h4>
+    <ul>
+      <li>Long-standing HIV + untreated = very low CD4</li>
+      <li>White matter lesions in frontal area = subcortical demyelination</li>
+      <li>CSF showing mononuclear cells, elevated protein, normal glucose</li>
+      <li>Non-focal MRI (multiple non-enhancing white matter lesions) → <strong>JC virus / PML</strong></li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>PML presentation</h3>
+      <ul>
+        <li>Late AIDS complication: 1–4% of AIDS patients</li>
+        <li>Multifocal neurologic deficits: hemiparesis, aphasia, visual field defects, ataxia</li>
+        <li>Headache, fever, vomiting = RARE → suggests alternate diagnosis</li>
+        <li>~20% experience seizures</li>
+        <li>Progressive over weeks-months</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Differentiating PML from other CNS causes</h3>
+      <table>
+        <thead><tr><th>Feature</th><th>PML</th><th>Toxoplasma</th><th>CNS Lymphoma</th></tr></thead>
+        <tbody>
+          <tr><td>MRI lesions</td><td>Non-enhancing, white matter, multiple</td><td>Ring-enhancing, deep</td><td>Ring-enhancing, fewer</td></tr>
+          <tr><td>CD4 count</td><td>Usually &lt;200</td><td>Usually &lt;200</td><td>Usually &lt;50</td></tr>
+          <tr><td>Fever</td><td>Rare</td><td>Common</td><td>Variable</td></tr>
+          <tr><td>CSF</td><td>JC virus DNA by PCR (76% sensitive)</td><td>Normal or mild changes</td><td>EBV DNA positive</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>PML key facts</h3>
+    <ul>
+      <li>Caused by <strong>JC virus</strong> (human polyomavirus)</li>
+      <li>~80% of adults have antibodies (prior exposure) — most never develop disease</li>
+      <li>Reactivation of latent virus when immune system collapses</li>
+      <li>Lesions: demyelination in subcortical white matter, occipital and parietal predilection</li>
+      <li>MRI: <strong>non-enhancing</strong> white matter lesions on T2, no mass effect</li>
+      <li>No specific antiviral treatment — only ART improves prognosis</li>
+      <li>Pre-ART: median survival 3–6 months. With ART: median survival ~2 years</li>
+      <li>IRIS paradox: PML may worsen transiently after starting ART</li>
+    </ul>
+  </div>
+
+  <div class="pearl">PML = non-enhancing white matter lesions + progressive neuro deficits + JC virus PCR in CSF. No fever. No ring enhancement (that's Toxo). No mass effect. Diagnosis confirmed by JC PCR in CSF (76% sensitivity, ~100% specificity).</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- S11: EBV / ORAL HAIRY LEUKOPLAKIA -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s11" class="theme-amber">
+  <div class="section-header">
+    <div class="icon">👅</div>
+    <h2>11. EBV manifestation in HIV — Oral Hairy Leukoplakia</h2>
+  </div>
+
+  <div class="box box-blue">
+    <h4>The question (Image 8): What is the clinical manifestation of EBV in HIV patients?</h4>
+    <ul>
+      <li><strong>Answer: Oral Hairy Leukoplakia</strong></li>
+      <li>NOT polyarthritis (that's HBV or reactive arthritis)</li>
+      <li>NOT pemphigus (autoimmune)</li>
+      <li>NOT autoimmune parotitis</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>Oral Hairy Leukoplakia (OHL)</h3>
+      <ul>
+        <li>Caused by florid EBV replication</li>
+        <li>Location: <strong>lateral borders of tongue</strong> (and adjacent buccal mucosa)</li>
+        <li>Appearance: white, frond-like, <em>cannot be scraped off</em> (vs. thrush which can)</li>
+        <li>Usually asymptomatic</li>
+        <li>NOT premalignant</li>
+        <li>CD4 typically &lt;300/μL</li>
+        <li>Signals significant immunosuppression</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Other EBV-related conditions in HIV</h3>
+      <ul>
+        <li>EBV-related B cell lymphomas (especially CNS primary lymphoma)</li>
+        <li>CNS lymphoma: ~100% EBV positive</li>
+        <li>Burkitt's lymphoma: ~50% EBV positive in HIV setting</li>
+        <li>Immunoblastic lymphoma: often EBV positive</li>
+        <li><strong>Lymphocytic interstitial pneumonitis (LIP)</strong> — associated with EBV + HIV (common in children)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pearl">EBV in HIV = Oral Hairy Leukoplakia (lateral tongue, white fronds, cannot scrape off) OR EBV-associated CNS lymphoma. Thrush = Candida (can scrape off). Distinguish on appearance and location.</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- S12: IRIS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s12" class="theme-coral">
+  <div class="section-header">
+    <div class="icon">🔥</div>
+    <h2>12. Immune Reconstitution Inflammatory Syndrome (IRIS)</h2>
+  </div>
+
+  <div class="box box-red">
+    <h4>The question scenario (Image 11): Patient from Nigeria, CD4=43, 200K viral load, started antibiotics → 3 weeks later returns with fever + confusion, CT = no focal lesion. What is cause?</h4>
+    <ul>
+      <li>The timeline: started antiretroviral therapy → immune system begins recovering → mounts inflammatory response against previously undetected/under-treated infection</li>
+      <li><strong>Answer: IRIS</strong></li>
+      <li>Most likely underlying infection: TB (or MAC, Cryptococcus) that was sub-clinical</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>IRIS — definition and mechanism</h3>
+    <ul>
+      <li>Paradoxical <strong>worsening</strong> of clinical condition after starting ART</li>
+      <li>Occurs as immune system recovers → mounts exaggerated response to residual antigens</li>
+      <li>Mechanism: type IV hypersensitivity-like reaction to microbial antigens</li>
+      <li>Two types:
+        <ul>
+          <li><strong>Paradoxical IRIS</strong> — worsening of known, previously treated infection</li>
+          <li><strong>Unmasking IRIS</strong> — reveals previously undiagnosed infection</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>IRIS characteristics</h3>
+      <ul>
+        <li>Occurs 2 weeks to 2 years after starting ART</li>
+        <li>Most common in patients with CD4 &lt;<strong>50</strong> who experience rapid drop in viral load</li>
+        <li>Affects 10–30% of patients starting ART</li>
+        <li>Most common pathogens: <strong>TB, MAC, Cryptococcus, CMV, HHV</strong></li>
+        <li>Signs: fever, lymphadenitis, pulmonary infiltrates, hepatitis, increased ICP</li>
+        <li>Can be fatal in severe cases</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Management</h3>
+      <ul>
+        <li>Continue ART (do not stop)</li>
+        <li>Continue antimicrobials for the underlying infection</li>
+        <li>Severe cases: glucocorticoids to blunt inflammation</li>
+        <li><strong>Prevention</strong>: treat active OIs before starting ART, delay ART 2–8 weeks after TB therapy initiation (if CD4 ≥50)</li>
+        <li>For Cryptococcal meningitis: delay ART 4–6 weeks</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pearl">IRIS clue: patient starts ART (or antibiotic) → appears to worsen → no new focal lesion on CT → fever + confusion. Think IRIS especially if CD4 was very low (&lt;50) and viral load drops rapidly. Most dangerous IRIS = CNS IRIS from TB or Cryptococcus.</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- S13: NON-AIDS COMPLICATIONS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s13" class="theme-blue">
+  <div class="section-header">
+    <div class="icon">❤️</div>
+    <h2>13. Non-AIDS chronic complications — why do they occur?</h2>
+  </div>
+
+  <div class="box box-blue">
+    <h4>The question (Image 17): HIV patients develop cardiovascular, renal, cognitive diseases — why?</h4>
+    <ul>
+      <li><strong>Answer: Persistent immune activation and chronic inflammation</strong></li>
+      <li>NOT due to protease inhibitor side effects alone</li>
+      <li>NOT just low CD4 without treatment</li>
+      <li>These complications occur EVEN in patients with suppressed viral loads on ART</li>
+    </ul>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Complication</th><th>Mechanism</th><th>Details</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Cardiovascular disease</td>
+        <td>Chronic immune activation → coagulation, inflammation; also lipid effects of some ART drugs</td>
+        <td>3.5/1000 patient-years MI rate; CD4 &lt;500 = risk factor comparable to smoking</td>
+      </tr>
+      <tr>
+        <td>HIV-associated nephropathy (HIVAN)</td>
+        <td>Direct HIV infection of kidney epithelial cells; APOL1 gene variants (African descent)</td>
+        <td>Focal segmental glomerulosclerosis; proteinuria, no hypertension, no edema</td>
+      </tr>
+      <tr>
+        <td>Neurocognitive disorders (HAND)</td>
+        <td>Viral proteins (gp120, Tat) → neurotoxic; macrophage activation in CNS; low CD4 nadir</td>
+        <td>~50% mild-moderate impairment even on ART; spectrum from ANI to dementia</td>
+      </tr>
+      <tr>
+        <td>Lipodystrophy</td>
+        <td>Primarily thymidine analogues (zidovudine, stavudine) + protease inhibitors</td>
+        <td>Fat redistribution: truncal obesity + peripheral wasting + metabolic syndrome</td>
+      </tr>
+      <tr>
+        <td>Bone fragility / osteoporosis</td>
+        <td>Chronic immune activation; tenofovir effects on bone</td>
+        <td>2–6% decrease in bone mineral density in first 2 years of ART</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pearl">Non-AIDS complications now account for ~75% of deaths in HIV-positive patients on ART. Cardiovascular and cancer (non-AIDS) are leading causes. This is the "accelerated aging" syndrome driven by chronic immune activation, NOT just the virus or drug toxicity alone.</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- S14: DRUG SIDE EFFECTS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s14" class="theme-amber">
+  <div class="section-header">
+    <div class="icon">⚠️</div>
+    <h2>14. Drug side effects — TMP-SMX &amp; others</h2>
+  </div>
+
+  <div class="box box-red">
+    <h4>The question (Image 15): AIDS patient CD4=100, receiving TMP-SMX for PCP. Which metabolic side effect is expected?</h4>
+    <ul>
+      <li><strong>Answer: Hyperkalemia</strong></li>
+      <li>Mechanism: TMP-SMX blocks sodium channels in renal collecting tubule → reduces potassium secretion → <strong>hyperkalemia</strong></li>
+      <li>Also: competes with creatinine for tubular secretion → raises serum creatinine (not true kidney injury)</li>
+    </ul>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Drug</th><th>Key Side Effects for Boards</th><th>Mechanism</th></tr>
+    </thead>
+    <tbody class="drug-row">
+      <tr>
+        <td>TMP-SMX</td>
+        <td>Rash (20–85%), bone marrow suppression, <strong>hyperkalemia</strong>, elevated creatinine</td>
+        <td>Blocks tubular K⁺ secretion; competes with creatinine at tubule</td>
+      </tr>
+      <tr>
+        <td>Abacavir</td>
+        <td>Hypersensitivity reaction (can be fatal on rechallenge)</td>
+        <td>HLA-B5701 associated; screen before use</td>
+      </tr>
+      <tr>
+        <td>Tenofovir disoproxil (TDF)</td>
+        <td>Nephrotoxicity, bone loss (osteomalacia)</td>
+        <td>Mitochondrial toxicity in renal tubules; Fanconi syndrome</td>
+      </tr>
+      <tr>
+        <td>Protease inhibitors</td>
+        <td>Lipodystrophy, hyperlipidemia, hyperglycemia, hepatotoxicity</td>
+        <td>Inhibit CYP3A4 → multiple drug interactions</td>
+      </tr>
+      <tr>
+        <td>Efavirenz</td>
+        <td>CNS effects (nightmares, depression), rash, teratogenic (avoid in pregnancy)</td>
+        <td>NNRTI; CYP2B6 polymorphisms affect metabolism</td>
+      </tr>
+      <tr>
+        <td>Zidovudine</td>
+        <td>Anemia (macrocytic, elevated MCV), myopathy, bone marrow suppression</td>
+        <td>Nucleoside analogue; mitochondrial DNA polymerase inhibition</td>
+      </tr>
+      <tr>
+        <td>Dapsone (alternative to TMP-SMX)</td>
+        <td>Hemolytic anemia (G6PD deficiency), methemoglobinemia</td>
+        <td>Check G6PD before use</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pearl">TMP-SMX hyperkalemia mechanism: trimethoprim acts like amiloride — blocks epithelial sodium channels (ENaC) in collecting duct → reduces potassium excretion → hyperkalemia. This is especially important at high doses used for PCP treatment.</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- MASTER TABLE -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="s15">
+  <hr>
+  <div class="section-header" style="border-bottom: 2px solid #888;">
+    <div class="icon" style="background:#f1efe8;">📋</div>
+    <h2 style="color:#2c2c2a;">Master Quick-Reference Table</h2>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Topic</th>
+        <th>Key number / threshold</th>
+        <th>Drug of choice</th>
+        <th>Board pearl</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>PCP prophylaxis</strong></td><td>CD4 &lt;200 or oropharyngeal candidiasis or prior PCP</td><td>TMP-SMX 1 DS tab daily</td><td>Also covers Toxoplasma</td></tr>
+      <tr><td><strong>Toxo prophylaxis</strong></td><td>CD4 &lt;100 + IgG positive</td><td>TMP-SMX 1 DS tab daily</td><td>Same drug as PCP prophylaxis</td></tr>
+      <tr><td><strong>MAC prophylaxis</strong></td><td>CD4 &lt;50</td><td>Azithromycin 1200 mg/week</td><td>Lowest threshold, latest complication</td></tr>
+      <tr><td><strong>Cryptococcus secondary prophylaxis</strong></td><td>After completing treatment</td><td>Fluconazole 200 mg/day</td><td>Stop when CD4 &gt;100 + suppressed for &gt;3 months</td></tr>
+      <tr><td><strong>PCP treatment — mild</strong></td><td>PaO₂ &gt;70</td><td>TMP-SMX oral × 21 days</td><td>No steroids needed</td></tr>
+      <tr><td><strong>PCP treatment — severe</strong></td><td>PaO₂ &lt;70 or A-a &gt;35</td><td>TMP-SMX IV + prednisone</td><td>Steroids reduce inflammation from dying organisms</td></tr>
+      <tr><td><strong>Cryptococcal meningitis</strong></td><td>CD4 usually &lt;100</td><td>AmB + flucytosine (induction) → fluconazole (maintenance)</td><td>Delay ART 4–6 weeks (IRIS)</td></tr>
+      <tr><td><strong>MAC disease average CD4</strong></td><td>10/μL</td><td>Clarithromycin + ethambutol</td><td>Disseminated, late, mycobacteremia</td></tr>
+      <tr><td><strong>PML (JC virus)</strong></td><td>Late AIDS; any very low CD4</td><td>ART (no specific antiviral)</td><td>Non-enhancing white matter lesions; JC PCR in CSF</td></tr>
+      <tr><td><strong>Oral hairy leukoplakia</strong></td><td>CD4 &lt;300</td><td>ART (improves with immune reconstitution)</td><td>EBV; lateral tongue; cannot scrape off (vs. thrush = can scrape)</td></tr>
+      <tr><td><strong>IRIS</strong></td><td>CD4 &lt;50; rapid viral load drop</td><td>Continue ART + treat underlying OI; steroids for severe cases</td><td>Worsening 2 wks–2 yrs after ART start</td></tr>
+      <tr><td><strong>When to start ART</strong></td><td>Everyone — regardless of CD4</td><td>Integrase-based regimen preferred</td><td>Delay only for cryptococcal meningitis or active TB</td></tr>
+      <tr><td><strong>MTCT prevention</strong></td><td>All pregnant HIV+ women</td><td>ART throughout pregnancy + delivery + neonatal prophylaxis</td><td>Cesarean + avoid breastfeeding</td></tr>
+      <tr><td><strong>Anal intercourse HIV risk</strong></td><td>~138/10,000 = ~1.4% per act</td><td>—</td><td>Highest sexual risk route</td></tr>
+      <tr><td><strong>TMP-SMX side effect</strong></td><td>Hyperkalemia (tubular mechanism)</td><td>—</td><td>Also raises creatinine (not true renal failure)</td></tr>
+      <tr><td><strong>HLA-B5701</strong></td><td>Screen before abacavir</td><td>—</td><td>Positive = abacavir absolutely contraindicated</td></tr>
+      <tr><td><strong>AIDS-defining malignancies</strong></td><td>KS, NHL, invasive cervical ca</td><td>—</td><td>Hodgkin's, melanoma = NOT AIDS-defining</td></tr>
+      <tr><td><strong>Non-AIDS complications mechanism</strong></td><td>Chronic immune activation + inflammation</td><td>ART reduces risk</td><td>Cardiovascular, neurocognitive, renal — "accelerated aging"</td></tr>
+    </tbody>
+  </table>
+
+  <div style="background:#E1F5EE; border-radius:10px; padding:1.25rem 1.5rem; margin-top:1.5rem;">
+    <p style="font-size:14px; font-weight:600; color:#0F6E56; margin-bottom:0.5rem;">How to use this guide efficiently</p>
+    <ul style="font-size:14px; padding-left:1.2rem; color:#085041;">
+      <li>Focus on the master table first — these are the patterns that recur across all 20 questions</li>
+      <li>The three "CD4 thresholds" to remember: PCP = 200, Toxo = 100, MAC = 50</li>
+      <li>Two exceptions to "start ART immediately": cryptococcal meningitis and active TB</li>
+      <li>TMP-SMX = one drug for three indications (PCP treatment, PCP prophylaxis, Toxo prophylaxis)</li>
+      <li>India ink positive = Cryptococcus; treat with AmB + flucytosine (NOT fluconazole alone)</li>
+      <li>JC virus/PML = non-enhancing white matter lesions, no fever, no ring enhancement</li>
+    </ul>
+  </div>
+
+  <p style="text-align:center; font-size:12px; color:#999; margin-top:2rem; padding-bottom:1rem;">Board study guide · Based exclusively on Harrison's Principles of Internal Medicine Ch. 208 · Focused on exam questions provided</p>
+</div>
+
+</div>
+</body>
+</html>
