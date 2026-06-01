@@ -1321,23 +1321,25 @@ Tip: Click a section card above to insert a heading, then fill in your own notes
 <footer class="footer">Chapter 384 &middot; Gout &amp; Crystal-Associated Arthropathies &middot; Internal Medicine Boards Review &middot; 2025</footer>
 
 <script>
-/* ═══════════════════════════════════════
-   BOARD STAGE A — ANNOTATION SYSTEM v2
-   Sticky note sidebar: draggable + resizable
-═══════════════════════════════════════ */
-let curColor  = null;
-let eraseMode = false;
-let selText   = '';
-let savedRange = null;
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
 
-/* ── HIGHLIGHT COLORS ────────────────── */
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
 function setHL(c) {
-  curColor  = c;
-  eraseMode = false;
+  curColor = c; eraseMode = false;
   document.body.style.cursor = 'crosshair';
   document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
-  const map = {y:'h-y', g:'h-g', b:'h-b', p:'h-p', o:'h-o'};
-  document.getElementById(map[c]).classList.add('active');
+  const map={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};
+  if(document.getElementById(map[c])) document.getElementById(map[c]).classList.add('active');
 }
 
 function setErase() {
@@ -1345,6 +1347,228 @@ function setErase() {
   document.body.style.cursor = 'cell';
   document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
 }
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb && tb.contains(e.target)) return;
+  if (sb && sb.contains(e.target)) return;
+  if (np && np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  const refEl = document.getElementById('sn-ref-txt');
+  if (refEl) refEl.textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
 
 function clearAll() {
   if (!confirm('Clear ALL highlights and notes?')) return;
@@ -1356,159 +1580,30 @@ function clearAll() {
     el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
     el.parentNode.normalize();
   });
-  try { localStorage.removeItem('bsa_gout_notes_v2'); } catch(e) {}
-  renderNotes();
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
   document.body.style.cursor = '';
   document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
-  curColor = null; eraseMode = false;
-}
-
-/* ── MOUSE-UP: capture selection ─────── */
-document.addEventListener('mouseup', function(e) {
-  const tb = document.getElementById('toolbar');
-  const sb = document.getElementById('sn-sidebar');
-  const np = document.getElementById('note-popover');
-  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
-
-  if (eraseMode && e.target.classList.contains('hl')) {
-    const el = e.target;
-    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
-    return;
-  }
-
-  const sel = window.getSelection();
-  if (!sel || sel.isCollapsed) return;
-  const txt = sel.toString().trim();
-  if (!txt) return;
-  selText    = txt;
-  savedRange = sel.getRangeAt(0).cloneRange();
-  document.getElementById('sn-ref-txt').textContent =
-    txt.length > 48 ? txt.substring(0, 48) + '...' : txt;
-
-  if (curColor) {
-    try {
-      const range = sel.getRangeAt(0);
-      const span  = document.createElement('span');
-      span.className = 'hl hl-' + curColor;
-      span.title     = 'Click in erase mode to remove';
-      range.surroundContents(span);
-      sel.removeAllRanges();
-    } catch(err) {}
-  }
-});
-
-/* ══ STICKY NOTE SYSTEM ════════════════ */
-const STORE_KEY = 'bsa_gout_notes_v2';
-
-function getNotes() {
-  try { return JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); }
-  catch(e) { return []; }
-}
-function saveNotes(n) {
-  try { localStorage.setItem(STORE_KEY, JSON.stringify(n)); } catch(e) {}
-}
-
-function addNote() {
-  const txt = document.getElementById('sn-ta').value.trim();
-  if (!txt) return;
-  const id    = Date.now();
-  const notes = getNotes();
-  notes.unshift({ id, ref: selText.substring(0, 80) || '—', text: txt });
-  saveNotes(notes);
-  if (savedRange) {
-    try {
-      const span = document.createElement('span');
-      span.className      = 'note-anchor';
-      span.dataset.noteId = id;
-      span.title          = 'Click to see your note';
-      savedRange.surroundContents(span);
-    } catch(e) {}
-    savedRange = null;
-  }
-  document.getElementById('sn-ta').value = '';
-  selText = '';
-  document.getElementById('sn-ref-txt').textContent = '—';
-  renderNotes();
-}
-
-function deleteNote(id) {
-  saveNotes(getNotes().filter(n => n.id !== id));
-  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
-    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
-  });
   closePopover();
   renderNotes();
 }
 
-function renderNotes() {
-  const body  = document.getElementById('sn-body');
-  const empty = document.getElementById('sn-empty');
-  const notes = getNotes();
-  body.querySelectorAll('.sn-note').forEach(el => el.remove());
-  if (!notes.length) { if (empty) empty.style.display = ''; return; }
-  if (empty) empty.style.display = 'none';
-  notes.forEach(note => {
-    const card = document.createElement('div');
-    card.className = 'sn-note';
-    card.dataset.noteId = note.id;
-    const savedH = localStorage.getItem('bsa_h_' + note.id);
-    if (savedH) card.style.height = savedH + 'px';
-    card.innerHTML = `
-      <div class="sn-note-hd">
-        <span class="sn-drag-icon">⠿</span>
-        <span class="sn-note-ref">${note.ref !== '—' ? '"' + note.ref + '"' : 'General note'}</span>
-        <button class="sn-del" onclick="deleteNote(${note.id})">×</button>
-      </div>
-      <div class="sn-note-body">${note.text.replace(/\n/g,'<br>')}</div>
-      <div class="sn-resize" title="Drag to resize"></div>
-    `;
-    body.appendChild(card);
-    makeDraggable(card);
-    makeResizable(card, note.id);
-  });
-}
-
-function makeDraggable(card) {
-  const handle = card.querySelector('.sn-note-hd');
-  let startY = 0;
-  handle.addEventListener('mousedown', function(e) {
-    if (e.target.classList.contains('sn-del')) return;
-    e.preventDefault();
-    startY = e.clientY;
-    card.style.opacity = '.7';
-    card.style.zIndex  = '9999';
-    function onMove(ev) {
-      const dy    = ev.clientY - startY;
-      const body  = document.getElementById('sn-body');
-      const cards = [...body.querySelectorAll('.sn-note')];
-      const myIdx = cards.indexOf(card);
-      if (dy < -30 && myIdx > 0) { body.insertBefore(card, cards[myIdx-1]); startY = ev.clientY; }
-      else if (dy > 30 && myIdx < cards.length-1) { body.insertBefore(cards[myIdx+1], card); startY = ev.clientY; }
-    }
-    function onUp() {
-      card.style.opacity = '';
-      card.style.zIndex  = '';
-      const body = document.getElementById('sn-body');
-      const ids  = [...body.querySelectorAll('.sn-note')].map(c => parseInt(c.dataset.noteId));
-      const notes = getNotes();
-      saveNotes(ids.map(id => notes.find(n => n.id === id)).filter(Boolean));
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseup', onUp);
-    }
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseup', onUp);
-  });
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  if (tab) tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
 }
 
 function makeResizable(card, noteId) {
   const handle = card.querySelector('.sn-resize');
+  if (!handle) return;
   let startY = 0, startH = 0;
   handle.addEventListener('mousedown', function(e) {
     e.preventDefault(); e.stopPropagation();
     startY = e.clientY; startH = card.offsetHeight;
     function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
     function onUp() {
-      try { localStorage.setItem('bsa_h_' + noteId, card.offsetHeight); } catch(e) {}
       document.removeEventListener('mousemove', onMove);
       document.removeEventListener('mouseup', onUp);
     }
@@ -1517,319 +1612,20 @@ function makeResizable(card, noteId) {
   });
 }
 
-function toggleSidebar() {
-  const sb  = document.getElementById('sn-sidebar');
-  const tab = document.getElementById('sn-tab');
-  sb.classList.toggle('hidden');
-  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
-}
-
-/* ── INLINE POPOVER (click anchor) ───── */
-let activePopNoteId = null;
-
-function showPopover(anchorEl, note) {
-  const pop = document.getElementById('note-popover');
-  document.getElementById('np-pop-ref').textContent =
-    note.ref !== '—' ? '"' + note.ref.substring(0,55) + (note.ref.length>55?'...':'') + '"' : 'Your note';
-  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g,'<br>');
-  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
-  activePopNoteId = note.id;
-  const rect = anchorEl.getBoundingClientRect();
-  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
-  pop.style.top  = (rect.bottom + 8) + 'px';
-  pop.classList.add('show');
-}
-
-function closePopover() {
-  document.getElementById('note-popover').classList.remove('show');
-  activePopNoteId = null;
-}
-
-document.addEventListener('click', function(e) {
-  const anchor = e.target.closest('.note-anchor');
-  if (anchor) {
-    e.stopPropagation();
-    const nid  = parseInt(anchor.dataset.noteId);
-    if (activePopNoteId === nid) { closePopover(); return; }
-    const note = getNotes().find(n => n.id === nid);
-    if (note) showPopover(anchor, note);
-    return;
-  }
-  const pop = document.getElementById('note-popover');
-  if (pop && !pop.contains(e.target)) closePopover();
-});
-
-/* ── ACTIVE NAV LINK ──────────────────── */
 const _sections = document.querySelectorAll('.sec[id]');
 const _navLinks = document.querySelectorAll('.toc-a');
-_sections.forEach(s =>
-  new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      _navLinks.forEach(l => l.classList.remove('on'));
-      const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
-      if (lnk) { lnk.classList.add('on');
-        lnk.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' }); }
-    }
-  }, { rootMargin:'-15% 0px -75% 0px' }).observe(s)
-);
-
-/* ── INIT ─────────────────────────────── */
-/* ── SECTION TOGGLE SYSTEM ──────────── */
-function initSectionToggles() {
-  document.querySelectorAll('.sec').forEach(sec => {
-    const hd = sec.querySelector('.sec-hd');
-    if (!hd) return;
-
-    // Wrap all content after sec-hd in a .sec-body div
-    const body = document.createElement('div');
-    body.className = 'sec-body';
-    // Move all siblings after hd into body
-    let next = hd.nextElementSibling;
-    while (next) {
-      const tmp = next.nextElementSibling;
-      body.appendChild(next);
-      next = tmp;
-    }
-    sec.appendChild(body);
-    // Set initial max-height for transition
-    body.style.maxHeight = body.scrollHeight + 'px';
-
-    // Add toggle chevron button to sec-hd
-    const btn = document.createElement('button');
-    btn.className = 'sec-toggle';
-    btn.title = 'Collapse / Expand section';
-    btn.innerHTML = '&#x25BE;';
-    btn.setAttribute('aria-label', 'Toggle section');
-    hd.appendChild(btn);
-
-    // Click on header to toggle
-    hd.addEventListener('click', function(e) {
-      toggleSection(sec, body, btn);
-    });
-  });
-}
-
-function toggleSection(sec, body, btn) {
-  const isCollapsed = body.classList.contains('collapsed');
-  if (isCollapsed) {
-    body.style.maxHeight = body.scrollHeight + 'px';
-    body.classList.remove('collapsed');
-    sec.classList.remove('collapsed-sec');
-    btn.innerHTML = '&#x25BE;';
-    btn.title = 'Collapse section';
-    // After animation expand, unlock max-height so dynamic content works
-    setTimeout(() => { if (!body.classList.contains('collapsed')) body.style.maxHeight = 'none'; }, 380);
-  } else {
-    // Lock to current height first, then animate to 0
-    body.style.maxHeight = body.scrollHeight + 'px';
-    requestAnimationFrame(() => {
-      body.classList.add('collapsed');
-      sec.classList.add('collapsed-sec');
-      btn.innerHTML = '&#x25B8;';
-      btn.title = 'Expand section';
-    });
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
   }
-}
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
 
-/* Collapse-all / Expand-all (optional toolbar helpers) */
-function collapseAllSections() {
-  document.querySelectorAll('.sec-body').forEach(body => {
-    const sec = body.closest('.sec');
-    const btn = sec && sec.querySelector('.sec-toggle');
-    if (!body.classList.contains('collapsed')) toggleSection(sec, body, btn);
-  });
-}
-function expandAllSections() {
-  document.querySelectorAll('.sec-body').forEach(body => {
-    const sec = body.closest('.sec');
-    const btn = sec && sec.querySelector('.sec-toggle');
-    if (body.classList.contains('collapsed')) toggleSection(sec, body, btn);
-  });
-}
-
-/* ── SUMMARY PAGE SYSTEM ─────────────── */
-const SMRY_KEY = 'bsa_gout_summary_v1';
-let smrySaveTimer = null;
-let smryUnsaved = false;
-
-const SMRY_SECTIONS = [
-  { n:'01', title:'Overview', sub:'Crystal types & birefringence' },
-  { n:'02', title:'Pathogenesis', sub:'Uricase loss, MSU cascade, genetics' },
-  { n:'03', title:'Clinical', sub:'Flares, stages, triggers, tophi' },
-  { n:'04', title:'Diagnosis', sub:'Synovial fluid, SU caveats, imaging' },
-  { n:'05', title:'Acute Treatment', sub:'Colchicine, NSAIDs, steroids, IL-1' },
-  { n:'06', title:'Urate-Lowering', sub:'Allopurinol, febuxostat, probenecid' },
-  { n:'07', title:'CPPD', sub:'Pseudogout, metabolic workup, treatment' },
-  { n:'08', title:'Apatite', sub:'Milwaukee shoulder, diagnosis, Tx' },
-  { n:'09', title:'CaOx', sub:'Dialysis + vitamin C, bipyramidal crystals' },
-  { n:'10', title:'High-Yield', sub:'Master tables, key numbers, distinctions' },
-  { n:'★', title:'Exam Traps', sub:'10 board coach traps with answers' },
-];
-
-function initSummaryPage() {
-  // Build section cards
-  const container = document.getElementById('smry-section-cards');
-  SMRY_SECTIONS.forEach(s => {
-    const card = document.createElement('div');
-    card.className = 'smry-section-card';
-    card.innerHTML = `<div class="smry-sc-title">Section ${s.n}</div>
-      <div class="smry-sc-head">${s.title}</div>
-      <div class="smry-sc-preview">${s.sub}</div>`;
-    card.onclick = () => smryInsertHeading(s.n, s.title);
-    container.appendChild(card);
-  });
-
-  // Load saved content
-  const editor = document.getElementById('smry-editor');
-  try {
-    const saved = localStorage.getItem(SMRY_KEY);
-    if (saved) editor.innerHTML = saved;
-  } catch(e) {}
-
-  // Show placeholder when empty
-  updatePlaceholder();
-
-  // Update word count + autosave on input
-  editor.addEventListener('input', function() {
-    updateWordCount();
-    updatePlaceholder();
-    smryMarkUnsaved();
-    clearTimeout(smrySaveTimer);
-    smrySaveTimer = setTimeout(smrySave, 2000);
-  });
-
-  updateWordCount();
-  setSavedStatus();
-}
-
-function updatePlaceholder() {
-  const editor = document.getElementById('smry-editor');
-  const ph = editor.getAttribute('data-placeholder');
-  if (!editor.textContent.trim()) {
-    editor.setAttribute('data-ph-visible', 'true');
-  } else {
-    editor.removeAttribute('data-ph-visible');
-  }
-}
-
-function updateWordCount() {
-  const editor = document.getElementById('smry-editor');
-  const words = editor.textContent.trim().split(/\s+/).filter(w => w.length > 0).length;
-  const el = document.getElementById('smry-wc');
-  if (el) el.textContent = words + ' word' + (words !== 1 ? 's' : '');
-}
-
-function smryMarkUnsaved() {
-  smryUnsaved = true;
-  const dot = document.getElementById('smry-dot');
-  const txt = document.getElementById('smry-status-txt');
-  if (dot) dot.classList.add('unsaved');
-  if (txt) txt.textContent = 'Unsaved changes\u2026';
-}
-
-function setSavedStatus() {
-  smryUnsaved = false;
-  const dot = document.getElementById('smry-dot');
-  const txt = document.getElementById('smry-status-txt');
-  if (dot) dot.classList.remove('unsaved');
-  if (txt) txt.textContent = 'Saved \u2014 ' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-}
-
-function smrySave() {
-  try {
-    const editor = document.getElementById('smry-editor');
-    localStorage.setItem(SMRY_KEY, editor.innerHTML);
-    setSavedStatus();
-  } catch(e) {}
-}
-
-function smryFormat(cmd) {
-  document.getElementById('smry-editor').focus();
-  document.execCommand(cmd, false, null);
-}
-
-function smryInsertList() {
-  const editor = document.getElementById('smry-editor');
-  editor.focus();
-  document.execCommand('insertHTML', false, '<ul style="margin:6px 0 10px 20px"><li>&nbsp;</li></ul>');
-}
-
-function smryInsertHR() {
-  const editor = document.getElementById('smry-editor');
-  editor.focus();
-  document.execCommand('insertHTML', false, '<hr style="border:none;border-top:1px solid #ddd9d2;margin:16px 0"><p><br></p>');
-}
-
-function smryInsertHeading(n, title) {
-  const editor = document.getElementById('smry-editor');
-  editor.focus();
-  const heading = `<p><strong style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#857f77">Section ${n}</strong></p><h3 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#1c1a17;margin:4px 0 10px;border-bottom:2px solid #ddd9d2;padding-bottom:8px">${title}</h3><p><br></p>`;
-  document.execCommand('insertHTML', false, heading);
-  smryMarkUnsaved();
-  clearTimeout(smrySaveTimer);
-  smrySaveTimer = setTimeout(smrySave, 2000);
-}
-
-function smryCopyAll() {
-  const editor = document.getElementById('smry-editor');
-  const range = document.createRange();
-  range.selectNodeContents(editor);
-  const sel = window.getSelection();
-  sel.removeAllRanges();
-  sel.addRange(range);
-  document.execCommand('copy');
-  sel.removeAllRanges();
-  // Visual feedback
-  const btn = event.target.closest('.smry-btn');
-  if (btn) { btn.textContent = '\u2713 Copied!'; setTimeout(() => { btn.innerHTML = '&#x2398; Copy'; }, 1500); }
-}
-
-function smryDownload() {
-  const editor = document.getElementById('smry-editor');
-  const text = editor.innerText || editor.textContent;
-  const blob = new Blob([text], { type: 'text/plain' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'gout_my_summary.txt';
-  a.click();
-  URL.revokeObjectURL(a.href);
-}
-
-function smryClear() {
-  if (!confirm('Clear your entire summary? This cannot be undone.')) return;
-  const editor = document.getElementById('smry-editor');
-  editor.innerHTML = '';
-  try { localStorage.removeItem(SMRY_KEY); } catch(e) {}
-  updateWordCount();
-  updatePlaceholder();
-  setSavedStatus();
-}
-
-function toggleSummaryPage() {
-  const page = document.getElementById('summary-page');
-  const main = document.querySelector('.main');
-  const btn  = document.getElementById('nav-summary-btn');
-  const isShowing = page.classList.contains('active');
-  if (isShowing) {
-    page.classList.remove('active');
-    main.classList.remove('hidden');
-    btn.style.color = 'var(--pur)';
-    btn.style.borderBottomColor = 'transparent';
-  } else {
-    page.classList.add('active');
-    main.classList.add('hidden');
-    btn.style.color = 'var(--blu)';
-    btn.style.borderBottomColor = 'var(--blu)';
-    // Save any pending changes before switching
-    clearTimeout(smrySaveTimer);
-    smrySave();
-  }
-}
-
-/* ── INIT ─────────────────────────────── */
+/* ── INIT ── */
+restoreHighlights();
+restoreAnchors();
 renderNotes();
-initSectionToggles();
-initSummaryPage();
 </script>
 </body>
 </html>
