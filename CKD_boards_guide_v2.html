@@ -1677,460 +1677,310 @@ tbody td:first-child{color:var(--tx);font-weight:500}
 <footer class="footer">Chapter 322 · Chronic Kidney Disease · Harrison's Principles of Internal Medicine · Bargman &amp; Skorecki · Boards Review</footer>
 
 <script>
-/* ═══════════════════════════════════════════════════
-   CKD BOARDS — ALL INTERACTIVE FEATURES
-   Simple, tested, no tricks.
-═══════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
 
-/* ── HIGHLIGHTS ─────────────────────────────────── */
-var curColor = '', eraseMode = false;
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
 
 function setHL(c) {
-  curColor = c;
-  eraseMode = false;
+  curColor = c; eraseMode = false;
   document.body.style.cursor = 'crosshair';
-  document.querySelectorAll('.hbtn').forEach(function(b){ b.classList.remove('active'); });
-  var ids = {y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};
-  if (ids[c]) document.getElementById(ids[c]).classList.add('active');
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  const map={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};
+  if(document.getElementById(map[c])) document.getElementById(map[c]).classList.add('active');
 }
+
 function setErase() {
-  eraseMode = true; curColor = '';
+  eraseMode = true; curColor = null;
   document.body.style.cursor = 'cell';
-  document.querySelectorAll('.hbtn').forEach(function(b){ b.classList.remove('active'); });
-}
-function clearAll() {
-  if (!confirm('Clear ALL highlights and notes?')) return;
-  document.querySelectorAll('.hl').forEach(function(el){
-    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
-    el.parentNode.normalize();
-  });
-  document.querySelectorAll('.na').forEach(function(el){
-    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
-    el.parentNode.normalize();
-  });
-  try { localStorage.removeItem('ckd3'); } catch(e) {}
-  renderNotes();
-  document.body.style.cursor = '';
-  document.querySelectorAll('.hbtn').forEach(function(b){ b.classList.remove('active'); });
-  curColor = ''; eraseMode = false;
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
 }
 
-/* ── STORAGE ────────────────────────────────────── */
-function load() {
-  try { return JSON.parse(localStorage.getItem('ckd3') || '[]'); } catch(e) { return []; }
-}
-function store(arr) {
-  try { localStorage.setItem('ckd3', JSON.stringify(arr)); } catch(e) {}
-}
-
-/* ── GET SECTION TITLE FROM A DOM NODE ──────────── */
-function secOf(node) {
+function applyHL(range, color) {
   try {
-    var el = node;
-    if (el.nodeType === 3) el = el.parentElement; // text node → parent element
-    var sec = el ? el.closest('.sec') : null;
-    if (!sec) return '';
-    var h2 = sec.querySelector('h2');
-    return h2 ? h2.textContent.trim() : '';
-  } catch(e) { return ''; }
-}
-
-/* ── POPUP STATE ────────────────────────────────── */
-// mode: 'new' | 'read' | 'edit'
-var PS = null; // popup state
-
-var npop    = document.getElementById('npop');
-var npopLbl = document.getElementById('npop-lbl');
-var npopSec = document.getElementById('npop-sec');
-var npopQ   = document.getElementById('npop-quote');
-var npopRd  = document.getElementById('npop-read');
-var npopTa  = document.getElementById('npop-ta');
-var nbSave  = document.getElementById('nb-save');
-var nbEdit  = document.getElementById('nb-edit');
-var nbDel   = document.getElementById('nb-del');
-var nbJump  = document.getElementById('nb-jump');
-
-function showPopup(x, y) {
-  /* Position using fixed coords (x,y = clientX,clientY) */
-  npop.classList.add('on');
-  var pw = npop.offsetWidth  || 310;
-  var ph = npop.offsetHeight || 200;
-  var vw = window.innerWidth;
-  var vh = window.innerHeight;
-  var L = x + 14;
-  var T = y + 14;
-  if (L + pw > vw - 8) L = x - pw - 14;
-  if (T + ph > vh - 8) T = y - ph - 14;
-  if (L < 6) L = 6;
-  if (T < 6) T = 6;
-  npop.style.left = L + 'px';
-  npop.style.top  = T + 'px';
-}
-
-function hidePopup() {
-  npop.classList.remove('on');
-  PS = null;
-}
-
-function paintPopup() {
-  if (!PS) return;
-  var m = PS.mode;
-
-  /* Label */
-  npopLbl.textContent = m === 'new' ? '✏️ New Note' : m === 'edit' ? '✏️ Edit Note' : '📌 Note';
-
-  /* Section tag */
-  var sec = (PS.note && PS.note.sec) || PS.sec || '';
-  npopSec.textContent = sec;
-  npopSec.style.display = sec ? '' : 'none';
-
-  /* Quote */
-  var ref = m === 'new' ? (PS.sel || '') : ((PS.note && PS.note.ref !== '—') ? PS.note.ref : '');
-  if (ref) {
-    npopQ.textContent = '\u201c' + (ref.length > 62 ? ref.slice(0,62)+'\u2026' : ref) + '\u201d';
-    npopQ.style.display = '';
-  } else {
-    npopQ.style.display = 'none';
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
   }
-
-  /* Body / textarea */
-  if (m === 'read') {
-    npopRd.textContent = PS.note ? PS.note.txt : '';
-    npopRd.style.display = '';
-    npopTa.style.display = 'none';
-  } else {
-    npopTa.value = (m === 'edit' && PS.note) ? PS.note.txt : '';
-    npopTa.style.display = '';
-    npopRd.style.display = 'none';
-    setTimeout(function(){ npopTa.focus(); }, 20);
-  }
-
-  /* Buttons */
-  nbSave.style.display = (m !== 'read') ? '' : 'none';
-  nbEdit.style.display = (m === 'read') ? '' : 'none';
-  nbDel.style.display  = (m !== 'new')  ? '' : 'none';
-  nbJump.style.display = (m === 'read') ? '' : 'none';
 }
 
-/* ── POPUP ACTIONS ──────────────────────────────── */
-function closeNote() { hidePopup(); }
-
-function saveNote() {
-  var txt = npopTa.value.trim();
-  if (!txt) { npopTa.focus(); return; }
-
-  if (PS.mode === 'new') {
-    var id   = Date.now();
-    var notes = load();
-    notes.unshift({ id:id, ref:PS.sel ? PS.sel.slice(0,80) : '—', txt:txt, sec:PS.sec||'' });
-    store(notes);
-    /* Wrap selection in anchor span */
-    if (PS.range) {
-      try {
-        var sp = document.createElement('span');
-        sp.className = 'na';
-        sp.setAttribute('data-nid', id);
-        PS.range.surroundContents(sp);
-      } catch(e) { /* selection crossed element boundary — anchor not created, note still saved */ }
-    }
-    try { window.getSelection().removeAllRanges(); } catch(e) {}
-
-  } else if (PS.mode === 'edit') {
-    var notes = load();
-    var idx   = notes.findIndex(function(n){ return n.id === PS.note.id; });
-    if (idx > -1) { notes[idx].txt = txt; store(notes); }
-  }
-
-  hidePopup();
-  renderNotes();
-}
-
-function editNote() {
-  if (!PS || !PS.note) return;
-  PS.mode = 'edit';
-  paintPopup();
-}
-
-function deleteNote() {
-  if (!PS || !PS.note) return;
-  var id = PS.note.id;
-  store(load().filter(function(n){ return n.id !== id; }));
-  document.querySelectorAll('.na[data-nid="'+id+'"]').forEach(function(el){
-    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
-    el.parentNode.normalize();
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
   });
-  hidePopup();
-  renderNotes();
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
 }
 
-function jumpNote() {
-  if (!PS || !PS.note) return;
-  var anchor = document.querySelector('.na[data-nid="'+PS.note.id+'"]');
-  if (!anchor) return;
-  hidePopup();
-  anchor.scrollIntoView({ behavior:'smooth', block:'center' });
-  anchor.style.outline = '2.5px solid var(--pur)';
-  anchor.style.borderRadius = '3px';
-  setTimeout(function(){ anchor.style.outline=''; anchor.style.borderRadius=''; }, 1800);
-}
-
-/* ── MOUSE EVENTS ───────────────────────────────── */
-document.addEventListener('mouseup', function(e) {
-  /* Ignore clicks inside UI chrome */
-  if (e.target.closest('#toolbar,#sn-sidebar,#npop')) return;
-
-  /* Erase highlight */
-  if (eraseMode && e.target.classList.contains('hl')) {
-    var el = e.target;
-    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
-    el.parentNode.normalize();
-    return;
-  }
-
-  var sel = window.getSelection();
-  var txt = sel && sel.toString ? sel.toString().trim() : '';
-
-  /* Click on a note anchor (no new selection) */
-  if (!txt) {
-    var anch = e.target.closest('.na');
-    if (anch) {
-      var nid  = anch.getAttribute('data-nid');
-      var note = load().find(function(n){ return String(n.id) === String(nid); });
-      if (note) {
-        PS = { mode:'read', note:note };
-        paintPopup();
-        var r = anch.getBoundingClientRect();
-        showPopup(r.left + r.width/2, r.bottom + 2);
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
       }
     }
-    return;
-  }
+  });
+}
 
-  /* Apply highlight */
-  if (curColor && txt.length >= 2) {
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
     try {
-      var range = sel.getRangeAt(0);
-      var span  = document.createElement('span');
-      span.className = 'hl hl-' + curColor;
-      range.surroundContents(span);
-      sel.removeAllRanges();
-    } catch(err) {}
-    return;
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
   }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
 
-  /* Open "new note" popup */
-  if (txt.length >= 2) {
-    var range2 = sel.getRangeAt(0).cloneRange();
-    PS = {
-      mode:  'new',
-      sel:   txt,
-      range: range2,
-      sec:   secOf(range2.commonAncestorContainer)
-    };
-    paintPopup();
-    showPopup(e.clientX, e.clientY);
-  }
-});
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
 
-/* Close popup on outside click */
-document.addEventListener('mousedown', function(e) {
-  if (!npop.classList.contains('on')) return;
-  if (e.target.closest('#npop') || e.target.closest('.na')) return;
-  /* Don't close if we're about to start a new selection (mousedown on text) */
-  if (PS && PS.mode === 'new') return;
-  hidePopup();
-});
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
 
-/* Ctrl+Enter saves, Escape closes */
-document.getElementById('npop-ta').addEventListener('keydown', function(e) {
-  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); saveNote(); }
-  if (e.key === 'Escape') { e.preventDefault(); hidePopup(); }
-});
-
-/* ── SIDEBAR ────────────────────────────────────── */
-function toggleSidebar() {
-  var sb  = document.getElementById('sn-sidebar');
-  var tab = document.getElementById('sn-tab');
-  sb.classList.toggle('hidden');
-  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '✕';
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
 }
 
 function renderNotes() {
-  var body  = document.getElementById('sn-body');
-  var empty = document.getElementById('sn-empty');
-  var badge = document.getElementById('sn-badge');
-  var q     = (document.getElementById('sn-search').value || '').trim().toLowerCase();
-  var all   = load();
-  var shown = all;
-  if (q) shown = all.filter(function(n){
-    return n.txt.toLowerCase().indexOf(q) > -1 ||
-           (n.ref||'').toLowerCase().indexOf(q) > -1 ||
-           (n.sec||'').toLowerCase().indexOf(q) > -1;
-  });
-
-  /* Badge */
-  badge.textContent  = all.length;
-  badge.style.display = all.length ? '' : 'none';
-
-  /* Clear old rows */
-  body.querySelectorAll('.sn-ghd,.sn-row').forEach(function(el){ el.remove(); });
-
-  if (!shown.length) { empty.style.display = ''; return; }
-  empty.style.display = 'none';
-
-  /* Group by section */
-  var groups = {}, order = [];
-  shown.forEach(function(n) {
-    var s = n.sec || 'General';
-    if (!groups[s]) { groups[s] = []; order.push(s); }
-    groups[s].push(n);
-  });
-
-  order.forEach(function(sec) {
-    /* Group header */
-    var ghd = document.createElement('div');
-    ghd.className = 'sn-ghd';
-    ghd.innerHTML = esc(sec) + '<span class="sn-gc">' + groups[sec].length + '</span>';
-    body.appendChild(ghd);
-
-    groups[sec].forEach(function(note) {
-      var row = document.createElement('div');
-      row.className = 'sn-row';
-
-      var refHtml = (note.ref && note.ref !== '—')
-        ? '<div class="sn-row-ref">\u275d ' + esc(note.ref.length > 46 ? note.ref.slice(0,46)+'\u2026' : note.ref) + '</div>'
-        : '';
-
-      row.innerHTML = refHtml +
-        '<div class="sn-row-txt">' + esc(note.txt) + '</div>' +
-        '<div class="sn-row-acts">' +
-          '<button class="sn-a" onclick="rowEdit('+note.id+',event)">Edit</button>' +
-          '<button class="sn-a del" onclick="rowDel('+note.id+',event)">Delete</button>' +
-          '<button class="sn-jump" onclick="rowJump('+note.id+',event)">↗ Jump</button>' +
-        '</div>';
-
-      /* Click row → open read popup at anchor, or inline-edit if no anchor */
-      row.addEventListener('click', function(e) {
-        if (e.target.closest('.sn-a,.sn-jump,.sn-row-ta')) return;
-        var anchor = document.querySelector('.na[data-nid="'+note.id+'"]');
-        if (anchor) {
-          PS = { mode:'read', note:note };
-          paintPopup();
-          var r = anchor.getBoundingClientRect();
-          showPopup(r.left + r.width/2, r.bottom + 2);
-        } else {
-          rowEdit(note.id, e);
-        }
-      });
-
-      body.appendChild(row);
-    });
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
   });
 }
 
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
+let activePopNoteId = null;
 
-function rowEdit(id, e) {
-  e.stopPropagation();
-  var note   = load().find(function(n){ return n.id === id; });
-  if (!note) return;
-  var anchor = document.querySelector('.na[data-nid="'+id+'"]');
-  if (anchor) {
-    /* Use popup positioned at anchor */
-    PS = { mode:'edit', note:note };
-    paintPopup();
-    var r = anchor.getBoundingClientRect();
-    showPopup(r.left + r.width/2, r.bottom + 2);
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb && tb.contains(e.target)) return;
+  if (sb && sb.contains(e.target)) return;
+  if (np && np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
     return;
   }
-  /* Inline edit in sidebar */
-  var row = e.target.closest('.sn-row');
-  if (!row) return;
-  var txtEl = row.querySelector('.sn-row-txt');
-  txtEl.style.display = 'none';
-  var ta = document.createElement('textarea');
-  ta.className = 'sn-row-ta';
-  ta.value = note.txt;
-  txtEl.after(ta);
-  ta.focus();
-  var acts = row.querySelector('.sn-row-acts');
-  acts.innerHTML =
-    '<button class="sn-a" style="background:var(--pur);color:#fff;border-color:var(--pur)" onclick="rowSave('+id+',event)">Save</button>' +
-    '<button class="sn-a" onclick="renderNotes()">Cancel</button>' +
-    '<button class="sn-a del" onclick="rowDel('+id+',event)">Delete</button>';
-  acts.style.display = 'flex';
-}
 
-function rowSave(id, e) {
-  e.stopPropagation();
-  var row = e.target.closest('.sn-row');
-  if (!row) return;
-  var ta  = row.querySelector('.sn-row-ta');
-  var txt = ta ? ta.value.trim() : '';
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
   if (!txt) return;
-  var notes = load();
-  var idx   = notes.findIndex(function(n){ return n.id === id; });
-  if (idx > -1) { notes[idx].txt = txt; store(notes); }
-  renderNotes();
-}
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  const refEl = document.getElementById('sn-ref-txt');
+  if (refEl) refEl.textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
 
-function rowDel(id, e) {
-  e.stopPropagation();
-  store(load().filter(function(n){ return n.id !== id; }));
-  document.querySelectorAll('.na[data-nid="'+id+'"]').forEach(function(el){
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
     el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
     el.parentNode.normalize();
   });
-  hidePopup();
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
   renderNotes();
 }
 
-function rowJump(id, e) {
-  e.stopPropagation();
-  var anchor = document.querySelector('.na[data-nid="'+id+'"]');
-  if (!anchor) return;
-  anchor.scrollIntoView({ behavior:'smooth', block:'center' });
-  anchor.style.outline = '2.5px solid var(--pur)';
-  anchor.style.borderRadius = '3px';
-  setTimeout(function(){ anchor.style.outline=''; anchor.style.borderRadius=''; }, 1800);
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  if (tab) tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
 }
 
-/* ── SECTION TOGGLES ────────────────────────────── */
-document.querySelectorAll('.sec-hd').forEach(function(hd) {
-  hd.addEventListener('click', function(e) {
-    if (e.target.closest('button')) return;
-    var body = hd.nextElementSibling;
-    if (!body || !body.classList.contains('sec-body')) return;
-    var closing = !body.classList.contains('closed');
-    body.classList.toggle('closed', closing);
-    hd.classList.toggle('closed', closing);
-  });
-});
-
-function toggleAll(open) {
-  document.querySelectorAll('.sec-hd').forEach(function(hd) {
-    var body = hd.nextElementSibling;
-    if (!body || !body.classList.contains('sec-body')) return;
-    body.classList.toggle('closed', !open);
-    hd.classList.toggle('closed', !open);
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  if (!handle) return;
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
   });
 }
 
-/* ── NAV TRACKING ───────────────────────────────── */
-var secs  = document.querySelectorAll('.sec[id]');
-var links = document.querySelectorAll('.toc-a');
-secs.forEach(function(s) {
-  new IntersectionObserver(function(entries) {
-    if (!entries[0].isIntersecting) return;
-    links.forEach(function(l){ l.classList.remove('on'); });
-    var lnk = document.querySelector('.toc-a[href="#'+s.id+'"]');
-    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}); }
-  }, { rootMargin:'-15% 0px -75% 0px' }).observe(s);
-});
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
 
-/* ── INIT ───────────────────────────────────────── */
+/* ── INIT ── */
+restoreHighlights();
+restoreAnchors();
 renderNotes();
 </script>
 </body>
