@@ -1386,9 +1386,14 @@ function _unwrap(el) {
 }
 
 function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
   /* Snapshot to avoid live-NodeList issues during _unwrap DOM mutations */
   Array.from(document.querySelectorAll(HL_SEL)).forEach(_unwrap);
   try { document.body.normalize(); } catch(e) {}
+  /* Also clear all notes */
+  try { localStorage.removeItem(N_KEY); } catch(e) {}
+  renderNotes();
+  showToast && showToast('All cleared');
 }
 
 /* ══════════════════════════════════════════════════════
