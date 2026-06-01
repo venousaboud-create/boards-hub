@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Hypertension · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);
+  border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;
+  z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;
+  display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;
+  position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;
+  line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;
+  padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blu);
+  margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}
+  .main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+/* flowchart */
+.flow{display:flex;flex-direction:column;align-items:center;gap:4px;margin:16px 0}
+.flow-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.fbox{border-radius:7px;padding:9px 14px;font-size:12.5px;text-align:center;border:1.5px solid;min-width:140px}
+.fb-n{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.fb-e{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.fb-1{background:var(--blu-l);border-color:var(--blu);color:var(--blu)}
+.fb-2{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.fb-r{background:var(--pur-l);border-color:var(--pur);color:var(--pur)}
+.farr{font-size:20px;color:var(--t3);text-align:center}
+.flab{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles of Internal Medicine · Chapter 288</div>
+  <h1>Hypertension</h1>
+  <div class="hero-sub">Paul K. Whelton · Medical Boards Stage A Review</div>
+  <div class="hero-authors">Comprehensive review of pathophysiology, measurement, classification, causes, and management</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">6</div><div class="stat-l">2° HTN Causes</div></div>
+    <div class="stat-box"><div class="stat-n">11</div><div class="stat-l">Drug Classes</div></div>
+    <div class="stat-box"><div class="stat-n">46%</div><div class="stat-l">US Prevalence</div></div>
+    <div class="stat-box"><div class="stat-n">−27%</div><div class="stat-l">Stroke Risk↓</div></div>
+    <div class="stat-box"><div class="stat-n">16</div><div class="stat-l">Exam Traps</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Physiology</a>
+    <a class="toc-a" href="#s2">Measurement</a>
+    <a class="toc-a" href="#s3">Classification</a>
+    <a class="toc-a" href="#s4">Out-of-Office BP</a>
+    <a class="toc-a" href="#s5">Prevalence</a>
+    <a class="toc-a" href="#s6">Labs</a>
+    <a class="toc-a" href="#s7">CVD Risk</a>
+    <a class="toc-a" href="#s8">Primary HTN</a>
+    <a class="toc-a" href="#s9">Secondary HTN</a>
+    <a class="toc-a" href="#s10">Lifestyle Rx</a>
+    <a class="toc-a" href="#s11">Drug Classes</a>
+    <a class="toc-a" href="#s12">Treatment</a>
+    <a class="toc-a" href="#s13">Special Groups</a>
+    <a class="toc-a" href="#s14">Emergencies</a>
+    <a class="toc-a" href="#s15">Control</a>
+    <a class="toc-a" href="#s16">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══════════════════════════════════════════ SECTION 1 ═══ -->
+<section class="sec" id="s1">
+  <div class="sec-hd">
+    <span class="sec-n">01</span>
+    <h2>Blood Pressure Physiology & Pathophysiology</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Core Equation</div>
+    Arterial BP = Cardiac Output × Peripheral Resistance. CO is influenced by stroke volume and heart rate; peripheral resistance by small arteries and arterioles.
+  </div>
+
+  <div class="sub">
+    <h3>The Control System</h3>
+    <p>Arterial BP is primarily regulated by a <strong>renal-volume-endocrine pressure control system</strong> that slowly manipulates blood volume and total peripheral resistance. While this long-term control operates gradually, acute BP responses to stressors rely on changes in cardiac output.</p>
+    <ul class="bl">
+      <li><strong>Cardiac Output</strong> = stroke volume × heart rate. Stroke volume depends on myocardial contractility and intravascular compartment size.</li>
+      <li><strong>Peripheral Vascular Resistance</strong> is determined by functional and anatomic changes in small arteries and arterioles.</li>
+      <li><strong>Vascular Endothelium</strong> is a single cell layer regulating vascular tone via nitric oxide, arachidonic acid metabolites, endothelin, adenosine, purines, reactive oxygen species, and angiotensin II (via endothelial enzymes).</li>
+      <li><strong>Endothelial dysfunction</strong> may play a critical role in the initiation or progression of hypertension and atherosclerosis.</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Key Regulatory Systems</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Vasoconstrictors</div>
+        <ul class="bl">
+          <li><strong>Sympathetic nervous system</strong> — stimulates vasoconstriction and ↑ heart rate</li>
+          <li><strong>RAAS</strong> — angiotensin II vasoconstricts; aldosterone retains sodium</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Vasodilators</div>
+        <ul class="bl">
+          <li><strong>Bradykinin system</strong> — promotes vasodilation</li>
+          <li><strong>Natriuretic peptides</strong> — cause sodium excretion (atrial natriuretic factor)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Guyton's Pressure-Natriuresis Model</h3>
+    <p>Arthur Guyton (1960s) hypothesized that the kidney's capacity to excrete sodium ultimately dictates long-term BP. Though challenged, it has profoundly influenced BP regulation understanding.</p>
+    <ul class="bl">
+      <li>Commonly accepted sequence: initial ↑ BP due to ↑ cardiac output + expanded intravascular volume → peripheral resistance ↑ and cardiac output normalizes over time</li>
+      <li>As arterial pressure rises in response to high sodium chloride intake, urinary sodium excretion increases to maintain sodium balance — at the expense of elevated arterial pressure</li>
+      <li><strong>Mechanism:</strong> subtle ↑ GFR, ↓ renal tubule sodium absorption capacity, hormonal factors (atrial natriuretic factor)</li>
+      <li>In patients with impaired sodium excretion capacity: greater BP increases required to achieve natriuresis</li>
+      <li>Salt can activate neural, endocrine, paracrine, and vascular mechanisms → ↑ arterial pressure</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Drug Mechanisms Linked to Physiology</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug Class</th><th>Mechanism</th></tr></thead>
+        <tbody>
+          <tr><td>Direct vasodilators / CCBs</td><td>Arteriolar vasodilation</td></tr>
+          <tr><td>ACEIs</td><td>Block angiotensin II production; inhibit bradykinin inactivation (→ angioedema risk)</td></tr>
+          <tr><td>ARBs</td><td>Block angiotensin II receptor binding</td></tr>
+          <tr><td>Beta-blockers</td><td>Block sympathetic neurotransmitters (epinephrine, norepinephrine, acetylcholine)</td></tr>
+          <tr><td>Thiazide diuretics</td><td>↑ sodium excretion at distal convoluted tubule; long-term: ↓ peripheral arteriolar resistance</td></tr>
+          <tr><td>Loop diuretics</td><td>Sodium excretion at loop of Henle; short-acting; better for volume removal than BP control</td></tr>
+          <tr><td>MRAs (aldosterone antagonists)</td><td>Block mineralocorticoid receptors in distal tubule, connecting tubule, and cortical collecting duct</td></tr>
+          <tr><td>Carbonic anhydrase inhibitors</td><td>Proximal tubule diuretic; rarely used due to side effects and diminishing efficacy</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co wrn">
+      <div class="co-t">Autoregulation</div>
+      Most vascular beds autoregulate blood flow. When peripheral arterial resistance ↑, autoregulatory systems further ↑ vascular resistance within that bed to maintain constant flow. This can perpetuate hypertension.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 2 ═══ -->
+<section class="sec" id="s2">
+  <div class="sec-hd">
+    <span class="sec-n">02</span>
+    <h2>Blood Pressure Measurement</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Why It Matters</div>
+    Office BP is used for 3 purposes: (1) estimate average BP; (2) estimate CVD risk; (3) determine need for prevention/treatment. Most landmark trials used office BP — making it the gold standard.
+  </div>
+
+  <div class="sub">
+    <h3>Standardized Measurement Protocol</h3>
+    <ul class="bl">
+      <li><strong>Pre-measurement:</strong> avoid full bladder; abstain from caffeine, smoking, alcohol, or exercise for <strong>30 min</strong> prior</li>
+      <li><strong>Environment:</strong> quiet room with comfortable ambient temperature</li>
+      <li><strong>Rest:</strong> patient must rest for <strong>3–5 min</strong> before first measurement; no talking or distractions (cell phones) during rest and measurements</li>
+      <li><strong>Position:</strong> seated in chair with upright back support; feet flat on ground; measurement arm comfortably supported so cuff is at heart level</li>
+      <li><strong>Cuff:</strong> applied to bare upper arm, approximately 2–3 cm above the elbow crease; correct size for patient's arm; measure at mid-brachial level</li>
+      <li><strong>Device:</strong> clinically validated, preferably automated (oscillometric) BP measurement device — eliminates several sources of error; no periodic recalibration needed</li>
+      <li><strong>Operator:</strong> trained, preferably certified health care team member; use the arm with the higher pressure at first visit</li>
+      <li><strong>Interpretation:</strong> average of <strong>≥2 readings at ≥2 visits</strong>; provide results and clinical implications to patient</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Common Errors</div>
+      SBP is overestimated by an average of ~7 mmHg in clinical practice → 15–20% overestimation of hypertension prevalence. Errors cannot be corrected by formulae — only solution is strict adherence to proper technique.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Validated Devices</h3>
+    <ul class="bl">
+      <li><strong>US:</strong> Validate BP website — validatebp.org</li>
+      <li><strong>Europe:</strong> STRIDE BP website — stridebp.org</li>
+      <li><strong>Training:</strong> Free courses available via Pan American Health Organization / World Hypertension League</li>
+      <li>Having a trained <strong>non-physician</strong> staff member obtain BP measurements is efficient, cost-effective, and common practice in research</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 3 ═══ -->
+<section class="sec" id="s3">
+  <div class="sec-hd">
+    <span class="sec-n">03</span>
+    <h2>Definition & Classification of Hypertension</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>ACC/AHA Classification (Adults)</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Category</th><th>Systolic BP (mmHg)</th><th></th><th>Diastolic BP (mmHg)</th></tr></thead>
+        <tbody>
+          <tr><td>Normal BP</td><td>&lt;120</td><td><em>AND</em></td><td>&lt;80</td></tr>
+          <tr><td>Elevated BP</td><td>120–129</td><td><em>AND</em></td><td>&lt;80</td></tr>
+          <tr><td>Stage 1 Hypertension</td><td>130–139</td><td><em>OR</em></td><td>80–89</td></tr>
+          <tr><td>Stage 2 Hypertension</td><td>≥140</td><td><em>OR</em></td><td>≥90</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co wrn">
+      <div class="co-t">Classification Rules</div>
+      When SBP and DBP are in different categories, choose the <strong>higher classification</strong>. Correct classification presumes accurate measurement and averaging of ≥2 readings at ≥2 occasions.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Pediatric Definition (Age &lt;13)</h3>
+    <ul class="bl">
+      <li>Based on <strong>age-, sex-, and height-specific normative data</strong></li>
+      <li>Hypertension = average of 3 SBP or DBP readings at or above the <strong>95th percentile</strong></li>
+      <li>OR SBP ≥130 or DBP ≥80 mmHg</li>
+    </ul>
+  </div>
+
+  <div class="co prl">
+    <div class="co-t">This chapter focuses on adults ≥18 years</div>
+    BP classification systems differ by country and have changed substantially over time. The thresholds above are specific to the ACC/AHA guideline for US adults.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 4 ═══ -->
+<section class="sec" id="s4">
+  <div class="sec-hd">
+    <span class="sec-n">04</span>
+    <h2>Out-of-Office Blood Pressure Measurement</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>White Coat vs. Masked Hypertension</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-a">White Coat HTN</div>
+        <ul class="bl">
+          <li>Office BP ≥130/80, out-of-office BP normal</li>
+          <li>Prevalence: <strong>15–25%</strong></li>
+          <li>CVD risk profile similar to normotensive patients</li>
+          <li>Treatment: <strong>nonpharmacologic only</strong></li>
+          <li>Monitor carefully for transition to sustained HTN</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Masked HTN</div>
+        <ul class="bl">
+          <li>Office BP normal, out-of-office BP ≥130/80</li>
+          <li>Prevalence: <strong>15–25%</strong></li>
+          <li>CVD risk profile similar to <strong>sustained HTN</strong></li>
+          <li>Treatment: <strong>antihypertensive drugs + nonpharmacologic</strong></li>
+          <li>Suspect if elevated (but nonhypertensive) office BP + end-organ damage (LVH, proteinuria)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Home Blood Pressure Monitoring (HBPM)</h3>
+    <ul class="bl">
+      <li>Most practical approach for out-of-office readings; engages patients in their own care</li>
+      <li>Use a clinically validated device with same technique as office measurements</li>
+      <li>Guideline recommendation: <strong>2–3 measurements in the morning</strong> (before antihypertensive medications) and <strong>evening</strong></li>
+      <li>US practical option: ~<strong>3 days</strong> prior to office visit</li>
+      <li>Threshold same as office: SBP ≥130 or DBP ≥80 mmHg for hypertension diagnosis</li>
+      <li>Control defined as: SBP/DBP &lt;130/80 mmHg in both settings</li>
+      <li>Many devices store readings on memory chip for telemetry transfer → prevents favorable self-reporting bias</li>
+      <li><strong>Wearable devices (e.g., watches)</strong>: hold promise but none currently clinically validated</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Ambulatory BP Monitoring (ABPM)</h3>
+    <ul class="bl">
+      <li>Best obtained by practitioners with special expertise in this technique</li>
+      <li>Provides nighttime readings — best predictor of CVD risk among all BP measures</li>
+      <li><strong>Nondippers</strong>: BP that fails to show the usual pronounced decrement at night → higher CVD risk; more common in non-Hispanic Blacks</li>
+    </ul>
+    <div class="co key">
+      <div class="co-t">Ambulatory BP Equivalents for Office 130/80 mmHg</div>
+      Daytime: 130/80 mmHg &nbsp;|&nbsp; Nighttime: 110/65 mmHg &nbsp;|&nbsp; 24-hour average: 125/75 mmHg
+    </div>
+    <div class="co wrn">
+      <div class="co-t">Limitation</div>
+      ABPM is relatively expensive and intrusive. US patients are usually reluctant to undergo repeat ABPM — most useful for confirming diagnosis when uncertainty is a special concern.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 5 ═══ -->
+<section class="sec" id="s5">
+  <div class="sec-hd">
+    <span class="sec-n">05</span>
+    <h2>Prevalence of Hypertension</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>US Epidemiology</h3>
+    <ul class="bl">
+      <li>By ACC/AHA criteria: <strong>&gt;103 million US adults</strong> have HTN — one of the most common health conditions</li>
+      <li>Overall US prevalence: <strong>~46%</strong> (stable in recent decades)</li>
+      <li>Age 20–44 years: <strong>20–30%</strong> → Age ≥75 years: <strong>80–85%</strong></li>
+      <li>SBP increases progressively until ~8th decade; DBP increases until ~5th decade then plateaus or declines</li>
+      <li>Isolated systolic HTN is common late in life due to widening pulse pressure (SBP–DBP difference)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Racial/Ethnic Disparities in the US</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Group</th><th>Prevalence</th><th>Key Points</th></tr></thead>
+        <tbody>
+          <tr><td>Non-Hispanic Black</td><td><strong>59%</strong> (highest)</td><td>Onset younger; more CVD &amp; kidney complications; Men 59%, Women 56%</td></tr>
+          <tr><td>Hispanic</td><td>47%</td><td>—</td></tr>
+          <tr><td>Asian</td><td>46%</td><td>—</td></tr>
+          <tr><td>Non-Hispanic White</td><td>45%</td><td>Men 47%, Women 41%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="bl">
+      <li>HTN prevalence and CVD complications (especially stroke) highest in <strong>southeastern US</strong> compared to other regions</li>
+      <li>Men have slightly higher BP than women in first half of life; opposite in later life</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Global Epidemiology</h3>
+    <ul class="bl">
+      <li>Hypertension is the most common reason for primary care visits worldwide</li>
+      <li>Using SBP ≥140 / DBP ≥90 / on medication: <strong>31.5%</strong> (1.04 billion) in low/middle-income countries; <strong>28.5%</strong> (349 million) in high-income countries (2010 data)</li>
+      <li>Little or no age-related BP increase in many isolated populations — confirms hypertension is preventable</li>
+      <li>Migrant studies: progression to age-related BP increase after moving to non-native settings, associated with ↑ dietary sodium, ↓ potassium, ↓ physical activity, ↑ body weight, ↑ alcohol</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 6 ═══ -->
+<section class="sec" id="s6">
+  <div class="sec-hd">
+    <span class="sec-n">06</span>
+    <h2>Laboratory & Other Investigations</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">5 Purposes of Initial Workup</div>
+    (1) Recognize target organ damage; (2) Identify secondary causes (kidney disease, primary aldosteronism); (3) Recognize comorbidities (DM, hyperlipidemia); (4) Estimate ASCVD risk; (5) Guide optimal drug choice
+  </div>
+
+  <div class="sub">
+    <h3>Minimum Required Tests in Newly Diagnosed HTN</h3>
+    <ul class="bl">
+      <li>Complete blood count (CBC)</li>
+      <li>Serum electrolytes: sodium, potassium, calcium</li>
+      <li>Serum creatinine + estimated GFR (eGFR)</li>
+      <li>Lipid profile</li>
+      <li>Glycemic status: HbA1c <em>or</em> fasting blood glucose</li>
+      <li>Thyroid-stimulating hormone (TSH)</li>
+      <li>Urinalysis + urine albumin-to-creatinine ratio</li>
+      <li>12-lead electrocardiogram (ECG)</li>
+    </ul>
+    <div class="co suc">
+      <div class="co-t">WHO Guidance for Resource-Limited Settings</div>
+      The 2021 WHO guideline states that inability to obtain minimum laboratory results should NOT be an impediment to BP reduction — treat the BP regardless.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 7 ═══ -->
+<section class="sec" id="s7">
+  <div class="sec-hd">
+    <span class="sec-n">07</span>
+    <h2>Estimation of Cardiovascular Disease Risk</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>BP-CVD Risk Relationship</h3>
+    <ul class="bl">
+      <li>BP is associated with CVD risk in a <strong>continuous, progressive, log-linear fashion</strong> from low to high SBP and DBP</li>
+      <li>For SBP: risk relationship documented from as low as <strong>90 mmHg to &gt;180 mmHg</strong></li>
+      <li>BP equally a CVD risk factor in men AND women</li>
+      <li>In younger patients: BP elevation is often an isolated risk predictor (steep relative risk slope)</li>
+      <li>In older patients: less steep relative risk slope, but <strong>much higher absolute risk</strong> due to other co-existing CVD risk factors</li>
+      <li>At any level of BP: &gt;30-fold difference in 10-year predicted CVD risk between isolated elevation vs. multiple risk factors</li>
+    </ul>
+    <div class="co key">
+      <div class="co-t">Clinical Implication for Stage 1 HTN</div>
+      Stage 1 HTN with isolated BP elevation: 5–10 year CVD risk may be small, limiting enthusiasm for drugs. Stage 1 HTN + other CVD risk factors: ASCVD risk may be quite high → drug therapy more appropriate. CVD risk assessment MUST be part of initial evaluation.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Risk Calculators</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">ACC/AHA Pooled Cohort Equations</div>
+        <ul class="bl">
+          <li>For US adults aged <strong>40–75 years</strong></li>
+          <li>Validated in non-Hispanic White and Black adults</li>
+          <li><strong>High risk = 10-year ASCVD risk ≥10%</strong></li>
+          <li>Should be estimated in all without prior CVD history</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">PREVENT (Newer Model)</div>
+        <ul class="bl">
+          <li>For US adults aged <strong>30–70 years</strong></li>
+          <li>Predicts 10- and <strong>30-year</strong> CVD risk</li>
+          <li>Includes: kidney function (eGFR), urine albumin/creatinine ratio, zip code (social determinants), HbA1c</li>
+          <li>Also predicts <strong>heart failure risk</strong></li>
+          <li>Expected to replace Pooled Cohort Equations over time</li>
+        </ul>
+      </div>
+    </div>
+    <p>Patients with a prior CVD complication are already known to be at high risk for recurrent events — no calculator needed for them.</p>
+    <p>In antihypertensive clinical trials: relative risk reductions are similar across different baseline CVD risk groups, but <strong>absolute benefit is much greater in those at higher risk</strong>.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 8 ═══ -->
+<section class="sec" id="s8">
+  <div class="sec-hd">
+    <span class="sec-n">08</span>
+    <h2>Causes of Hypertension — Primary</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Primary (Essential) Hypertension</div>
+    Most adults have primary hypertension with no obvious underlying anatomic cause. Genetic investigations have only identified modest polygenic associations — clinical implications are very limited.
+  </div>
+
+  <div class="sub">
+    <h3>General Environmental Exposures</h3>
+    <ul class="bl">
+      <li><strong>Heavy metals:</strong> lead, mercury, cadmium, arsenic — all associated with higher BP</li>
+      <li><strong>Air pollution:</strong> PM2.5 associated with higher SBP/DBP; average ↑ SBP ~3–5 mmHg; varies by geography, climate, season</li>
+      <li><strong>Seasonal variation:</strong> BP higher in winter, lower in summer</li>
+      <li><strong>High altitude:</strong> BP higher, possibly due to hypoxia and cold temperatures</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>The Six Key Personal Risk Exposures</h3>
+    <p>These account for most age-related BP increases and are targets for nonpharmacologic intervention:</p>
+    <div class="g3">
+      <div class="card"><div class="clabel c-a">Diet Quality</div><p>Heart-healthy diets ↓ BP. DASH diet specifically formulated to lower BP.</p></div>
+      <div class="card"><div class="clabel c-a">Body Weight</div><p>~75% of US adults overweight (BMI 25–30, 31%) or obese (BMI ≥30, 42%)</p></div>
+      <div class="card"><div class="clabel c-a">Sodium Intake</div><p>&gt;95% of US adults exceed 2000 mg/d threshold; ~100% exceed 1500 mg/d</p></div>
+      <div class="card"><div class="clabel c-a">Potassium Intake</div><p>Inversely associated with BP; almost all adults fail to meet recommended intake</p></div>
+      <div class="card"><div class="clabel c-a">Physical Inactivity</div><p>&gt;25% report NO physical activity outside work; ~50% below ≥150 min/week</p></div>
+      <div class="card"><div class="clabel c-a">Alcohol</div><p>~85% consumed alcohol at some point; 25% report binge drinking in prior month</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 9 ═══ -->
+<section class="sec" id="s9">
+  <div class="sec-hd">
+    <span class="sec-n">09</span>
+    <h2>Causes of Hypertension — Secondary</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">When to Consider Secondary HTN</div>
+    (1) New-onset HTN in all patients; AND in those with: (2) Treatment-resistant HTN; (3) Abrupt worsening of HTN; (4) Disproportionate target organ damage; (5) Unprovoked hypokalemia, proteinuria, or LVH
+  </div>
+
+  <div class="sub">
+    <h3>1. Obstructive Sleep Apnea (OSA) — Most Common</h3>
+    <ul class="bl">
+      <li><strong>Prevalence:</strong> 15–30% of adult men, 10–15% of adult women in US</li>
+      <li><strong>&gt;50%</strong> of US adults with OSA have HTN; <strong>&gt;30%</strong> of adults with HTN have OSA</li>
+      <li><strong>Pathophysiology:</strong> sympathetic activation due to intermittent hypoxia; shared features with HTN including obesity, RAAS abnormalities, fluid distribution changes</li>
+      <li>Almost <strong>75%</strong> of OSA patients are overweight or obese</li>
+      <li>Direct association between severity of OSA and BP level + resistance to antihypertensive therapy</li>
+      <li><strong>Indicators:</strong> resistant HTN, snoring, poor quality sleep, breathing pauses, daytime sleepiness, obesity, upper airway narrowing</li>
+      <li><strong>Screening:</strong> validated questionnaires (several available)</li>
+      <li><strong>Diagnosis:</strong> polysomnography (sleep study)</li>
+      <li><strong>Treatment:</strong> lifestyle (especially weight loss); CPAP is OSA-specific treatment BUT meta-analyses show <strong>limited BP lowering with CPAP</strong> → still need antihypertensive drugs</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Board Trap</div>
+      CPAP does NOT adequately lower BP in OSA patients. Hypertension in OSA should be treated with antihypertensive drug therapy in addition to nonpharmacologic therapy.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>2. Medications & Other Substances</h3>
+    <ul class="bl">
+      <li><strong>Prevalence:</strong> NSAID alone &gt;26% of US adults report regular use</li>
+      <li><strong>Mechanism:</strong> direct pressor effect OR drug-drug/drug-nondrug interactions</li>
+      <li><strong>Prescription drugs that ↑ BP:</strong> amphetamines, angiogenesis inhibitors, antidepressants, antipsychotics, decongestants, oral contraceptives, NSAIDs, systemic corticosteroids</li>
+      <li><strong>Illicit drugs:</strong> cocaine, marijuana, amphetamines, MDMA (methylenedioxymethamphetamine)</li>
+      <li><strong>Herbal treatments:</strong> arnica, ephedra (Ma-Huang), ginseng, guarana, large quantities of licorice, St. John's wort</li>
+      <li><strong>Other:</strong> caffeine, several anesthetic agents (short-term elevation)</li>
+      <li><strong>Diagnosis:</strong> careful history taking (often all that is needed)</li>
+      <li><strong>Treatment:</strong> discontinuation, substitution, or dose reduction; manage BP if cannot discontinue</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>3. Renal Parenchymal Disease</h3>
+    <ul class="bl">
+      <li><strong>Prevalence:</strong> &gt;5% of secondary HTN causes (among most common)</li>
+      <li><strong>Diseases involved:</strong> polycystic renal disease, chronic glomerulonephritis, diabetic/hypertensive kidney disease, recurrent stones, kidney infections</li>
+      <li>More common with <strong>glomerular than interstitial disorders</strong></li>
+      <li>Most patients with CKD have HTN; often difficult to determine if BP is cause or consequence</li>
+      <li><strong>Pathophysiology:</strong> RAAS activation is major contributor</li>
+      <li><strong>Indicators:</strong> resistant HTN, fatigue, renal mass, hematuria, proteinuria, ↑ creatinine, hyperglycemia</li>
+      <li><strong>Workup:</strong> serum creatinine, albuminuria, glucose; imaging (ultrasound, CT, MRI); renal biopsy if glomerulonephritis suspected</li>
+      <li><strong>Treatment:</strong> often requires ≥3 antihypertensive agents + lifestyle; diuretics + RAAS inhibitors (ACEIs/ARBs) are mainstays</li>
+    </ul>
+    <div class="co prl">
+      <div class="co-t">New Evidence</div>
+      Recent RCT showed chlorthalidone (long-acting diuretic) reduced ambulatory BP by 10.5 mmHg in stage 4 CKD (eGFR &lt;23), challenging the old assumption that thiazides are ineffective when creatinine &gt;3 mg/dL. Finerenone (newer MRA) also enhances BP reduction in advanced CKD.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>4. Primary Aldosteronism</h3>
+    <ul class="bl">
+      <li><strong>Prevalence:</strong> ~5% of non-OSA/medication-related secondary HTN</li>
+      <li><strong>Causes:</strong> idiopathic bilateral adrenal hyperplasia (60–70%), benign adenoma — usually unilateral (30–40%), rarely familial or other</li>
+      <li><strong>Clinical indicators:</strong> severe/resistant HTN, unprovoked hypokalemia, hypokalemia-related arrhythmias (e.g., atrial fibrillation), nonspecific fatigue/weakness/muscle cramps, incidental adrenal adenoma on imaging, family history of early-onset HTN or stroke, OSA</li>
+      <li><strong>Physical exam:</strong> no specific findings</li>
+      <li><strong>Screening:</strong> high plasma aldosterone/renin ratio (under standardized conditions) + CT abdomen</li>
+      <li><strong>Confirmatory:</strong> saline suppression test or captopril challenge; <strong>adrenal vein sampling = gold standard</strong></li>
+      <li><strong>Treatment:</strong> unilateral adenoma → laparoscopic adrenalectomy (cures or substantially improves HTN); bilateral hyperplasia → medical treatment with <strong>MRA</strong> + ↓ sodium intake + ↓ body weight</li>
+      <li><strong>Spironolactone:</strong> most patients tolerate, but adverse effects (hyperkalemia, breast tenderness, gynecomastia) may require newer MRAs (eplerenone, finerenone)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>5. Renovascular Hypertension</h3>
+    <ul class="bl">
+      <li><strong>Prevalence:</strong> ~5% of secondary HTN; renovascular disease found in 25% at autopsy, but renovascular HTN = only ~1% of all HTN</li>
+      <li><strong>Causes:</strong> atherosclerosis (90%) — typically unilateral, discrete lesion near origin of renal artery; fibromuscular disease (10%) — typically younger, mostly White women; bilateral disease more common</li>
+    </ul>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Atherosclerotic Renovascular HTN</div>
+        <ul class="bl">
+          <li>Older patients with other ASCVD evidence</li>
+          <li>Bruits over renal/carotid/femoral arteries</li>
+          <li>Medical treatment preferred</li>
+          <li>Angioplasty shows NO benefit in RCTs</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Fibromuscular Disease</div>
+        <ul class="bl">
+          <li>Younger White women</li>
+          <li>Abrupt-onset or resistant HTN</li>
+          <li>Diffuse, irregular "sawtooth" renal artery lesions in distal segments</li>
+          <li>Percutaneous transluminal angioplasty (PTA) can <strong>cure or substantially improve</strong> HTN</li>
+        </ul>
+      </div>
+    </div>
+    <ul class="bl">
+      <li><strong>Screening:</strong> renal ultrasound, CT angiography, MR angiography, renograms, plasma renin activity</li>
+      <li><strong>Gold standard:</strong> digital subtraction angiography (renal angiography)</li>
+      <li>Hemodynamically significant if &gt;70% vessel lumen occlusion</li>
+      <li>Renal venous renin sampling: now rarely performed — high false-positive and false-negative rate</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>6. Hypertensive Disorders of Pregnancy</h3>
+    <ul class="bl">
+      <li><strong>Prevalence:</strong> HTN in &gt;10% of US pregnancies; preeclampsia ~3–5%; eclampsia 0.1–0.3%</li>
+      <li><strong>HELLP syndrome:</strong> hemolysis + elevated liver enzymes + low platelets = more severe preeclampsia</li>
+      <li><strong>Eclampsia:</strong> seizures; occurs in &lt;1% with mild, ~3% with severe preeclampsia</li>
+      <li><strong>Classification:</strong> (1) chronic HTN (pre-pregnancy); (2) gestational HTN (onset after 20 weeks); (3) preeclampsia/eclampsia; (4) chronic HTN with superimposed preeclampsia</li>
+      <li><strong>Pathophysiology:</strong> new-onset → reduced placental perfusion → ↑ peripheral resistance (usually resolves after delivery)</li>
+      <li><strong>Treatment:</strong> bed rest, nonpharmacologic, pharmacotherapy</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Drugs Contraindicated in Pregnancy</div>
+      <strong>ACEIs and ARBs are CONTRAINDICATED</strong> — teratogenic. Do NOT use in pregnancy or planned pregnancy.
+    </div>
+    <div class="co suc">
+      <div class="co-t">Safe First-Line Agents in Pregnancy</div>
+      Beta-blocker <strong>labetalol</strong>, CCB <strong>nifedipine</strong>, central α2-agonist <strong>methyldopa</strong>. One trial suggested labetalol and nifedipine may be superior to methyldopa for preeclampsia prevention. Direct vasodilator <strong>hydralazine</strong> is also commonly used in US practice.
+    </div>
+    <p>Clinical trials have failed to show benefit for target SBP/DBP &lt;130/80 mmHg vs &lt;140/90 mmHg in pregnancy.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Less Common Secondary Causes</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-p">Cushing's Syndrome</div>
+        <ul class="bl">
+          <li>Excess cortisol from: pituitary adenoma/ectopic ACTH tumor/adrenal adenoma/exogenous glucocorticoids</li>
+          <li>Signs: moon face, buffalo hump, central obesity, striae, easy bruising, acne</li>
+          <li>Screening: 24h urinary corticosteroids, imaging, overnight dexamethasone suppression test</li>
+          <li>&gt;75% of Cushing's syndrome patients have HTN</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Pheochromocytoma</div>
+        <ul class="bl">
+          <li>Excessive catecholamines from chromaffin cell tumor: adrenal medulla (80–85%) or extra-adrenal paraganglioma</li>
+          <li>Presents at relatively young age (30–50 years)</li>
+          <li>Paroxysmal attacks: high BP, sweating, headaches, cardiac arrhythmias</li>
+          <li>Screening: blood and 24h urinary catecholamines; abdominal CT/MRI/PET</li>
+          <li>Treatment: complete or partial adrenalectomy (minimally invasive)</li>
+          <li>Small minority have inherited predisposition: MEN2, von Hippel-Lindau, neurofibromatosis, hereditary paraganglioma</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Coarctation of the Aorta</div>
+        <ul class="bl">
+          <li>Most common congenital cause of HTN</li>
+          <li>Congenital narrowing of aorta</li>
+          <li>Severe defect detected early; mild defect may not be recognized until early adulthood</li>
+          <li>Exam: delayed &amp; diminished femoral/distal pulses; systolic murmur in posterior intrascapular area; LVH signs</li>
+          <li>Workup: echocardiography, CT, angiography</li>
+          <li>Treatment: balloon angioplasty, surgery, or medical management</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Other Rare Causes</div>
+        <ul class="bl">
+          <li>Hyperthyroidism / hypothyroidism</li>
+          <li>Acromegaly</li>
+          <li>Hypercalcemia</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 10 ═══ -->
+<section class="sec" id="s10">
+  <div class="sec-hd">
+    <span class="sec-n">10</span>
+    <h2>Nonpharmacologic Interventions (Lifestyle)</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">General Principles</div>
+    Interventions exhibit linear dose-response for BP reduction. Greater BP lowering in adults WITH hypertension, and when 2+ interventions are combined. Nonpharmacologic therapy also enhances the effect of antihypertensive medications (especially sodium reduction).
+  </div>
+
+  <div class="sub">
+    <h3>1. Diet Quality — DASH Diet</h3>
+    <ul class="bl">
+      <li><strong>DASH</strong> (Dietary Approaches to Stop Hypertension): high in vegetables, fruits, whole grains, low-fat dairy; low in fats, saturated fats, cholesterol</li>
+      <li>Trials evaluating Mediterranean, low-carbohydrate, vegetarian/vegan diets also show consistent BP reduction</li>
+      <li><strong>Expected BP reduction:</strong> ~5 mmHg SBP in patients WITH hypertension; ~2–3 mmHg WITHOUT hypertension</li>
+      <li>Short-term feeding trial: DASH vs usual US diet → SBP/DBP reduced by 5.5/3.0 mmHg</li>
+      <li>6-month behavior change trial: DASH + other nonpharmacologic measures reduced SBP/DBP by ~4/3 mmHg vs advice-only</li>
+      <li>DASH diet community purchasable at supermarkets — no need for specialty/high-priced foods</li>
+      <li>Can be combined with weight loss, sodium reduction, or increased physical activity</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>2. Weight Loss</h3>
+    <ul class="bl">
+      <li>Weight loss lowers BP AND improves lipids AND prevents/manages DM</li>
+      <li><strong>Rule:</strong> SBP reduced by <strong>~1 mmHg per kilogram</strong> of weight loss</li>
+      <li>High-quality counseling → average 6–12 month loss of ~10 lb (4.5 kg) → <strong>~5 mmHg SBP reduction</strong></li>
+      <li>Most sustainable: gradual and progressive loss via behavioral counseling (calorie reduction + increased physical activity)</li>
+      <li>Bariatric surgery for BMI ≥40 or ≥35 with HTN or obesity-related comorbidity</li>
+      <li><strong>GLP-1 receptor agonists</strong> (injectable): FDA-approved for weight loss; shown to reduce weight in clinical trials</li>
+      <li><strong>SGLT2 inhibitors:</strong> off-label for weight loss; best reserved for FDA-approved indications</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>3. Dietary Sodium Reduction</h3>
+    <ul class="bl">
+      <li>Sodium-BP dose response is <strong>almost linear</strong> — any reduction is beneficial</li>
+      <li>Large dose-response meta-analysis: ~5.5 mmHg SBP reduction per 2300 mg (100 mmol) decrease in sodium intake</li>
+      <li>SBP/DBP difference of ~15/10 mmHg between highest (~7000 mg/d) vs lowest (&lt;1000 mg/d) sodium intake groups</li>
+      <li><strong>Expected reduction:</strong> ~5 mmHg SBP with HTN; ~2–3 mmHg without HTN</li>
+      <li>In US: &gt;80% of sodium intake is added during food processing/commercial preparation; only ~10% from naturally occurring sources</li>
+      <li>Optimal targets: &lt;1500–2300 mg sodium/day (recommendations vary)</li>
+      <li><strong>Salt substitutes</strong> (replacing ~25% sodium with potassium): easy way to reduce Na AND increase K; Chinese RCT showed 14% reduction in stroke, 13% CVD, 12% all-cause mortality vs regular salt</li>
+      <li>Long-term posttrial follow-up (10–15 years): sodium reduction intervention → significant 30% reduction in new-onset CVD events</li>
+      <li>Behavioral strategies: scrutinize food labels, reduce portion size, low-sodium condiments/seasonings, use herbs/spices, home-prepared foods</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>4. Potassium Supplementation</h3>
+    <ul class="bl">
+      <li>Higher potassium intake → lower BP and reduced CVD risk (especially stroke)</li>
+      <li>Recommended intake for US adults: ~3500 mg/d; DASH diet provides 4700 mg/d</li>
+      <li>US Dietary Reference Intake adequate intake: 2600 mg/d (women), 3400 mg/d (men)</li>
+      <li>Supplementation: dietary preferred (tends to produce healthier diet + lower sodium); pill alternative</li>
+      <li>Optimal supplemental amount: ~1200 mg/d additional (dose-response meta-analysis; U-shaped curve)</li>
+      <li><strong>Expected reduction:</strong> ~5 mmHg SBP with HTN; ~3 mmHg without; almost <strong>3× greater in Black vs White adults</strong></li>
+      <li>Strong linear association between BP reduction and consumption of potassium AND dietary sodium (high sodium → greater benefit from potassium)</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Contraindications to Potassium Supplementation</div>
+      Hyperkalemia, advanced kidney disease, patients taking potassium-sparing diuretics, RAAS inhibitors (ACEIs, ARBs), or MRA agents (aldosterone, eplerenone, finerenone)
+    </div>
+    <p><strong>High-potassium foods:</strong> fruits, vegetables, legumes, leafy greens</p>
+  </div>
+
+  <div class="sub">
+    <h3>5. Physical Activity</h3>
+    <ul class="bl">
+      <li>Strong inverse association between physical activity (leisure or total) and BP + CVD</li>
+      <li><strong>Aerobic exercise:</strong> brisk walking, swimming, dancing — most studied</li>
+      <li><strong>Dynamic resistance:</strong> climbing stairs, push-ups, weightlifting, squats</li>
+      <li><strong>Isometric resistance:</strong> yoga poses, wall sit, plank, bench press (muscles tightened without joint movement)</li>
+      <li><strong>Largest meta-analysis (~400 trials):</strong>
+        <ul class="bl" style="margin-left:12px">
+          <li>Aerobic alone: ↓ SBP ~5 mmHg in adults with HTN</li>
+          <li>Aerobic + dynamic resistance: ↓ SBP ~6.5 mmHg</li>
+        </ul>
+      </li>
+      <li>In trials comparing physical activity vs antihypertensive drugs: <strong>almost identical level of BP lowering</strong></li>
+      <li>Optimal: aerobic exercise 40–60 min, ≥3×/week, total ≥150 min/week</li>
+      <li>"Weekend warrior" exercise also shown to lower BP</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>6. Alcohol Reduction</h3>
+    <ul class="bl">
+      <li>Alcohol = pressor; roughly linear association with BP/HTN — <strong>no threshold</strong></li>
+      <li>Each 14 mg increase in alcohol (one US standard drink) → SBP ~1.5 mmHg higher</li>
+      <li><strong>Expected BP reduction:</strong> overall ~5.5 mmHg SBP in largest meta-analysis (varies with baseline level)</li>
+      <li>US guideline target: ≤2 standard drinks/day (men), ≤1 standard drink/day (women)</li>
+      <li>WHO recommends complete abstinence from alcohol</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Summary: Expected SBP Reductions</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Intervention</th><th>SBP ↓ with HTN</th><th>SBP ↓ without HTN</th></tr></thead>
+        <tbody>
+          <tr><td>DASH Diet</td><td>~5 mmHg</td><td>~2–3 mmHg</td></tr>
+          <tr><td>Weight Loss</td><td>~1 mmHg per kg; ~5 mmHg avg</td><td>~2–3 mmHg</td></tr>
+          <tr><td>Sodium Reduction (2300 mg)</td><td>~5 mmHg</td><td>~2–3 mmHg</td></tr>
+          <tr><td>Potassium Supplementation</td><td>~5 mmHg</td><td>~3 mmHg</td></tr>
+          <tr><td>Aerobic Exercise</td><td>~5 mmHg</td><td>~3–5 mmHg</td></tr>
+          <tr><td>Aerobic + Resistance Exercise</td><td>~7 mmHg</td><td>—</td></tr>
+          <tr><td>Alcohol Reduction</td><td>&gt;5 mmHg</td><td>Varies</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 11 ═══ -->
+<section class="sec" id="s11">
+  <div class="sec-hd">
+    <span class="sec-n">11</span>
+    <h2>Antihypertensive Drug Classes</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Meta-Analysis of 123 RCTs (Active vs Placebo)</div>
+    CVD ↓20% | CHD ↓17% | Stroke ↓27% | Heart Failure ↓28% | All-cause mortality ↓13%
+    Relative risk reductions identical for those with or without prior CVD; benefit extends to baseline SBP 130–139 mmHg.
+  </div>
+
+  <div class="co key">
+    <div class="co-t">First-Step Drug Classes</div>
+    Diuretics, CCBs, ACEIs, ARBs — all shown to prevent CVD vs placebo. Beta-blockers inferior to these 4 in head-to-head trials (especially for stroke prevention). Diuretics are "best in class" per meta-analyses.
+  </div>
+
+  <div class="sub">
+    <h3>First-Step Drugs (Preferred)</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Class</th><th>Examples & Doses</th><th>SBP ↓</th><th>Mechanism</th><th>Key Side Effects</th><th>Key Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Thiazide/Thiazide-like Diuretics</td>
+            <td>Chlorthalidone 12.5–25 mg QD<br>Hydrochlorothiazide 12.5–50 mg QD<br>Indapamide 1.25–2.5 mg QD</td>
+            <td>~12 mmHg</td>
+            <td>Block sodium reabsorption in distal convoluted tubule</td>
+            <td>Hyponatremia, hypokalemia, hypercalcemia, hyperuricemia, hyperglycemia, dyslipidemia</td>
+            <td><strong>Chlorthalidone preferred</strong> (long half-life; used in most US trials). Long-acting → better nighttime AND daytime control</td>
+          </tr>
+          <tr>
+            <td>ACE Inhibitors</td>
+            <td>Enalapril 5–40 mg QD/BID<br>Lisinopril 10–40 mg QD<br>Benazepril 10–40 mg QD<br>Ramipril 2.5–20 mg QD<br>Trandolapril 1–4 mg QD</td>
+            <td>~12 mmHg</td>
+            <td>Inhibit ACE → ↓ angiotensin II production; also inhibit bradykinin inactivation</td>
+            <td>Cough (most common), angioedema, hyperkalemia (CKD), AKI (bilateral RAS), hypotension</td>
+            <td>Prefer longer-acting (lisinopril). <strong>CI: pregnancy, combo with ARB</strong>. Cough → switch to ARB</td>
+          </tr>
+          <tr>
+            <td>ARBs</td>
+            <td>Losartan 50–100 mg QD/BID<br>Valsartan 80–320 mg QD<br>Azilsartan 40–80 mg QD<br>Candesartan 8–32 mg QD<br>Olmesartan 20–40 mg QD</td>
+            <td>~12 mmHg</td>
+            <td>Block angiotensin II binding to receptors</td>
+            <td>Hyperkalemia (CKD), ↓ GFR, AKI (bilateral RAS), hypotension; <strong>rare side effects</strong></td>
+            <td><strong>CI: pregnancy, combo with ACEI</strong>. Do NOT combine ACEI + ARB → ↑ hyperkalemia risk, no extra benefit</td>
+          </tr>
+          <tr>
+            <td>CCB (Dihydropyridine)</td>
+            <td>Amlodipine 2.5–10 mg QD<br>Felodipine 2.5–10 mg QD<br>Nifedipine LA 30–90 mg QD</td>
+            <td>~10 mmHg</td>
+            <td>Block calcium from entering cells → inhibit vasoconstriction (primarily vasoactive)</td>
+            <td>Peripheral edema (dose-dependent, ~10%), gingival hyperplasia</td>
+            <td>Amlodipine preferred. <strong>CI: HFrEF</strong>. Good for stroke prevention</td>
+          </tr>
+          <tr>
+            <td>CCB (Non-DHP)</td>
+            <td>Diltiazem ER 120–360 mg QD<br>Verapamil ER 100–300 mg QD (evening)</td>
+            <td>~9 mmHg</td>
+            <td>Block calcium → reduce heart rate AND vasoconstriction (greater cardiac effect)</td>
+            <td>Bradycardia, nausea, constipation</td>
+            <td><strong>CI: combo with beta-blockers, HFrEF, high-grade AV or SA block</strong>. Rarely used for HTN alone</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Other Drug Classes</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Class</th><th>Examples & Doses</th><th>SBP ↓</th><th>Key Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Beta-Blockers</td>
+            <td>Metoprolol 50–200 mg QD<br>Carvedilol 20–80 mg QD<br>Nebivolol 5–40 mg QD</td>
+            <td>~10 mmHg</td>
+            <td><strong>First-step when clinically indicated</strong> (IHD, HF). CI: high-grade heart block. Avoid atenolol (inferior per meta-analyses). Non-selective (1st gen): bronchospasm risk. Cardioselective (2nd gen): metoprolol. 3rd gen: nebivolol (vasodilatory) + carvedilol (α+β blockade)</td>
+          </tr>
+          <tr>
+            <td>MRAs (Mineralocorticoid Receptor Antagonists)</td>
+            <td>Spironolactone 25–100 mg QD<br>Eplerenone 50–100 mg BID<br>Finerenone 10–20 mg QD</td>
+            <td>~9 mmHg</td>
+            <td><strong>Especially useful in resistant HTN and low-renin states</strong>. Spironolactone: breast tenderness, gynecomastia, erectile dysfunction. Adverse events: 9–20%. Finerenone: newer, nonsteroidal, better tolerated</td>
+          </tr>
+          <tr>
+            <td>K⁺-sparing Diuretics</td>
+            <td>Amiloride 5–10 mg QD/BID<br>Triamterene 50–100 mg QD/BID</td>
+            <td>Minimal</td>
+            <td>Minimal direct BP effect. Used to <strong>counteract hypokalemia</strong> from thiazide diuretics</td>
+          </tr>
+          <tr>
+            <td>Loop Diuretics</td>
+            <td>Furosemide 20–80 mg BID<br>Torsemide 5–10 mg QD</td>
+            <td>N/A</td>
+            <td><strong>Preferred in CKD with GFR &lt;30, symptomatic HF</strong>, and when using potent direct vasodilator minoxidil. Better for volume removal than BP reduction</td>
+          </tr>
+          <tr>
+            <td>α₁-Receptor Blockers</td>
+            <td>Doxazosin 1–16 mg QD</td>
+            <td>~5 mmHg</td>
+            <td>Less cardioprotective than diuretics. <strong>Mostly used in men with prostatic hypertrophy</strong>. SE: orthostatic hypotension (~9%), especially in older adults</td>
+          </tr>
+          <tr>
+            <td>Direct Vasodilators</td>
+            <td>Hydralazine 100–200 mg BID/TID<br>Minoxidil 5–100 mg QD/TID</td>
+            <td>N/A (potent)</td>
+            <td><strong>Usually 4th or 5th step in resistant HTN</strong>. SE: reflex tachycardia, fluid retention, hydralazine-induced lupus (rare), minoxidil-induced hirsutism (women). Must combine with diuretic (loop for minoxidil) + beta-blocker to minimize side effects. Up to 80% adverse event rate</td>
+          </tr>
+          <tr>
+            <td>Central α₂-Agonists</td>
+            <td>Clonidine oral 0.1–0.8 mg BID<br>Clonidine patch 0.1–0.3 mg/wk<br>Guanfacine 0.5–2.0 mg QD<br>Methyldopa 250–1000 mg BID/TID</td>
+            <td>N/A</td>
+            <td>Infrequently used due to side effects (sedation, dry mouth, bradycardia, fatigue, constipation, orthostatic hypotension; 6–20%) + risk of <strong>hypertensive crisis with abrupt withdrawal</strong>. <strong>Methyldopa: good safety record in pregnancy</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Combination Drug Strategies</h3>
+    <ul class="bl">
+      <li>Starting with <strong>lower doses of a 2-drug combination</strong> provides superior BP control and fewer side effects vs single drug at high dose</li>
+      <li><strong>Complementary physiologic combinations:</strong>
+        <ul class="bl" style="margin-left:14px">
+          <li>Dual therapy: diuretic OR CCB + ACEI or ARB</li>
+          <li>Triple therapy: diuretic + CCB + ACEI or ARB</li>
+        </ul>
+      </li>
+      <li>Average drugs to achieve SBP/DBP &lt;140/90 mmHg = <strong>2 drugs</strong></li>
+      <li>Average drugs to achieve SBP/DBP &lt;130/80 mmHg = <strong>3 drugs</strong></li>
+      <li><strong>Single-pill combinations</strong> → better adherence vs multiple pills</li>
+      <li>Initial combination drug therapy superior to stepped-care approach for rapid target achievement and medication adherence</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 12 ═══ -->
+<section class="sec" id="s12">
+  <div class="sec-hd">
+    <span class="sec-n">12</span>
+    <h2>Treatment Approach, BP Targets & Resistant HTN</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Treatment Approach by BP Category</h3>
+    <div class="flow">
+      <div class="flow-row">
+        <div class="fbox fb-n"><strong>Normal BP</strong><br>&lt;120/80 mmHg<br><div class="flab">Encourage healthy lifestyle</div></div>
+        <div class="fbox fb-e"><strong>Elevated BP</strong><br>120–129/&lt;80 mmHg<br><div class="flab">Active nonpharmacologic → reassess 3–6 months</div></div>
+        <div class="fbox fb-1"><strong>Stage 1 HTN</strong><br>130–139 or 80–89 mmHg<br><div class="flab">Assess ASCVD risk</div></div>
+        <div class="fbox fb-2"><strong>Stage 2 HTN</strong><br>≥140 or ≥90 mmHg<br><div class="flab">Drug + nonpharmacologic → reassess 1 month</div></div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-g">Stage 1 HTN — NOT High Risk</div>
+        <ul class="bl">
+          <li>No prior CVD AND 10-year ASCVD risk &lt;10%</li>
+          <li>Nonpharmacologic therapy only</li>
+          <li>If SBP not controlled to &lt;130/80 after 6 months → consider adding drug (especially younger adults with high lifetime ASCVD risk)</li>
+          <li>Reassess after 3–6 months</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Stage 1 HTN — High Risk</div>
+        <ul class="bl">
+          <li>Prior CVD, OR no CVD but 10-year ASCVD ≥10%, OR stage 1 HTN + age ≥65, or DM, or CKD</li>
+          <li>Drug therapy + nonpharmacologic</li>
+          <li>Minority with SBP/DBP close to 130/80: can try single agent first</li>
+          <li>Reassess after 1 month</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>BP Treatment Targets</h3>
+    <div class="co key">
+      <div class="co-t">Standard Goal</div>
+      SBP/DBP &lt;130/80 mmHg — recommended in ACC/AHA BP guideline for adults with HTN. Almost all patients with HTN seen in clinical practice are at high risk for ASCVD.
+    </div>
+    <ul class="bl">
+      <li><strong>Older adults (≥65, community-dwelling):</strong> target SBP &lt;130 mmHg</li>
+      <li><strong>Older adults with high comorbidity burden and limited life expectancy:</strong> clinical judgment + patient preference should guide intensity of treatment</li>
+      <li>All 4 RCTs comparing SBP 120 vs 140 mmHg goal: fewer CVD complications in lower-goal group (statistically significant in 2 of 4)</li>
+      <li>Meta-analyses: achieved SBP &lt;130 mmHg is superior to higher categories; incremental benefit diminishes as achieved BP gets progressively lower</li>
+      <li>English-language guidelines: SBP targets vary from 120–135 mmHg for high-risk adults with HTN</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Initial Drug Selection for Uncomplicated HTN</h3>
+    <div class="co key">
+      <div class="co-t">Preferred First-Step Drugs (No Compelling Indication for Beta-Blocker)</div>
+      Diuretics, CCBs, and ACEIs or ARBs — alone or in combination. Beta-blockers are first-step ONLY when clinically indicated (IHD, HF).
+    </div>
+    <ul class="bl">
+      <li><strong>Most patients:</strong> initial combination drug therapy (especially Black adults and those with SBP &gt;20 mmHg above target)</li>
+      <li><strong>Selected non-Black adults with Stage 1 HTN near 130/80:</strong> initial monotherapy acceptable</li>
+      <li>Most patients with HTN require &gt;1 antihypertensive agent — especially Stage 2 HTN and non-Hispanic Black adults</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Resistant Hypertension</h3>
+    <div class="co dan">
+      <div class="co-t">Definition</div>
+      SBP/DBP ≥130/80 mmHg on <strong>3 antihypertensive medications</strong> (preferably including a diuretic), OR taking <strong>≥4 medications</strong> to achieve &lt;130/80 mmHg
+    </div>
+    <p><strong>Investigation approach (sequential steps):</strong></p>
+    <ul class="bl">
+      <li><strong>Step 1:</strong> Exclude pseudo-resistance (inaccurate BP measurement)</li>
+      <li><strong>Step 2:</strong> Out-of-office BP to exclude white coat HTN</li>
+      <li><strong>Step 3:</strong> Exclude lifestyle factors, OSA, medications that raise BP, and other secondary causes</li>
+      <li><strong>Step 4:</strong> Confirm medication adherence</li>
+      <li><strong>Step 5:</strong> Switch to long-acting diuretics (chlorthalidone or indapamide in place of HCTZ)</li>
+      <li><strong>Step 6:</strong> Convert to single-pill combinations if possible</li>
+      <li><strong>Step 7:</strong> Add an <strong>MRA (spironolactone)</strong> as 4th medication</li>
+      <li><strong>Step 8:</strong> Add vasodilator (hydralazine or minoxidil); refer to specialist if uncontrolled after 6 months</li>
+    </ul>
+    <div class="co prl">
+      <div class="co-t">FDA-Approved Renal Denervation (2023)</div>
+      Ultrasound and radiofrequency renal denervation therapy approved as adjunctive treatment for resistant HTN. Restrict to patients with <strong>true</strong> resistant HTN and office SBP ≥160 mmHg.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 13 ═══ -->
+<section class="sec" id="s13">
+  <div class="sec-hd">
+    <span class="sec-n">13</span>
+    <h2>Treatment in Special Patient Groups</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Patients with CVD</h3>
+    <ul class="bl">
+      <li>Combination of HTN + CVD is very common</li>
+      <li><strong>Preferred agents:</strong> ACEI, ARB, or beta-blockers (per CVD type) + diuretics, CCB, and MRA</li>
+      <li>SGLT2 inhibitors may be indicated, especially with HF + DM</li>
+      <li>Use non-DHP CCBs with caution in bradycardia or potential heart block risk</li>
+      <li><strong>Target:</strong> SBP/DBP &lt;130/80 mmHg (if well tolerated)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Chronic Kidney Disease (CKD)</h3>
+    <ul class="bl">
+      <li>HTN prevalence in advanced CKD: <strong>80–85%</strong></li>
+      <li>BP-kidney disease relationship is complex (cause AND consequence)</li>
+      <li>CKD patients have high prevalence of traditional AND novel CVD risk factors → high CVD mortality (especially ESKD patients more likely to die from CVD than kidney failure)</li>
+      <li><strong>ACEI/ARBs are central:</strong> preserve glomerular function via efferent arteriolar dilation → ↓ intraglomerular pressure; especially important with proteinuria</li>
+      <li><strong>DO NOT combine ACEI + ARB:</strong> dangerous due to hyperkalemia and decline in kidney function</li>
+      <li>Diuretics: also important for ↓ peripheral resistance + intravascular volume</li>
+      <li><strong>Traditionally:</strong> loop diuretics for eGFR &lt;30, but <strong>recent RCT showed chlorthalidone is effective even in eGFR &lt;23</strong> (↓ 10.5 mmHg ambulatory BP + halved albumin/creatinine ratio)</li>
+      <li>CCBs: tend to dilate preglomerular afferent artery → good safety record when combined with ACEI/ARB</li>
+      <li>Monitor serum potassium carefully with potassium-sparing agents</li>
+      <li>Single-pill combinations especially useful (patients often on many medications)</li>
+      <li>SGLT2 inhibitors (gliflozins): useful for CKD management; modest BP reduction (~5/2 mmHg per meta-analyses)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Patients with Diabetes Mellitus</h3>
+    <ul class="bl">
+      <li>Combination of HTN + DM = substantial risk for CVD and kidney disease</li>
+      <li><strong>Recommended target:</strong> SBP/DBP &lt;130/90 mmHg</li>
+      <li>Most patients require combination therapy; many need 3–4 agents</li>
+      <li><strong>Include ACEI or ARB</strong> (especially with heavy proteinuria or kidney insufficiency)</li>
+      <li>Most also require a diuretic; CCBs commonly part of regimen</li>
+      <li>Resistant HTN with DM: MRA effective, but monitor serum potassium carefully</li>
+      <li>SGLT2 inhibitors: SBP/DBP reduction ~5/2 mmHg (modest; does not meet FDA threshold for antihypertensive classification)</li>
+      <li>Watch for autonomic neuropathy or volume depletion → orthostatic hypotension (SBP difference ≥10 mmHg sitting vs upright) in longstanding severe DM</li>
+      <li>Single-pill dual or triple therapy especially useful given medication burden</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Older Adults</h3>
+    <ul class="bl">
+      <li>Vascular stiffening → isolated systolic HTN + wide pulse pressure are common</li>
+      <li>Often have multiple comorbidities and drug interactions (delayed excretion due to kidney/liver disease)</li>
+      <li>RCT evidence for antihypertensive therapy mostly from studies with mean age ~70 years</li>
+      <li>Older adults at high risk for CVD → disproportionately large treatment benefit</li>
+      <li><strong>Target:</strong> SBP &lt;130 mmHg (for community-dwelling adults ≥65)</li>
+      <li>High comorbidity + limited life expectancy: base decisions on clinical judgment + patient preference</li>
+      <li><strong>Start with lower doses</strong> than younger patients</li>
+      <li>Congestive HF increasingly common → prefer <strong>diuretic over CCB</strong> for dual therapy with ACEI/ARB</li>
+      <li>RCTs show no increase in syncope, falls, or infarctions with intensive antihypertensive treatment in older adults</li>
+      <li>J-curve in observational data = not reliable; randomized comparisons show benefit of intensive therapy throughout</li>
+      <li>More intensive antihypertensive treatment → reduced risk of cognitive impairment and possibly dementia</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Race/Ethnicity — Non-Hispanic Black Adults</h3>
+    <ul class="bl">
+      <li>Highest prevalence of HTN (59%), awareness, and treatment rate among racial/ethnic groups in US</li>
+      <li>However, control rates are lower: &lt;140/90 mmHg = 37% vs 52% in Whites (2017–2020 NHANES)</li>
+      <li>HTN onset at younger age; higher risk of CVD and kidney disease than Whites</li>
+      <li>Most disparity explained by social determinants of health (education, healthcare access, neighborhood, economic instability), NOT genetics</li>
+      <li><strong>Diuretics and CCBs especially effective</strong> for BP lowering in Black Americans</li>
+      <li>Most require combination therapy including agents for comorbidities</li>
+      <li>Requires structural change + team-based care + multilevel effort to resolve the gap</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Sex Differences</h3>
+    <ul class="bl">
+      <li>Similar CVD prevention benefit from antihypertensive therapy in both sexes</li>
+      <li>Women: more likely to be aware, treated, and controlled vs men (especially at younger ages)</li>
+      <li><strong>ACEIs/ARBs: CI in pregnancy or women of child-bearing age contemplating pregnancy</strong></li>
+      <li>Thiazide diuretics → reduced fracture risk in women (↓ urinary calcium excretion + ↑ osteoblast formation)</li>
+      <li>Loop diuretics: ↑ urinary calcium excretion; not associated with fractures in postmenopausal women per observational data</li>
+      <li>Women report more cough with ACEIs and more pedal edema with CCBs compared to men</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 14 ═══ -->
+<section class="sec" id="s14">
+  <div class="sec-hd">
+    <span class="sec-n">14</span>
+    <h2>Hypertensive Urgencies & Emergencies</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co dan">
+    <div class="co-t">Threshold</div>
+    SBP/DBP ≥180/100 mmHg classifies as either a hypertensive urgency or emergency.
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="clabel c-a">Hypertensive Urgency</div>
+      <ul class="bl">
+        <li>SBP/DBP ≥180/100 + <strong>asymptomatic</strong></li>
+        <li>FAR more common than emergency</li>
+        <li>Treatment: institution/reinstitution/intensification of <strong>oral antihypertensive agents</strong></li>
+        <li>Setting: <strong>outpatient</strong></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-r">Hypertensive Emergency</div>
+      <ul class="bl">
+        <li>SBP/DBP ≥180/100 + <strong>active hypertensive end-organ damage:</strong></li>
+        <li>Hypertensive encephalopathy (headaches, vision defects, nausea, vomiting, seizures)</li>
+        <li>Acute left ventricular failure</li>
+        <li>Acute kidney failure</li>
+        <li>Treatment: immediate, supervised <strong>intravenous antihypertensive agents</strong></li>
+        <li>Setting: <strong>emergency room or inpatient</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="co dan">
+    <div class="co-t">Especially Urgent — Requires Particularly Rapid Care</div>
+    Hypertensive emergency associated with: acute aortic dissection | eclampsia/severe preeclampsia | pheochromocytoma in crisis
+  </div>
+
+  <div class="sub">
+    <h3>IV Agents for Hypertensive Emergency</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Agent</th><th>Class</th><th>Key Points</th><th>Contraindications</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Nicardipine IV</td>
+            <td>Dihydropyridine CCB</td>
+            <td><strong>Most commonly used agent</strong> in contemporary practice for acute BP reduction. No dose adjustment needed in older adults</td>
+            <td>Severe aortic stenosis</td>
+          </tr>
+          <tr>
+            <td>Sodium Nitroprusside IV</td>
+            <td>Direct vasodilator</td>
+            <td>Potent; long history of success. Must monitor carefully to avoid overshoot → hypotension</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Labetalol IV</td>
+            <td>Alpha/Beta blocker</td>
+            <td>Effective; also available orally</td>
+            <td>Obstructive airways disease, COPD, bradycardia, 2nd or 3rd degree heart block</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co key">
+      <div class="co-t">Treatment Principle</div>
+      Goal is a <strong>reduction</strong> rather than immediate normalization of BP. Subsequent management with oral agents. Consider secondary causes (especially renovascular disease) after immediate BP reduction — relatively common in hypertensive emergencies.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 15 ═══ -->
+<section class="sec" id="s15">
+  <div class="sec-hd">
+    <span class="sec-n">15</span>
+    <h2>Prevalence, Awareness, Treatment & Control</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>US Control Rates (NHANES 2017–2020)</h3>
+    <ul class="bl">
+      <li>SBP/DBP &lt;140/90 mmHg: <strong>~48%</strong> controlled</li>
+      <li>SBP/DBP &lt;130/80 mmHg: <strong>~24%</strong> controlled</li>
+      <li>Control rates improved until 2009–2012 (peak ~53% for &lt;140/90 and ~26% for &lt;130/80) then progressively declined</li>
+      <li>Decrement most prominent in adults <strong>≥75 years old</strong></li>
+      <li>Non-Hispanic Blacks &lt;140/90: 37% vs Whites: 52%; &lt;130/80: 20% vs 26% — <strong>persistent gap</strong></li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Global Control Rates</div>
+      Control to &lt;140/90 mmHg: &lt;14% globally; &lt;8% in low/middle-income countries. The situation is far worse than the US.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Improving Hypertension Control — Best Practices</h3>
+    <ul class="bl">
+      <li>Traditional one-on-one physician-patient care is inadequate — primary care physicians are overburdened</li>
+      <li><strong>Team-based care</strong> has produced the largest improvements in RCTs and meta-analyses:
+        <ul class="bl" style="margin-left:14px">
+          <li>Average SBP reduction: ~7 mmHg; in best-executed RCT: &gt;23 mmHg reduction</li>
+          <li>Team: nurses, pharmacists, community health workers, social workers, lifestyle counselors, medical technicians</li>
+          <li>Most effective when trained nonphysicians have authority (with physician oversight) to prescribe antihypertensives for uncomplicated HTN</li>
+        </ul>
+      </li>
+      <li><strong>Home BP Monitoring (HBPM):</strong> excellent way to engage patients; US strategy = 3 morning + 3 evening readings for 3 days before clinic visit</li>
+      <li><strong>Kaiser Permanente, Northern California:</strong> multifaceted systemwide program → control (&lt;140/90) improved from 44% (2001) to 90% (2015)</li>
+    </ul>
+    <div class="co suc">
+      <div class="co-t">Six Best Practices for HTN Control</div>
+      (1) Community-based patient-centered team care | (2) Simple evidence-based tools for lifestyle counseling and drug treatment | (3) Reliable access to effective/affordable medications | (4) Information systems to track progress and case management | (5) Engage patients with HBPM | (6) Commitment by provider/system/country to specific goals
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 16 ═══ -->
+<section class="sec" id="s16">
+  <div class="sec-hd">
+    <span class="sec-n">16</span>
+    <h2>Exam Traps</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">CPAP and Blood Pressure in OSA</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 55-year-old obese man with OSA and resistant hypertension is started on CPAP. His sleep partner confirms he no longer snores. Which of the following is the most appropriate next step for his hypertension?</div>
+      <div class="trap-a"><strong>CORRECT: Add antihypertensive drug therapy.</strong> Meta-analyses demonstrate that CPAP has limited effect on BP reduction in OSA patients. HTN in OSA must still be treated with antihypertensive medications in addition to nonpharmacologic therapy — CPAP alone is not adequate treatment for HTN.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">ACEI + ARB Combination</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with CKD and proteinuria is already taking lisinopril. Their physician adds valsartan to improve proteinuria and blood pressure control. What is the major risk?</div>
+      <div class="trap-a"><strong>CORRECT: Do NOT combine ACEI + ARB.</strong> This combination unnecessarily increases the risk of hyperkalemia and decline in kidney function with little if any additional benefit over either drug class alone. This is specifically dangerous in CKD patients who are already at risk for hyperkalemia.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Preferred Diuretic for HTN</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A physician prescribes hydrochlorothiazide 25 mg daily for uncomplicated hypertension. What should be prescribed instead?</div>
+      <div class="trap-a"><strong>CORRECT: Chlorthalidone (12.5–25 mg daily).</strong> Chlorthalidone is preferred over hydrochlorothiazide because of its longer half-life (better nighttime and daytime control) and its use in almost all landmark US antihypertensive drug treatment trials. In resistant HTN specifically, hydrochlorothiazide should be replaced by chlorthalidone or indapamide.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Antihypertensives in Pregnancy</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 28-year-old woman presents at 24 weeks gestation with BP 155/95 mmHg. She requires antihypertensive therapy. Which drug must be avoided?</div>
+      <div class="trap-a"><strong>CORRECT: Avoid ACEIs and ARBs — teratogenic.</strong> First-line safe agents in pregnancy are: labetalol (beta-blocker), nifedipine (CCB), and methyldopa (central α2-agonist). Hydralazine is also commonly used. One trial suggests labetalol and nifedipine may be superior to methyldopa for preeclampsia prevention.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Gold Standard for Primary Aldosteronism</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with resistant HTN has a high aldosterone/renin ratio and a CT scan showing bilateral adrenal abnormalities. What is the gold standard confirmatory test?</div>
+      <div class="trap-a"><strong>CORRECT: Adrenal vein sampling for aldosterone levels.</strong> While saline suppression test and captopril challenge provide more definitive evidence than the aldosterone/renin ratio, adrenal vein sampling is the gold standard. This is critical because it distinguishes unilateral adenoma (→ surgical cure via adrenalectomy) from bilateral hyperplasia (→ medical treatment with MRA).</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">White Coat vs Masked Hypertension CVD Risk</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Which type of out-of-office hypertension carries similar CVD risk to sustained hypertension?</div>
+      <div class="trap-a"><strong>CORRECT: Masked hypertension (office BP normal, out-of-office elevated).</strong> White coat hypertension has a CVD risk profile more like normotensive patients. Masked hypertension has a CVD risk profile like sustained hypertension and should be treated with antihypertensive drugs + nonpharmacologic therapy. Suspect masked HTN when elevated-but-nonhypertensive office BP + end-organ damage (LVH, proteinuria).</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Hypertensive Emergency vs Urgency</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 60-year-old presents with BP 195/110 mmHg but is completely asymptomatic. What is the appropriate treatment setting and approach?</div>
+      <div class="trap-a"><strong>CORRECT: Hypertensive URGENCY → outpatient oral agents.</strong> End-organ damage is the distinguishing feature. Asymptomatic = urgency → oral antihypertensives, outpatient. If there were encephalopathy, acute LV failure, or acute kidney failure = emergency → IV agents in ER/inpatient. Do NOT aggressively drop BP in asymptomatic patients — aim for gradual reduction.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-num">Renovascular HTN: Angioplasty Decision</span></div>
+    <div class="trap-body">
+      <div class="trap-q">An elderly man with diffuse atherosclerosis presents with resistant hypertension. Imaging shows bilateral renal artery stenosis. Should he undergo percutaneous transluminal angioplasty (PTA)?</div>
+      <div class="trap-a"><strong>CORRECT: No — medical management is preferred.</strong> Multiple well-conducted RCTs failed to show benefit for PTA or renovascular surgery vs medical care in <strong>atherosclerotic</strong> renovascular HTN. PTA is most beneficial in fibromuscular disease (younger White women with discrete lesions) — where it can cure or substantially improve HTN. Use of agents blocking RAAS is central to medical management.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Potassium Supplementation Contraindications</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A hypertensive patient with stage 3 CKD is on lisinopril and spironolactone. The physician recommends adding dietary potassium supplementation to help lower BP. What is the concern?</div>
+      <div class="trap-a"><strong>CORRECT: Potassium supplementation is CONTRAINDICATED here.</strong> This patient has multiple risk factors for dangerous hyperkalemia: advanced CKD, ACEI (lisinopril), AND MRA (spironolactone) — all of which impair renal potassium excretion. Potassium supplementation is contraindicated in patients with hyperkalemia or advanced kidney disease, or who are taking RAAS inhibitors, potassium-sparing diuretics, or MRAs.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Nondihydropyridine CCBs and Beta-Blockers</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with hypertension is already on metoprolol. Her physician wants to add a calcium channel blocker. Which type should be avoided?</div>
+      <div class="trap-a"><strong>CORRECT: Avoid non-dihydropyridine CCBs (diltiazem, verapamil).</strong> Do NOT combine non-DHP CCBs with beta-blockers — both slow the heart rate and can cause severe bradycardia, heart block, and hemodynamic compromise. Use a dihydropyridine CCB (amlodipine, felodipine, nifedipine) if a CCB is needed in a patient on beta-blockers.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">ACEI Cough — What to Do</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient on lisinopril develops a persistent dry cough. What is the next step?</div>
+      <div class="trap-a"><strong>CORRECT: Switch to an ARB at a corresponding dose.</strong> ACEI-induced cough is caused by inhibition of bradykinin inactivation. The side effect resolves quickly after switching to an ARB. ARBs do not inhibit bradykinin degradation and have a rare side effect profile. Do NOT add an ARB on top of the ACEI — this increases hyperkalemia risk without additional BP benefit.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 12</span><span class="trap-title">Salt Substitutes — Major Trial Result</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A large cluster-designed clinical trial of salt substitutes (25% potassium replacing sodium) in high-risk Chinese adults showed which outcomes beyond BP lowering?</div>
+      <div class="trap-a"><strong>CORRECT: 14% reduction in stroke, 13% reduction in other major CVD events, and 12% reduction in all-cause mortality.</strong> This is a high-yield boards number. There was no significant difference in hyperkalemic events between the two groups. Salt substitutes provide a relatively easy way to achieve sodium reduction and potassium increase simultaneously.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 13</span><span class="trap-title">Ambulatory BP and Nighttime Readings</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Which ambulatory BP measurement pattern is associated with higher cardiovascular risk?</div>
+      <div class="trap-a"><strong>CORRECT: Nondipping pattern (BP fails to decrease at night).</strong> Those whose BPs fail to show the usual pronounced decrement during nighttime (nondippers) have higher CVD risk. Nondipping is more common in non-Hispanic Black adults than other racial/ethnic groups in the US. Nighttime readings may provide the best BP prediction of CVD risk overall.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 14</span><span class="trap-title">Chlorthalidone in Advanced CKD</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with stage 4 CKD (eGFR 19 mL/min) has uncontrolled hypertension. The team considers adding chlorthalidone. What does recent evidence say?</div>
+      <div class="trap-a"><strong>CORRECT: Chlorthalidone is effective even in advanced CKD.</strong> A recent high-quality RCT in patients with stage 4 kidney disease (average eGFR &lt;23 mL/min) showed chlorthalidone (12.5–50 mg) produced a 10.5 mmHg reduction in ambulatory BP and halved the urinary albumin/creatinine ratio vs placebo. This challenges the traditional teaching that thiazides are ineffective when creatinine &gt;3 mg/dL.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 15</span><span class="trap-title">Nicardipine IV — Contraindication</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 75-year-old with a hypertensive emergency is also found to have severe aortic stenosis on echo. IV nicardipine is ordered. Is this appropriate?</div>
+      <div class="trap-a"><strong>CORRECT: No — nicardipine IV is CONTRAINDICATED in severe aortic stenosis.</strong> Although nicardipine is the most commonly used IV agent for hypertensive emergencies in contemporary practice and requires no dose adjustment in older adults, it is specifically contraindicated in severe aortic stenosis. Use an alternative IV agent such as labetalol (if no airway/heart block contraindication) or nitroprusside.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 16</span><span class="trap-title">BP Target in Pregnancy</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Clinical trials in pregnant women with hypertension have failed to demonstrate benefit for which intensive BP target?</div>
+      <div class="trap-a"><strong>CORRECT: SBP/DBP &lt;130/80 mmHg vs &lt;140/90 mmHg in pregnancy.</strong> Unlike in non-pregnant patients where &lt;130/80 mmHg is the standard goal, clinical trials have not shown added benefit for more intensive BP targets during pregnancy. This means that the standard &lt;140/90 mmHg target remains appropriate in pregnancy and more intensive targets should not be pursued.</div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="sub">
+    <h3>Quick Reference Master Table</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Topic</th><th>Key Number / Fact</th></tr></thead>
+        <tbody>
+          <tr><td>US HTN Prevalence</td><td>&gt;103 million adults; ~46% overall; 80–85% in ≥75 yo</td></tr>
+          <tr><td>BP Classification (Stage 1)</td><td>SBP 130–139 OR DBP 80–89 mmHg</td></tr>
+          <tr><td>BP Classification (Stage 2)</td><td>SBP ≥140 OR DBP ≥90 mmHg</td></tr>
+          <tr><td>Home BP Threshold = HTN</td><td>SBP ≥130 or DBP ≥80 (same as office)</td></tr>
+          <tr><td>Ambulatory equivalents for 130/80</td><td>Daytime 130/80 | Nighttime 110/65 | 24h 125/75</td></tr>
+          <tr><td>White Coat / Masked HTN Prevalence</td><td>15–25% each</td></tr>
+          <tr><td>DASH diet SBP reduction (with HTN)</td><td>~5 mmHg</td></tr>
+          <tr><td>Sodium reduction per 2300 mg decrease</td><td>~5.5 mmHg SBP</td></tr>
+          <tr><td>Weight loss: SBP reduction</td><td>~1 mmHg per kg; avg ~5 mmHg</td></tr>
+          <tr><td>Aerobic + resistance exercise</td><td>~6.5–7 mmHg SBP reduction</td></tr>
+          <tr><td>OSA prevalence</td><td>Men 15–30%, Women 10–15%; &gt;50% with OSA have HTN</td></tr>
+          <tr><td>Primary aldosteronism: most common cause</td><td>Bilateral adrenal hyperplasia (60–70%)</td></tr>
+          <tr><td>Renovascular HTN: most common cause</td><td>Atherosclerosis (90%)</td></tr>
+          <tr><td>123-trial meta-analysis: stroke reduction</td><td>27% with antihypertensive therapy</td></tr>
+          <tr><td>Drugs for 2-drug combo to reach &lt;140/90</td><td>2 drugs on average</td></tr>
+          <tr><td>Drugs for 3-drug combo to reach &lt;130/80</td><td>3 drugs on average</td></tr>
+          <tr><td>Resistant HTN: 4th drug to add</td><td>MRA (spironolactone)</td></tr>
+          <tr><td>HTN urgency vs emergency</td><td>Both ≥180/100; emergency = end-organ damage → IV in ER</td></tr>
+          <tr><td>Most common IV agent: HTN emergency</td><td>Nicardipine (CI: severe aortic stenosis)</td></tr>
+          <tr><td>Black adults: effective drug classes</td><td>Diuretics and CCBs especially effective</td></tr>
+          <tr><td>Safe antihypertensives in pregnancy</td><td>Labetalol, nifedipine, methyldopa, hydralazine</td></tr>
+          <tr><td>US control rate to &lt;130/80 (2017–2020)</td><td>~24% of adults with HTN</td></tr>
+          <tr><td>PREVENT risk calculator age range</td><td>30–70 years; predicts 10- and 30-year CVD risk</td></tr>
+          <tr><td>Chlorthalidone in advanced CKD RCT</td><td>↓ 10.5 mmHg ambulatory BP at eGFR &lt;23 mL/min</td></tr>
+          <tr><td>FDA approved renal denervation</td><td>2023; for office SBP ≥160 with true resistant HTN</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">Harrison's Principles of Internal Medicine · Chapter 288 · Hypertension · Boards Review · Venos 2026</footer>
+
+<script>
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
