@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Acid-Base Disturbances · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);--hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+
+/* ── ANNOTATION TOOLBAR ── */
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+
+/* ── STICKY NOTE SIDEBAR ── */
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-note-section{font-family:'JetBrains Mono',monospace;font-size:7.5px;color:#a89a30;letter-spacing:.05em;margin-left:4px;background:rgba(168,154,48,.12);padding:1px 5px;border-radius:3px;white-space:nowrap;flex-shrink:0}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+
+/* ── INLINE POPUP (floating near selection) ── */
+#inline-popup{position:fixed;z-index:3000;background:#fff;border:1.5px solid var(--pur);border-radius:10px;box-shadow:0 8px 32px rgba(109,40,217,.22);padding:0;min-width:240px;max-width:300px;display:none;font-size:13px;overflow:hidden}
+#inline-popup.show{display:block}
+#ip-mode-add,#ip-mode-view{display:none}
+#ip-mode-add.active,#ip-mode-view.active{display:block}
+#ip-header{background:var(--pur-l);border-bottom:1px solid #ddd6fe;padding:9px 13px;display:flex;align-items:center;gap:7px}
+#ip-section-tag{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--pur);background:rgba(109,40,217,.1);padding:2px 7px;border-radius:4px;font-weight:500}
+#ip-close-btn{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+#ip-close-btn:hover{color:var(--red)}
+#ip-sel-preview{font-size:11px;color:var(--t3);font-style:italic;padding:8px 13px 4px;border-bottom:1px solid var(--bd);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+#ip-ta{width:100%;padding:10px 13px;border:none;border-bottom:1px solid var(--bd);font-family:'Source Sans 3',sans-serif;font-size:12.5px;resize:none;height:72px;background:#fff;color:var(--tx);outline:none}
+#ip-ta:focus{background:#fafafe}
+#ip-actions{display:flex;gap:7px;padding:9px 13px}
+#ip-save-btn{flex:1;padding:6px;background:var(--pur);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer}
+#ip-save-btn:hover{background:#5b21b6}
+#ip-cancel-btn{padding:6px 12px;background:var(--bg);color:var(--t3);border:1.5px solid var(--bd2);border-radius:5px;font-size:12px;cursor:pointer}
+/* View mode */
+#ip-view-ref{font-size:11px;color:var(--pur);font-style:italic;padding:8px 13px 4px;border-bottom:1px solid var(--bd);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#ip-view-text{padding:10px 13px;font-size:13px;color:var(--t2);line-height:1.55;max-height:120px;overflow-y:auto}
+#ip-view-actions{display:flex;gap:7px;padding:9px 13px;border-top:1px solid var(--bd)}
+#ip-edit-btn{flex:1;padding:5px;background:var(--blu-l);color:var(--blu);border:1.5px solid #bfdbfe;border-radius:5px;font-size:11.5px;font-weight:600;cursor:pointer}
+#ip-delete-btn{padding:5px 10px;background:var(--red-l);color:var(--red);border:1.5px solid #fca5a5;border-radius:5px;font-size:11.5px;cursor:pointer}
+#ip-jump-btn{padding:5px 10px;background:var(--grn-l);color:var(--grn);border:1.5px solid #86efac;border-radius:5px;font-size:11.5px;cursor:pointer}
+
+/* ── NOTE ANCHOR ── */
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+
+/* ── STATUS BUTTONS ── */
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+
+/* ── NAV ── */
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;padding:0 12px;display:flex;align-items:center;white-space:nowrap;border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+
+/* ── MAIN LAYOUT ── */
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blu);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+
+/* ── CALLOUTS ── */
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+
+/* ── LISTS ── */
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.ol{list-style:none;padding:0;margin:6px 0 12px;counter-reset:n}
+.ol li{counter-increment:n;position:relative;padding:4px 0 4px 30px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.ol li::before{content:counter(n);position:absolute;left:0;top:5px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;background:var(--bd);color:var(--t2);width:19px;height:19px;display:flex;align-items:center;justify-content:center;border-radius:3px}
+.ol li strong{color:var(--tx);font-weight:600}
+
+/* ── TABLES ── */
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+
+/* ── GRID CARDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+
+/* ── VS BOX ── */
+.vs{display:grid;grid-template-columns:1fr 1fr;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px;overflow:hidden}
+.vsh{padding:9px 14px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--bd)}
+.vsh.b{background:#e8effe;color:var(--blu);border-right:1px solid var(--bd)}
+.vsh.r{background:var(--red-l);color:var(--red)}
+.vsb{padding:12px 14px}
+.vsb.br{border-right:1px solid var(--bd)}
+
+/* ── TAGS ── */
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0}
+.tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;padding:2px 9px;border-radius:4px;letter-spacing:.04em}
+.t-b{background:var(--blu-l);color:var(--blu);border:1px solid #bfdbfe}
+.t-r{background:var(--red-l);color:var(--red);border:1px solid #fca5a5}
+.t-g{background:var(--grn-l);color:var(--grn);border:1px solid #86efac}
+.t-a{background:var(--amb-l);color:var(--amb);border:1px solid #fde68a}
+.t-p{background:var(--pur-l);color:var(--pur);border:1px solid #ddd6fe}
+.t-t{background:var(--tel-l);color:var(--tel);border:1px solid #a5f3fc}
+
+/* ── MNEMONIC ── */
+.mn{background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:16px 20px;margin:12px 0}
+.mn-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--amb);margin-bottom:7px}
+.mn-w{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--amb);margin-bottom:10px}
+.mn ul{list-style:none;padding:0}
+.mn ul li{font-size:13px;padding:2px 0;color:var(--t2)}
+.mn ul li b{font-family:'Playfair Display',serif;font-size:18px;color:var(--amb);margin-right:5px;font-style:italic}
+
+/* ── ACCORDION ── */
+details{border:1.5px solid var(--bd);border-radius:7px;margin:8px 0;overflow:hidden}
+summary{display:flex;justify-content:space-between;align-items:center;padding:10px 15px;cursor:pointer;background:var(--sf2);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);list-style:none}
+summary:hover{background:var(--bd)}
+summary::after{content:'▾';font-size:14px}
+details[open] summary::after{content:'▴'}
+details>.db{padding:14px;background:var(--sf)}
+
+/* ── EXAM TRAPS ── */
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-q em{color:var(--tx);font-style:normal;font-weight:600}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.trap-why{font-size:12px;color:var(--t3);margin-top:8px;font-style:italic;line-height:1.55}
+
+/* ── FORMULA BOX ── */
+.formula{background:#1e1e2e;color:#cdd6f4;font-family:'JetBrains Mono',monospace;font-size:13px;padding:16px 20px;border-radius:8px;margin:12px 0;line-height:1.8;overflow-x:auto}
+.formula .var{color:#89b4fa}.formula .num{color:#fab387}.formula .op{color:#cba6f7}
+
+/* ── FLOWCHART ── */
+.flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:14px 0}
+.flow-step{background:var(--sf);border:2px solid var(--blu);border-radius:7px;padding:10px 20px;font-size:13px;font-weight:600;color:var(--blu);text-align:center;max-width:360px;width:100%}
+.flow-step.decision{background:var(--amb-l);border-color:var(--amb);color:var(--amb);border-radius:50px}
+.flow-step.action{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.flow-step.danger{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.flow-arrow{color:var(--t3);font-size:18px;line-height:1;padding:3px 0}
+.flow-branch{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;margin:6px 0}
+.flow-branch-item{display:flex;flex-direction:column;align-items:center;gap:4px}
+.flow-label{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+
+/* ── SEP + FOOTER ── */
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#inline-popup,.toc{display:none!important}.main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<!-- ANNOTATION TOOLBAR -->
+<div id="toolbar">
+  <span class="albl">Annotate</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" title="Clear all" onclick="clearAll()">CLEAR</button>
+</div>
+
+<!-- STICKY NOTE SIDEBAR -->
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 Study Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()" title="Hide panel">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select any text in the guide<br>→ a popup appears near your selection.<br>Type your note and hit Save.<br><br>Notes appear here as sticky cards<br>you can drag &amp; resize.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<!-- INLINE POPUP -->
+<div id="inline-popup">
+  <div id="ip-header">
+    <span style="font-size:14px">📝</span>
+    <span id="ip-section-tag">Section</span>
+    <button id="ip-close-btn" onclick="closeInlinePopup()">×</button>
+  </div>
+  <!-- ADD MODE -->
+  <div id="ip-mode-add" class="active">
+    <div id="ip-sel-preview"></div>
+    <textarea id="ip-ta" placeholder="Type your note here…"></textarea>
+    <div id="ip-actions">
+      <button id="ip-save-btn" onclick="saveInlineNote()">Save Note</button>
+      <button id="ip-cancel-btn" onclick="closeInlinePopup()">Cancel</button>
+    </div>
+  </div>
+  <!-- VIEW MODE -->
+  <div id="ip-mode-view">
+    <div id="ip-view-ref"></div>
+    <div id="ip-view-text"></div>
+    <div id="ip-view-actions">
+      <button id="ip-edit-btn" onclick="editInlineNote()">✏ Edit</button>
+      <button id="ip-jump-btn" onclick="jumpToAnchor()">↗ Jump</button>
+      <button id="ip-delete-btn" onclick="deleteInlineNote()">🗑 Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles of Internal Medicine · Chapter 58</div>
+  <h1>Acidosis &amp; Alkalosis</h1>
+  <div class="hero-sub">Acid-Base Disturbances · Medical Boards Review Edition</div>
+  <div class="hero-authors">Thomas D. DuBose, Jr.</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">7.35–7.45</div><div class="stat-l">Normal arterial pH</div></div>
+    <div class="stat-box"><div class="stat-n">~40 mmHg</div><div class="stat-l">Steady-state PaCO₂</div></div>
+    <div class="stat-box"><div class="stat-n">6–12 mEq/L</div><div class="stat-l">Normal anion gap</div></div>
+    <div class="stat-box"><div class="stat-n">4</div><div class="stat-l">High-AG causes</div></div>
+    <div class="stat-box"><div class="stat-n">8</div><div class="stat-l">Steps to diagnosis</div></div>
+  </div>
+</header>
+
+<!-- STICKY NAV -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Homeostasis</a>
+    <a class="toc-a" href="#s2">Diagnosis</a>
+    <a class="toc-a" href="#s3">Anion Gap</a>
+    <a class="toc-a" href="#s4">Mixed Disorders</a>
+    <a class="toc-a" href="#s5">Metabolic Acidosis</a>
+    <a class="toc-a" href="#s6">High-AG Acidoses</a>
+    <a class="toc-a" href="#s7">Non-AG Acidosis</a>
+    <a class="toc-a" href="#s8">Metabolic Alkalosis</a>
+    <a class="toc-a" href="#s9">Respiratory Disorders</a>
+    <a class="toc-a" href="#s10">Quick Reference</a>
+    <a class="toc-a" href="#exam">⚠ Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- SECTION 1: NORMAL ACID-BASE HOMEOSTASIS -->
+<section class="sec" id="s1">
+  <div class="sec-hd"><span class="sec-n">01</span><h2>Normal Acid-Base Homeostasis</h2></div>
+
+  <div class="sub">
+    <h3>The Core System</h3>
+    <p>Systemic arterial pH is maintained between <strong>7.35 and 7.45</strong> by three integrated mechanisms working in concert:</p>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">Extracellular Buffering</div>
+        <p>Bicarbonate-carbonic acid system — the dominant buffer. Immediate response to acid/base loads.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Respiratory Control</div>
+        <p>CNS and respiratory system control arterial CO₂ tension (PaCO₂). Minutes to hours response time.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Renal Regulation</div>
+        <p>Kidneys control plasma [HCO₃⁻] by excreting or retaining acid or alkali. Hours to days.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Henderson-Hasselbalch Equation</h3>
+    <p>The fundamental equation describing pH when CO₂ solubility is considered (dissolved CO₂ = 0.03 × PaCO₂):</p>
+    <div class="formula">
+      <span class="var">pH</span> <span class="op">=</span> <span class="var">pK'</span> <span class="op">+</span> log<sub>10</sub> <span class="op">(</span><span class="var">[HCO₃⁻]</span> <span class="op">/</span> <span class="num">α<sub>CO₂</sub></span> <span class="op">×</span> <span class="var">PCO₂</span><span class="op">)</span>
+      <br><span style="color:#a6e3a1">pK' = 6.1 · α<sub>CO₂</sub> = 0.03 mmol/L/mmHg</span>
+    </div>
+    <div class="co key"><div class="co-t">🔑 Key Relationship</div>pH is determined by the <strong>ratio</strong> of [HCO₃⁻] to PaCO₂ — not by either value alone. Compensation works by adjusting the other variable to restore this ratio toward normal.</div>
+  </div>
+
+  <div class="sub">
+    <h3>CO₂ Regulation</h3>
+    <ul class="bl">
+      <li>Usual steady-state PaCO₂ maintained at <strong>~40 mmHg</strong> — production matched to excretion</li>
+      <li><strong>Hypercapnia</strong> = CO₂ underexcretion → usually due to <em>hypoventilation</em>, not increased production</li>
+      <li><strong>Hypocapnia</strong> = CO₂ overexcretion → due to hyperventilation</li>
+      <li>PaCO₂ is regulated primarily by <strong>neural respiratory factors</strong>, not by the rate of CO₂ production</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Compensatory Responses — The Golden Rules</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Disorder</th><th>Primary Change</th><th>Compensation Formula</th><th>pH / HCO₃⁻ / PaCO₂</th></tr></thead>
+        <tbody>
+          <tr><td>Metabolic Acidosis</td><td>↓ [HCO₃⁻]</td><td>PaCO₂ = (1.5 × HCO₃⁻) + 8 ± 2 <em>(Winter's)</em><br>Or: PaCO₂ ↓ 1.25 per mmol/L ↓ HCO₃⁻<br>Or: PaCO₂ = HCO₃⁻ + 15</td><td>Low / Low / Low</td></tr>
+          <tr><td>Metabolic Alkalosis</td><td>↑ [HCO₃⁻]</td><td>PaCO₂ ↑ 0.75 mmHg per mmol/L ↑ HCO₃⁻<br>Or: PaCO₂ ↑ 6 mmHg per 10 mmol/L ↑ HCO₃⁻<br>Or: PaCO₂ = HCO₃⁻ + 15</td><td>High / High / High</td></tr>
+          <tr><td>Respiratory Alkalosis — Acute</td><td>↓ PaCO₂</td><td>[HCO₃⁻] ↓ 0.2 mmol/L per mmHg ↓ PaCO₂</td><td>High / Low / Low</td></tr>
+          <tr><td>Respiratory Alkalosis — Chronic</td><td>↓ PaCO₂</td><td>[HCO₃⁻] ↓ 0.4 mmol/L per mmHg ↓ PaCO₂</td><td>High / Low / Low</td></tr>
+          <tr><td>Respiratory Acidosis — Acute</td><td>↑ PaCO₂</td><td>[HCO₃⁻] ↑ 0.1 mmol/L per mmHg ↑ PaCO₂</td><td>Low / High / High</td></tr>
+          <tr><td>Respiratory Acidosis — Chronic</td><td>↑ PaCO₂</td><td>[HCO₃⁻] ↑ 0.4 mmol/L per mmHg ↑ PaCO₂</td><td>Low / High / High</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co prl"><div class="co-t">💜 Board Pearl</div><strong>Chronic respiratory alkalosis is the ONLY acid-base disorder where compensation can fully return pH to normal</strong> — unlike all other disorders where compensation is partial.</div>
+    <div class="co wrn"><div class="co-t">⚠ Rule</div>Compensatory responses always move PaCO₂ and [HCO₃⁻] in the <strong>same direction</strong> as the primary change. If they move in <em>opposite directions</em> → mixed disorder.</div>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 2: DIAGNOSIS -->
+<section class="sec" id="s2">
+  <div class="sec-hd"><span class="sec-n">02</span><h2>Stepwise Diagnosis of Acid-Base Disorders</h2></div>
+
+  <div class="sub">
+    <h3>The 8-Step Approach</h3>
+    <ul class="ol">
+      <li><strong>Obtain ABG and venous electrolytes simultaneously</strong> — before therapy begins</li>
+      <li><strong>Verify HCO₃⁻</strong> — calculated HCO₃⁻ on ABG and measured on electrolyte panel should agree within ±2 mmol/L. If not → suspect lab error or non-simultaneous draws</li>
+      <li><strong>Assess anion gap</strong> — correct to albumin 4.5 g/dL; high AG if &gt;10 mEq/L</li>
+      <li><strong>Identify high-AG causes</strong> — ketoacidosis, lactic acidosis, advanced kidney disease, toxic alcohol ingestion</li>
+      <li><strong>Identify non-gap causes</strong> — GI bicarbonate loss, renal tubular acidosis</li>
+      <li><strong>Estimate predicted compensatory response</strong> — use formulas in Table 58-1</li>
+      <li><strong>Compare delta values</strong> — ΔAG vs ΔHCO₃⁻ (see below)</li>
+      <li><strong>Compare change in [Cl⁻] with change in [Na⁺]</strong> on the electrolyte panel</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>The Delta-Delta Ratio: Unmasking Hidden Disorders</h3>
+    <p>In high-AG acidosis, compare:</p>
+    <div class="formula">
+      <span class="var">ΔAG</span> <span class="op">=</span> Patient's AG <span class="op">−</span> <span class="num">10</span> (normal AG)
+      <br><span class="var">ΔHCO₃⁻</span> <span class="op">=</span> <span class="num">25</span> <span class="op">−</span> Patient's [HCO₃⁻]
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>ΔAG vs ΔHCO₃⁻</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td>ΔAG ≈ ΔHCO₃⁻</td><td>Pure high-AG metabolic acidosis</td></tr>
+          <tr><td>ΔAG &gt;&gt; ΔHCO₃⁻</td><td>High-AG acidosis + concurrent Metabolic Alkalosis (HCO₃⁻ inappropriately high)</td></tr>
+          <tr><td>ΔAG &lt;&lt; ΔHCO₃⁻</td><td>High-AG acidosis + concurrent Normal-AG (hyperchloremic) acidosis</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co dan"><div class="co-t">🚨 Classic Trap</div>Normal pH/HCO₃⁻/PaCO₂ does NOT exclude an acid-base disorder. Always check the AG. An elevated AG = metabolic acidosis regardless of normal pH (e.g., alcoholic with vomiting + ketoacidosis: pH 7.40, HCO₃⁻ 25, but AG = 30 → mixed met alkalosis + met acidosis).</div>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 3: ANION GAP -->
+<section class="sec" id="s3">
+  <div class="sec-hd"><span class="sec-n">03</span><h2>The Anion Gap</h2></div>
+
+  <div class="sub">
+    <h3>Calculation &amp; Normal Values</h3>
+    <div class="formula">
+      <span class="var">AG</span> <span class="op">=</span> <span class="var">[Na⁺]</span> <span class="op">−</span> <span class="op">(</span><span class="var">[Cl⁻]</span> <span class="op">+</span> <span class="var">[HCO₃⁻]</span><span class="op">)</span>
+      <br><span style="color:#a6e3a1">Note: K⁺ is typically omitted in US. Normal AG = 6–12 mmol/L; average ~10 mmol/L</span>
+    </div>
+    <p><strong>Normal unmeasured anions:</strong> anionic proteins (albumin), phosphate, sulfate, and organic anions.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Why the AG Changes</h3>
+    <div class="vs">
+      <div>
+        <div class="vsh b">AG Increases When</div>
+        <div class="vsb br">
+          <ul class="bl">
+            <li>↑ Unmeasured anions (ketoacids, lactate, phosphate)</li>
+            <li>↓ Unmeasured cations (Ca²⁺, Mg²⁺, K⁺)</li>
+            <li>↑ Anionic albumin (severe dehydration)</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="vsh r">AG Decreases When</div>
+        <div class="vsb">
+          <ul class="bl">
+            <li>↑ Unmeasured cations</li>
+            <li>Abnormal cations added: lithium, cationic immunoglobulins</li>
+            <li>↓ Albumin (nephrotic syndrome, liver disease, malabsorption)</li>
+            <li>Hyperviscosity / severe hyperlipidemia (underestimates Na⁺, Cl⁻)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Albumin Correction — Critical Step</h3>
+    <div class="formula">
+      <span style="color:#cba6f7">Corrected AG</span> <span class="op">=</span> Reported AG <span class="op">+</span> <span class="num">2.5</span> <span class="op">×</span> (4.5 <span class="op">−</span> Serum albumin g/dL)
+      <br><span style="color:#a6e3a1">Example: Albumin 2.5 g/dL, AG = 15 → Corrected AG = 15 + (2.5 × 2) = 20 mmol/L</span>
+    </div>
+    <div class="co dan"><div class="co-t">🚨 Critical Point</div>Clinical labs do NOT automatically correct the AG for hypoalbuminemia. You must do this manually. In critically ill patients (low albumin), a "normal" AG of 12 may actually represent a high AG acidosis.</div>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 4: MIXED DISORDERS -->
+<section class="sec" id="s4">
+  <div class="sec-hd"><span class="sec-n">04</span><h2>Mixed Acid-Base Disorders</h2></div>
+  <p>Mixed disorders are <strong>independently coexisting</strong> disorders, not compensatory responses. Common in critically ill patients and can cause dangerous extremes of pH.</p>
+
+  <div class="sub">
+    <h3>Recognizing a Mixed Disorder</h3>
+    <ul class="bl">
+      <li>PaCO₂ or [HCO₃⁻] moves in the <strong>opposite direction</strong> to what's expected = mixed disorder</li>
+      <li>Compensation that <em>overshoots</em> or <em>undershoots</em> predicted values = mixed disorder</li>
+      <li>ΔAG incongruent with ΔHCO₃⁻ = mixed disorder</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Classic Mixed Disorders with Examples</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Combination</th><th>Key Clue</th><th>Clinical Example</th><th>pH</th></tr></thead>
+        <tbody>
+          <tr><td>Met acidosis + Resp alkalosis</td><td>PaCO₂ below predicted for the acidosis</td><td>Lactic acidosis + sepsis in ICU<br><em>Na 140, Cl 106, HCO₃⁻ 14, AG 20, PaCO₂ 24, pH 7.39</em></td><td>↓–N</td></tr>
+          <tr><td>Met acidosis + Resp acidosis</td><td>PaCO₂ above predicted for the acidosis</td><td>Severe pneumonia or pulmonary edema<br><em>Na 140, Cl 102, HCO₃⁻ 18, AG 20, PaCO₂ 42, pH 7.25</em></td><td>↓↓</td></tr>
+          <tr><td>Met alkalosis + Resp alkalosis</td><td>PaCO₂ doesn't increase as predicted; pH higher than expected</td><td>End-stage liver disease + diuretics<br><em>Na 140, Cl 91, HCO₃⁻ 33, AG 16, PaCO₂ 38, pH 7.56</em></td><td>↑↑</td></tr>
+          <tr><td>Met alkalosis + Resp acidosis</td><td>PaCO₂ higher than predicted; pH normal with both abnormal</td><td>COPD + diuretics<br><em>Na 140, Cl 88, HCO₃⁻ 42, AG 10, PaCO₂ 67, pH 7.42</em></td><td>N</td></tr>
+          <tr><td>Met acidosis + Met alkalosis</td><td>Only detectable if high-AG; ΔAG (10) &gt;&gt; ΔHCO₃⁻ (0)</td><td>Uremia with vomiting<br><em>Na 140, Cl 95, HCO₃⁻ 25, AG 20, PaCO₂ 40, pH 7.42</em></td><td>N</td></tr>
+          <tr><td>High-AG + Normal-AG acidosis</td><td>ΔHCO₃⁻ accounted for by combined ΔAG and ΔCl⁻</td><td>Diarrhea + lactic acidosis<br><em>Na 135, Cl 110, HCO₃⁻ 10, AG 15, PaCO₂ 25, pH 7.20</em></td><td>↓↓</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co prl"><div class="co-t">💜 Triple Disorder Example</div>Alcoholic ketoacidosis (met acidosis) + vomiting (met alkalosis) + hepatic dysfunction (resp alkalosis) = triple acid-base disorder. Always decompose all components systematically.</div>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 5: METABOLIC ACIDOSIS OVERVIEW -->
+<section class="sec" id="s5">
+  <div class="sec-hd"><span class="sec-n">05</span><h2>Metabolic Acidosis — Overview &amp; Treatment</h2></div>
+
+  <div class="sub">
+    <h3>Mechanisms of Metabolic Acidosis</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-r">Endogenous Acid Production ↑</div>
+        <p>Lactate, ketoacids accumulate and overwhelm buffering capacity</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Bicarbonate Loss</div>
+        <p>GI loss (diarrhea) or renal loss (RTA) depletes HCO₃⁻ buffer</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Impaired Acid Excretion</div>
+        <p>Kidney failure → insufficient net acid excretion → acid accumulates</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Systemic Effects of Metabolic Acidosis</h3>
+    <ul class="bl">
+      <li><strong>Respiratory:</strong> Characteristic ↑ ventilation (Kussmaul breathing) — driven by ↓ pH stimulating medullary chemoreceptors</li>
+      <li><strong>Cardiac:</strong> Intrinsic contractility depressed; BUT inotropic function can be normal due to catecholamine release. Peripheral arterial vasodilation + central venoconstriction → ↓ pulmonary compliance → risk of pulmonary edema with even minimal volume overload</li>
+      <li><strong>CNS:</strong> Headache, lethargy, stupor, coma</li>
+      <li><strong>Metabolic:</strong> Glucose intolerance</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Two Major Categories</h3>
+    <div class="vs">
+      <div>
+        <div class="vsh b">High-AG Metabolic Acidosis</div>
+        <div class="vsb br">
+          <ul class="bl">
+            <li>Lactic acidosis</li>
+            <li>Ketoacidosis (DKA, AKA, starvation)</li>
+            <li>Kidney failure</li>
+            <li>Toxins: ethylene glycol, methanol, salicylates, propylene glycol, pyroglutamic acid</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="vsh r">Normal-AG (Hyperchloremic) Acidosis</div>
+        <div class="vsb">
+          <ul class="bl">
+            <li>GI: diarrhea, fistulas, bowel diversions</li>
+            <li>Renal: Proximal RTA (Type 2), Distal RTA (Type 1), Type 4 RTA</li>
+            <li>Drugs: acetazolamide, amphotericin B, topiramate</li>
+            <li>Expansion acidosis (rapid saline)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of Metabolic Acidosis</h3>
+    <div class="co wrn"><div class="co-t">⚠ General Principle</div>Alkali therapy should be reserved for <strong>severe acidemia</strong> EXCEPT when the patient has no "potential HCO₃⁻" in plasma (i.e., nonmetabolizable anions).</div>
+    <ul class="bl">
+      <li><strong>Potential HCO₃⁻</strong> = ΔAG (patient's AG − 10) — applies ONLY if the anion is metabolizable (β-hydroxybutyrate, acetoacetate, lactate). When the underlying cause resolves, these acids are converted back to HCO₃⁻</li>
+      <li><strong>Nonmetabolizable anions</strong> (advanced CKD, toxin ingestion) → no potential HCO₃⁻ → alkali therapy is needed</li>
+      <li>For uremic or hyperchloremic acidosis: NaHCO₃ tablets or Shohl's solution PO, or IV NaHCO₃ — titrate to target <strong>[HCO₃⁻] ≥ 22 mmol/L</strong></li>
+      <li><strong>Avoid overcorrection</strong> — can paradoxically worsen outcome</li>
+    </ul>
+    <div class="co dan"><div class="co-t">🚨 DKA-Specific Rule</div>Bicarbonate therapy in DKA is reserved for: <strong>pH &lt; 7.00</strong> AND/OR shock. If given: 50 mEq NaHCO₃ in 300 mL saline over 30–45 min. Goal: raise [HCO₃⁻] to 10–12 mmol/L and pH to ~7.20 — <em>NOT to normal</em>. Risk of cerebral edema. Regular insulin: 0.1 U/kg bolus → 0.1 U/kg/h until AG normalizes.</div>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 6: HIGH-AG ACIDOSES -->
+<section class="sec" id="s6">
+  <div class="sec-hd"><span class="sec-n">06</span><h2>High-Anion Gap Acidoses</h2></div>
+
+  <div class="sub">
+    <h3>The Four Principal Causes</h3>
+    <div class="tags">
+      <span class="tag t-r">1. Lactic Acidosis</span>
+      <span class="tag t-a">2. Ketoacidosis</span>
+      <span class="tag t-b">3. Ingested Toxins</span>
+      <span class="tag t-t">4. Kidney Failure</span>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Lactic Acidosis</h3>
+    <div class="vs">
+      <div>
+        <div class="vsh b">Type A — Poor Tissue Perfusion</div>
+        <div class="vsb br">
+          <ul class="bl">
+            <li>Shock (all types), cardiac failure</li>
+            <li>Severe anemia</li>
+            <li>Mitochondrial enzyme defects</li>
+            <li>CO, cyanide poisoning</li>
+            <li>Unrecognized bowel ischemia (elderly + vasopressors)</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="vsh r">Type B — Aerobic Disorders</div>
+        <div class="vsb">
+          <ul class="bl">
+            <li>Malignancies, seizures</li>
+            <li>Nucleoside analogue RTIs (HIV)</li>
+            <li>Diabetes mellitus, kidney/hepatic failure</li>
+            <li>Thiamine deficiency</li>
+            <li>Biguanides, ethanol, toxic alcohols</li>
+            <li>Severe infections (cholera, malaria)</li>
+            <li>Pyroglutamic acidemia (acetaminophen)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="clabel c-r">Treatment: L-Lactic Acid Acidosis</div>
+      <ul class="bl">
+        <li><strong>Primary goal:</strong> correct the underlying cause — restore tissue perfusion</li>
+        <li>Avoid vasoconstrictors if possible (may worsen perfusion)</li>
+        <li>Alkali therapy for acute severe acidemia (pH &lt; 7.00) to improve cardiovascular function</li>
+        <li><strong>NaHCO₃ paradox:</strong> may depress cardiac performance and exacerbate acidosis by stimulating phosphofructokinase → ↑ lactate production</li>
+        <li>Never attempt to normalize pH with NaHCO₃ — deleterious. Target: pH ≤ 7.2, [HCO₃⁻] ≤ 12 mmol/L</li>
+        <li>If cause resolves: lactate → HCO₃⁻ → risk of rebound alkalosis if NaHCO₃ was given excessively</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Diabetic Ketoacidosis (DKA)</h3>
+    <ul class="bl">
+      <li><strong>Cause:</strong> ↑ fatty acid metabolism → accumulation of acetoacetate + β-hydroxybutyrate</li>
+      <li>Triggers: insulin cessation, infection, gastroenteritis, pancreatitis, MI</li>
+      <li>Classic triad: <strong>hyperglycemia + ketonemia + high-AG acidosis</strong></li>
+      <li><strong>Euglycemic DKA (eDKA):</strong> SGLT2 inhibitors → glycosuria → osmotic diuresis → ↓ plasma glucose → normal glucose + ketosis + high-AG. The accumulation of ketoacids in plasma accounts for the increment in AG in both classical and euglycemic DKA.</li>
+      <li><strong>Dipstick limitation:</strong> nitroprusside reaction detects acetoacetate, NOT β-hydroxybutyrate → underestimates ketosis</li>
+      <li>Ketoacid excretion obligates Na⁺ + K⁺ loss → volume depletion + Cl⁻ retention → possible mixed high-AG/non-AG acidosis</li>
+    </ul>
+    <div class="co dan"><div class="co-t">🚨 Volume Overexpansion Warning</div>Aggressive saline administration during DKA treatment may cause overt volume overload and/or hyperchloremic acidosis. Volume overexpansion with isotonic saline should be avoided.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Alcoholic Ketoacidosis (AKA)</h3>
+    <ul class="bl">
+      <li>Setting: chronic alcoholism, binge drinking, vomiting, poor nutrition, volume depletion</li>
+      <li>Glucose: variable (may be normal, low, or high) — absence of hyperglycemia + high-AG = AKA clue</li>
+      <li>Predominantly β-hydroxybutyrate (not acetoacetate) → dipstick may be falsely low; measure plasma β-hydroxybutyrate specifically</li>
+      <li>As circulation restored → β-hydroxybutyrate shifts to acetoacetate → nitroprusside becomes positive (not worsening!)</li>
+      <li>Normal kidney function → excretes ketoacids + retains Cl⁻ → mixed high-AG/non-AG acidosis (ΔHCO₃⁻ exceeds ΔAG)</li>
+    </ul>
+    <div class="card">
+      <div class="clabel c-a">Treatment: AKA</div>
+      <ul class="bl">
+        <li>IV saline + glucose (5% dextrose in 0.9% NaCl) — replete ECFV</li>
+        <li>Monitor and correct: <strong>hypophosphatemia</strong> (emerges 12–24h; may cause hemolysis, rhabdomyolysis, respiratory arrest), hypokalemia, hypomagnesemia</li>
+        <li>Watch for: upper GI hemorrhage, pancreatitis, pneumonia</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Toxic Alcohols &amp; the Osmolar Gap</h3>
+    <div class="formula">
+      <span class="var">Plasma Osmolality (calc)</span> <span class="op">=</span> 2[Na⁺] <span class="op">+</span> [BUN]/2.8 <span class="op">+</span> [Glucose]/18
+      <br><span style="color:#a6e3a1">Osmolar Gap = Measured Sosm − Calculated Sosm | Normal: agrees within 10–15 mmol/kg H₂O</span>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Toxin</th><th>High-AG Acidosis?</th><th>Osmolar Gap?</th><th>Key Feature</th><th>Treatment</th></tr></thead>
+        <tbody>
+          <tr><td>Ethylene Glycol</td><td>Yes</td><td>Yes (early, then↓)</td><td>Oxalate crystals in urine; CNS/cardiac/renal damage; glycolate/oxalate metabolites</td><td>Fomepizole 15 mg/kg IV over 30 min → 10 mg/kg q12h × 4 doses; thiamine + pyridoxine; hemodialysis if pH &lt;7.3, AG elevated, osmolar gap &gt;20, or end-organ damage</td></tr>
+          <tr><td>Methanol</td><td>Yes</td><td>Yes</td><td>Optic nerve damage; formaldehyde + formic acid metabolites; low MW (32 Da)</td><td>Same as EG: fomepizole + supportive + hemodialysis</td></tr>
+          <tr><td>Isopropyl Alcohol</td><td>No</td><td>Yes</td><td>Parent compound toxic (NOT metabolites); acetone produced → excreted; hypoglycemia; no high-AG</td><td>Supportive; hemodialysis if level &gt;400 mg/dL or hemodynamic instability</td></tr>
+          <tr><td>Propylene Glycol</td><td>Yes</td><td>Yes</td><td>Vehicle for IV diazepam/lorazepam/phenobarbital; toxicity with continuous ICU infusions</td><td>Stop offending infusion; fomepizole in severe cases</td></tr>
+          <tr><td>Salicylates</td><td>Yes (partial)</td><td>No</td><td>Also causes respiratory alkalosis; ↑ lactic acid production</td><td>Gastric lavage + activated charcoal; IV NaHCO₃ → alkalinize urine to pH &gt;7.5 (↑ salicylate clearance 5×); hemodialysis if AKI</td></tr>
+          <tr><td>Pyroglutamic acid (5-oxoproline)</td><td>Yes</td><td>No</td><td>Acetaminophen overdose OR critically ill on standard acetaminophen → glutathione depletion</td><td>Discontinue acetaminophen; IV NaHCO₃; N-acetylcysteine (benefit not proven for this mechanism)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co prl"><div class="co-t">💜 Osmolar Gap Timing Pearl</div>In ethylene glycol/methanol intoxication: <strong>osmolar gap is elevated EARLY</strong> (parent compound present) but <strong>declines</strong> as the parent compound is metabolized to acids. As osmolar gap declines, the <strong>AG increases</strong>. Do NOT wait for lab confirmation before treating when clinical suspicion is high.</div>
+    <div class="co key"><div class="co-t">🔑 Fomepizole Mechanism</div>Fomepizole (4-methylpyrazole) and ethanol both compete with ethylene glycol/methanol for metabolism by <strong>alcohol dehydrogenase</strong>. Fomepizole is preferred: predictable decline in levels, no excessive obtundation. Continue until blood pH normal or osmolar gap &lt;10 mOsm/kg H₂O.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Chronic Kidney Disease</h3>
+    <ul class="bl">
+      <li>Moderate CKD (stage 3B): <strong>hyperchloremic (normal-AG) acidosis</strong></li>
+      <li>Advanced CKD (stages 4–5): converts to <strong>high-AG acidosis</strong> — poor filtration + reabsorption of organic anions</li>
+      <li>Characterized by ↓ NH₄⁺ production and excretion</li>
+      <li>Despite retaining up to 20 mmol/d of acid, serum [HCO₃⁻] doesn't typically decrease further → bone buffers take up the excess (bone calcium carbonate) → significant bone loss</li>
+      <li>Recent evidence: high-AG acidosis of CKD itself contributes to progressive loss of kidney function</li>
+    </ul>
+    <div class="card">
+      <div class="clabel c-t">Treatment: CKD Metabolic Acidosis</div>
+      <ul class="bl">
+        <li>Target serum [HCO₃⁻] &gt; 22–24 mmol/L</li>
+        <li>NaHCO₃ tablets (650-mg tablet = 7.8 mEq) or Shohl's solution</li>
+        <li>Relatively modest doses: 1.0–1.5 mmol/kg body weight/day</li>
+        <li>Fruits and vegetables (citrate) safely ↑ plasma [HCO₃⁻] and slow CKD progression</li>
+        <li>Benefits: slows CKD progression, reduces muscle catabolism, improves bone disease</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 7: NON-AG ACIDOSIS / RTAs -->
+<section class="sec" id="s7">
+  <div class="sec-hd"><span class="sec-n">07</span><h2>Non–Anion Gap Metabolic Acidoses &amp; RTAs</h2></div>
+  <p>In non-AG acidosis, reciprocal changes in [Cl⁻] and [HCO₃⁻] maintain a normal AG. The increase in [Cl⁻] approximates the decrease in [HCO₃⁻].</p>
+
+  <div class="sub">
+    <h3>Causes — The Comprehensive List</h3>
+    <div class="g2">
+      <div>
+        <h4 style="color:var(--blu)">I. Gastrointestinal Bicarbonate Loss</h4>
+        <ul class="bl">
+          <li><b>Diarrhea</b> — most common; stool [HCO₃⁻] higher than plasma → metabolic acidosis develops</li>
+          <li>External pancreatic or small-bowel drainage/fistula</li>
+          <li>Urinary diversion: ureterosigmoidostomy, jejunal loop, ileal loop</li>
+          <li>Drugs: calcium chloride (acidifying agent), magnesium sulfate (diarrhea), cholestyramine</li>
+        </ul>
+        <div class="co key"><div class="co-t">🔑 Diarrhea Urine pH Clue</div>Despite systemic acidosis, urine pH is usually <strong>&gt;6</strong> in diarrhea because acidosis + hypokalemia ↑ renal NH₄⁺ synthesis → urine buffer ↑ → alkaline urine. This distinguishes diarrhea from RTA.</div>
+      </div>
+      <div>
+        <h4 style="color:var(--blu)">II. Renal Tubular Acidoses</h4>
+        <ul class="bl">
+          <li><b>Type 1 (Distal RTA):</b> hypokalemia, urine pH &gt;5.5, ↓ NH₄⁺, nephrolithiasis/nephrocalcinosis</li>
+          <li><b>Type 2 (Proximal RTA):</b> Fanconi syndrome, urine pH variable</li>
+          <li><b>Type 4 RTA:</b> hyperkalemia, hyporeninemic hypoaldosteronism</li>
+        </ul>
+        <h4 style="color:var(--blu)">III–IV. Drug-Induced &amp; Other</h4>
+        <ul class="bl">
+          <li>K⁺-sparing diuretics, trimethoprim, pentamidine, ACE-I/ARBs, NSAIDs, calcineurin inhibitors, heparin</li>
+          <li>Expansion acidosis (rapid saline), ammonium chloride, loss of potential bicarbonate (ketone excretion)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Urine Anion Gap — Estimating NH₄⁺ Excretion</h3>
+    <div class="formula">
+      <span class="var">UAG</span> <span class="op">=</span> [Na⁺]<sub>u</sub> <span class="op">+</span> [K⁺]<sub>u</sub> <span class="op">−</span> [Cl⁻]<sub>u</sub>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>UAG Result</th><th>Urine NH₄⁺</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Negative</strong> ([Cl⁻]u &gt; [Na⁺+K⁺]u)</td><td>Appropriately ↑</td><td>Extrarenal cause (diarrhea) — kidneys responding correctly</td></tr>
+          <tr><td><strong>Positive</strong> ([Na⁺+K⁺]u &gt; [Cl⁻]u)</td><td>Low</td><td>Renal tubular origin (RTA) — kidney failing to excrete acid</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co wrn"><div class="co-t">⚠ Limitation</div>Recent studies show poor correlation between UAG and measured urine ammonium. Clinical labs should measure urine NH₄⁺ directly using enzymatic method on 1:200 diluted urine sample.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Renal Tubular Acidosis — Detailed Comparison</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Feature</th><th>Type 1 (Distal)</th><th>Type 2 (Proximal)</th><th>Type 4</th></tr></thead>
+        <tbody>
+          <tr><td>K⁺</td><td>↓ (hypokalemia)</td><td>↓ (hypokalemia)</td><td>↑ (hyperkalemia)</td></tr>
+          <tr><td>Urine pH</td><td>&gt;5.5 (inappropriately high)</td><td>Variable: &lt;5.5 when [HCO₃⁻] low; &gt;5.5 with alkali Rx</td><td>Variable</td></tr>
+          <tr><td>UAG</td><td>Positive (low NH₄⁺)</td><td>Positive (low NH₄⁺)</td><td>Positive (low NH₄⁺)</td></tr>
+          <tr><td>FE HCO₃⁻</td><td>&lt;5%</td><td>&gt;10–15% when [HCO₃⁻] &gt;20 mmol/L</td><td>Low</td></tr>
+          <tr><td>Nephrolithiasis</td><td>Common (hypocitraturia + hypercalciuria)</td><td>Rare</td><td>Rare</td></tr>
+          <tr><td>Cause</td><td>Amphotericin B, ifosfamide; inherited (ATP6V1B1)</td><td>Acetazolamide, topiramate; Fanconi (inherited SLCA4, NHE3)</td><td>Hypoaldosteronism, diabetic nephropathy, tubulointerstitial disease</td></tr>
+          <tr><td>Treatment</td><td>NaHCO₃ or sodium citrate; target [HCO₃⁻] 24–26 mEq/L</td><td>Challenging — alkali increases urinary HCO₃⁻ and K⁺ loss; potassium citrate (Polycitra K) needed</td><td>Correct acidosis + correct K⁺; patiromer for hyperkalemia; fludrocortisone if isolated hypoaldosteronism</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Hyporeninemic Hypoaldosteronism</h3>
+    <ul class="bl">
+      <li>Classic patient: <strong>older adult + diabetes mellitus + CKD stage 3–4</strong></li>
+      <li>Presents with: non-AG metabolic acidosis, hyperkalemia ([K⁺] 5.2–6.0 mmol/L), hypertension, CHF</li>
+      <li>Both acidosis and hyperkalemia are OUT OF PROPORTION to reduction in GFR</li>
+      <li>NSAIDs, trimethoprim, pentamidine, ACE-I/ARBs, calcineurin inhibitors, heparin can all precipitate/worsen</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of Non-AG Acidoses</h3>
+    <ul class="bl">
+      <li><strong>GI losses:</strong> NaHCO₃ IV or PO based on severity; calcium citrate preferred over carbonate when intestinal disease present (better absorbed; ↑ urinary citrate → ↓ oxalate nephrolithiasis risk)</li>
+      <li><strong>Type 1 RTA:</strong> sodium citrate or NaHCO₃ tablets; correct hypokalemia first; long-term benefits = fewer kidney stones, better bone density, normal growth in children</li>
+      <li><strong>Type 2 RTA:</strong> potassium citrate essential (Polycitra K / Cytra-K); most challenging to treat</li>
+      <li><strong>Type 4 RTA:</strong> correct acidosis + K⁺; patiromer (8.4 g packets PO BID, max 25.2 g/d) preferred over sodium polystyrene sulfonate; low-K⁺ diet; fludrocortisone cautiously (risk of volume/HTN aggravation)</li>
+    </ul>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 8: METABOLIC ALKALOSIS -->
+<section class="sec" id="s8">
+  <div class="sec-hd"><span class="sec-n">08</span><h2>Metabolic Alkalosis</h2></div>
+
+  <div class="sub">
+    <h3>Definition &amp; Characteristics</h3>
+    <ul class="bl">
+      <li>Established by: elevated arterial pH + ↑ serum [HCO₃⁻] + ↑ PaCO₂ (compensatory alveolar hypoventilation)</li>
+      <li>Often accompanied by <strong>hypochloremia and hypokalemia</strong></li>
+      <li>Elevated pH distinguishes it from respiratory acidosis (which also has elevated PaCO₂ but low pH)</li>
+    </ul>
+    <div class="co key"><div class="co-t">🔑 Generation vs. Maintenance</div><strong>Generation stage:</strong> initial loss of acid (e.g., vomiting → HCl loss → HCO₃⁻ retained). <strong>Maintenance stage:</strong> kidneys FAIL to excrete the excess HCO₃⁻. Without maintenance factors, kidneys would normalize HCO₃⁻ within hours.</div>
+  </div>
+
+  <div class="sub">
+    <h3>Maintenance Factors — Why Kidneys Cannot Correct It</h3>
+    <div class="vs">
+      <div>
+        <div class="vsh b">Saline-Responsive (Urine [Cl⁻] &lt; 20 mEq/L)</div>
+        <div class="vsb br">
+          <p>Volume + chloride + K⁺ deficiency + ↓ GFR</p>
+          <ul class="bl">
+            <li>Vomiting/gastric suction</li>
+            <li>Diuretic use (thiazides, loops)</li>
+            <li>Posthypercapnic state</li>
+            <li>Recovery from lactic/ketoacidosis</li>
+            <li>Mg²⁺ deficiency</li>
+          </ul>
+          <p><em>Corrected by:</em> IV NaCl + KCl</p>
+        </div>
+      </div>
+      <div>
+        <div class="vsh r">Saline-Unresponsive (Urine [Cl⁻] &gt; 20 mEq/L)</div>
+        <div class="vsb">
+          <p>Hypokalemia from autonomous hyperaldosteronism</p>
+          <ul class="bl">
+            <li>Primary aldosteronism (adenoma, hyperplasia)</li>
+            <li>Renal artery stenosis, renin-secreting tumor</li>
+            <li>Cushing's syndrome</li>
+            <li>Bartter's/Gitelman's syndrome</li>
+            <li>Liddle's syndrome (ENaC gain-of-function)</li>
+            <li>Licorice, carbenoxolone, chewer's tobacco</li>
+          </ul>
+          <p><em>Requires:</em> pharmacologic or surgical correction</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Gastrointestinal Origin — Mechanism</h3>
+    <ul class="bl">
+      <li>Vomiting/NG suction → loss of HCl from stomach → HCO₃⁻ added to ECF (can't be neutralized without gastric HCl)</li>
+      <li>During active vomiting: filtered bicarbonate exceeds proximal tubule reabsorptive capacity → alkaline urine + K⁺ secretion stimulated</li>
+      <li>After vomiting stops: volume + K⁺ + Cl⁻ depletion → ↑ HCO₃⁻ reabsorption → maintenance of alkalosis</li>
+      <li>Fix: correct ECFV with NaCl + repair K⁺ deficit with KCl</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Diuretic-Induced Alkalosis</h3>
+    <ul class="bl">
+      <li>Thiazides and loop diuretics ↑ salt excretion → ↓ ECFV without altering total body bicarbonate → [HCO₃⁻] "concentrates" = <strong>contraction alkalosis</strong></li>
+      <li>Maintained by: contraction of ECFV, secondary hyperaldosteronism, K⁺ deficiency, direct diuretic effect</li>
+      <li>Chronic administration: ↑ distal Na⁺ delivery → ↑ H⁺ + K⁺ secretion</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Posthypercapnia Alkalosis</h3>
+    <ul class="bl">
+      <li>Chronic CO₂ retention → renal ↑ HCO₃⁻ absorption + new HCO₃⁻ generation (↑ net acid excretion)</li>
+      <li>When PaCO₂ is rapidly corrected → HCO₃⁻ absorption persists due to residual stimulation → metabolic alkalosis</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Rebound Alkalosis After Acidosis Treatment</h3>
+    <ul class="bl">
+      <li>When lactic acid/ketoacid stimulus is corrected (shock resolved, insulin given for DKA) → lactate/ketones metabolized → converted to HCO₃⁻ equivalent</li>
+      <li>If exogenous NaHCO₃ was given → additive → <strong>rebound alkalosis</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Mineralocorticoid Excess Alkalosis</h3>
+    <ul class="bl">
+      <li>Aldosterone upregulates ENaC in collecting tubule → Na⁺ retention + kaliuresis</li>
+      <li>↑ transepithelial voltage → ↑ H⁺ + K⁺ secretion → metabolic alkalosis + hypokalemia</li>
+      <li><strong>Liddle's syndrome:</strong> gain-of-function mutation of ENaC genes → volume expansion → hypertension + hypokalemia + alkalosis; treat with amiloride or triamterene (NOT aldosterone antagonists)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Symptoms of Metabolic Alkalosis</h3>
+    <ul class="bl">
+      <li>CNS changes similar to hypocalcemia: mental confusion, obtundation</li>
+      <li>Predisposition to seizures, paresthesias, muscular cramping, tetany</li>
+      <li>Aggravation of cardiac arrhythmias</li>
+      <li>Hypoxemia in COPD</li>
+      <li>Related electrolyte abnormalities: hypokalemia, hypophosphatemia</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Differential Diagnosis by Urine [Cl⁻]</h3>
+    <div class="flow">
+      <div class="flow-step">Metabolic Alkalosis Confirmed (pH↑, HCO₃⁻↑, PaCO₂↑)</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step decision">Measure Urine [Cl⁻]</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-branch">
+        <div class="flow-branch-item">
+          <div class="flow-label">Low (&lt;20 mEq/L)</div>
+          <div class="flow-step action">Saline-Responsive<br>Vomiting, NG suction, prior diuretics, posthypercapnic, recovery from acidosis</div>
+        </div>
+        <div class="flow-branch-item">
+          <div class="flow-label">High (&gt;20 mEq/L)</div>
+          <div class="flow-step danger">Saline-Unresponsive<br>Check BP: High → mineralocorticoid excess<br>Normal → Bartter's/Gitelman's, Mg²⁺ deficiency, active diuretics</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of Metabolic Alkalosis</h3>
+    <ul class="bl">
+      <li><strong>Goal 1:</strong> Correct underlying stimulus for HCO₃⁻ generation (stop vomiting, treat aldosteronism)</li>
+      <li><strong>Goal 2:</strong> Eliminate maintenance factors — K⁺ deficits, ECFV contraction</li>
+      <li><strong>Saline-responsive:</strong> Isotonic saline + KCl</li>
+      <li><strong>Cannot give saline (CHF):</strong> Acetazolamide 125–250 mg IV — carbonic anhydrase inhibitor → forces HCO₃⁻ excretion. Monitor closely: triggers urinary K⁺ losses → hypokalemia</li>
+      <li><strong>Extreme cases:</strong> Dilute HCl IV (0.1 N HCl) — causes hemolysis, must be central vein, slow; not advised due to harm risk</li>
+      <li><strong>Primary aldosteronism/Cushing's:</strong> Treat the underlying cause</li>
+      <li><strong>Liddle's:</strong> Amiloride or triamterene (ENaC blockers) — NOT spironolactone</li>
+      <li><strong>All cases:</strong> Always repair K⁺ deficits</li>
+    </ul>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 9: RESPIRATORY DISORDERS -->
+<section class="sec" id="s9">
+  <div class="sec-hd"><span class="sec-n">09</span><h2>Respiratory Acid-Base Disorders</h2></div>
+
+  <div class="sub">
+    <h3>Respiratory Acidosis</h3>
+    <ul class="bl">
+      <li>Elevated PaCO₂ + reduced pH from: severe pulmonary disease, respiratory muscle fatigue, or abnormal ventilatory control</li>
+      <li><strong>Acute:</strong> HCO₃⁻ ↑ 1 mmol/L per 10 mmHg ↑ PaCO₂ (cellular buffering)</li>
+      <li><strong>Chronic (&gt;24h):</strong> HCO₃⁻ ↑ 4 mmol/L per 10 mmHg ↑ PaCO₂ (renal adaptation)</li>
+      <li>Serum HCO₃⁻ does NOT exceed 38 mmol/L in pure respiratory acidosis</li>
+    </ul>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Acute Hypercapnia Symptoms</div>
+        <ul class="bl">
+          <li>Anxiety, dyspnea, confusion, psychosis, hallucinations → coma</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Chronic Hypercapnia Symptoms</div>
+        <ul class="bl">
+          <li>Sleep disorders, daytime somnolence, memory loss, personality changes, tremor, myoclonic jerks, asterixis, papilledema</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sub">
+      <h4>Causes of Respiratory Acidosis</h4>
+      <ul class="bl">
+        <li><strong>Central:</strong> Drugs (anesthetics, morphine, sedatives), stroke, infection</li>
+        <li><strong>Airway:</strong> Obstruction, asthma</li>
+        <li><strong>Parenchyma:</strong> Emphysema, pneumoconiosis, bronchitis, ARDS, barotrauma</li>
+        <li><strong>Neuromuscular:</strong> Poliomyelitis, kyphoscoliosis, myasthenia, muscular dystrophies</li>
+        <li><strong>Miscellaneous:</strong> Obesity, hypoventilation, permissive hypercapnia</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-r">Treatment: Respiratory Acidosis</div>
+      <ul class="bl">
+        <li>Acute: life-threatening → reverse underlying cause simultaneously with restoring alveolar ventilation (may need intubation + mechanical ventilation)</li>
+        <li><strong>Oxygen cautiously in COPD</strong> — injudicious O₂ → worsening respiratory acidosis → severe acidemia</li>
+        <li>Avoid aggressive/rapid hypercapnia correction → same complications as acute respiratory alkalosis (arrhythmias, ↓ cerebral perfusion, seizures)</li>
+        <li>In chronic respiratory acidosis: lower PaCO₂ <em>gradually</em> to baseline; provide Cl⁻ and K⁺ to enhance renal HCO₃⁻ excretion</li>
+        <li>Permissive hypercapnia in ARDS: NaHCO₃ to raise arterial pH to ~7.20 only; do not normalize</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Respiratory Alkalosis</h3>
+    <ul class="bl">
+      <li>Alveolar hyperventilation → ↓ PaCO₂ → ↑ HCO₃⁻/PaCO₂ ratio → ↑ pH</li>
+      <li>Hypocapnia develops when ventilatory stimulus causes CO₂ output to exceed metabolic production</li>
+      <li><strong>Acute:</strong> HCO₃⁻ ↓ 0.2 mmol/L per mmHg ↓ PaCO₂</li>
+      <li><strong>Chronic:</strong> HCO₃⁻ ↓ 0.4–0.5 mmol/L per mmHg ↓ PaCO₂; full renal adaptation takes days</li>
+      <li>Plasma HCO₃⁻ rarely below <strong>12 mmol/L</strong> from pure respiratory alkalosis</li>
+      <li><strong>Chronic respiratory alkalosis is the ONLY disorder where compensation can return pH to normal</strong></li>
+    </ul>
+    <div class="sub">
+      <h4>Causes of Respiratory Alkalosis</h4>
+      <div class="g2">
+        <div>
+          <ul class="bl">
+            <li><strong>CNS stimulation:</strong> pain, anxiety, fever, CVA, meningitis/encephalitis, tumor, trauma</li>
+            <li><strong>Hypoxemia/tissue hypoxia:</strong> high altitude, pneumonia, pulmonary edema, aspiration, severe anemia</li>
+            <li><strong>Drugs/hormones:</strong> salicylates (direct medullary chemoreceptor stimulation), pregnancy/progesterone (↓ PaCO₂ by 5–10 mmHg), theophylline, aminophylline</li>
+          </ul>
+        </div>
+        <div>
+          <ul class="bl">
+            <li><strong>Chest receptors:</strong> hemothorax, flail chest, cardiac failure, pulmonary embolism</li>
+            <li><strong>Miscellaneous:</strong> septicemia (early — before fever/hypoxemia/hypotension), hepatic failure (severity correlates with hepatic insufficiency), mechanical hyperventilation, heat exposure, recovery from metabolic acidosis</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="sub">
+      <h4>Effects of Respiratory Alkalosis</h4>
+      <ul class="bl">
+        <li>↓ Cerebral blood flow → dizziness, mental confusion, seizures (even without hypoxemia)</li>
+        <li>Minimal cardiovascular effects in conscious humans; BUT in anesthetized/ventilated patients: ↓ cardiac output + ↓ blood pressure</li>
+        <li>Cardiac arrhythmias in heart disease</li>
+        <li>Left shift of Hgb-O₂ dissociation curve (Bohr effect)</li>
+        <li>Acute: intracellular shifts of Na⁺, K⁺, PO₄²⁻; ↓ free [Ca²⁺] by ↑ protein-bound fraction</li>
+        <li><strong>Chronic respiratory alkalosis:</strong> most common acid-base disturbance in critically ill patients; when severe, <em>portends poor prognosis</em></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-b">Treatment: Respiratory Alkalosis</div>
+      <ul class="bl">
+        <li>Direct treatment toward alleviation of the underlying disorder</li>
+        <li>Ventilator-related: adjust dead space + tidal volume to minimize hypocapnia</li>
+        <li>Hyperventilation syndrome: reassurance, rebreathing from paper bag, address psychological stress. NO antidepressants or sedatives. β-blockers may help peripheral hyperadrenergic manifestations</li>
+        <li>Diagnosis of hyperventilation syndrome is by exclusion — rule out PE, CAD, hyperthyroidism</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- SECTION 10: QUICK REFERENCE -->
+<section class="sec" id="s10">
+  <div class="sec-hd"><span class="sec-n">10</span><h2>Quick-Reference Master Table</h2></div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Parameter</th><th>Value / Threshold</th><th>Clinical Use</th></tr></thead>
+      <tbody>
+        <tr><td>Normal arterial pH</td><td>7.35–7.45</td><td>Outside this = acidemia or alkalemia</td></tr>
+        <tr><td>Normal PaCO₂</td><td>~40 mmHg</td><td>Benchmark for respiratory compensation</td></tr>
+        <tr><td>Normal [HCO₃⁻]</td><td>~25 mmol/L (use 25 for ΔHCO₃⁻)</td><td>Baseline for delta calculations</td></tr>
+        <tr><td>Normal anion gap</td><td>6–12 mmol/L (avg ~10)</td><td>High AG if &gt;10 mEq/L</td></tr>
+        <tr><td>AG albumin correction</td><td>+2.5 mmol/L per g/dL below 4.5 g/dL</td><td>Essential in hypoalbuminemia</td></tr>
+        <tr><td>Winter's equation</td><td>PaCO₂ = (1.5 × HCO₃⁻) + 8 ± 2</td><td>Expected compensation for met acidosis</td></tr>
+        <tr><td>Met alkalosis compensation</td><td>PaCO₂ ↑ 0.75 mmHg / mmol/L ↑ HCO₃⁻</td><td>Or PaCO₂ = HCO₃⁻ + 15</td></tr>
+        <tr><td>Resp acidosis acute</td><td>[HCO₃⁻] ↑ 1 mmol/L per 10 mmHg ↑ PaCO₂</td><td>Max HCO₃⁻ = 38 mmol/L in resp acidosis</td></tr>
+        <tr><td>Resp acidosis chronic</td><td>[HCO₃⁻] ↑ 4 mmol/L per 10 mmHg ↑ PaCO₂</td><td>Renal adaptation &gt;24h</td></tr>
+        <tr><td>Resp alkalosis acute</td><td>[HCO₃⁻] ↓ 0.2 mmol/L per mmHg ↓ PaCO₂</td><td>Cellular buffer response</td></tr>
+        <tr><td>Resp alkalosis chronic</td><td>[HCO₃⁻] ↓ 0.4 mmol/L per mmHg ↓ PaCO₂</td><td>Min HCO₃⁻ = 12 mmol/L in pure resp alk</td></tr>
+        <tr><td>Osmolar gap normal</td><td>&lt;10–15 mmol/kg H₂O</td><td>If elevated → unmeasured osmolyte</td></tr>
+        <tr><td>DKA bicarbonate threshold</td><td>pH &lt; 7.00 AND/OR shock</td><td>Only give NaHCO₃ in DKA</td></tr>
+        <tr><td>DKA bicarbonate dose</td><td>50 mEq NaHCO₃ in 300 mL NS over 30–45 min</td><td>Target HCO₃⁻ 10–12, pH ~7.20</td></tr>
+        <tr><td>DKA insulin protocol</td><td>0.1 U/kg bolus → 0.1 U/kg/h until AG normalizes</td><td>Do NOT bolus NaHCO₃</td></tr>
+        <tr><td>Lactic acidosis alkali threshold</td><td>pH &lt; 7.00</td><td>Target pH ≤ 7.20, HCO₃⁻ ≤ 12</td></tr>
+        <tr><td>Fomepizole loading dose</td><td>15 mg/kg IV over 30 min</td><td>Then 10 mg/kg q12h × 4 doses</td></tr>
+        <tr><td>Fomepizole stop criterion</td><td>Blood pH normal OR osmolar gap &lt;10 mOsm/kg H₂O</td><td>EG/methanol intoxication</td></tr>
+        <tr><td>Hemodialysis in EG/methanol</td><td>pH &lt;7.3, or osmolar gap &gt;20, or end-organ damage</td><td>Do not delay for lab levels</td></tr>
+        <tr><td>Isopropyl alcohol hemodialysis</td><td>Level &gt;400 mg/dL or hemodynamic instability</td><td>No high-AG acidosis in isopropanol</td></tr>
+        <tr><td>Salicylate urine alkalinization</td><td>Target urine pH &gt;7.5</td><td>pH 6.5→7.5 = 5× ↑ salicylate clearance</td></tr>
+        <tr><td>CKD alkali target</td><td>[HCO₃⁻] &gt; 22–24 mmol/L</td><td>1.0–1.5 mmol/kg/day NaHCO₃</td></tr>
+        <tr><td>NaHCO₃ tablet</td><td>650 mg = 7.8 mEq</td><td>Shohl's solution or NaHCO₃ tablets</td></tr>
+        <tr><td>Type 1 RTA HCO₃⁻ target</td><td>24–26 mEq/L</td><td>Sodium citrate or NaHCO₃ tablets</td></tr>
+        <tr><td>Patiromer (type 4 RTA)</td><td>8.4 g PO BID; max 25.2 g/d</td><td>Dose adjust weekly based on K⁺</td></tr>
+        <tr><td>Acetazolamide for met alkalosis</td><td>125–250 mg IV</td><td>Watch for hypokalemia</td></tr>
+        <tr><td>Bartter's vs Gitelman's</td><td>Gitelman's = hypocalciuria</td><td>Key distinguishing feature</td></tr>
+        <tr><td>Respiratory alkalosis in pregnancy</td><td>PaCO₂ may be 5–10 mmHg below normal</td><td>Progesterone effect</td></tr>
+        <tr><td>Urine pH in diarrhea</td><td>&gt;6 despite systemic acidosis</td><td>Due to ↑ NH₄⁺ synthesis; distinguishes from RTA</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+<hr class="sep">
+
+<!-- EXAM TRAPS -->
+<section class="sec" id="exam">
+  <div class="sec-hd"><span class="sec-n">★</span><h2>Exam Traps</h2></div>
+  <p>Expert Internal Medicine Boards coaching — Stage A. Each trap shows exactly how the question is framed, the seductive wrong answer, and the correct reasoning.</p>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">Normal pH Does Not Mean No Acid-Base Disorder</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 48-year-old alcoholic with chronic vomiting is admitted. Labs: Na 135, Cl 80, K 2.8, HCO₃⁻ 25, pH 7.40, PaCO₂ 40. He then develops alcoholic ketoacidosis with β-hydroxybutyrate of 15 mmol/L. Repeat ABG: pH 7.40, HCO₃⁻ 25, PaCO₂ 40. <em>Which acid-base disorder is present?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Mixed metabolic alkalosis + high-AG metabolic acidosis.</strong><br>The AG is 30 (135 − 80 − 25), well above normal of 10. ΔAG = 20, but ΔHCO₃⁻ = 0 (25 − 25). The 20 mmol/L unaccounted by ΔHCo₃⁻ reveals the hidden concurrent metabolic alkalosis (from prior vomiting).</div>
+      <div class="trap-why">⚠ Trap: Most students see normal pH/HCO₃⁻/PaCO₂ and say "no disorder." The key is to <strong>always check the anion gap</strong> — it reveals acid-base disorders invisible to pH/HCO₃⁻. Board keyword: <em>"normal pH + elevated AG"</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Winter's Equation: Is the Compensation Appropriate?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 22-year-old with type 1 DM presents with nausea/vomiting. ABG: pH 7.25, HCO₃⁻ 12, PaCO₂ 42. <em>Which mixed disorder is present?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Metabolic acidosis + respiratory acidosis (mixed).</strong><br>Winter's equation: expected PaCO₂ = (1.5 × 12) + 8 ± 2 = 26 ± 2 = 24–28 mmHg. Actual PaCO₂ is 42 — far above the expected upper limit of 28. This means respiratory compensation is inadequate → a superimposed respiratory acidosis (e.g., pneumonia, aspiration).</div>
+      <div class="trap-why">⚠ Trap: Students apply Winter's and stop there. The critical step is <em>comparing the actual PaCO₂ to the predicted range</em>. PaCO₂ &gt;28 with HCO₃⁻ 12 = mixed disorder. Board keyword: <em>"PaCO₂ above predicted upper boundary"</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Albumin Correction — Hidden High-AG Acidosis in ICU</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A septic 65-year-old in the ICU has: Na 140, Cl 105, HCO₃⁻ 21, albumin 2.0 g/dL, AG reported as 14. <em>What is the correct interpretation?</em></div>
+      <div class="trap-a"><strong>Correct Answer: High-AG metabolic acidosis is present.</strong><br>Corrected AG = 14 + 2.5 × (4.5 − 2.0) = 14 + 6.25 = 20.25 mmol/L. This is clearly elevated above the normal of 10, revealing a high-AG acidosis masked by the low albumin.</div>
+      <div class="trap-why">⚠ Trap: Labs report the uncorrected AG. Students see AG = 14 and call it normal. In any critically ill or malnourished patient, <strong>always correct the AG for albumin</strong>. Board keyword: <em>"albumin correction in hypoalbuminemia"</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Osmolar Gap — Act Before the Lab Comes Back</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 35-year-old is found confused with antifreeze containers nearby. ABG: pH 7.15, AG 28. Measured osmolality = 340, calculated = 308 (osmolar gap = 32). Ethylene glycol level is pending. <em>What is the most important next step?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Initiate fomepizole immediately — do NOT wait for ethylene glycol level.</strong><br>The combination of high AG + elevated osmolar gap in a patient with suspected EG ingestion is sufficient evidence for EG toxicity. Early treatment with fomepizole prevents metabolism of EG to the toxic metabolites glycolate and oxalate.</div>
+      <div class="trap-why">⚠ Trap: Waiting for EG levels costs precious time. Osmolar gap is elevated early when EG is still in the bloodstream — as it is metabolized, the osmolar gap falls and the AG rises. Delay = irreversible renal/CNS/cardiac damage. Board keyword: <em>"high AG + high osmolar gap = treat empirically"</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Isopropyl Alcohol: Osmolar Gap WITHOUT High-AG Acidosis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 28-year-old is brought to the ED after ingesting rubbing alcohol. Labs: pH 7.38, AG 10, osmolar gap = 45, blood glucose 60 mg/dL, ketones positive in serum. <em>What is the most likely ingestion?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Isopropyl alcohol (NOT ethylene glycol or methanol).</strong><br>Isopropyl alcohol is metabolized to acetone — which does NOT contribute to high-AG acidosis (acetone is rapidly excreted). The osmolar gap is elevated (from both isopropyl + acetone), but AG is normal. Hypoglycemia is common. The presence of ketones without acidosis is the classic pattern.</div>
+      <div class="trap-why">⚠ Trap: Students see osmolar gap + ketones and immediately think ethylene glycol or methanol. The key distinguisher is the <strong>absence of high-AG acidosis</strong> in isopropanol. Board keyword: <em>"elevated osmolar gap + normal AG + ketones = isopropanol"</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">NaHCO₃ in Lactic Acidosis — When It Makes Things Worse</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 55-year-old with septic shock has pH 6.95, HCO₃⁻ 8, lactic acid 12 mmol/L. A colleague proposes aggressive NaHCO₃ to normalize the pH and HCO₃⁻. <em>Why is this inappropriate?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Attempts to normalize pH with NaHCO₃ are deleterious in lactic acidosis.</strong><br>NaHCO₃ can: (1) paradoxically depress cardiac performance, (2) stimulate phosphofructokinase → ↑ lactate production (HCO₃⁻ is a substrate), (3) cause fluid overload, hypercapnia, and hypertension. Reasonable target is pH ≤ 7.20 or HCO₃⁻ ≤ 12, not normalization.</div>
+      <div class="trap-why">⚠ Trap: Instinct is to normalize values. In lactic acidosis, normalization is harmful. If the underlying cause resolves, blood lactate converts to HCO₃⁻ → rebound alkalosis if excess NaHCO₃ was given. Board keyword: <em>"do not normalize pH in lactic acidosis"</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Urine pH in Diarrhea vs. Distal RTA — The Opposite of What You Expect</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 30-year-old with chronic diarrhea has pH 7.26, HCO₃⁻ 15, AG 10, urine pH 7.2. Another patient with distal RTA (type 1) has identical blood values and urine pH 7.4. <em>How do you differentiate these two patients?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Calculate the urine anion gap (UAG).</strong><br>In diarrhea: high urine NH₄⁺ excretion → UAG is NEGATIVE (Cl⁻u &gt; Na⁺u + K⁺u) → kidneys responding appropriately. In distal RTA: kidney cannot excrete NH₄⁺ → UAG is POSITIVE. Both can have urine pH &gt;6 due to NH₄⁺ buffering in diarrhea.</div>
+      <div class="trap-why">⚠ Trap: Students see alkaline urine in acidosis and immediately say "RTA." But in diarrhea, the urine is also alkaline because NH₄⁺ buffers the urine. The UAG is the discriminator. Board keyword: <em>"negative UAG = extrarenal acidosis"</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">Euglycemic DKA — SGLT2 Inhibitors</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 45-year-old type 2 diabetic on empagliflozin presents with nausea and a high-AG acidosis. Glucose is 145 mg/dL. Blood ketones are elevated. <em>What is the diagnosis and why is glucose misleading?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Euglycemic DKA (eDKA) due to SGLT2 inhibitor use.</strong><br>SGLT2 inhibitors cause continuous glycosuria → osmotic diuresis → volume depletion → ↓ plasma glucose despite active ketogenesis. The accumulation of ketoacids (acetoacetate + β-hydroxybutyrate) accounts for the elevated AG, but glucose is in the normal range — hence "euglycemic." Normal glucose does NOT rule out DKA in SGLT2 inhibitor users.</div>
+      <div class="trap-why">⚠ Trap: Boards will show a "DKA" patient with a blood glucose of 140–160 mg/dL. Students rule out DKA because glucose isn't high. The key is the medication history and recognizing the mechanism. Board keyword: <em>"SGLT2 inhibitor + high-AG acidosis = euglycemic DKA"</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Liddle's Syndrome — Spironolactone Does NOT Work</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 25-year-old presents with hypertension, hypokalemia, and metabolic alkalosis. Plasma renin is very low, aldosterone is low. Spironolactone fails to correct the hypertension or hypokalemia. <em>What is the diagnosis and correct treatment?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Liddle's syndrome. Treat with amiloride or triamterene.</strong><br>Liddle's is caused by a gain-of-function mutation of the collecting duct Na⁺ channel (ENaC), leading to ECFV expansion → secondarily suppressed renin AND aldosterone. Since ENaC is constitutively active, blocking aldosterone (spironolactone) has no effect. Only direct ENaC blockers (amiloride, triamterene) are effective.</div>
+      <div class="trap-why">⚠ Trap: Low renin + low aldosterone → students may not think of hyperaldosteronism. The triad of hypertension + hypokalemia + alkalosis + low aldosterone + failure of spironolactone = Liddle's. Board keyword: <em>"spironolactone failure in alkalosis = Liddle's = use amiloride"</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Respiratory Alkalosis in Salicylate Toxicity — The Mixed Picture</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 17-year-old is found obtunded with empty aspirin bottles. ABG: pH 7.52, PaCO₂ 20, HCO₃⁻ 16. <em>What is the acid-base disorder and what is the correct treatment sequence?</em></div>
+      <div class="trap-a"><strong>Correct Answer: Mixed respiratory alkalosis + high-AG metabolic acidosis.</strong><br>Salicylates directly stimulate medullary chemoreceptors → respiratory alkalosis (↓ PaCO₂). Simultaneously, they cause high-AG metabolic acidosis (salicylate accumulation + ↑ lactic acid). Treatment: gastric lavage + activated charcoal (1 g/kg up to 50 g); IV NaHCO₃ to alkalinize urine to pH &gt;7.5 to trap ionized salicylate and increase clearance 5-fold; careful monitoring of K⁺ (hypokalemia risk); hemodialysis if AKI.</div>
+      <div class="trap-why">⚠ Trap: Students see alkaline pH and think metabolic alkalosis from the vomiting. In adults, salicylates classically produce respiratory alkalosis OR mixed resp alkalosis + metabolic acidosis. Urine alkalinization (not blood alkalinization) is the goal. Board keyword: <em>"salicylates = respiratory alkalosis + metabolic acidosis"</em></div>
+    </div>
+  </div>
+
+  <div class="sbar"><button class="lbtn" onclick="this.classList.toggle('on')">✓ Learned</button><button class="fbtn" onclick="this.classList.toggle('on')">⚑ Review</button></div>
+</section>
+
+</main>
+
+<footer class="footer">Chapter 58 · Acidosis &amp; Alkalosis · Harrison's Principles of Internal Medicine · Boards Review · 2026</footer>
+
+<script>
+/* ═══════════════════════════════════════════
+   BOARD STAGE A — ANNOTATION + INLINE POPUP
+   v3: Inline popup appears near selected text
+═══════════════════════════════════════════ */
+let curColor   = null;
+let eraseMode  = false;
+let selText    = '';
+let savedRange = null;
+let ipCurrentNoteId = null;  // for view/edit mode
+
+const STORE_KEY = 'bsa_acid_base_notes_v1';
+
+/* ── HIGHLIGHT ── */
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  const map = {y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};
+  document.getElementById(map[c]).classList.add('active');
+}
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(STORE_KEY); } catch(e) {}
+  renderNotes();
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  curColor = null; eraseMode = false;
+}
+
+/* ── STORAGE ── */
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+/* ── GET CURRENT SECTION NAME ── */
+function getCurrentSection(el) {
+  if (!el) return 'Note';
+  let node = el;
+  while (node && node !== document.body) {
+    if (node.classList && node.classList.contains('sec')) {
+      const h2 = node.querySelector('h2');
+      if (h2) return h2.textContent.trim().substring(0, 30);
+      const id = node.id;
+      const link = document.querySelector('.toc-a[href="#' + id + '"]');
+      if (link) return link.textContent.trim();
+    }
+    node = node.parentElement;
+  }
+  return 'Note';
+}
+
+/* ═══════════════════════════════════
+   INLINE POPUP SYSTEM
+   Shows near the selection, not sidebar
+═══════════════════════════════════ */
+function positionInlinePopup(x, y) {
+  const pop = document.getElementById('inline-popup');
+  pop.style.display = 'block';
+  const pw = pop.offsetWidth || 260;
+  const ph = pop.offsetHeight || 160;
+  const vw = window.innerWidth, vh = window.innerHeight;
+  let left = x - pw / 2;
+  let top  = y + 14;
+  if (left < 8) left = 8;
+  if (left + pw > vw - 8) left = vw - pw - 8;
+  if (top + ph > vh - 8) top = y - ph - 14;
+  if (top < 8) top = 8;
+  pop.style.left = left + 'px';
+  pop.style.top  = top + 'px';
+}
+
+function showAddPopup(x, y, section) {
+  const pop = document.getElementById('inline-popup');
+  document.getElementById('ip-mode-add').classList.add('active');
+  document.getElementById('ip-mode-view').classList.remove('active');
+  document.getElementById('ip-section-tag').textContent = section;
+  const preview = selText.length > 50 ? selText.substring(0, 50) + '…' : selText;
+  document.getElementById('ip-sel-preview').textContent = preview ? '"' + preview + '"' : '';
+  document.getElementById('ip-ta').value = '';
+  pop.classList.add('show');
+  positionInlinePopup(x, y);
+  setTimeout(() => document.getElementById('ip-ta').focus(), 50);
+}
+
+function showViewPopup(anchorEl, note) {
+  const pop   = document.getElementById('inline-popup');
+  const rect  = anchorEl.getBoundingClientRect();
+  const cx    = rect.left + rect.width / 2;
+  const cy    = rect.bottom;
+  document.getElementById('ip-mode-add').classList.remove('active');
+  document.getElementById('ip-mode-view').classList.add('active');
+  document.getElementById('ip-section-tag').textContent = note.section || 'Note';
+  document.getElementById('ip-view-ref').textContent = note.ref ? '"' + note.ref.substring(0,55) + (note.ref.length>55?'…':'') + '"' : '';
+  document.getElementById('ip-view-text').textContent = note.text;
+  ipCurrentNoteId = note.id;
+  pop.classList.add('show');
+  positionInlinePopup(cx, cy);
+}
+
+function closeInlinePopup() {
+  const pop = document.getElementById('inline-popup');
+  pop.classList.remove('show');
+  setTimeout(() => { pop.style.display = 'none'; }, 0);
+  ipCurrentNoteId = null;
+  savedRange = null;
+  selText = '';
+}
+
+function saveInlineNote() {
+  const txt = document.getElementById('ip-ta').value.trim();
+  if (!txt) return;
+  const id    = Date.now();
+  const section = document.getElementById('ip-section-tag').textContent || 'Note';
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 80) || '—', text: txt, section });
+  saveNotes(notes);
+  /* Wrap selected text in anchor */
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className      = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title          = 'Click to see your note';
+      savedRange.surroundContents(span);
+    } catch(e) {}
+    savedRange = null;
+  }
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+  closeInlinePopup();
+}
+
+function editInlineNote() {
+  const note = getNotes().find(n => n.id === ipCurrentNoteId);
+  if (!note) return;
+  document.getElementById('ip-mode-view').classList.remove('active');
+  document.getElementById('ip-mode-add').classList.add('active');
+  document.getElementById('ip-sel-preview').textContent = note.ref ? '"' + note.ref.substring(0,50) + '"' : '';
+  document.getElementById('ip-ta').value = note.text;
+  /* Override save to update */
+  document.getElementById('ip-save-btn').onclick = function() {
+    const newTxt = document.getElementById('ip-ta').value.trim();
+    if (!newTxt) return;
+    const notes = getNotes().map(n => n.id === ipCurrentNoteId ? {...n, text: newTxt} : n);
+    saveNotes(notes);
+    renderNotes();
+    closeInlinePopup();
+    document.getElementById('ip-save-btn').onclick = saveInlineNote;
+  };
+  setTimeout(() => document.getElementById('ip-ta').focus(), 50);
+}
+
+function deleteInlineNote() {
+  if (!ipCurrentNoteId) return;
+  const id = ipCurrentNoteId;
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+  });
+  renderNotes();
+  closeInlinePopup();
+}
+
+function jumpToAnchor() {
+  const anchor = document.querySelector('.note-anchor[data-note-id="' + ipCurrentNoteId + '"]');
+  if (anchor) { anchor.scrollIntoView({behavior:'smooth', block:'center'}); }
+  closeInlinePopup();
+}
+
+/* Reset save button on popup open */
+document.getElementById('ip-save-btn').onclick = saveInlineNote;
+
+/* ── MOUSEUP: Capture selection + show inline popup ── */
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const ip = document.getElementById('inline-popup');
+  if (tb.contains(e.target) || sb.contains(e.target) || ip.contains(e.target)) return;
+
+  /* Erase mode: click to remove highlight */
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) { return; }
+  const txt = sel.toString().trim();
+  if (!txt) return;
+
+  selText    = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  /* Apply highlight if active */
+  if (curColor) {
+    try {
+      const range = sel.getRangeAt(0);
+      const span  = document.createElement('span');
+      span.className = 'hl hl-' + curColor;
+      span.title     = 'Click in erase mode to remove';
+      range.surroundContents(span);
+      sel.removeAllRanges();
+    } catch(err) {}
+    return; // don't show popup after highlighting
+  }
+
+  /* Show inline popup near selection */
+  const range = sel.getRangeAt(0);
+  const rect  = range.getBoundingClientRect();
+  const cx    = rect.left + rect.width / 2 + window.scrollX;
+  const cy    = rect.bottom + window.scrollY;
+  const section = getCurrentSection(range.commonAncestorContainer.nodeType === 3
+    ? range.commonAncestorContainer.parentElement
+    : range.commonAncestorContainer);
+  showAddPopup(cx, cy, section);
+});
+
+/* Close inline popup on outside click */
+document.addEventListener('mousedown', function(e) {
+  const ip = document.getElementById('inline-popup');
+  if (ip.classList.contains('show') && !ip.contains(e.target)) {
+    closeInlinePopup();
+  }
+});
+
+/* Note anchor clicks → show view popup */
+document.addEventListener('click', function(e) {
+  const anchor = e.target.closest('.note-anchor');
+  if (anchor) {
+    e.stopPropagation();
+    const nid  = parseInt(anchor.dataset.noteId);
+    if (ipCurrentNoteId === nid) { closeInlinePopup(); return; }
+    const note = getNotes().find(n => n.id === nid);
+    if (note) showViewPopup(anchor, note);
+    return;
+  }
+});
+
+/* ══ STICKY NOTE SIDEBAR SYSTEM ══ */
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id    = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 80) || '—', text: txt, section: '—' });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+    } catch(e) {}
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+  });
+  renderNotes();
+}
+
+function renderNotes() {
+  const body  = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    const savedH = localStorage.getItem('bsa_h_' + note.id);
+    if (savedH) card.style.height = savedH + 'px';
+    const sectionBadge = note.section && note.section !== '—'
+      ? `<span class="sn-note-section">${note.section}</span>` : '';
+    card.innerHTML = `
+      <div class="sn-note-hd">
+        <span class="sn-drag-icon">⠿</span>
+        <span class="sn-note-ref">${note.ref !== '—' ? '"' + note.ref + '"' : 'General note'}</span>
+        ${sectionBadge}
+        <button class="sn-del" onclick="deleteNote(${note.id})">×</button>
+      </div>
+      <div class="sn-note-body">${note.text.replace(/\n/g,'<br>')}</div>
+      <div class="sn-resize" title="Drag to resize"></div>
+    `;
+    body.appendChild(card);
+    makeDraggable(card);
+    makeResizable(card, note.id);
+  });
+}
+
+function makeDraggable(card) {
+  const handle = card.querySelector('.sn-note-hd');
+  let startY = 0;
+  handle.addEventListener('mousedown', function(e) {
+    if (e.target.classList.contains('sn-del')) return;
+    e.preventDefault();
+    startY = e.clientY;
+    card.style.opacity = '.7';
+    card.style.zIndex = '9999';
+    function onMove(ev) {
+      const dy = ev.clientY - startY;
+      const body = document.getElementById('sn-body');
+      const cards = [...body.querySelectorAll('.sn-note')];
+      const myIdx = cards.indexOf(card);
+      if (dy < -30 && myIdx > 0) { body.insertBefore(card, cards[myIdx-1]); startY = ev.clientY; }
+      else if (dy > 30 && myIdx < cards.length-1) { body.insertBefore(cards[myIdx+1], card); startY = ev.clientY; }
+    }
+    function onUp() {
+      card.style.opacity = ''; card.style.zIndex = '';
+      const body = document.getElementById('sn-body');
+      const ids = [...body.querySelectorAll('.sn-note')].map(c => parseInt(c.dataset.noteId));
+      const reordered = ids.map(id => getNotes().find(n => n.id === id)).filter(Boolean);
+      saveNotes(reordered);
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      try { localStorage.setItem('bsa_h_' + noteId, card.offsetHeight); } catch(e) {}
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+/* ── ACTIVE NAV ── */
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks  = document.querySelectorAll('.toc-a');
+_sections.forEach(s =>
+  new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      _navLinks.forEach(l => l.classList.remove('on'));
+      const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+      if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}); }
+    }
+  }, {rootMargin:'-15% 0px -75% 0px'}).observe(s)
+);
+
+/* ── INIT ── */
+renderNotes();
+</script>
+</body>
+</html>
