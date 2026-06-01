@@ -1316,45 +1316,255 @@ details>.db{padding:14px;background:var(--sf)}
 <footer class="footer">Chapter 140 · UTI: Cystitis, Prostatitis & Pyelonephritis · Harrison's Principles of Internal Medicine · Stage A Boards Review · 2025</footer>
 
 <script>
-/* ═══════════════════════════════════════════════════════════
-   UTI BOARDS GUIDE — ANNOTATION SYSTEM v3
-   New: Inline popup near selection, auto section detection,
-   edit after saving, grouped sidebar with search
-═══════════════════════════════════════════════════════════ */
-const STORE_KEY = 'bsa_uti_notes_v3';
-let curColor  = null;
-let eraseMode = false;
-let selText   = '';
-let savedRange = null;
-let curSection = '';
-let activeNoteId = null;
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
 
-/* ── SECTION DETECTION ─────────────────── */
-function getActiveSectionName() {
-  const sections = document.querySelectorAll('.sec[data-section]');
-  let active = '';
-  sections.forEach(sec => {
-    const rect = sec.getBoundingClientRect();
-    if (rect.top <= window.innerHeight * 0.5 && rect.bottom > 0) {
-      active = sec.getAttribute('data-section');
-    }
-  });
-  return active || 'General';
-}
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
 
-/* ── HIGHLIGHT COLORS ──────────────────── */
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
 function setHL(c) {
   curColor = c; eraseMode = false;
   document.body.style.cursor = 'crosshair';
   document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
-  const map = {y:'h-y', g:'h-g', b:'h-b', p:'h-p', o:'h-o'};
-  document.getElementById(map[c]).classList.add('active');
+  const map={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};
+  if(document.getElementById(map[c])) document.getElementById(map[c]).classList.add('active');
 }
+
 function setErase() {
   eraseMode = true; curColor = null;
   document.body.style.cursor = 'cell';
   document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
 }
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb && tb.contains(e.target)) return;
+  if (sb && sb.contains(e.target)) return;
+  if (np && np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  const refEl = document.getElementById('sn-ref-txt');
+  if (refEl) refEl.textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
 function clearAll() {
   if (!confirm('Clear ALL highlights and notes?')) return;
   document.querySelectorAll('.hl').forEach(el => {
@@ -1365,374 +1575,30 @@ function clearAll() {
     el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
     el.parentNode.normalize();
   });
-  try { localStorage.removeItem(STORE_KEY); } catch(e) {}
-  renderNotes(); closePopup();
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
   document.body.style.cursor = '';
   document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
-  curColor = null; eraseMode = false;
-}
-
-/* ── MOUSEUP: capture selection + show popup ── */
-document.addEventListener('mouseup', function(e) {
-  const toolbar = document.getElementById('toolbar');
-  const sidebar = document.getElementById('sn-sidebar');
-  const popup   = document.getElementById('note-popup');
-  if (toolbar.contains(e.target) || sidebar.contains(e.target) || popup.contains(e.target)) return;
-
-  // Erase
-  if (eraseMode && e.target.classList.contains('hl')) {
-    const el = e.target;
-    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
-    return;
-  }
-
-  const sel = window.getSelection();
-  if (!sel || sel.isCollapsed) return;
-  const txt = sel.toString().trim();
-  if (!txt) return;
-
-  selText    = txt;
-  savedRange = sel.getRangeAt(0).cloneRange();
-  curSection = getActiveSectionName();
-
-  // Update sidebar input area
-  document.getElementById('sn-ref-txt').textContent = txt.length > 45 ? txt.substring(0,45)+'…' : txt;
-  const stag = document.getElementById('sn-cur-section-tag');
-  stag.textContent = curSection; stag.style.display = 'inline';
-
-  // Apply highlight if active
-  if (curColor) {
-    try {
-      const range = sel.getRangeAt(0);
-      const span  = document.createElement('span');
-      span.className = 'hl hl-' + curColor;
-      span.title = 'Click in erase mode to remove';
-      range.surroundContents(span);
-      sel.removeAllRanges();
-    } catch(err) {}
-    return;
-  }
-
-  // Show inline popup near the selection (not near click)
-  showNewNotePopup(sel, txt);
-});
-
-/* ── INLINE POPUP: new note mode ─────── */
-function showNewNotePopup(sel, txt) {
-  const popup = document.getElementById('note-popup');
-  popup.classList.remove('editing');
-  activeNoteId = null;
-
-  document.getElementById('np-section-tag').textContent = curSection;
-  document.getElementById('np-ref').textContent = txt.length > 50 ? '"' + txt.substring(0,50) + '…"' : '"' + txt + '"';
-  document.getElementById('np-ta').value = '';
-
-  // Show edit mode directly for new notes
-  popup.classList.add('editing');
-
-  // Position popup near the selection
-  const range = sel.getRangeAt(0);
-  const rect  = range.getBoundingClientRect();
-  const left  = Math.min(Math.max(rect.left, 8), window.innerWidth - 320);
-  const top   = rect.bottom + window.scrollY + 8;
-  popup.style.left = left + 'px';
-  popup.style.top  = top  + 'px';
-  popup.style.display = 'block';
-  popup.classList.add('show');
-  document.getElementById('np-ta').focus();
-}
-
-/* ── POPUP: show existing note ─────── */
-function showExistingNotePopup(anchorEl, note) {
-  const popup = document.getElementById('note-popup');
-  popup.classList.remove('editing');
-  activeNoteId = note.id;
-
-  document.getElementById('np-section-tag').textContent = note.section || 'General';
-  document.getElementById('np-ref').textContent = note.ref && note.ref !== '—' ? '"' + note.ref.substring(0,50) + '"' : 'Your note';
-  document.getElementById('np-display-text').innerHTML = note.text.replace(/\n/g,'<br>');
-  document.getElementById('np-ta').value = note.text;
-
-  const rect = anchorEl.getBoundingClientRect();
-  const left = Math.min(Math.max(rect.left, 8), window.innerWidth - 320);
-  const top  = rect.bottom + window.scrollY + 8;
-  popup.style.left = left + 'px';
-  popup.style.top  = top  + 'px';
-  popup.style.display = 'block';
-  popup.classList.add('show');
-}
-
-function closePopup() {
-  const popup = document.getElementById('note-popup');
-  popup.style.display = 'none';
-  popup.classList.remove('show', 'editing');
-  activeNoteId = null;
-}
-
-function switchToEdit() {
-  document.getElementById('note-popup').classList.add('editing');
-}
-function switchToView() {
-  document.getElementById('note-popup').classList.remove('editing');
-}
-
-/* ── SAVE from popup (new note) ────── */
-document.getElementById('np-save').addEventListener('click', function() {
-  const popup = document.getElementById('note-popup');
-  const txt = document.getElementById('np-ta').value.trim();
-  if (!txt) return;
-
-  if (activeNoteId !== null) {
-    // Edit existing note
-    const notes = getNotes();
-    const idx = notes.findIndex(n => n.id === activeNoteId);
-    if (idx !== -1) { notes[idx].text = txt; saveNotes(notes); }
-    document.getElementById('np-display-text').innerHTML = txt.replace(/\n/g,'<br>');
-    popup.classList.remove('editing');
-    renderNotes();
-  } else {
-    // New note
-    const id = Date.now();
-    const notes = getNotes();
-    notes.unshift({ id, ref: selText.substring(0,80) || '—', text: txt, section: curSection });
-    saveNotes(notes);
-
-    if (savedRange) {
-      try {
-        const span = document.createElement('span');
-        span.className = 'note-anchor';
-        span.dataset.noteId = id;
-        span.title = 'Click to see your note';
-        savedRange.surroundContents(span);
-      } catch(e) {}
-      savedRange = null;
-    }
-    selText = '';
-    document.getElementById('sn-ref-txt').textContent = '—';
-    document.getElementById('sn-cur-section-tag').style.display = 'none';
-    renderNotes();
-    closePopup();
-  }
-});
-
-function saveEditFromPopup() {
-  document.getElementById('np-save').click();
-}
-
-/* ── DELETE from popup ──────────────── */
-function deleteNoteFromPopup() {
-  if (activeNoteId === null) { closePopup(); return; }
-  deleteNote(activeNoteId);
-  closePopup();
-}
-
-/* ── JUMP to anchor in text ─────────── */
-function jumpToAnchor() {
-  if (activeNoteId === null) return;
-  const anchor = document.querySelector('.note-anchor[data-note-id="' + activeNoteId + '"]');
-  if (anchor) {
-    anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    anchor.style.background = 'rgba(109,40,217,.15)';
-    setTimeout(() => anchor.style.background = '', 1500);
-  }
-  closePopup();
-}
-
-/* ── CLICK outside popup ──────────── */
-document.addEventListener('click', function(e) {
-  const anchor = e.target.closest('.note-anchor');
-  if (anchor) {
-    e.stopPropagation();
-    const nid  = parseInt(anchor.dataset.noteId);
-    if (activeNoteId === nid) { closePopup(); return; }
-    const note = getNotes().find(n => n.id === nid);
-    if (note) showExistingNotePopup(anchor, note);
-    return;
-  }
-  const popup = document.getElementById('note-popup');
-  if (popup && popup.style.display !== 'none' && !popup.contains(e.target)) closePopup();
-});
-
-/* ══ NOTE STORAGE ════════════════════ */
-function getNotes() {
-  try { return JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); }
-  catch(e) { return []; }
-}
-function saveNotes(n) {
-  try { localStorage.setItem(STORE_KEY, JSON.stringify(n)); } catch(e) {}
-}
-
-/* ── SIDEBAR: add note from input ─── */
-function addNote() {
-  const txt = document.getElementById('sn-ta').value.trim();
-  if (!txt) return;
-  const id = Date.now();
-  const notes = getNotes();
-  notes.unshift({ id, ref: selText.substring(0,80) || '—', text: txt, section: curSection || getActiveSectionName() });
-  saveNotes(notes);
-  if (savedRange) {
-    try {
-      const span = document.createElement('span');
-      span.className = 'note-anchor';
-      span.dataset.noteId = id;
-      span.title = 'Click to see your note';
-      savedRange.surroundContents(span);
-    } catch(e) {}
-    savedRange = null;
-  }
-  document.getElementById('sn-ta').value = '';
-  selText = '';
-  document.getElementById('sn-ref-txt').textContent = '—';
-  document.getElementById('sn-cur-section-tag').style.display = 'none';
+  closePopover();
   renderNotes();
 }
 
-/* ── DELETE note ────────────────────── */
-function deleteNote(id) {
-  saveNotes(getNotes().filter(n => n.id !== id));
-  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
-    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
-    el.parentNode.normalize();
-  });
-  renderNotes();
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  if (tab) tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
 }
 
-/* ── RENDER: grouped by section ─────── */
-function renderNotes(filterText) {
-  const body  = document.getElementById('sn-body');
-  const empty = document.getElementById('sn-empty');
-  let notes = getNotes();
-
-  if (filterText) {
-    const q = filterText.toLowerCase();
-    notes = notes.filter(n =>
-      n.text.toLowerCase().includes(q) ||
-      (n.ref || '').toLowerCase().includes(q) ||
-      (n.section || '').toLowerCase().includes(q)
-    );
-  }
-
-  body.querySelectorAll('.sn-group').forEach(g => g.remove());
-
-  if (!notes.length) {
-    if (empty) empty.style.display = '';
-    return;
-  }
-  if (empty) empty.style.display = 'none';
-
-  // Group by section
-  const groups = {};
-  notes.forEach(n => {
-    const sec = n.section || 'General';
-    if (!groups[sec]) groups[sec] = [];
-    groups[sec].push(n);
-  });
-
-  Object.entries(groups).forEach(([secName, secNotes]) => {
-    const groupDiv = document.createElement('div');
-    groupDiv.className = 'sn-group';
-
-    const hd = document.createElement('div');
-    hd.className = 'sn-group-hd';
-    hd.innerHTML = `<span>${secName}</span><span class="sn-group-badge">${secNotes.length}</span>`;
-    groupDiv.appendChild(hd);
-
-    secNotes.forEach(note => {
-      const card = document.createElement('div');
-      card.className = 'sn-note';
-      card.dataset.noteId = note.id;
-      const savedH = localStorage.getItem('bsa_h_' + note.id);
-      if (savedH) card.style.height = savedH + 'px';
-      card.innerHTML = `
-        <div class="sn-note-hd">
-          <span class="sn-drag-icon">⠿</span>
-          <span class="sn-note-ref">${note.ref !== '—' ? '"' + note.ref + '"' : 'General note'}</span>
-          <div class="sn-note-actions">
-            <button class="sn-act-btn" title="Edit" onclick="openEditFromSidebar(${note.id})">✏</button>
-            <button class="sn-act-btn sn-del" title="Delete" onclick="deleteNote(${note.id})">×</button>
-          </div>
-        </div>
-        <div class="sn-note-body">${note.text.replace(/\n/g,'<br>')}</div>
-        <div class="sn-resize" title="Drag to resize"></div>
-      `;
-      groupDiv.appendChild(card);
-      makeDraggable(card);
-      makeResizable(card, note.id);
-    });
-
-    body.appendChild(groupDiv);
-  });
-}
-
-function openEditFromSidebar(id) {
-  const note = getNotes().find(n => n.id === id);
-  if (!note) return;
-  // Find anchor in text to position popup, or fall back to center
-  const anchor = document.querySelector('.note-anchor[data-note-id="' + id + '"]');
-  if (anchor) {
-    anchor.scrollIntoView({ behavior:'smooth', block:'center' });
-    setTimeout(() => showExistingNotePopup(anchor, note), 400);
-  } else {
-    // Show popup in center of screen
-    const popup = document.getElementById('note-popup');
-    activeNoteId = id;
-    document.getElementById('np-section-tag').textContent = note.section || 'General';
-    document.getElementById('np-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0,50) + '"' : 'Your note';
-    document.getElementById('np-display-text').innerHTML = note.text.replace(/\n/g,'<br>');
-    document.getElementById('np-ta').value = note.text;
-    popup.style.left = (window.innerWidth/2 - 150) + 'px';
-    popup.style.top  = (window.scrollY + 200) + 'px';
-    popup.style.display = 'block';
-    popup.classList.add('show');
-  }
-}
-
-/* ── SEARCH ──────────────────────────── */
-function filterNotes(val) { renderNotes(val.trim() || undefined); }
-
-/* ── DRAG (reorder within sidebar) ──── */
-function makeDraggable(card) {
-  const handle = card.querySelector('.sn-note-hd');
-  let startY = 0;
-  handle.addEventListener('mousedown', function(e) {
-    if (e.target.classList.contains('sn-del') || e.target.classList.contains('sn-act-btn')) return;
-    e.preventDefault();
-    startY = e.clientY;
-    card.style.opacity = '.7';
-    function onMove(ev) {
-      const dy = ev.clientY - startY;
-      const body = document.getElementById('sn-body');
-      const cards = [...body.querySelectorAll('.sn-note')];
-      const myIdx = cards.indexOf(card);
-      if (dy < -30 && myIdx > 0) { body.insertBefore(card, cards[myIdx-1]); startY=ev.clientY; }
-      else if (dy > 30 && myIdx < cards.length-1) { body.insertBefore(cards[myIdx+1], card); startY=ev.clientY; }
-    }
-    function onUp() {
-      card.style.opacity = '';
-      const body = document.getElementById('sn-body');
-      const ids = [...body.querySelectorAll('.sn-note')].map(c => parseInt(c.dataset.noteId));
-      const notes = getNotes();
-      const reordered = ids.map(id => notes.find(n => n.id === id)).filter(Boolean);
-      saveNotes(reordered);
-      renderNotes();
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseup', onUp);
-    }
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseup', onUp);
-  });
-}
-
-/* ── RESIZE ──────────────────────────── */
 function makeResizable(card, noteId) {
   const handle = card.querySelector('.sn-resize');
+  if (!handle) return;
   let startY = 0, startH = 0;
   handle.addEventListener('mousedown', function(e) {
     e.preventDefault(); e.stopPropagation();
     startY = e.clientY; startH = card.offsetHeight;
     function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
     function onUp() {
-      try { localStorage.setItem('bsa_h_' + noteId, card.offsetHeight); } catch(e) {}
       document.removeEventListener('mousemove', onMove);
       document.removeEventListener('mouseup', onUp);
     }
@@ -1741,46 +1607,19 @@ function makeResizable(card, noteId) {
   });
 }
 
-/* ── SIDEBAR TOGGLE ─────────────────── */
-function toggleSidebar() {
-  const sb  = document.getElementById('sn-sidebar');
-  const tab = document.getElementById('sn-tab');
-  sb.classList.toggle('hidden');
-  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
-}
-
-/* ── ACTIVE NAV LINK ─────────────────── */
 const _sections = document.querySelectorAll('.sec[id]');
 const _navLinks = document.querySelectorAll('.toc-a');
-_sections.forEach(s =>
-  new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      _navLinks.forEach(l => l.classList.remove('on'));
-      const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
-      if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}); }
-    }
-  }, { rootMargin:'-15% 0px -75% 0px' }).observe(s)
-);
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
 
-/* ── STATUS BUTTONS ─────────────────── */
-document.querySelectorAll('.lbtn').forEach(btn => {
-  const saved = localStorage.getItem('lbtn_' + btn.closest('.sec')?.id);
-  if (saved === '1') btn.classList.add('on');
-  btn.addEventListener('click', () => {
-    btn.classList.toggle('on');
-    try { localStorage.setItem('lbtn_' + btn.closest('.sec')?.id, btn.classList.contains('on') ? '1' : '0'); } catch(e) {}
-  });
-});
-document.querySelectorAll('.fbtn').forEach(btn => {
-  const saved = localStorage.getItem('fbtn_' + btn.closest('.sec')?.id);
-  if (saved === '1') btn.classList.add('on');
-  btn.addEventListener('click', () => {
-    btn.classList.toggle('on');
-    try { localStorage.setItem('fbtn_' + btn.closest('.sec')?.id, btn.classList.contains('on') ? '1' : '0'); } catch(e) {}
-  });
-});
-
-/* ── INIT ───────────────────────────── */
+/* ── INIT ── */
+restoreHighlights();
+restoreAnchors();
 renderNotes();
 </script>
 </body>
