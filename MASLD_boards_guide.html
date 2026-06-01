@@ -1227,35 +1227,310 @@ details>.db{padding:14px;background:var(--sf)}
 </main>
 <footer class="footer">Chapter 354 · MASLD / MASH · Harrison's Principles · Boards Review · 2025</footer>
 <script>
-/* ── HIGHLIGHT SYSTEM ─────────── */
-let curColor=null,eraseMode=false,selText='',savedRange=null;
-function setHL(c){curColor=c;eraseMode=false;document.body.style.cursor='crosshair';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));const map={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};document.getElementById(map[c]).classList.add('active')}
-function setErase(){eraseMode=true;curColor=null;document.body.style.cursor='cell';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'))}
-function clearAll(){if(!confirm('Clear ALL highlights and notes?'))return;document.querySelectorAll('.hl').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize()});document.querySelectorAll('.note-anchor').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize()});try{localStorage.removeItem('bsa_masld_notes');}catch(e){}renderNotes();document.body.style.cursor='';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));curColor=null;eraseMode=false}
-document.addEventListener('mouseup',function(e){const tb=document.getElementById('toolbar'),sb=document.getElementById('sn-sidebar'),np=document.getElementById('note-popover');if(tb.contains(e.target)||sb.contains(e.target)||np.contains(e.target))return;if(eraseMode&&e.target.classList.contains('hl')){const el=e.target;el.parentNode.replaceChild(document.createTextNode(el.textContent),el);return}const sel=window.getSelection();if(!sel||sel.isCollapsed)return;const txt=sel.toString().trim();if(!txt)return;selText=txt;savedRange=sel.getRangeAt(0).cloneRange();document.getElementById('sn-ref-txt').textContent=txt.length>48?txt.substring(0,48)+'…':txt;if(curColor){try{const range=sel.getRangeAt(0),span=document.createElement('span');span.className='hl hl-'+curColor;range.surroundContents(span);sel.removeAllRanges()}catch(err){}}});
-/* ── SECTION TOGGLE ───────────── */
-function toggleSec(id){const body=document.getElementById('body-'+id),hd=document.getElementById('hd-'+id),icon=document.getElementById('icon-'+id);const isOpen=body.classList.contains('open');body.classList.toggle('open',!isOpen);hd.classList.toggle('open',!isOpen);icon.style.transform=isOpen?'rotate(-90deg)':''}
-function expandAll(){document.querySelectorAll('.sec-body').forEach(b=>b.classList.add('open'));document.querySelectorAll('.sec-hd').forEach(h=>h.classList.add('open'));document.querySelectorAll('.sec-toggle-icon').forEach(i=>i.style.transform='')}
-function collapseAll(){document.querySelectorAll('.sec-body').forEach(b=>b.classList.remove('open'));document.querySelectorAll('.sec-hd').forEach(h=>h.classList.remove('open'));document.querySelectorAll('.sec-toggle-icon').forEach(i=>i.style.transform='rotate(-90deg)')}
-/* ── EXAM TRAP ANSWER TOGGLE ──── */
-function toggleAnswer(tid){const ans=document.getElementById('ans-'+tid),btn=document.getElementById('btn-'+tid);const showing=ans.classList.contains('show');ans.classList.toggle('show',!showing);if(!showing){btn.textContent='✓ Hide Answer';btn.classList.add('revealed')}else{btn.textContent='🔍 Reveal Answer';btn.classList.remove('revealed')}}
-/* ── STICKY NOTE SYSTEM ─────────── */
-const STORE_KEY='bsa_masld_notes';
-function getNotes(){try{return JSON.parse(localStorage.getItem(STORE_KEY)||'[]')}catch(e){return[]}}
-function saveNotes(n){try{localStorage.setItem(STORE_KEY,JSON.stringify(n))}catch(e){}}
-function addNote(){const txt=document.getElementById('sn-ta').value.trim();if(!txt)return;const id=Date.now(),notes=getNotes();notes.unshift({id,ref:selText.substring(0,80)||'—',text:txt});saveNotes(notes);if(savedRange){try{const span=document.createElement('span');span.className='note-anchor';span.dataset.noteId=id;span.title='Click to see your note';savedRange.surroundContents(span)}catch(e){}savedRange=null}document.getElementById('sn-ta').value='';selText='';document.getElementById('sn-ref-txt').textContent='—';renderNotes()}
-function deleteNote(id){saveNotes(getNotes().filter(n=>n.id!==id));document.querySelectorAll('.note-anchor[data-note-id="'+id+'"]').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el)});closePopover();renderNotes()}
-function renderNotes(){const body=document.getElementById('sn-body'),empty=document.getElementById('sn-empty'),notes=getNotes();body.querySelectorAll('.sn-note').forEach(el=>el.remove());if(!notes.length){if(empty)empty.style.display='';return}if(empty)empty.style.display='none';notes.forEach(note=>{const card=document.createElement('div');card.className='sn-note';card.dataset.noteId=note.id;const savedH=localStorage.getItem('bsa_h_'+note.id);if(savedH)card.style.height=savedH+'px';card.innerHTML=`<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span><span class="sn-note-ref">${note.ref!=='—'?'"'+ note.ref+'"':'General note'}</span><button class="sn-del" onclick="deleteNote(${note.id})">×</button></div><div class="sn-note-body">${note.text.replace(/\n/g,'<br>')}</div><div class="sn-resize"></div>`;body.appendChild(card);makeDraggable(card);makeResizable(card,note.id)})}
-function makeDraggable(card){const handle=card.querySelector('.sn-note-hd');let startY=0;handle.addEventListener('mousedown',function(e){if(e.target.classList.contains('sn-del'))return;e.preventDefault();startY=e.clientY;card.style.opacity='.7';card.style.zIndex='9999';card.style.position='relative';function onMove(ev){const dy=ev.clientY-startY,body=document.getElementById('sn-body'),cards=[...body.querySelectorAll('.sn-note')],myIdx=cards.indexOf(card);if(dy<-30&&myIdx>0){body.insertBefore(card,cards[myIdx-1]);startY=ev.clientY}else if(dy>30&&myIdx<cards.length-1){body.insertBefore(cards[myIdx+1],card);startY=ev.clientY}}function onUp(){card.style.opacity='';card.style.zIndex='';card.style.position='';const body=document.getElementById('sn-body'),ids=[...body.querySelectorAll('.sn-note')].map(c=>parseInt(c.dataset.noteId)),notes=getNotes(),reordered=ids.map(id=>notes.find(n=>n.id===id)).filter(Boolean);saveNotes(reordered);document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp)}document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp)})}
-function makeResizable(card,noteId){const handle=card.querySelector('.sn-resize');let startY=0,startH=0;handle.addEventListener('mousedown',function(e){e.preventDefault();e.stopPropagation();startY=e.clientY;startH=card.offsetHeight;function onMove(ev){card.style.height=Math.max(80,startH+(ev.clientY-startY))+'px'}function onUp(){try{localStorage.setItem('bsa_h_'+noteId,card.offsetHeight)}catch(e){}document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp)}document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp)})}
-function toggleSidebar(){const sb=document.getElementById('sn-sidebar'),tab=document.getElementById('sn-tab');sb.classList.toggle('hidden');tab.textContent=sb.classList.contains('hidden')?'📝 Notes':'◀'}
-let activePopNoteId=null;
-function showPopover(anchorEl,note){const pop=document.getElementById('note-popover');document.getElementById('np-pop-ref').textContent=note.ref!=='—'?'"'+ note.ref.substring(0,55)+(note.ref.length>55?'…':'')+'"':'Your note';document.getElementById('np-pop-text').innerHTML=note.text.replace(/\n/g,'<br>');document.getElementById('pop-del-btn').onclick=()=>deleteNote(note.id);activePopNoteId=note.id;const rect=anchorEl.getBoundingClientRect();pop.style.left=Math.min(rect.left,window.innerWidth-300)+'px';pop.style.top=(rect.bottom+8)+'px';pop.classList.add('show')}
-function closePopover(){document.getElementById('note-popover').classList.remove('show');activePopNoteId=null}
-document.addEventListener('click',function(e){const anchor=e.target.closest('.note-anchor');if(anchor){e.stopPropagation();const nid=parseInt(anchor.dataset.noteId);if(activePopNoteId===nid){closePopover();return}const note=getNotes().find(n=>n.id===nid);if(note)showPopover(anchor,note);return}const pop=document.getElementById('note-popover');if(pop&&!pop.contains(e.target))closePopover()});
-/* ── NAV ACTIVE LINK ─────────── */
-const _sections=document.querySelectorAll('.sec-wrap[id]'),_navLinks=document.querySelectorAll('.toc-a');
-_sections.forEach(s=>new IntersectionObserver(entries=>{if(entries[0].isIntersecting){_navLinks.forEach(l=>l.classList.remove('on'));const lnk=document.querySelector('.toc-a[href="#'+s.id+'"]');if(lnk){lnk.classList.add('on');lnk.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})}}},{rootMargin:'-15% 0px -75% 0px'}).observe(s));
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  const map={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};
+  if(document.getElementById(map[c])) document.getElementById(map[c]).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb && tb.contains(e.target)) return;
+  if (sb && sb.contains(e.target)) return;
+  if (np && np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  const refEl = document.getElementById('sn-ref-txt');
+  if (refEl) refEl.textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  if (tab) tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  if (!handle) return;
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+/* ── INIT ── */
+restoreHighlights();
+restoreAnchors();
 renderNotes();
 </script>
 </body>
