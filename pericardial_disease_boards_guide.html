@@ -1426,17 +1426,25 @@ details>.db{padding:14px;background:var(--sf)}
 </main>
 <footer class="footer">Chapter 281 · Pericardial Disease · Harrison's Principles of Internal Medicine 22nd Ed · Boards Review · 2026</footer>
 <script>
-let curColor  = null;
-let eraseMode = false;
-let selText   = '';
-let savedRange = null;
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
 
 function setHL(c) {
-  curColor  = c; eraseMode = false;
+  curColor = c; eraseMode = false;
   document.body.style.cursor = 'crosshair';
   document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
-  const map = {y:'h-y', g:'h-g', b:'h-b', p:'h-p', o:'h-o'};
-  document.getElementById(map[c]).classList.add('active');
+  const map={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};
+  if(document.getElementById(map[c])) document.getElementById(map[c]).classList.add('active');
 }
 
 function setErase() {
@@ -1444,6 +1452,228 @@ function setErase() {
   document.body.style.cursor = 'cell';
   document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
 }
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb && tb.contains(e.target)) return;
+  if (sb && sb.contains(e.target)) return;
+  if (np && np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  const refEl = document.getElementById('sn-ref-txt');
+  if (refEl) refEl.textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
 
 function clearAll() {
   if (!confirm('Clear ALL highlights and notes?')) return;
@@ -1455,153 +1685,30 @@ function clearAll() {
     el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
     el.parentNode.normalize();
   });
-  try { localStorage.removeItem('bsa_pericardial_notes'); } catch(e) {}
-  renderNotes();
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
   document.body.style.cursor = '';
   document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
-  curColor = null; eraseMode = false;
-}
-
-document.addEventListener('mouseup', function(e) {
-  const tb = document.getElementById('toolbar');
-  const sb = document.getElementById('sn-sidebar');
-  const np = document.getElementById('note-popover');
-  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
-  if (eraseMode && e.target.classList.contains('hl')) {
-    const el = e.target;
-    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
-    return;
-  }
-  const sel = window.getSelection();
-  if (!sel || sel.isCollapsed) return;
-  const txt = sel.toString().trim();
-  if (!txt) return;
-  selText = txt;
-  savedRange = sel.getRangeAt(0).cloneRange();
-  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
-  if (curColor) {
-    try {
-      const range = sel.getRangeAt(0);
-      const span  = document.createElement('span');
-      span.className = 'hl hl-' + curColor;
-      span.title = 'Click in erase mode to remove';
-      range.surroundContents(span);
-      sel.removeAllRanges();
-    } catch(err) {}
-  }
-});
-
-const STORE_KEY = 'bsa_pericardial_notes';
-
-function getNotes() {
-  try { return JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); }
-  catch(e) { return []; }
-}
-function saveNotes(n) {
-  try { localStorage.setItem(STORE_KEY, JSON.stringify(n)); } catch(e) {}
-}
-
-function addNote() {
-  const txt = document.getElementById('sn-ta').value.trim();
-  if (!txt) return;
-  const id = Date.now();
-  const notes = getNotes();
-  notes.unshift({ id, ref: selText.substring(0, 80) || '—', text: txt });
-  saveNotes(notes);
-  if (savedRange) {
-    try {
-      const span = document.createElement('span');
-      span.className = 'note-anchor';
-      span.dataset.noteId = id;
-      span.title = 'Click to see your note';
-      savedRange.surroundContents(span);
-    } catch(e) {}
-    savedRange = null;
-  }
-  document.getElementById('sn-ta').value = '';
-  selText = '';
-  document.getElementById('sn-ref-txt').textContent = '—';
-  renderNotes();
-}
-
-function deleteNote(id) {
-  saveNotes(getNotes().filter(n => n.id !== id));
-  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
-    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
-  });
   closePopover();
   renderNotes();
 }
 
-function renderNotes() {
-  const body  = document.getElementById('sn-body');
-  const empty = document.getElementById('sn-empty');
-  const notes = getNotes();
-  body.querySelectorAll('.sn-note').forEach(el => el.remove());
-  if (!notes.length) { if (empty) empty.style.display = ''; return; }
-  if (empty) empty.style.display = 'none';
-  notes.forEach(note => {
-    const card = document.createElement('div');
-    card.className = 'sn-note';
-    card.dataset.noteId = note.id;
-    const savedH = localStorage.getItem('bsa_h_' + note.id);
-    if (savedH) card.style.height = savedH + 'px';
-    card.innerHTML = `
-      <div class="sn-note-hd">
-        <span class="sn-drag-icon">⠿</span>
-        <span class="sn-note-ref">${note.ref !== '—' ? '"' + note.ref + '"' : 'General note'}</span>
-        <button class="sn-del" onclick="deleteNote(${note.id})">×</button>
-      </div>
-      <div class="sn-note-body">${note.text.replace(/\n/g,'<br>')}</div>
-      <div class="sn-resize" title="Drag to resize"></div>
-    `;
-    body.appendChild(card);
-    makeDraggable(card);
-    makeResizable(card, note.id);
-  });
-}
-
-function makeDraggable(card) {
-  const handle = card.querySelector('.sn-note-hd');
-  let startY = 0;
-  handle.addEventListener('mousedown', function(e) {
-    if (e.target.classList.contains('sn-del')) return;
-    e.preventDefault();
-    startY = e.clientY;
-    card.style.opacity = '.7';
-    card.style.zIndex = '9999';
-    card.style.position = 'relative';
-    function onMove(ev) {
-      const dy = ev.clientY - startY;
-      const b = document.getElementById('sn-body');
-      const cards = [...b.querySelectorAll('.sn-note')];
-      const myIdx = cards.indexOf(card);
-      if (dy < -30 && myIdx > 0) { b.insertBefore(card, cards[myIdx - 1]); startY = ev.clientY; }
-      else if (dy > 30 && myIdx < cards.length - 1) { b.insertBefore(cards[myIdx + 1], card); startY = ev.clientY; }
-    }
-    function onUp() {
-      card.style.opacity = ''; card.style.zIndex = ''; card.style.position = '';
-      const b = document.getElementById('sn-body');
-      const ids = [...b.querySelectorAll('.sn-note')].map(c => parseInt(c.dataset.noteId));
-      const ns = getNotes();
-      saveNotes(ids.map(id => ns.find(n => n.id === id)).filter(Boolean));
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseup', onUp);
-    }
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseup', onUp);
-  });
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  if (tab) tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
 }
 
 function makeResizable(card, noteId) {
   const handle = card.querySelector('.sn-resize');
+  if (!handle) return;
   let startY = 0, startH = 0;
   handle.addEventListener('mousedown', function(e) {
     e.preventDefault(); e.stopPropagation();
     startY = e.clientY; startH = card.offsetHeight;
     function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
     function onUp() {
-      try { localStorage.setItem('bsa_h_' + noteId, card.offsetHeight); } catch(e) {}
       document.removeEventListener('mousemove', onMove);
       document.removeEventListener('mouseup', onUp);
     }
@@ -1610,230 +1717,19 @@ function makeResizable(card, noteId) {
   });
 }
 
-function toggleSidebar() {
-  const sb  = document.getElementById('sn-sidebar');
-  const tab = document.getElementById('sn-tab');
-  sb.classList.toggle('hidden');
-  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
-}
-
-let activePopNoteId = null;
-
-function showPopover(anchorEl, note) {
-  const pop = document.getElementById('note-popover');
-  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0,55) + (note.ref.length>55?'…':'') + '"' : 'Your note';
-  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g,'<br>');
-  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
-  activePopNoteId = note.id;
-  const rect = anchorEl.getBoundingClientRect();
-  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
-  pop.style.top  = (rect.bottom + 8) + 'px';
-  pop.classList.add('show');
-}
-
-function closePopover() {
-  document.getElementById('note-popover').classList.remove('show');
-  activePopNoteId = null;
-}
-
-document.addEventListener('click', function(e) {
-  const anchor = e.target.closest('.note-anchor');
-  if (anchor) {
-    e.stopPropagation();
-    const nid = parseInt(anchor.dataset.noteId);
-    if (activePopNoteId === nid) { closePopover(); return; }
-    const note = getNotes().find(n => n.id === nid);
-    if (note) showPopover(anchor, note);
-    return;
-  }
-  const pop = document.getElementById('note-popover');
-  if (pop && !pop.contains(e.target)) closePopover();
-});
-
 const _sections = document.querySelectorAll('.sec[id]');
 const _navLinks = document.querySelectorAll('.toc-a');
-_sections.forEach(s =>
-  new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      _navLinks.forEach(l => l.classList.remove('on'));
-      const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
-      if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' }); }
-    }
-  }, { rootMargin:'-15% 0px -75% 0px' }).observe(s)
-);
-
-/* ══ NOTION TOGGLE SUMMARY SYSTEM ═══ */
-const SUM_KEY = 'bsa_pericardial_summary_';
-
-/* Map each prompt index to a guide section id */
-const PROMPT_SECTION_MAP = ['s1','s2','s2','s2','s3','s4','s4','s4','s5','s6','s8','s8','s8','s8',''];
-
-const PROMPTS = [
-  { title: 'Normal Pericardium',              section: 's1', hint: 'Describe the anatomy, normal fluid volume, and 3 main functions. Include partial vs total absence significance.' },
-  { title: 'Acute Pericarditis — 4 Features', section: 's2', hint: 'List all 4 diagnostic features. For chest pain: quality, radiation, relieving/worsening positions. When is pain absent?' },
-  { title: 'ECG Changes — 4 Stages',          section: 's2', hint: 'All 4 ECG stages. What makes ST elevation differ from AMI? Earliest change? Which leads?' },
-  { title: 'Etiologic Classification',         section: 's2', hint: 'The 3 major categories with examples. Most common viruses? Drugs that cause pericarditis?' },
-  { title: 'Treatment — Acute Pericarditis',   section: 's3', hint: 'Full treatment ladder: drugs, doses, duration, colchicine by weight, why steroids are second-line, what to avoid, refractory options.' },
-  { title: 'Cardiac Tamponade',                section: 's4', hint: 'Pathophysiology, causes, fluid volumes for rapid vs slow tamponade, Beck\'s triad, pericardiocentesis protocol.' },
-  { title: "Beck's Triad & Paradoxical Pulse", section: 's4', hint: "Beck's triad. Paradoxical pulse: definition, threshold, mechanism, other conditions where it occurs." },
-  { title: 'Tamponade vs Constrictive',        section: 's4', hint: 'Compare JVP waveform (x & y descents), Kussmaul\'s sign, ECG, echo, effusion, equalization of diastolic pressures.' },
-  { title: 'Viral / Idiopathic Pericarditis',  section: 's5', hint: 'Demographics, fever + pain timing vs AMI, most frequent complication + incidence, Postcardiac Injury Syndrome (timing, mechanism, treatment).' },
-  { title: 'Differential Diagnosis',           section: 's6', hint: 'Distinguish: pericarditis from AMI, uremic pericarditis, pyogenic pericarditis, neoplastic, SLE-related.' },
-  { title: 'Constrictive Pericarditis — Patho',section: 's8', hint: 'Core physiologic abnormality. Filling pattern vs tamponade. Square root sign. Atrial waveform. Advanced disease.' },
-  { title: 'Constrictive — Clinical Findings', section: 's8', hint: "Symptoms, physical signs (Kussmaul's, Broadbent's, pericardial knock, JVP), classic misdiagnosis, ECG, imaging." },
-  { title: 'Pericardiectomy',                  section: 's8', hint: 'Only definitive treatment. Pre-op workup. Risk factors. Operative mortality. Timing principle.' },
-  { title: 'Tuberculous Pericarditis',         section: 's8', hint: 'Populations affected. Presentations. Diagnostic workup. When to do pericardiectomy. Role of antituberculous therapy.' },
-  { title: 'Free Summary — Everything',        section: '',   hint: 'Write a full summary of the entire chapter from memory: normal pericardium → acute pericarditis → tamponade → constrictive pericarditis → high-yield distinctions.' },
-];
-
-/* ── BUILD TOGGLE LIST ─────────────── */
-function buildSummaryList() {
-  const list = document.getElementById('sum-list');
-  list.innerHTML = '';
-  PROMPTS.forEach((p, i) => {
-    const saved = (() => { try { return localStorage.getItem(SUM_KEY + i) || ''; } catch(e){ return ''; } })();
-    const chars = saved.length;
-    const hasText = chars > 0;
-
-    /* Guide HTML for the reveal panel */
-    const guideHTML = getGuideHTML(p.section);
-
-    const block = document.createElement('div');
-    block.className = 'ntog' + (hasText ? ' has-text' : '');
-    block.dataset.idx = i;
-    block.innerHTML = `
-      <div class="ntog-row" onclick="toggleBlock(this.parentElement)">
-        <span class="ntog-arrow">▶</span>
-        <span class="ntog-num">${String(i+1).padStart(2,'0')}</span>
-        <span class="ntog-title">${p.title}</span>
-        ${hasText ? `<span class="ntog-chars">${chars} chars</span>` : ''}
-      </div>
-      <div class="ntog-content">
-        <div class="ntog-hint">${p.hint}</div>
-        <div class="ntog-write">
-          <textarea class="ntog-ta" data-idx="${i}"
-            placeholder="Write your summary here from memory…"
-            oninput="onToggleInput(this)">${escHtml(saved)}</textarea>
-          <div class="ntog-ta-footer">
-            <span class="ntog-save-msg">Saved ✓</span>
-            <span class="ntog-char-count">${chars > 0 ? chars.toLocaleString() + ' chars' : ''}</span>
-          </div>
-        </div>
-        <div class="ntog-reveal">
-          <div class="ntog-reveal-row" onclick="toggleReveal(this.parentElement,event)">
-            <span class="ntog-reveal-arrow">▶</span>
-            <span class="ntog-reveal-label">▸ Reveal Answer from Guide</span>
-          </div>
-          <div class="ntog-reveal-body">${guideHTML}</div>
-        </div>
-      </div>`;
-    list.appendChild(block);
-  });
-}
-
-function escHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function getGuideHTML(sectionId) {
-  if (!sectionId) {
-    let html = '';
-    document.querySelectorAll('section.sec[id]').forEach(sec => {
-      if (sec.id !== 'exam') html += sec.innerHTML;
-    });
-    return html;
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
   }
-  const sec = document.getElementById(sectionId);
-  return sec ? sec.innerHTML : '<p>See the guide for this section.</p>';
-}
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
 
-/* ── TOGGLE OPEN / CLOSE ───────────── */
-function toggleBlock(block) {
-  block.classList.toggle('open');
-  if (block.classList.contains('open')) {
-    const ta = block.querySelector('.ntog-ta');
-    if (ta) { ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); }
-  }
-}
-
-function toggleReveal(panel, e) {
-  e.stopPropagation();
-  panel.classList.toggle('open');
-}
-
-/* ── AUTOSAVE ON INPUT ─────────────── */
-const _saveTimers = {};
-function onToggleInput(ta) {
-  const idx = parseInt(ta.dataset.idx);
-  const val = ta.value;
-  const block = ta.closest('.ntog');
-  const footer = ta.nextElementSibling;
-  const charEl = footer.querySelector('.ntog-char-count');
-  const saveEl = footer.querySelector('.ntog-save-msg');
-  const badgeEl = block.querySelector('.ntog-chars');
-
-  /* Update char count */
-  const len = val.length;
-  charEl.textContent = len > 0 ? len.toLocaleString() + ' chars' : '';
-
-  /* Update badge in header row */
-  if (len > 0) {
-    block.classList.add('has-text');
-    if (badgeEl) { badgeEl.textContent = len.toLocaleString() + ' chars'; }
-    else {
-      const newBadge = document.createElement('span');
-      newBadge.className = 'ntog-chars';
-      newBadge.textContent = len.toLocaleString() + ' chars';
-      block.querySelector('.ntog-row').appendChild(newBadge);
-    }
-  } else {
-    block.classList.remove('has-text');
-    if (badgeEl) badgeEl.remove();
-  }
-
-  /* Debounced save */
-  clearTimeout(_saveTimers[idx]);
-  _saveTimers[idx] = setTimeout(() => {
-    try { localStorage.setItem(SUM_KEY + idx, val); } catch(e) {}
-    saveEl.classList.add('show');
-    setTimeout(() => saveEl.classList.remove('show'), 1600);
-  }, 900);
-}
-
-/* ── GLOBAL CONTROLS ───────────────── */
-function expandAll() {
-  document.querySelectorAll('.ntog').forEach(b => b.classList.add('open'));
-}
-function collapseAll() {
-  document.querySelectorAll('.ntog').forEach(b => { b.classList.remove('open'); });
-  document.querySelectorAll('.ntog-reveal').forEach(r => r.classList.remove('open'));
-}
-function clearAllSummaries() {
-  if (!confirm('Clear ALL your written summaries? This cannot be undone.')) return;
-  PROMPTS.forEach((_,i) => { try { localStorage.removeItem(SUM_KEY + i); } catch(e){} });
-  buildSummaryList();
-}
-
-/* ── OPEN / CLOSE PAGE ─────────────── */
-function openSummary() {
-  document.getElementById('summary-overlay').classList.add('open');
-  buildSummaryList();
-}
-function closeSummary() {
-  document.getElementById('summary-overlay').classList.remove('open');
-}
-
-/* ── SECTION TOGGLE INIT ─────────── */
-document.querySelectorAll('section.sec[id]').forEach(sec => {
-  const hd = sec.querySelector('.sec-hd');
-  if (!hd) return;
-  const arrow = document.createElement('span');
-  arrow.className = 'sec-toggle-arrow';
-  arrow.textContent = '▶';
-  hd.insertBefore(arrow, hd.firstChild);
-  hd.addEventListener('click', () => sec.classList.toggle('collapsed'));
-});
-
+/* ── INIT ── */
+restoreHighlights();
+restoreAnchors();
 renderNotes();
 </script>
 </body>
