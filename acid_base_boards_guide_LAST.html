@@ -282,7 +282,11 @@ h3[style*="font-family"]{font-size:14px!important;margin:18px 0 8px!important}
     </div>
     <div class="np-ref" id="np-ref-text"></div>
     <div class="np-body">
-      <textarea class="np-textarea" id="np-textarea" placeholder="Type your note here…"></textarea>
+      <textarea class="np-textarea" id="np-textarea" placeholder="Type your note here… (paste image with Cmd+V)"></textarea>
+    <div id="np-img-preview" style="display:none;margin-top:6px">
+      <img id="np-img" style="max-width:100%;border-radius:5px;border:1px solid var(--bd)">
+      <button onclick="removeNoteImg()" style="display:block;margin-top:4px;font-size:10px;color:var(--red);background:none;border:none;cursor:pointer">✕ Remove image</button>
+    </div>
     </div>
     <div class="np-actions">
       <button class="np-btn np-cancel" onclick="closeNotePopup()">Cancel</button>
@@ -1490,35 +1494,65 @@ document.addEventListener('mouseup', function(e) {
 });
 
 /* Save (handles both new note and edit) */
+let _noteImg = null; // holds base64 image for current note
+
 function saveNote() {
   const ta   = document.getElementById('np-textarea');
   const text = ta.value.trim();
-  if (!text) { ta.focus(); return; }
+  if (!text && !_noteImg) { ta.focus(); return; }
 
   const rawId  = ta.dataset.editId;
   const editId = rawId ? parseInt(rawId, 10) : null;
 
   if (editId) {
-    /* Edit existing note */
     const notes = nLoad();
     const idx = notes.findIndex(n => n.id === editId);
-    if (idx > -1) { notes[idx].text = text; nSave(notes); renderSidebar(); }
+    if (idx > -1) { notes[idx].text = text; if (_noteImg) notes[idx].img = _noteImg; nSave(notes); renderSidebar(); }
     closeNotePopup();
     return;
   }
 
-  /* New note */
   if (!NS.range) { closeNotePopup(); return; }
   const id = Date.now();
   _insertAnchor(NS.range, id);
 
   const notes = nLoad();
-  notes.push({ id, text, section: NS.section, ref: NS.ref, created: new Date().toLocaleDateString() });
+  const note = { id, text, section: NS.section, ref: NS.ref, created: new Date().toLocaleDateString() };
+  if (_noteImg) note.img = _noteImg;
+  notes.push(note);
   nSave(notes);
   renderSidebar();
   closeNotePopup();
   window.getSelection().removeAllRanges();
 }
+
+function removeNoteImg() {
+  _noteImg = null;
+  document.getElementById('np-img-preview').style.display = 'none';
+  document.getElementById('np-img').src = '';
+}
+
+// Paste image into note
+document.addEventListener('paste', function(e) {
+  const popup = document.getElementById('note-popup');
+  if (!popup || popup.style.display === 'none') return;
+  const items = e.clipboardData && e.clipboardData.items;
+  if (!items) return;
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].type.indexOf('image') !== -1) {
+      const blob = items[i].getAsFile();
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        _noteImg = ev.target.result;
+        document.getElementById('np-img').src = _noteImg;
+        document.getElementById('np-img-preview').style.display = 'block';
+      };
+      reader.readAsDataURL(blob);
+      e.preventDefault();
+      break;
+    }
+  }
+});
 
 function _insertAnchor(range, id) {
   const anchor = document.createElement('span');
@@ -1607,7 +1641,8 @@ function renderSidebar() {
     card.innerHTML =
       '<div class="sn-card-tag">' + (note.section || 'General') + '</div>' +
       (note.ref ? '<div class="sn-card-ref">\u201c' + note.ref.substring(0, 60) + '\u201d</div>' : '') +
-      '<div class="sn-card-text">' + note.text + '</div>';
+      '<div class="sn-card-text">' + note.text + '</div>' +
+      (note.img ? '<img src="' + note.img + '" style="max-width:100%;border-radius:5px;margin-top:6px;border:1px solid var(--bd)">': '');
     const jbtn = document.createElement('button');
     jbtn.className = 'sn-card-jump';
     jbtn.textContent = '↗';
