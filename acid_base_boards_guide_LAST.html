@@ -1226,6 +1226,18 @@ h3[style*="font-family"]{font-size:14px!important;margin:18px 0 8px!important}
 </main>
 <footer class="footer">Harrison's Chapter 58 · Acidosis and Alkalosis · Thomas D. DuBose Jr. · Boards Review Guide</footer>
 <script>
+/* ── ACCORDION TOGGLE ── */
+function tog(hd) {
+  const item = hd.closest('.toggle-item') || hd.parentElement;
+  const body = item.querySelector('.toggle-body');
+  const arrow = hd.querySelector('.toggle-arrow');
+  if (!body) return;
+  const isOpen = body.style.display === 'block';
+  body.style.display = isOpen ? 'none' : 'block';
+  if (arrow) arrow.textContent = isOpen ? '▶' : '▼';
+}
+
+
 /* ══════════════════════════════════════════
    VENOS BOARDS HUB — Annotation System v4
    ✓ Highlights persist across sessions
