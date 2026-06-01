@@ -1532,7 +1532,7 @@ function removeNoteImg() {
   document.getElementById('np-img').src = '';
 }
 
-// Paste image into note
+// Paste image into note — compress before storing
 document.addEventListener('paste', function(e) {
   const popup = document.getElementById('note-popup');
   if (!popup || popup.style.display === 'none') return;
@@ -1543,9 +1543,20 @@ document.addEventListener('paste', function(e) {
       const blob = items[i].getAsFile();
       const reader = new FileReader();
       reader.onload = function(ev) {
-        _noteImg = ev.target.result;
-        document.getElementById('np-img').src = _noteImg;
-        document.getElementById('np-img-preview').style.display = 'block';
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const MAX = 600;
+          let w = img.width, h = img.height;
+          if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
+          if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          _noteImg = canvas.toDataURL('image/jpeg', 0.6);
+          document.getElementById('np-img').src = _noteImg;
+          document.getElementById('np-img-preview').style.display = 'block';
+        };
+        img.src = ev.target.result;
       };
       reader.readAsDataURL(blob);
       e.preventDefault();
