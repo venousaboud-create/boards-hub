@@ -1213,516 +1213,311 @@ h3[style*="font-family"]{font-size:14px!important;margin:18px 0 8px!important}
 </main>
 <footer class="footer">Harrison's Chapter 58 · Acidosis and Alkalosis · Thomas D. DuBose Jr. · Boards Review Guide</footer>
 <script>
-/* ═══════════════════════════════════════════════════════
-   ACID-BASE GUIDE  ·  Interactive v3
-   Fixes:
-     • popup uses viewport coords (position:fixed)
-     • highlight buttons use onmousedown+preventDefault
-       → selection never stolen by toolbar click
-     • hlBtn() applies immediately if text selected
-     • recolour: changes class of existing HL span
-     • erase: only intersecting spans, not all
-     • single clear mouseup → note OR highlight, never both
-═══════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
 
-/* ── TOGGLES ───────────────────────────────────────── */
-function tog(hd){hd.classList.toggle('open');hd.nextElementSibling.classList.toggle('open');}
-function ntog(hd){hd.classList.toggle('open');hd.nextElementSibling.classList.toggle('open');}
-function toggleStatus(btn,t){btn.classList.toggle(t==='learned'?'done':'flagged');}
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
 
-/* ── SIDEBAR ────────────────────────────────────────── */
-function toggleSidebar(){
-  const sb=document.getElementById('sn-sidebar');
-  const tab=document.getElementById('sn-tab');
-  const main=document.getElementById('main-content');
-  const footer=document.querySelector('.footer');
-  sb.classList.toggle('hidden');
-  const h=sb.classList.contains('hidden');
-  tab.textContent=h?'📝 Notes':'◀';
-  main.classList.toggle('no-sb',h);
-  if(footer)footer.style.marginRight=h?'0':'var(--snw)';
-}
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
 
-/* ══════════════════════════════════════════════════════
-   HIGHLIGHT SYSTEM  v3
-   KEY DESIGN:
-   • Toolbar buttons use onmousedown+preventDefault so
-     they NEVER steal focus from a text selection.
-   • hlBtn() checks for an active selection immediately.
-     If found → apply at once (most natural UX).
-     If not   → enter "colour mode" for next mouseup.
-   • Re-colour: if selection is entirely within one
-     existing HL span, just swap its class.
-   • Erase: Range.compareBoundaryPoints to only erase
-     spans that actually intersect the selection.
-══════════════════════════════════════════════════════ */
-let _hlColor = null;
-const HL_SEL = '.hl-y,.hl-g,.hl-b,.hl-p,.hl-o';
-
-/* Called by onmousedown on every toolbar colour/erase button */
-function hlBtn(e, color, btn) {
-  e.preventDefault(); /* ← preserves text selection in all browsers */
-
-  const sel = window.getSelection();
-  const hasSel = sel && sel.rangeCount > 0 && sel.toString().trim().length > 0;
-
-  if (hasSel) {
-    /* ── Apply / erase immediately ── */
-    const range = sel.getRangeAt(0);
-    if (color === 'e') _eraseHL(range);
-    else               _applyHL(color, range);
-    sel.removeAllRanges();
-    /* After applying, deactivate colour mode so next selection starts clean */
-    _hlColor = null;
-    document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
-    return;
-  }
-
-  /* ── No selection: toggle colour mode ── */
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
   document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
-  if (_hlColor === color) { _hlColor = null; return; }
-  _hlColor = color;
-  if (btn) btn.classList.add('active');
+  const map={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};
+  if(document.getElementById(map[c])) document.getElementById(map[c]).classList.add('active');
 }
 
-/* Colour-mode: apply on the next text selection */
-document.addEventListener('mouseup', function(e) {
-  if (!_hlColor) return;
-  if (e.target.closest('#toolbar') || e.target.closest('#note-popup') || e.target.closest('#sn-sidebar')) return;
-  const sel = window.getSelection();
-  if (!sel || sel.rangeCount === 0 || !sel.toString().trim()) return;
-  _applyHL(_hlColor, sel.getRangeAt(0));
-  sel.removeAllRanges();
-  /* Keep colour mode active so user can highlight multiple passages */
-});
-
-function _applyHL(color, range) {
-  /* Re-colour shortcut: both endpoints in the SAME existing HL span → swap class */
-  const sEl = range.startContainer.nodeType === 3
-    ? range.startContainer.parentElement : range.startContainer;
-  const eEl = range.endContainer.nodeType === 3
-    ? range.endContainer.parentElement : range.endContainer;
-  const s0 = sEl ? sEl.closest(HL_SEL) : null;
-  const s1 = eEl ? eEl.closest(HL_SEL) : null;
-  if (s0 && s0 === s1) { s0.className = 'hl-' + color; return; }
-
-  /* ── NON-DESTRUCTIVE text-node walker ──────────────────────────────────
-     surroundContents() fails when selection crosses element boundaries.
-     extractContents() is DESTRUCTIVE — it physically removes DOM nodes,
-     emptying callout boxes and breaking layout (the bug you saw).
-
-     Instead: walk every TEXT_NODE inside the range, split at boundaries,
-     wrap each piece in its own <span class="hl-*">.
-     splitText() + insertBefore() never move or remove existing nodes.
-  ─────────────────────────────────────────────────────────────────────── */
-  const nodes = _textNodesInRange(range);
-  nodes.forEach(function(item) {
-    let target = item.node;
-    // Trim the tail first (higher offset → split there, keep left part)
-    if (item.end < target.length) target.splitText(item.end);
-    // Trim the head (split off any leading chars before selection start)
-    if (item.start > 0) target = target.splitText(item.start);
-    // Skip zero-length or already same-colour nodes
-    if (!target.length) return;
-    if (target.parentElement && target.parentElement.className === 'hl-' + color) return;
-    // Wrap: insert a new span immediately before the text node, then move node inside
-    const span = document.createElement('span');
-    span.className = 'hl-' + color;
-    target.parentNode.insertBefore(span, target);
-    span.appendChild(target); // non-destructive: just re-parents the text node
-  });
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
 }
 
-/* Collect all text nodes (with selection offsets) that fall inside range */
-function _textNodesInRange(range) {
-  const root = range.commonAncestorContainer;
-  const walker = document.createTreeWalker(
-    root.nodeType === Node.TEXT_NODE ? root.parentNode : root,
-    NodeFilter.SHOW_TEXT,
-    null
-  );
-  const result = [];
-  let node;
-  while ((node = walker.nextNode())) {
-    // Build a range around this text node to test intersection
-    let nr;
-    try {
-      nr = document.createRange();
-      nr.selectNode(node);
-    } catch(e) { continue; }
-    // range ends before this node starts → skip
-    if (range.compareBoundaryPoints(Range.END_TO_START, nr) >= 0) continue;
-    // range starts after this node ends → stop walking
-    if (range.compareBoundaryPoints(Range.START_TO_END, nr) <= 0) break;
-    // Determine offsets within this text node
-    const start = (node === range.startContainer) ? range.startOffset : 0;
-    const end   = (node === range.endContainer)   ? range.endOffset   : node.length;
-    if (start < end) result.push({ node, start, end });
-  }
-  return result;
-}
-
-function _eraseHL(range) {
-  /* Snapshot first (unwrap modifies DOM so live NodeList would shift) */
-  const spans = Array.from(document.querySelectorAll(HL_SEL));
-  spans.forEach(function(hl) {
-    let hr;
-    try {
-      hr = document.createRange();
-      hr.selectNode(hl);
-    } catch(e) { return; }
-    try {
-      /* Intersection: range ends AFTER hl starts AND range starts BEFORE hl ends */
-      if (range.compareBoundaryPoints(Range.END_TO_START, hr) < 0 &&
-          range.compareBoundaryPoints(Range.START_TO_END, hr) > 0) {
-        _unwrap(hl);
-      }
-    } catch(e) {}
-  });
-}
-
-function _unwrap(el) {
-  const p = el.parentNode;
-  if (!p) return;
-  while (el.firstChild) p.insertBefore(el.firstChild, el);
-  p.removeChild(el);
-  try { p.normalize(); } catch(e) {}
-}
-
-function clearAll() {
-  if (!confirm('Clear ALL highlights and notes?')) return;
-  /* Snapshot to avoid live-NodeList issues during _unwrap DOM mutations */
-  Array.from(document.querySelectorAll(HL_SEL)).forEach(_unwrap);
-  try { document.body.normalize(); } catch(e) {}
-  /* Also clear all notes */
-  try { localStorage.removeItem(N_KEY); } catch(e) {}
-  renderNotes();
-  showToast && showToast('All cleared');
-}
-
-/* ══════════════════════════════════════════════════════
-   INLINE NOTE SYSTEM  v3
-   KEY FIX: popup is position:fixed, so top/left must be
-   in VIEWPORT coordinates — NO window.scrollY added.
-   getBoundingClientRect() already returns viewport coords.
-══════════════════════════════════════════════════════ */
-const N_KEY = 'ab_notes_v3';
-let NS = { range: null, section: '', ref: '', viewId: null };
-
-function nLoad() { try { return JSON.parse(localStorage.getItem(N_KEY)) || []; } catch(e) { return []; } }
-function nSave(a) { localStorage.setItem(N_KEY, JSON.stringify(a)); }
-
-function nSection(el) {
-  const sec = el && el.closest && el.closest('.sec[id]');
-  if (!sec) return 'General';
-  const h2 = sec.querySelector('h2');
-  return h2 ? h2.textContent.trim() : sec.id;
-}
-
-/* position:fixed → viewport coordinates ONLY */
-function _place(cr) {
-  const pop = document.getElementById('note-popup');
-  const W = window.innerWidth, H = window.innerHeight;
-  /* Preferred: below selection */
-  let top = cr.bottom + 10;
-  let left = cr.left;
-  /* If popup would clip bottom of viewport, show above selection instead */
-  if (top + 240 > H) top = Math.max(8, cr.top - 245);
-  /* Clamp horizontal */
-  if (left + 292 > W) left = W - 296;
-  if (left < 8) left = 8;
-  pop.style.top  = top  + 'px';
-  pop.style.left = left + 'px';
-  pop.style.display = 'block';
-  pop.classList.add('show');
-}
-
-function closeNotePopup() {
-  const pop = document.getElementById('note-popup');
-  pop.classList.remove('show');
-  pop.style.display = 'none';
-  NS = { range: null, section: '', ref: '', viewId: null };
-}
-
-function _newMode(cr, sec, ref) {
-  document.getElementById('np-new').style.display  = 'block';
-  document.getElementById('np-view').style.display = 'none';
-  document.getElementById('np-tag').textContent = sec;
-  const short = ref.length > 80 ? ref.substring(0, 80) + '…' : ref;
-  document.getElementById('np-ref-text').textContent = '\u201c' + short + '\u201d';
-  const ta = document.getElementById('np-textarea');
-  ta.value = ''; ta.dataset.editId = '';
-  _place(cr);
-  setTimeout(() => ta.focus(), 60);
-}
-
-function _viewMode(anchorEl, note) {
-  NS.viewId = note.id;
-  document.getElementById('np-new').style.display  = 'none';
-  document.getElementById('np-view').style.display = 'block';
-  document.getElementById('np-view-tag').textContent  = note.section || '';
-  document.getElementById('np-view-ref').textContent  = note.ref ? '\u201c' + note.ref.substring(0, 80) + '\u201d' : '';
-  document.getElementById('np-view-text').textContent = note.text;
-  _place(anchorEl.getBoundingClientRect());
-}
-
-/* Detect text selection — only when NO highlight colour active */
-document.addEventListener('mouseup', function(e) {
-  /* If highlight mode is active, the first mouseup handler deals with it */
-  if (_hlColor) return;
-  /* Ignore clicks inside popup / toolbar / sidebar / anchors */
-  if (e.target.closest('#note-popup') || e.target.closest('#toolbar') ||
-      e.target.closest('#sn-sidebar') || e.target.closest('.note-anchor')) return;
-
-  setTimeout(function() {
-    const sel = window.getSelection();
-    if (!sel || sel.rangeCount === 0 || sel.toString().trim().length < 2) return;
-    /* Don't re-trigger while viewing a note */
-    const pop = document.getElementById('note-popup');
-    if (pop.classList.contains('show') && NS.viewId !== null) return;
-
-    const range = sel.getRangeAt(0);
-    const cr = range.getBoundingClientRect();
-    /* Skip zero-rect (collapsed selection) */
-    if (cr.width === 0 && cr.height === 0) return;
-
-    NS.range   = range.cloneRange();
-    NS.section = nSection(e.target);
-    NS.ref     = sel.toString().trim();
-    _newMode(cr, NS.section, NS.ref);
-  }, 60);
-});
-
-/* Save (handles both new note and edit) */
-let _noteImg = null; // holds base64 image for current note
-
-function saveNote() {
-  const ta   = document.getElementById('np-textarea');
-  const text = ta.value.trim();
-  if (!text && !_noteImg) { ta.focus(); return; }
-
-  const rawId  = ta.dataset.editId;
-  const editId = rawId ? parseInt(rawId, 10) : null;
-
-  if (editId) {
-    const notes = nLoad();
-    const idx = notes.findIndex(n => n.id === editId);
-    if (idx > -1) { notes[idx].text = text; if (_noteImg) notes[idx].img = _noteImg; nSave(notes); renderSidebar(); }
-    closeNotePopup();
-    return;
-  }
-
-  if (!NS.range) { closeNotePopup(); return; }
-  const id = Date.now();
-  _insertAnchor(NS.range, id);
-
-  const notes = nLoad();
-  const note = { id, text, section: NS.section, ref: NS.ref, created: new Date().toLocaleDateString() };
-  if (_noteImg) note.img = _noteImg;
-  notes.push(note);
-  nSave(notes);
-  renderSidebar();
-  closeNotePopup();
-  window.getSelection().removeAllRanges();
-}
-
-function removeNoteImg() {
-  _noteImg = null;
-  document.getElementById('np-img-preview').style.display = 'none';
-  document.getElementById('np-img').src = '';
-}
-
-// Paste image into note — compress before storing
-document.addEventListener('paste', function(e) {
-  const popup = document.getElementById('note-popup');
-  if (!popup || popup.style.display === 'none') return;
-  const items = e.clipboardData && e.clipboardData.items;
-  if (!items) return;
-  for (let i = 0; i < items.length; i++) {
-    if (items[i].type.indexOf('image') !== -1) {
-      const blob = items[i].getAsFile();
-      const reader = new FileReader();
-      reader.onload = function(ev) {
-        const img = new Image();
-        img.onload = function() {
-          const canvas = document.createElement('canvas');
-          const MAX = 600;
-          let w = img.width, h = img.height;
-          if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
-          if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
-          canvas.width = w; canvas.height = h;
-          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-          _noteImg = canvas.toDataURL('image/jpeg', 0.6);
-          document.getElementById('np-img').src = _noteImg;
-          document.getElementById('np-img-preview').style.display = 'block';
-        };
-        img.src = ev.target.result;
-      };
-      reader.readAsDataURL(blob);
-      e.preventDefault();
-      break;
-    }
-  }
-});
-
-function _insertAnchor(range, id) {
-  const anchor = document.createElement('span');
-  anchor.className = 'note-anchor';
-  anchor.dataset.noteId = String(id);
-  anchor.title = 'Click to view note';
-
+function applyHL(range, color) {
   try {
-    range.surroundContents(anchor);
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
   } catch(e) {
     try {
       const frag = range.extractContents();
-      anchor.appendChild(frag);
-      range.insertNode(anchor);
-    } catch(e2) {
-      /* Selection was too complex — note saved but no underline visible */
-      console.warn('Could not insert anchor:', e2);
-    }
-  }
-  _bindAnchor(anchor, id);
-}
-
-function _bindAnchor(anchor, id) {
-  anchor.addEventListener('click', function(ev) {
-    ev.stopPropagation(); ev.preventDefault();
-    const note = nLoad().find(n => n.id === id);
-    if (note) _viewMode(anchor, note);
-  });
-}
-
-/* View mode actions */
-function switchToEdit() {
-  const note = nLoad().find(n => n.id === NS.viewId);
-  if (!note) return;
-  document.getElementById('np-new').style.display  = 'block';
-  document.getElementById('np-view').style.display = 'none';
-  document.getElementById('np-tag').textContent = note.section;
-  document.getElementById('np-ref-text').textContent = note.ref ? '\u201c' + note.ref.substring(0, 80) + '\u201d' : '';
-  const ta = document.getElementById('np-textarea');
-  ta.value = note.text;
-  ta.dataset.editId = String(NS.viewId);
-  setTimeout(() => ta.focus(), 60);
-}
-
-function deleteCurrentNote() {
-  if (NS.viewId === null) return;
-  const id = NS.viewId;
-  nSave(nLoad().filter(n => n.id !== id));
-  const a = document.querySelector('.note-anchor[data-note-id="' + id + '"]');
-  if (a) _unwrap(a);
-  renderSidebar();
-  closeNotePopup();
-}
-
-function jumpToAnchor() {
-  if (NS.viewId === null) return;
-  const id = NS.viewId;
-  closeNotePopup();
-  const a = document.querySelector('.note-anchor[data-note-id="' + id + '"]');
-  if (a) {
-    a.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    a.style.background = 'rgba(109,40,217,0.25)';
-    setTimeout(() => { a.style.background = ''; }, 1800);
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
   }
 }
 
-/* Close popup on outside mousedown */
-document.addEventListener('mousedown', function(e) {
-  const pop = document.getElementById('note-popup');
-  if (!pop.classList.contains('show')) return;
-  if (pop.contains(e.target) || e.target.closest('.note-anchor')) return;
-  closeNotePopup();
-});
-
-/* Render sidebar note cards */
-function renderSidebar() {
-  const body  = document.getElementById('sn-body');
-  const empty = document.getElementById('sn-empty');
-  body.querySelectorAll('.sn-card').forEach(c => c.remove());
-  const notes = nLoad();
-  if (!notes.length) { empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
-  notes.slice().reverse().forEach(function(note) {
-    const card = document.createElement('div');
-    card.className = 'sn-card';
-    card.innerHTML =
-      '<div class="sn-card-tag">' + (note.section || 'General') + '</div>' +
-      (note.ref ? '<div class="sn-card-ref">\u201c' + note.ref.substring(0, 60) + '\u201d</div>' : '') +
-      '<div class="sn-card-text">' + note.text + '</div>' +
-      (note.img ? '<img src="' + note.img + '" style="max-width:100%;border-radius:5px;margin-top:6px;border:1px solid var(--bd)">': '');
-    const jbtn = document.createElement('button');
-    jbtn.className = 'sn-card-jump';
-    jbtn.textContent = '↗';
-    jbtn.title = 'Jump to anchor in document';
-    jbtn.addEventListener('click', function() {
-      const a = document.querySelector('.note-anchor[data-note-id="' + note.id + '"]');
-      if (a) {
-        a.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        a.style.background = 'rgba(109,40,217,0.25)';
-        setTimeout(() => { a.style.background = ''; }, 1800);
-      }
-    });
-    card.appendChild(jbtn);
-    body.appendChild(card);
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
   });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
 }
 
-/* ── ACTIVE NAV ─────────────────────────────────────── */
-const _secs  = document.querySelectorAll('.sec[id]');
-const _links = document.querySelectorAll('.toc-a');
-_secs.forEach(function(s) {
-  new IntersectionObserver(function(entries) {
-    if (!entries[0].isIntersecting) return;
-    _links.forEach(l => l.classList.remove('on'));
-    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
-    if (lnk) {
-      lnk.classList.add('on');
-      lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-    }
-  }, { rootMargin: '-15% 0px -75% 0px' }).observe(s);
-});
-
-/* ── ANCHOR RESTORATION ─────────────────────────────── */
-function restoreAnchors() {
-  const notes = nLoad();
-  if (!notes.length) return;
-  notes.forEach(function(note) {
-    if (!note.ref || !note.id) return;
-    const refText = note.ref.trim();
-    if (!refText) return;
-    // Search all text nodes in main content
-    const main = document.querySelector('main') || document.body;
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
     const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
     let node;
     while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
       const idx = node.nodeValue.indexOf(refText);
       if (idx !== -1) {
-        // Check not already wrapped
-        if (node.parentElement && node.parentElement.classList.contains('note-anchor')) continue;
         try {
           const range = document.createRange();
           range.setStart(node, idx);
           range.setEnd(node, idx + refText.length);
-          const anchor = document.createElement('span');
-          anchor.className = 'note-anchor';
-          anchor.dataset.noteId = String(note.id);
-          anchor.title = 'Click to view note';
-          range.surroundContents(anchor);
-          _bindAnchor(anchor, note.id);
-          break; // only wrap first match
-        } catch(e) { /* skip complex nodes */ }
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
       }
     }
   });
 }
 
-/* ── INIT ───────────────────────────────────────────── */
-renderSidebar();
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb && tb.contains(e.target)) return;
+  if (sb && sb.contains(e.target)) return;
+  if (np && np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  const refEl = document.getElementById('sn-ref-txt');
+  if (refEl) refEl.textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  if (tab) tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  if (!handle) return;
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+/* ── INIT ── */
+restoreHighlights();
 restoreAnchors();
+renderNotes();
 </script>
 </body>
 </html>
