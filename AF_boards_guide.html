@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Atrial Fibrillation · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);
+  border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;
+  z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;
+  display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;
+  position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;
+  line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;
+  padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blu);
+  margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}
+  .main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+/* flowchart */
+.flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:16px 0}
+.flow-box{background:var(--blu-l);border:1.5px solid var(--blu);border-radius:7px;padding:9px 20px;font-size:12.5px;font-weight:500;color:var(--blu-d);text-align:center;min-width:200px}
+.flow-box.red{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.flow-box.grn{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.flow-box.amb{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.flow-box.pur{background:var(--pur-l);border-color:var(--pur);color:var(--pur)}
+.flow-arrow{font-size:18px;color:var(--t3);line-height:1;margin:2px 0}
+.flow-row{display:flex;gap:10px;align-items:flex-start;justify-content:center;flex-wrap:wrap}
+.flow-diamond{background:var(--amb-l);border:1.5px solid var(--amb);border-radius:7px;padding:9px 20px;font-size:12.5px;font-weight:600;color:var(--amb);text-align:center;transform:none;min-width:200px}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles · Chapter 258</div>
+  <h1>Atrial Fibrillation</h1>
+  <div class="hero-sub">Sauer · Romero · Zei · Medical Boards Review · 2026</div>
+  <div class="hero-authors">William H. Sauer, Jorge E. Romero, Paul C. Zei</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">25%</div><div class="stat-l">of all strokes</div></div>
+    <div class="stat-box"><div class="stat-n">20%</div><div class="stat-l">prevalence age &gt;80</div></div>
+    <div class="stat-box"><div class="stat-n">1.5–1.9×</div><div class="stat-l">mortality risk</div></div>
+    <div class="stat-box"><div class="stat-n">3</div><div class="stat-l">treatment pillars</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Pathophysiology</a>
+    <a class="toc-a" href="#s2">Epidemiology</a>
+    <a class="toc-a" href="#s3">Classification</a>
+    <a class="toc-a" href="#s4">Clinical Presentation</a>
+    <a class="toc-a" href="#s5">Treatment Overview</a>
+    <a class="toc-a" href="#s6">Rate Control</a>
+    <a class="toc-a" href="#s7">Cardioversion &amp; AC</a>
+    <a class="toc-a" href="#s8">Stroke Prevention</a>
+    <a class="toc-a" href="#s9">Rhythm Control</a>
+    <a class="toc-a" href="#s10">Ablation</a>
+    <a class="toc-a" href="#s11">Risk Factors</a>
+    <a class="toc-a" href="#s12">Exam Traps</a>
+    <a class="toc-a" href="#s13">Quick Reference</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- SECTION 1 -->
+<div class="sec" id="s1">
+  <div class="sec-hd">
+    <span class="sec-n">01</span>
+    <h2>Pathophysiology</h2>
+    <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+  </div>
+
+  <div class="sub">
+    <h3>The Core Mechanism</h3>
+    <p>AF is a cardiac arrhythmia characterized by <strong>seemingly disorganized, rapid, and irregular atrial electrical activation</strong>, resulting in loss of organized atrial mechanical contraction. These chaotic signals bombard the AV node, which then determines ventricular rate — resulting in an irregular, usually rapid ventricular response.</p>
+    <div class="co key"><div class="co-t">Key Concept — Why Is the Ventricular Rate Irregular?</div>
+    The AV node acts as a "gatekeeper" — it receives hundreds of fibrillatory impulses per minute but only conducts some of them, unpredictably, producing the classically <em>irregularly irregular</em> ventricular rhythm with no discernible P waves on ECG.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>The Multifactorial Pathway to AF</h3>
+    <p>The pathophysiology is <strong>incompletely understood</strong> but follows a "final common pathway" model:</p>
+    <div class="flow">
+      <div class="flow-box">Risk Factors (HTN, obesity, DM, sleep apnea, alcohol, age)</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box">Electrophysiologic remodeling of atrial tissue</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box">Abnormal membrane channel regulation → Enhanced automaticity</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box pur">Ectopic beats (PACs) — especially from pulmonary vein musculature</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box amb">Bouts of rapid atrial ectopy → initiate atrial tachycardia or frank AF</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box">Cellular + tissue remodeling → Shortening of atrial refractory periods</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box red">Sustained AF via rapid automaticity "drivers" + functional reentry</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box red">Further remodeling: fibrosis + left atrial enlargement</div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Key Trigger Regions</h3>
+    <ul class="bl">
+      <li><strong>Pulmonary veins</strong> — Primary source; musculature exhibits enhanced automaticity</li>
+      <li><strong>Posterior wall of the left atrium</strong> — Secondary trigger zone</li>
+      <li><strong>Superior vena cava</strong> — Muscular tissue sleeves can fire ectopically</li>
+      <li><strong>Coronary sinus</strong> — Another ectopic source</li>
+      <li><strong>Vein of Marshall (remnant)</strong> — Can harbor triggered activity</li>
+    </ul>
+    <div class="co prl"><div class="co-t">Why This Matters for Treatment</div>
+    Because pulmonary veins are the dominant trigger, <strong>pulmonary vein isolation (PVI)</strong> is the cornerstone of ablation therapy. This is not arbitrary — it directly targets the anatomic source.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>AF as a Progressive Disease</h3>
+    <ul class="bl">
+      <li>Typically begins with <strong>sporadic PACs and short atrial tachycardia runs</strong> from pulmonary veins</li>
+      <li>Progresses to <strong>paroxysmal AF</strong> as ectopy becomes more frequent and substrate develops</li>
+      <li>Untreated, episodes lengthen → <strong>persistent AF</strong> (does not self-terminate)</li>
+      <li>Eventually: <strong>long-standing persistent AF</strong> with severe remodeling, fibrosis, LA enlargement</li>
+      <li>The more remodeled the atria, the <strong>less effective</strong> therapeutic interventions become</li>
+    </ul>
+    <div class="co wrn"><div class="co-t">Important Caveat</div>
+    There is currently <strong>no definitive "cure"</strong> that completely eliminates AF durably in a predictable fashion.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="sec" id="s2">
+  <div class="sec-hd">
+    <span class="sec-n">02</span>
+    <h2>Epidemiology &amp; Risk Factors</h2>
+    <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+  </div>
+
+  <div class="sub">
+    <h3>Prevalence &amp; Demographics</h3>
+    <div class="g3">
+      <div class="card"><div class="clabel c-b">Most Common</div><p>AF is the <strong>most common sustained cardiac arrhythmia</strong> — a major public health issue worldwide</p></div>
+      <div class="card"><div class="clabel c-r">Age</div><p><strong>&gt;95%</strong> of AF patients are &gt;60 years old. Prevalence in those &gt;80 years: <strong>~20%</strong></p></div>
+      <div class="card"><div class="clabel c-a">Lifetime Risk</div><p>Men aged 40 have a <strong>~25% lifetime risk</strong> of developing AF</p></div>
+    </div>
+    <ul class="bl">
+      <li>Slightly more common in <strong>men</strong> than women</li>
+      <li>More common in <strong>whites</strong> than blacks</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Risk Factors</h3>
+    <div class="g2">
+      <div>
+        <h4>Modifiable</h4>
+        <ul class="bl">
+          <li><strong>Hypertension</strong> — most common modifiable RF</li>
+          <li><strong>Obesity</strong></li>
+          <li><strong>Alcohol use</strong> — can trigger acute AF ("holiday heart")</li>
+          <li><strong>Sleep-disordered breathing</strong> (sleep apnea)</li>
+          <li><strong>Sedentary lifestyle</strong></li>
+          <li><strong>Smoking</strong></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Non-Modifiable / Medical</h4>
+        <ul class="bl">
+          <li><strong>Age</strong> — strongest independent risk factor</li>
+          <li><strong>Diabetes mellitus</strong></li>
+          <li><strong>Cardiac disease</strong> (cardiomyopathy, HF, valvular disease, CAD)</li>
+          <li><strong>Family history of AF</strong></li>
+          <li><strong>Thyroid disease</strong> (especially hyperthyroidism)</li>
+          <li><strong>Male sex</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Precipitating Factors (Secondary AF)</h3>
+    <ul class="bl">
+      <li><strong>Hyperthyroidism</strong> — Always check TSH in new AF</li>
+      <li><strong>Acute alcohol intoxication</strong></li>
+      <li><strong>Myocardial infarction</strong></li>
+      <li><strong>Pulmonary embolism</strong></li>
+      <li><strong>Pericarditis</strong></li>
+      <li><strong>Cardiac surgery</strong> — AF occurs in up to <strong>50% of patients postoperatively</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Consequences &amp; Mortality</h3>
+    <div class="co dan"><div class="co-t">AF is NOT Benign</div>
+    <ul class="bl">
+      <li><strong>1.5–1.9× increased mortality risk</strong> after controlling for underlying cardiac disease</li>
+      <li>Causes <strong>~25% of all strokes</strong></li>
+      <li>AF detected in <strong>8.9% of patients</strong> within 6 months of cryptogenic stroke (using insertable cardiac monitors)</li>
+      <li>Increased risk of <strong>dementia</strong> and MRI-detected asymptomatic embolic infarcts</li>
+      <li>Risk of <strong>tachycardia-induced cardiomyopathy</strong> with prolonged uncontrolled rate</li>
+    </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Caffeine — The Counterintuitive Finding</h3>
+    <div class="co suc"><div class="co-t">Board Pearl</div>
+    Despite common belief, <strong>large cohort studies show a modest DECREASE in AF risk with modest caffeine intake</strong>. Caffeine is NOT a confirmed AF trigger. This is a classic board trap.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Exercise and AF — A Complex Relationship</h3>
+    <ul class="bl">
+      <li><strong>Males:</strong> U-shaped curve — AF risk high in sedentary individuals AND in those with extensive endurance athletics (long-distance running, cycling). <em>Moderate exercise is protective.</em></li>
+      <li><strong>Females:</strong> Linear relationship — AF risk decreases continuously with increasing exercise activity</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="sec" id="s3">
+  <div class="sec-hd">
+    <span class="sec-n">03</span>
+    <h2>Classification of AF</h2>
+    <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+  </div>
+
+  <div class="sub">
+    <h3>Traditional Temporal Classification (Most Tested)</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Type</th><th>Definition</th><th>LA Size</th><th>LA Scar</th><th>AAD Efficacy</th><th>Ablation Technique</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Paroxysmal</strong></td>
+            <td>Self-terminates or cardioverted in <strong>&lt;7 days</strong></td>
+            <td>Normal to mildly enlarged</td>
+            <td>Low</td>
+            <td>Often effective</td>
+            <td>PV isolation alone usually sufficient</td>
+          </tr>
+          <tr>
+            <td><strong>Persistent</strong></td>
+            <td>Continuous <strong>&gt;7 days but &lt;1 year</strong></td>
+            <td>Mild to severely enlarged</td>
+            <td>Moderate</td>
+            <td>Less effective</td>
+            <td>PV isolation + any identified non-PV AF source</td>
+          </tr>
+          <tr>
+            <td><strong>Long-standing Persistent</strong></td>
+            <td>Persistent <strong>&gt;1 year</strong></td>
+            <td>Typically severely enlarged</td>
+            <td>High</td>
+            <td>Usually refractory</td>
+            <td>PV isolation + substrate modification likely needed</td>
+          </tr>
+          <tr>
+            <td><strong>Permanent</strong></td>
+            <td>Patient and physician accept AF; no further rhythm control attempts</td>
+            <td>Severely enlarged</td>
+            <td>High</td>
+            <td>Not pursued</td>
+            <td>Not applicable</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Newer 4-Stage Classification (2023 ACC/AHA)</h3>
+    <ul class="bl">
+      <li><strong>Stage 1 — At Risk:</strong> Risk factors present but no AF yet; focus on prevention and lifestyle modification</li>
+      <li><strong>Stage 2 — Pre-AF:</strong> Structural/electrical changes (e.g., frequent PACs, short atrial tachycardia runs) increasing risk; screening warranted</li>
+      <li><strong>Stage 3 — AF:</strong> Established AF (paroxysmal, persistent, long-standing persistent)</li>
+      <li><strong>Stage 4 — Permanent AF:</strong> Decision made to not pursue rhythm control</li>
+    </ul>
+    <div class="co key"><div class="co-t">Why Two Classifications?</div>
+    The temporal classification guides acute therapeutic decisions. The 4-stage classification recognizes AF as a <strong>disease continuum</strong> requiring prevention strategies at earlier stages, not just arrhythmia management.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Subclinical AF</h3>
+    <ul class="bl">
+      <li>Short-lasting and <strong>asymptomatic</strong> — detectable only via long-term monitoring (implantable loop recorders, pacemakers, defibrillators)</li>
+      <li>Associated with <strong>2.5× increased stroke risk</strong></li>
+      <li>Subclinical AF lasting <strong>6 min to 24 h</strong>: apixaban decreases stroke/systemic embolism risk but increases major bleeding risk</li>
+      <li>Role of continuous monitoring to guide anticoagulation in borderline-risk patients remains <strong>unclear</strong></li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 4 -->
+<div class="sec" id="s4">
+  <div class="sec-hd">
+    <span class="sec-n">04</span>
+    <h2>Clinical Presentation &amp; Manifestations</h2>
+    <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+  </div>
+
+  <div class="sub">
+    <h3>Four Domains of Clinical Consequence</h3>
+    <div class="g2">
+      <div class="card"><div class="clabel c-r">1 · Symptoms from Rate</div><p>Palpitations, awareness of heartbeat, exercise intolerance, fatigue, weakness, presyncope, dyspnea from irregular/rapid ventricular rate. <em>Many patients are unaware of the irregular rhythm for unknown reasons.</em></p></div>
+      <div class="card"><div class="clabel c-b">2 · Hemodynamic Consequences</div><p>Loss of atrial systole → reduced cardiac output. Variable stroke volume with irregular ventricular rate. Exacerbates underlying HFpEF, HFrEF, HCM, CAD, valvular disease, amyloidosis.</p></div>
+      <div class="card"><div class="clabel c-a">3 · Cardioembolic Phenomena</div><p>Blood stasis → thrombus (primarily in left atrial appendage) → embolization → <strong>ischemic stroke</strong>. Recurrent subclinical emboli → cognitive impairment, dementia.</p></div>
+      <div class="card"><div class="clabel c-p">4 · Long-term Cardiovascular Impact</div><p>Tachycardia-induced cardiomyopathy (generally reversible with rate control). "Stiff left atrial syndrome" in long-standing persistent AF: fibrotic, non-compliant LA → elevated filling pressures, volume overload, CHF.</p></div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>ECG Diagnosis</h3>
+    <ul class="bl">
+      <li><strong>No organized P waves</strong> — replaced by fibrillatory baseline (best seen in V1)</li>
+      <li><strong>Irregularly irregular ventricular response</strong> — the hallmark</li>
+      <li>Ventricular rate typically <strong>110–160 bpm</strong>; can exceed 200 bpm or be slow in patients with AV nodal disease or high vagal tone</li>
+      <li>Diagnosed via 12-lead ECG, ambulatory monitoring, or implantable loop recorders</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Special Presentations</h3>
+    <ul class="bl">
+      <li><strong>Pauses at conversion to sinus rhythm</strong> — manifestation of underlying sinus node dysfunction (very common with AF)</li>
+      <li><strong>Bradycardia during AF</strong> — suggests concomitant AV nodal conduction disease → may cause presyncope/syncope</li>
+      <li><strong>Tachycardia-induced cardiomyopathy</strong> — depressed LV function from prolonged rapid ventricular rates; generally <em>reversible</em> once rate controlled</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div class="sec" id="s5">
+  <div class="sec-hd">
+    <span class="sec-n">05</span>
+    <h2>Treatment Overview — The Three Pillars</h2>
+    <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+  </div>
+
+  <div class="co key"><div class="co-t">The Three Goals of AF Management</div>
+  <ol style="padding-left:18px;font-size:13px;line-height:1.8">
+    <li><strong>Control patient symptoms</strong> — via rate control and/or rhythm control strategy</li>
+    <li><strong>Mitigate thromboembolism risk</strong> — anticoagulation based on stroke risk score</li>
+    <li><strong>Address modifiable risk factors</strong> — lifestyle and comorbidity management</li>
+  </ol>
+  </div>
+
+  <div class="sub">
+    <h3>Acute Hemodynamic Instability → Emergency Cardioversion</h3>
+    <p>If <strong>significant hemodynamic compromise, pulmonary edema, or evidence of coronary ischemia</strong> is present, emergent cardioversion is recommended.</p>
+    <ul class="bl">
+      <li><strong>Electrical cardioversion</strong> — QRS-synchronous DC shock (preferably with sedation)</li>
+      <li><strong>Pharmacologic cardioversion</strong> — IV ibutilide (class III agent) most typical</li>
+    </ul>
+    <div class="co dan"><div class="co-t">Ibutilide Warning</div>
+    Avoid ibutilide in patients with <strong>baseline prolonged QT interval</strong> or <strong>severe LV dysfunction</strong> — risk of torsades de pointes.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6 -->
+<div class="sec" id="s6">
+  <div class="sec-hd">
+    <span class="sec-n">06</span>
+    <h2>Rate Control</h2>
+    <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+  </div>
+
+  <div class="sub">
+    <h3>Goal of Rate Control</h3>
+    <p>Allow more <strong>diastolic filling time</strong> → improve cardiac output → reduce symptoms. Longer term: minimize risk of CHF and tachycardia-induced cardiomyopathy.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Acute Rate Control</h3>
+    <ul class="bl">
+      <li><strong>Beta-blockers</strong> — first-line; IV or oral depending on urgency</li>
+      <li><strong>Non-dihydropyridine calcium channel blockers</strong> — verapamil, diltiazem; IV or oral</li>
+      <li><strong>Digoxin</strong> — useful in patients with labile BP or cardiomyopathy (no negative inotropy); acts synergistically with beta-blockers/CCBs. However, <strong>recent evidence suggests increased mortality with chronic use</strong> → utilization has declined</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Chronic Rate Control Targets</h3>
+    <div class="co key"><div class="co-t">Rate Control Thresholds (Memorize These Numbers)</div>
+    <ul class="bl">
+      <li><strong>Strict rate control:</strong> Resting HR &lt;80 bpm; increases to &lt;100 bpm with light exertion (walking)</li>
+      <li><strong>Lenient rate control:</strong> Resting HR &lt;110 bpm — acceptable if asymptomatic and ventricular function is normal</li>
+      <li>In <strong>permanent AF</strong>: lenient strategy (&lt;110 bpm at rest) is <em>as effective</em> as strict strategy for major outcomes (cardiovascular death, HF hospitalization, stroke, embolism, bleeding, life-threatening arrhythmias) — and easier to achieve</li>
+    </ul>
+    </div>
+    <div class="co wrn"><div class="co-t">Monitoring Requirement</div>
+    If allowing resting rate up to 110 bpm: <strong>periodic assessment of ventricular function is warranted</strong> because some patients develop tachycardia-induced cardiomyopathy even at this rate.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Exertion-Related Symptoms</h3>
+    <p>Often indicate <strong>inadequate rate control</strong>. Assess heart rate response with exertion and adjust medications accordingly.</p>
+  </div>
+
+  <div class="sub">
+    <h3>When Rate Control Fails: Ablate and Pace</h3>
+    <ul class="bl">
+      <li><strong>Catheter ablation of AV junction</strong> → creates permanent AV block → requires permanent pacemaker implantation</li>
+      <li>Patients remain in AF but become <strong>pacemaker-dependent</strong></li>
+      <li>Standard RV apical pacing → dyssynchronous ventricular activation → may depress LV function in some patients</li>
+      <li>Alternatives: <strong>biventricular pacing</strong> or <strong>left bundle branch area pacing</strong> to minimize dyssynchrony</li>
+    </ul>
+    <div class="co suc"><div class="co-t">Clinical Trial Pearl</div>
+    AV nodal ablation + cardiac resynchronization therapy (CRT) is <strong>superior to pharmacologic therapy</strong> in improving quality of life and reducing development of heart failure, HF hospitalizations, and all-cause mortality in patients with permanent AF and narrow QRS — irrespective of baseline LVEF.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7 -->
+<div class="sec" id="s7">
+  <div class="sec-hd">
+    <span class="sec-n">07</span>
+    <h2>Cardioversion &amp; Anticoagulation</h2>
+    <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+  </div>
+
+  <div class="sub">
+    <h3>Why Cardioversion Carries Thromboembolic Risk</h3>
+    <ul class="bl">
+      <li>Thrombus forms primarily in <strong>left atrial appendage</strong> (stagnant flow) during AF</li>
+      <li>After conversion to sinus rhythm, <strong>atrial mechanical function is delayed for weeks</strong> ("atrial stunning") — thrombi can form even after restoration of sinus rhythm</li>
+      <li>Risk highest when AF has been present for <strong>&gt;48 hours</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>The 48-Hour Rule (Board Favorite)</h3>
+    <div class="flow">
+      <div class="flow-diamond">AF onset known or unknown?</div>
+      <div class="flow-row">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box grn">&lt;48 hours + Low risk*</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box grn">Cardiovert without TEE<br>(start anticoagulation)</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box red">&gt;48 hours OR Unknown duration</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-diamond">Two options:</div>
+          <div class="flow-row">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+              <div class="flow-box amb">Option A:<br>Anticoagulate ≥3 weeks<br>THEN cardiovert<br>THEN continue AC ≥4 weeks</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+              <div class="flow-box pur">Option B (more common):<br>Start AC + TEE or cardiac CT<br>If no thrombus → cardiovert<br>Continue AC ≥4 weeks</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--t3);margin-top:8px">*Low risk = no prior embolic events, no rheumatic mitral stenosis, no hypertrophic cardiomyopathy with marked LA enlargement</p>
+  </div>
+
+  <div class="sub">
+    <h3>Special Considerations</h3>
+    <ul class="bl">
+      <li><strong>Atrial stunning:</strong> After cardioversion, even if TEE showed no thrombus, continue anticoagulation for <strong>minimum 4 weeks</strong> to allow recovery of atrial mechanical function</li>
+      <li><strong>Watchman device (LAA closure):</strong> Cardioversion is feasible without oral anticoagulation if pre-procedural TEE shows good device position, no device-related thrombus, and peri-device leak <strong>≤5 mm</strong></li>
+      <li>Cardioversion associated with <strong>substantial risk of AF recurrence</strong>, which may be asymptomatic</li>
+    </ul>
+    <div class="co wrn"><div class="co-t">Data Caveat</div>
+    Recommendations for short-term anticoagulation and thrombus exclusion at time of cardioversion <strong>lack contemporary robust data</strong> to support these strategies — noted by current guidelines.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 8 -->
+<div class="sec" id="s8">
+  <div class="sec-hd">
+    <span class="sec-n">08</span>
+    <h2>Stroke Prevention &amp; Anticoagulation</h2>
+    <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+  </div>
+
+  <div class="sub">
+    <h3>CHA₂DS₂-VASc Score — Stroke Risk Estimation</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Risk Factor</th><th>Points</th></tr></thead>
+        <tbody>
+          <tr><td><strong>C</strong> — Congestive heart failure</td><td>1</td></tr>
+          <tr><td><strong>H</strong> — Hypertension</td><td>1</td></tr>
+          <tr><td><strong>A₂</strong> — Age ≥75 years</td><td><strong>2</strong></td></tr>
+          <tr><td><strong>D</strong> — Diabetes mellitus</td><td>1</td></tr>
+          <tr><td><strong>S₂</strong> — Prior Stroke or TIA</td><td><strong>2</strong></td></tr>
+          <tr><td><strong>V</strong> — Vascular disease (prior MI, PAD, aortic plaque)</td><td>1</td></tr>
+          <tr><td><strong>A</strong> — Age 65–74 years</td><td>1</td></tr>
+          <tr><td><strong>Sc</strong> — Sex category (female)</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co key"><div class="co-t">Anticoagulation Threshold</div>
+    Anticoagulation recommended in US and Europe for patients with score <strong>≥1</strong>, unless the lone risk factor is <strong>female sex alone</strong> (score of 1 for female only → do NOT anticoagulate). Annual stroke risk can approach <strong>nearly 20%</strong> without anticoagulation at high scores.
+    </div>
+    <div class="co prl"><div class="co-t">AF Burden Does NOT Predict Stroke Risk</div>
+    The <em>perceived burden</em> of AF has NOT been shown to predict stroke risk. <strong>Paroxysmal AF is treated the same as persistent AF</strong> for anticoagulation purposes. Absence of AF during periodic monitoring is NOT sufficient to indicate low risk.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>HAS-BLED Score — Bleeding Risk</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Risk Factor</th><th>Points</th></tr></thead>
+        <tbody>
+          <tr><td><strong>H</strong> — Hypertension (uncontrolled, SBP &gt;160)</td><td>1</td></tr>
+          <tr><td><strong>A</strong> — Abnormal renal or liver function</td><td>1 each</td></tr>
+          <tr><td><strong>S</strong> — Stroke history</td><td>1</td></tr>
+          <tr><td><strong>B</strong> — Bleeding diathesis or predisposition</td><td>1</td></tr>
+          <tr><td><strong>L</strong> — Labile INR (on warfarin)</td><td>1</td></tr>
+          <tr><td><strong>E</strong> — Elderly (Age &gt;65)</td><td>1</td></tr>
+          <tr><td><strong>D</strong> — Drugs predisposing to bleeding or alcohol</td><td>1 each</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>If bleeding risk is deemed outweighed by stroke risk → anticoagulation recommended. Risk factors for major bleeding: age &gt;65–75, HF, renal insufficiency, prior bleeding, excessive alcohol or NSAID use.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Anticoagulant Options</h3>
+    <h4>Direct-Acting Oral Anticoagulants (DOACs) — Preferred in Non-Valvular AF</h4>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug</th><th>Standard Dose</th><th>Reduced Dose</th><th>Dose Reduction Criteria</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Dabigatran</strong> (direct thrombin inhibitor)</td><td>150 mg BID</td><td>110 mg BID</td><td>Age ≥80, concomitant verapamil, or increased bleeding risk</td></tr>
+          <tr><td><strong>Rivaroxaban</strong> (Xa inhibitor)</td><td>20 mg QD</td><td>15 mg QD</td><td>CrCl 15–49 mL/min</td></tr>
+          <tr><td><strong>Apixaban</strong> (Xa inhibitor)</td><td>5 mg BID</td><td>2.5 mg BID</td><td>≥2 of: age ≥80, weight ≤60 kg, SCr ≥1.5 mg/dL</td></tr>
+          <tr><td><strong>Edoxaban</strong> (Xa inhibitor)</td><td>60 mg QD</td><td>30 mg QD</td><td>CrCl 30–50, weight ≤60 kg, or certain drug interactions</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co suc"><div class="co-t">DOACs vs Warfarin (Pooled Data)</div>
+    DOACs are <strong>noninferior to warfarin</strong> in individual trials; intent-to-treat pooled analysis suggests <strong>superiority by small absolute margins (0.4–0.7%)</strong> in reduction of mortality, stroke, major bleeding, and intracranial hemorrhage.
+    </div>
+    <ul class="bl">
+      <li>DOACs have <strong>lower risk of intracranial bleeding</strong> compared to warfarin</li>
+      <li>Dabigatran, rivaroxaban, apixaban have <strong>renal excretion</strong> — dose adjust for CKD (especially important in elderly)</li>
+      <li>Apixaban and rivaroxaban show safety/efficacy in patients on <strong>chronic hemodialysis</strong></li>
+    </ul>
+
+    <h4>Reversal Agents</h4>
+    <ul class="bl">
+      <li><strong>Warfarin:</strong> Fresh frozen plasma, prothrombin complex concentrate, vitamin K</li>
+      <li><strong>Dabigatran:</strong> Idarucizumab (IV)</li>
+      <li><strong>Xa inhibitors:</strong> Andexanet alfa (IV)</li>
+      <li>These reversal agents may be <strong>prothrombotic</strong> — use judiciously</li>
+    </ul>
+
+    <h4>When Warfarin is REQUIRED</h4>
+    <div class="co dan"><div class="co-t">Warfarin-Only Situations</div>
+    <ul class="bl">
+      <li><strong>Rheumatic mitral stenosis</strong> — DOACs have failed to demonstrate noninferiority; warfarin led to lower composite cardiovascular events/death vs rivaroxaban</li>
+      <li><strong>Mechanical heart valves</strong> — DOACs are less effective for preventing valve thrombosis/thromboembolism</li>
+    </ul>
+    </div>
+
+    <h4>Antiplatelet Agents — Insufficient for AF Stroke Prevention</h4>
+    <ul class="bl">
+      <li>Warfarin reduces annual stroke risk by <strong>64% vs placebo</strong> and <strong>37% vs antiplatelet therapy</strong></li>
+      <li>Aspirin alone or aspirin + clopidogrel are <strong>inferior to warfarin</strong> and do NOT have less bleeding risk</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Anticoagulation in Special Scenarios</h3>
+    <h4>After PCI (Percutaneous Coronary Intervention)</h4>
+    <ul class="bl">
+      <li>Oral anticoagulation + P2Y12 inhibitor (preferably <strong>clopidogrel</strong>) is recommended</li>
+      <li><strong>Triple therapy</strong> (OAC + aspirin + P2Y12 inhibitor): preferably include a DOAC; consider for high ischemic risk (ACS) for up to <strong>30 days</strong></li>
+    </ul>
+
+    <h4>Left Atrial Appendage Closure (Watchman Device)</h4>
+    <ul class="bl">
+      <li>Noninferior to warfarin in reducing stroke risk</li>
+      <li>Provides <strong>significant additional reductions in major bleeding</strong>, particularly hemorrhagic stroke, and all-cause mortality</li>
+      <li>Appears noninferior to DOACs in preventing major AF-related cardiovascular, neurologic, and bleeding events</li>
+      <li>Considered in patients with high thromboembolism risk but serious bleeding risk from chronic anticoagulation</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 9 -->
+<div class="sec" id="s9">
+  <div class="sec-hd">
+    <span class="sec-n">09</span>
+    <h2>Rhythm Control</h2>
+    <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+  </div>
+
+  <div class="sub">
+    <h3>When to Choose Rhythm Control</h3>
+    <ul class="bl">
+      <li>Symptomatic paroxysmal AF</li>
+      <li>Recurrent episodes of symptomatic persistent AF</li>
+      <li>AF with difficult rate control</li>
+      <li>AF causing depressed ventricular function or aggravating heart failure</li>
+      <li>Younger patients (more likely to benefit vs sedentary/elderly where rate control suffices)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Rate vs Rhythm Control — Evidence</h3>
+    <div class="co key"><div class="co-t">Older Trials vs. Modern Evidence</div>
+    <ul class="bl">
+      <li><strong>Older randomized trials:</strong> AAD-based rhythm control did NOT improve survival or symptoms vs rate control; drug group had more hospitalizations</li>
+      <li>Flaws: disappointing drug efficacy, toxicities, inappropriate anticoagulation discontinuation, patient selection bias</li>
+      <li><strong>Recent trial (early rhythm control within 1 year):</strong> Demonstrated <strong>reduction in cardiovascular events including death and stroke</strong> compared to rate control — likely due to use of catheter ablation and high anticoagulation adherence</li>
+      <li><strong>HF with depressed LVEF:</strong> Catheter ablation-based rhythm control provides <strong>all-cause mortality benefit</strong> vs medical rhythm control</li>
+    </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Critical Rule: Anticoagulation Continues Even in Sinus Rhythm</h3>
+    <div class="co dan"><div class="co-t">Do NOT Stop Anticoagulation After Rhythm Control</div>
+    Even if sinus rhythm is apparently maintained, anticoagulation is recommended based on <strong>CHA₂DS₂-VASc score</strong>, because <strong>asymptomatic AF episodes are common</strong> and perceived AF burden does not predict stroke risk.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Antiarrhythmic Drugs (AADs) for Rhythm Control</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug (Class)</th><th>Use In</th><th>Avoid In</th><th>Key Facts / Side Effects</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Flecainide, Propafenone, Disopyramide</strong> (Class I Na-channel blockers)</td>
+            <td>No significant structural heart disease</td>
+            <td>CAD, HF</td>
+            <td>Negative inotropy; proarrhythmic</td>
+          </tr>
+          <tr>
+            <td><strong>Sotalol</strong> (Class III)</td>
+            <td>CAD or structural heart disease</td>
+            <td>Significant QT prolongation</td>
+            <td>~3% risk of torsades de pointes; initiate with ECG monitoring</td>
+          </tr>
+          <tr>
+            <td><strong>Dofetilide</strong> (Class III)</td>
+            <td>CAD or structural heart disease</td>
+            <td>QT prolongation, renal failure</td>
+            <td>~3% torsades risk; <strong>must initiate in hospital with ECG monitoring</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Dronedarone</strong> (Class III)</td>
+            <td>Paroxysmal AF without HF</td>
+            <td>HF, long-standing persistent AF</td>
+            <td><strong>Increases mortality</strong> in HF or long-standing persistent AF</td>
+          </tr>
+          <tr>
+            <td><strong>Amiodarone</strong> (Class III)</td>
+            <td>HF, CAD — most situations</td>
+            <td>Hepatic/pulmonary/thyroid disease</td>
+            <td>Most effective — maintains SR in ~2/3 of patients. <strong>&gt;40% experience toxicities long-term</strong>: skin, liver, lung, thyroid</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co wrn"><div class="co-t">AAD Efficacy is Modest</div>
+    All AADs have <strong>modest efficacy</strong> in paroxysmal AF — only ~30–50% of patients will benefit. Amiodarone is the exception with ~66% efficacy.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 10 -->
+<div class="sec" id="s10">
+  <div class="sec-hd">
+    <span class="sec-n">10</span>
+    <h2>Catheter Ablation</h2>
+    <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+  </div>
+
+  <div class="sub">
+    <h3>First-Line Status (2023 ACC/AHA Guidelines)</h3>
+    <div class="co suc"><div class="co-t">Catheter Ablation is Now First-Line</div>
+    Based on recent randomized trial data showing superiority of ablation over medications for maintenance of sinus rhythm and benefits of early rhythm control, catheter ablation is considered <strong>first-line therapy, especially for paroxysmal AF</strong>.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Indications (Table 258-3 Recommendations)</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Class</th><th>Evidence</th><th>Recommendation</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1</strong></td><td>A</td><td>Symptomatic AF where AADs are ineffective, contraindicated, not tolerated, or not preferred — ablation is useful to improve symptoms</td></tr>
+          <tr><td><strong>1</strong></td><td>A</td><td>Selected patients (generally younger, few comorbidities) with symptomatic paroxysmal AF — ablation is useful as <strong>first-line therapy</strong> to improve symptoms and reduce progression to persistent AF</td></tr>
+          <tr><td><strong>1</strong></td><td>A</td><td>Symptomatic or clinically significant atrial flutter — ablation is useful for improving symptoms</td></tr>
+          <tr><td><strong>2a</strong></td><td>B</td><td>During AF ablation — ablation of additional clinically significant SVT arrhythmias can be useful</td></tr>
+          <tr><td><strong>2a</strong></td><td>B</td><td>Other symptomatic paroxysmal or persistent AF patients on rhythm control — first-line ablation can be useful</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Technique — Pulmonary Vein Isolation (PVI)</h3>
+    <ul class="bl">
+      <li>Percutaneous venous access (femoral veins) → trans-septal puncture</li>
+      <li><strong>Radiofrequency ablation or cryoablation</strong> to electrically isolate left atrial regions around pulmonary vein antra</li>
+      <li>Abolishes triggering foci; also impacts substrate for reentry in left atrium</li>
+      <li>Gaps in healed ablation areas or new trigger sites outside PVs → <strong>repeat procedure needed in 10–30%</strong> of patients</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Pulsed-Field Ablation (PFA) — Emerging Technology</h3>
+    <ul class="bl">
+      <li>Uses short pulses of high-energy <strong>electric fields</strong> to cause electroporation (cell death) — no heat generation</li>
+      <li>Myocardial cells are uniquely sensitive: electroporation threshold <strong>268–375 V/cm</strong></li>
+      <li>Other tissues (nerves, endothelium, smooth muscle, blood cells) have thresholds <strong>&gt;1600 V/cm</strong> → theoretically cardiac-selective</li>
+      <li><strong>Noninferior to conventional thermal ablation</strong> (RF + cryo) at 1 year for paroxysmal AF</li>
+      <li>Significantly reduced risk of <strong>pulmonary vein stenosis, phrenic nerve injury, and left atrial-esophageal fistula</strong></li>
+      <li>Current limitation: unlike RF ablation, PFA lacks the ability to <strong>titrate and tailor energy delivery</strong> during ablation</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Ablation Outcomes by AF Type</h3>
+    <ul class="bl">
+      <li><strong>Paroxysmal AF:</strong> Sinus rhythm maintained for &gt;1 year after single procedure in <strong>~80%</strong>; &gt;90% after multiple procedures</li>
+      <li><strong>Persistent / Long-standing persistent:</strong> More difficult — more extensive atrial abnormalities, greater comorbidities, more remodeling. Often requires additional ablation beyond PVI</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Complications of Catheter Ablation</h3>
+    <div class="co dan"><div class="co-t">Major Complication Rate: 2–7%</div>
+    <ul class="bl">
+      <li><strong>Stroke:</strong> 0.5–1%</li>
+      <li><strong>Cardiac tamponade:</strong> ~1%</li>
+      <li><strong>Phrenic nerve paralysis</strong></li>
+      <li><strong>Bleeding from femoral access sites</strong></li>
+      <li><strong>Fluid overload with HF:</strong> can emerge 1–3 days post-procedure</li>
+      <li><strong>Pulmonary vein stenosis:</strong> presents weeks to months later with dyspnea or hemoptysis</li>
+      <li><strong>Atrioesophageal fistula</strong> (rare — &lt;0.1%): presents 10 days to 3 weeks post-procedure as endocarditis + stroke. Diagnosis by chest CT with oral + IV contrast. <em>Endoscopy is CONTRAINDICATED</em> (risk of air/fluid embolus). Requires <strong>emergent surgical repair</strong>. Delayed diagnosis → likely death.</li>
+    </ul>
+    </div>
+    <p>Complication rates are <strong>lowest with high-volume operators and centers</strong>.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Surgical Ablation</h3>
+    <ul class="bl">
+      <li>Most often performed concomitant with valve or CAD surgery; rarely stand-alone</li>
+      <li>No significant difference in freedom from AF between PVI alone and biatrial maze procedure</li>
+      <li>For persistent AF: surgical/hybrid procedures have comparable efficacy to catheter ablation</li>
+      <li>Risks: sinus node injury requiring pacemaker, higher morbidity</li>
+      <li>Surgical LAA removal may reduce stroke risk, but <strong>not unequivocally proven</strong> — thrombus can form in remnant or if not completely ligated</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 11 -->
+<div class="sec" id="s11">
+  <div class="sec-hd">
+    <span class="sec-n">11</span>
+    <h2>Risk Factor Modification</h2>
+    <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+  </div>
+
+  <p>Strong evidence links AF to modifiable lifestyle factors. Aggressive treatment of these can <strong>substantially reduce AF episodes</strong> in some patients — and provides additional cardiovascular benefits beyond AF.</p>
+
+  <div class="g2">
+    <div class="card"><div class="clabel c-r">Sedentary Lifestyle</div><p>Increased AF risk. Moderate exercise is protective in both sexes (with sex-specific nuance).</p></div>
+    <div class="card"><div class="clabel c-a">Obesity</div><p>Strong association with AF development. Weight loss reduces AF burden.</p></div>
+    <div class="card"><div class="clabel c-b">Hypertension</div><p>Most common modifiable risk factor. Aggressive BP control reduces AF progression.</p></div>
+    <div class="card"><div class="clabel c-p">Smoking</div><p>Associated with increased AF risk. Cessation is warranted.</p></div>
+    <div class="card"><div class="clabel c-r">Alcohol Use</div><p>Can trigger acute AF. Reduction in alcohol intake reduces AF recurrence.</p></div>
+    <div class="card"><div class="clabel c-g">Sleep Apnea</div><p>Strong independent risk factor. CPAP therapy can reduce AF burden.</p></div>
+  </div>
+
+  <div class="sub">
+    <h3>Integrated Management Model</h3>
+    <p>Emerging emphasis is on <strong>coordinated management</strong> addressing: risk factor modification + stroke prevention + rate control + rhythm control + management of associated comorbidities — simultaneously, not sequentially.</p>
+  </div>
+</div>
+
+<!-- SECTION 12: EXAM TRAPS -->
+<div class="sec" id="s12">
+  <div class="sec-hd">
+    <span class="sec-n">12</span>
+    <h2>Exam Traps</h2>
+    <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">The caffeine–AF connection</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with paroxysmal AF asks whether he should stop drinking coffee. He drinks 2 cups/day. You advise him...</div>
+      <div class="trap-a"><strong>CORRECT: Modest caffeine intake does NOT increase AF risk — large cohort studies actually show a modest DECREASE in AF risk.</strong> Tell the patient moderate caffeine is not a confirmed trigger. This is the opposite of the common assumption boards like to test.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Paroxysmal AF and anticoagulation</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 72-year-old woman with hypertension, diabetes, and paroxysmal AF that self-terminates in under 12 hours comes in. Her physician says since episodes are short and she's always in sinus rhythm at clinic visits, she doesn't need anticoagulation. Is this correct?</div>
+      <div class="trap-a"><strong>CORRECT ANSWER: NO. The perceived burden of AF has NOT been shown to predict stroke risk. Paroxysmal AF is managed the same as persistent AF for anticoagulation purposes.</strong> She has a CHA₂DS₂-VASc score ≥2 and should be anticoagulated. Absence of AF during monitoring does not indicate low risk.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Rate control target in permanent AF</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Which heart rate target is recommended in a patient with permanent AF who is otherwise asymptomatic with normal ventricular function?</div>
+      <div class="trap-a"><strong>CORRECT: Lenient rate control (resting HR &lt;110 bpm) is as effective as strict rate control (&lt;80 bpm at rest) for permanent AF in terms of major cardiovascular outcomes — and is easier to achieve.</strong> Do not over-aggressively target &lt;80 bpm if the patient is asymptomatic and has normal LVEF.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">DOACs in mechanical valves and rheumatic MS</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with AF and a mechanical mitral valve is started on rivaroxaban. Is this appropriate?</div>
+      <div class="trap-a"><strong>CORRECT ANSWER: NO. DOACs are contraindicated in mechanical heart valves and rheumatic mitral stenosis.</strong> Warfarin is required in these situations. DOACs have failed to demonstrate noninferiority and are less effective for preventing valve thrombosis and thromboembolism in these patients.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Female sex and anticoagulation</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 62-year-old woman has AF. Her only "risk factor" on CHA₂DS₂-VASc is female sex (score = 1). Should you anticoagulate?</div>
+      <div class="trap-a"><strong>CORRECT ANSWER: NO. Female sex as the SOLE risk factor (score of 1 only because of sex) is NOT an indication for anticoagulation.</strong> Anticoagulation is recommended for score ≥1 UNLESS the lone risk factor is female gender. She needs score ≥2 with at least one non-sex risk factor.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Dronedarone in heart failure</span></div>
+    <div class="trap-body">
+      <div class="trap-q">You have a patient with AF and heart failure with reduced ejection fraction (HFrEF). Which antiarrhythmic drug should be avoided?</div>
+      <div class="trap-a"><strong>CORRECT: Dronedarone is CONTRAINDICATED in HF and long-standing persistent AF — it INCREASES mortality in these patients.</strong> Amiodarone is the preferred AAD in HF (can also be used with CAD), despite its significant toxicity profile.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Atrioesophageal fistula — how to diagnose</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Two weeks after AF ablation, a patient develops fever, neurologic deficits, and signs of sepsis. Atrioesophageal fistula is suspected. What is the next step?</div>
+      <div class="trap-a"><strong>CORRECT: Chest CT with water-soluble oral AND IV contrast. DO NOT perform endoscopy — it is contraindicated due to risk of air/esophageal fluid embolus.</strong> Definitive treatment is emergent surgical repair. Delayed diagnosis leads to likely death.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">Sinus rhythm maintained → stop anticoagulation?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">After successful ablation, a patient is in sinus rhythm for 6 months with no documented AF recurrence. His CHA₂DS₂-VASc score is 3. Can you stop anticoagulation?</div>
+      <div class="trap-a"><strong>CORRECT ANSWER: NO. Anticoagulation should continue based on CHA₂DS₂-VASc score even after apparent rhythm control.</strong> Asymptomatic AF episodes are common and go undetected. The perceived absence of AF does not mean the stroke risk is gone.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-num">09</span><span class="trap-title">The 48-hour cardioversion rule — even low-risk patients</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with AF of unknown duration has a CHA₂DS₂-VASc score of 0. Do you still need to worry about thromboembolism before cardioversion?</div>
+      <div class="trap-a"><strong>CORRECT: YES. If AF duration exceeds 48h or is unknown, there is greater concern for thromboembolism EVEN in patients with CHA₂DS₂-VASc of 0 or 1.</strong> Either anticoagulate for 3 weeks before cardioversion, or perform TEE/cardiac CT to exclude LAA thrombus first.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Dofetilide initiation</span></div>
+    <div class="trap-body">
+      <div class="trap-q">You decide to start dofetilide for AF. Can you initiate it outpatient?</div>
+      <div class="trap-a"><strong>CORRECT ANSWER: NO. Dofetilide MUST be initiated in a hospital with continuous ECG monitoring</strong> due to ~3% risk of inducing excessive QT prolongation and torsades de pointes. Many cardiologists also take this same approach with sotalol.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">Exercise and AF — sex differences</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Which statement is TRUE about exercise and AF risk? A) In males, AF risk decreases linearly with more exercise. B) In females, moderate exercise increases AF risk. C) Extensive endurance exercise in males carries high AF risk similar to sedentary males.</div>
+      <div class="trap-a"><strong>CORRECT: C is true — males show a U-shaped curve where BOTH sedentary lifestyle AND extensive endurance athletics carry high AF risk.</strong> Moderate exercise is protective in men. In females, the relationship is linear — more exercise continuously lowers AF risk.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 12</span><span class="trap-title">Post-op AF prevalence</span></div>
+    <div class="trap-body">
+      <div class="trap-q">How common is AF after cardiac surgery?</div>
+      <div class="trap-a"><strong>CORRECT: AF occurs in up to 50% of patients postoperatively after cardiac surgery.</strong> This is a specific high-yield number boards love to test. It is classified as secondary AF with an identifiable precipitating cause.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 13 -->
+<div class="sec" id="s13">
+  <div class="sec-hd">
+    <span class="sec-n">13</span>
+    <h2>Quick Reference Master Table</h2>
+    <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Topic</th><th>Key Number / Fact</th></tr></thead>
+      <tbody>
+        <tr><td>Most common sustained arrhythmia</td><td>Atrial fibrillation</td></tr>
+        <tr><td>Prevalence age &gt;80</td><td>~20%</td></tr>
+        <tr><td>Lifetime AF risk in 40-year-old male</td><td>~25%</td></tr>
+        <tr><td>AF-attributable strokes</td><td>~25% of all strokes</td></tr>
+        <tr><td>Mortality increase with AF</td><td>1.5–1.9× (after controlling for cardiac disease)</td></tr>
+        <tr><td>Subclinical AF stroke risk increase</td><td>2.5×</td></tr>
+        <tr><td>AF post cardiac surgery</td><td>Up to 50%</td></tr>
+        <tr><td>Paroxysmal AF definition</td><td>Self-terminates ≤7 days (or cardioverted within 7 days)</td></tr>
+        <tr><td>Persistent AF definition</td><td>&gt;7 days but &lt;1 year</td></tr>
+        <tr><td>Long-standing persistent AF</td><td>&gt;1 year</td></tr>
+        <tr><td>Strict rate control target</td><td>&lt;80 bpm rest; &lt;100 bpm with light exertion</td></tr>
+        <tr><td>Lenient rate control target</td><td>&lt;110 bpm at rest (equivalent outcomes in permanent AF)</td></tr>
+        <tr><td>Anticoagulate CHA₂DS₂-VASc ≥</td><td>≥1 (unless sole RF is female sex)</td></tr>
+        <tr><td>Warfarin stroke risk reduction vs placebo</td><td>64%</td></tr>
+        <tr><td>DOAC superiority margin vs warfarin</td><td>0.4–0.7% absolute reduction in key outcomes</td></tr>
+        <tr><td>Amiodarone SR maintenance rate</td><td>~2/3 (66%) of patients</td></tr>
+        <tr><td>Other AADs (paroxysmal AF) response rate</td><td>~30–50%</td></tr>
+        <tr><td>Amiodarone long-term toxicity rate</td><td>&gt;40% experience toxicities</td></tr>
+        <tr><td>Sotalol/Dofetilide torsades risk</td><td>~3%</td></tr>
+        <tr><td>Single ablation success (paroxysmal AF, &gt;1 yr SR)</td><td>~80%</td></tr>
+        <tr><td>Multiple ablation success (paroxysmal AF)</td><td>&gt;90% in some studies</td></tr>
+        <tr><td>Ablation repeat rate</td><td>10–30% (gaps or new trigger sites)</td></tr>
+        <tr><td>Major ablation complication rate</td><td>2–7%</td></tr>
+        <tr><td>Stroke after ablation</td><td>0.5–1%</td></tr>
+        <tr><td>Cardiac tamponade after ablation</td><td>~1%</td></tr>
+        <tr><td>Atrioesophageal fistula incidence</td><td>&lt;0.1%</td></tr>
+        <tr><td>PFA myocardial electroporation threshold</td><td>268–375 V/cm (vs &gt;1600 V/cm for other tissues)</td></tr>
+        <tr><td>Cardioversion within 48h</td><td>OK in low-risk patients without TEE</td></tr>
+        <tr><td>Anticoagulation post-cardioversion duration</td><td>Minimum 4 weeks (atrial stunning)</td></tr>
+        <tr><td>Pre-cardioversion AC if &gt;48h, no TEE</td><td>Anticoagulate for ≥3 weeks before, ≥4 weeks after</td></tr>
+        <tr><td>Warfarin required (not DOAC)</td><td>Mechanical heart valves, rheumatic mitral stenosis</td></tr>
+        <tr><td>Dronedarone contraindicated in</td><td>HF, long-standing persistent AF (↑ mortality)</td></tr>
+        <tr><td>Dofetilide — initiation setting</td><td>Hospital with continuous ECG monitoring only</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="sep">
+</main>
+
+<footer class="footer">Harrison's Principles of Internal Medicine, Chapter 258 · Sauer · Romero · Zei · Atrial Fibrillation · Boards Review · 2026</footer>
+
+<script>
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
