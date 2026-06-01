@@ -1476,166 +1476,209 @@ mark.ho{background:var(--ho);border-radius:2px}
 <footer class="footer">Chapter 321 · Acute Kidney Injury · Harrison's Principles of Internal Medicine · Boards Review · 2025</footer>
 
 <script>
-/* ── STORAGE KEY ── */
-const SK = 'AKI-boards-2025';
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
 
-/* ── HIGHLIGHT STATE ── */
-let curHL = null;
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
 
-function setHL(color, btn) {
-  if (curHL === color) { curHL = null; document.querySelectorAll('.hbtn,.tbtn').forEach(b => b.classList.remove('active')); return; }
-  curHL = color;
-  document.querySelectorAll('.hbtn,.tbtn').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  const map={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};
+  if(document.getElementById(map[c])) document.getElementById(map[c]).classList.add('active');
 }
 
-/* ── MOUSE-UP: APPLY HIGHLIGHT OR NOTE ── */
-let lastSel = null;
-
-document.addEventListener('mouseup', function(e) {
-  if (e.target.closest('#toolbar') || e.target.closest('#sn-sidebar') || e.target.closest('#note-popover')) return;
-  const sel = window.getSelection();
-  if (!sel || sel.isCollapsed) return;
-  lastSel = sel.toString().trim();
-  if (!curHL || lastSel.length === 0) return;
-  if (curHL === 'erase') { eraseHL(sel); return; }
-  applyHL(sel, curHL);
-  sel.removeAllRanges();
-});
-
-function applyHL(sel, cls) {
-  try {
-    const range = sel.getRangeAt(0);
-    const mark = document.createElement('mark');
-    mark.className = cls;
-    range.surroundContents(mark);
-  } catch (err) {}
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
 }
 
-function eraseHL(sel) {
+function applyHL(range, color) {
   try {
-    const range = sel.getRangeAt(0);
-    const marks = document.querySelectorAll('mark');
-    marks.forEach(m => {
-      if (range.intersectsNode(m)) {
-        const parent = m.parentNode;
-        while (m.firstChild) parent.insertBefore(m.firstChild, m);
-        parent.removeChild(m);
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
       }
-    });
-  } catch (err) {}
-}
-
-function clearAll() {
-  document.querySelectorAll('mark').forEach(m => {
-    const p = m.parentNode;
-    while (m.firstChild) p.insertBefore(m.firstChild, m);
-    p.removeChild(m);
+    }
   });
 }
 
-/* ── NOTES SYSTEM ── */
 function getNotes() {
-  try { return JSON.parse(localStorage.getItem(SK + '-notes') || '[]'); } catch { return []; }
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
 }
-function saveNotes(notes) {
-  try { localStorage.setItem(SK + '-notes', JSON.stringify(notes)); } catch {}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
 }
 
 function addNote() {
-  const sel = window.getSelection();
-  const ref = (sel && !sel.isCollapsed) ? sel.toString().trim().substring(0, 100) : '—';
-  const text = prompt('Your note:', '');
-  if (text === null || text.trim() === '') return;
-  const notes = getNotes();
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
   const id = Date.now();
-  notes.push({ id, ref, text: text.trim(), order: notes.length });
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
   saveNotes(notes);
-
-  if (ref !== '—' && sel && !sel.isCollapsed) {
+  if (savedRange) {
     try {
-      const range = sel.getRangeAt(0);
-      const anchor = document.createElement('span');
-      anchor.className = 'note-anchor';
-      anchor.dataset.noteId = id;
-      anchor.title = text.trim().substring(0, 60);
-      range.surroundContents(anchor);
-      sel.removeAllRanges();
-    } catch {}
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
   }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
   renderNotes();
 }
 
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
 function deleteNote(id) {
-  let notes = getNotes().filter(n => n.id !== id);
-  saveNotes(notes);
-  document.querySelectorAll(`.note-anchor[data-note-id="${id}"]`).forEach(a => {
-    const p = a.parentNode;
-    while (a.firstChild) p.insertBefore(a.firstChild, a);
-    p.removeChild(a);
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
   });
   closePopover();
   renderNotes();
 }
 
 function renderNotes() {
-  const notes = getNotes();
   const body = document.getElementById('sn-body');
   const empty = document.getElementById('sn-empty');
-  body.querySelectorAll('.sn-card').forEach(c => c.remove());
-  if (notes.length === 0) { empty.style.display = ''; return; }
-  empty.style.display = 'none';
-  notes.forEach((note, idx) => {
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
     const card = document.createElement('div');
-    card.className = 'sn-card';
-    card.dataset.idx = idx;
-    card.innerHTML = `<div class="sn-card-ref">${note.ref !== '—' ? '"' + note.ref.substring(0,60) + '"' : 'General note'}</div><div class="sn-card-text">${note.text.replace(/</g,'&lt;')}</div><button class="sn-card-del" onclick="deleteNote(${note.id})">×</button>`;
-    card.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', idx); card.style.opacity = '0.5'; });
-    card.addEventListener('dragend', () => { card.style.opacity = '1'; });
-    card.addEventListener('dragover', e => e.preventDefault());
-    card.addEventListener('drop', e => {
-      e.preventDefault();
-      const from = parseInt(e.dataTransfer.getData('text/plain'));
-      const to = idx;
-      if (from === to) return;
-      const notes2 = getNotes();
-      const [moved] = notes2.splice(from, 1);
-      notes2.splice(to, 0, moved);
-      saveNotes(notes2);
-      renderNotes();
-    });
-    card.draggable = true;
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
     body.appendChild(card);
+    makeResizable(card, note.id);
   });
 }
 
-/* ── SECTION STATUS ── */
-function toggleLearn(btn, key) {
-  btn.classList.toggle('learned');
-  if (btn.classList.contains('learned')) { btn.textContent = '✓ Learned!'; try { localStorage.setItem(SK + '-' + key, 'learned'); } catch {} }
-  else { btn.textContent = '✓ Learned'; try { localStorage.removeItem(SK + '-' + key); } catch {} }
-}
-function toggleReview(btn, key) {
-  btn.classList.toggle('review');
-  if (btn.classList.contains('review')) { btn.textContent = '⚑ Needs Review'; try { localStorage.setItem(SK + '-' + key, 'review'); } catch {} }
-  else { btn.textContent = '⚑ Review'; try { localStorage.removeItem(SK + '-' + key); } catch {} }
-}
-
-/* ── SIDEBAR TOGGLE ── */
-function toggleSidebar() {
-  const sb = document.getElementById('sn-sidebar');
-  const tab = document.getElementById('sn-tab');
-  sb.classList.toggle('hidden');
-  const hidden = sb.classList.contains('hidden');
-  tab.textContent = hidden ? '📝 Notes' : '◀';
-  document.body.style.marginRight = hidden ? '0' : 'var(--snw)';
-}
-
-/* ── POPOVER ── */
 let activePopNoteId = null;
+
 function showPopover(anchorEl, note) {
   const pop = document.getElementById('note-popover');
-  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0,55) + (note.ref.length > 55 ? '…' : '') + '"' : 'Your note';
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
   document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
   document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
   activePopNoteId = note.id;
@@ -1649,47 +1692,95 @@ function closePopover() {
   activePopNoteId = null;
 }
 document.addEventListener('click', function(e) {
-  const anchor = e.target.closest('.note-anchor');
-  if (anchor) {
-    e.stopPropagation();
-    const nid = parseInt(anchor.dataset.noteId);
-    if (activePopNoteId === nid) { closePopover(); return; }
-    const note = getNotes().find(n => n.id === nid);
-    if (note) showPopover(anchor, note);
-    return;
-  }
-  const pop = document.getElementById('note-popover');
-  if (pop && !pop.contains(e.target)) closePopover();
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
 });
 
-/* ── NAV TRACKING ── */
-const _sections = document.querySelectorAll('.sec[id]');
-const _navLinks = document.querySelectorAll('.toc-a');
-_sections.forEach(s =>
-  new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      _navLinks.forEach(l => l.classList.remove('on'));
-      const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
-      if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb && tb.contains(e.target)) return;
+  if (sb && sb.contains(e.target)) return;
+  if (np && np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  const refEl = document.getElementById('sn-ref-txt');
+  if (refEl) refEl.textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  if (tab) tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  if (!handle) return;
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
     }
-  }, { rootMargin: '-15% 0px -75% 0px' }).observe(s)
-);
-
-/* ── INIT ── */
-renderNotes();
-
-/* ── TOGGLE PANELS ──────────────────── */
-function initToggles() {
-  document.querySelectorAll('.toggle-header').forEach(hdr => {
-    hdr.addEventListener('click', () => {
-      const body = hdr.nextElementSibling;
-      const arrow = hdr.querySelector('.toggle-arrow');
-      body.classList.toggle('open');
-      if (arrow) arrow.classList.toggle('open');
-    });
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
   });
 }
-initToggles();
+
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+/* ── INIT ── */
+restoreHighlights();
+restoreAnchors();
+renderNotes();
 </script>
 </body>
 </html>
