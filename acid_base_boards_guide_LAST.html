@@ -1686,8 +1686,43 @@ _secs.forEach(function(s) {
   }, { rootMargin: '-15% 0px -75% 0px' }).observe(s);
 });
 
+/* ── ANCHOR RESTORATION ─────────────────────────────── */
+function restoreAnchors() {
+  const notes = nLoad();
+  if (!notes.length) return;
+  notes.forEach(function(note) {
+    if (!note.ref || !note.id) return;
+    const refText = note.ref.trim();
+    if (!refText) return;
+    // Search all text nodes in main content
+    const main = document.querySelector('main') || document.body;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        // Check not already wrapped
+        if (node.parentElement && node.parentElement.classList.contains('note-anchor')) continue;
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const anchor = document.createElement('span');
+          anchor.className = 'note-anchor';
+          anchor.dataset.noteId = String(note.id);
+          anchor.title = 'Click to view note';
+          range.surroundContents(anchor);
+          _bindAnchor(anchor, note.id);
+          break; // only wrap first match
+        } catch(e) { /* skip complex nodes */ }
+      }
+    }
+  });
+}
+
 /* ── INIT ───────────────────────────────────────────── */
 renderSidebar();
+restoreAnchors();
 </script>
 </body>
 </html>
