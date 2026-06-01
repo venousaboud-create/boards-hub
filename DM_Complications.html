@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Diabetes Mellitus Complications · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;padding:0 12px;display:flex;align-items:center;white-space:nowrap;border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blu);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'&#9656;';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+@media(max-width:700px){.g2,.g3{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}.main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+.flow{display:flex;align-items:center;gap:4px;margin:14px 0;flex-wrap:wrap}
+.fbox{background:var(--blu-l);border:1.5px solid var(--blu);border-radius:6px;padding:8px 13px;font-size:12px;font-weight:500;color:var(--blu-d)}
+.fbox.amb{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.fbox.red{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.farr{font-size:18px;color:var(--t3);padding:0 3px}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green" onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue" onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink" onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">&#10005;</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>&#128221; My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">&#9664;</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text &#8594; write note &#8594; Add Note.<br><br>Notes stay connected to sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">&#8212;</em></div>
+    <textarea id="sn-ta" placeholder="Add your note&#8230;"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">&#128221; Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">&#215;</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles &#183; Chapter 417</div>
+  <h1>Diabetes Mellitus:<br>Complications</h1>
+  <div class="hero-sub">Microvascular &#183; Macrovascular &#183; Neuropathy &#183; Nephropathy &#183; Retinopathy &#183; Medical Boards Review</div>
+  <div class="hero-authors">Powers, Stafford, Rickels &#183; Stage A Internal Medicine 2026</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">#1</div><div class="stat-l">Cause of Blindness<br>Ages 20&#8211;74</div></div>
+    <div class="stat-box"><div class="stat-n">#1</div><div class="stat-l">Cause of CKD<br>&amp; ESRD</div></div>
+    <div class="stat-box"><div class="stat-n">#1</div><div class="stat-l">Non-traumatic<br>Amputation</div></div>
+    <div class="stat-box"><div class="stat-n">47%</div><div class="stat-l">Retinopathy &#8595;<br>with tight control</div></div>
+    <div class="stat-box"><div class="stat-n">60%</div><div class="stat-l">Neuropathy &#8595;<br>with tight control</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Overview</a>
+    <a class="toc-a" href="#s2">Glycemic Trials</a>
+    <a class="toc-a" href="#s3">Mechanisms</a>
+    <a class="toc-a" href="#s4">Retinopathy</a>
+    <a class="toc-a" href="#s5">Nephropathy</a>
+    <a class="toc-a" href="#s6">Neuropathy</a>
+    <a class="toc-a" href="#s7">GI / GU</a>
+    <a class="toc-a" href="#s8">Cardiovascular</a>
+    <a class="toc-a" href="#s9">Lower Extremity</a>
+    <a class="toc-a" href="#s10">Infections &amp; Skin</a>
+    <a class="toc-a" href="#s11">Quick Reference</a>
+    <a class="toc-a" href="#s12">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<section class="sec" id="s1">
+  <div class="sec-hd"><span class="sec-n">01</span><h2>Overview of DM Complications</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">Core Concept</div>
+    DM complications affect virtually every organ system and account for most of the morbidity and mortality of the disease. Prevention through aggressive glycemic, lipid, and blood pressure control alongside early detection is the cornerstone of management.
+  </div>
+
+  <div class="sub">
+    <h3>Classification</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Microvascular (DM-Specific)</div>
+        <ul class="bl">
+          <li><strong>Retinopathy</strong> &#8212; nonproliferative / proliferative; macular edema</li>
+          <li><strong>Neuropathy</strong> &#8212; sensory, motor (polyneuropathy); autonomic</li>
+          <li><strong>Nephropathy</strong> &#8212; albuminuria; declining GFR &#8594; ESRD</li>
+        </ul>
+        <p style="font-size:12px;color:var(--t3)">Caused by chronic hyperglycemia. Usually appear after ~10 years of diabetes.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Macrovascular (Shared Pathophysiology)</div>
+        <ul class="bl">
+          <li><strong>Coronary heart disease (CHD)</strong></li>
+          <li><strong>Peripheral arterial disease (PAD)</strong></li>
+          <li><strong>Cerebrovascular disease</strong></li>
+          <li><strong>Heart failure</strong> &#8212; 2&#215; more common in DM</li>
+        </ul>
+        <p style="font-size:12px;color:var(--t3)">Insulin resistance, dyslipidemia, hypertension all contribute. ASCVD risk may develop before overt hyperglycemia.</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:10px">
+      <div class="clabel c-p">Nonvascular Complications</div>
+      <ul class="bl">
+        <li>Infections (greater frequency and severity in DM)</li>
+        <li>Skin changes: xerosis, diabetic dermopathy, necrobiosis lipoidica diabeticorum</li>
+        <li>Cheiroarthropathy (thickened skin, reduced joint mobility), hearing loss, cataracts, glaucoma, periodontal disease</li>
+        <li>Comorbid conditions (uncertain link to hyperglycemia): depression, OSA, fatty liver disease, osteoporosis, hip fracture, cognitive impairment/dementia, low testosterone in men</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Key Epidemiology</h3>
+    <ul class="bl">
+      <li>T2DM has a long asymptomatic hyperglycemic period &#8212; so both glucose-related AND insulin resistance&#8211;related complications may already be present at diagnosis</li>
+      <li>Diagnosis of T2DM at younger age dramatically increases complications: estimated <strong>3&#8211;4 years of reduced life expectancy per decade of earlier diagnosis</strong></li>
+      <li>ASCVD risk may develop <strong>before</strong> hyperglycemia is established (driven by insulin resistance and dyslipidemia)</li>
+      <li>Microvascular complications usually do not appear until the <strong>second decade</strong> of hyperglycemia</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="s2">
+  <div class="sec-hd"><span class="sec-n">02</span><h2>Glycemic Control &amp; Key Clinical Trials</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">Principle</div>
+    Chronic hyperglycemia is the primary driver of <strong>microvascular</strong> complications. For macrovascular disease, dyslipidemia, hypertension, and insulin resistance are additional key drivers. Improved glycemic control reduces risk of both, though blood pressure control may have an even greater impact.
+  </div>
+
+  <div class="sub">
+    <h3>DCCT &#8212; Diabetes Control and Complications Trial (T1DM)</h3>
+    <div class="co tel">
+      <div class="co-t">Trial Design</div>
+      &gt;1,400 T1DM patients randomized to <strong>intensive</strong> vs <strong>conventional</strong> diabetes management. Mean follow-up 6.5 years. After DCCT ended, all participants offered intensive therapy and followed in the <strong>EDIC trial</strong> (&gt;40 years combined follow-up).
+    </div>
+    <div class="g2">
+      <div>
+        <h4>HbA1c Achieved</h4>
+        <ul class="bl">
+          <li>Intensive group: <strong>7.3%</strong></li>
+          <li>Conventional group: <strong>9.1%</strong></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Complication Reductions (Intensive Group)</h4>
+        <ul class="bl">
+          <li>Retinopathy (nonproliferative + proliferative): <strong>47% &#8595;</strong></li>
+          <li>Albuminuria: <strong>39% &#8595;</strong></li>
+          <li>Clinical nephropathy: <strong>54% &#8595;</strong></li>
+          <li>Neuropathy: <strong>60% &#8595;</strong></li>
+        </ul>
+      </div>
+    </div>
+    <h4>Costs of Intensive Therapy</h4>
+    <ul class="bl">
+      <li>Weight gain: <strong>+4.6 kg</strong></li>
+      <li>Severe hypoglycemia (requiring another person to treat) was more common</li>
+    </ul>
+    <h4>Predicted Benefits from DCCT Data</h4>
+    <ul class="bl">
+      <li>7.7 additional years of vision</li>
+      <li>5.8 additional years free from ESRD</li>
+      <li>5.6 years free from lower extremity amputation</li>
+      <li>&gt;15.3 more years without significant microvascular complications</li>
+      <li>Additional <strong>5.1 years of life expectancy</strong></li>
+    </ul>
+    <div class="co suc">
+      <div class="co-t">Metabolic Memory / Legacy Effect &#8212; EDIC Follow-up</div>
+      The 30-year EDIC follow-up showed continued reduction in retinopathy, nephropathy, and CVD even after glycemic control equalized between groups. The intensive therapy group had a <strong>57% reduction in cardiovascular events</strong> (nonfatal MI, stroke, or cardiovascular death) and a <strong>33% reduction in mortality rate</strong>. This sustained benefit from a period of improved control is termed <strong>"metabolic memory."</strong> Estimated legacy effect: <strong>10+ years</strong>. Other complications reduced in EDIC: autonomic neuropathy, bladder/sexual dysfunction, cardiac autonomic neuropathy, cheiroarthropathy, hearing loss.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>UKPDS &#8212; UK Prospective Diabetes Study (T2DM)</h3>
+    <div class="co tel">
+      <div class="co-t">Trial Design</div>
+      &gt;5,000 T2DM patients followed for &gt;10 years. HbA1c: <strong>7.0% (intensive) vs 7.9% (conventional)</strong>.
+    </div>
+    <ul class="bl">
+      <li>Each <strong>1% reduction in HbA1c</strong> &#8594; <strong>35% reduction in microvascular complications</strong></li>
+      <li>Continuous relationship between glycemic control and complications (same as DCCT)</li>
+      <li>Improved glycemic control also reduced cardiovascular event rate at &gt;10 year follow-up</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Major UKPDS Finding &#8212; BP Control &gt; Glycemic Control</div>
+      Strict blood pressure control (to 144/82 mmHg) reduced DM-related death, stroke, microvascular endpoints, retinopathy, and heart failure by <strong>32&#8211;56%</strong>. The beneficial effects of blood pressure control were <strong>greater than those of glycemic control</strong>. ADA goal: <strong>&lt;130/80 mmHg</strong>.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Genetic Susceptibility Note</h3>
+    <p>Despite long-standing DM, some individuals never develop retinopathy or nephropathy &#8212; suggesting genetic susceptibility determines which complications occur. However, glycemic control exerts the strongest modifiable influence. Other trials (ACCORD, ADVANCE) also confirmed improved glycemic control reduces microvascular complications.</p>
+  </div>
+</section>
+
+<section class="sec" id="s3">
+  <div class="sec-hd"><span class="sec-n">03</span><h2>Mechanisms of Complications</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="sub">
+    <h3>Microvascular Mechanisms (Hyperglycemia-Driven)</h3>
+    <ul class="bl">
+      <li><strong>Advanced Glycosylation End Products (AGEs)</strong> &#8212; e.g., pentosidine, glucosepane, carboxymethyllysine:
+        <ul class="bl" style="margin-left:14px;margin-top:4px">
+          <li>Bind specific cell surface receptors (RAGEs)</li>
+          <li>Nonenzymatic glycosylation of intra- and extracellular proteins &#8594; cross-linking</li>
+          <li>Leads to: glomerular dysfunction, endothelial dysfunction, altered extracellular matrix, accelerated atherosclerosis</li>
+        </ul>
+      </li>
+      <li><strong>Epigenetic changes</strong>: hyperglycemia alters gene expression in affected cells &#8212; this mechanism underlies metabolic memory</li>
+      <li><strong>Reactive oxygen species / superoxide</strong>: increased mitochondrial production &#8594; activates multiple damaging pathways</li>
+      <li><strong>VEGF-A (vascular endothelial growth factor A)</strong>: increased locally in proliferative retinopathy; decreases after laser photocoagulation; target of anti-VEGF (intravitreous injection) therapy</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Macrovascular Mechanisms</h3>
+    <ul class="bl">
+      <li>Traditional CV risk factors: <strong>dyslipidemia, hypertension</strong></li>
+      <li><strong>Insulin resistance</strong>: present years before T2DM diagnosis; associated with obesity and ectopic lipid accumulation in liver and muscle</li>
+      <li>Insulin fails to suppress lipolysis &#8594; &#8593; fatty acid delivery to liver, muscle, endothelial cells, cardiac tissue &#8594; accumulation of triglycerides, diacylglycerol, ceramides</li>
+      <li><strong>Inflammation</strong> &#8212; additional driver beyond hyperglycemia alone</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="s4">
+  <div class="sec-hd"><span class="sec-n">04</span><h2>Ophthalmologic Complications: Diabetic Retinopathy</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co dan">
+    <div class="co-t">Epidemiology</div>
+    DM is the <strong>leading cause of new blindness in adults aged 20&#8211;74</strong> in the United States. Glaucoma and cataracts occur earlier and more frequently in DM. Severe vision loss is primarily from progressive diabetic retinopathy causing significant macular edema and neovascularization.
+  </div>
+
+  <div class="sub">
+    <h3>Two Stages of Diabetic Retinopathy</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-a">Stage 1: Nonproliferative (NPDR)</div>
+        <ul class="bl">
+          <li>Appears late in <strong>first decade or early second decade</strong> of hyperglycemia</li>
+          <li>Findings: <strong>retinal vascular microaneurysms, blot hemorrhages, cotton-wool spots</strong></li>
+          <li>Mild NPDR can progress &#8594; venous caliber changes, intraretinal microvascular abnormalities, more hemorrhages</li>
+          <li>Pathophysiology: loss of retinal pericytes, &#8593; retinal vascular permeability, abnormal retinal blood flow &#8594; retinal ischemia</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Stage 2: Proliferative (PDR)</div>
+        <ul class="bl">
+          <li>Hallmark: <strong>neovascularization in response to retinal hypoxemia</strong></li>
+          <li>New vessels appear near optic nerve and/or macula</li>
+          <li>Rupture easily &#8594; <strong>vitreous hemorrhage &#8594; fibrosis &#8594; retinal detachment</strong></li>
+          <li>Severe NPDR: high risk of progression to PDR within 5 years &#8212; creates opportunity for early detection and treatment</li>
+        </ul>
+      </div>
+    </div>
+    <div class="co wrn">
+      <div class="co-t">Clinically Significant Macular Edema</div>
+      Can occur in either NPDR or PDR context. Associated with an <strong>increased chance of moderate visual loss over the next 3 years</strong>. Detected by fluorescein angiography or optical coherence tomography.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Risk Factors for Retinopathy</h3>
+    <ul class="bl">
+      <li><strong>Duration of DM and degree of glycemic control</strong> &#8212; the best predictors</li>
+      <li>Hypertension, nephropathy, dyslipidemia also risk factors</li>
+      <li>Genetic susceptibility exists but confers less influence than duration or glycemic control</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Screening Guidelines</h3>
+    <ul class="bl">
+      <li>T1DM: begin screening <strong>5 years after diagnosis</strong>, then annually</li>
+      <li>T2DM: screen <strong>at the time of diagnosis</strong>, then annually</li>
+      <li>Requires <strong>dilated eye exam</strong> by optometrist/ophthalmologist OR retinal photography with remote reading &#8212; routine nondilated exam by PCP is inadequate</li>
+      <li>Subsequent management: by a retinal specialist</li>
+      <li>Pregnant patients with T1DM or T2DM: screen prior to and during pregnancy</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of Diabetic Retinopathy</h3>
+    <div class="co suc">
+      <div class="co-t">Best Treatment: Prevention</div>
+      Intensive glycemic + blood pressure control delays development and slows progression of retinopathy in T1DM and T2DM. Once advanced retinopathy is present, improved glycemic control imparts less benefit. Appropriate ophthalmologic care can prevent most blindness.
+    </div>
+    <ul class="bl">
+      <li><strong>Transient paradox:</strong> During the first <strong>6&#8211;12 months</strong> of improved glycemic control, established retinopathy may <strong>transiently worsen</strong>. This is temporary; long-term improvement is associated with less retinopathy</li>
+      <li><strong>GLP-1 receptor agonists:</strong> when associated with marked glycemic improvement &#8594; <strong>increased risk of worsening diabetic retinopathy</strong>. Consider this when choosing agents to improve glycemic control</li>
+      <li>Patients with retinopathy may need <strong>prophylactic laser photocoagulation</strong> before initiating intensive therapy, especially prior to pancreas or islet transplantation that can rapidly normalize glycemia</li>
+      <li><strong>Fenofibrate:</strong> lowering elevated triglycerides may reduce progression of retinopathy</li>
+    </ul>
+    <h4>Interventional Treatments</h4>
+    <ul class="bl">
+      <li><strong>Panretinal laser photocoagulation</strong> &#8212; severe NPDR or PDR</li>
+      <li><strong>Anti-VEGF therapy (intravitreous injection)</strong> &#8212; PDR or macular edema; antiplatelet agents and anticoagulation can be continued during anti-VEGF injections</li>
+      <li><strong>Surgical vitrectomy</strong> &#8212; severe PDR with vitreous hemorrhage and/or traction involving the macula</li>
+      <li><strong>Aspirin does NOT influence the natural history of diabetic retinopathy</strong></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="s5">
+  <div class="sec-hd"><span class="sec-n">05</span><h2>Renal Complications: Diabetic Nephropathy</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co dan">
+    <div class="co-t">Epidemiology</div>
+    Diabetic nephropathy is the <strong>leading cause of CKD and Stage 5 CKD (ESRD)</strong> requiring renal replacement therapy. ~<strong>20&#8211;40%</strong> of DM patients develop diabetic nephropathy. More common in Black, Native American, and Hispanic individuals. CKD in DM &#8594; increased cardiovascular risk; prognosis on dialysis is poor.
+  </div>
+
+  <div class="sub">
+    <h3>Natural History of Diabetic Nephropathy</h3>
+    <div class="flow">
+      <div class="fbox">0&#8211;3 yrs<br><small>GFR &#8593; (hyperfiltration)<br>Renal hypertrophy</small></div>
+      <div class="farr">&#8594;</div>
+      <div class="fbox">3&#8211;5 yrs<br><small>GFR normalizes<br>BM thickening<br>Mesangial expansion</small></div>
+      <div class="farr">&#8594;</div>
+      <div class="fbox amb">5&#8211;10+ yrs<br><small>Albuminuria appears<br>UACR &gt;30 mg/g</small></div>
+      <div class="farr">&#8594;</div>
+      <div class="fbox red">15&#8211;25+ yrs<br><small>GFR &#8595;&#8595; markedly<br>Changes likely irreversible</small></div>
+    </div>
+    <p style="font-size:12px;color:var(--t3)">T2DM patients may present with lower GFR even at diagnosis due to the long asymptomatic hyperglycemic period.</p>
+    <div class="co prl">
+      <div class="co-t">Reversibility Pearl</div>
+      10 years of normoglycemia from pancreas transplantation may lead to <strong>regression of mesangial glomerular lesions</strong> &#8212; but requires sustained normoglycemia for a decade.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Pathogenesis</h3>
+    <ul class="bl">
+      <li>Soluble factors: growth factors, angiotensin II, endothelin, AGEs</li>
+      <li>Epigenetic changes</li>
+      <li>Hemodynamic: glomerular hyperfiltration/hyperperfusion, &#8593; glomerular capillary pressure</li>
+      <li>Structural: &#8593; extracellular matrix, BM thickening, mesangial expansion, fibrosis</li>
+      <li>Tubular dysfunction: tubulointerstitial damage, fibrosis</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Screening and Diagnosis</h3>
+    <ul class="bl">
+      <li>Assessment requires <strong>BOTH UACR and eGFR</strong> &#8212; some patients have declining GFR without albuminuria</li>
+      <li>Routine urinalysis does NOT detect low levels of albumin excretion</li>
+      <li>T1DM: screen <strong>5 years after diagnosis</strong>, then annually</li>
+      <li>T2DM: screen <strong>at time of diagnosis</strong>, then annually</li>
+    </ul>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Category</th><th>UACR</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Normal</td><td>&lt;30 mg/g</td><td>&#8212;</td></tr>
+          <tr><td>Moderate increase (A2)</td><td>30&#8211;299 mg/g</td><td>Microalbuminuria &#8212; early nephropathy</td></tr>
+          <tr><td>Severely elevated (A3)</td><td>&gt;300 mg/g</td><td>Macroalbuminuria &#8212; advanced nephropathy; goal = reduce by 30%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co wrn">
+      <div class="co-t">Confounders Causing Falsely Elevated UACR</div>
+      Strenuous exercise, infection, fever, CHF, marked hyperglycemia, marked hypertension, prostate disease. Always confirm elevated UACR on <strong>2&#8211;3 occasions over 3&#8211;6 months</strong>. Once elevated, monitor <strong>2&#8211;4&#215;/year</strong>.
+    </div>
+    <div class="co key">
+      <div class="co-t">CKD Without Retinopathy in T1DM = Investigate!</div>
+      In T1DM, CKD and diabetic retinopathy almost always co-exist. If T1DM has CKD but NO retinopathy &#8594; <strong>investigate for alternative, non-diabetic causes of kidney disease</strong>.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Special Renal Considerations</h3>
+    <ul class="bl">
+      <li><strong>Type IV Renal Tubular Acidosis</strong> (hyporeninemic hypoaldosteronism): may occur in T1 or T2DM &#8594; propensity to <strong>hyperkalemia and acidemia</strong>. Exacerbated by ACE inhibitors, ARBs, and mineralocorticoid receptor antagonists &#8212; monitor potassium closely</li>
+      <li><strong>Radiocontrast-induced nephrotoxicity:</strong> risk factors = preexisting nephropathy + volume depletion. Hydrate well before and after; monitor creatinine 24&#8211;48h post-procedure; hold metformin until confirmed preserved renal function</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of Diabetic Nephropathy &#8212; 5 Pillars</h3>
+    <ul class="bl">
+      <li><strong>1. Improved glycemic control</strong> &#8212; reduces rate of albuminuria appearance and progression; less effective once moderate albuminuria is established</li>
+      <li><strong>2. Strict blood pressure control</strong> &#8212; goal &lt;130/80 mmHg; possibly lower if high ASCVD or CKD risk. First-line: ACE-i or ARB. Alternatives: thiazide-like diuretics, dihydropyridine CCBs. Beta blockers with caution if hypoglycemia unawareness. Do NOT combine ACE-i + ARB</li>
+      <li><strong>3. ACE inhibitor or ARB</strong> &#8212; for ALL patients with albuminuria (T1 or T2). Both classes considered equivalent. Increase to maximum tolerated dose. Acceptable creatinine rise: up to 30%. Goal for UACR &gt;300 mg/g: reduce UACR by 30%</li>
+      <li><strong>4. SGLT-2 inhibitor</strong> (T2DM, eGFR &gt;20): add while continuing ACE-i/ARB with any level of albuminuria &#8594; reduces CKD progression AND cardiovascular events. NOT effective if eGFR &lt;20</li>
+      <li><strong>5. Mineralocorticoid receptor antagonist &#8212; finerenone</strong>: reduces CKD progression and CV risk. Combining finerenone + SGLT2 inhibitor reduces risk of hyperkalemia</li>
+    </ul>
+    <h4>Additional Agents</h4>
+    <ul class="bl">
+      <li><strong>GLP-1 agonist (semaglutide):</strong> improves kidney outcomes and reduces cardiovascular death in T2DM + CKD</li>
+      <li>Treat dyslipidemia aggressively (ASCVD is the leading cause of death in DM nephropathy)</li>
+      <li>Protein intake: ADA recommends <strong>0.8 g/kg/day</strong> in diabetic kidney disease</li>
+    </ul>
+    <h4>Nephrology Referral Indications</h4>
+    <ul class="bl">
+      <li>eGFR &lt;30 mL/min/1.73 m&#178;</li>
+      <li>Albuminuria &gt;300 mg/g creatinine</li>
+      <li>Atypical features: hematuria, rapidly declining renal function</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">Medication Adjustments with Declining GFR</div>
+      <ul class="bl" style="margin:0">
+        <li>Sulfonylureas + metformin: <strong>contraindicated</strong> in advanced renal insufficiency</li>
+        <li>Glinides, DPP-4 inhibitors: require <strong>dose adjustment</strong></li>
+        <li>SGLT2 inhibitors: <strong>not effective if eGFR &lt;20</strong></li>
+        <li>Late nephropathy: insulin requirements &#8595; (kidney is a site of insulin degradation)</li>
+      </ul>
+    </div>
+    <div class="co key">
+      <div class="co-t">Dialysis and Transplantation</div>
+      Hemodialysis in DM &#8594; more complications: hypotension (autonomic neuropathy or loss of reflex tachycardia), difficult vascular access, accelerated retinopathy progression, greater mortality. <strong>Preemptive kidney transplantation</strong> from a living donor preferred for those nearing ESRD. For T1DM or insulin-deficient T2DM: <strong>simultaneous pancreas-kidney (SPK) transplantation</strong> from a deceased donor may be an option.
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="s6">
+  <div class="sec-hd"><span class="sec-n">06</span><h2>Neuropathy and Diabetes Mellitus</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">Prevalence and Key Rule</div>
+    Diabetic neuropathy occurs in <strong>~50% of individuals</strong> with long-standing T1DM and T2DM. Both myelinated and unmyelinated nerve fibers are lost. Because features are similar to other neuropathies, <strong>diagnose only after other etiologies are excluded.</strong>
+  </div>
+
+  <div class="sub">
+    <h3>Risk Factors for Diabetic Neuropathy</h3>
+    <ul class="bl">
+      <li>Duration of diabetes and degree of glycemic control</li>
+      <li>Greater BMI &#8594; greater neuropathy risk</li>
+      <li>Smoking</li>
+      <li>Presence of ASCVD, elevated triglycerides, hypertension</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>1. Distal Symmetric Polyneuropathy (DSPN) &#8212; Most Common Form</h3>
+    <ul class="bl">
+      <li>Most frequent presentation: <strong>distal sensory loss and pain</strong></li>
+      <li>Up to <strong>50% of patients have NO symptoms</strong> of neuropathy!</li>
+      <li>Symptoms: numbness, tingling, sharpness, or burning <strong>beginning in the feet, spreading proximally</strong></li>
+      <li>Hyperesthesia, paresthesia, and dysesthesia also occur</li>
+      <li>Pain: usually present at <strong>rest, worsens at night</strong></li>
+      <li><strong>Acute painful form (&lt;12 months):</strong> sometimes treatment-related (occurs with improved glycemic control)</li>
+      <li><strong>Chronic form:</strong> pain eventually subsides but sensory deficit persists; motor defects may develop</li>
+    </ul>
+    <div class="co key">
+      <div class="co-t">Physical Exam Findings</div>
+      Sensory loss (10-g monofilament and/or vibration) &#183; Loss of ankle deep-tendon reflexes &#183; Abnormal position sense &#183; Muscular atrophy or foot drop
+    </div>
+    <div class="co dan">
+      <div class="co-t">Loss of Protective Sensation (LOPS)</div>
+      LOPS and DSPN are major risk factors for <strong>foot ulceration and falls</strong> (small and large nerve fiber dysfunction) and predispose to <strong>lower extremity amputation</strong>. Annual screening: T1DM = 5 years after diagnosis; T2DM = at diagnosis.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>2. Autonomic Neuropathy</h3>
+    <p>Affects parasympathetic (cholinergic) AND sympathetic (adrenergic) systems. Can involve cardiovascular, GI, genitourinary, sudomotor, and metabolic systems.</p>
+    <ul class="bl">
+      <li><strong>Cardiovascular autonomic neuropathy:</strong> decreased heart rate variability, resting tachycardia, orthostatic hypotension &#8594; associated with &#8593; ASCVD. May prolong QTc interval &#8594; sudden death risk</li>
+      <li><strong>Hypoglycemia unawareness:</strong> autonomic neuropathy reduces counterregulatory hormone release (especially epinephrine) &#8594; inability to sense hypoglycemia &#8594; &#8593; risk of severe hypoglycemia</li>
+      <li><strong>Gastroparesis and bladder-emptying abnormalities:</strong> caused by autonomic neuropathy in DM</li>
+      <li><strong>Hyperhidrosis</strong> of upper extremities + <strong>anhidrosis</strong> of lower extremities (sympathetic dysfunction)</li>
+      <li>Anhidrosis of feet &#8594; dry skin with cracking &#8594; &#8593; risk of foot ulceration</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>3. Mononeuropathy / Radiculopathy / Polyradiculopathy</h3>
+    <ul class="bl">
+      <li>Less common than polyneuropathy</li>
+      <li><strong>Mononeuropathy:</strong> pain + motor weakness in single nerve distribution; can be at entrapment sites (carpal tunnel) or noncompressive</li>
+      <li>Most common cranial nerve: <strong>CN III</strong> &#8594; diplopia, ptosis, ophthalmoplegia with <strong>NORMAL pupillary constriction</strong> &#8212; distinguishes from posterior communicating artery aneurysm (which affects the pupil)</li>
+      <li>Other cranial nerves: IV, VI, VII (Bell's palsy)</li>
+      <li><strong>Diabetic amyotrophy:</strong> lumbar plexus/femoral nerve &#8594; severe pain in thigh/hip + weakness in hip flexors/extensors</li>
+      <li><strong>Diabetic polyradiculopathy:</strong> usually <strong>self-limited; resolves over 6&#8211;12 months</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of Diabetic Neuropathy</h3>
+    <div class="co suc">
+      <div class="co-t">Prevention is Critical</div>
+      Improved glycemic control is essential for prevention. Treatment of established diabetic neuropathy is less than satisfactory; only symptomatic treatment is available.
+    </div>
+    <h4>General Measures</h4>
+    <ul class="bl">
+      <li>Lifestyle modifications (exercise, diet) &#8212; some efficacy</li>
+      <li>Treat dyslipidemia and hypertension in T2DM + hypertriglyceridemia</li>
+      <li>Avoid neurotoxins (including <strong>alcohol</strong>) and smoking</li>
+      <li>Check <strong>vitamin B12:</strong> metformin may reduce B12 absorption in T2DM; pernicious anemia more common in T1DM (anti&#8211;parietal cell autoantibodies) &#8212; may require sublingual or parenteral B12 replacement</li>
+      <li>Patient education: daily foot inspection, protective footwear, podiatrist if deformities present</li>
+    </ul>
+    <h4>Pharmacologic Treatment of Painful DSPN</h4>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug Class</th><th>Examples</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Gabapentinoids</td><td>Pregabalin, gabapentin</td><td>First-line options</td></tr>
+          <tr><td>SNRI</td><td>Duloxetine, venlafaxine, desvenlafaxine</td><td>First-line options</td></tr>
+          <tr><td>Sodium channel blockers</td><td>Various</td><td>Some efficacy</td></tr>
+          <tr><td>Tricyclic antidepressants</td><td>Various</td><td>Some efficacy</td></tr>
+          <tr><td>Capsaicin patch</td><td>Topical</td><td>Some efficacy</td></tr>
+          <tr><td>Tapentadol (opioid)</td><td>&#8212;</td><td>FDA-approved but modest efficacy; addiction risk &#8212; NOT first-line</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--t3)">No direct comparisons between agents available. Reasonable to switch if no response or side effects. Refer to pain management center if needed. Sleep and mood disorders frequently accompany DSPN &#8212; treat them.</p>
+    <h4>Orthostatic Hypotension (Autonomic)</h4>
+    <ul class="bl">
+      <li>Nonpharmacologic: adequate salt intake, avoid dehydration/diuretics, lower extremity support hose, physical activity</li>
+      <li>Pharmacologic: <strong>midodrine</strong> and <strong>droxidopa</strong> (FDA-approved for orthostatic hypotension)</li>
+      <li>Resting tachycardia: consider <strong>beta blocker</strong> (caution if hypoglycemia unawareness)</li>
+      <li>T1DM + orthostatic hypotension: <strong>evaluate for primary adrenal insufficiency (Addison's disease)</strong> &#8212; associated with autoimmune polyendocrine syndrome</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="s7">
+  <div class="sec-hd"><span class="sec-n">07</span><h2>Gastrointestinal / Genitourinary Dysfunction</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="sub">
+    <h3>GI Manifestations</h3>
+    <h4>Gastroparesis</h4>
+    <ul class="bl">
+      <li>Symptoms: anorexia, nausea, vomiting, early satiety, abdominal bloating</li>
+      <li>Microvascular complications (retinopathy and neuropathy) usually present</li>
+      <li>Diagnosis: nuclear medicine scintigraphy after radiolabeled meal &#8212; may not correlate with symptoms</li>
+      <li>Pathophysiology: parasympathetic dysfunction from chronic hyperglycemia; hyperglycemia itself also directly impairs gastric emptying</li>
+    </ul>
+    <h4>Other GI Manifestations</h4>
+    <ul class="bl">
+      <li>Nocturnal diarrhea alternating with constipation &#8212; GI autonomic neuropathy</li>
+      <li>T1DM + GI symptoms &#8594; evaluate for <strong>celiac disease</strong> (anti-tissue transglutaminase autoantibodies; increased frequency in T1DM)</li>
+    </ul>
+    <h4>Treatment &#8212; GI</h4>
+    <ul class="bl">
+      <li>Small, frequent meals &#8212; liquid, <strong>low fat and fiber</strong></li>
+      <li>Avoid medications that slow gastric emptying: <strong>opioids, GLP-1 receptor agonists</strong></li>
+      <li><strong>Metoclopramide:</strong> for severe symptoms; <strong>short-term only</strong> in both US and Europe (tardive dyskinesia risk with long-term use)</li>
+      <li>GERD symptoms: H2 blocker or PPI</li>
+      <li>Gastric electrical stimulatory devices available</li>
+      <li>Diabetic diarrhea without bacterial overgrowth: treat symptomatically</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Genitourinary Manifestations</h3>
+    <h4>Diabetic Cystopathy</h4>
+    <ul class="bl">
+      <li>Progression: inability to sense full bladder &#8594; failure to void completely &#8594; &#8593; postvoid residual &#8594; urinary hesitancy, decreased voiding frequency, incontinence, recurrent UTIs</li>
+      <li>Treatment: <strong>scheduled voiding or self-catheterization</strong></li>
+    </ul>
+    <h4>Sexual Dysfunction</h4>
+    <ul class="bl">
+      <li>Female: reduced sexual desire, dyspareunia, reduced vaginal lubrication</li>
+      <li><strong>Erectile dysfunction:</strong> very common in DM; may be one of the <strong>earliest signs of diabetic neuropathy</strong>; increases with age and diabetes duration; may occur WITHOUT other signs of autonomic neuropathy</li>
+      <li>Retrograde ejaculation also very common</li>
+      <li>Treatment: <strong>phosphodiesterase type 5 inhibitors</strong> &#8212; effective but <strong>slightly less efficacious in DM than in nondiabetic population</strong></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="s8">
+  <div class="sec-hd"><span class="sec-n">08</span><h2>Cardiovascular Morbidity and Mortality</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co dan">
+    <div class="co-t">Major Cause of Mortality in DM</div>
+    ASCVD (PAD, CHD, heart failure, cerebrovascular disease) occurs more frequently in T1 and T2DM and is the <strong>major cause of mortality</strong> for individuals with diabetes. ASCVD events are <strong>2&#8211;4&#215; greater</strong> in T2DM. CHD more likely to involve <strong>multiple vessels</strong> in DM. American Heart Association considers DM a <strong>controllable risk factor for CVD</strong>.
+  </div>
+
+  <div class="sub">
+    <h3>Silent Ischemia and Screening</h3>
+    <ul class="bl">
+      <li>Absence of chest pain ("silent ischemia") is common in DM &#8212; thorough cardiac evaluation before major surgical procedures</li>
+      <li>Seek evidence of ASCVD in symptomatic patients (even if atypical symptoms)</li>
+      <li><strong>Screening asymptomatic DM patients for CHD is NOT recommended or cost-effective</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Heart Failure in DM</h3>
+    <ul class="bl">
+      <li><strong>Twice as common</strong> in individuals with DM (T1 or T2)</li>
+      <li>Related to diabetes duration and hypertension</li>
+      <li>Can present as HFpEF, HFmEF, or HFrEF</li>
+      <li><strong>Diabetic cardiomyopathy:</strong> reduced left ventricular function without CHD or hypertension (pathogenesis unclear)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment &#8212; Cardiovascular Disease</h3>
+    <div class="co key">
+      <div class="co-t">Four Integrated Targets</div>
+      <strong>Glycemia &#183; Blood Pressure &#183; Lipids &#183; CV/Kidney outcome&#8211;beneficial therapies</strong> &#8212; these must be addressed concurrently.
+    </div>
+    <h4>Revascularization for CHD in DM</h4>
+    <ul class="bl">
+      <li>PCI: initial success similar to nondiabetics, but <strong>higher rates of restenosis and lower long-term patency and survival</strong></li>
+      <li><strong>CABG + optimal medical management likely has better outcomes than PCI for DM with multivessel disease</strong></li>
+      <li>Very strict glucose control has <strong>limited benefit</strong> on CV outcomes in established CVD &#8212; other factors (insulin resistance, dyslipidemia, inflammation) are more important</li>
+    </ul>
+    <h4>T2DM + ASCVD &#8212; Medication Strategy</h4>
+    <ul class="bl">
+      <li>Comprehensive effort (lifestyle, BP, lipids) PLUS either <strong>SGLT-2 inhibitor or GLP-1 receptor agonist</strong></li>
+      <li>If diabetic CKD or heart failure is present/likely: <strong>prefer SGLT-2 inhibitor</strong></li>
+      <li>T2DM + ASCVD or ASCVD risk factors: <strong>GLP-1 receptor agonist</strong> reduces cardiovascular events</li>
+      <li>Combination SGLT-2 inhibitor + GLP-1 agonist: likely provides <strong>additive risk reduction</strong></li>
+      <li>T2DM + CKD + albuminuria on max ACE-i/ARB: add either SGLT2 inhibitor OR finerenone &#8594; reduces CKD progression + improves CV outcomes</li>
+      <li>HF or CVD: involve cardiovascular specialist; treat with ACE-i/ARB + beta blocker</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">SGLT-2 Inhibitors &#8212; Euglycemic DKA Risk</div>
+      Counsel patients about risk and symptoms of DKA. Educate about measuring ketones if clinical scenario suggests this. Caution with SGLT-2 in T1DM and insulin-deficient T2DM.
+    </div>
+    <h4>Antiplatelet Therapy</h4>
+    <ul class="bl">
+      <li><strong>Aspirin 75&#8211;162 mg/day:</strong> secondary prevention in DM + established ASCVD</li>
+      <li>Clopidogrel: aspirin allergy/intolerance</li>
+      <li><strong>Primary prevention:</strong> consider aspirin if DM + age &gt;50 + &#8805;1 additional risk factor (HTN, dyslipidemia, smoking, family Hx, albuminuria)</li>
+      <li><strong>Aspirin NOT recommended</strong> for primary prevention in low CV risk (&lt;50 years old, no risk factors)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Dyslipidemia Management in DM</h3>
+    <p>Most common pattern: <strong>hypertriglyceridemia + reduced HDL</strong>. LDL is not increased, but <strong>small dense LDL particles in T2DM are more atherogenic</strong> (more easily glycated and susceptible to oxidation).</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Patient Group</th><th>Statin Intensity</th><th>LDL Goal</th></tr></thead>
+        <tbody>
+          <tr><td>DM + ASCVD</td><td>High-intensity (atorvastatin 40&#8211;80 mg or rosuvastatin 20&#8211;40 mg)</td><td>&lt;55 mg/dL; &gt;50% reduction; add ezetimibe or PCSK9i if not at goal</td></tr>
+          <tr><td>Age 40&#8211;75, no ASCVD</td><td>Moderate-intensity</td><td>&#8212;</td></tr>
+          <tr><td>Age 40&#8211;75 with ASCVD risk factors</td><td>High-intensity</td><td>&lt;70 mg/dL; 50% LDL &#8595;</td></tr>
+          <tr><td>Age 40&#8211;75, ASCVD risk + max statin + LDL &#8805;70</td><td>Add ezetimibe or PCSK9 inhibitor</td><td>&#8212;</td></tr>
+          <tr><td>Age &gt;75 on statin</td><td>Continue; if not on statin: consider moderate-intensity</td><td>&#8212;</td></tr>
+          <tr><td>Age 20&#8211;39 with additional risk</td><td>Consider moderate-intensity</td><td>&#8212;</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="bl">
+      <li>Statin use: mild &#8593; risk of developing T2DM &#8212; but when indicated, <strong>CV benefits outweigh this risk</strong></li>
+      <li>TG &gt;500 mg/dL on statin: add <strong>icosapent or fenofibrate</strong></li>
+      <li>Statin + fibrate or niacin for LDL: no additional benefit</li>
+      <li>Cannot tolerate statin: consider <strong>PCSK9 inhibitor</strong> (monoclonal antibody or inclisiran) or <strong>bempedoic acid</strong></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="s9">
+  <div class="sec-hd"><span class="sec-n">09</span><h2>Lower Extremity Complications</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co dan">
+    <div class="co-t">Epidemiology</div>
+    DM is the <strong>leading cause of nontraumatic lower extremity amputation</strong> in the United States. Foot ulcers and infections are also a major source of morbidity. <strong>14&#8211;24% risk of amputation</strong> with each foot ulcer or subsequent ulceration.
+  </div>
+
+  <div class="sub">
+    <h3>Pathogenesis &#8212; Multifactorial</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-a">Neuropathy Contributions</div>
+        <ul class="bl">
+          <li><strong>Sensory:</strong> impaired protective mechanisms &#8594; major/repeated trauma without awareness</li>
+          <li><strong>Proprioception:</strong> abnormal weight bearing &#8594; callus/ulceration</li>
+          <li><strong>Motor:</strong> structural changes &#8212; hammer toe, claw toe, prominent metatarsal heads, Charcot joint</li>
+          <li><strong>Autonomic:</strong> anhidrosis &#8594; dry skin &#8594; fissure formation</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Vascular and Healing</div>
+        <ul class="bl">
+          <li><strong>PAD:</strong> impedes wound healing</li>
+          <li><strong>Poor wound healing:</strong> allows minor breaks to enlarge and become infected</li>
+          <li>Altered superficial blood flow in foot (autonomic neuropathy)</li>
+        </ul>
+      </div>
+    </div>
+    <h4>Risk Factors for Foot Ulcer / Amputation</h4>
+    <ul class="bl">
+      <li>Male sex, DM &gt;10 years, peripheral neuropathy</li>
+      <li>Abnormal foot structure (bony abnormalities, callus, thickened nails), PAD, smoking</li>
+      <li>History of previous ulcer or amputation</li>
+      <li>Visual impairment, poor glycemic control, diabetic nephropathy (especially dialysis)</li>
+      <li>Large calluses &#8212; often precursors to or overlie ulcerations</li>
+    </ul>
+    <p><strong>Most common site of ulceration:</strong> plantar surface (great toe and metatarsophalangeal areas)</p>
+  </div>
+
+  <div class="sub">
+    <h3>Prevention</h3>
+    <ul class="bl">
+      <li>Annual foot examination for all DM patients (routine, comprehensive)</li>
+      <li>10-g monofilament or vibration test &#8594; if abnormal &#8594; diagnose LOPS</li>
+      <li>Screen for asymptomatic PAD in patients &gt;50 with DM + other risk factors using <strong>ankle-brachial index (ABI)</strong></li>
+      <li>Podiatrist involvement for high-risk individuals (history of ulcers/amputation, dialysis patients, PAD, foot deformities)</li>
+    </ul>
+    <h4>Patient Education &#8212; Foot Care 5 Points</h4>
+    <ul class="bl">
+      <li>Careful selection of footwear</li>
+      <li>Daily inspection of feet (early signs of trauma or poor fit)</li>
+      <li>Daily foot hygiene (keep skin clean and moist)</li>
+      <li>Avoid self-treatment of foot abnormalities and high-risk behavior (e.g., walking barefoot)</li>
+      <li>Prompt consultation with healthcare provider if any abnormality arises</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of Foot Ulcers &#8212; Multidisciplinary</h3>
+    <p>Management requires expertise across orthopedics, vascular surgery, endocrinology, podiatry, and infectious diseases.</p>
+    <h4>5 Interventions with Demonstrated Efficacy</h4>
+    <ul class="bl">
+      <li><strong>1. Off-loading</strong> &#8212; complete avoidance of weight bearing on the ulcer; removes mechanical trauma that retards wound healing</li>
+      <li><strong>2. Surgical debridement</strong> of nonviable tissue</li>
+      <li><strong>3. Physiologic topical wound dressings</strong></li>
+      <li><strong>4. Revascularization</strong> &#8212; peripheral arterial bypass often effective in promoting wound healing and decreasing need for amputation</li>
+      <li><strong>5. Treatment of infections</strong> with appropriate antibiotics</li>
+    </ul>
+    <p>If wound fails to improve after <strong>4 weeks</strong> &#8594; consider advanced wound therapy: topical growth factors, acellular matrix tissues, bioengineered cellular therapies, negative-pressure wound therapy, electrical stimulation, pulsed radiofrequency, extracorporeal shockwave, hyperbaric oxygen therapy, topical oxygen therapy. <strong>Antiseptic agents: avoid. Topical antibiotics: limited value.</strong></p>
+    <h4>Infection Management</h4>
+    <div class="co wrn">
+      <div class="co-t">Infected Ulcer = Clinical Diagnosis</div>
+      Superficial culture will find multiple organisms of unknown significance. Obtain cultures from <strong>debrided ulcer base</strong>, purulent drainage, or aspiration. Probe to bone &#8212; if probes to bone &#8594; <strong>highly likely osteomyelitis</strong>.
+    </div>
+    <ul class="bl">
+      <li>Organisms: aerobic gram-positive cocci (<strong>staph including MRSA</strong>, strep A/B) most common; gram-negative aerobes and anaerobes as co-pathogens</li>
+      <li>Gas gangrene can develop <strong>without clostridial infection</strong></li>
+      <li>MRI: most specific modality for osteomyelitis. Nuclear medicine scans (PET, CT/SPECT) also used</li>
+      <li><strong>Osteomyelitis:</strong> prolonged antibiotics + debridement of infected bone</li>
+    </ul>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Severity</th><th>Antibiotic Approach</th></tr></thead>
+        <tbody>
+          <tr><td>Mild / non&#8211;limb-threatening</td><td>Oral: dicloxacillin, early cephalosporins, amoxicillin-clavulanate. MRSA history/high prevalence: TMP-SMX, doxycycline, linezolid, or clindamycin</td></tr>
+          <tr><td>Severe</td><td>IV: vancomycin + beta-lactam/beta-lactamase inhibitor or carbapenem; or vancomycin + quinolone + metronidazole. Alternatives: daptomycin, ceftaroline, linezolid (consult ID)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="s10">
+  <div class="sec-hd"><span class="sec-n">10</span><h2>Infections and Dermatologic Manifestations</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="sub">
+    <h3>Infections in DM</h3>
+    <p>DM patients have greater frequency AND severity of infection. Mechanisms: incompletely defined abnormalities in <strong>cell-mediated immunity and phagocyte function</strong> from hyperglycemia + diminished vascularization. Hyperglycemia directly aids colonization and growth of organisms (Candida and other fungi). Poor glycemic control is the common denominator.</p>
+    <h4>DM-Specific Rare Infections (seen almost exclusively in DM)</h4>
+    <ul class="bl">
+      <li><strong>Rhinocerebral mucormycosis</strong></li>
+      <li><strong>Emphysematous infections</strong> of gallbladder and urinary tract</li>
+      <li><strong>Malignant/invasive otitis externa:</strong> Pseudomonas aeruginosa in soft tissue surrounding external auditory canal; begins with pain and discharge; may rapidly progress to <strong>osteomyelitis and meningitis</strong>. Consider especially in severe hyperglycemia</li>
+    </ul>
+    <h4>Common Infections (More Frequent/Severe in DM)</h4>
+    <ul class="bl">
+      <li><strong>Pulmonary:</strong> similar organisms to nondiabetics but gram-negative, S. aureus, and M. tuberculosis more frequent. Vaccinate against: pneumococcus, RSV, influenza (annually), SARS-CoV-2</li>
+      <li><strong>UTI:</strong> E. coli most common; yeast (C. albicans, C. glabrata) also. Complications: emphysematous pyelonephritis, emphysematous cystitis. Bacteriuria in diabetic cystopathy does NOT require antibiotics except in pregnancy or before urologic procedures</li>
+      <li>Furunculosis, superficial candidal infections, vulvovaginitis: increased susceptibility</li>
+      <li>S. aureus: &#8593; colonization in skinfolds and nares</li>
+      <li>Postoperative wound infections: &#8593; risk; mitigated by perioperative insulin protocols for glycemic control</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Dermatologic Manifestations</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Condition</th><th>Description</th><th>Distinguishing Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Xerosis + pruritus</td><td>Most common skin manifestations in DM</td><td>Relieved by skin moisturizers</td></tr>
+          <tr><td>Diabetic dermopathy ("diabetic skin spots")</td><td>Erythematous macule/papule &#8594; circular hyperpigmentation in pretibial region</td><td>Minor mechanical trauma; more common in elderly men with DM</td></tr>
+          <tr><td>Bullosa diabeticorum</td><td>Shallow ulcerations/erosions in pretibial region</td><td>Bullous disease</td></tr>
+          <tr><td>Necrobiosis lipoidica diabeticorum</td><td>Erythematous plaque/papules (pretibial) &#8594; enlarge, darken, irregular margins, atrophic centers, central ulceration. Often painful</td><td>Uncommon; predominantly young women</td></tr>
+          <tr><td>Acanthosis nigricans</td><td>Hyperpigmented velvety plaques on neck, axilla, extensor surfaces</td><td>Feature of severe insulin resistance</td></tr>
+          <tr><td>Vitiligo + alopecia areata</td><td>Increased frequency</td><td>T1DM specifically (autoimmune)</td></tr>
+          <tr><td>Granuloma annulare</td><td>Erythematous plaques on extremities or trunk</td><td>More common in DM</td></tr>
+          <tr><td>Lipoatrophy/lipohypertrophy</td><td>At insulin injection sites</td><td>Now unusual with human insulin; prevented by rotating sites</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="s11">
+  <div class="sec-hd"><span class="sec-n">11</span><h2>Quick Reference Master Table</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Complication</th><th>Screening Start</th><th>Freq</th><th>Key Treatment</th><th>Key Numbers</th></tr></thead>
+      <tbody>
+        <tr><td>Retinopathy</td><td>T1DM: 5 yrs after Dx<br>T2DM: at Dx</td><td>Annual</td><td>Glycemic + BP control; dilated eye exam; laser / anti-VEGF; vitrectomy (severe PDR)</td><td>47% &#8595; retinopathy (DCCT); GLP-1 RA may worsen</td></tr>
+        <tr><td>Nephropathy</td><td>T1DM: 5 yrs after Dx<br>T2DM: at Dx</td><td>Annual; 2&#8211;4&#215;/yr if elevated</td><td>ACE-i/ARB + SGLT2i + finerenone; BP &lt;130/80; glycemic control</td><td>UACR 30&#8211;299 moderate; &gt;300 severe; 54% &#8595; nephropathy (DCCT)</td></tr>
+        <tr><td>Neuropathy (DSPN)</td><td>T1DM: 5 yrs after Dx<br>T2DM: at Dx</td><td>Annual</td><td>Glycemic control (prevention); gabapentinoids/SNRIs for pain; foot care/education</td><td>~50% of long-standing DM; 60% &#8595; with tight control (DCCT)</td></tr>
+        <tr><td>Cardiovascular</td><td>Individualized</td><td>Ongoing</td><td>SGLT2i or GLP-1 RA; CABG preferred over PCI in multivessel DM; statin therapy</td><td>ASCVD 2&#8211;4&#215; more common; 57% &#8595; CV events intensive vs conventional (EDIC)</td></tr>
+        <tr><td>Foot ulcer</td><td>Annual foot exam all DM patients</td><td>Annual + ongoing</td><td>Off-loading, debridement, wound dressings, revascularization, antibiotics</td><td>14&#8211;24% amputation risk per ulcer</td></tr>
+        <tr><td>HbA1c goals</td><td>&#8212;</td><td>&#8212;</td><td>&lt;7.0% general; &lt;8.0&#8211;8.5% elderly/complex; &lt;6.5% pre-pregnancy</td><td>Each 1% &#8595; HbA1c = 35% &#8595; microvascular complications (UKPDS)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="sec" id="s12">
+  <div class="sec-hd"><span class="sec-n">12</span><h2>Exam Traps &#8212; Board Coach Format</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">Retinopathy Transiently Worsening After Tight Control</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with T2DM starts intensive insulin therapy with tight glycemic control. At 3-month follow-up, ophthalmology notes worsening retinopathy. Should you stop the intensive regimen?</div>
+      <div class="trap-a"><strong>NO.</strong> Transient worsening of established diabetic retinopathy during the first <strong>6&#8211;12 months</strong> of improved glycemic control is well known. It is temporary. In the long term, improved glycemic control is associated with <strong>less retinopathy</strong>. Continue intensive therapy.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">GLP-1 Agonist and Diabetic Retinopathy Worsening</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A T2DM patient starts semaglutide and achieves marked HbA1c improvement. Ophthalmologic follow-up shows worsening retinopathy. Is this expected?</div>
+      <div class="trap-a"><strong>Yes &#8212; GLP-1 receptor agonists have been associated with increased risk of worsening diabetic retinopathy when marked glycemic improvement occurs.</strong> This should be factored into agent selection in patients with pre-existing retinopathy. The mechanism relates to rapid glucose lowering.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">CKD Without Retinopathy in T1DM</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A T1DM patient has CKD with proteinuria but no diabetic retinopathy on dilated ophthalmologic exam. How do you interpret this?</div>
+      <div class="trap-a"><strong>Investigate for alternative (non-diabetic) causes of kidney disease.</strong> In T1DM, diabetic nephropathy and retinopathy almost always co-exist. CKD without retinopathy in T1DM strongly suggests a different etiology (e.g., IgA nephropathy, lupus nephritis) and warrants workup.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Diabetic CN III Palsy &#8212; Pupil Sparing is the Key</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 65-year-old diabetic presents with diplopia, ptosis, and ophthalmoplegia. The pupil reacts normally to light. What is the most likely cause?</div>
+      <div class="trap-a"><strong>Diabetic mononeuropathy (CN III palsy) &#8212; pupil-sparing.</strong> Diabetic (ischemic) CN III palsy characteristically <strong>spares the pupil</strong>. Pupillary fibers run on the outside of CN III and are typically affected in compressive lesions (like a PCOM aneurysm). In ischemic/diabetic CN III palsy, the pupil is spared. Pupil-sparing CN III in a diabetic = microvascular disease until proven otherwise.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Metabolic Memory / Legacy Effect</span></div>
+    <div class="trap-body">
+      <div class="trap-q">DCCT intensive therapy group had better control for 6.5 years, then both groups maintained the same HbA1c. Years later, the intensive group still has fewer complications and lower mortality. How do you explain this?</div>
+      <div class="trap-a"><strong>Metabolic memory (legacy effect).</strong> A period of improved glycemic control has durable protective effects on complications even after glycemic control equalizes. The intensive therapy group had a <strong>57% reduction in cardiovascular events</strong> and <strong>33% reduction in mortality</strong> in the EDIC follow-up despite equivalent subsequent HbA1c. Estimated legacy effect: <strong>10+ years</strong>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Blood Pressure Control &gt; Glycemic Control (UKPDS)</span></div>
+    <div class="trap-body">
+      <div class="trap-q">In the UKPDS, which intervention had a greater impact on DM complications: intensive glycemic control or blood pressure control?</div>
+      <div class="trap-a"><strong>Blood pressure control.</strong> Strict BP control (to 144/82 mmHg) reduced DM-related death, stroke, microvascular endpoints, retinopathy, and heart failure by <strong>32&#8211;56%</strong>. These effects were <strong>greater than those of glycemic control</strong>. ADA goal: <strong>&lt;130/80 mmHg</strong>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">SGLT2 Inhibitors: When They Fail</span></div>
+    <div class="trap-body">
+      <div class="trap-q">You want to add an SGLT2 inhibitor for nephroprotection in a T2DM patient with diabetic kidney disease. The patient's eGFR is 18 mL/min/1.73 m&#178;. Appropriate?</div>
+      <div class="trap-a"><strong>No. SGLT2 inhibitors are not effective when eGFR &lt;20 mL/min/1.73 m&#178;.</strong> They require sufficient nephron mass to work. The indication for SGLT2 inhibitor addition in CKD requires eGFR <strong>&gt;20</strong>. At eGFR &lt;30, nephrology consultation is also indicated.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">One UACR Reading Is Not Enough</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A diabetic patient's spot urine shows UACR of 45 mg/g on a single measurement. Should you diagnose microalbuminuria and start ACE inhibitor now?</div>
+      <div class="trap-a"><strong>Not yet. Confirm on 2&#8211;3 occasions over 3&#8211;6 months.</strong> UACR can be falsely elevated by strenuous exercise, infection, fever, CHF, marked hyperglycemia, hypertension, or prostate disease. Only a <strong>persistently</strong> elevated UACR &gt;30 mg/g confirms albuminuria. Then initiate ACE-i/ARB and uptitrate to maximum tolerated dose.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Malignant Otitis Externa in Severe Hyperglycemia</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A severely hyperglycemic diabetic patient presents with severe ear pain and discharge that is rapidly progressing. What rare life-threatening diagnosis must you consider?</div>
+      <div class="trap-a"><strong>Invasive (malignant) otitis externa.</strong> Caused by Pseudomonas aeruginosa in soft tissue surrounding the external auditory canal. Begins with pain and discharge, may rapidly progress to <strong>osteomyelitis and meningitis</strong>. Seen almost exclusively in diabetic patients, associated with severe hyperglycemia. Needs urgent imaging and systemic antibiotics.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Aspirin for Primary Prevention &#8212; Know the Age/Risk Threshold</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 42-year-old T2DM patient with no prior cardiovascular events and no other risk factors (no hypertension, no dyslipidemia, no smoking) asks about aspirin. Recommend?</div>
+      <div class="trap-a"><strong>Do NOT recommend aspirin for primary prevention.</strong> The ADA recommends considering aspirin for primary prevention only in DM + <strong>age &gt;50 AND at least one additional risk factor</strong> (hypertension, dyslipidemia, smoking, family history, or albuminuria). This 42-year-old with no additional risk factors does not meet the threshold.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">Metoclopramide &#8212; Short-Term Only</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with diabetic gastroparesis wants to continue metoclopramide long-term for nausea management. What do you tell them?</div>
+      <div class="trap-a"><strong>Metoclopramide is restricted to SHORT-TERM treatment only</strong> in both the US and Europe, due to the risk of tardive dyskinesia with long-term use. Optimize glycemic control, use small low-fat/fiber meals, avoid GLP-1 agonists and opioids. Gastric electrical stimulatory devices are available for refractory cases.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 12</span><span class="trap-title">CABG vs PCI in Multivessel DM &#8212; CABG Wins</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A T2DM patient has multivessel coronary artery disease. Both PCI and CABG are technically feasible. Which should you recommend?</div>
+      <div class="trap-a"><strong>CABG + optimal medical management has better outcomes than PCI in DM with multivessel disease.</strong> While initial PCI success rates are similar, DM patients have higher restenosis rates and lower long-term patency and survival after PCI. For multivessel disease in DM, <strong>CABG is generally preferred</strong>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 13</span><span class="trap-title">Erectile Dysfunction &#8212; Earliest Sign of Neuropathy</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 50-year-old T2DM patient reports new-onset erectile dysfunction but denies any other symptoms. Could this be diabetes-related?</div>
+      <div class="trap-a"><strong>Yes. Erectile dysfunction may be one of the earliest signs of diabetic neuropathy</strong> and can occur in the absence of other signs of diabetic autonomic neuropathy. It increases in frequency with patient age and duration of diabetes. Treatment: PDE5 inhibitors are effective but slightly less so than in the nondiabetic population.</div>
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<footer class="footer">Harrison's Principles &#183; Chapter 417 &#183; Powers, Stafford, Rickels &#183; Diabetes Mellitus: Complications &#183; Boards Review 2026 &#183; Venos Stage A</footer>
+
+<script>
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') || node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') || node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">&#8919;</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">&#215;</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+let activePopNoteId = null;
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
