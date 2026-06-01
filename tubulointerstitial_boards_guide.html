@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Tubulointerstitial Diseases · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+
+/* TOOLBAR */
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+
+/* SIDEBAR */
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);
+  border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;
+  z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;
+  display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;
+  position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;
+  line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+
+/* NAV */
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;
+  padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blu);
+  margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}
+  .main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+
+/* Flowchart */
+.flow{background:var(--sf);border:1.5px solid var(--bd);border-radius:10px;padding:20px 24px;margin:16px 0;text-align:center}
+.flow-title{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:16px}
+.flow-row{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0}
+.flow-box{background:var(--blu-l);border:1.5px solid var(--blu);border-radius:6px;padding:7px 14px;font-size:12.5px;font-weight:500;color:var(--blu-d);white-space:nowrap}
+.flow-box.red{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.flow-box.grn{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.flow-box.amb{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.flow-box.pur{background:var(--pur-l);border-color:var(--pur);color:var(--pur)}
+.flow-arrow{color:var(--t3);font-size:16px}
+.flow-label{font-size:10.5px;color:var(--t3);font-style:italic}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles · Chapter 328</div>
+  <h1>Tubulointerstitial<br>Diseases of the Kidney</h1>
+  <div class="hero-sub">Acute &amp; Chronic TIN · AIN Subtypes · Obstructive Tubulopathies · Metabolic Disorders · Medical Boards Review</div>
+  <div class="hero-authors">Beck LH Jr., Salant DJ</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">10</div><div class="stat-l">Sections</div></div>
+    <div class="stat-box"><div class="stat-n">9</div><div class="stat-l">AIN Subtypes</div></div>
+    <div class="stat-box"><div class="stat-n">14</div><div class="stat-l">Exam Traps</div></div>
+    <div class="stat-box"><div class="stat-n">328</div><div class="stat-l">Chapter</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Overview</a>
+    <a class="toc-a" href="#s2">Allergic AIN</a>
+    <a class="toc-a" href="#s3">Sjögren's &amp; TINU</a>
+    <a class="toc-a" href="#s4">SLE, Granulomatous &amp; IgG4</a>
+    <a class="toc-a" href="#s5">Checkpoint, Idiopathic &amp; Infxn AIN</a>
+    <a class="toc-a" href="#s6">Crystal Disorders &amp; Myeloma Kidney</a>
+    <a class="toc-a" href="#s7">Chronic TIN: Structural</a>
+    <a class="toc-a" href="#s8">Chronic TIN: Drugs &amp; Toxins</a>
+    <a class="toc-a" href="#s9">Metabolic Disorders</a>
+    <a class="toc-a" href="#s10">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══════════════════════════════════════════════ S1 ═══ -->
+<section class="sec" id="s1">
+  <div class="sec-hd">
+    <span class="sec-n">01</span>
+    <h2>Overview &amp; Classification</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>The Core Concept</h3>
+    <p>Inflammation or fibrosis of the renal interstitium with tubular atrophy is a common <em>secondary</em> consequence of glomerular or vascular disease. However, a distinct group of disorders <strong>primarily targets the tubules and interstitium</strong>, with relative sparing of glomeruli and renal vessels. These are the tubulointerstitial nephritides (TIN).</p>
+    <div class="co key">
+      <div class="co-t">Key Concept</div>
+      The fundamental distinction: <strong>Primary TIN</strong> targets tubules/interstitium first → glomeruli and vessels are relatively spared. Secondary TIN occurs downstream of glomerular or vascular disease.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Acute TIN — Clinical Features</h3>
+    <ul class="bl">
+      <li>Most often presents as <strong>acute kidney injury (AKI)</strong></li>
+      <li><strong>Mechanism of acuity:</strong>
+        <ul class="bl" style="margin-top:4px;margin-left:10px">
+          <li>Aggressive inflammatory infiltrates → tissue edema + tubular cell injury + compromised tubular flow</li>
+          <li><em>OR</em> frank obstruction of tubules with casts, cellular debris, or crystals</li>
+        </ul>
+      </li>
+      <li>Sometimes <strong>flank pain</strong> due to distention of the renal capsule</li>
+      <li><strong>Urinary sediment:</strong> often active with leukocytes and cellular casts (depends on exact disorder)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Chronic TIN — Clinical Features</h3>
+    <p>More indolent. Manifests with disorders of tubular function:</p>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Distal Tubule Dysfunction</div>
+        <p><strong>Nephrogenic DI:</strong> polyuria from impaired concentrating ability</p>
+        <p><strong>Type IV RTA:</strong> non-anion-gap metabolic acidosis + hyperkalemia due to impaired ammoniagenesis</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Proximal Tubule Dysfunction</div>
+        <p><strong>Fanconi's Syndrome:</strong> glycosuria + phosphaturia + aminoaciduria + hypokalemia + Type II RTA (bicarbonaturia)</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Proteinuria</div>
+        <p>Often <strong>modest (&lt;2 g/d)</strong> due to decreased tubular reabsorption of filtered proteins. Nephrotic-range albuminuria possible if secondary FSGS develops.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Azotemia</div>
+        <p>Progressive rise in creatinine and BUN. Chronic TIN is insidious — often advanced before recognition.</p>
+      </div>
+    </div>
+    <div class="co wrn">
+      <div class="co-t">Imaging — "Medical Renal Disease"</div>
+      Renal ultrasound may show: increased echogenicity with loss of corticomedullary differentiation · prominence of renal pyramids · cortical scarring
+    </div>
+    <div class="co tel">
+      <div class="co-t">Histopathology of Chronic TIN</div>
+      Interstitial fibrosis + patchy mononuclear cell infiltration + widespread tubular atrophy + luminal dilation + thickening of tubular basement membranes. <strong>Nonspecific — rarely gives specific diagnosis.</strong> Diagnosis relies on history, drug/toxin exposure, symptoms, and imaging.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Classification of Causes</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Category</th><th>Examples</th></tr></thead>
+        <tbody>
+          <tr><td>Acute — Allergic/Drug</td><td>Antibiotics (β-lactams, sulfonamides, quinolones, vancomycin), NSAIDs, PPIs, diuretics, anticonvulsants, checkpoint inhibitors</td></tr>
+          <tr><td>Acute — Infection</td><td>Streptococcus, Staphylococcus, Legionella, EBV, CMV, hantavirus, polyomavirus, HIV</td></tr>
+          <tr><td>Acute — Autoimmune</td><td>TINU, Sjögren's, SLE, granulomatous, IgG4-related, anti-brush border (anti-LRP2)</td></tr>
+          <tr><td>Acute — Obstructive</td><td>Light chain cast nephropathy, acute phosphate nephropathy, acute urate nephropathy</td></tr>
+          <tr><td>Chronic — Structural</td><td>Vesicoureteral reflux, sickle cell nephropathy</td></tr>
+          <tr><td>Chronic — Toxins/Drugs</td><td>Analgesics (phenacetin), lithium, heavy metals (lead, cadmium), aristolochic acid, calcineurin inhibitors</td></tr>
+          <tr><td>Metabolic</td><td>Hypercalcemia/nephrocalcinosis, hyperuricemia, prolonged hypokalemia, hyperoxaluria</td></tr>
+          <tr><td>Cystic/Hereditary</td><td>PKD, nephronophthisis, autosomal dominant tubulointerstitial kidney disease, medullary sponge kidney</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ S2 ═══ -->
+<section class="sec" id="s2">
+  <div class="sec-hd">
+    <span class="sec-n">02</span>
+    <h2>Allergic Interstitial Nephritis (Drug-Induced AIN)</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Epidemiology</h3>
+    <p>Biopsy-proven AIN accounts for ~15% of cases of unexplained AKI — but this is a <strong>substantial underestimate</strong> because offending medications are often identified and empirically discontinued without biopsy confirmation.</p>
+    <div class="co wrn">
+      <div class="co-t">Historical Note</div>
+      In 1897, Councilman described AIN as "an acute inflammation of the kidney characterized by cellular and fluid exudation in the interstitial tissue, accompanied by, but not dependent on, degeneration of the epithelium." Today it is far more often an allergic drug reaction.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Causative Drugs</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-r">Antibiotics</div>
+        <p>β-lactams · sulfonamides · quinolones · vancomycin · erythromycin · linezolid · minocycline · <strong>rifampin</strong> · ethambutol · acyclovir</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">NSAIDs / COX-2 inh</div>
+        <p>NSAIDs · COX-2 inhibitors <em>(atypical presentation — no classic triad)</em></p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">GI/CV Drugs</div>
+        <p>Proton pump inhibitors · H₂ blockers · captopril · mesalazine · indinavir · allopurinol</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Diuretics</div>
+        <p>Rarely: thiazides · loop diuretics · triamterene</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Anticonvulsants</div>
+        <p>Phenytoin · valproate · carbamazepine · phenobarbital</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Immune Modulators</div>
+        <p>Immune checkpoint inhibitors · vedolizumab · lenalidomide</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Presentation</h3>
+    <div class="co dan">
+      <div class="co-t">⚠ Board High-Yield — Classic Triad Is the EXCEPTION</div>
+      The classic triad of <strong>fever + rash + peripheral eosinophilia + oliguric AKI</strong> after 7–10 days of methicillin/β-lactam is the <em>exception rather than the rule.</em> More often, patients are found incidentally to have a rising serum creatinine or present with nonspecific AKI symptoms.
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Typical Presentation</div>
+        <p><strong>Most common:</strong> Incidental rising creatinine or nonspecific AKI symptoms</p>
+        <p>Fever + rash + eosinophilia only in minority</p>
+        <p>Onset 7–10 days after offending drug (β-lactams)</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">NSAID-Induced AIN (Atypical)</div>
+        <p><strong>Fever, rash, and eosinophilia are RARE</strong></p>
+        <p>But: AKI + <strong>heavy proteinuria</strong> is common</p>
+        <p>Heavy proteinuria distinguishes NSAIDs from other drug AIN</p>
+      </div>
+    </div>
+    <div class="co dan">
+      <div class="co-t">Rifampin — Special Warning</div>
+      A particularly severe and rapid-onset AIN may occur upon <strong>reintroduction of rifampin after a drug-free period.</strong> This is a classic board trap — discontinuing rifampin and restarting is high risk.
+    </div>
+    <p>More insidious reactions to PPIs, sulfonamides, 5-aminosalicylates (mesalazine/sulfasalazine), and antiretrovirals may lead to progressive tubulointerstitial damage. Whether PPIs cause chronic kidney disease via subclinical prolonged interstitial nephritis is still unclear.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnosis</h3>
+    <ul class="bl">
+      <li><strong>Primary finding:</strong> Otherwise unexplained AKI (with or without oliguria) + exposure to a potentially offending agent</li>
+      <li><strong>Peripheral eosinophilia:</strong> Supporting evidence but present in only a <em>minority</em> of patients</li>
+      <li><strong>Urinalysis:</strong> Pyuria + white blood cell casts + hematuria</li>
+      <li><strong>Urinary eosinophils:</strong> Neither sensitive nor specific for AIN — <strong>testing is NOT recommended</strong></li>
+      <li><strong>Kidney biopsy:</strong> Generally not required but reveals extensive interstitial + tubular infiltration of leukocytes including eosinophils</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Board Trap</div>
+      Urinary eosinophils are neither sensitive nor specific — do NOT rely on them to rule in or rule out AIN.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment Algorithm</h3>
+    <div class="flow">
+      <div class="flow-title">Treatment of Allergic and Immune-Mediated AIN</div>
+      <div class="flow-row"><div class="flow-box">AKI with Features of AIN</div></div>
+      <div class="flow-row"><div class="flow-arrow">↓</div></div>
+      <div class="flow-row"><div class="flow-box">Withdraw Offending Agent</div></div>
+      <div class="flow-row"><div class="flow-arrow">↓</div></div>
+      <div class="flow-row"><div class="flow-box">Supportive Care + Close Observation</div></div>
+      <div class="flow-row" style="gap:40px">
+        <div style="text-align:center">
+          <div class="flow-box grn" style="margin-bottom:4px">Improvement</div>
+          <div class="flow-label">Continue observation</div>
+        </div>
+        <div style="text-align:center">
+          <div class="flow-box red" style="margin-bottom:4px">No improvement in 1 week OR rapid progression</div>
+        </div>
+      </div>
+      <div class="flow-row" style="gap:20px;margin-top:8px">
+        <div class="flow-box">Classic Allergic AIN → Corticosteroids</div>
+        <div class="flow-box amb">Atypical Features → Renal Biopsy</div>
+      </div>
+      <div class="flow-row" style="gap:20px;margin-top:8px">
+        <div class="flow-box">Classic AIN → Corticosteroids</div>
+        <div class="flow-box pur">Granulomatous/Immune IN → Immunosuppressives</div>
+        <div class="flow-box red">Fibrosis → Conservative</div>
+      </div>
+    </div>
+
+    <div class="co suc">
+      <div class="co-t">Treatment Principles</div>
+      <strong>1. Discontinue the offending agent</strong> — often sufficient; may not be completely reversible if prolonged exposure + tubular atrophy + interstitial fibrosis have occurred.<br><br>
+      <strong>2. Glucocorticoids</strong> — may accelerate recovery; not required in most cases. Best reserved for: severe AKI where dialysis is imminent + start promptly if function continues to deteriorate despite drug cessation.<br><br>
+      <strong>Key point:</strong> Delay in initiating dialysis leads to worse long-term outcomes.
+    </div>
+
+    <div class="sub">
+      <h4>Absolute Indications for Corticosteroids/Immunosuppressives</h4>
+      <ul class="bl">
+        <li>Sjögren's syndrome</li>
+        <li>Sarcoidosis</li>
+        <li>SLE interstitial nephritis</li>
+        <li>Adults with TINU</li>
+        <li>Interstitial nephritis from IgG4-related disease</li>
+        <li>Idiopathic and other granulomatous interstitial nephritis</li>
+      </ul>
+      <h4>Relative Indications</h4>
+      <ul class="bl">
+        <li>Drug-induced or idiopathic AIN with: rapid progression of renal failure · diffuse infiltrates on biopsy · impending need for dialysis · delayed recovery</li>
+        <li>Children with TINU</li>
+        <li>Postinfectious AIN with delayed recovery (?)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ S3 ═══ -->
+<section class="sec" id="s3">
+  <div class="sec-hd">
+    <span class="sec-n">03</span>
+    <h2>Sjögren's Syndrome &amp; TINU</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Sjögren's Syndrome</h3>
+    <div class="co key">
+      <div class="co-t">Core Concept</div>
+      Sjögren's is a systemic autoimmune disorder primarily targeting exocrine glands (lacrimal + salivary) → "sicca syndrome" (dry eyes + dry mouth). TIN is its most common renal manifestation.
+    </div>
+    <ul class="bl">
+      <li><strong>Renal pathology:</strong> TIN with predominant <strong>lymphocytic infiltrate</strong> (most common renal manifestation)</li>
+      <li><strong>Renal manifestations:</strong>
+        <ul class="bl" style="margin-left:12px;margin-top:4px">
+          <li>Impaired kidney function</li>
+          <li>Distal RTA</li>
+          <li>Nephrogenic diabetes insipidus</li>
+        </ul>
+      </li>
+      <li><strong>Serology:</strong> anti-Ro (SS-A) + anti-La (SS-B) antibodies → strongly supports diagnosis</li>
+      <li><strong>Other labs:</strong> polyclonal hypergammaglobulinemia in a large proportion of patients</li>
+    </ul>
+    <div class="co suc">
+      <div class="co-t">Treatment</div>
+      <strong>Initial:</strong> Glucocorticoids<br>
+      <strong>Maintenance:</strong> Azathioprine or mycophenolate mofetil (MMF) to prevent relapse
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Tubulointerstitial Nephritis with Uveitis (TINU)</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-p">Epidemiology</div>
+        <p>&lt;5% of all AIN · Females 3× more often than males · Median age onset: <strong>15 years</strong></p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Hallmarks</div>
+        <p>Lymphocyte-predominant interstitial nephritis + <strong>painful anterior uveitis</strong> (bilateral, blurred vision, photophobia)</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Temporal Relationship</div>
+        <p>Ocular symptoms precede or accompany kidney disease in only <strong>1/3 of cases</strong> — diagnosis often confounded!</p>
+      </div>
+    </div>
+
+    <h4>Additional Extrarenal Features</h4>
+    <ul class="bl">
+      <li>Fever · anorexia · weight loss · abdominal pain · arthralgia</li>
+    </ul>
+
+    <h4>Laboratory Clues to Suspect TINU</h4>
+    <ul class="bl">
+      <li>Elevated creatinine</li>
+      <li>Sterile pyuria</li>
+      <li>Mild proteinuria</li>
+      <li>Features of Fanconi's syndrome</li>
+      <li>Elevated ESR</li>
+      <li>Serologies for common autoimmune diseases are usually <strong>negative</strong></li>
+    </ul>
+
+    <div class="co wrn">
+      <div class="co-t">Diagnosis of Exclusion</div>
+      TINU is a diagnosis of exclusion after ruling out: Sjögren's syndrome · Behçet's disease · Sarcoidosis · SLE. All of these can cause both uveitis and kidney disease.
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-g">Children</div>
+        <p>Clinical symptoms are typically <strong>self-limited</strong></p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Adults</div>
+        <p>More apt to follow a <strong>relapsing course</strong></p>
+      </div>
+    </div>
+
+    <div class="co suc">
+      <div class="co-t">Treatment</div>
+      <strong>Renal and ocular manifestations:</strong> Respond well to oral glucocorticoids<br>
+      <strong>Maintenance (to prevent relapses):</strong> Methotrexate · azathioprine · or mycophenolate<br>
+      <em>Note: Adults with TINU = ABSOLUTE indication for corticosteroids; children with TINU = relative indication</em>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ S4 ═══ -->
+<section class="sec" id="s4">
+  <div class="sec-hd">
+    <span class="sec-n">04</span>
+    <h2>SLE, Granulomatous &amp; IgG4-Related AIN</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Systemic Lupus Erythematosus (SLE)</h3>
+    <ul class="bl">
+      <li>An interstitial mononuclear cell inflammatory reaction accompanies the glomerular lesion in <strong>most cases of class III or IV lupus nephritis</strong></li>
+      <li>Immune complex deposits can be identified in <strong>tubular basement membranes in ~50% of cases</strong></li>
+      <li><strong>Occasionally</strong>, tubulointerstitial inflammation <em>predominates</em> and may manifest with:
+        <ul class="bl" style="margin-left:12px;margin-top:4px">
+          <li>Azotemia</li>
+          <li>Type IV RTA</li>
+          <li>Lacking features of glomerulonephritis</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="co key">
+      <div class="co-t">Board Pearl</div>
+      When SLE-related kidney disease presents with azotemia + Type IV RTA <em>without</em> nephritic/nephrotic features, think tubulointerstitial predominance. SLE interstitial nephritis = absolute indication for corticosteroids.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Granulomatous Interstitial Nephritis</h3>
+    <ul class="bl">
+      <li><strong>Course:</strong> Protracted and relapsing — distinct from typical drug-induced AIN</li>
+      <li><strong>Biopsy:</strong> Chronic inflammatory infiltrate with <strong>granulomas + multinucleated giant cells</strong></li>
+      <li><strong>Most often:</strong> No associated disease or cause found</li>
+      <li>Some patients subsequently develop pulmonary, cutaneous, or other systemic manifestations of <strong>sarcoidosis</strong> (e.g., hypercalcemia)</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">Critical: Rule Out TB First</div>
+      Tuberculosis is a rare cause of granulomatous interstitial nephritis. <strong>Always rule out TB before starting glucocorticoids</strong> — starting steroids in undiagnosed TB is dangerous.
+    </div>
+    <div class="co suc">
+      <div class="co-t">Treatment</div>
+      <strong>Most patients:</strong> Some improvement in kidney function if treated <em>early</em> with glucocorticoids — before significant interstitial fibrosis and tubular atrophy develop.<br>
+      <strong>Frequent relapsers upon steroid withdrawal:</strong> Other immunosuppressive agents required.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>IgG4-Related Systemic Disease</h3>
+    <div class="co key">
+      <div class="co-t">What It Is</div>
+      A form of AIN characterized by a <strong>dense inflammatory infiltrate containing IgG4-expressing plasma cells</strong>, occurring as part of IgG4-related systemic disease.
+    </div>
+    <h4>Associated Conditions (variable)</h4>
+    <ul class="bl">
+      <li>Autoimmune pancreatitis</li>
+      <li>Sclerosing cholangitis</li>
+      <li>Retroperitoneal fibrosis</li>
+      <li>Chronic sclerosing sialadenitis (mimicking Sjögren's syndrome)</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">The Pseudotumor Trap</div>
+      Fibrotic lesions form <strong>pseudotumors</strong> in affected organs, soon replacing the initial inflammatory infiltrates. These often lead to biopsy or excision for fear of true malignancy. This is the clinical red flag to consider IgG4-RD.
+    </div>
+    <div class="co suc">
+      <div class="co-t">Treatment</div>
+      Glucocorticoids are successfully used as <strong>first-line treatment</strong> once correctly diagnosed. The role of IgG4 in pathogenesis is not yet fully understood.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ S5 ═══ -->
+<section class="sec" id="s5">
+  <div class="sec-hd">
+    <span class="sec-n">05</span>
+    <h2>Checkpoint Inhibitors, Idiopathic &amp; Infection-Associated AIN</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>AIN from Immune Checkpoint Inhibitors</h3>
+    <p>Immune checkpoint inhibitors (ICIs) have revolutionized cancer care by disrupting mechanisms that allow tumor cells to evade immune surveillance. However, this immunostimulation comes at the cost of autoimmune side effects.</p>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Incidence of Renal Impact</div>
+        <p><strong>2%</strong> with monotherapy<br><strong>Up to 5%</strong> with dual checkpoint inhibitor therapy</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Timing — Key Exam Point</div>
+        <p>Creatinine rise typically within <strong>15 weeks</strong> after starting, but can occur <strong>up to 2 months after the final dose</strong></p>
+      </div>
+    </div>
+    <ul class="bl">
+      <li><strong>Biopsy:</strong> Typically shows acute interstitial inflammation; glomerular pathologies may also be found</li>
+      <li><strong>Confounders:</strong> Patients often concurrently taking PPIs or NSAIDs (themselves causes of drug-induced TIN)</li>
+    </ul>
+    <div class="co suc">
+      <div class="co-t">Treatment of ICI-Induced AKI</div>
+      1. Corticosteroids (for severe AKI)<br>
+      2. Discontinue potential inciting medications (PPIs, NSAIDs)<br>
+      3. Avoid further checkpoint inhibitor doses until kidney function recovers<br>
+      4. Reinitiation for treatment of underlying malignancy may be possible in some cases
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Idiopathic AIN</h3>
+    <ul class="bl">
+      <li>Typical clinical and histologic features of AIN but <strong>no drug exposure + no clinical/serologic features of autoimmune disease</strong></li>
+      <li><strong>Pathogenesis clue:</strong> Some cases have autoantibodies to a tubular antigen (similar to those identified in rats with induced interstitial nephritis) → suggests autoimmune response</li>
+      <li>Recently identified: autoantibodies targeting antigens expressed by:
+        <ul class="bl" style="margin-left:12px;margin-top:4px">
+          <li>Collecting duct epithelium</li>
+          <li>Proximal tubular brush border (anti-LRP2 / anti-brush border disease)</li>
+        </ul>
+      </li>
+      <li><strong>Course:</strong> Like TINU and granulomatous IN — responsive to glucocorticoids but may follow relapsing course requiring maintenance IS therapy</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Infection-Associated AIN</h3>
+    <div class="co key">
+      <div class="co-t">Distinguish from Bacterial Pyelonephritis</div>
+      Acute bacterial pyelonephritis does NOT generally cause AKI unless it affects both kidneys or causes septic shock. Infection-associated AIN is a different entity — local inflammatory reaction to microbial infection.
+    </div>
+    <h4>Common Pathogens</h4>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Bacteria</div>
+        <p>Streptococcus · Staphylococcus · Legionella · Salmonella · Brucella · Yersinia · Corynebacterium diphtheriae</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Viruses</div>
+        <p>EBV · CMV · hantavirus · <strong>polyomavirus BK</strong> · HIV</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Miscellaneous</div>
+        <p>Leptospira · Rickettsia · Mycoplasma · Histoplasma</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Modern Relevance</div>
+        <p><strong>Polyomavirus BK reactivation</strong> in kidney transplant recipients (immunocompromised) = most common current scenario<br><br><strong>SARS-CoV-2:</strong> Significant increase in acute TIN (±uveitis / TINU) in children post-infection</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ S6 ═══ -->
+<section class="sec" id="s6">
+  <div class="sec-hd">
+    <span class="sec-n">06</span>
+    <h2>Crystal Deposition Disorders &amp; Light Chain Cast Nephropathy</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Crystal Deposition — Overview</h3>
+    <p>AKI occurs when crystals are deposited in tubular cells and interstitium, or when they obstruct tubules. Often accompanied by flank pain from tubular obstruction.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Drug-Induced Crystal Nephropathy</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug</th><th>Indication</th><th>Crystal Appearance</th><th>Precipitating Factor</th></tr></thead>
+        <tbody>
+          <tr><td>Sulfadiazine</td><td>Toxoplasmosis</td><td><strong>"Sheaf of wheat"</strong> sulfonamide crystals</td><td>Hypovolemia</td></tr>
+          <tr><td>Indinavir / Atazanavir</td><td>HIV</td><td>Individual or parallel clusters of <strong>needle-shaped</strong> indinavir crystals</td><td>Hypovolemia</td></tr>
+          <tr><td>IV Acyclovir</td><td>Severe herpesvirus infections</td><td><strong>Red-green birefringent needle-shaped</strong> crystals</td><td>Hypovolemia</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co suc">
+      <div class="co-t">Treatment</div>
+      Generally precipitated by <strong>hypovolemia</strong> → reversible with <strong>saline volume repletion + drug withdrawal</strong>. Note: Indinavir can also cause a frank AIN from crystal deposition (distinct from obstructive mechanism).
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Acute Urate Nephropathy</h3>
+    <ul class="bl">
+      <li><strong>Mechanism:</strong> Severe hyperuricemia → uric acid crystallization in tubules + collecting system → partial or complete obstruction of collecting ducts, renal pelvis, or ureter</li>
+      <li><strong>Classic setting:</strong> Tumor lysis syndrome in patients with lympho- or myeloproliferative disorders treated with cytotoxic agents; can occur <em>spontaneously before treatment</em></li>
+      <li><strong>Urine:</strong> Dense precipitate of birefringent uric acid crystals + microscopic or gross hematuria</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Board Trap — Allopurinol Timing</div>
+      Prophylactic allopurinol reduces risk of uric acid nephropathy <em>before</em> tumor lysis, but <strong>is of NO benefit once tumor lysis has occurred.</strong><br><br>
+      Once oliguria develops: emergent treatment with <strong>hemodialysis OR rasburicase</strong> (recombinant urate oxidase) is required to rapidly lower uric acid levels and restore kidney function.<br>
+      Alkaline diuresis may provide some benefit as well.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Other Crystal Disorders</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Calcium Oxalate</div>
+        <p>Settings: ethylene glycol intoxication · enteric hyperoxaluria (ileal resection or small-bowel bypass) · hereditary hyperoxaluria<br>May lead to <strong>permanent kidney dysfunction</strong></p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Acute Phosphate Nephropathy</div>
+        <p>Oral <strong>Phosphosoda</strong> (laxative/colonoscopy prep) → calcium phosphate crystals in tubules and interstitium<br>Occurs especially in: underlying CKD + hypovolemia<br><strong>Phosphosoda should be avoided in CKD patients</strong> — no longer widely available in the US</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Light Chain Cast Nephropathy (Myeloma Kidney)</h3>
+    <div class="co dan">
+      <div class="co-t">When to Think of It</div>
+      In any elderly patient with otherwise unexplained AKI. Also: myeloma patients who fail to recover once a precipitating factor is corrected. Consider even in known MGUS (monoclonal gammopathy) without frank myeloma.
+    </div>
+    <h4>Pathogenesis — Step by Step</h4>
+    <ul class="bl">
+      <li>Filtered <strong>monoclonal immunoglobulin light chains (Bence-Jones proteins)</strong> form intratubular aggregates with secreted <strong>Tamm-Horsfall protein</strong> in the distal tubule</li>
+      <li>Casts obstruct tubular flow in affected nephrons</li>
+      <li>Casts incite a <strong>giant cell / foreign-body reaction</strong> → can lead to tubular rupture → interstitial fibrosis</li>
+      <li><em>Direct toxicity:</em> Filtered monoclonal light chains also cause proximal tubular cell toxicity + intracellular crystal formation → isolated tubular disorders (RTA or full Fanconi's syndrome)</li>
+    </ul>
+    <div class="co prl">
+      <div class="co-t">Precipitating Factors in Myeloma Patients</div>
+      Hypovolemia · infection · hypercalcemia · NSAIDs · radiographic contrast media
+    </div>
+
+    <h4>Diagnosis</h4>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Clinical Clues</div>
+        <p>Anemia · bone pain · hypercalcemia · <strong>abnormally narrow anion gap</strong> (due to hypoalbuminemia + hypergammaglobulinemia)</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Urine Key Point</div>
+        <p>Urinary dipstick detects <strong>albumin but NOT immunoglobulin light chains</strong>. Increased protein on laboratory testing + <strong>negative dipstick</strong> = highly suggestive of Bence-Jones protein</p>
+      </div>
+    </div>
+    <ul class="bl">
+      <li><strong>Send:</strong> Serum and urine protein electrophoresis (SPEP + UPEP) + immunofixation for detection and identification of potential monoclonal band</li>
+      <li>Sensitive method: serum and urine free light chain assay</li>
+    </ul>
+    <div class="co suc">
+      <div class="co-t">Treatment Goals</div>
+      1. Correct precipitating factors (hypovolemia, hypercalcemia)<br>
+      2. Discontinue potential nephrotoxic agents<br>
+      3. Treat underlying plasma cell dyscrasia<br>
+      4. <strong>Plasmapheresis to remove light chains = questionable value for LCCN</strong>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Lymphomatous Infiltration of the Kidney</h3>
+    <ul class="bl">
+      <li>Interstitial infiltration by malignant B lymphocytes — common autopsy finding in chronic lymphocytic leukemia and non-Hodgkin's lymphoma; usually incidental</li>
+      <li>Rarely: massive kidney enlargement + oliguric AKI</li>
+      <li>Treatment: high-dose glucocorticoids + chemotherapy may recover kidney function, but <strong>prognosis is generally poor</strong></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ S7 ═══ -->
+<section class="sec" id="s7">
+  <div class="sec-hd">
+    <span class="sec-n">07</span>
+    <h2>Chronic TIN: Structural Causes</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Vesicoureteral Reflux (VUR) &amp; Reflux Nephropathy</h3>
+    <div class="co key">
+      <div class="co-t">Historical Name</div>
+      Previously called "chronic pyelonephritis" because it was believed to result from recurrent UTIs. We now know the mechanism is VUR-related.
+    </div>
+    <h4>Pathogenesis</h4>
+    <ul class="bl">
+      <li><strong>VUR = abnormal retrograde urine flow</strong> from bladder into one or both ureters and kidneys due to <strong>mislocated and incompetent ureterovesical valves</strong></li>
+      <li>High-pressure <em>sterile</em> reflux → impairs normal kidney growth</li>
+      <li>When coupled with recurrent UTIs in early childhood → patchy interstitial scarring + tubular atrophy</li>
+      <li>Loss of functioning nephrons → hypertrophy of remnant glomeruli → eventual <strong>secondary FSGS</strong></li>
+    </ul>
+    <h4>Clinical Presentation</h4>
+    <ul class="bl">
+      <li>Often <strong>unnoticed until early adulthood</strong> — detected during routine evaluation or pregnancy</li>
+      <li>Adults: frequently asymptomatic; history of prolonged bed-wetting or recurrent UTIs in childhood</li>
+      <li>Variable degrees of kidney injury + <strong>hypertension + mild-to-moderate proteinuria</strong> + unremarkable urine sediment</li>
+      <li><strong>Bilateral involvement:</strong> Often progresses inexorably over several years to ESRD <em>despite absence of ongoing UTIs or reflux</em></li>
+      <li><strong>Unilateral:</strong> May go undetected except for hypertension</li>
+    </ul>
+    <div class="co tel">
+      <div class="co-t">Ultrasound in Adults</div>
+      Asymmetric small kidneys · irregular outlines · thinned cortices · regions of compensatory hypertrophy
+    </div>
+    <div class="co suc">
+      <div class="co-t">Treatment</div>
+      <strong>Surgical reimplantation of ureters:</strong> Indicated in <em>young children</em> with persistent high-grade reflux. <strong>NOT effective and NOT indicated in adolescents or adults</strong> after scarring has occurred.<br><br>
+      <strong>Medical management:</strong> Aggressive BP control + ACEI or ARB + <strong>SGLT2 inhibitors</strong> → reduces proteinuria + may significantly forestall further kidney deterioration
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Sickle Cell Nephropathy</h3>
+    <ul class="bl">
+      <li><strong>Early tubular injury</strong> (childhood and early adolescence) — appears years before significant nephron loss and proteinuria from secondary FSGS:
+        <ul class="bl" style="margin-left:12px;margin-top:4px">
+          <li>Polyuria from decreased concentrating ability</li>
+          <li>Type IV RTA</li>
+        </ul>
+      </li>
+      <li><strong>Early recognition:</strong> Microalbuminuria → nephrologist consultation + low-dose ACEIs</li>
+      <li><strong>Papillary necrosis</strong> may result from:
+        <ul class="bl" style="margin-left:12px;margin-top:4px">
+          <li>Ischemia due to sickling of red cells in the relatively <em>hypoxemic + hypertonic</em> medullary vasculature</li>
+          <li>Presents with: gross hematuria + ureteric obstruction by sloughed ischemic papillae</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="co key">
+      <div class="co-t">Major Causes of Papillary Necrosis</div>
+      <strong>A</strong>nalgesic nephropathy · <strong>S</strong>ickle cell nephropathy · <strong>D</strong>iabetes with urinary tract infection · Prolonged <strong>N</strong>SAID use (rare)
+      <br><em>Mnemonic: ASDN</em>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Tubulointerstitial Abnormalities with Glomerulonephritis</h3>
+    <p>Primary glomerulopathies are often associated with damage to tubules and interstitium. This can occur via:</p>
+    <ul class="bl">
+      <li><strong>Same pathologic process</strong> (e.g., immune-complex deposition in lupus nephritis)</li>
+      <li><strong>Secondary consequences</strong> of prolonged glomerular dysfunction:
+        <ul class="bl" style="margin-left:12px;margin-top:4px">
+          <li>Proteinuria-mediated damage to epithelial cells</li>
+          <li>Activation of tubular cells by cytokines and complement</li>
+          <li>Reduced peritubular blood flow → downstream tubulointerstitial ischemia (especially with globally obsolescent glomeruli from severe GN)</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">Clinical Dilemma</div>
+      Often difficult to discern the initial cause of injury by kidney biopsy in a patient presenting with advanced kidney disease in this setting — the secondary changes obscure the primary pathology.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ S8 ═══ -->
+<section class="sec" id="s8">
+  <div class="sec-hd">
+    <span class="sec-n">08</span>
+    <h2>Chronic TIN: Drugs &amp; Toxins</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Analgesic Nephropathy</h3>
+    <div class="co key">
+      <div class="co-t">Classic Agent</div>
+      Long-term use of <strong>compound analgesic preparations containing phenacetin</strong> (banned in US since 1983) + aspirin + caffeine.
+    </div>
+    <h4>Classic Features</h4>
+    <ul class="bl">
+      <li><strong>Impaired kidney function</strong></li>
+      <li><strong>Papillary necrosis</strong> — attributed to presumed concentration of drug to toxic levels in the inner medulla</li>
+      <li>Radiographic constellation: <strong>small, scarred kidneys with papillary calcifications</strong></li>
+      <li>Polyuria due to impaired concentrating ability</li>
+      <li>Non-anion-gap metabolic acidosis from tubular damage</li>
+      <li>Shedding of a sloughed necrotic papilla → <strong>gross hematuria + ureteric colic</strong> (ureteral obstruction)</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Long-Term Risk</div>
+      Individuals with ESRD from analgesic nephropathy are at <strong>increased risk of urothelial malignancy</strong> compared to patients with other causes of kidney failure.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Aristolochic Acid Nephropathy (AAN)</h3>
+    <div class="co key">
+      <div class="co-t">Two Conditions — One Cause</div>
+      <strong>Chinese herbal nephropathy</strong> + <strong>Balkan endemic nephropathy</strong> — two seemingly unrelated forms of CIN — are now linked by the common etiologic agent <strong>aristolochic acid</strong> from the plant Aristolochia.
+    </div>
+    <h4>Two Sources</h4>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Chinese Herbal Nephropathy</div>
+        <p>First described early 1990s in young women taking traditional Chinese herbal preparations for weight loss. Aristolochic acid identified as the offending agent. Aristolochia species used in herbal remedies for centuries — still available despite official bans in many countries.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Balkan Endemic Nephropathy</div>
+        <p>Chronic TIN found primarily in towns along tributaries of the Danube River — first described in 1950s. Most likely route: <strong>contamination of local grain preparations with seeds of Aristolochia species</strong>. Molecular evidence implicates aristolochic acid.</p>
+      </div>
+    </div>
+    <h4>Pathology &amp; Presentation</h4>
+    <ul class="bl">
+      <li>Renal interstitial fibrosis with a <strong>relative paucity of cellular infiltrates</strong></li>
+      <li>Bland urine sediment (rare leukocytes)</li>
+      <li>Only mild proteinuria</li>
+      <li>Anemia may be <strong>disproportionately severe</strong> relative to degree of kidney dysfunction</li>
+    </ul>
+    <div class="co prl">
+      <div class="co-t">Diagnosis — Requires 2 of 3 Features</div>
+      1. Characteristic histology on kidney biopsy<br>
+      2. Confirmation of aristolochic acid ingestion<br>
+      3. Detection of <strong>aristolactam-DNA adducts</strong> in kidney or urinary tract tissue — represent molecular signature of aristolochic acid–derived DNA damage; often A:T-to-T:A transversions
+    </div>
+    <div class="co dan">
+      <div class="co-t">Malignancy Risk — High Priority</div>
+      Due to mutagenic activity, AAN is associated with a <strong>very high incidence of upper urinary tract urothelial cancers</strong>, with risk related to cumulative dose.<br><br>
+      <strong>Surveillance:</strong> CT + ureteroscopy + urine cytology<br>
+      <strong>At ESRD:</strong> Consideration should be given to <strong>bilateral nephroureterectomy</strong>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Karyomegalic Interstitial Nephritis</h3>
+    <ul class="bl">
+      <li>Unusual form of <strong>slowly progressive CKD</strong> with mild proteinuria + interstitial fibrosis + tubular atrophy</li>
+      <li>Distinguishing feature: <strong>oddly enlarged nuclei of proximal tubular epithelial cells</strong></li>
+      <li>Linked to mutations in <strong>FAN1</strong> (a nuclease involved in DNA repair) → may render carriers susceptible to environmental DNA-damaging agents</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Lithium-Associated Nephropathy</h3>
+    <h4>Spectrum of Renal Effects</h4>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Most Common (Reversible)</div>
+        <p><strong>Nephrogenic Diabetes Insipidus</strong> → polyuria + polydipsia</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Less Common (Irreversible)</div>
+        <p><strong>Chronic TIN</strong> after prolonged (&gt;10–20 years) use; most likely with repeated episodes of toxic lithium levels</p>
+      </div>
+    </div>
+    <h4>Mechanism of Nephrogenic DI</h4>
+    <ul class="bl">
+      <li>Lithium accumulates in <strong>principal cells of the collecting duct</strong> by entering through the epithelial sodium channel (ENaC)</li>
+      <li>→ Inhibits <strong>glycogen synthase kinase 3β</strong></li>
+      <li>→ Downregulates <strong>vasopressin-regulated aquaporin water channels</strong></li>
+      <li>→ Collecting duct becomes unresponsive to ADH → free water loss</li>
+    </ul>
+    <div class="co tel">
+      <div class="co-t">Biopsy Findings (Highly Characteristic)</div>
+      Interstitial fibrosis + tubular atrophy <em>out of proportion</em> to glomerulosclerosis or vascular disease · sparse lymphocytic infiltrate · <strong>small cysts or dilation of distal tubule and collecting duct</strong> (HIGHLY CHARACTERISTIC of lithium nephropathy)
+    </div>
+    <ul class="bl">
+      <li>Degree of interstitial fibrosis correlates with <strong>both duration and cumulative dose</strong> of lithium</li>
+      <li>Individuals are typically <strong>asymptomatic</strong>: minimal proteinuria + few urinary leukocytes + normal blood pressure</li>
+      <li>Some develop more severe proteinuria due to secondary FSGS</li>
+    </ul>
+    <div class="co suc">
+      <div class="co-t">Treatment</div>
+      <strong>Monitor:</strong> Kidney function regularly in all patients taking lithium; caution in underlying CKD<br>
+      <strong>For nephrogenic DI:</strong> Amiloride (inhibits ENaC) — effective to prevent and treat; not clear if prevents CIN<br>
+      <strong>Target lithium level:</strong> &lt;1 meq/L — especially important as kidney function declines (lithium cleared less effectively)<br>
+      <strong>Key challenge:</strong> Lithium is an effective mood stabilizer often incompletely substituted by other agents. Despite discontinuation, CKD is often irreversible and can slowly progress to ESRD. The most prudent approach is frequent monitoring and dose adjustment to avoid toxic levels.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Calcineurin Inhibitor (CNI) Nephrotoxicity</h3>
+    <div class="co key">
+      <div class="co-t">Agents</div>
+      Cyclosporine + Tacrolimus — both can cause acute AND chronic kidney injury
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Acute CNI Toxicity</div>
+        <p>Vascular: vasoconstriction or thrombotic microangiopathy<br>Toxic tubulopathy</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Chronic CNI Toxicity</div>
+        <p>Typically in solid organ transplant recipients (heart-lung, liver)<br>Slow but irreversible reduction in GFR + mild proteinuria + arterial hypertension<br><strong>Hyperkalemia</strong> (relatively common) from tubular resistance to aldosterone</p>
+      </div>
+    </div>
+    <div class="co tel">
+      <div class="co-t">Histologic Pattern</div>
+      Patchy interstitial fibrosis + tubular atrophy in <strong>"striped" pattern</strong> · intrarenal vascular hyalinosis · focal glomerulosclerosis. Similar changes occur in CNI use for autoimmune diseases (lower doses).
+    </div>
+    <div class="co suc">
+      <div class="co-t">Management</div>
+      Dose reduction or CNI avoidance → mitigates chronic tubulointerstitial changes but may increase risk of rejection and graft loss. Clinical trade-off.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Heavy Metal (Lead) Nephropathy</h3>
+    <div class="co key">
+      <div class="co-t">Current Relevance</div>
+      No longer commonly diagnosed in developed nations (lead removed from most products/fuels). Still relevant in: battery manufacturing/destruction · lead paint removal · alloy/electrical equipment manufacture · moonshine whiskey distilled in lead-tainted containers · countries with less stringent industrial regulation.
+    </div>
+    <h4>Pathogenesis &amp; Clinical Features</h4>
+    <ul class="bl">
+      <li><strong>Early signs:</strong> Proximal tubule dysfunction → particularly <strong>hyperuricemia</strong> from diminished urate secretion</li>
+      <li><strong>Classic triad:</strong> "Saturnine gout" + hypertension + impaired kidney function → prompt specific inquiry about lead exposure</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">Evaluating Lead Burden</div>
+      <strong>Blood test is NOT sufficient.</strong> Preferred methods:<br>
+      1. Measuring urinary lead after infusion of a chelating agent<br>
+      2. Radiographic fluoroscopy of bone
+    </div>
+    <div class="co suc">
+      <div class="co-t">Treatment</div>
+      In patients with CIN of unclear origin + elevated total body lead burden: <strong>repeated lead chelation therapy</strong> has been shown to slow decline in kidney function.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ S9 ═══ -->
+<section class="sec" id="s9">
+  <div class="sec-hd">
+    <span class="sec-n">09</span>
+    <h2>Metabolic Disorders Causing CIN</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Chronic Uric Acid Nephropathy (Gouty Nephropathy)</h3>
+    <div class="co wrn">
+      <div class="co-t">Context</div>
+      Very uncommon now (gout typically well managed with allopurinol). More historical interest than clinical importance. Emerging evidence: hyperuricemia is an independent risk factor for CKD, perhaps through endothelial damage.
+    </div>
+    <h4>Pathology</h4>
+    <ul class="bl">
+      <li>Crystalline deposits of <strong>uric acid + monosodium urate salts</strong> in the kidney parenchyma</li>
+      <li>Deposits → intrarenal obstruction + inflammatory response (lymphocytic infiltration + foreign-body giant cell reaction + fibrosis) especially in medullary and papillary regions</li>
+      <li>Since patients with gout frequently have hypertension + hyperlipidemia → degenerative changes of renal arterioles may be striking</li>
+    </ul>
+    <h4>Clinical Features</h4>
+    <ul class="bl">
+      <li>Insidious cause of CKD</li>
+      <li>Early in course: GFR may be near normal <em>despite</em> morphologic changes, proteinuria, and diminished urinary concentrating ability</li>
+    </ul>
+    <div class="co suc">
+      <div class="co-t">Treatment</div>
+      Allopurinol + urine alkalinization: generally effective in preventing uric acid nephrolithiasis and consequences of recurrent kidney stones. However, gouty nephropathy may be intractable. Allopurinol in asymptomatic hyperuricemia has <strong>not been consistently shown to improve kidney function.</strong>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Hypercalcemic Nephropathy</h3>
+    <h4>Causes of Chronic Hypercalcemia Leading to TIN</h4>
+    <ul class="bl">
+      <li>Primary hyperparathyroidism · Sarcoidosis · Multiple myeloma · Vitamin D intoxication · Metastatic bone disease</li>
+    </ul>
+    <h4>Pathogenesis — Sequential</h4>
+    <ul class="bl">
+      <li><strong>Earliest lesion:</strong> Focal degenerative change in renal epithelia — primarily in collecting ducts, distal tubules, and loops of Henle</li>
+      <li>Tubular cell necrosis → nephron obstruction + stasis of intrarenal urine → local calcium salt precipitation + infection</li>
+      <li>Dilation + atrophy of tubules → interstitial fibrosis + mononuclear leukocyte infiltration + interstitial calcium deposition (<strong>nephrocalcinosis</strong>)</li>
+      <li>Calcium deposition may also occur in glomeruli + walls of renal arterioles</li>
+    </ul>
+    <h4>Clinical Features</h4>
+    <ul class="bl">
+      <li><strong>Most striking defect:</strong> Inability to maximally concentrate urine
+        <ul class="bl" style="margin-left:12px;margin-top:4px">
+          <li>Due to reduced collecting duct responsiveness to arginine vasopressin</li>
+          <li>Defective transport of Na⁺ and Cl⁻ in the loop of Henle</li>
+        </ul>
+      </li>
+      <li>Reductions in GFR and renal blood flow (both acute and chronic hypercalcemia)</li>
+      <li>Abdominal x-rays: nephrocalcinosis + nephrolithiasis (from hypercalciuria)</li>
+    </ul>
+    <div class="co suc">
+      <div class="co-t">Treatment</div>
+      Reduce serum calcium toward normal + correct primary abnormality of calcium metabolism.<br>
+      <strong>Acute hypercalcemia:</strong> May be completely reversible.<br>
+      <strong>Chronic hypercalcemia:</strong> Gradual progressive kidney dysfunction may <em>not</em> improve even with correction of the calcium disorder.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Hypokalemic Nephropathy</h3>
+    <h4>Causes</h4>
+    <ul class="bl">
+      <li>Chronic laxative or diuretic abuse · surreptitious vomiting · primary aldosteronism</li>
+    </ul>
+    <h4>Pathogenesis &amp; Course</h4>
+    <ul class="bl">
+      <li><strong>Early (reversible):</strong> Vacuolar degeneration of proximal and distal tubular cells</li>
+      <li><strong>Eventually:</strong> Tubular atrophy + cystic dilation + interstitial fibrosis → irreversible CKD</li>
+    </ul>
+    <div class="co suc">
+      <div class="co-t">Treatment</div>
+      Timely correction of hypokalemia will prevent further progression. <strong>Persistent hypokalemia can cause ESRD.</strong>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Global Perspective</h3>
+    <p>The causes of AIN and CIN vary widely across the globe:</p>
+    <ul class="bl">
+      <li>Analgesic nephropathy: still seen in countries where phenacetin-containing analgesics are available</li>
+      <li>Traditional herbal preparations: aristolochic acid contamination remains prevalent in many Asian countries</li>
+      <li>Lead and cadmium: still a risk in countries with less stringent industrial regulation</li>
+      <li><strong>New endemic forms (CINAC/CKDu):</strong> Chronic interstitial nephritis in agricultural communities (Mesoamerican nephropathy in Central America · Sri Lankan nephropathy · Uddanam nephropathy in southern India) — may be related to heat exposure, dehydration, volume depletion, toxins, pesticides, infective agents. Global warming proposed as contributor. Tens of thousands of lives lost to ESRD in resource-poor settings.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ S10 ═══ -->
+<section class="sec" id="s10">
+  <div class="sec-hd">
+    <span class="sec-n">10</span>
+    <h2>Exam Traps &amp; High-Yield Pearls</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">Classic AIN Triad Is the Exception, Not the Rule</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A question presents a patient on methicillin for 2 weeks with rising creatinine but NO fever, rash, or eosinophilia. Can this still be AIN? What is the most likely diagnosis?</div>
+      <div class="trap-a"><strong>YES — AIN is the most likely diagnosis.</strong> The classic triad of fever + rash + peripheral eosinophilia + oliguria is the EXCEPTION. Most patients present with only incidentally rising serum creatinine or nonspecific AKI symptoms.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">NSAID AIN — Atypical Presentation with Heavy Proteinuria</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient on chronic NSAIDs presents with AKI. There is no fever, no rash, no eosinophilia — but urinalysis shows heavy proteinuria. What is the most likely diagnosis and distinguishing feature?</div>
+      <div class="trap-a"><strong>NSAID-induced AIN.</strong> The classic triad is RARE with NSAIDs. Instead, the distinguishing feature is AKI with <strong>heavy proteinuria</strong> — highly atypical for other drug-induced AIN subtypes.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Rifampin Reintroduction — Severe and Rapid Onset AIN</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with TB was successfully treated and rifampin was stopped. Several months later, rifampin is restarted for a relapse. Within days, the patient develops AKI. Why?</div>
+      <div class="trap-a"><strong>Reintroduction of rifampin after a drug-free period can cause a particularly severe and rapid-onset AIN.</strong> This is a sensitization reaction — the drug-free period primes the immune system for an exaggerated response on re-exposure.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Urinary Eosinophils — DO NOT Order</span></div>
+    <div class="trap-body">
+      <div class="trap-q">An attending asks you to order urinary eosinophils to confirm allergic AIN in a patient with AKI and drug exposure. What do you say?</div>
+      <div class="trap-a"><strong>Urinary eosinophils are NEITHER sensitive nor specific for AIN — testing is NOT recommended.</strong> Peripheral blood eosinophilia is also only present in a minority. Diagnosis relies on AKI + offending agent exposure; biopsy if needed.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">TINU — Ocular Symptoms Are Often ABSENT at Kidney Diagnosis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 14-year-old girl presents with AKI, elevated ESR, sterile pyuria, Fanconi features, and elevated creatinine — but denies eye symptoms. Serologies are negative. What is the diagnosis?</div>
+      <div class="trap-a"><strong>TINU (Tubulointerstitial Nephritis with Uveitis).</strong> Ocular symptoms (painful anterior uveitis, blurred vision, photophobia) precede or accompany kidney disease in only <strong>1/3 of cases</strong>. TINU is often a diagnosis of exclusion. Demographics: female, young (median 15 years), 3:1 F:M.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Granulomatous AIN — Rule Out TB Before Steroids</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient presents with relapsing AIN. Biopsy shows granulomas and giant cells. No sarcoidosis features. You plan to start prednisone. What must you do first?</div>
+      <div class="trap-a"><strong>Rule out Tuberculosis FIRST.</strong> TB is a rare cause of granulomatous interstitial nephritis. Starting glucocorticoids in undiagnosed active TB is dangerous and could lead to dissemination.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">IgG4 — Pseudotumors May Be Misdiagnosed as Malignancy</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient has AIN with IgG4-expressing plasma cells on biopsy. Later, imaging shows mass lesions in the pancreas, kidneys, and retroperitoneum. What is the concern and what do you do?</div>
+      <div class="trap-a"><strong>These are fibrotic pseudotumors of IgG4-related systemic disease, NOT true malignancies.</strong> Failure to recognize IgG4-RD leads to unnecessary biopsies or excisions. Once correctly diagnosed, <strong>glucocorticoids are the first-line treatment.</strong></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">ICI AIN — Can Occur Up to 2 Months AFTER the Last Dose</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient who completed a course of checkpoint inhibitor therapy 6 weeks ago (now off all therapy) presents with rising creatinine. Is ICI-induced AIN still possible?</div>
+      <div class="trap-a"><strong>YES — Checkpoint inhibitor AIN can occur up to 2 months after the final dose.</strong> Always inquire about recent ICI therapy even if the patient is no longer actively receiving treatment. Creatinine rise typically occurs within 15 weeks of starting but delayed presentation is well-documented.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Myeloma Kidney — Dipstick Misses Bence-Jones Protein</span></div>
+    <div class="trap-body">
+      <div class="trap-q">An elderly patient with anemia, bone pain, hypercalcemia, and AKI has increased protein on laboratory measurement of a urine sample — but the urine dipstick is NEGATIVE for protein. What does this mean?</div>
+      <div class="trap-a"><strong>Urinary dipstick detects ALBUMIN but NOT immunoglobulin light chains.</strong> Increased protein on lab testing + negative dipstick = highly suggestive of Bence-Jones (light chain) protein. Order SPEP + UPEP + immunofixation + free light chains. This is myeloma kidney (LCCN) until proven otherwise.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Allopurinol Has NO Benefit Once Tumor Lysis Has Occurred</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with lymphoma develops tumor lysis syndrome and oliguric AKI. The team wants to start allopurinol. Is this the right move?</div>
+      <div class="trap-a"><strong>Allopurinol is of NO benefit once tumor lysis has occurred.</strong> Prophylactic allopurinol reduces risk, but once oliguria develops, treatment requires emergent hemodialysis or rasburicase (recombinant urate oxidase) to rapidly lower uric acid and restore kidney function. Alkaline diuresis may provide some benefit.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">VUR Surgery — Do NOT Operate After Scarring Has Occurred</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 22-year-old woman is found to have bilateral reflux nephropathy with moderate CKD. She asks about surgery to fix the reflux. What do you advise?</div>
+      <div class="trap-a"><strong>Surgical reimplantation of ureters is NOT indicated in adolescents or adults after scarring has occurred</strong> — it is ineffective. Surgery is only appropriate for young children with persistent high-grade reflux. Treatment in adults: ACEI/ARB + SGLT2 inhibitors to control BP, reduce proteinuria, and slow progression.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 12</span><span class="trap-title">Lithium Biopsy — Small Cysts in Distal Tubule/Collecting Duct = Pathognomonic</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A biopsy on a patient with bipolar disorder on lithium for 15 years shows interstitial fibrosis and tubular atrophy out of proportion to vascular disease, plus small microcysts in the distal tubules and collecting ducts. What is the diagnosis?</div>
+      <div class="trap-a"><strong>Lithium-associated nephropathy.</strong> Small cysts or dilation of the distal tubule and collecting duct are HIGHLY CHARACTERISTIC of lithium nephropathy. The degree of fibrosis correlates with duration and cumulative dose. Monitor levels; target &lt;1 meq/L.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 13</span><span class="trap-title">Saturnine Gout Triad = Lead Exposure</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient presents with the triad of gout, hypertension, and progressive kidney impairment. What is the specific diagnosis to consider and what additional history should you get?</div>
+      <div class="trap-a"><strong>Think lead nephropathy ("saturnine gout").</strong> The triad of saturnine gout + hypertension + impaired kidney function should prompt specific inquiry about lead exposure (occupation, moonshine). Blood level is insufficient — measure urinary lead after chelating agent or bone fluoroscopy. Lead chelation therapy can slow CKD progression.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 14</span><span class="trap-title">Aristolochic Acid — Mandatory Surveillance for Urothelial Cancer</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient from a Balkan region has aristolochic acid nephropathy and is now in ESRD on dialysis. What special surveillance/intervention should be considered?</div>
+      <div class="trap-a"><strong>Aristolochic acid nephropathy is associated with a very high incidence of upper urinary tract urothelial cancers</strong> (risk related to cumulative dose, due to mutagenic A:T-to-T:A transversions). Mandatory surveillance with CT + ureteroscopy + urine cytology. Consider <strong>bilateral nephroureterectomy</strong> once ESRD is reached.</div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="sub">
+    <h3>Quick Reference Master Table</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Condition</th><th>Key Mechanism</th><th>Hallmark Feature</th><th>Treatment</th></tr></thead>
+        <tbody>
+          <tr><td>Allergic AIN</td><td>Drug hypersensitivity</td><td>Rising creatinine + drug exposure; classic triad = rare</td><td>D/C drug; steroids if severe</td></tr>
+          <tr><td>NSAID AIN</td><td>Drug reaction</td><td>AKI + heavy proteinuria (NO fever/rash/eosinophilia)</td><td>D/C NSAID</td></tr>
+          <tr><td>Sjögren's</td><td>Lymphocytic TIN</td><td>Sicca syndrome + distal RTA + anti-Ro/La</td><td>Glucocorticoids + azathioprine/MMF</td></tr>
+          <tr><td>TINU</td><td>Unknown autoimmune</td><td>Uveitis (1/3 concurrent) + AIN; F:M 3:1; age 15</td><td>Glucocorticoids; MTX/AZA/MMF maintenance</td></tr>
+          <tr><td>IgG4-Related</td><td>IgG4+ plasma cell infiltrate</td><td>Pseudotumors + autoimmune pancreatitis</td><td>Glucocorticoids</td></tr>
+          <tr><td>Granulomatous IN</td><td>Granuloma formation</td><td>Relapsing course; giant cells on biopsy; rule out TB/sarcoid</td><td>Glucocorticoids (after ruling out TB)</td></tr>
+          <tr><td>ICI AIN</td><td>Immune activation</td><td>Creatinine rise ≤15wks; up to 2 months after last dose</td><td>Steroids; D/C ICI</td></tr>
+          <tr><td>Myeloma Kidney</td><td>Bence-Jones + Tamm-Horsfall aggregates</td><td>Elderly + AKI + negative dipstick + high protein</td><td>Treat myeloma; plasmapheresis = questionable</td></tr>
+          <tr><td>Acute Urate</td><td>Crystal tubular obstruction</td><td>Tumor lysis syndrome + birefringent crystals</td><td>Rasburicase or HD; allopurinol = prophylaxis only</td></tr>
+          <tr><td>VUR Nephropathy</td><td>High-pressure reflux + UTIs</td><td>Asymmetric small kidneys; hypertension; adult presentation</td><td>ACEI/ARB + SGLT2i; surgery only in young children</td></tr>
+          <tr><td>Lithium Nephropathy</td><td>ENaC → AQP downregulation; CIN</td><td>Distal tubule/collecting duct microcysts; HIGHLY CHARACTERISTIC</td><td>Monitor levels &lt;1 meq/L; amiloride for DI</td></tr>
+          <tr><td>CNI Toxicity</td><td>Vasoconstriction / tubular toxicity</td><td>Striped interstitial fibrosis; hyperkalemia</td><td>Dose reduction/avoidance</td></tr>
+          <tr><td>Lead Nephropathy</td><td>Proximal tubule dysfunction</td><td>Saturnine gout triad; blood lead insufficient to evaluate</td><td>Lead chelation therapy</td></tr>
+          <tr><td>AAN</td><td>Aristolochic acid; mutagenic</td><td>Aristolactam-DNA adducts; A:T→T:A transversions; bland sediment</td><td>Surveillance for urothelial CA; bilateral nephroureterectomy at ESRD</td></tr>
+          <tr><td>Hypercalcemic</td><td>Calcium deposition; tubular necrosis</td><td>Inability to concentrate urine; nephrocalcinosis on x-ray</td><td>Lower calcium; acute = reversible; chronic = may not be</td></tr>
+          <tr><td>Hypokalemic</td><td>Vacuolar tubular degeneration</td><td>Prolonged severe hypokalemia; causes ESRD if persistent</td><td>Correct hypokalemia promptly</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">Harrison's Principles of Internal Medicine · Chapter 328 · Tubulointerstitial Diseases of the Kidney · Boards Review 2026 · Venos Boards Hub</footer>
+
+<script>
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+/* ── HIGHLIGHT SYSTEM ──────────────────────────────── */
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+/* Save all highlights as {text, color} */
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+/* Restore highlights by finding text in DOM */
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+/* ── NOTE SYSTEM ───────────────────────────────────── */
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+/* Restore note anchors by finding ref text in DOM */
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+/* ── POPOVER ───────────────────────────────────────── */
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+/* ── MOUSE SELECTION ───────────────────────────────── */
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+/* ── CLEAR ALL ─────────────────────────────────────── */
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+/* ── SIDEBAR TOGGLE ────────────────────────────────── */
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+/* ── RESIZE ────────────────────────────────────────── */
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+/* ── STATUS BUTTONS ────────────────────────────────── */
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+/* ── NAV TRACKING ──────────────────────────────────── */
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+/* ── INIT — restore everything on page load ──────── */
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
