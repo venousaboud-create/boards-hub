@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Respiratory Function & Diagnostics · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+
+/* TOOLBAR */
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+
+/* SIDEBAR */
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);
+  border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;
+  z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;
+  display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;
+  position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;
+  line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+
+/* NAV */
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;
+  padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blu);
+  margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.bl2{list-style:none;padding:0 0 0 20px;margin:4px 0 6px}
+.bl2 li{position:relative;padding:2px 0 2px 16px;font-size:13px;color:var(--t2);line-height:1.55}
+.bl2 li::before{content:'–';position:absolute;left:0;top:3px;color:var(--t3);font-size:11px}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+/* Flow diagram */
+.flow{display:flex;flex-direction:column;gap:0;margin:16px 0;align-items:flex-start;max-width:560px}
+.flow-node{background:var(--blu-l);border:1.5px solid var(--blu);border-radius:7px;padding:9px 16px;font-size:13px;font-weight:500;color:var(--blu-d);min-width:200px;text-align:center}
+.flow-arr{font-size:18px;color:var(--t3);padding:2px 0 2px 80px;line-height:1}
+.flow-node.alt{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.flow-node.warn{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.flow-node.red{background:var(--red-l);border-color:var(--red);color:var(--red)}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}
+  .main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles · Chapters 296 &amp; 297</div>
+  <h1>Respiratory Function<br>&amp; Diagnostics</h1>
+  <div class="hero-sub">Disturbances of Respiratory Function + Diagnostic Procedures · Medical Boards Review</div>
+  <div class="hero-authors">Washko, Oldham (Ch. 296) · Washko, Goldberg, Shafiq (Ch. 297)</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">5</div><div class="stat-l">PFT Patterns</div></div>
+    <div class="stat-box"><div class="stat-n">12</div><div class="stat-l">Sections</div></div>
+    <div class="stat-box"><div class="stat-n">14</div><div class="stat-l">Exam Traps</div></div>
+    <div class="stat-box"><div class="stat-n">2026</div><div class="stat-l">Stage A</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Ventilation Mechanics</a>
+    <a class="toc-a" href="#s2">Gas Exchange</a>
+    <a class="toc-a" href="#s3">Pathophysiology</a>
+    <a class="toc-a" href="#s4">PFT Measurements</a>
+    <a class="toc-a" href="#s5">Pleural Procedures</a>
+    <a class="toc-a" href="#s6">Bronchoscopy</a>
+    <a class="toc-a" href="#s7">Medical Imaging</a>
+    <a class="toc-a" href="#s8">TTNA</a>
+    <a class="toc-a" href="#s9">Misc Testing</a>
+    <a class="toc-a" href="#s10">Quick Reference</a>
+    <a class="toc-a" href="#s11">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 1 — VENTILATION MECHANICS
+════════════════════════════════════════════════════════ -->
+<section class="sec" id="s1">
+  <div class="sec-hd">
+    <span class="sec-n">01</span>
+    <h2>Ventilation Mechanics</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Foundation</div>
+    The respiratory system has three independently functioning components: (1) the <strong>lung</strong> (including airways), (2) the <strong>neuromuscular system</strong> (force generated by respiratory muscles), and (3) the <strong>chest wall</strong> (everything not lung or active neuromuscular — includes respiratory muscle mass, abdomen, heart). The work of breathing = volume-related (elastic) work + flow-related (resistive) work.
+  </div>
+
+  <div class="sub">
+    <h3>Statics — Volume-Related Mechanical Properties</h3>
+    <h4>Why Does the Lung Want to Collapse?</h4>
+    <ul class="bl">
+      <li><strong>Surface tension</strong> at the air-liquid interface of alveolar lining fluid pulls inward</li>
+      <li><strong>Elastic recoil</strong> of lung tissue itself pulls inward</li>
+      <li>To stay inflated: pressure inside alveolus must equal or exceed pleural surface pressure → <strong>Transpulmonary pressure = P<sub>alveolus</sub> − P<sub>pleura</sub></strong></li>
+    </ul>
+
+    <h4>Elastic Recoil Behavior</h4>
+    <ul class="bl">
+      <li>At <strong>high lung volumes</strong>: lung is stiff — large ΔP needed for small ΔV (low compliance)</li>
+      <li>At <strong>lower/normal tidal volumes</strong>: lung is compliant — ideal for breathing</li>
+      <li>At <strong>zero inflation pressure</strong>: some air remains trapped (peripheral airways tethered open by inflated parenchyma; as lung deflates → small airways pulled open less → eventually close → gas trapping)</li>
+      <li>Gas trapping is exaggerated with <strong>age</strong> and <strong>obstructive airway disease</strong></li>
+    </ul>
+
+    <h4>Functional Residual Capacity (FRC)</h4>
+    <ul class="bl">
+      <li>FRC = the <strong>passive resting point</strong> of the respiratory system</li>
+      <li>Attained when <strong>outward recoil of chest wall = inward recoil of lung</strong></li>
+      <li>At FRC: negative intrapleural pressure exactly offset by positive intrapulmonary pressure → airway pressure = 0 mmHg</li>
+    </ul>
+
+    <div class="co prl">
+      <div class="co-t">Chest Wall vs. Lung Stiffness</div>
+      <strong>Lung</strong> becomes stiff at HIGH volumes. <strong>Chest wall</strong> becomes stiff at LOW volumes (squeezing ribs/intercostals, diaphragm stretch, abdominal displacement, ligament straining). Combined respiratory system: sigmoid pressure-volume curve — stiff at extremes, compliant in middle (normal tidal breathing range).
+    </div>
+
+    <h4>Lung Volumes (Know These Relationships)</h4>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Volume/Capacity</th><th>Definition</th><th>Clinical Significance</th></tr></thead>
+        <tbody>
+          <tr><td>TLC (Total Lung Capacity)</td><td>Maximum volume in lungs; determined by lung elastic recoil</td><td>↑ emphysema; ↓ fibrosis, obesity (sometimes), weakness</td></tr>
+          <tr><td>RV (Residual Volume)</td><td>Volume remaining after maximal exhalation; determined by airway closure or chest wall</td><td>↑ obstruction (air trapping); ↑ weakness</td></tr>
+          <tr><td>FRC (Functional Residual Capacity)</td><td>End-tidal volume; resting point; TLC − inspiratory capacity</td><td>↓ obesity; ↑ emphysema, dynamic hyperinflation</td></tr>
+          <tr><td>VC (Vital Capacity)</td><td>TLC − RV; maximal excursion</td><td>Easy to measure; limited diagnostic specificity alone</td></tr>
+          <tr><td>Expiratory Reserve Volume</td><td>FRC − RV</td><td>Used to calculate RV from spirometry</td></tr>
+          <tr><td>Inspiratory Capacity</td><td>TLC − FRC</td><td>Used to calculate TLC from spirometry</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Dynamics — Flow-Related Mechanical Properties</h3>
+    <h4>Dynamic Airflow Limitation (Critical Concept)</h4>
+    <p>During rapid exhalation, a phenomenon <em>beyond</em> frictional resistance limits flow. Because bronchial airways are <strong>collapsible</strong> (not rigid), the Bernoulli effect comes into play:</p>
+    <ul class="bl">
+      <li>Airway tree branches exponentially → summed cross-sectional area increases toward periphery</li>
+      <li>Flow (volume/time) is constant along the tree → velocity must increase in central airways</li>
+      <li>Higher velocity in central airways → <strong>↓ intraluminal pressure</strong> → ↓ transmural pressure → airway narrows</li>
+      <li>Attempting harder exhalation → more velocity → more collapse → <strong>no net increase in flow = flow limit</strong></li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">Bernoulli + Inspiration</div>
+      During inspiration, more negative pleural pressure lowers pressure <em>outside</em> airways → ↑ transmural pressure → airway expansion. Therefore, <strong>inspiratory airflow limitation rarely occurs with diffuse pulmonary disease</strong> — only with extrathoracic airway narrowing (e.g., tracheal adenoma, post-tracheostomy stricture).
+    </div>
+
+    <h4>Determinants of Maximal Expiratory Flow</h4>
+    <ul class="bl">
+      <li>Gas density</li>
+      <li>Airway cross-section and distensibility</li>
+      <li><strong>Elastic recoil pressure of the lung</strong> (most important clinically)</li>
+      <li>Frictional pressure loss to the flow-limiting site</li>
+    </ul>
+    <ul class="bl">
+      <li><strong>Pulmonary fibrosis</strong>: ↑ recoil → maximal expiratory flow ↑ relative to lung volume</li>
+      <li><strong>Emphysema</strong>: ↓ recoil → maximal expiratory flow ↓ (major mechanism of obstruction)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Work of Breathing</h3>
+    <ul class="bl">
+      <li>At rest: elastic and dynamic loads are small → minimal respiratory muscle work</li>
+      <li>Ventilation driven primarily by need to eliminate CO₂ → increases during exercise (up to >20-fold) and metabolic acidosis</li>
+      <li><strong>Work ↑ when:</strong>
+        <ul class="bl2">
+          <li>↓ compliance of respiratory system (parenchymal disease: ILD, pulmonary edema, pneumonia, resection)</li>
+          <li>↑ resistance to airflow (obstructive disease: asthma, COPD, CF)</li>
+          <li>Dynamic hyperinflation (severe obstruction): incomplete exhalation → operating FRC rises → approaches TLC → ↓ compliance → ↑ elastic work per breath</li>
+        </ul>
+      </li>
+      <li><strong>Efficient increase in ventilation:</strong> modest increase → ↑ tidal volume (not RR) first; at higher exercise → both deep breaths and ↑ RR</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Dynamic Hyperinflation — The Paradox</div>
+      Severe airflow obstruction → incomplete exhalation → operating FRC becomes dynamically elevated → patient senses difficulty <em>inhaling</em> — even though the root cause is <em>expiratory</em> airflow obstruction. This is why patients with severe COPD/asthma complain of air hunger even when they seem to be breathing "enough."
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Adequacy of Ventilation &amp; CO₂ Elimination</h3>
+    <h4>Dead Space Concepts</h4>
+    <ul class="bl">
+      <li><strong>Anatomic dead space (V<sub>D</sub>)</strong>: volume of conducting airways that never participate in gas exchange — gas in conducting airways at end-exhalation returns to alveoli at start of next inspiration before fresh gas arrives</li>
+      <li>Quiet breathing with VT &lt; VD → no fresh gas enters alveoli</li>
+      <li><strong>Physiologic dead space</strong>: anatomic + dead space from ventilated but unperfused alveoli (e.g., distal to pulmonary embolism)</li>
+    </ul>
+
+    <h4>Key Equations</h4>
+    <div class="co key">
+      <div class="co-t">Ventilation Equations</div>
+      <strong>Minute ventilation:</strong> V̇E = VT × RR<br>
+      <strong>Dead space ventilation:</strong> V̇D = VD × RR<br>
+      <strong>Alveolar ventilation:</strong> V̇A = (VT − VD) × RR<br><br>
+      <strong>Alveolar Gas Equation:</strong><br>
+      PAO₂ = FiO₂ × (P<sub>bar</sub> − P<sub>H₂O</sub>) − PaCO₂/R<br>
+      <em>P<sub>H₂O</sub> = 47 mmHg at 37°C; R (respiratory quotient) ≈ 0.85 for typical American diet</em>
+    </div>
+
+    <h4>PaCO₂ as a Ventilation Mirror</h4>
+    <ul class="bl">
+      <li>Alveolar CO₂ fraction = metabolic CO₂ production ÷ alveolar ventilation</li>
+      <li>Normal PaCO₂ = ~40 mmHg (respiratory controller maintains this)</li>
+      <li><strong>PaCO₂ &lt; 40 mmHg</strong> → alveolar hyperventilation</li>
+      <li><strong>PaCO₂ &gt; 40 mmHg</strong> → alveolar hypoventilation</li>
+      <li><strong>Ventilatory failure</strong> = extreme alveolar hypoventilation</li>
+    </ul>
+
+    <div class="co wrn">
+      <div class="co-t">Key Implication of Alveolar Gas Equation</div>
+      Severe arterial hypoxemia rarely occurs as a <em>pure consequence</em> of alveolar hypoventilation at sea level while breathing air. Hypoventilation-induced hypoxemia becomes more dangerous as barometric pressure falls (↑ altitude).
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 2 — GAS EXCHANGE
+════════════════════════════════════════════════════════ -->
+<section class="sec" id="s2">
+  <div class="sec-hd">
+    <span class="sec-n">02</span>
+    <h2>Gas Exchange</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Diffusion</h3>
+    <ul class="bl">
+      <li>O₂ passes from alveolar gas → alveolar capillary blood by diffusing through alveolar membrane</li>
+      <li>Alveolar membrane: very large surface area (~70 m²) + minimal thickness → highly optimized</li>
+      <li>In normal conditions: hemoglobin in an RBC becomes fully oxygen-saturated by the time it has traveled just <strong>⅓ the length of the alveolar capillary</strong></li>
+      <li>Therefore, O₂ uptake is normally <strong>perfusion-limited</strong> (limited by blood flow through capillaries, not by diffusion rate)</li>
+      <li>CO₂ also equilibrates rapidly across the alveolar membrane</li>
+      <li><strong>Diffusion limitation occurs only in rare circumstances:</strong>
+        <ul class="bl2">
+          <li>High altitude</li>
+          <li>High-performance athletes at maximal effort</li>
+          <li>Interstitial lung disease (thickened alveolar walls that remain perfused)</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>V/Q Matching — The Heart of Gas Exchange</h3>
+    <p>For optimal gas exchange: ventilation (V̇) to each alveolus must match perfusion (Q̇) to its capillaries. Even in health, minor V/Q heterogeneity exists due to gravity, airway/vascular architecture differences. Disease markedly worsens this.</p>
+
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Dead Space (V/Q = ∞)</div>
+        <p>Ventilation of unperfused alveoli (e.g., distal to pulmonary embolism). Ventilation is "wasted" — does not contribute to gas exchange. ↑ physiologic dead space.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Shunt (V/Q = 0)</div>
+        <p>Perfusion of non-ventilated alveoli. Venous blood passes through lung unaltered. Disproportionately lowers mixed arterial PaO₂ (due to nonlinear oxyhemoglobin dissociation curve). <strong>Refractory to supplemental O₂.</strong></p>
+      </div>
+    </div>
+
+    <h4>Why is Shunt Refractory to Supplemental O₂?</h4>
+    <ul class="bl">
+      <li>↑ FiO₂ has no effect on alveolar gas tensions in <strong>non-ventilated</strong> alveoli</li>
+      <li>In ventilated alveoli, hemoglobin is already near fully saturated → ↑ FiO₂ adds very little additional O₂ content (only dissolved O₂, which is minimal)</li>
+    </ul>
+
+    <h4>V/Q Heterogeneity (Most Common in Disease)</h4>
+    <ul class="bl">
+      <li>Perfusion of relatively underventilated (low V/Q) alveoli → incomplete oxygenation of exiting blood</li>
+      <li>Lowers arterial PaO₂ when mixed with well-oxygenated blood — but <em>less</em> severely than pure shunt</li>
+      <li><strong>Responsive to supplemental O₂</strong> — unlike true shunt, raising FiO₂ increases PAO₂ even in low V/Q regions</li>
+    </ul>
+
+    <div class="co key">
+      <div class="co-t">Causes of Arterial Hypoxemia — The 5 Mechanisms</div>
+      <ul class="bl">
+        <li>Substantial reduction of inspired O₂ tension (e.g., high altitude)</li>
+        <li>Severe alveolar hypoventilation (↑ PaCO₂ displaces O₂ in alveolus)</li>
+        <li>Perfusion of low V/Q lung regions (V/Q mismatch)</li>
+        <li>Perfusion of completely unventilated lung (shunt)</li>
+        <li>Limitation of gas diffusion (very unusual circumstances)</li>
+      </ul>
+    </div>
+
+    <h4>Alveolar-Arterial O₂ Difference — (A-a)DO₂</h4>
+    <ul class="bl">
+      <li>Diseases causing V/Q mismatch or shunt → <strong>increased (A-a)DO₂ at rest</strong></li>
+      <li>Measured with arterial blood gas + alveolar gas equation</li>
+      <li>Normal (A-a)DO₂ with hypoxemia → hypoventilation (pure CO₂ elevation displacing O₂)</li>
+      <li>Elevated (A-a)DO₂ → V/Q mismatch, shunt, or diffusion limitation</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 3 — PATHOPHYSIOLOGY PATTERNS
+════════════════════════════════════════════════════════ -->
+<section class="sec" id="s3">
+  <div class="sec-hd">
+    <span class="sec-n">03</span>
+    <h2>Pathophysiology: 5 PFT Patterns</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Master Table — PFT Values (% of Predicted; Raw in cmH₂O/L/s)</div>
+  </div>
+  <div class="tw">
+    <table>
+      <thead>
+        <tr>
+          <th>Measure</th>
+          <th>Pulmonary Fibrosis (↑ Elastic Recoil)</th>
+          <th>Moderate Obesity (Chest Wall ↓)</th>
+          <th>Myasthenia Gravis (↓ Muscle)</th>
+          <th>Acute Asthma (↓ Diameter)</th>
+          <th>Severe Emphysema (↓ Elastic Recoil)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>TLC</td><td>60%</td><td>95%</td><td>75%</td><td>100%</td><td>130%</td></tr>
+        <tr><td>FRC</td><td>60%</td><td>65%</td><td>100%</td><td>104%</td><td>220%</td></tr>
+        <tr><td>RV</td><td>60%</td><td>100%</td><td>120%</td><td>120%</td><td>310%</td></tr>
+        <tr><td>FVC</td><td>60%</td><td>92%</td><td>60%</td><td>90%</td><td>60%</td></tr>
+        <tr><td>FEV₁</td><td>75%</td><td>92%</td><td>60%</td><td>35% pre / 75% post-BD</td><td>35% pre / 38% post-BD</td></tr>
+        <tr><td>R<sub>aw</sub></td><td>1.0</td><td>1.0</td><td>1.0</td><td>2.5</td><td>1.5</td></tr>
+        <tr><td>DLCO</td><td>60%</td><td>95%</td><td>80%</td><td>120%</td><td>40%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sub">
+    <h3>Pattern 1 — Ventilatory Restriction: ↑ Elastic Recoil (IPF)</h3>
+    <div class="co key">
+      <div class="co-t">Mechanism</div>
+      Fibrosis ↑ elastic recoil at all lung volumes → ↓ TLC, FRC, RV, FVC. Airways are radially pulled wider (traction) → ↓ Raw (normal). Fibrosis destroys alveolar-capillary surface → ↓↓ DLCO.
+    </div>
+    <ul class="bl">
+      <li><strong>TLC, FRC, RV all ↓</strong> — hallmark of true restriction</li>
+      <li><strong>FEV₁ reduced</strong>, but FEV₁/FVC ratio is <em>normal or elevated</em> (both reduced but FEV₁ preserved relative to FVC)</li>
+      <li><strong>Maximal expiratory flows ↑ relative to lung volume</strong> — the stiff lung drives flow harder, AND airways are traction-dilated</li>
+      <li><strong>DLCO ↓↓</strong> — fibrosis destroys alveolar-capillary membrane and reduces surface area</li>
+      <li><strong>Oxygenation often severely reduced</strong> — persistent perfusion of relatively underventilated alveoli (adjacent fibrotic alveoli already at max volume → cannot expand further)</li>
+      <li>Flow-volume loop: looks like miniature normal loop, shifted to lower absolute lung volumes, maximal flows ↑ for any given volume</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Pattern 2 — Ventilatory Restriction: Chest Wall Abnormality (Moderate Obesity)</h3>
+    <ul class="bl">
+      <li>Chest wall adipose + intraabdominal fat → ↓ outward chest wall recoil</li>
+      <li>Preserved lung recoil overbalances → <strong>FRC ↓</strong></li>
+      <li>Respiratory muscle strength + lung recoil normal → <strong>TLC usually unchanged</strong> (may ↓ in massive obesity)</li>
+      <li><strong>RV normal</strong> (may ↓ in massive obesity)</li>
+      <li>Mild hypoxemia — perfusion of poorly ventilated dependent alveoli (airway closure near reduced FRC)</li>
+      <li><strong>Flows normal; DLCO normal</strong> — unless OSA → chronic intermittent hypoxemia → pulmonary arterial hypertension → then DLCO ↓</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Pattern 3 — Ventilatory Restriction: ↓ Muscle Strength (Myasthenia Gravis)</h3>
+    <ul class="bl">
+      <li>Both lung recoil and passive chest wall recoil are normal → <strong>FRC normal</strong></li>
+      <li>Muscles insufficient to push respiratory system to extremes → <strong>TLC ↓, RV ↑</strong></li>
+      <li><strong>FVC and FEV₁ reduced as "innocent bystanders"</strong> — trapped between low TLC and elevated RV</li>
+      <li><strong>Raw normal</strong> (airways unaffected); <strong>DLCO normal</strong> (vasculature unaffected)</li>
+      <li>Oxygenation normal unless weakness so severe patient can't reopen collapsed alveoli during sighs → atelectasis</li>
+      <li><strong>Classic clue</strong>: ↓ FVC supine by &gt;10% from upright (diaphragmatic weakness test; normal ↓ only 3–8%)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Pattern 4 — Airflow Obstruction: ↓ Airway Diameter (Acute Asthma)</h3>
+    <ul class="bl">
+      <li>Smooth muscle constriction + inflammation + thickening of small- and medium-sized bronchi → ↑ frictional resistance → ↓ airflow</li>
+      <li><strong>TLC usually normal</strong> (may be elevated in long-standing asthma); FRC may be dynamically elevated</li>
+      <li><strong>RV ↑</strong> — exaggerated airway closure at low lung volumes; this ↑ RV reduces FVC</li>
+      <li><strong>FEV₁ markedly ↓</strong>; significantly improves post-bronchodilator (35% → 75% = hallmark of reversible obstruction)</li>
+      <li><strong>Raw ↑</strong> (central airways narrowed)</li>
+      <li><strong>DLCO normal or mildly ↑</strong> — more pulmonary blood available for diffusion</li>
+      <li>Mild hypoxemia from V/Q mismatch — responsive to O₂</li>
+      <li>Flow-volume loop: characteristic "scooping" of expiratory limb (flows decrease rapidly as lung volume falls)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Pattern 5 — Airflow Obstruction: ↓ Elastic Recoil (Severe Emphysema)</h3>
+    <ul class="bl">
+      <li>Loss of lung elastic recoil → pulmonary hyperinflation; <strong>↑↑ TLC is hallmark</strong></li>
+      <li><strong>FRC ↑↑</strong> — both ↓ recoil and dynamic hyperinflation (auto-PEEP)</li>
+      <li><strong>RV ↑↑↑</strong> — airway closure + exhalation toward RV takes so long that patient must inhale before reaching RV</li>
+      <li><strong>FVC and FEV₁ markedly ↓</strong> — ↑↑ RV causes ↓ FVC; ↓ recoil reduces driving pressure for maximal flow + loss of small airway tethering → ↓ FEV₁</li>
+      <li><strong>FEV₁ does NOT improve with bronchodilator</strong> (35% pre → 38% post) — key distinction from asthma</li>
+      <li><strong>Raw 1.5</strong> (central airways relatively unaffected in "pure" emphysema)</li>
+      <li><strong>DLCO ↓↓</strong> — loss of alveolar surface area and capillaries</li>
+      <li>Hypoxemia usually absent at rest until very severe (poorly ventilated emphysematous acini are also poorly perfused → matched) — worsens dramatically with exercise</li>
+      <li>Flow-volume loop: marked scooping + initial transient spike (air expelled from collapsing central airways at onset of forced exhalation)</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Emphysema During Exercise — Danger Zone</div>
+      Extensive destruction of pulmonary vasculature prevents adequate ↑ in cardiac output → mixed venous O₂ content falls → any venous admixture through low V/Q units dramatically lowers mixed arterial O₂ tension → PaO₂ can fall precipitously during exercise.
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 4 — PFT MEASUREMENTS
+════════════════════════════════════════════════════════ -->
+<section class="sec" id="s4">
+  <div class="sec-hd">
+    <span class="sec-n">04</span>
+    <h2>Functional Measurements (PFTs)</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Lung Volume Measurement</h3>
+    <h4>Spirometry</h4>
+    <ul class="bl">
+      <li>Plots volume entering/exiting lung over time</li>
+      <li><strong>Slow vital capacity</strong>: inhale from FRC to TLC, then exhale slowly to RV</li>
+      <li>Reveals <em>relative</em> volume changes — cannot determine <em>absolute</em> volumes alone</li>
+    </ul>
+
+    <h4>Method 1: Inert Gas Dilution</h4>
+    <ul class="bl">
+      <li>Known amount of nonabsorbable inert gas (usually helium or neon) inhaled in one large breath or rebreathed from closed circuit</li>
+      <li>Inert gas diluted by resident lung gas → final concentration reveals resident gas volume</li>
+      <li><strong>Drawback</strong>: poorly ventilated regions (e.g., obstructed airways) don't receive much inert gas → <strong>underestimates true lung volumes</strong> in obstructive disease</li>
+    </ul>
+
+    <h4>Method 2: Body Plethysmography (Gold Standard)</h4>
+    <ul class="bl">
+      <li>Patient sits in transparent plastic chamber (minimizes claustrophobia)</li>
+      <li>At end of normal tidal breath (FRC), patient pants against <strong>closed shutter</strong> → periodically compresses air in lung slightly</li>
+      <li>Measures pressure fluctuations at mouth + volume fluctuations in body box (equal and opposite to chest changes)</li>
+      <li>Thoracic gas volume calculated by <strong>Boyle's Law: P₁V₁ = P₂V₂</strong></li>
+      <li>Once FRC obtained → add inspiratory capacity → TLC; subtract expiratory reserve volume → RV</li>
+    </ul>
+
+    <h4>Normal Lung Volume Determinants</h4>
+    <ul class="bl">
+      <li>Most important: <strong>height, age, sex</strong></li>
+      <li>Normal range: <strong>85–115% of predicted</strong></li>
+      <li><strong>Lung volumes scale together in health</strong>: if TLC = 110% predicted, all other volumes ≈ 110% — highly useful for airflow interpretation</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Airflow Measurement — Spirometry</h3>
+    <h4>FVC Maneuver</h4>
+    <ul class="bl">
+      <li>Patient inhales to TLC then exhales <em>rapidly and forcefully</em> to RV — ensures flow limitation achieved (effort-independent)</li>
+      <li><strong>FVC</strong> = total air exhaled (forced vital capacity)</li>
+      <li><strong>FEV₁</strong> = air exhaled in first second = a <em>flow rate</em> (volume change per time)</li>
+    </ul>
+
+    <h4>FEV₁/FVC Ratio — The Diagnostic Key</h4>
+    <ul class="bl">
+      <li>Typically <strong>reduced in obstruction</strong></li>
+      <li><strong>Critical trap</strong>: obstruction can also reduce FVC (by raising RV) → sometimes "normalizes" FEV₁/FVC ratio, falsely suggesting no obstruction is present</li>
+    </ul>
+
+    <h4>Flow-Volume Loop Patterns</h4>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Pattern</th><th>Shape</th><th>Cause</th></tr></thead>
+        <tbody>
+          <tr><td>Normal</td><td>Expiratory peak then gradual decline; smooth inspiratory loop</td><td>—</td></tr>
+          <tr><td>Airflow Obstruction</td><td>Scooping of expiratory limb (rapid flow decrease at lower volumes)</td><td>Asthma, emphysema (lower airway)</td></tr>
+          <tr><td>Fixed Central Airway Obstruction</td><td>Flat plateau on BOTH inspiratory AND expiratory limbs</td><td>Tracheal stenosis (fixed, above or below thoracic inlet)</td></tr>
+          <tr><td>Variable Upper Airway Obstruction</td><td>Flat plateau on INSPIRATORY limb only</td><td>Extrathoracic lesion (vocal cord, post-tracheostomy); ↑ effort → airway collapses during inspiration</td></tr>
+          <tr><td>Variable Lower Airway Obstruction</td><td>Flat plateau on EXPIRATORY limb only</td><td>Intrathoracic (tracheomalacia); ↑ effort → dynamic collapse during exhalation</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Respiratory Muscle Strength</h3>
+    <ul class="bl">
+      <li>Patient exhales/inhales with maximal effort against <strong>closed shutter</strong> while pressure monitored at mouth</li>
+      <li>Pressures <strong>&gt;±60 cmH₂O at FRC</strong> = adequate → unlikely that respiratory muscle weakness accounts for any resting ventilatory dysfunction</li>
+      <li><strong>More sensitive approach</strong>: spirometry in <em>supine position</em>
+        <ul class="bl2">
+          <li>Supine ↑ diaphragmatic work (neutralizes gravity assistance)</li>
+          <li>Normal FVC decrease supine vs. upright: <strong>3–8%</strong></li>
+          <li>Diaphragmatic weakness / hemidiaphragm paralysis / neuromuscular disease: FVC decrements <strong>10% to &gt;25%</strong></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>DLCO — Diffusing Capacity</h3>
+    <ul class="bl">
+      <li>Uses small, safe amount of CO to measure gas exchange across alveolar membrane during <strong>10-second breath hold</strong></li>
+      <li>CO in exhaled breath analyzed → quantity of CO crossing alveolar membrane and combining with hemoglobin in RBCs determined</li>
+      <li>DLCO ↑ with: surface area for diffusion + hemoglobin within capillaries</li>
+      <li>DLCO varies inversely with alveolar membrane thickness</li>
+    </ul>
+    <div class="tw">
+      <table>
+        <thead><tr><th>DLCO Direction</th><th>Mechanism</th><th>Conditions</th></tr></thead>
+        <tbody>
+          <tr><td>↓↓ DLCO</td><td>Thickens or destroys alveolar membranes</td><td>Pulmonary fibrosis, emphysema</td></tr>
+          <tr><td>↓ DLCO</td><td>Curtails pulmonary vasculature</td><td>Pulmonary hypertension</td></tr>
+          <tr><td>↓ DLCO</td><td>Reduces alveolar capillary hemoglobin</td><td>Anemia</td></tr>
+          <tr><td>↑ DLCO</td><td>More blood available for diffusion / ↑ Hgb</td><td>Asthma, polycythemia, pulmonary hemorrhage</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Arterial Blood Gas</h3>
+    <ul class="bl">
+      <li>Measures partial pressures of O₂ and CO₂ from arterial puncture</li>
+      <li><strong>O₂ content formula:</strong> CaO₂ (mL/dL) = 1.39 × [Hgb] (g) × %O₂Sat + 0.003 × PaO₂ (mmHg)</li>
+      <li>%O₂Sat set by PaO₂, pH, PaCO₂ via oxyhemoglobin dissociation curve</li>
+      <li>If only hemoglobin saturation needed → noninvasive pulse oximetry</li>
+      <li>Hypercarbia accompanies: severe airway obstruction (COPD), progressive restrictive physiology</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 5 — PLEURAL PROCEDURES
+════════════════════════════════════════════════════════ -->
+<section class="sec" id="s5">
+  <div class="sec-hd">
+    <span class="sec-n">05</span>
+    <h2>Pleural &amp; Thoracic Procedures</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Thoracentesis (Pleurocentesis)</h3>
+    <ul class="bl">
+      <li>Percutaneous aspiration of fluid from the pleural space (right and left pleural spaces do not communicate)</li>
+      <li><strong>Current standard of care</strong>: point-of-care ultrasonography to mark needle puncture site → ↓ risk of "dry tap" and complications (pneumothorax)</li>
+      <li><strong>Indications</strong>: diagnostic (pleural fluid analysis) and therapeutic (palliation of dyspnea from effusion)</li>
+      <li><strong>Pleural fluid analysis</strong>: hematologic, biochemical, microbiologic, cytologic</li>
+      <li><strong>Light's criteria</strong> for exudates vs. transudates — established 1972; still widely used</li>
+      <li>Newer assay: <strong>mesothelin-1 testing</strong> for neoplastic diseases (especially mesothelioma)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Closed Pleural Biopsy</h3>
+    <ul class="bl">
+      <li>Percutaneous sampling of parietal pleural lining</li>
+      <li>Performed "blindly" (Abrams needle) OR with imaging guidance (CT or ultrasound)</li>
+      <li><strong>Blind closed pleural biopsy</strong>: highly sensitive for <strong>pleural tuberculosis</strong> (diffuse pleural involvement → even random sampling hits TB)</li>
+      <li><strong>Image-guided closed pleural biopsy</strong>: best for focal pleural abnormalities (e.g., pleural nodules = virtually pathognomonic of malignancy)</li>
+      <li>Diagnostic yield: <strong>~80–90%</strong> with image guidance for focal lesions; lower without specific visualizable abnormality</li>
+      <li>CT vs. ultrasound: <strong>only ultrasound is typically performed in real time</strong> during the act of biopsy</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Thoracoscopy &amp; Thoracotomy</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Medical Thoracoscopy (Pleuroscopy)</div>
+        <p>Interventional pulmonologist. Single port. Parietal pleural biopsy, minor lysis of adhesions, pleurodesis, indwelling pleural catheter placement. Usually performed under <strong>conscious sedation.</strong></p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">VATS / RATS</div>
+        <p>Video-assisted or robotic-assisted thoracoscopic surgery. Multiple ports. General anesthesia + single-lung ventilation. Lung biopsy, lymph node sampling, lobectomy, decortication, pericardial window.</p>
+      </div>
+    </div>
+    <ul class="bl">
+      <li><strong>Open thoracotomy</strong>: wider incisions; conventional surgical technique; all VATS capabilities + Clagett window for chronic bronchopleural fistula with empyema</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Mediastinoscopy &amp; Mediastinotomy</h3>
+    <ul class="bl">
+      <li>Small port (mediastinoscopy) or wider incision (mediastinotomy) → access mediastinal structures</li>
+      <li>Primary use: <strong>lung cancer staging</strong> (mediastinal lymph node sampling)</li>
+      <li>With advent of endoscopic needle-based techniques (EBUS-TBNA): surgery is <strong>no longer first-line</strong> for diagnostic lymph node sampling</li>
+      <li>Surgery recommended when: negative needle-based sampling + high suspicion of malignant nodal involvement remains</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 6 — BRONCHOSCOPY
+════════════════════════════════════════════════════════ -->
+<section class="sec" id="s6">
+  <div class="sec-hd">
+    <span class="sec-n">06</span>
+    <h2>Bronchoscopy</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Flexible vs. Rigid Bronchoscopy</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Flexible Bronchoscopy</div>
+        <p>By far the more commonly used form. Accesses more <strong>distal</strong> parts of the respiratory tract. More versatile for diagnostic indications.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Rigid Bronchoscopy</div>
+        <p>Limited to <strong>central airways</strong>. Advantage: provides secure airway for ventilation (through scope or jet ventilation). Larger conduit for diagnostic/therapeutic instruments (bypasses narrow working channel of flexible scope). Seldom used for diagnosis alone — except when anticipating severe bleeding (e.g., transbronchial cryobiopsy).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Bronchoalveolar Lavage (BAL)</h3>
+    <ul class="bl">
+      <li><strong>Gold standard</strong> for obtaining respiratory secretions for hematologic, biochemical, microbiologic, and/or cytologic analyses</li>
+      <li>Avoids salivary contamination (unlike sputum)</li>
+      <li>Useful when sputum cannot be obtained or specific lobe/segment sampling desired</li>
+      <li><strong>Technique</strong>: bronchoscope wedged in distal airway to prevent fluid escape → sterile saline or distilled water instilled through working channel (typically 1–3 aliquots of ~50 mL each) → immediate suction applied to aspirate as much fluid as possible</li>
+      <li>Allows sampling of distal airways and lung parenchyma — areas not directly viewable</li>
+      <li><strong>Alveolar hemorrhage assessment</strong>: serial BALs from same site → rising RBC counts and visibly bloodier returns with subsequent lavages confirms alveolar hemorrhage</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Brushing &amp; Endobronchial Biopsy</h3>
+    <ul class="bl">
+      <li><strong>Bronchoscopic brushing</strong>: minimally invasive sampling of mucosal biofilm (microbiologic) and bronchial epithelial layer (cytologic)</li>
+      <li><strong>Endobronchial biopsy</strong>: samples abnormal bronchial mucosa and submucosa for histopathologic analysis (e.g., endobronchial amyloidosis, sarcoidosis)</li>
+      <li><strong>Gene expression classifier</strong>: in cigarette smokers with lung nodule(s) and nondiagnostic bronchoscopy → bronchial brushings + commercially available classifier → estimates lung cancer probability based on gene expression signature → low posttest probability → can choose imaging surveillance instead of further invasive testing</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Transbronchial Biopsy Including Cryobiopsy</h3>
+    <ul class="bl">
+      <li>Removes alveolated lung tissue by passing sampling tool into alveolar space</li>
+      <li>Most common tool: <strong>flexible forceps</strong> (2.0 mm or 2.8 mm caliber)</li>
+      <li>For malignant lung nodules: <strong>3 biopsy samples adequate</strong> to optimize sensitivity</li>
+      <li>For acute cellular rejection in lung transplants: <strong>≥5 distinct pieces of alveolated lung tissue</strong> required per current recommendations</li>
+      <li><strong>Cryobiopsy</strong>: flexible catheter with blunt tip → delivers liquid nitrogen or CO₂ → freezes lung parenchyma → adheres to probe → pulled back (with bronchoscope) → frozen piece of lung tissue removed
+        <ul class="bl2">
+          <li>Higher diagnostic yield than forceps biopsy for diffuse parenchymal illness (e.g., IPF)</li>
+          <li>Higher risk of major bleeding and pneumothorax</li>
+          <li>Rigid bronchoscope sometimes used as a precautionary airway for anticipated severe bleeding during cryobiopsy</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Transbronchial Needle Aspiration (TBNA)</h3>
+    <ul class="bl">
+      <li>Hollow-bore needle for obtaining aspirated specimens</li>
+      <li>May be accompanied by suction or capillary action alone — data do not show suction improves diagnostic sensitivity</li>
+      <li>TBNA has diagnostic sensitivity <strong>superior to transbronchial biopsy for malignant peripheral nodules</strong> — lesion may lie extraluminally and require traversing the airway wall (only needle can do this)</li>
+      <li>Combining TBNA + conventional transbronchial biopsy → increased pooled diagnostic sensitivity</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>EBUS-TBNA — Major Advance in Bronchoscopy</h3>
+    <div class="co key">
+      <div class="co-t">What is EBUS-TBNA?</div>
+      Endobronchial ultrasound-guided transbronchial needle aspiration. Specialized flexible bronchoscope with video camera + convex ultrasound probe at distal end. Under real-time ultrasonographic visualization → aspiration needle inserted through airway wall into mediastinal target → aspirate sent for microbiologic or cytologic analysis.
+    </div>
+    <h4>Sensitivity Numbers (Board Favorite)</h4>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Condition</th><th>EBUS-TBNA Sensitivity</th></tr></thead>
+        <tbody>
+          <tr><td>Epithelial malignancies</td><td>~90%</td></tr>
+          <tr><td>Lymphoma</td><td>~70% (higher for recurrence than de novo)</td></tr>
+          <tr><td>Sarcoidosis</td><td>≥80% (higher if combined with endobronchial + transbronchial biopsies)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="bl">
+      <li>Newer variants use core needles or mini-forceps → tissue specimens (not just aspirates) → histopathologic analysis possible</li>
+      <li>Provides adequate material for ancillary testing (immunostaining, genetic testing) in malignancy</li>
+      <li><strong>Esophageal sampling (EUS or EUS-B)</strong>: related technique using ultrasound guidance through esophagus; useful adjunct to EBUS-TBNA for mediastinal lymph node stations not accessible via airway; combined sensitivity slightly higher than either alone</li>
+      <li><strong>ROSE (Rapid On-Site Cytologic Evaluation)</strong>: portion of aspirated specimen immediately examined by cytotechnologist or pathologist with rapid staining → helps determine if additional sampling is needed; often inadequate for definitive diagnosis alone</li>
+      <li>Tissue coagulum clot method: multiple aspirates emptied onto filter paper → forms clot for cell block preparation (alternative: spun specimen residue)</li>
+      <li>EBUS-TBNA has <strong>largely replaced surgical methods for lymph node sampling</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Guided Peripheral Bronchoscopy Including Robotic Bronchoscopy</h3>
+    <p>For peripherally located lesions (lung nodules) not reachable by conventional bronchoscopy. Three crucial steps:</p>
+
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">Step 1: Navigation</div>
+        <p><strong>Electromagnetic navigational bronchoscopy</strong> (GPS-like feedback as scope advances). <strong>Virtual bronchoscopy</strong> (overlays live endoscopic images onto CT-derived virtual map). <strong>Shape-sensing technology</strong> (robotic platforms).</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Step 2: Localization</div>
+        <p><strong>Radial EBUS</strong>: thin ultrasound-tipped catheter passed to lung periphery → real-time images beyond airway walls. Concentric image = high diagnostic yield. <strong>Cone-beam CT</strong>: confirms tool-in-lesion with patient breath-hold before sampling. Fluoroscopic imaging for recalibration.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Step 3: Sampling</div>
+        <p>Forceps, brushes, or aspiration needles. <strong>TBNA has highest sensitivity</strong> for malignant lung nodules. Cryobiopsy for discrete peripheral lesions: currently limited but promising.</p>
+      </div>
+    </div>
+
+    <ul class="bl">
+      <li><strong>Robotic bronchoscopy</strong>: FDA first approved 2018; improved bronchoscope stability and reach in peripheral airways vs. conventional flexible bronchoscopes</li>
+      <li>Navigation tools limited by relying on previously acquired CT images (may not accurately represent lesion's current 3D location)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 7 — MEDICAL IMAGING
+════════════════════════════════════════════════════════ -->
+<section class="sec" id="s7">
+  <div class="sec-hd">
+    <span class="sec-n">07</span>
+    <h2>Medical Imaging</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Chest X-Ray (CXR)</h3>
+    <ul class="bl">
+      <li>Field of medical imaging traces back to Wilhelm Roentgen, 1890s — discovered that invisible "x-rays" pass through solid material, attenuated proportional to material density</li>
+      <li>Foundation of clinical respiratory medicine; widely available even in resource-limited settings</li>
+      <li><strong>Outpatient standard</strong>: posteroanterior (PA) + lateral films</li>
+      <li><strong>Bedside</strong>: anteroposterior (AP) films</li>
+      <li>2D representation of 3D structures → differing views help examine superimposed structures</li>
+    </ul>
+
+    <h4>What CXR Evaluates</h4>
+    <ul class="bl">
+      <li>Chest wall contours, cardiac silhouette, great vessels, mediastinum</li>
+      <li>Parenchymal appearance, bronchovascular bundle</li>
+      <li>Discriminate pulmonary vs. extrapulmonary disease</li>
+    </ul>
+
+    <h4>Classic CXR Findings</h4>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Finding</th><th>Disease</th><th>Mechanism</th></tr></thead>
+        <tbody>
+          <tr><td>Kerley B lines</td><td>CHF</td><td>Engorged lymphatics</td></tr>
+          <tr><td>Cephalization</td><td>CHF</td><td>Non-dependent vasculature becomes prominent as blood redistributes</td></tr>
+          <tr><td>Bronchial cuffing</td><td>CHF</td><td>Outer bronchial wall boundaries blurred by peribronchial edema</td></tr>
+          <tr><td>Elevated hemidiaphragm</td><td>Phrenic nerve palsy, subphrenic process</td><td>Loss of diaphragm support</td></tr>
+          <tr><td>Mediastinal fibrosis</td><td>Histoplasmosis, prior RT</td><td>Fibrosing mediastinitis</td></tr>
+          <tr><td>Hyperlucency</td><td>Emphysema, pneumothorax</td><td>↓ tissue density</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="co wrn">
+      <div class="co-t">Important Limitation</div>
+      Many diseases of the airways and pulmonary vasculature are associated with a <strong>normal chest radiograph</strong>. CXR is an excellent initial diagnostic for nonspecific symptoms but a negative CXR does not exclude significant pulmonary disease.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Computed Tomography (CT)</h3>
+    <ul class="bl">
+      <li>Introduced to clinical care in the <strong>1980s</strong>; became one of most heavily leveraged imaging modalities</li>
+      <li>Unlike CXR (1–2 views), CT provides spatially resolved reconstructions of <em>all structures</em> in the thorax</li>
+      <li>Passage of photons through body impeded proportional to tissue density → measured in <strong>Hounsfield units (HU)</strong></li>
+      <li>Standard scale: <strong>water = 0 HU; air = −1000 HU</strong></li>
+    </ul>
+
+    <h4>Window Settings (Display Optimization)</h4>
+    <ul class="bl">
+      <li><strong>Lung windows</strong>: optimized for low-density lung parenchyma → surrounding higher-density structures appear white</li>
+      <li><strong>Mediastinal windows</strong>: optimized for higher-density structures → lung parenchyma appears black</li>
+      <li>Window width and level adjustments change <em>display only</em>, not actual HU values of voxels</li>
+    </ul>
+
+    <h4>Secondary Pulmonary Lobule — Basis of CT Interpretation</h4>
+    <p>Fundamental subunit of the lung: central airway + pulmonary artery → parenchyma → surrounding interstitium with lymphatics and pulmonary veins.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>CT Pattern</th><th>Location in Lobule</th><th>Disease</th></tr></thead>
+        <tbody>
+          <tr><td>Centrilobular nodules</td><td>Central (small airways)</td><td>Respiratory bronchiolitis, hypersensitivity pneumonitis</td></tr>
+          <tr><td>Centrilobular emphysema (CLE)</td><td>Centroid of lobule effaced</td><td>Smoking → upper lobe predominant</td></tr>
+          <tr><td>Paraseptal emphysema (PSE)</td><td>Periphery of lobule</td><td>Upper lobe subpleural</td></tr>
+          <tr><td>Panlobular emphysema (PLE)</td><td>Diffuse across lobule</td><td>Alpha-1 antitrypsin → basilar predominant</td></tr>
+          <tr><td>Interlobular septal beading/thickening</td><td>Interstitium + lymphatics</td><td>ILD (NSIP = apical; IPF = basal/dependent)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Pulmonary Arterial Assessment</h4>
+    <ul class="bl">
+      <li>Caliber of central PA trunk proximal to first bifurcation directly related to pulmonary arterial pressure</li>
+      <li>PA trunk <strong>&gt;3 cm = suggestive of elevated pulmonary vascular pressures</strong></li>
+      <li>PA diameter:aortic diameter ratio (PA/A) = metric of disease severity and prognosis in COPD</li>
+      <li><strong>Contrast CT (CT-PA)</strong>: images timed to visualize passage of contrast through pulmonary arteries → detects pulmonary embolism (dark filling defects in bright white vessels)</li>
+    </ul>
+
+    <h4>Traction Bronchiectasis</h4>
+    <ul class="bl">
+      <li>Due to mechanical interdependence of bronchial tree and parenchyma: conditions that ↓ lung compliance → traction bronchiectasis</li>
+      <li>Can be local (focal fibrosis) or diffuse</li>
+      <li>Provides further insight into disease severity</li>
+    </ul>
+
+    <div class="co dan">
+      <div class="co-t">Radiation</div>
+      CXR and CT involve ionizing radiation. Multiple studies have estimated excess cancers from CT scanning. Extensive efforts by CT manufacturers and clinicians to reduce dose to lowest possible amount without compromising image quality and interpretability.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Magnetic Resonance Imaging (MRI)</h3>
+    <ul class="bl">
+      <li>Based on behavior of <strong>protons in a magnetic field</strong></li>
+      <li>Strong magnetic field aligns protons → radiofrequency pulse perturbs them → speed of realignment differs based on tissue properties → image</li>
+      <li><strong>Limitation for lung parenchyma</strong>: abundance of air creates artifact that impairs direct parenchymal assessment</li>
+      <li><strong>MRI of the lung requires</strong>:
+        <ul class="bl2">
+          <li>IV contrast (gadolinium) for organ perfusion assessment</li>
+          <li>Inhaled agents — hyperpolarized noble gas (e.g., ³He) for detailed morphology of distal airspaces</li>
+          <li>³He is proton-rich → examine lung ventilation visually + objectively; poorly ventilated regions = dark areas in otherwise bright blue organ</li>
+        </ul>
+      </li>
+      <li>Longer acquisition time than CT; equipment geometry → claustrophobia</li>
+      <li><strong>Key advantage</strong>: does NOT involve ionizing radiation → modality of choice in pediatric population or when repeated assessments needed</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Positron Emission Tomography (PET)</h3>
+    <ul class="bl">
+      <li>Image based on aggregation of radiolabeled tracers</li>
+      <li>Most common agent: <strong>[¹⁸F]-fluoro-2-deoxyglucose (FDG)</strong> — radiolabeled glucose analogue administered IV → taken up by cells proportional to metabolic activity</li>
+      <li>Clinical use: discrimination of <strong>benign vs. malignant lung nodules</strong> + <strong>lung cancer staging</strong></li>
+      <li>Relatively low resolution → <strong>co-registration with CT is common</strong> → PET-CT allows structural localization of heightened metabolic activity</li>
+      <li>Increasing biomedical research interest: vascular biology in acute/chronic disease (largely still research)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>AI / Deep Learning in Thoracic Imaging</h3>
+    <ul class="bl">
+      <li>Classic ML approaches: algorithms to detect structures, segment boundaries, extract metrics (size, shape, texture)</li>
+      <li>Explosive growth driven by: ↑ GPU processing capacity + large data availability + open-source software libraries</li>
+      <li>First medical applications in dermatology; now excels at discrimination of benign vs. malignant lung nodules in CT</li>
+      <li>Expanding applications: image navigation, feature detection, biomarker development, direct prediction of clinical outcomes</li>
+      <li>Example: deep learning-enabled segmentation of heart + pulmonary vasculature from non-contrast, non-cardiac-gated CT</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 8 — TRANSTHORACIC NEEDLE ASPIRATION (TTNA)
+════════════════════════════════════════════════════════ -->
+<section class="sec" id="s8">
+  <div class="sec-hd">
+    <span class="sec-n">08</span>
+    <h2>Transthoracic Needle Aspiration (TTNA)</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Clinical Context</div>
+    Radiologically guided needle biopsy for parenchymal lung lesions (malignant and infectious). Increasingly important with low-dose CT lung cancer screening guidelines and evolving incidental lung lesion guidelines. Important for immunosuppressed patients at risk for pulmonary infections.
+  </div>
+
+  <div class="sub">
+    <h3>Imaging Guidance Options</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Modality</th><th>Key Features</th></tr></thead>
+        <tbody>
+          <tr><td>CT (most common)</td><td>Sensitivity + specificity &gt;90%; sensitivity ↑ with peripheral lesions; standard of care</td></tr>
+          <tr><td>Ultrasound</td><td>↓ complication rate with FNA; portable; real-time; comparable diagnostic rate to CT-guided FNA; shorter procedure time; lower cost</td></tr>
+          <tr><td>Fluoroscopy</td><td>Real-time but ↓ anatomic detail</td></tr>
+          <tr><td>MRI</td><td>Available but less commonly used</td></tr>
+          <tr><td>Electromagnetic guidance</td><td>Can combine with EBUS and navigational bronchoscopy; 83% yield alone, 87% with navigational bronchoscopy</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>FNA vs. Core Needle Biopsy</h3>
+    <ul class="bl">
+      <li><strong>FNA</strong>: lower diagnostic rate vs. core needle; lower specificity</li>
+      <li><strong>Core needle</strong>: more likely to provide sufficient material for molecular testing; may be more specific for diagnosing benign lung lesions</li>
+      <li>Systematic review: insufficient evidence to support definitive difference in diagnostic efficiency between FNA and core needle</li>
+      <li><strong>Negative predictive value: ~70%</strong> → negative TTNA results are <em>less reliable</em> than positive results → negative result should NOT be considered definitive to rule out malignancy</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Complications (High-Yield Numbers)</h3>
+    <div class="co dan">
+      <div class="co-t">Complication Rates — Know These</div>
+      <ul class="bl">
+        <li><strong>Hemorrhage</strong>: one-third to one-quarter of patients</li>
+        <li><strong>Pneumothorax</strong>: 17–28% (majority do NOT require chest tube placement)</li>
+        <li>Other: hemoptysis, hemothorax (uncommon)</li>
+        <li>Complication rates with CT-guided TTNA: core needle &gt; FNA (38.8% vs. 24%)</li>
+        <li>Risk factors for FNA complications: smaller nodule, larger needle, more lung traversed</li>
+        <li>Overall risk ↑ for centrally located lesions + those near intrathoracic vasculature</li>
+      </ul>
+    </div>
+    <ul class="bl">
+      <li>Study (2016–2020): TTNA use has decreased; EBUS guidance use has increased; TTNA presents higher risk for pneumothorax than alternate modalities</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnostic Utility</h3>
+    <ul class="bl">
+      <li><strong>Most common malignant diagnosis via TTNA</strong>: adenocarcinoma (also the most prevalent parenchymal lung malignancy overall)</li>
+      <li>Also effective for: squamous cell carcinoma, small cell carcinoma, lymphomas, mediastinal tumors</li>
+      <li>Diagnostic utility consistent across solid, subsolid, and partially calcified lung nodules</li>
+      <li>Immunocytochemistry markers can assist with diagnosis, prognosis, prediction of treatment response</li>
+      <li>RNA extraction feasible from single FNA sample → gene expression profiling (research context currently)</li>
+      <li><strong>Infectious disease</strong>: establishes diagnosis in 60–70% of cases; particularly high yield for Aspergillus; effective for pulmonary TB; necrosis in lesions makes infectious diagnosis more likely</li>
+      <li>Granulomatous inflammation → supportive evidence of granulomatous parenchymal disease</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 9 — MISCELLANEOUS TESTING
+════════════════════════════════════════════════════════ -->
+<section class="sec" id="s9">
+  <div class="sec-hd">
+    <span class="sec-n">09</span>
+    <h2>Miscellaneous Testing</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Sputum Testing</h3>
+    <ul class="bl">
+      <li>Simple, noninvasive in patients with productive cough; subject to patient technique and oropharyngeal contamination</li>
+      <li><strong>Sputum induction</strong>: nebulization with saline → generally safe and well tolerated even in patients with airflow limitation</li>
+      <li><strong>Quality criteria</strong>: quantification of epithelial cells and WBCs per low-power field; ratio of both for sampling adequacy; none confirmed as superior for reliability</li>
+      <li>Quality directly impacts diagnostic reliability in bacterial pneumonia</li>
+      <li><strong>Always analyze regardless of quality</strong>: growth of Mycobacterium tuberculosis, Legionella, or Pneumocystis should raise concern even with a poor sample; 40% of bacterial detections would be missed if only high-quality samples analyzed</li>
+      <li><strong>Multiplex PCR assays</strong>: ↓ time to diagnosis and length of stay in viral infections and COVID-19 with bacterial co-infection</li>
+      <li>Endotracheal aspirates: not clearly superior to expectorated sputum for diagnostic reliability</li>
+      <li><strong>Sputum cytology for malignancy</strong>: highly specific when malignant cells found but sensitivity &lt;40%; systematic review showed no added benefit over CXR for lung cancer screening → recommended only when more invasive techniques cannot be pursued</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Exhaled Breath Condensate &amp; FeNO</h3>
+    <ul class="bl">
+      <li>Exhaled breath condensate includes gaseous, liquid, and water-soluble components</li>
+      <li>Many biomarker types; validation standards still being established for most components</li>
+      <li><strong>Fraction of exhaled nitric oxide (FeNO)</strong> = most highly validated biomarker in exhaled breath condensate</li>
+      <li>FeNO elevated in asthma vs. healthy individuals; correlates with eosinophils in sputum and blood; correlates with response to inhaled corticosteroids (conflicting data)</li>
+      <li>Systematic review: FeNO elevation ↑ odds of having asthma in children (&gt;5 years) and adults</li>
+      <li>In severe asthma exacerbations: FeNO assessment helpful; but no significant impact on overall exacerbations or ICS use</li>
+      <li>Evidence suggests: tailoring therapy based on sputum eosinophil levels ↓ asthma exacerbations; tailoring based on FeNO was NOT beneficial for outcomes</li>
+      <li>FeNO influenced by ethnicity — appropriate reference standards for different ethnic groups not yet established</li>
+      <li>FeNO has <strong>not been formally approved for clinical use</strong> and not incorporated into all guideline recommendations</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Sweat Testing — Cystic Fibrosis</h3>
+    <div class="co key">
+      <div class="co-t">Mechanism</div>
+      Pilocarpine iontophoresis stimulates sweat production. CF involves altered sodium chloride ion channel → elevated chloride concentrations in secretions including sweat. Gold standard for CF diagnosis due to: functional nature, relative noninvasiveness, validated standards, discriminates healthy from CF.
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Sweat Chloride Level</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td>&ge;60 mmol/L</td><td>Diagnostic of CF</td></tr>
+          <tr><td>30–59 mmol/L</td><td>Indeterminate (CFID) — could be CF if genetic and clinical manifestations supportive (updated Cystic Fibrosis Foundation guidance; formerly 40–59 mmol/L)</td></tr>
+          <tr><td>&lt;40 mmol/L (old) / &lt;30 mmol/L (new threshold)</td><td>Low likelihood of CF</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="bl">
+      <li>Updated CF Foundation guidance lowered the intermediate range threshold from 40–59 to <strong>30–59 mmol/L</strong> → better identifies milder/heterogenous forms with newly identified genetic mutations without increasing false-positive rate</li>
+      <li>Sweat testing is critical component of CF diagnostic algorithm but must be interpreted with genetic testing and clinical manifestations</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Allergy Testing</h3>
+    <ul class="bl">
+      <li>Considered for environmental exposures (seasonal, food, drug allergens)</li>
+      <li><strong>Drug allergy types</strong>:
+        <ul class="bl2">
+          <li>Type I (IgE-mediated): immediate-type reactions</li>
+          <li>Type II (IgG or IgM): cytotoxic reactions</li>
+          <li>Type III: immune complex reactions</li>
+          <li>Type IV: delayed-type hypersensitivity (cellular immune mechanisms)</li>
+        </ul>
+      </li>
+      <li><strong>Skin testing</strong> (patch or intradermal): aids clinical phenotyping of Type I reactions; potentially Type IV (more controversial)</li>
+      <li>For Type I reactions: patch testing is more cost-effective and may be as effective as intradermal testing</li>
+      <li>Intradermal skin testing negative predictive value for IgE-mediated drug allergy is HIGH, but high sensitivity limits specificity → must interpret in context of pretest probability</li>
+      <li><strong>Drug provocation testing / rechallenge</strong>: generally safe in low-risk individuals with history of urticaria or immediate rash</li>
+      <li>Skin testing as preliminary step in high-risk individuals (≥2 reactions, angioedema, anaphylaxis) before drug provocation testing</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 10 — QUICK REFERENCE
+════════════════════════════════════════════════════════ -->
+<section class="sec" id="s10">
+  <div class="sec-hd">
+    <span class="sec-n">10</span>
+    <h2>Quick Reference Master Table</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Numbers to Memorize</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Respiratory Muscle Strength</div>
+        <ul class="bl">
+          <li>&gt;±60 cmH₂O at FRC = adequate</li>
+          <li>Supine FVC ↓ normal: 3–8%</li>
+          <li>Diaphragm weakness: ↓ 10–25%</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">TTNA Complications</div>
+        <ul class="bl">
+          <li>Hemorrhage: 25–33%</li>
+          <li>Pneumothorax: 17–28%</li>
+          <li>Core needle complications &gt; FNA (38.8% vs. 24%)</li>
+          <li>Negative predictive value: ~70%</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">EBUS-TBNA Sensitivity</div>
+        <ul class="bl">
+          <li>Epithelial malignancy: ~90%</li>
+          <li>Lymphoma: ~70%</li>
+          <li>Sarcoidosis: ≥80%</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Sweat Test (CF)</div>
+        <ul class="bl">
+          <li>Diagnostic: ≥60 mmol/L</li>
+          <li>Indeterminate: 30–59 mmol/L</li>
+          <li>Normal: &lt;30 mmol/L</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Transbronchial Biopsy</div>
+        <ul class="bl">
+          <li>Malignant nodules: 3 samples adequate</li>
+          <li>Lung transplant rejection: ≥5 pieces required</li>
+          <li>BAL aliquots: 1–3 × ~50 mL</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">CT / Imaging</div>
+        <ul class="bl">
+          <li>Water = 0 HU; Air = −1000 HU</li>
+          <li>PA trunk &gt;3 cm = elevated PA pressure</li>
+          <li>Normal PFT range: 85–115% predicted</li>
+          <li>Normal RQ ≈ 0.85 (typical American diet)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Procedures Summary</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Procedure</th><th>Best For</th><th>Key Point</th></tr></thead>
+        <tbody>
+          <tr><td>Thoracentesis</td><td>Pleural effusion analysis + drainage</td><td>Point-of-care US guidance is standard of care</td></tr>
+          <tr><td>Blind pleural biopsy</td><td>Pleural TB (diffuse involvement)</td><td>Abrams needle; even random sampling hits TB</td></tr>
+          <tr><td>Image-guided pleural biopsy</td><td>Focal pleural abnormalities / nodules</td><td>80–90% yield; US = real-time only option</td></tr>
+          <tr><td>Medical thoracoscopy</td><td>Pleural biopsy, therapeutic</td><td>Conscious sedation; single port</td></tr>
+          <tr><td>VATS/RATS</td><td>Lung biopsy, lobectomy, staging</td><td>General anesthesia + single-lung ventilation</td></tr>
+          <tr><td>Mediastinoscopy</td><td>Mediastinal LN sampling (2nd line)</td><td>After negative EBUS-TBNA with high suspicion</td></tr>
+          <tr><td>BAL</td><td>Distal airway/parenchymal secretions</td><td>Gold standard; avoids salivary contamination</td></tr>
+          <tr><td>EBUS-TBNA</td><td>Mediastinal LN, malignancy staging</td><td>Has largely replaced surgical LN sampling</td></tr>
+          <tr><td>Cryobiopsy</td><td>Diffuse parenchymal ILD (IPF)</td><td>Higher yield than forceps; higher bleed/PTX risk</td></tr>
+          <tr><td>Robotic bronchoscopy</td><td>Peripheral lung nodules</td><td>FDA-approved 2018; improved reach/stability</td></tr>
+          <tr><td>CT-guided TTNA</td><td>Parenchymal lesions</td><td>Sensitivity/specificity &gt;90%; PTX 17–28%</td></tr>
+          <tr><td>PET-CT</td><td>Benign vs. malignant nodules; staging</td><td>FDG uptake ∝ metabolic activity</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>DLCO Interpretation Quick Reference</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>DLCO</th><th>Think</th></tr></thead>
+        <tbody>
+          <tr><td>↓↓ + Restriction (small TLC)</td><td>Pulmonary fibrosis (↓ surface area + ↑ membrane thickness)</td></tr>
+          <tr><td>↓↓ + Obstruction (large TLC)</td><td>Severe emphysema (↓ alveolar surface + capillary loss)</td></tr>
+          <tr><td>↓ + Normal PFTs</td><td>Pulmonary hypertension, anemia, early ILD</td></tr>
+          <tr><td>↑ DLCO</td><td>Asthma (↑ perfusion), polycythemia (↑ Hgb), alveolar hemorrhage (CO absorbed by free Hgb)</td></tr>
+          <tr><td>Normal DLCO + Restriction</td><td>Chest wall / muscle cause (no parenchymal/vascular destruction)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 11 — EXAM TRAPS
+════════════════════════════════════════════════════════ -->
+<section class="sec" id="s11">
+  <div class="sec-hd">
+    <span class="sec-n">11</span>
+    <h2>Exam Traps</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">Normal FEV₁/FVC in Obstruction</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with COPD has FEV₁ 35% predicted and FVC 35% predicted, giving an FEV₁/FVC ratio of 1.0. The question asks whether airflow obstruction is present.</div>
+      <div class="trap-a"><strong>YES — obstruction is present.</strong> Severe obstruction raises RV dramatically, which reduces FVC. Both FEV₁ and FVC are reduced proportionally, making the ratio "artifactually normal." Always look at absolute FEV₁ and FVC values — a ratio &gt;0.7 does NOT exclude obstruction when both values are markedly reduced. TLC elevation and flow-volume loop scooping are the real tell.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-num" style="margin-left:0"></span><span class="trap-title">Shunt vs. V/Q Mismatch — Response to O₂</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient has significant hypoxemia. They receive 100% O₂ via non-rebreather mask, but their PaO₂ barely improves. What is the likely mechanism?</div>
+      <div class="trap-a"><strong>True shunt (intrapulmonary or intracardiac).</strong> Shunted blood bypasses ventilated alveoli entirely — supplemental O₂ cannot oxygenate blood that never reaches an alveolus. In contrast, V/Q mismatch (low V/Q, not zero) DOES improve with supplemental O₂ because some ventilation reaches those alveoli and ↑ FiO₂ raises PAO₂ even in underventilated units.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Inert Gas Dilution Underestimates in Obstruction</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with severe emphysema has lung volumes measured by helium dilution: TLC = 115% predicted. Body plethysmography shows TLC = 165% predicted. Which is correct, and why?</div>
+      <div class="trap-a"><strong>Body plethysmography (165%) is correct.</strong> In severe obstruction, many lung regions are poorly ventilated and receive little inhaled helium — they don't contribute to dilution. Helium dilution underestimates true lung volumes in obstructive disease. Body plethysmography measures ALL gas in the thorax by compressibility (Boyle's Law) regardless of connectivity to airways.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Dynamic Hyperinflation — Dyspnea Feels Like Inability to Inhale</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A severe COPD patient complains they "cannot get air in" even though spirometry confirms they are generating substantial expiratory flow. What is the mechanism?</div>
+      <div class="trap-a"><strong>Dynamic hyperinflation.</strong> Obstructed expiratory flow prevents complete exhalation → operating FRC rises toward TLC → respiratory system becomes much less compliant → each inspiratory effort requires far more pressure to generate any volume change. The patient feels they cannot inhale — the sensation is one of inspiratory effort — even though the root cause is expiratory obstruction. This is also called auto-PEEP.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Myasthenia Gravis — FEV₁/FVC Ratio Preserved Despite ↓ Both</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with myasthenia gravis has FEV₁ 60% and FVC 60%, with FEV₁/FVC ratio = 1.0 (i.e., normal). Is there obstruction?</div>
+      <div class="trap-a"><strong>No — this is restrictive physiology from muscle weakness, not obstruction.</strong> FEV₁ and FVC are both reduced as "innocent bystanders" — trapped between a low TLC and elevated RV (because the patient cannot fully exhale or fully inhale). The ratio is preserved because the reduced force affects both equally. Raw is normal. The discriminating feature is low TLC + elevated RV + normal Raw + normal DLCO.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">DLCO Elevated in Asthma</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 28-year-old with asthma has PFTs: FEV₁ 65%, FVC 88%, DLCO 125%. The question asks what the elevated DLCO represents.</div>
+      <div class="trap-a"><strong>This is expected in asthma — DLCO can be normal or elevated.</strong> In asthma, more pulmonary blood is available for diffusion because pulmonary blood volume is relatively increased. An elevated DLCO in an obstructive pattern should immediately suggest asthma (or polycythemia or alveolar hemorrhage) — never emphysema, which invariably reduces DLCO due to alveolar/capillary destruction.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Blind Pleural Biopsy for TB</span></div>
+    <div class="trap-body">
+      <div class="trap-q">In what setting is a "blind" (non-image-guided) closed pleural biopsy with an Abrams needle highly effective and preferred?</div>
+      <div class="trap-a"><strong>Pleural tuberculosis.</strong> TB causes diffuse pleural involvement — even random sampling of the parietal pleura hits granulomatous tissue. In contrast, for focal pleural abnormalities (e.g., pleural nodules from malignancy), image-guided biopsy is required. Knowing this distinction is key — blindly biopsying a focal malignant nodule has much lower yield.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">TTNA Negative Predictive Value</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A CT-guided TTNA biopsy of a 2-cm lung nodule in a 65-year-old smoker returns "benign tissue, no malignancy identified." Can you reassure the patient there is no cancer?</div>
+      <div class="trap-a"><strong>No — negative TTNA results are unreliable for ruling out malignancy.</strong> The negative predictive value of TTNA is approximately 70%. A negative result should NOT be considered definitive to eliminate concern for malignancy, especially in a high-risk patient. Further evaluation (repeat imaging, alternative biopsy, surgical resection) must be considered based on clinical context.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">EBUS-TBNA vs. Mediastinoscopy — When to Operate</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with suspected lung cancer has EBUS-TBNA of mediastinal lymph nodes that returns negative. PET-CT shows high FDG uptake in those same nodes. What is the next step?</div>
+      <div class="trap-a"><strong>Mediastinoscopy (surgical sampling).</strong> Surgery is recommended when needle-based sampling is negative but suspicion for malignant nodal involvement remains sufficiently high. EBUS-TBNA has largely replaced mediastinoscopy as first-line — but when the clinical picture strongly suggests malignancy and EBUS is negative, surgery confirms or refutes before accepting the negative result.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Fixed vs. Variable Upper Airway Obstruction on Flow-Volume Loop</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A flow-volume loop shows flattening of both the inspiratory and expiratory limbs equally. Where is the obstruction and is it fixed or variable?</div>
+      <div class="trap-a"><strong>Fixed central airway obstruction — can be above OR below the thoracic inlet.</strong> When BOTH limbs are flattened equally, the lesion does not change with respiratory effort (fixed) — like a rigid tracheal stenosis. If only the inspiratory limb is flat → variable extrathoracic obstruction (e.g., vocal cord). Only expiratory flat → variable intrathoracic obstruction (e.g., tracheomalacia). The key: fixed = symmetric flattening; variable = asymmetric (one limb affected based on transmural pressure during that phase).</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">Cryobiopsy vs. Forceps — IPF</span></div>
+    <div class="trap-body">
+      <div class="trap-q">For a patient with suspected idiopathic pulmonary fibrosis undergoing bronchoscopic biopsy, which tool provides higher diagnostic yield: cryoprobe or standard flexible forceps?</div>
+      <div class="trap-a"><strong>Cryobiopsy has higher diagnostic yield for diffuse parenchymal illnesses like IPF.</strong> The cryoprobe freezes a larger piece of lung parenchyma than forceps can obtain. However, cryobiopsy comes with higher risk of major bleeding and pneumothorax — and the rigid bronchoscope may be used as precaution for securing the airway when significant bleeding is anticipated. For focal malignant nodules, forceps + TBNA are preferred with navigation.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 12</span><span class="trap-title">Sweat Test Intermediate Zone — Updated Threshold</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 3-year-old has sweat chloride of 45 mmol/L and genetic testing shows a newly identified CF mutation. Old guidelines would say "indeterminate (40–59)." New guidelines say?</div>
+      <div class="trap-a"><strong>The Cystic Fibrosis Foundation updated the indeterminate range to 30–59 mmol/L</strong> to better capture milder and heterogeneous CF phenotypes associated with newly identified mutations. A sweat chloride of 45 mmol/L falls within this intermediate range and, if combined with a recognized CF mutation and appropriate clinical manifestations, is consistent with CF. This change enhanced detection without increasing false positives.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 13</span><span class="trap-title">FeNO Clinical Application Limits</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient's asthma management is being guided entirely by FeNO measurements. The physician uses FeNO to adjust ICS dosing. Is this evidence-based?</div>
+      <div class="trap-a"><strong>No — FeNO-guided therapy adjustment has not shown benefit for overall asthma outcomes.</strong> While FeNO elevation increases odds of having asthma and can help manage severe exacerbations, tailoring ICS therapy based on FeNO alone does not improve outcomes. Only sputum eosinophil–based therapy tailoring has shown benefit in reducing exacerbations. Additionally, FeNO has NOT been formally approved for clinical use and lacks standardization across ethnic groups.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 14</span><span class="trap-title">Emphysema: Exercise-Induced O₂ Drop Despite Normal Resting SpO₂</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with severe emphysema has a resting SpO₂ of 92% on room air. During a 6-minute walk test, SpO₂ drops suddenly to 78%. Why does oxygenation deteriorate so dramatically?</div>
+      <div class="trap-a"><strong>Destruction of pulmonary vasculature limits the ability to increase cardiac output during exercise.</strong> At rest, poorly ventilated emphysematous acini are also poorly perfused (due to capillary loss) — this matching limits hypoxemia at rest. During exercise, cardiac output must increase but the destroyed vasculature cannot accommodate it adequately → mixed venous O₂ content falls dramatically → any residual venous admixture through low V/Q units has a disproportionately large effect on lowering mixed arterial PaO₂. The reserve simply does not exist.</div>
+    </div>
+  </div>
+
+</section>
+
+<hr class="sep">
+<footer class="footer">Harrison's Principles · Chapters 296 &amp; 297 · Respiratory Function &amp; Diagnostics · Boards Review · Venos 2026</footer>
+
+</main>
+
+<script>
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+/* ── HIGHLIGHT SYSTEM ──────────────────────────────── */
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+/* Save all highlights as {text, color} */
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+/* Restore highlights by finding text in DOM */
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+/* ── NOTE SYSTEM ───────────────────────────────────── */
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+/* Restore note anchors by finding ref text in DOM */
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+/* ── POPOVER ───────────────────────────────────────── */
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+/* ── MOUSE SELECTION ───────────────────────────────── */
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+/* ── CLEAR ALL ─────────────────────────────────────── */
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+/* ── SIDEBAR TOGGLE ────────────────────────────────── */
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+/* ── RESIZE ────────────────────────────────────────── */
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+/* ── STATUS BUTTONS ────────────────────────────────── */
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+/* ── NAV TRACKING ──────────────────────────────────── */
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+/* ── INIT — restore everything on page load ──────── */
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
