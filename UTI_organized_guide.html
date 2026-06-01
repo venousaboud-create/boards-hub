@@ -1219,191 +1219,310 @@ tbody td:first-child{color:var(--tx);font-weight:500}
 <footer class="footer">UTI: Organized Boards Study Guide · Stage A Internal Medicine · 2025</footer>
 
 <script>
-const STORE_KEY = 'bsa_uti_org_v1';
-let curColor=null,eraseMode=false,selText='',savedRange=null,curSection='',activeNoteId=null;
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
 
-function getActiveSectionName(){
-  const secs=document.querySelectorAll('.sec[data-section]');
-  let a='';
-  secs.forEach(s=>{const r=s.getBoundingClientRect();if(r.top<=window.innerHeight*.5&&r.bottom>0)a=s.getAttribute('data-section');});
-  return a||'General';
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  const map={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};
+  if(document.getElementById(map[c])) document.getElementById(map[c]).classList.add('active');
 }
 
-function setHL(c){curColor=c;eraseMode=false;document.body.style.cursor='crosshair';
-  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));
-  ({y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'})[c] && document.getElementById(({y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'})[c]).classList.add('active');}
-function setErase(){eraseMode=true;curColor=null;document.body.style.cursor='cell';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));}
-function clearAll(){
-  if(!confirm('Clear ALL highlights and notes?'))return;
-  document.querySelectorAll('.hl').forEach(el=>el.parentNode.replaceChild(document.createTextNode(el.textContent),el));
-  document.querySelectorAll('.note-anchor').forEach(el=>el.parentNode.replaceChild(document.createTextNode(el.textContent),el));
-  try{localStorage.removeItem(STORE_KEY);}catch(e){}
-  renderNotes();closePopup();document.body.style.cursor='';
-  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));curColor=null;eraseMode=false;}
-
-document.addEventListener('mouseup',function(e){
-  const tb=document.getElementById('toolbar'),sb=document.getElementById('sn-sidebar'),pp=document.getElementById('note-popup');
-  if(tb.contains(e.target)||sb.contains(e.target)||pp.contains(e.target))return;
-  if(eraseMode&&e.target.classList.contains('hl')){const el=e.target;el.parentNode.replaceChild(document.createTextNode(el.textContent),el);return;}
-  const sel=window.getSelection();
-  if(!sel||sel.isCollapsed)return;
-  const txt=sel.toString().trim();if(!txt)return;
-  selText=txt;savedRange=sel.getRangeAt(0).cloneRange();curSection=getActiveSectionName();
-  document.getElementById('sn-ref-txt').textContent=txt.length>45?txt.substring(0,45)+'…':txt;
-  const st=document.getElementById('sn-cur-section-tag');st.textContent=curSection;st.style.display='inline';
-  if(curColor){
-    try{const r=sel.getRangeAt(0),sp=document.createElement('span');sp.className='hl hl-'+curColor;r.surroundContents(sp);sel.removeAllRanges();}catch(e){}
-    return;
-  }
-  showNewPopup(sel,txt);
-});
-
-function showNewPopup(sel,txt){
-  const pp=document.getElementById('note-popup');pp.classList.remove('editing');activeNoteId=null;
-  document.getElementById('np-section-tag').textContent=curSection;
-  document.getElementById('np-ref').textContent=txt.length>50?'"'+txt.substring(0,50)+'…"':'"'+txt+'"';
-  document.getElementById('np-ta').value='';
-  pp.classList.add('editing');
-  const r=sel.getRangeAt(0),rect=r.getBoundingClientRect();
-  pp.style.left=Math.min(Math.max(rect.left,8),window.innerWidth-320)+'px';
-  pp.style.top=(rect.bottom+window.scrollY+8)+'px';
-  pp.style.display='block';pp.classList.add('show');
-  document.getElementById('np-ta').focus();
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
 }
 
-function showExistingPopup(el,note){
-  const pp=document.getElementById('note-popup');pp.classList.remove('editing');activeNoteId=note.id;
-  document.getElementById('np-section-tag').textContent=note.section||'General';
-  document.getElementById('np-ref').textContent=note.ref&&note.ref!=='—'?'"'+note.ref.substring(0,50)+'"':'Your note';
-  document.getElementById('np-display-text').innerHTML=note.text.replace(/\n/g,'<br>');
-  document.getElementById('np-ta').value=note.text;
-  const rect=el.getBoundingClientRect();
-  pp.style.left=Math.min(Math.max(rect.left,8),window.innerWidth-320)+'px';
-  pp.style.top=(rect.bottom+window.scrollY+8)+'px';
-  pp.style.display='block';pp.classList.add('show');
-}
-
-function closePopup(){const pp=document.getElementById('note-popup');pp.style.display='none';pp.classList.remove('show','editing');activeNoteId=null;}
-function switchToEdit(){document.getElementById('note-popup').classList.add('editing');}
-function switchToView(){document.getElementById('note-popup').classList.remove('editing');}
-
-function saveFromPopup(){
-  const pp=document.getElementById('note-popup'),txt=document.getElementById('np-ta').value.trim();
-  if(!txt)return;
-  if(activeNoteId!==null){
-    const notes=getNotes(),idx=notes.findIndex(n=>n.id===activeNoteId);
-    if(idx!==-1){notes[idx].text=txt;saveNotes(notes);}
-    document.getElementById('np-display-text').innerHTML=txt.replace(/\n/g,'<br>');
-    pp.classList.remove('editing');renderNotes();
-  } else {
-    const id=Date.now(),notes=getNotes();
-    notes.unshift({id,ref:selText.substring(0,80)||'—',text:txt,section:curSection});saveNotes(notes);
-    if(savedRange){try{const sp=document.createElement('span');sp.className='note-anchor';sp.dataset.noteId=id;sp.title='Click to see your note';savedRange.surroundContents(sp);}catch(e){}savedRange=null;}
-    selText='';document.getElementById('sn-ref-txt').textContent='—';document.getElementById('sn-cur-section-tag').style.display='none';
-    renderNotes();closePopup();
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
   }
 }
 
-function deleteNoteFromPopup(){if(activeNoteId===null){closePopup();return;}deleteNote(activeNoteId);closePopup();}
-function jumpToAnchor(){
-  if(activeNoteId===null)return;
-  const a=document.querySelector('.note-anchor[data-note-id="'+activeNoteId+'"]');
-  if(a){a.scrollIntoView({behavior:'smooth',block:'center'});a.style.background='rgba(109,40,217,.15)';setTimeout(()=>a.style.background='',1500);}
-  closePopup();
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
 }
 
-document.addEventListener('click',function(e){
-  const a=e.target.closest('.note-anchor');
-  if(a){e.stopPropagation();const nid=parseInt(a.dataset.noteId);if(activeNoteId===nid){closePopup();return;}const note=getNotes().find(n=>n.id===nid);if(note)showExistingPopup(a,note);return;}
-  const pp=document.getElementById('note-popup');
-  if(pp&&pp.style.display!=='none'&&!pp.contains(e.target))closePopup();
-});
-
-function getNotes(){try{return JSON.parse(localStorage.getItem(STORE_KEY)||'[]');}catch(e){return [];}}
-function saveNotes(n){try{localStorage.setItem(STORE_KEY,JSON.stringify(n));}catch(e){}}
-
-function addNote(){
-  const txt=document.getElementById('sn-ta').value.trim();if(!txt)return;
-  const id=Date.now(),notes=getNotes();
-  notes.unshift({id,ref:selText.substring(0,80)||'—',text:txt,section:curSection||getActiveSectionName()});saveNotes(notes);
-  if(savedRange){try{const sp=document.createElement('span');sp.className='note-anchor';sp.dataset.noteId=id;sp.title='Click to see your note';savedRange.surroundContents(sp);}catch(e){}savedRange=null;}
-  document.getElementById('sn-ta').value='';selText='';
-  document.getElementById('sn-ref-txt').textContent='—';document.getElementById('sn-cur-section-tag').style.display='none';
-  renderNotes();
-}
-
-function deleteNote(id){
-  saveNotes(getNotes().filter(n=>n.id!==id));
-  document.querySelectorAll('.note-anchor[data-note-id="'+id+'"]').forEach(el=>el.parentNode.replaceChild(document.createTextNode(el.textContent),el));
-  renderNotes();
-}
-
-function renderNotes(filterText){
-  const body=document.getElementById('sn-body'),empty=document.getElementById('sn-empty');
-  let notes=getNotes();
-  if(filterText){const q=filterText.toLowerCase();notes=notes.filter(n=>n.text.toLowerCase().includes(q)||(n.ref||'').toLowerCase().includes(q)||(n.section||'').toLowerCase().includes(q));}
-  body.querySelectorAll('.sn-group').forEach(g=>g.remove());
-  if(!notes.length){if(empty)empty.style.display='';return;}
-  if(empty)empty.style.display='none';
-  const groups={};notes.forEach(n=>{const s=n.section||'General';if(!groups[s])groups[s]=[];groups[s].push(n);});
-  Object.entries(groups).forEach(([secName,secNotes])=>{
-    const gd=document.createElement('div');gd.className='sn-group';
-    const hd=document.createElement('div');hd.className='sn-group-hd';
-    hd.innerHTML='<span>'+secName+'</span><span class="sn-group-badge">'+secNotes.length+'</span>';gd.appendChild(hd);
-    secNotes.forEach(note=>{
-      const card=document.createElement('div');card.className='sn-note';card.dataset.noteId=note.id;
-      const savedH=localStorage.getItem('bsa_h_'+note.id);if(savedH)card.style.height=savedH+'px';
-      card.innerHTML='<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span><span class="sn-note-ref">'+(note.ref!=='—'?'"'+note.ref+'"':'General note')+'</span><div class="sn-note-actions"><button class="sn-act-btn" onclick="editFromSidebar('+note.id+')">✏</button><button class="sn-act-btn sn-del" onclick="deleteNote('+note.id+')">×</button></div></div><div class="sn-note-body">'+note.text.replace(/\n/g,'<br>')+'</div><div class="sn-resize"></div>';
-      gd.appendChild(card);makeDraggable(card);makeResizable(card,note.id);
-    });
-    body.appendChild(gd);
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
   });
 }
 
-function editFromSidebar(id){
-  const note=getNotes().find(n=>n.id===id);if(!note)return;
-  const a=document.querySelector('.note-anchor[data-note-id="'+id+'"]');
-  if(a){a.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>showExistingPopup(a,note),400);}
-  else{const pp=document.getElementById('note-popup');activeNoteId=id;
-    document.getElementById('np-section-tag').textContent=note.section||'General';
-    document.getElementById('np-ref').textContent=note.ref!=='—'?'"'+note.ref.substring(0,50)+'"':'Your note';
-    document.getElementById('np-display-text').innerHTML=note.text.replace(/\n/g,'<br>');
-    document.getElementById('np-ta').value=note.text;
-    pp.style.left=(window.innerWidth/2-150)+'px';pp.style.top=(window.scrollY+200)+'px';
-    pp.style.display='block';pp.classList.add('show');}
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
 }
 
-function filterNotes(v){renderNotes(v.trim()||undefined);}
-
-function makeDraggable(card){
-  const h=card.querySelector('.sn-note-hd');let sY=0;
-  h.addEventListener('mousedown',function(e){
-    if(e.target.classList.contains('sn-act-btn'))return;e.preventDefault();sY=e.clientY;card.style.opacity='.7';
-    function mv(ev){const dy=ev.clientY-sY,b=document.getElementById('sn-body'),cs=[...b.querySelectorAll('.sn-note')],i=cs.indexOf(card);
-      if(dy<-30&&i>0){b.insertBefore(card,cs[i-1]);sY=ev.clientY;}else if(dy>30&&i<cs.length-1){b.insertBefore(cs[i+1],card);sY=ev.clientY;}}
-    function up(){card.style.opacity='';const b=document.getElementById('sn-body'),ids=[...b.querySelectorAll('.sn-note')].map(c=>parseInt(c.dataset.noteId)),notes=getNotes(),r=ids.map(id=>notes.find(n=>n.id===id)).filter(Boolean);saveNotes(r);renderNotes();document.removeEventListener('mousemove',mv);document.removeEventListener('mouseup',up);}
-    document.addEventListener('mousemove',mv);document.addEventListener('mouseup',up);});
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
 }
 
-function makeResizable(card,noteId){
-  const h=card.querySelector('.sn-resize');let sY=0,sH=0;
-  h.addEventListener('mousedown',function(e){e.preventDefault();e.stopPropagation();sY=e.clientY;sH=card.offsetHeight;
-    function mv(ev){card.style.height=Math.max(80,sH+(ev.clientY-sY))+'px';}
-    function up(){try{localStorage.setItem('bsa_h_'+noteId,card.offsetHeight);}catch(e){}document.removeEventListener('mousemove',mv);document.removeEventListener('mouseup',up);}
-    document.addEventListener('mousemove',mv);document.addEventListener('mouseup',up);});
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
 }
 
-function toggleSidebar(){const sb=document.getElementById('sn-sidebar'),tab=document.getElementById('sn-tab');sb.classList.toggle('hidden');tab.textContent=sb.classList.contains('hidden')?'📝 Notes':'◀';}
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
 
-const _secs=document.querySelectorAll('.sec[id]'),_lnks=document.querySelectorAll('.toc-a');
-_secs.forEach(s=>new IntersectionObserver(entries=>{if(entries[0].isIntersecting){_lnks.forEach(l=>l.classList.remove('on'));const l=document.querySelector('.toc-a[href="#'+s.id+'"]');if(l){l.classList.add('on');l.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}}},{rootMargin:'-15% 0px -75% 0px'}).observe(s));
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
 
-document.querySelectorAll('.lbtn,.fbtn').forEach(btn=>{
-  const type=btn.classList.contains('lbtn')?'l':'f',k=type+'btn_'+(btn.closest('.sec')?.id||'');
-  if(localStorage.getItem(k)==='1')btn.classList.add('on');
-  btn.addEventListener('click',()=>{btn.classList.toggle('on');try{localStorage.setItem(k,btn.classList.contains('on')?'1':'0');}catch(e){}});
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
 });
 
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb && tb.contains(e.target)) return;
+  if (sb && sb.contains(e.target)) return;
+  if (np && np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  const refEl = document.getElementById('sn-ref-txt');
+  if (refEl) refEl.textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  if (tab) tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  if (!handle) return;
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+/* ── INIT ── */
+restoreHighlights();
+restoreAnchors();
 renderNotes();
 </script>
 </body>
