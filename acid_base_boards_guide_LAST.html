@@ -317,7 +317,12 @@ h3[style*="font-family"]{font-size:14px!important;margin:18px 0 8px!important}
     <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
   </div>
   <div id="sn-body">
-    <div id="sn-empty">No notes yet.<br>Select any text to add a note.</div>
+    <div id="sn-empty">Select any text in the guide,<br>write a note below,<br>then click + Add Note.<br><br>Notes stay connected to<br>sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
   </div>
 </div>
 <button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
