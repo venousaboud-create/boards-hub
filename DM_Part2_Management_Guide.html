@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DM Part 2 — Management &amp; Therapies · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;padding:0 12px;display:flex;align-items:center;white-space:nowrap;border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blu);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'\25B8';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.bl li ul{list-style:none;padding:0;margin:4px 0 0 14px}
+.bl li ul li{position:relative;padding:2px 0 2px 14px;font-size:13px;color:var(--t2)}
+.bl li ul li::before{content:'\2013';position:absolute;left:0;top:2px;color:var(--t3);font-size:11px}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2);font-size:12.5px}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:4px}
+.card ul{margin-top:4px}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:16px 0}
+.flow-box{background:var(--sf);border:1.5px solid var(--bd2);border-radius:7px;padding:9px 18px;font-size:12.5px;text-align:center;min-width:200px;color:var(--tx)}
+.flow-box.blu{background:var(--blu-l);border-color:var(--blu);color:var(--blu-d);font-weight:600}
+.flow-box.red{background:var(--red-l);border-color:var(--red);color:var(--red);font-weight:600}
+.flow-box.grn{background:var(--grn-l);border-color:var(--grn);color:var(--grn);font-weight:600}
+.flow-box.amb{background:var(--amb-l);border-color:var(--amb);color:var(--amb);font-weight:600}
+.flow-arrow{font-size:18px;color:var(--t3);line-height:1.2;margin:2px 0}
+.flow-row{display:flex;gap:16px;align-items:flex-start;justify-content:center;flex-wrap:wrap}
+.flow-line{display:flex;flex-direction:column;align-items:center;gap:0}
+.drug-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.08em;padding:2px 7px;border-radius:4px;margin:1px 2px;vertical-align:middle}
+.db-r{background:var(--red-l);color:var(--red);border:1px solid #fca5a5}
+.db-g{background:var(--grn-l);color:var(--grn);border:1px solid #86efac}
+.db-b{background:var(--blu-l);color:var(--blu);border:1px solid #93c5fd}
+.db-a{background:var(--amb-l);color:var(--amb);border:1px solid #fcd34d}
+.db-p{background:var(--pur-l);color:var(--pur);border:1px solid #c4b5fd}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}.main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green" onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue" onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink" onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase" onclick="setErase()">&#10005;</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd"><span>&#128221; My Notes</span><button id="sn-toggle-btn" onclick="toggleSidebar()">&#9664;</button></div>
+  <div id="sn-body"><div id="sn-empty">Select text &#8594; write note &#8594; Add Note.<br><br>Notes stay connected to sentences even after closing.</div></div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">&#8212;</em></div>
+    <textarea id="sn-ta" placeholder="Add your note&#8230;"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">&#128221; Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">&#215;</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison&#8217;s Principles · Chapter 416</div>
+  <h1>Diabetes Mellitus<br>Part 2</h1>
+  <div class="hero-sub">Management · Therapies · DKA · HHS · Special Situations · Boards Review</div>
+  <div class="hero-authors">Powers, Niswender, Rickels</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">&lt;7%</div><div class="stat-l">HbA1c Goal</div></div>
+    <div class="stat-box"><div class="stat-n">70–180</div><div class="stat-l">TIR Target mg/dL</div></div>
+    <div class="stat-box"><div class="stat-n">&lt;1%</div><div class="stat-l">DKA Mortality</div></div>
+    <div class="stat-box"><div class="stat-n">15%</div><div class="stat-l">HHS Mortality</div></div>
+    <div class="stat-box"><div class="stat-n">10</div><div class="stat-l">Drug Classes</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Goals of Therapy</a>
+    <a class="toc-a" href="#s2">Monitoring</a>
+    <a class="toc-a" href="#s3">Glycemic Targets</a>
+    <a class="toc-a" href="#s4">Insulin</a>
+    <a class="toc-a" href="#s5">Drug Classes</a>
+    <a class="toc-a" href="#s6">T2DM Algorithm</a>
+    <a class="toc-a" href="#s7">Lifestyle</a>
+    <a class="toc-a" href="#s8">DKA</a>
+    <a class="toc-a" href="#s9">HHS</a>
+    <a class="toc-a" href="#s10">Hospital</a>
+    <a class="toc-a" href="#s11">Special Situations</a>
+    <a class="toc-a" href="#s12">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- S1 GOALS -->
+<section class="sec" id="s1">
+  <div class="sec-hd"><span class="sec-n">01</span><h2>Overall Goals of Therapy</h2></div>
+  <div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">The Three Goals</div>
+    <strong>(1)</strong> Eliminate symptoms related to hyperglycemia &nbsp;&#8226;&nbsp; <strong>(2)</strong> Reduce or eliminate long-term microvascular and macrovascular complications &nbsp;&#8226;&nbsp; <strong>(3)</strong> Allow the patient to achieve as normal a lifestyle as possible.
+  </div>
+
+  <p>Symptoms of diabetes (polyuria, polydipsia, blurry vision) usually resolve when plasma glucose is <strong>&lt;11.1 mmol/L (200 mg/dL)</strong>. Therefore, most DM treatment focuses on goals 2 and 3 — preventing long-term complications, not just relieving symptoms.</p>
+
+  <div class="sub">
+    <h3>Comprehensive Diabetes Care — Key Elements</h3>
+    <ul class="bl">
+      <li>Individualized glycemic goal + therapeutic plan (shared decision-making)</li>
+      <li>Blood glucose monitoring (CGM or capillary fingerstick BGM)</li>
+      <li>HbA1c testing <strong>2&#8211;4 times per year</strong></li>
+      <li>Lifestyle management: nutrition therapy, physical activity, psychosocial care</li>
+      <li>Detection/prevention/management of DM-related complications (eye, foot, neuropathy, kidney)</li>
+      <li>Management of associated conditions: blood pressure, lipids, obesity</li>
+      <li>Consider screening for MASLD (metabolic dysfunction-associated steatotic liver disease) in T2DM if other risk factors present</li>
+      <li>Immunizations: influenza, pneumococcal, hepatitis B, COVID-19, RSV (&gt;60 years)</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">Key Concept</div>
+      Comprehensive diabetes care is <strong>far more than glucose management</strong>. Treating associated conditions (hypertension, dyslipidemia, obesity) and detecting complications early reduces morbidity and mortality as much as glycemic control itself &#8212; especially in T2DM.
+    </div>
+  </div>
+</section>
+
+<!-- S2 MONITORING -->
+<section class="sec" id="s2">
+  <div class="sec-hd"><span class="sec-n">02</span><h2>Monitoring Glycemic Control</h2></div>
+  <div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+
+  <div class="sub">
+    <h3>Two Complementary Monitoring Approaches</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">CGM / BGM — Short-Term</div>
+        <p>Provides a picture of short-term glycemic patterns</p>
+        <p>CGM: interstitial glucose sensor; data every 5 minutes; may lag when glucose changes rapidly or during exercise</p>
+        <p>Sensors replaced every 10&#8211;14 days (subcutaneous); alternative device placed surgically, replaced every 6&#8211;12 months</p>
+        <p>Output: <strong>Ambulatory Glucose Profile (AGP)</strong> — includes TIR, time above/below range, glucose variability, GMI (correlates with HbA1c)</p>
+        <p>BGM (fingerstick): &lt;2 &#956;L blood; essential backup when CGM malfunctions</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">HbA1c — Long-Term</div>
+        <p>Reflects average glycemia over <strong>previous 2&#8211;3 months</strong></p>
+        <p>Erythrocyte lifespan ~120 days; preceding month contributes <strong>~50%</strong> to HbA1c value</p>
+        <p>Does NOT detect glycemic variability or recent intercurrent illnesses</p>
+        <p>Measure at least <strong>twice/year</strong> if at goal; every <strong>3 months</strong> if not at goal or therapy changed</p>
+        <p>Must be correlated to DCCT reference assay (NGSP-approved method)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>CGM Targets (Time-In-Range) — Adults</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Metric</th><th>Target</th><th>Clinical Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>Time in range (70&#8211;180 mg/dL)</td><td><strong>&gt;70%</strong></td><td>More than 16.8 h/day in target range</td></tr>
+          <tr><td>Time below 70 mg/dL (Level 1 hypoglycemia)</td><td><strong>&lt;4%</strong></td><td>Less than 58 min/day below 70</td></tr>
+          <tr><td>Time below 54 mg/dL (Level 2 hypoglycemia)</td><td><strong>&lt;1%</strong></td><td>Less than 14 min/day below 54</td></tr>
+          <tr><td>Glucose variability (% CV)</td><td><strong>&#8804;36%</strong></td><td>Coefficient of variation</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Conditions That Falsely Alter HbA1c</h3>
+    <div class="co dan">
+      <div class="co-t">HbA1c Unreliable — Use Glucose-Based Tests Instead</div>
+      Hemoglobinopathies (sickle cell, thalassemia), anemias, reticulocytosis, transfusions, uremia, G6PD variants, hemodialysis, erythropoietin therapy, HIV treatment, certain ancestries. Also: <strong>African Americans have HbA1c ~0.3% higher</strong> than non-Hispanic whites or Hispanics for the same mean glucose.
+    </div>
+    <p>Alternative glycation markers when HbA1c is unreliable: <strong>fructosamine</strong> or <strong>glycated albumin</strong> — reflect glycemia over prior 2&#8211;4 weeks.</p>
+  </div>
+
+  <div class="sub">
+    <h3>HbA1c &#8596; Estimated Average Glucose (eAG)</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>HbA1c (%)</th><th>eAG (mg/dL)</th><th>eAG (mmol/L)</th></tr></thead>
+        <tbody>
+          <tr><td>6%</td><td>126</td><td>7.0</td></tr>
+          <tr><td>7%</td><td>154</td><td>8.6</td></tr>
+          <tr><td>8%</td><td>183</td><td>10.2</td></tr>
+          <tr><td>9%</td><td>212</td><td>11.8</td></tr>
+          <tr><td>10%</td><td>240</td><td>13.4</td></tr>
+          <tr><td>12%</td><td>298</td><td>16.5</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--t3)">Mnemonic: HbA1c 7% &#8594; avg glucose ~154 mg/dL (7+7=14 &#8594; ~154). Each 1% &#8593; HbA1c &#8776; +30 mg/dL eAG.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Substances That Interfere With Monitoring Accuracy</h3>
+    <ul class="bl">
+      <li><strong>CGM devices:</strong> hydroxyurea, acetaminophen, ascorbic acid, mannitol, sorbitol</li>
+      <li><strong>BGM devices:</strong> uric acid, galactose, xylose, acetaminophen, L-DOPA, ascorbic acid</li>
+    </ul>
+  </div>
+</section>
+
+<!-- S3 GLYCEMIC TARGETS -->
+<section class="sec" id="s3">
+  <div class="sec-hd"><span class="sec-n">03</span><h2>Glycemic Targets</h2></div>
+  <div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Core Principle</div>
+    Glycemic targets must be <strong>individualized</strong>. Regardless of baseline level, any improvement in glycemic control reduces risk of complications &#8212; most notably microvascular. However, hypoglycemia must be avoided, especially in high-risk patients.
+  </div>
+
+  <div class="sub">
+    <h3>HbA1c Targets by Patient Category</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Patient Group</th><th>HbA1c Target</th><th>Preprandial Glucose</th><th>Postprandial Glucose</th></tr></thead>
+        <tbody>
+          <tr><td>Most adults (nonpregnant)</td><td><strong>&lt;7.0%</strong> (more stringent &#8804;6.5% for some)</td><td>80&#8211;130 mg/dL</td><td>&lt;180 mg/dL</td></tr>
+          <tr><td>Elderly — intact cognition, good functional status</td><td><strong>&lt;7.0&#8211;7.5%</strong></td><td>80&#8211;130 mg/dL</td><td>&lt;200 mg/dL</td></tr>
+          <tr><td>Elderly — multiple chronic illnesses, impaired ADLs</td><td><strong>&lt;8.0%</strong></td><td>90&#8211;150 mg/dL</td><td>&lt;250 mg/dL</td></tr>
+          <tr><td>Elderly — complex comorbidities, cognitive impairment, limited life span</td><td><strong>&lt;8.5%</strong> with hypoglycemia avoidance</td><td>100&#8211;180 mg/dL</td><td>&lt;250 mg/dL</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co wrn">
+      <div class="co-t">Why Not Always Target &lt;7%?</div>
+      In patients with established ASCVD and type 2 DM, intense glycemic control trials (ACCORD, ADVANCE, VADT) showed that hypoglycemia in high-risk populations is associated with cardiovascular events and mortality. Near-normal glycemia is therefore NOT the goal in this population.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Key Clinical Trials on Glycemic Control</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">DCCT/EDIC — Type 1 DM</div>
+        <p>Intensive glycemic control in early T1DM &#8594; reduced nonfatal MI, stroke, and CV death <strong>almost two decades later</strong> (metabolic memory)</p>
+        <p>Intensive control reduces microvascular complications</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">ACCORD / ADVANCE / VADT — Type 2 DM</div>
+        <p>Intense glycemic control beneficial for ASCVD in <strong>some T2DM populations</strong></p>
+        <p>But: hypoglycemia in high-risk ASCVD patients linked to CV events and mortality</p>
+        <p>These trials predate GLP-1 RA and SGLT-2i — those agents show greater CV benefit</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S4 INSULIN -->
+<section class="sec" id="s4">
+  <div class="sec-hd"><span class="sec-n">04</span><h2>Insulin — Types, Regimens & T1DM Management</h2></div>
+  <div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+
+  <div class="sub">
+    <h3>Insulin Types — Pharmacokinetics</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Type</th><th>Examples</th><th>Onset</th><th>Peak</th><th>Duration</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Rapid-acting (injected)</td><td>Aspart, Lispro, Glulisine</td><td>&lt;0.25 h</td><td>0.5&#8211;1.5 h</td><td>3&#8211;5 h</td><td>Inject &lt;10 min before meal; preferred over Regular for prandial</td></tr>
+          <tr><td>Rapid-acting (inhaled)</td><td>Inhaled human insulin</td><td>&lt;0.25 h</td><td>1&#8211;2 h</td><td>3 h</td><td>Check FEV1 before use; CI: lung disease, smokers; causes bronchospasm/cough</td></tr>
+          <tr><td>Short-acting</td><td>Regular (U-100, U-500)</td><td>0.5&#8211;1 h</td><td>2&#8211;3 h</td><td>4&#8211;8 h</td><td>Inject 30&#8211;45 min before meal; U-500 for severe resistance; used for IV infusion</td></tr>
+          <tr><td>Intermediate-acting</td><td>NPH</td><td>2&#8211;4 h</td><td>4&#8211;10 h</td><td>10&#8211;16 h</td><td>More nocturnal hypoglycemia than glargine</td></tr>
+          <tr><td>Long-acting</td><td>Glargine (U-100, U-300)</td><td>2&#8211;4 h</td><td>No peak</td><td>20&#8211;24 h</td><td>No peak; less nocturnal hypoglycemia vs NPH; sometimes needs twice-daily</td></tr>
+          <tr><td>Ultra-long-acting</td><td>Degludec (U-100, U-200)</td><td>1&#8211;9 h</td><td>No peak</td><td>&gt;42 h</td><td>Forms multihexamers; binds albumin; less nocturnal and severe hypoglycemia vs glargine</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co prl">
+      <div class="co-t">Why Rapid &gt; Regular for Prandial Coverage</div>
+      Rapid-acting analogues (aspart, lispro, glulisine) have <strong>less tendency for self-aggregation</strong> &#8594; more rapid absorption and onset, shorter duration. This means their decay corresponds to the decline in plasma glucose after a meal &#8594; fewer hypoglycemic episodes. Regular is reserved for IV infusion (less expensive, equally effective IV).
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Type 1 DM — Insulin Regimen Principles</h3>
+    <ul class="bl">
+      <li>Goal: mimic physiologic insulin secretion (basal + prandial)</li>
+      <li>Total daily dose T1DM: <strong>0.4&#8211;1.0 units/kg/day</strong></li>
+      <li><strong>30&#8211;50% as basal</strong> (glargine or degludec); remainder as prandial (aspart, lispro, or glulisine)</li>
+      <li><strong>Insulin-to-carbohydrate ratio:</strong> typically 1 unit per 10&#8211;15 g carbohydrate (individualized)</li>
+      <li><strong>Correction factor:</strong> estimated from <strong>1500 &#247; total daily insulin dose</strong> = mg/dL drop per 1 unit</li>
+      <li>Long-acting insulin dose adjusted based on <strong>fasting glucose</strong>; prandial adjusted for pre-meal glucose + carb intake</li>
+      <li>All T1DM patients should have a filled <strong>glucagon prescription</strong></li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Key Limitation of Exogenous Insulin</div>
+      Injected insulin enters the systemic circulation immediately, whereas endogenous insulin is secreted into the <strong>portal venous system</strong>. This exposes the liver to subphysiologic insulin levels &#8212; requiring higher peripheral insulin levels to restrain hepatic glucose production. No current regimen precisely reproduces physiologic secretion.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Insulin Delivery Systems</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">MDI (Multiple Daily Injections)</div>
+        <p>Basal (glargine/degludec) + bolus (aspart/lispro/glulisine)</p>
+        <p>Most flexibility; best chance for near normoglycemia in T1DM</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">CSII (Continuous Subcutaneous Insulin Infusion)</div>
+        <p>Insulin pump; requires manual input for boluses</p>
+        <p>Challenges: infusion site infection, occlusion &#8594; hyperglycemia or DKA</p>
+        <p>Short half-life of rapid-acting analogue &#8594; DKA quickly if delivery interrupted</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">AID (Automated Insulin Delivery)</div>
+        <p>Pump + CGM + algorithm = closes the loop</p>
+        <p><strong>Preferred delivery for most T1DM</strong> (cost/coverage are barriers)</p>
+        <p>Hybrid closed-loop: automates basal; patient inputs prandial bolus</p>
+        <p>Can predictively suspend basal for hypoglycemia prevention</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Combination Insulins — NOT for T1DM</h3>
+    <ul class="bl">
+      <li>70/30 (NPH + regular), 75/25 (protamine lispro + lispro), 50/50 — convenient (2 injections/day)</li>
+      <li><strong>Do NOT allow independent adjustment</strong> of short-acting and long-acting insulin</li>
+      <li><strong>Not appropriate in T1DM management</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Pramlintide (Amylin Analogue) — Adjunct to Insulin</h3>
+    <ul class="bl">
+      <li>Approved for insulin-treated T1DM and T2DM</li>
+      <li>Mechanism: slows gastric emptying + suppresses glucagon (does NOT alter insulin levels)</li>
+      <li>HbA1c reduction: 0.25&#8211;0.5%</li>
+      <li><strong>T1DM dose:</strong> start 15 &#956;g SC before each meal &#8594; max 30&#8211;60 &#956;g</li>
+      <li><strong>T2DM dose:</strong> start 60 &#956;g SC before each meal &#8594; max 120 &#956;g</li>
+      <li>SE: nausea, vomiting (titrate slowly); &#8593; risk of hypoglycemia with insulin &#8594; reduce rapid-acting insulin initially</li>
+      <li><strong>CI: hypoglycemia unawareness</strong> (pramlintide suppresses glucagon &#8594; worsens hypoglycemia recovery)</li>
+      <li>Do NOT combine with other drugs that slow GI motility</li>
+    </ul>
+  </div>
+</section>
+
+<!-- S5 DRUG CLASSES -->
+<section class="sec" id="s5">
+  <div class="sec-hd"><span class="sec-n">05</span><h2>Glucose-Lowering Drug Classes</h2></div>
+  <div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Master Framework — Before Memorizing Each Drug</div>
+    Drugs that do NOT cause hypoglycemia alone: metformin, SGLT-2i, DPP-4i, GLP-1 RA, TZD, &#945;-glucosidase inhibitors. Drugs that DO cause hypoglycemia: sulfonylureas, glinides, insulin, pramlintide (when combined with insulin).
+  </div>
+
+  <div class="sub">
+    <h3>1. Metformin (Biguanide)</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Mechanism &amp; Benefits</div>
+        <p><strong>&#8595; Hepatic glucose production</strong> (primary) + modest &#8593; peripheral glucose utilization + influences gut function</p>
+        <p>HbA1c reduction: <strong>1&#8211;2%</strong></p>
+        <p>Weight neutral; no hypoglycemia; inexpensive; modest &#8595; CV events; lowers FPG and insulin levels; improves lipid profile</p>
+        <p>Extended-release: fewer GI side effects</p>
+        <p>Start low &#8594; escalate every 1&#8211;2 weeks to max <strong>2000 mg/day</strong></p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Side Effects &amp; Contraindications</div>
+        <p><strong>SE:</strong> diarrhea, nausea, anorexia, metallic taste, lactic acidosis (rare), vitamin B12 deficiency (monitor)</p>
+        <p><strong>CI:</strong></p>
+        <ul class="bl">
+          <li>GFR &lt;30 mL/min (moderate renal insufficiency)</li>
+          <li>Any form of acidosis</li>
+          <li>Unstable CHF</li>
+          <li>Liver disease</li>
+          <li>Radiographic contrast (hold; restart after renal function confirmed)</li>
+          <li>Hospitalized patients; patients with nothing orally</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>2. SGLT-2 Inhibitors</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Mechanism &amp; Benefits</div>
+        <p><strong>&#8593; Renal glucose excretion</strong> &#8212; inhibits SGLT-2 in proximal convoluted tubule &#8594; glucose-lowering is <strong>insulin-independent</strong></p>
+        <p>Drugs: canagliflozin, dapagliflozin, empagliflozin, ertugliflozin, bexagliflozin, sotagliflozin (SGLT-1/2)</p>
+        <p>HbA1c: <strong>0.5&#8211;1.0%</strong></p>
+        <p>Renal protective, <strong>&#8595; CV events</strong>, <strong>&#8595; heart failure hospitalizations</strong>, modest weight loss, modest BP reduction (3&#8211;6 mmHg systolic), no hypoglycemia</p>
+        <p>Empagliflozin or canagliflozin &#8594; &#8595; ASCVD events and all-cause CV mortality in T2DM + established ASCVD</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Side Effects &amp; Contraindications</div>
+        <p><strong>SE:</strong></p>
+        <ul class="bl">
+          <li>&#8593; Genital mycotic infections (both sexes) + necrotizing fasciitis of perineum (Fournier&#8217;s gangrene)</li>
+          <li>Polyuria, dehydration, acutely impaired kidney function</li>
+          <li><strong>Euglycemic DKA</strong> &#8212; SGLT-2i &#8593; glucagon &#8594; &#8593; hepatic ketone production; glucose may be normal or mildly elevated</li>
+          <li>Hyperkalemia (impair proximal Na/K reabsorption)</li>
+          <li>Dapagliflozin: possible &#8593; bladder cancer risk</li>
+        </ul>
+        <p><strong>CI:</strong> T1DM or pancreatogenic DM (insulin deficiency); moderate renal insufficiency for initiation (eGFR &lt;45 mL/min); do NOT use in stage 4 CKD (eGFR &lt;30)</p>
+        <p><strong>Perioperative:</strong> discontinue <strong>3&#8211;4 days before surgery</strong>; stop during serious illness</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>3. GLP-1 Receptor Agonists</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Mechanism &amp; Benefits</div>
+        <p><strong>Mechanism:</strong> &#8593; glucose-stimulated insulin, &#8595; glucagon, slow gastric emptying, satiety (GLP-1 receptor expressed in brain)</p>
+        <p>Drugs: dulaglutide, exenatide, liraglutide, lixisenatide, semaglutide (oral available), tirzepatide (GLP-1+GIP)</p>
+        <p>HbA1c: GLP-1 RA <strong>0.5&#8211;1.0%</strong>; tirzepatide <strong>1.8&#8211;2.4%</strong></p>
+        <p>Weight loss; <strong>no hypoglycemia</strong> (glucose-dependent — only works when glucose &gt; fasting); &#8595; CV events; modest renoprotection</p>
+        <p>Long-acting (weekly): sustained-release exenatide, dulaglutide, lixisenatide, semaglutide</p>
+        <p><strong>Tirzepatide</strong> (GLP-1+GIP dual agonist) &#8594; greatest weight loss of any glucose-lowering drug class</p>
+        <p><strong>Liraglutide:</strong> &#8595; CVD events + &#8595; diabetic kidney disease in T2DM + established CVD</p>
+        <p><strong>Semaglutide:</strong> &#8595; CVD events + &#8595; diabetic kidney disease, but &#8593; retinopathy-related complications (with rapid HbA1c improvement)</p>
+        <p><strong>Dulaglutide:</strong> &#8595; CVD events + &#8595; composite microvascular retinopathy/nephropathy</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Side Effects &amp; Contraindications</div>
+        <p><strong>SE:</strong> nausea/vomiting (dose-limiting; start low and titrate), possibly associated with pancreatitis, possibly worsen retinopathy (with rapid glycemic improvement)</p>
+        <p><strong>Black box warning:</strong> thyroid C-cell tumors in rodents &#8594; <strong>CI: medullary carcinoma of thyroid or MEN</strong></p>
+        <p><strong>CI:</strong> medullary thyroid carcinoma/MEN; renal disease; history of pancreatitis; agents that also slow GI motility; previous ileus; gastroparesis history (tirzepatide)</p>
+        <p>Slow gastric emptying &#8594; may influence absorption of other drugs</p>
+        <p>GLP-1 RA levels of activity &gt; DPP-4 inhibitors (which only prolong endogenous GLP-1)</p>
+        <p>Higher doses of liraglutide and semaglutide approved for obesity treatment</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>4. DPP-4 Inhibitors</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Mechanism &amp; Benefits</div>
+        <p>Prolong endogenous GLP-1 (and GIP) action by inhibiting DPP-4 enzyme &#8594; &#8593; insulin, &#8595; glucagon</p>
+        <p>Drugs: sitagliptin, saxagliptin, linagliptin, alogliptin, vildagliptin</p>
+        <p>HbA1c: <strong>0.5&#8211;0.8%</strong></p>
+        <p>Well tolerated; no hypoglycemia; no weight gain; preferential effect on postprandial glucose</p>
+        <p>GLP-1 RA action &gt; DPP-4 inhibitor action (DPP-4i only restores endogenous levels)</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Side Effects</div>
+        <p>Angioedema/urticaria; immune-mediated dermatologic effects (rash, hypersensitivity including anaphylaxis, Stevens-Johnson)</p>
+        <p>Rarely associated with pancreatitis</p>
+        <p>Severe joint pain reported</p>
+        <p><strong>&#8595; Dose with renal insufficiency</strong> (except linagliptin &#8212; hepatically cleared)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>5. Sulfonylureas &amp; Glinides (Insulin Secretagogues)</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Mechanism &amp; Key Facts</div>
+        <p>Bind <strong>SUR subunit of K-ATP channel</strong> &#8594; close it &#8594; depolarization &#8594; insulin secretion (independent of glucose)</p>
+        <p>Most effective in T2DM of recent onset (&lt;5 years) with residual beta cell function</p>
+        <p><strong>Sulfonylureas:</strong> glimepiride, glipizide, glyburide; HbA1c <strong>1&#8211;2%</strong></p>
+        <p>Glimepiride and glipizide &#8594; once daily; <strong>preferred over glyburide in elderly</strong></p>
+        <p><strong>Glinides:</strong> repaglinide, nateglinide; HbA1c 0.5&#8211;1%; short half-life &#8594; give immediately before each meal; target postprandial glucose excursions</p>
+        <p><strong>Repaglinide</strong>: may be used cautiously in CKD (exception to renal CI)</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Side Effects &amp; Interactions</div>
+        <p><strong>Hypoglycemia</strong> (most important; related to: delayed meals, exercise, alcohol, renal insufficiency)</p>
+        <p>Weight gain (from &#8593; insulin levels)</p>
+        <p>Metabolized in liver &#8594; active metabolites cleared by kidney &#8594; <strong>CI: significant hepatic or renal dysfunction</strong></p>
+        <p>Drug interactions: warfarin, aspirin, ketoconazole, fluconazole, &#945;-glucosidase inhibitors</p>
+        <p><strong>Antibiotic interactions: discontinue sulfonylureas when adding fluoroquinolones, clarithromycin, TMP-SMX, metronidazole, fluconazole</strong></p>
+        <p>Durability of glycemic control slightly less for sulfonylureas vs metformin or TZD</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>6. Thiazolidinediones (TZD)</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Mechanism &amp; Benefits</div>
+        <p>Agonists of <strong>PPAR-&#947; nuclear receptor</strong> (found at highest levels in adipocytes) &#8594; &#8595; insulin resistance; promote adipocyte differentiation; &#8595; hepatic fat; redistribute fat from central to peripheral</p>
+        <p>Drugs: pioglitazone, rosiglitazone</p>
+        <p>HbA1c: <strong>0.5&#8211;1.4%</strong></p>
+        <p>&#8595; Insulin requirements; no hypoglycemia</p>
+        <p>Effects take several days (vs immediate for sulfonylureas, GLP-1 RA)</p>
+        <p><strong>Pioglitazone:</strong> &#8593; HDL more, &#8595; LDL less, &#8595; TG; may &#8595; stroke/MI in insulin-resistant non-diabetics with prior stroke/TIA</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Side Effects &amp; Contraindications</div>
+        <p><strong>Weight gain</strong> 2&#8211;3 kg; peripheral edema; mild &#8595; hematocrit; mild &#8593; plasma volume</p>
+        <p><strong>CHF</strong> &#8212; more common; <strong>CI: CHF class III/IV; hepatic insufficiency</strong></p>
+        <p><strong>Fractures</strong> &#8212; &#8593; risk in postmenopausal women</p>
+        <p>Worsening of <strong>diabetic macular edema</strong> (rare FDA alert)</p>
+        <p><strong>Pioglitazone:</strong> possible &#8593; bladder cancer risk (FDA review)</p>
+        <p>Induces ovulation in premenopausal women with PCOS &#8594; warn about pregnancy risk (safety not established)</p>
+        <p><strong>Rosiglitazone:</strong> &#8593; LDL, HDL, TG slightly</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>7. &#945;-Glucosidase Inhibitors</h3>
+    <ul class="bl">
+      <li>Mechanism: &#8595; GI glucose absorption by inhibiting enzyme that cleaves oligosaccharides into simple sugars</li>
+      <li>Drugs: acarbose, miglitol; HbA1c <strong>0.5&#8211;0.8%</strong></li>
+      <li>Taken <strong>just before each meal</strong>; reduce postprandial glucose (unique mechanism)</li>
+      <li>SE: GI flatulence, diarrhea, abdominal distention (from oligosaccharides reaching large bowel); elevated LFTs</li>
+      <li>CI: inflammatory bowel disease, gastroparesis, serum creatinine &gt;177 &#956;mol/L (2 mg/dL)</li>
+      <li><strong>Key board pearl:</strong> If hypoglycemia occurs while on &#945;-glucosidase inhibitors &#8594; use <strong>pure glucose</strong> (not complex carbohydrates, which won&#8217;t be absorbed)</li>
+      <li>Can &#8593; sulfonylurea levels and increase hypoglycemia risk</li>
+      <li>Used commonly in South Asian patients; less common in US/Europe</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Summary Comparison Table</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug Class</th><th>HbA1c &#8595;</th><th>Hypoglycemia</th><th>Weight</th><th>Key CI</th><th>Onset of Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Metformin</td><td>1&#8211;2%</td><td>No</td><td>Neutral</td><td>GFR &lt;30, acidosis, CHF, liver</td><td>Days (slow)</td></tr>
+          <tr><td>SGLT-2i</td><td>0.5&#8211;1%</td><td>No</td><td>&#8595; modest</td><td>T1DM, eGFR &lt;45 initiation</td><td>Immediate</td></tr>
+          <tr><td>GLP-1 RA</td><td>0.5&#8211;1%</td><td>No (alone)</td><td>&#8595;&#8595;</td><td>MEN/medullary thyroid Ca</td><td>Immediate</td></tr>
+          <tr><td>Tirzepatide</td><td>1.8&#8211;2.4%</td><td>No (alone)</td><td>&#8595;&#8595;&#8595;</td><td>Same + gastroparesis</td><td>Immediate</td></tr>
+          <tr><td>DPP-4i</td><td>0.5&#8211;0.8%</td><td>No</td><td>Neutral</td><td>Reduce dose in renal insufficiency</td><td>Immediate</td></tr>
+          <tr><td>Sulfonylureas</td><td>1&#8211;2%</td><td><strong>Yes</strong></td><td>&#8593;</td><td>Renal/hepatic dysfunction</td><td>Immediate</td></tr>
+          <tr><td>Glinides</td><td>0.5&#8211;1%</td><td>Yes</td><td>&#8593;</td><td>Renal/hepatic (except repaglinide)</td><td>Immediate</td></tr>
+          <tr><td>TZD</td><td>0.5&#8211;1.4%</td><td>No</td><td>&#8593;</td><td>CHF III/IV, liver disease</td><td>Days (slow)</td></tr>
+          <tr><td>&#945;-Glucosidase</td><td>0.5&#8211;0.8%</td><td>No</td><td>Neutral</td><td>IBD, gastroparesis, Cr &gt;2</td><td>Immediate</td></tr>
+          <tr><td>Insulin</td><td>No limit</td><td><strong>Yes</strong></td><td>&#8593;</td><td>None (adjustable)</td><td>Immediate</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- S6 T2DM ALGORITHM -->
+<section class="sec" id="s6">
+  <div class="sec-hd"><span class="sec-n">06</span><h2>T2DM Treatment Algorithm</h2></div>
+  <div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">The Paradigm Shift</div>
+    The approach to T2DM has changed dramatically. GLP-1 RAs and SGLT-2 inhibitors reduce cardiovascular events AND slow renal disease progression &#8212; meaning a GLP-1 RA or SGLT-2 inhibitor should be used in <strong>most individuals with T2DM</strong>, not just when metformin fails.
+  </div>
+
+  <div class="sub">
+    <h3>Initial Choice Based on Hyperglycemia Severity</h3>
+    <ul class="bl">
+      <li><strong>Mild FPG 126&#8211;199 mg/dL:</strong> often responds to single oral agent</li>
+      <li><strong>Moderate FPG 200&#8211;250 mg/dL:</strong> usually requires &gt;1 oral agent or insulin</li>
+      <li><strong>Severe FPG &gt;250 mg/dL:</strong> may require insulin initially &#8212; reduces &#8220;glucose toxicity&#8221; to beta cells, may then allow oral agents alone</li>
+      <li><strong>Severe FPG 250&#8211;300 mg/dL or symptomatic:</strong> consider insulin as initial therapy</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment Algorithm Flowchart (Figure 416-3)</h3>
+    <div class="flow">
+      <div class="flow-box blu">All T2DM: MNT + Physical activity + Weight loss goal 5&#8211;7% + Metformin</div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-row">
+        <div class="flow-line">
+          <div class="flow-box amb">ASCVD or ASCVD risk factors?</div>
+          <div class="flow-arrow">&#8595;</div>
+          <div class="flow-box">GLP-1 RA or SGLT-2 inhibitor</div>
+          <div class="flow-arrow">&#8595;</div>
+          <div class="flow-box" style="font-size:11.5px">Still above target? Add TZD or add SGLT-2i/GLP-1RA</div>
+        </div>
+        <div class="flow-line">
+          <div class="flow-box red">Heart failure (HFrEF or HFpEF)?</div>
+          <div class="flow-arrow">&#8595;</div>
+          <div class="flow-box grn">SGLT-2 inhibitor</div>
+        </div>
+        <div class="flow-line">
+          <div class="flow-box red">CKD?</div>
+          <div class="flow-arrow">&#8595;</div>
+          <div class="flow-box grn">SGLT-2 inhibitor</div>
+          <div class="flow-arrow">&#8595;</div>
+          <div class="flow-box" style="font-size:11.5px">Still above target? Add GLP-1 RA</div>
+        </div>
+        <div class="flow-line">
+          <div class="flow-box" style="border-color:var(--pur)">Weight loss goal?</div>
+          <div class="flow-arrow">&#8595;</div>
+          <div class="flow-box" style="background:var(--pur-l);border-color:var(--pur);font-size:11.5px">GLP-1 RA or metabolic surgery or structured medical weight program</div>
+        </div>
+      </div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box red">If HbA1c still above target &#8594; Add insulin (long-acting at bedtime is first step) &#43; combination injectable and oral &#43; re-emphasize lifestyle</div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Key Rules for T2DM Combination Therapy</h3>
+    <ul class="bl">
+      <li>Most individuals will <strong>eventually require multiple agents</strong> &#8212; T2DM is progressive</li>
+      <li>Reassess HbA1c <strong>every 3 months</strong>; if still above target, add third agent including basal insulin</li>
+      <li><strong>GRADE study:</strong> adding liraglutide or basal insulin to metformin &#8594; better glycemic control than glimepiride or sitagliptin</li>
+      <li>Effective combinations: metformin + SGLT-2i, metformin + GLP-1 RA, metformin + insulin, long-acting insulin + GLP-1 RA</li>
+      <li>Adding GLP-1 RA limits weight gain from insulin and may &#8595; insulin dose needed</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>T2DM Insulin Initiation</h3>
+    <ul class="bl">
+      <li>Start with <strong>long-acting insulin at bedtime</strong>: 0.1&#8211;0.4 U/kg/day (NPH, glargine, or degludec)</li>
+      <li>Bedtime insulin is <strong>more effective than morning</strong> for fasting hyperglycemia (hepatic glucose production peak at night)</li>
+      <li>Glargine at bedtime &#8594; less nocturnal hypoglycemia than NPH at bedtime</li>
+      <li>Adjust dose in 10&#8211;20% increments based on CGM/BGM</li>
+      <li>As T2DM progresses &#8594; add prandial insulin (basal/bolus regimen)</li>
+      <li>Large insulin requirements (&gt;200 units/day) &#8594; use concentrated forms (U-500) to reduce injection volume</li>
+      <li><strong>&#8220;Sliding scale&#8221; alone is inadequate</strong> for inpatient glucose management</li>
+    </ul>
+  </div>
+</section>
+
+<!-- S7 LIFESTYLE -->
+<section class="sec" id="s7">
+  <div class="sec-hd"><span class="sec-n">07</span><h2>Lifestyle Management</h2></div>
+  <div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+
+  <div class="sub">
+    <h3>Medical Nutrition Therapy (MNT)</h3>
+    <ul class="bl">
+      <li>T1DM focus: <strong>match carbohydrate intake temporally and quantitatively</strong> with insulin dose (informed by CGM)</li>
+      <li>T2DM focus: <strong>weight loss</strong> (goal 5&#8211;10%), address CV risk factors; very-low-carbohydrate diets may produce rapid, dramatic glucose lowering in new-onset T2DM</li>
+      <li>Avoid fructose- and sucrose-containing beverages</li>
+      <li>Use glycemic index: estimates postprandial glucose rise per food</li>
+      <li>Sleep deprivation and shift work &#8594; &#8593; weight gain and insulin resistance</li>
+      <li>Routine supplements of vitamins or antioxidants not supported by evidence; vitamin D and calcium as per general population recommendations</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Physical Activity</h3>
+    <ul class="bl">
+      <li>ADA recommendation: <strong>150 min/week of moderate aerobic activity</strong>, distributed over &#8805;3 days, no gaps &gt;2 days</li>
+      <li>Benefits: CV risk reduction, &#8595; BP, maintained muscle mass, &#8595; body fat, &#8593; insulin sensitivity</li>
+      <li><strong>Untreated proliferative retinopathy:</strong> relative contraindication to vigorous exercise (risk of vitreous hemorrhage or retinal detachment)</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Exercise in T1DM — High Risk of Both Hyper- and Hypoglycemia</div>
+      T1DM patients lack normal glucoregulatory response (normally insulin &#8595;, glucagon &#8593; during exercise). Management rules:
+    </div>
+    <ul class="bl">
+      <li>Monitor glucose before, during, and after exercise</li>
+      <li><strong>Delay exercise if glucose &gt;250 mg/dL AND ketones present</strong> (low insulin &#8594; catecholamines &#8593; &#8594; &#8593; glucose, &#8593; ketones &#8594; DKA)</li>
+      <li><strong>If glucose &lt;90 mg/dL:</strong> ingest carbohydrate before exercising</li>
+      <li>Monitor glucose during exercise; ingest carbohydrate as needed</li>
+      <li>Decrease insulin doses before AND after exercise; inject into <strong>non-exercising area</strong></li>
+      <li>T2DM: exercise-related hypoglycemia less common but can occur with insulin or secretagogues</li>
+    </ul>
+  </div>
+</section>
+
+<!-- S8 DKA -->
+<section class="sec" id="s8">
+  <div class="sec-hd"><span class="sec-n">08</span><h2>Diabetic Ketoacidosis (DKA)</h2></div>
+  <div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Core Definition</div>
+    DKA = <strong>relative or absolute insulin deficiency + counterregulatory hormone excess</strong> (glucagon, catecholamines, cortisol, GH) &#8594; hyperglycemia + ketosis + metabolic acidosis. Most cases in T1DM. Also occurs in: obese young adults of Hispanic/African descent (ketosis-prone T2DM), SGLT-2 inhibitor use.
+  </div>
+
+  <div class="sub">
+    <h3>Pathophysiology</h3>
+    <div class="flow">
+      <div class="flow-box">&#8595; Insulin / &#8593; Glucagon, Catecholamines, Cortisol, GH</div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-row">
+        <div class="flow-line">
+          <div class="flow-box amb">&#8593; Hepatic gluconeogenesis + glycogenolysis<br>&#8594; Hyperglycemia &#8594; glucosuria &#8594; osmotic diuresis &#8594; volume depletion</div>
+        </div>
+        <div class="flow-line">
+          <div class="flow-box red">&#8593; Lipolysis from adipocytes &#8594; &#8593; Free fatty acids &#8594; &#8593; Hepatic ketone body synthesis<br>&#8594; Ketonemia + metabolic acidosis (&#8593; anion gap)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Precipitating Events</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Common Precipitants</div>
+        <ul class="bl">
+          <li><strong>Inadequate insulin</strong> &#8212; most common; omission, pump failure, eating disorder, rising insulin costs</li>
+          <li><strong>Infection</strong> &#8212; pneumonia, UTI, gastroenteritis, sepsis (look for even without fever)</li>
+          <li><strong>Infarction</strong> &#8212; cerebral, coronary, mesenteric, peripheral</li>
+          <li>Pancreatitis; cocaine use; pregnancy</li>
+          <li>SGLT-2 inhibitor therapy (euglycemic DKA)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Clinical Features</div>
+        <ul class="bl">
+          <li>Symptoms develop over <strong>24 hours</strong></li>
+          <li>Nausea, vomiting, abdominal pain (may mimic acute abdomen)</li>
+          <li>Thirst, polyuria</li>
+          <li>Tachycardia, dehydration, hypotension</li>
+          <li><strong>Kussmaul respirations</strong> + <strong>fruity breath odor</strong> (metabolic acidosis + acetone)</li>
+          <li>Lethargy &#8594; coma with severe DKA</li>
+          <li><strong>Cerebral edema</strong> &#8212; most serious non-metabolic complication; most often in <strong>children</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Laboratory Diagnosis</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Parameter</th><th>DKA</th><th>HHS</th><th>Euglycemic DKA (SGLT-2i)</th></tr></thead>
+        <tbody>
+          <tr><td>Glucose (mg/dL)</td><td><strong>250&#8211;600</strong></td><td><strong>600&#8211;1200</strong></td><td><strong>100&#8211;250</strong> (near-normal)</td></tr>
+          <tr><td>Sodium</td><td>125&#8211;135</td><td>135&#8211;145</td><td>Normal</td></tr>
+          <tr><td>Potassium</td><td>Normal to &#8593; (total body depleted!)</td><td>Normal</td><td>Normal to &#8593;</td></tr>
+          <tr><td>Osmolality</td><td>&gt;300 mOsm/mL</td><td>&gt;300 mOsm/mL</td><td>Normal</td></tr>
+          <tr><td>&#946;-hydroxybutyrate</td><td><strong>&gt;3.0 mmol/L</strong></td><td>&lt;1.0 mmol/L</td><td><strong>&gt;3.0 mmol/L</strong></td></tr>
+          <tr><td>Serum bicarbonate</td><td><strong>&lt;18 meq/L</strong></td><td>&gt;18 meq/L</td><td>&lt;18 meq/L</td></tr>
+          <tr><td>Arterial pH</td><td><strong>6.8&#8211;7.3</strong></td><td>&gt;7.3</td><td>&lt;7.3</td></tr>
+          <tr><td>Anion gap</td><td><strong>&#8593;</strong></td><td>Normal to slightly &#8593;</td><td><strong>&#8593;</strong></td></tr>
+          <tr><td>Ketones</td><td>Strong positive</td><td>Weak/negative</td><td>Strong positive</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Key Laboratory Pearls</h3>
+    <ul class="bl">
+      <li><strong>K&#8314; paradox:</strong> Total body K&#8314; deficit 3&#8211;5 meq/kg BUT serum K&#8314; may be normal or elevated at presentation (acidosis drives K&#8314; out of cells + volume depletion concentrates serum K&#8314;). During treatment, K&#8314; drops rapidly.</li>
+      <li><strong>Sodium correction:</strong> measured serum Na &#8595; due to hyperglycemia. Add <strong>1.6 meq Na per 100 mg/dL rise in glucose</strong>. Normal measured Na in DKA = more profound water deficit (not truly normal).</li>
+      <li><strong>&#946;-hydroxybutyrate preferred over nitroprusside</strong> for ketone measurement. Nitroprusside detects only acetoacetate and acetone (not &#946;-OHB which is produced 3&#215; more). Drugs causing false-positive nitroprusside: captopril, penicillamine, valproic acid.</li>
+      <li>Hyperamylasemia common in DKA &#8212; usually <strong>salivary origin, not diagnostic of pancreatitis</strong>; get serum lipase if pancreatitis suspected.</li>
+      <li>Degree of acidosis and hyperglycemia do NOT necessarily correlate (ketonemia is the consistent finding &#8212; distinguishes DKA from simple hyperglycemia).</li>
+      <li>BUN and creatinine elevated &#8594; intravascular volume depletion</li>
+      <li>Differential: starvation ketosis, alcoholic ketoacidosis (HCO3 usually &gt;15), other increased anion gap acidoses</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>DKA Severity Classification</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-g">Mild</div>
+        <p>pH 7.25&#8211;7.3</p>
+        <p>HCO3 15&#8211;18 meq/L</p>
+        <p>Mental status: normal</p>
+        <p>Can treat in step-down unit</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Moderate</div>
+        <p>pH 7.0&#8211;7.25</p>
+        <p>HCO3 10&#8211;15 meq/L</p>
+        <p>Mental status: mildly reduced</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Severe</div>
+        <p>pH &lt;7.0</p>
+        <p>HCO3 &lt;10 meq/L</p>
+        <p>Mental status: stupor/coma</p>
+        <p>ICU setting required</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>DKA Treatment — Step by Step</h3>
+    <div class="flow">
+      <div class="flow-box blu"><strong>Step 1:</strong> Confirm diagnosis (&#8593; glucose, &#8593; &#946;-OHB, metabolic acidosis) + assess precipitating event</div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box"><strong>Step 2 — Fluids:</strong> 2&#8211;3L of 0.9% NS or Lactated Ringer&#8217;s over first 1&#8211;3h (10&#8211;20 mL/kg/h)<br>&#8594; then 0.45% saline at 250&#8211;500 mL/h<br>&#8594; switch to 5&#8211;10% dextrose + 0.45% saline when glucose reaches <strong>250 mg/dL</strong><br><span style="font-size:11.5px;color:var(--t3)">Ringer&#8217;s lactate: faster DKA resolution, less hyperchloremia than NS</span></div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box red"><strong>Check K&#8314; FIRST:</strong> If K&#8314; &lt;3.3 meq/L &#8594; <strong>hold insulin; replece K&#8314; first</strong> (giving insulin will worsen hypokalemia &#8594; fatal arrhythmia)</div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box"><strong>Step 3 — Insulin:</strong> IV bolus 0.1 units/kg regular insulin &#8594; then continuous IV infusion 0.1 units/kg/h<br>If no response in 2&#8211;4h: 2&#8211;3&#215; infusion rate<br>Mild&#8211;moderate DKA: SC rapid-acting insulin acceptable (0.1 U/kg then q1h)</div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box amb"><strong>Step 4 — Potassium:</strong> Replace K&#8314; as soon as urine output adequate and serum K&#8314; normal<br>K&#8314; &lt;3.5: 10&#8211;20 meq/h IV until K&#8314; &gt;3.5<br>K&#8314; 3.5&#8211;5.0: 10&#8211;20 meq/L per IV liter to keep K&#8314; 4&#8211;5<br>K&#8314; &gt;5.0: start insulin, hold K&#8314;; recheck q2h</div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box"><strong>Bicarbonate:</strong> Only if pH &lt;7.0 &#8212; 50 meq NaHCO3 in 200 mL sterile water with 10 meq KCl per hour until pH &gt;7.0. NOT shown to improve outcomes otherwise.</div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box grn"><strong>Resolution:</strong> Glucose goal 150&#8211;200 mg/dL; HCO3 &#8805;18; normal ketones and pH<br>Add <strong>long-acting insulin</strong> as soon as patient is eating &#8212; allow <strong>2&#8211;4 hour overlap</strong> with IV infusion before stopping it</div>
+    </div>
+    <div class="co wrn">
+      <div class="co-t">Important Sequence of Resolution</div>
+      Hyperglycemia resolves faster than ketoacidosis. The anion gap normalizes before bicarbonate. A hyperchloremic acidosis (HCO3 15&#8211;18) often follows successful treatment &#8212; this is expected and gradually resolves. <strong>Resolution of euglycemic DKA should be based on bicarbonate correction, not glucose.</strong>
+    </div>
+    <ul class="bl">
+      <li>Mortality of DKA: <strong>&lt;1%</strong> &#8212; related more to underlying precipitating event (infection, MI)</li>
+      <li>Even a single DKA episode &#8594; greatly increased 1-year mortality rate</li>
+      <li>Major non-metabolic complication: <strong>cerebral edema</strong> (mostly children during DKA resolution)</li>
+      <li>Other complications: venous thrombosis, upper GI bleeding, ARDS</li>
+    </ul>
+  </div>
+</section>
+
+<!-- S9 HHS -->
+<section class="sec" id="s9">
+  <div class="sec-hd"><span class="sec-n">09</span><h2>Hyperglycemic Hyperosmolar State (HHS)</h2></div>
+  <div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Core Distinction from DKA</div>
+    HHS = extreme hyperglycemia + hyperosmolality + profound dehydration WITHOUT significant ketosis or acidosis. Occurs in elderly T2DM. Relative insulin deficiency (not absolute) &#8212; enough insulin to suppress ketogenesis but not hyperglycemia. Mortality up to <strong>15%</strong> &#8212; far higher than DKA.
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Presentation</h3>
+    <ul class="bl">
+      <li>Typical patient: <strong>elderly T2DM</strong> with <strong>several-week history</strong> of polyuria, weight loss, diminished oral intake</li>
+      <li>Culminates in mental confusion, lethargy, or <strong>coma</strong></li>
+      <li><strong>Absent:</strong> nausea, vomiting, abdominal pain, Kussmaul respirations (distinguishes from DKA)</li>
+      <li>Physical exam: profound dehydration, hyperosmolality, hypotension, tachycardia, altered mental status</li>
+      <li>Precipitants: MI, stroke, sepsis, pneumonia; debilitating condition (prior stroke, dementia) limiting water intake</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Why No Ketosis in HHS?</h3>
+    <div class="co prl">
+      <div class="co-t">Mechanism — Not Fully Understood</div>
+      Insulin deficiency in HHS is only <strong>relative</strong> and less severe than in DKA. Lower levels of counterregulatory hormones and free fatty acids than in DKA. Possible: liver is less capable of ketone body synthesis, or the insulin/glucagon ratio does not favor ketogenesis. Small amount of insulin is still present &#8212; enough to prevent uncontrolled lipolysis and ketogenesis.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment</h3>
+    <ul class="bl">
+      <li>Fluid replacement more profound than DKA (fluid deficit often <strong>9&#8211;10 L</strong> accumulated over days to weeks)</li>
+      <li>Initial: <strong>1&#8211;3L of 0.9% NS</strong> over first 2&#8211;3h to stabilize hemodynamics</li>
+      <li>If Na &gt;150 meq/L &#8594; use <strong>0.45% saline</strong></li>
+      <li>After hemodynamic stability &#8594; free water deficit reversal with hypotonic fluids (0.45% saline &#8594; D5W) over <strong>1&#8211;2 days</strong> (200&#8211;300 mL/h); too rapid reversal may worsen neurologic function</li>
+      <li>Insulin: IV bolus 0.1 unit/kg &#8594; continuous infusion 0.1 unit/kg/h; same escalation as DKA</li>
+      <li>K&#8314; repletion as dictated by serial measurements (patients on diuretics may have large K&#8314; deficit + magnesium deficiency)</li>
+      <li>After recovery: discharge on insulin; some patients can later switch to oral agents</li>
+    </ul>
+  </div>
+</section>
+
+<!-- S10 HOSPITAL -->
+<section class="sec" id="s10">
+  <div class="sec-hd"><span class="sec-n">10</span><h2>Diabetes Management in Hospital / Perioperative</h2></div>
+  <div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+
+  <div class="sub">
+    <h3>Inpatient Glycemic Goals</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">Critically / Non-Critically Ill</div>
+        <p><strong>Target: 140&#8211;180 mg/dL</strong></p>
+        <p>NICE-SUGAR trial: strict control (81&#8211;108 mg/dL) &#8594; &#8593; mortality + &#8593; severe hypoglycemia. Avoid very tight control in ICU.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Selected Patients</div>
+        <p>Target: <strong>110&#8211;140 mg/dL</strong> with hypoglycemia avoidance</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Perioperative</div>
+        <p>Target: <strong>80&#8211;180 mg/dL</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Principles of Inpatient Insulin Management</h3>
+    <ul class="bl">
+      <li><strong>Sliding scale alone is inadequate</strong> &#8212; treats glucose reactively; no basal coverage; not standard of care</li>
+      <li>Preferred: <strong>basal-bolus regimen</strong> &#8212; long-acting (basal) + prandial (rapid-acting) + corrective insulin</li>
+      <li><strong>IV insulin infusion preferred</strong> in: ICU, clinically unstable patients &#8212; half-life of IV insulin is minutes (very short), allowing rapid adjustment</li>
+      <li>For relatively short (&lt;4h) procedures &#8594; SC insulin may suffice</li>
+      <li><strong>Regular insulin used IV</strong> (not analogues) &#8212; less expensive, equally effective IV</li>
+      <li>When stopping IV insulin infusion &#8594; give long-acting SC insulin <strong>2&#8211;4 hours before stopping</strong> to avoid insulin deficiency gap</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>T1DM Perioperative Management</h3>
+    <ul class="bl">
+      <li>Should receive <strong>continuous insulin</strong> (IV infusion, insulin pump, or reduced SC long-acting)</li>
+      <li><strong>Rapid-acting insulin alone is insufficient</strong> &#8212; prolonged procedure &#8594; insulin deficiency &#8594; DKA</li>
+      <li>If brief procedure (&lt;4h) &#8594; reduced SC insulin (20&#8211;50% basal reduction + corrective rapid-acting as needed)</li>
+      <li>Prolonged perioperative period: IV insulin infusion preferred (0.5&#8211;1.0 units/h regular insulin)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Oral Agents in Hospital — Stop on Admission</h3>
+    <ul class="bl">
+      <li><strong>All oral glucose-lowering agents should be discontinued on hospital admission</strong></li>
+      <li><strong>SGLT-2 inhibitors:</strong> stop up to <strong>1 week prior</strong> to planned admission (euglycemic DKA risk, especially perioperative)</li>
+      <li><strong>Metformin:</strong> stop if: fasting, contrast media, declining kidney function, unstable CHF (lactic acidosis risk)</li>
+      <li><strong>Sulfonylureas:</strong> stop if fasting (hypoglycemia risk)</li>
+      <li>Once stable &#8594; oral agents may be resumed in anticipation of discharge</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Special Inpatient Situations</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-p">TPN/TEN</div>
+        <p><strong>TPN:</strong> IV insulin infusion preferred; after dose determined, portion may be added directly to TPN solution</p>
+        <p><strong>TEN (enteral bolus):</strong> SC rapid-acting insulin before each bolus; start 1 unit per 10&#8211;15g carbohydrate</p>
+        <p>T1DM/pancreatogenic DM on TPN/TEN: also give long-acting insulin 0.1&#8211;0.2 units/kg/day (basal coverage if TPN is interrupted)</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Glucocorticoids</div>
+        <p>&#8593; Insulin resistance + &#8595; glucose utilization + &#8593; hepatic glucose production + &#8595; insulin secretion</p>
+        <p>Effects: dose-dependent, usually reversible, most pronounced postprandially</p>
+        <p>If FPG near normal &#8594; oral agents (sulfonylureas, metformin) may suffice</p>
+        <p><strong>If FPG &gt;200 mg/dL &#8594; insulin required</strong></p>
+        <p>AM steroids &#8594; short-acting + NPH in the morning (target postprandial glucose excursions)</p>
+        <p>If hyperglycemia persists during chronic supraphysiologic steroids (&gt;5 mg prednisone equivalent) &#8594; &#8220;steroid-induced diabetes&#8221;</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S11 SPECIAL SITUATIONS -->
+<section class="sec" id="s11">
+  <div class="sec-hd"><span class="sec-n">11</span><h2>Special Situations</h2></div>
+  <div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+
+  <div class="sub">
+    <h3>Pregnancy and DM</h3>
+    <ul class="bl">
+      <li>GDM complicates <strong>~7%</strong> (range 1&#8211;14%) of pregnancies; &#8593; in Black and Hispanic populations</li>
+      <li>Glucose crosses placenta freely; insulin does NOT &#8594; maternal hyperglycemia &#8594; fetal hyperinsulinism &#8594; <strong>macrosomia</strong></li>
+      <li>GDM treatment: MNT + insulin if hyperglycemia persists; oral agents not approved (metformin/glyburide studied but not FDA-approved)</li>
+      <li><strong>Preconception DM:</strong> HbA1c target <strong>&lt;6.5%</strong> before and throughout pregnancy</li>
+      <li><strong>Risk of fetal malformations: 4&#8211;10&#215; increased</strong> with uncontrolled DM at time of conception</li>
+      <li>HbA1c &lt;6.0&#8211;6.5% &#8594; &#8595; fetal macrosomia and neonatal hypoglycemia</li>
+      <li>Monitor HbA1c every 2 months throughout gestation</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Older Adults</h3>
+    <ul class="bl">
+      <li>DM present in <strong>~25%</strong> of individuals &gt;65 years</li>
+      <li>Individualize goals based on: biologic age, functional status, living situation, cognitive status, other medications</li>
+      <li><strong>Critical priority: avoidance of hypoglycemia</strong> &#8212; can worsen cognitive impairment and CVD</li>
+      <li>Robust elderly (80y+): HbA1c target &lt;7.0&#8211;7.5%; complex/poor health: &lt;8.0&#8211;8.5%</li>
+      <li>Consider adverse effects of drugs: heart failure (TZD), renal insufficiency, propensity for hypoglycemia (long-acting sulfonylureas)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Other Therapies — Bariatric Surgery</h3>
+    <ul class="bl">
+      <li>ADA guideline: consider metabolic surgery in T2DM with BMI &gt;<strong>30 kg/m&#178;</strong> if hyperglycemia inadequately controlled despite optimal medical therapy</li>
+      <li>Mechanism: caloric restriction + &#8595; insulin resistance + altered gut hormones (GLP-1, GIP effects)</li>
+      <li>Very-low-calorie diet (800&#8211;1000 cal/day): dramatically improves T2DM, especially recent-onset; must be supervised + followed by weight-maintenance program</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Emerging Therapies</h3>
+    <ul class="bl">
+      <li>Transplantation of insulin-producing cells from human pluripotent stem cells &#8212; clinical trials showing promise</li>
+      <li>Teplizumab (anti-CD3 monoclonal antibody, targets T lymphocytes): FDA approved for Stage 2 T1DM to delay onset of Stage 3</li>
+      <li>Agents targeting TXNIP (thioredoxin-interacting protein), especially Ca&#178;&#8314; channel blockers: promise in recent-onset T1DM</li>
+    </ul>
+  </div>
+</section>
+
+<!-- S12 EXAM TRAPS -->
+<section class="sec" id="s12">
+  <div class="sec-hd"><span class="sec-n">12</span><h2>Exam Traps</h2></div>
+  <div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">SGLT-2 Inhibitor + Normal Glucose = Still DKA</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Patient on empagliflozin, presents with nausea, vomiting, Kussmaul respirations, anion gap metabolic acidosis. Blood glucose: 160 mg/dL. Question: &#8220;What is the most likely diagnosis?&#8221;</div>
+      <div class="trap-a"><strong>Correct Answer: Euglycemic DKA.</strong> SGLT-2 inhibitors increase glucagon and ketone body production. The ongoing glucosuria masks the expected hyperglycemia. Diagnosis is based on &#946;-hydroxybutyrate &gt;3.0 mmol/L + metabolic acidosis + anion gap &#8212; not glucose level. Resolution of euglycemic DKA is based on bicarbonate correction, NOT glucose correction. The trap is dismissing DKA because glucose appears near-normal.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">DKA Potassium — Start Insulin Without Checking K&#8314;?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient in DKA has serum K&#8314; of 3.1 meq/L. The intern starts IV regular insulin immediately. Is this correct?</div>
+      <div class="trap-a"><strong>Correct Answer: NO — if K&#8314; &lt;3.3 meq/L, hold insulin and replace potassium first.</strong> Insulin drives K&#8314; into cells, worsening hypokalemia &#8594; fatal cardiac arrhythmia. Total body K&#8314; is depleted in all DKA (3&#8211;5 meq/kg deficit), even when serum K&#8314; appears normal or high. The rule: K&#8314; &lt;3.3 → hold insulin + aggressive K&#8314; replacement first. K&#8314; &gt;5.0 → start insulin, hold K&#8314; supplementation until K&#8314; falls.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">DKA vs HHS — Key Differentiators</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Elderly T2DM patient, glucose 900 mg/dL, osmolality 340, HCO3 22 meq/L, no ketones, no Kussmaul respirations, altered mental status. Question: DKA or HHS? Next step?</div>
+      <div class="trap-a"><strong>Correct Answer: HHS.</strong> Key distinguishers: glucose typically &gt;600 (vs 250&#8211;600 DKA); HCO3 &gt;18 (vs &lt;18 DKA); pH &gt;7.3 (vs 6.8&#8211;7.3 DKA); NO ketosis; NO Kussmaul. The treatment shares elements with DKA but: fluid deficit is 9&#8211;10L (larger than DKA); replace free water deficit over 1&#8211;2 days (too rapid reversal &#8594; cerebral damage); use 0.45% saline if Na &gt;150. HHS mortality up to 15% &#8212; much higher than DKA (&lt;1%).</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">GLP-1 RA + Medullary Thyroid Carcinoma = Contraindicated</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A T2DM patient with a family history of medullary thyroid carcinoma. The physician wants to start a GLP-1 RA for weight loss and HbA1c control. Is this safe?</div>
+      <div class="trap-a"><strong>Correct Answer: Contraindicated.</strong> GLP-1 RAs carry a black box warning for thyroid C-cell tumors in rodents and are contraindicated in individuals with medullary carcinoma of the thyroid or multiple endocrine neoplasia (MEN). This applies to all GLP-1 RAs (liraglutide, semaglutide, dulaglutide, tirzepatide). Choose an alternative &#8212; SGLT-2 inhibitor is a good option for this patient&#8217;s goals.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Sulfonylurea + Fluoroquinolone Antibiotic = Dangerous Interaction</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A T2DM patient on glipizide develops a UTI and is started on ciprofloxacin. 2 days later she is found unresponsive with glucose of 28 mg/dL. What happened?</div>
+      <div class="trap-a"><strong>Correct Answer: Sulfonylurea + fluoroquinolone interaction.</strong> Fluoroquinolones, clarithromycin, TMP-SMX, metronidazole, and fluconazole interact with sulfonylureas and can potentiate hypoglycemia. When these antibiotics are added, sulfonylureas should be discontinued or the patient monitored very closely. This is a classic boards interaction &#8212; the answer to &#8220;what should you do when adding fluoroquinolone?&#8221; is: discontinue or reduce the sulfonylurea.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">&#945;-Glucosidase Inhibitor Hypoglycemia — Use Glucose, NOT Sucrose</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient on both acarbose and a sulfonylurea develops hypoglycemia. They reach for orange juice. Is this the right treatment?</div>
+      <div class="trap-a"><strong>Correct Answer: No — use pure glucose tablets, not orange juice or complex carbohydrates.</strong> &#945;-Glucosidase inhibitors inhibit the enzyme that cleaves oligosaccharides to simple sugars. Therefore, sucrose, starches, and complex carbohydrates will NOT be absorbed quickly enough to treat hypoglycemia. <strong>Only pure glucose (or glucose tablets/IV dextrose) will work.</strong> This is the unique antidote for hypoglycemia in patients taking &#945;-glucosidase inhibitors.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Metformin + Contrast Media — What to Do</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A T2DM patient on metformin is scheduled for a CT with contrast. What should you do about their metformin?</div>
+      <div class="trap-a"><strong>Correct Answer: Hold metformin before/during the procedure; restart only after confirmed preserved renal function (typically 48h post-contrast).</strong> Contrast media can cause acute kidney injury &#8594; accumulation of metformin &#8594; lactic acidosis (rare but potentially fatal). This is a standard CI for metformin. The mechanism: metformin itself doesn&#8217;t cause the problem &#8212; but if AKI occurs from contrast, metformin cannot be cleared and lactic acidosis results.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">Pramlintide + Hypoglycemia Unawareness = Contraindicated</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A T1DM patient with known hypoglycemia unawareness wants to add pramlintide to better control postprandial glucose. Is this appropriate?</div>
+      <div class="trap-a"><strong>Correct Answer: Contraindicated.</strong> Pramlintide suppresses glucagon, which is one of the key counter-regulatory hormones for hypoglycemia recovery. In a patient who already has impaired hypoglycemia awareness (and therefore depends on glucagon for counter-regulation), pramlintide will further worsen hypoglycemia recovery and increase risk of severe, prolonged hypoglycemia. This is an absolute contraindication. For postprandial control in T1DM with hypoglycemia unawareness, CGM and AID are safer options.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">T1DM Surgery — Rapid-Acting Insulin Alone Is Not Enough</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A T1DM patient is going for an elective hernia repair (3-hour procedure). The anesthesiologist plans to give rapid-acting insulin corrective doses as needed. Is this adequate?</div>
+      <div class="trap-a"><strong>Correct Answer: No &#8212; rapid-acting insulin alone is insufficient for T1DM perioperatively.</strong> T1DM patients require continuous insulin even when not eating &#8212; for basal glucose regulation and to prevent DKA. A prolonged procedure with only corrective rapid-acting doses can lead to insulin deficiency &#8594; DKA. The correct approach: IV insulin infusion or SC reduced long-acting insulin (20&#8211;50% basal reduction). For procedures &lt;4h, reduced SC insulin may suffice but must include basal coverage.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">NICE-SUGAR — Tight Control in ICU Worsens Outcomes</span></div>
+    <div class="trap-body">
+      <div class="trap-q">An ICU nurse proposes targeting glucose 81&#8211;108 mg/dL in all diabetic patients on mechanical ventilation. Is this evidence-based?</div>
+      <div class="trap-a"><strong>Correct Answer: No &#8212; the NICE-SUGAR trial showed that targeting 81&#8211;108 mg/dL in ICU patients INCREASED mortality and severe hypoglycemia</strong> compared to a target of &lt;180 mg/dL. The current ADA recommendation for critically ill patients is <strong>140&#8211;180 mg/dL</strong>. Very strict glycemic control in acutely ill patients likely worsens outcomes. The selected patients target of 110&#8211;140 is for specific situations with avoidance of hypoglycemia &#8212; not the routine ICU goal.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">HbA1c + Sickle Cell Disease = Unreliable</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with sickle cell disease is being followed for pre-diabetes. HbA1c comes back at 5.4%. The physician concludes they do not have pre-diabetes. Is this conclusion reliable?</div>
+      <div class="trap-a"><strong>Correct Answer: HbA1c is unreliable in hemoglobinopathies.</strong> Sickle cell disease (and other hemoglobinopathies, hemolytic anemias) falsely lowers HbA1c because RBC turnover is accelerated &#8212; cells are younger on average and have less time to glycate. The &#8220;normal&#8221; HbA1c may mask true hyperglycemia. Use FPG or OGTT for accurate diagnosis. This applies to thalassemia, G6PD deficiency, anemias, reticulocytosis, uremia, hemodialysis, and HIV treatment.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 12</span><span class="trap-title">Combination Insulin in T1DM — Wrong Choice</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A physician switches a T1DM patient from MDI to 70/30 (NPH + regular) twice daily for convenience. Is this appropriate?</div>
+      <div class="trap-a"><strong>Correct Answer: Not appropriate for T1DM.</strong> Combination (premixed) insulins do not allow independent adjustment of rapid-acting and long-acting doses. T1DM requires precise, individualized titration based on CGM data, carbohydrate intake, and activity &#8212; which premixed combinations cannot provide. Premixed insulins are sometimes used in T2DM for convenience but are never appropriate for T1DM management. The correct T1DM regimen: basal (glargine/degludec) + bolus (aspart/lispro/glulisine) with CGM or MDI, or AID system.</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- QUICK REFERENCE -->
+<hr class="sep">
+<section class="sec" id="qr">
+  <div class="sec-hd"><span class="sec-n">QR</span><h2>Quick Reference Master Table</h2></div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Topic</th><th>Key Number / Fact</th></tr></thead>
+      <tbody>
+        <tr><td>Symptoms resolve when</td><td>Plasma glucose &lt;200 mg/dL</td></tr>
+        <tr><td>HbA1c measurement frequency</td><td>2&#8211;4&#215;/year; every 3 months if not at goal</td></tr>
+        <tr><td>HbA1c reflects</td><td>2&#8211;3 months glycemia; preceding month = 50% of value</td></tr>
+        <tr><td>HbA1c 7% &#8594; eAG</td><td>~154 mg/dL</td></tr>
+        <tr><td>African American HbA1c bias</td><td>~0.3% higher than white for same mean glucose</td></tr>
+        <tr><td>CGM TIR target</td><td>&gt;70% within 70&#8211;180 mg/dL</td></tr>
+        <tr><td>CGM hypoglycemia targets</td><td>&lt;4% below 70 mg/dL; &lt;1% below 54 mg/dL</td></tr>
+        <tr><td>Glucose variability target</td><td>&#8804;36% coefficient of variation</td></tr>
+        <tr><td>Adult HbA1c target</td><td>&lt;7.0% (&#8804;6.5% for some stringent targets)</td></tr>
+        <tr><td>Elderly complex comorbidities HbA1c</td><td>&lt;8.5% with hypoglycemia avoidance</td></tr>
+        <tr><td>Preprandial glucose target (adults)</td><td>80&#8211;130 mg/dL</td></tr>
+        <tr><td>Postprandial glucose target (adults)</td><td>&lt;180 mg/dL</td></tr>
+        <tr><td>T1DM insulin dose</td><td>0.4&#8211;1.0 units/kg/day; 30&#8211;50% basal</td></tr>
+        <tr><td>Insulin-to-carb ratio (T1DM)</td><td>1 unit per 10&#8211;15 g carbohydrate</td></tr>
+        <tr><td>Correction factor formula</td><td>1500 &#247; total daily insulin dose = mg/dL drop per 1 unit</td></tr>
+        <tr><td>Rapid-acting injection timing</td><td>&lt;10 min before meal</td></tr>
+        <tr><td>Regular insulin injection timing</td><td>30&#8211;45 min before meal</td></tr>
+        <tr><td>Degludec duration</td><td>&gt;42 hours</td></tr>
+        <tr><td>Metformin max dose</td><td>2000 mg/day</td></tr>
+        <tr><td>Metformin CI (renal)</td><td>GFR &lt;30 mL/min</td></tr>
+        <tr><td>SGLT-2i perioperative</td><td>Stop 3&#8211;4 days before surgery; 1 week before planned admission</td></tr>
+        <tr><td>SGLT-2i CKD initiation</td><td>Do not initiate if eGFR &lt;45; do not use if eGFR &lt;30</td></tr>
+        <tr><td>GLP-1 RA contraindication</td><td>Medullary thyroid carcinoma, MEN</td></tr>
+        <tr><td>Pramlintide T1DM start dose</td><td>15 &#956;g SC before each meal &#8594; max 30&#8211;60 &#956;g</td></tr>
+        <tr><td>Pramlintide T2DM start dose</td><td>60 &#956;g SC before each meal &#8594; max 120 &#956;g</td></tr>
+        <tr><td>Pramlintide CI</td><td>Hypoglycemia unawareness</td></tr>
+        <tr><td>TZD CI</td><td>CHF class III/IV; hepatic insufficiency</td></tr>
+        <tr><td>&#945;-glucosidase hypoglycemia treatment</td><td>Pure glucose ONLY (not complex carbohydrates)</td></tr>
+        <tr><td>Exercise T1DM: delay if</td><td>Glucose &gt;250 mg/dL AND ketones present</td></tr>
+        <tr><td>Exercise T1DM: eat carbs if</td><td>Glucose &lt;90 mg/dL before exercise</td></tr>
+        <tr><td>Proliferative retinopathy exercise</td><td>Relative contraindication to vigorous exercise</td></tr>
+        <tr><td>DKA diagnosis</td><td>Glucose &gt;250 + &#946;-OHB &gt;3.0 + HCO3 &lt;18 + anion gap &#8593; + acidosis</td></tr>
+        <tr><td>DKA K&#8314; rule</td><td>K&#8314; &lt;3.3: hold insulin + give K&#8314; first; K&#8314; &gt;5.0: insulin + hold K&#8314;</td></tr>
+        <tr><td>DKA sodium correction</td><td>Add 1.6 meq Na per 100 mg/dL rise in glucose</td></tr>
+        <tr><td>DKA preferred ketone test</td><td>Serum &#946;-hydroxybutyrate (not nitroprusside)</td></tr>
+        <tr><td>DKA add dextrose to fluids when</td><td>Glucose reaches 250 mg/dL</td></tr>
+        <tr><td>DKA bicarbonate: give if</td><td>pH &lt;7.0 only</td></tr>
+        <tr><td>DKA mortality</td><td>&lt;1%; cerebral edema = major non-metabolic complication (children)</td></tr>
+        <tr><td>HHS vs DKA glucose</td><td>HHS &gt;600 (up to 1000); DKA 250&#8211;600</td></tr>
+        <tr><td>HHS fluid deficit</td><td>9&#8211;10 L; reverse over 1&#8211;2 days</td></tr>
+        <tr><td>HHS mortality</td><td>Up to 15% (vs &lt;1% DKA)</td></tr>
+        <tr><td>Inpatient glucose target (ICU)</td><td>140&#8211;180 mg/dL (NICE-SUGAR: strict control &#8593; mortality)</td></tr>
+        <tr><td>Perioperative glucose target</td><td>80&#8211;180 mg/dL</td></tr>
+        <tr><td>IV insulin: stop &#8594; give long-acting SC when?</td><td>2&#8211;4 hours BEFORE stopping IV insulin</td></tr>
+        <tr><td>Glucocorticoid: FPG &gt;200</td><td>Insulin required (oral agents insufficient)</td></tr>
+        <tr><td>GDM prevalence</td><td>~7% of pregnancies (range 1&#8211;14%)</td></tr>
+        <tr><td>Fetal malformation risk (uncontrolled DM)</td><td>4&#8211;10&#215; increased vs non-diabetic</td></tr>
+        <tr><td>Preconception HbA1c target</td><td>&lt;6.5%</td></tr>
+        <tr><td>DM prevalence &gt;65 years</td><td>~25%</td></tr>
+        <tr><td>Bariatric surgery T2DM indication (ADA)</td><td>BMI &gt;30 kg/m&#178; + inadequate glycemic control despite optimal medical therapy</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+<footer class="footer">Harrison&#8217;s Principles Ch. 416 · DM Part 2: Management &amp; Therapies · Boards Review 2026</footer>
+
+<script>
+const FILE_KEY='venos_'+(document.title||'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY=FILE_KEY+'_hl';
+const NT_KEY=FILE_KEY+'_notes';
+let curColor=null,eraseMode=false,selText='',savedRange=null;
+function setHL(c){curColor=c;eraseMode=false;document.body.style.cursor='crosshair';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));document.getElementById('h-'+c).classList.add('active');}
+function setErase(){eraseMode=true;curColor=null;document.body.style.cursor='cell';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));}
+function applyHL(range,color){try{const s=document.createElement('span');s.className='hl hl-'+color;s.dataset.hlColor=color;range.surroundContents(s);saveHighlights();}catch(e){try{const f=range.extractContents();const s=document.createElement('span');s.className='hl hl-'+color;s.dataset.hlColor=color;s.appendChild(f);range.insertNode(s);saveHighlights();}catch(e2){}}}
+function saveHighlights(){const spans=document.querySelectorAll('.hl[data-hl-color]');const data=[];spans.forEach(s=>{const t=s.textContent.trim();if(t.length>1)data.push({text:t,color:s.dataset.hlColor});});try{localStorage.setItem(HL_KEY,JSON.stringify(data));}catch(e){}}
+function restoreHighlights(){let saved;try{saved=JSON.parse(localStorage.getItem(HL_KEY))||[];}catch(e){return;}if(!saved.length)return;const main=document.querySelector('main')||document.body;saved.forEach(function(item){if(!item.text||!item.color)return;const walker=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,null,false);let node;while(node=walker.nextNode()){if(node.parentElement&&(node.parentElement.classList.contains('hl')||node.parentElement.classList.contains('note-anchor')))continue;const idx=node.nodeValue.indexOf(item.text);if(idx!==-1){try{const range=document.createRange();range.setStart(node,idx);range.setEnd(node,idx+item.text.length);applyHL(range,item.color);}catch(e){}break;}}});}
+function getNotes(){try{return JSON.parse(localStorage.getItem(NT_KEY)||'[]');}catch(e){return[];}}
+function saveNotes(n){try{localStorage.setItem(NT_KEY,JSON.stringify(n));}catch(e){}}
+function addNote(){const txt=document.getElementById('sn-ta').value.trim();if(!txt)return;const id=Date.now();const notes=getNotes();notes.unshift({id,ref:selText.substring(0,100)||'\u2014',text:txt});saveNotes(notes);if(savedRange){try{const span=document.createElement('span');span.className='note-anchor';span.dataset.noteId=id;span.title='Click to see your note';savedRange.surroundContents(span);bindAnchor(span,id);}catch(e){try{const frag=savedRange.extractContents();const span=document.createElement('span');span.className='note-anchor';span.dataset.noteId=id;span.title='Click to see your note';span.appendChild(frag);savedRange.insertNode(span);bindAnchor(span,id);}catch(e2){}}savedRange=null;}document.getElementById('sn-ta').value='';selText='';document.getElementById('sn-ref-txt').textContent='\u2014';renderNotes();}
+function bindAnchor(span,id){span.addEventListener('click',function(e){e.stopPropagation();const note=getNotes().find(n=>n.id===id);if(note)showPopover(span,note);});}
+function restoreAnchors(){const notes=getNotes();if(!notes.length)return;const main=document.querySelector('main')||document.body;notes.forEach(function(note){if(!note.ref||note.ref==='\u2014'||!note.id)return;const refText=note.ref.trim();if(refText.length<2)return;if(document.querySelector('.note-anchor[data-note-id="'+note.id+'"]'))return;const walker=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,null,false);let node;while(node=walker.nextNode()){if(node.parentElement&&(node.parentElement.classList.contains('note-anchor')||node.parentElement.classList.contains('hl')))continue;const idx=node.nodeValue.indexOf(refText);if(idx!==-1){try{const range=document.createRange();range.setStart(node,idx);range.setEnd(node,idx+refText.length);const span=document.createElement('span');span.className='note-anchor';span.dataset.noteId=String(note.id);span.title='Click to see your note';range.surroundContents(span);bindAnchor(span,note.id);}catch(e){}break;}}});}
+function deleteNote(id){saveNotes(getNotes().filter(n=>n.id!==id));document.querySelectorAll('.note-anchor[data-note-id="'+id+'"]').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});closePopover();renderNotes();}
+function renderNotes(){const body=document.getElementById('sn-body');const empty=document.getElementById('sn-empty');const notes=getNotes();body.querySelectorAll('.sn-note').forEach(el=>el.remove());if(!notes.length){if(empty)empty.style.display='';return;}if(empty)empty.style.display='none';notes.forEach(note=>{const card=document.createElement('div');card.className='sn-note';card.dataset.noteId=note.id;card.innerHTML='<div class="sn-note-hd"><span class="sn-drag-icon">\u283f</span><span class="sn-note-ref">'+(note.ref!=='\u2014'?'"'+note.ref+'"':'General note')+'</span><button class="sn-del" onclick="deleteNote('+note.id+')">\u00d7</button></div><div class="sn-note-body">'+note.text.replace(/\n/g,'<br>')+'</div><div class="sn-resize"></div>';body.appendChild(card);makeResizable(card,note.id);});}
+let activePopNoteId=null;
+function showPopover(anchorEl,note){const pop=document.getElementById('note-popover');document.getElementById('np-pop-ref').textContent=note.ref!=='\u2014'?'"'+note.ref.substring(0,55)+'"':'Note';document.getElementById('np-pop-text').innerHTML=note.text.replace(/\n/g,'<br>');document.getElementById('pop-del-btn').onclick=()=>deleteNote(note.id);activePopNoteId=note.id;const rect=anchorEl.getBoundingClientRect();pop.style.left=Math.min(rect.left,window.innerWidth-300)+'px';pop.style.top=(rect.bottom+8)+'px';pop.classList.add('show');}
+function closePopover(){document.getElementById('note-popover').classList.remove('show');activePopNoteId=null;}
+document.addEventListener('click',function(e){if(!document.getElementById('note-popover').contains(e.target))closePopover();});
+document.addEventListener('mouseup',function(e){const tb=document.getElementById('toolbar');const sb=document.getElementById('sn-sidebar');const np=document.getElementById('note-popover');if(tb.contains(e.target)||sb.contains(e.target)||np.contains(e.target))return;if(eraseMode&&e.target.classList.contains('hl')){const el=e.target;el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();saveHighlights();return;}const sel=window.getSelection();if(!sel||sel.isCollapsed)return;const txt=sel.toString().trim();if(!txt)return;selText=txt;savedRange=sel.getRangeAt(0).cloneRange();document.getElementById('sn-ref-txt').textContent=txt.length>48?txt.substring(0,48)+'\u2026':txt;if(curColor){try{applyHL(sel.getRangeAt(0),curColor);sel.removeAllRanges();}catch(err){}}});
+function clearAll(){if(!confirm('Clear ALL highlights and notes?'))return;document.querySelectorAll('.hl').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});document.querySelectorAll('.note-anchor').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});try{localStorage.removeItem(HL_KEY);localStorage.removeItem(NT_KEY);}catch(e){}curColor=null;eraseMode=false;document.body.style.cursor='';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));closePopover();renderNotes();}
+function toggleSidebar(){const sb=document.getElementById('sn-sidebar');const tab=document.getElementById('sn-tab');sb.classList.toggle('hidden');tab.textContent=sb.classList.contains('hidden')?'\ud83d\udcdd Notes':'\u25c4';}
+function makeResizable(card,noteId){const handle=card.querySelector('.sn-resize');let startY=0,startH=0;handle.addEventListener('mousedown',function(e){e.preventDefault();e.stopPropagation();startY=e.clientY;startH=card.offsetHeight;function onMove(ev){card.style.height=Math.max(80,startH+(ev.clientY-startY))+'px';}function onUp(){document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp);}document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp);});}
+document.querySelectorAll('.lbtn').forEach(b=>{b.addEventListener('click',function(){this.classList.toggle('on');});});
+document.querySelectorAll('.fbtn').forEach(b=>{b.addEventListener('click',function(){this.classList.toggle('on');});});
+const _sections=document.querySelectorAll('.sec[id]');
+const _navLinks=document.querySelectorAll('.toc-a');
+_sections.forEach(s=>new IntersectionObserver(entries=>{if(entries[0].isIntersecting){_navLinks.forEach(l=>l.classList.remove('on'));const lnk=document.querySelector('.toc-a[href="#'+s.id+'"]');if(lnk){lnk.classList.add('on');lnk.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}}},{rootMargin:'-15% 0px -75% 0px'}).observe(s));
+restoreHighlights();restoreAnchors();renderNotes();
+</script>
+</body>
+</html>
