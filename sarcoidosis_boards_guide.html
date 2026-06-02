@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Sarcoidosis · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;padding:0 12px;display:flex;align-items:center;white-space:nowrap;border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blu);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}.main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+.scadding-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.scadding-card{background:var(--sf);border:1.5px solid var(--bd);border-radius:8px;overflow:hidden;text-align:center}
+.sc-hd{padding:8px 6px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#fff}
+.sc1{background:#1e4db7}.sc2{background:#0e7490}.sc3{background:#b45309}.sc4{background:#b91c1c}
+.sc-body{padding:10px 8px}
+.sc-body p{font-size:11px;margin-bottom:5px;color:var(--t2)}
+.sc-res{font-family:'Playfair Display',serif;font-size:22px;font-weight:700}
+.sc1 .sc-res{color:#1e4db7}.sc2 .sc-res{color:#0e7490}.sc3 .sc-res{color:#b45309}.sc4 .sc-res{color:#b91c1c}
+.sc-label{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3)}
+@media(max-width:700px){.scadding-grid{grid-template-columns:1fr 1fr}}
+.organ-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.organ-card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:10px 12px;display:flex;align-items:center;gap:10px}
+.organ-pct{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;min-width:46px;text-align:right}
+.organ-name{font-size:12px;color:var(--t2);font-weight:500}
+@media(max-width:600px){.organ-grid{grid-template-columns:1fr 1fr}}
+.path-flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:14px 0;padding:16px;background:var(--sf);border:1.5px solid var(--bd);border-radius:9px}
+.path-node{background:var(--blu-l);border:1.5px solid var(--blu);border-radius:7px;padding:8px 12px;font-size:12px;font-weight:600;color:var(--blu);text-align:center;min-width:100px}
+.path-arrow{font-size:20px;color:var(--bd2);flex-shrink:0}
+.path-node.red{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.path-node.grn{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.path-node.amb{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.path-node.pur{background:var(--pur-l);border-color:var(--pur);color:var(--pur)}
+</style>
+</head>
+<body>
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green" onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue" onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink" onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+<div id="sn-sidebar">
+  <div id="sn-hd"><span>📝 My Notes</span><button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button></div>
+  <div id="sn-body"><div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div></div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles · Chapter 379</div>
+  <h1>Sarcoidosis</h1>
+  <div class="hero-sub">Systemic Granulomatous Inflammation · Medical Boards Review</div>
+  <div class="hero-authors">Author: Alicia K. Gerke</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">&gt;90%</div><div class="stat-l">Lung Involvement</div></div>
+    <div class="stat-box"><div class="stat-n">4</div><div class="stat-l">Scadding Stages</div></div>
+    <div class="stat-box"><div class="stat-n">~55%</div><div class="stat-l">Spontaneous Resolution</div></div>
+    <div class="stat-box"><div class="stat-n">1–5%</div><div class="stat-l">Disease Mortality</div></div>
+    <div class="stat-box"><div class="stat-n">3</div><div class="stat-l">Diagnostic Criteria</div></div>
+  </div>
+</header>
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Epidemiology</a>
+    <a class="toc-a" href="#s2">Etiology</a>
+    <a class="toc-a" href="#s3">Pathogenesis</a>
+    <a class="toc-a" href="#s4">Clinical Presentation</a>
+    <a class="toc-a" href="#s5">Diagnosis</a>
+    <a class="toc-a" href="#s6">Pathology</a>
+    <a class="toc-a" href="#s7">Lungs</a>
+    <a class="toc-a" href="#s8">Heart &amp; PH</a>
+    <a class="toc-a" href="#s9">Neuro &amp; Skin</a>
+    <a class="toc-a" href="#s10">Other Organs</a>
+    <a class="toc-a" href="#s11">Prognosis</a>
+    <a class="toc-a" href="#s12">Treatment</a>
+    <a class="toc-a" href="#s13">Exam Traps</a>
+  </div>
+</nav>
+<main class="main">
+<section class="sec" id="s1">
+  <div class="sec-hd"><span class="sec-n">01</span><h2>Epidemiology</h2><div class="sbar"><button class="lbtn">Learned</button><button class="fbtn">Review</button></div></div>
+  <div class="co key"><div class="co-t">Core Definition</div>Sarcoidosis is a <strong>systemic inflammatory disease of unknown cause</strong> characterized by formation of <strong>nonnecrotizing granulomatous inflammation</strong>. Affects the lung in &gt;90% of cases but can afflict almost any organ system. First described &gt;150 years ago; the term "sarkoid" coined by Caeser Boeck (Norwegian dermatologist, 1899) because lesions resembled sarcoma, yet were largely benign and granulomatous.</div>
+  <div class="sub">
+    <h3>Incidence &amp; Prevalence</h3>
+    <p>Vary by race, gender, geography, ethnicity, and season. Increased familial risk noted.</p>
+    <div class="g2">
+      <div class="card"><div class="clabel c-r">Highest Incidence Groups</div><ul class="bl"><li><strong>African Americans:</strong> 35.5 per 100,000</li><li><strong>Northern Europeans (US/Sweden):</strong> 24 per 100,000</li><li><strong>U.S. Black Women's Health Study:</strong> 71 per 100,000 annual incidence; prevalence 2%</li></ul></div>
+      <div class="card"><div class="clabel c-b">Key Demographics</div><ul class="bl"><li><strong>Gender:</strong> Higher incidence in women (ratio &le;2:1); consistent across studies</li><li><strong>Peak age:</strong> 35–45 years; significant cases after age 55</li><li><strong>Men</strong> manifest disease earlier than women</li><li><strong>Seasonal:</strong> Peak diagnoses in springtime</li><li>Incidence may be increasing in US and Japan</li></ul></div>
+    </div>
+    <div class="co wrn"><div class="co-t">Risk Factors</div><strong>Increase risk:</strong> Certain occupations (agriculture, teaching, metalworking, radiation, cotton ginning, automobiles), elevated BMI, musty/humid environments, mold, insecticides, air conditioning, raising birds, wood stoves/fireplaces.<br><strong>Decreases risk:</strong> Smoking — consistently a <em>negative predictor</em> of sarcoidosis development (possibly via immunomodulatory effects of nicotine).</div>
+    <ul class="bl">
+      <li>Subclinical sarcoidosis may be underestimated — only identified in screening studies or autopsy</li>
+      <li>WTC example: U.S. firefighter baseline 13–15/100,000; after WTC collapse rates rose to 86/100,000 in year 1 and 22/100,000 over next 4 years — cases included multisystem disease</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Racial &amp; Gender Differences in Presentation</h3>
+    <div class="tw"><table><thead><tr><th>Population</th><th>Distinguishing Features</th></tr></thead><tbody>
+      <tr><td>Japanese</td><td>More cardiac and ocular involvement; cardiac sarcoidosis is leading cause of sarcoidosis death</td></tr>
+      <tr><td>Europeans</td><td>More erythema nodosum; erythema nodosum uncommon in Japanese/Black populations</td></tr>
+      <tr><td>Black patients</td><td>Higher severity; more extrapulmonary disease; 3× familial disease likelihood; more severe lung disease</td></tr>
+      <tr><td>Women</td><td>Higher risk: erythema nodosum, ocular, musculoskeletal, neurologic disease; more severe lung disease</td></tr>
+      <tr><td>Men</td><td>Higher risk for hypercalcemia; manifest disease earlier than women</td></tr>
+      <tr><td>Lower income</td><td>More severe disease, greater disability, increased dyspnea, more new organ involvement</td></tr>
+    </tbody></table></div>
+  </div>
+  <div class="sub">
+    <h3>Mortality</h3>
+    <ul class="bl">
+      <li><strong>US:</strong> Average age- and gender-adjusted mortality rate 4.32 per 1,000,000; higher in women and African Americans</li>
+      <li><strong>Leading cause of death in US/Europe:</strong> Pulmonary fibrosis (respiratory mortality)</li>
+      <li><strong>Japan:</strong> Lower rate (~0.1 per million); deaths primarily from <strong>cardiac</strong> involvement</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="s2">
+  <div class="sec-hd"><span class="sec-n">02</span><h2>Etiology</h2><div class="sbar"><button class="lbtn">Learned</button><button class="fbtn">Review</button></div></div>
+  <div class="co key"><div class="co-t">Core Concept</div>The cause is <strong>unknown</strong>. Current evidence strongly indicates a <strong>heightened host immune response to an undetermined environmental exposure in a genetically susceptible individual</strong>. The immunologic response appears physiologic, but either exaggerated or deficient in regulatory mechanisms.</div>
+  <div class="sub">
+    <h3>Evidence for an Antigen</h3>
+    <ul class="bl">
+      <li><strong>Kveim-Siltzbach reagent:</strong> Homogenate of human splenic tissue from sarcoidosis patients — when injected into skin, induces systemic granulomatous response in patients with early sarcoidosis</li>
+      <li><strong>Transplant recipients</strong> can develop sarcoid-like inflammatory responses after receiving organ tissue from a person with sarcoidosis</li>
+      <li><strong>Case-cluster events:</strong> Spatial clustering of non-related sarcoidosis cases suggests shared environmental antigen exposure</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Candidate Antigens</h3>
+    <div class="g2">
+      <div class="card"><div class="clabel c-b">Mycobacterial Proteins</div><ul class="bl"><li>mKatG, ESAT-6, mycobacterial superoxide dismutase A, antigen 85A, heat shock proteins — found <strong>disproportionately</strong> in sarcoidosis granulomas</li><li>Heightened macrophage immune responses against these peptides in blood and BAL of sarcoidosis patients</li></ul></div>
+      <div class="card"><div class="clabel c-g">Other Agents</div><ul class="bl"><li><strong>Cutibacterium acnes</strong> (formerly Propionibacterium acnes) — implicated in some cohorts</li><li>Beryllium, fungi (histologic similarities with sarcoidosis)</li><li>Bioaerosols and inorganic agents (explains epidemiologic variability)</li><li>May not be a single antigen — differing antigens per individual or population</li></ul></div>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Genetic Predisposition</h3>
+    <ul class="bl">
+      <li>Antigen recognition and presentation molecule <strong>polymorphisms</strong> associated with disease development and phenotype</li>
+      <li><strong>Gene-environment interactions</strong> identified — complex interplay of susceptible host in predisposing environment</li>
+      <li>HLA haplotype variants, BTNL2, TNF-α, ANXA11 genes — associated with specific phenotypes and worse prognosis</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="s3">
+  <div class="sec-hd"><span class="sec-n">03</span><h2>Pathogenesis</h2><div class="sbar"><button class="lbtn">Learned</button><button class="fbtn">Review</button></div></div>
+  <div class="sub">
+    <h3>Granuloma Formation — Step by Step</h3>
+    <div class="path-flow">
+      <div class="path-node">Unknown Antigen<br><small style="font-size:10px;font-weight:400">Poorly degradable</small></div>
+      <div class="path-arrow">→</div>
+      <div class="path-node">Dendritic cells / Macrophages present via MHC</div>
+      <div class="path-arrow">→</div>
+      <div class="path-node pur">CD4+ T cell Activation<br><small style="font-size:10px;font-weight:400">TH1 polarization</small></div>
+      <div class="path-arrow">→</div>
+      <div class="path-node amb">Cytokines &amp; Chemokines<br><small style="font-size:10px;font-weight:400">IL-1, IL-2, IL-15, IL-18, IFN-γ, CXCR3</small></div>
+      <div class="path-arrow">→</div>
+      <div class="path-node red">Granuloma Formation<br><small style="font-size:10px;font-weight:400">Tightly formed, noncaseating</small></div>
+    </div>
+    <div class="path-flow" style="margin-top:6px">
+      <div class="path-node red">Granuloma</div>
+      <div class="path-arrow">→</div>
+      <div class="path-node grn">Resolution<br><small style="font-size:10px;font-weight:400">&gt;50% of patients</small></div>
+      <div class="path-arrow" style="font-size:13px;padding:0 4px">— OR —</div>
+      <div class="path-node red">Fibrosis<br><small style="font-size:10px;font-weight:400">Altered Treg &amp; TH17 — WHY is unknown</small></div>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Key Immune Mechanisms</h3>
+    <ul class="bl">
+      <li><strong>TH1 immune polarization</strong> is the immunopathogenic hallmark — highly polarized CD4+ TH1 lymphocytes; CD8+ lymphocytes less so</li>
+      <li>Inflammatory cells accumulate via both <em>in situ</em> proliferation and redistribution of peripheral blood to the lung</li>
+      <li>Process driven by amplification of <strong>oligoclonal T cells</strong> of undefined antigenic specificity</li>
+      <li><strong>Pro-inflammatory cytokines</strong> (IL-1, IL-2, IL-15, IL-18, CXCR3) consistently upregulated at inflammation sites — activate macrophages, propagate response, form granulomas</li>
+      <li><strong>IFN-γ</strong>: TH1-derived; key cytokine maintaining granulomatous inflammation; drives unregulated 1,25-OH VitD3 production by macrophages → hypercalcemia</li>
+      <li><strong>Altered T-regulatory (Treg) and TH17 cells</strong> — thought to be involved in failure of resolution or progression to fibrosis</li>
+      <li>The critical step as to <strong>why some patients transition to fibrosis is not understood</strong></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="s4">
+  <div class="sec-hd"><span class="sec-n">04</span><h2>Clinical Presentation</h2><div class="sbar"><button class="lbtn">Learned</button><button class="fbtn">Review</button></div></div>
+  <div class="co key"><div class="co-t">Spectrum</div>Varies considerably from <strong>asymptomatic</strong> to <strong>progressive organ dysfunction</strong>. In many cases, findings discovered <strong>incidentally on imaging</strong>. Patients present to diverse specialties — cardiopulmonary symptoms can mimic more common diseases, causing diagnostic delays.</div>
+  <div class="sub">
+    <h3>Acute Presentations — Excellent Prognosis</h3>
+    <div class="g2">
+      <div class="card"><div class="clabel c-b">Löfgren Syndrome — up to 10% of cases</div><ul class="bl"><li><strong>Fever</strong></li><li><strong>Erythema nodosum</strong> (tender red nodules on anterior shins)</li><li><strong>Ankle arthralgias</strong></li><li><strong>Bilateral hilar lymphadenopathy</strong></li><li>Prognosis: <strong>Full spontaneous resolution</strong>; immunosuppression rarely necessary</li><li>Occurs in 20–30% of Caucasians (especially Northern Europeans); &lt;5% of Asians and African Americans</li><li>Erythema nodosum/fever remit within 6 weeks; lymphadenopathy may persist &gt;1 year</li></ul></div>
+      <div class="card"><div class="clabel c-p">Heerfordt Syndrome (Uveoparotid Fever)</div><ul class="bl"><li><strong>Facial nerve palsy</strong></li><li><strong>Fever</strong></li><li><strong>Anterior uveitis</strong></li><li><strong>Bilateral parotid gland enlargement</strong></li><li>Prognosis: Excellent with full spontaneous resolution</li><li>Facial nerve palsy associated with <strong>good prognosis</strong> vs other neurologic findings</li></ul></div>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Subacute / Chronic Presentation</h3>
+    <ul class="bl">
+      <li>More insidious onset: chronic cough, dyspnea, atypical chest pain, intermittent joint or muscle pain</li>
+      <li>Nonspecific: fevers, malaise, night sweats, weight loss</li>
+    </ul>
+    <div class="co dan"><div class="co-t">Life-Threatening / Urgent Presentations</div>Acute hypercalcemia, sudden cardiac death, blindness, arrhythmias, heart block, neurologic demise — require <strong>urgent hospitalization</strong>. In rare cases, sarcoidosis can be fatal — usually from heart failure, sudden cardiac death, or neurologic involvement.</div>
+  </div>
+</section>
+
+<section class="sec" id="s5">
+  <div class="sec-hd"><span class="sec-n">05</span><h2>Establishing a Diagnosis</h2><div class="sbar"><button class="lbtn">Learned</button><button class="fbtn">Review</button></div></div>
+  <div class="co key"><div class="co-t">Three Diagnostic Criteria (ALL must be met)</div><ul class="bl"><li><strong>1.</strong> Compatible clinical presentation</li><li><strong>2.</strong> Presence of nonnecrotizing granulomatous inflammation in ≥1 tissue</li><li><strong>3.</strong> Exclusion of alternative causes of granulomatous inflammation</li></ul><p style="margin-top:8px;font-size:12.5px">Workup must also assess: extent/severity of organ involvement, prognostic factors, and whether therapy is beneficial. <strong>No well-established clinically useful serum biomarker</strong> can secure the diagnosis alone.</p></div>
+  <div class="sub">
+    <h3>Biopsy Approach</h3>
+    <ul class="bl">
+      <li>If compatible clinical picture or radiographic finding: <strong>biopsy is the next step</strong></li>
+      <li><strong>Noninvasive sites:</strong> Skin, conjunctiva, superficial lymph nodes</li>
+      <li>When lung involvement + mediastinal/hilar lymphadenopathy prominent → <strong>bronchoscopy preferred</strong></li>
+      <li><strong>EBUS-guided lymph node sampling</strong> — high diagnostic yield, low procedural risk (preferred)</li>
+      <li><strong>BAL:</strong> Elevated lymphocyte %; CD4:CD8 ratio &gt;3.5 supports diagnosis (normal ratio does <em>NOT</em> exclude sarcoidosis); BAL important to exclude infection</li>
+      <li>"<strong>Cobblestone</strong>" appearance on bronchoscopy — granulomas lining all airway wall segments</li>
+      <li>Transbronchial biopsies — if lung infiltrates present</li>
+      <li>Endoscopic ultrasound (via esophagus) — alternative biopsy approach based on location</li>
+      <li><strong>Surgical lung biopsy / mediastinoscopy</strong> — only when less invasive procedures nondiagnostic and no other accessible biopsy sites</li>
+      <li><strong>18F-FDG PET-CT</strong> — identifies active tissue inflammation and biopsy site in difficult cases</li>
+    </ul>
+    <div class="co suc"><div class="co-t">When Biopsy Can Be Deferred</div>Classic <strong>Löfgren syndrome</strong>, <strong>Heerfordt syndrome</strong>, or <strong>lupus pernio</strong> — compelling enough to defer biopsy. Also consider deferring in asymptomatic patients with symmetrical bilateral hilar lymphadenopathy (patient-oriented discussion). <strong>Close clinical follow-up always required</strong> — the diagnosis of sarcoidosis is never fully secure.</div>
+  </div>
+  <div class="sub">
+    <h3>Differential Diagnosis</h3>
+    <div class="g3">
+      <div class="card"><div class="clabel c-r">Infections</div><ul class="bl"><li>Mycobacteria: TB, atypical</li><li>Fungi: Histoplasma, Coccidioides, Blastomyces, Aspergillus, Cryptococcus</li><li>Parasites: Toxoplasma, Schistosoma</li><li>Bacterial/viral: Herpes zoster, Tularemia, Q fever, Bartonella</li></ul></div>
+      <div class="card"><div class="clabel c-b">Other Inflammatory</div><ul class="bl"><li>Hypersensitivity pneumonitis, aspiration pneumonitis</li><li>Chronic beryllium disease, silicosis, talc</li><li>Drug reactions: immune checkpoint inhibitors, antiretrovirals, interferon, TNF-α antagonists</li><li>ANCA vasculitis, IgG4-RD, RA nodules, IBD, CVID-associated lung disease</li></ul></div>
+      <div class="card"><div class="clabel c-a">Malignancy-Related</div><ul class="bl"><li>Local granulomatous reaction around tumor</li><li>Systemic sarcoid-like reaction to malignancy</li><li>Chemotherapy or immunotherapy-induced sarcoid-like reaction</li></ul></div>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Baseline Testing Upon Initial Diagnosis</h3>
+    <div class="tw"><table><thead><tr><th>Test</th><th>Rationale</th></tr></thead><tbody>
+      <tr><td>Full history, review of systems, physical exam</td><td>Identify organ involvement, exposures, extrapulmonary disease</td></tr>
+      <tr><td>Pulmonary function tests</td><td>Baseline lung impairment; track over time</td></tr>
+      <tr><td>Chest imaging (CXR ± CT)</td><td>Staging; extent of disease; guide biopsy</td></tr>
+      <tr><td>Eye exam (ophthalmology)</td><td>Rule out clinically silent uveitis</td></tr>
+      <tr><td>Serum creatinine, alkaline phosphatase, calcium, CBC</td><td>Hepatic, renal, hematologic, calcium metabolism</td></tr>
+      <tr><td>25- and 1,25-hydroxyvitamin D levels</td><td>Assess vitamin D metabolism if needed</td></tr>
+      <tr><td>Electrocardiogram (ECG)</td><td>Detect conduction block, arrhythmias — required in EVERY patient</td></tr>
+    </tbody></table></div>
+    <p style="font-size:12px;color:var(--t3);margin-top:6px">About half of patients will have extrapulmonary involvement. Further testing depends on signs/symptoms indicating potential organ involvement.</p>
+  </div>
+</section>
+
+<section class="sec" id="s6">
+  <div class="sec-hd"><span class="sec-n">06</span><h2>Pathology</h2><div class="sbar"><button class="lbtn">Learned</button><button class="fbtn">Review</button></div></div>
+  <div class="sub">
+    <h3>The Sarcoidosis Granuloma — Anatomy</h3>
+    <div class="co tel"><div class="co-t">Structure</div>An organized collection of:<ul class="bl" style="margin-top:6px"><li><strong>Center:</strong> Macrophages → epithelioid cells → multinucleated giant cells (formed by fusion of epithelioid cells) + CD4+ T lymphocytes interspersed</li><li><strong>Periphery:</strong> Well-circumscribed rim of lymphocytes and fibroblasts + CD8+ T lymphocytes + B lymphocytes</li></ul></div>
+    <ul class="bl">
+      <li><strong>Key hallmark: NONNECROTIZING</strong> (noncaseating) — punctuate necrosis may rarely be present; <strong>abundant necrosis strongly indicates infection</strong></li>
+      <li><strong>Inclusions</strong> (supportive but not diagnostic): asteroid bodies, birefringent calcium carbonate/oxalate crystals, Schaumann bodies, Hamazaki-Wesenberg bodies (especially in lymph nodes)</li>
+      <li>Most granulomas resolve; hyalinization and fibrosis can occur</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Granuloma Comparison — Boards High-Yield</h3>
+    <div class="g3">
+      <div class="card"><div class="clabel c-b">Sarcoidosis</div><ul class="bl"><li><strong>Tightly formed</strong></li><li><strong>Nonnecrotizing</strong> (noncaseating)</li><li>CD4+ dominated, TH1 skewed</li></ul></div>
+      <div class="card"><div class="clabel c-r">Infection (TB / Fungal)</div><ul class="bl"><li><strong>Tightly formed</strong></li><li><strong>Necrotizing center</strong> (caseating in TB)</li><li>Requires special stains + cultures</li></ul></div>
+      <div class="card"><div class="clabel c-a">Hypersensitivity Pneumonitis</div><ul class="bl"><li><strong>Loosely formed</strong></li><li><strong>Without necrosis</strong></li><li>Peribronchiolar distribution</li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="sec" id="s7">
+  <div class="sec-hd"><span class="sec-n">07</span><h2>Pulmonary Involvement</h2><div class="sbar"><button class="lbtn">Learned</button><button class="fbtn">Review</button></div></div>
+  <div class="sub">
+    <h3>Organ Frequency at Presentation</h3>
+    <div class="organ-grid">
+      <div class="organ-card"><div class="organ-pct" style="color:var(--blu)">95%</div><div class="organ-name">Lungs</div></div>
+      <div class="organ-card"><div class="organ-pct" style="color:var(--red)">16%</div><div class="organ-name">Skin</div></div>
+      <div class="organ-card"><div class="organ-pct" style="color:var(--amb)">15%</div><div class="organ-name">Peripheral Lymph Nodes</div></div>
+      <div class="organ-card"><div class="organ-pct" style="color:var(--grn)">12%</div><div class="organ-name">Eyes</div></div>
+      <div class="organ-card"><div class="organ-pct" style="color:var(--pur)">12%</div><div class="organ-name">Liver</div></div>
+      <div class="organ-card"><div class="organ-pct" style="color:var(--tel)">7%</div><div class="organ-name">Spleen</div></div>
+      <div class="organ-card"><div class="organ-pct" style="color:var(--blu)">5%</div><div class="organ-name">Neurologic</div></div>
+      <div class="organ-card"><div class="organ-pct" style="color:var(--amb)">4%</div><div class="organ-name">Salivary/Parotid Glands</div></div>
+      <div class="organ-card"><div class="organ-pct" style="color:var(--amb)">4%</div><div class="organ-name">↑ Calcium</div></div>
+      <div class="organ-card"><div class="organ-pct" style="color:var(--t3)">3%</div><div class="organ-name">Ear/Nose/Throat</div></div>
+      <div class="organ-card"><div class="organ-pct" style="color:var(--red)">2%</div><div class="organ-name">Heart</div></div>
+      <div class="organ-card"><div class="organ-pct" style="color:var(--t3)">1%</div><div class="organ-name">Kidneys / Bones/Joints/Muscles</div></div>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Scadding Stages (Chest X-Ray Staging)</h3>
+    <div class="scadding-grid">
+      <div class="scadding-card"><div class="sc-hd sc1">Stage 1</div><div class="sc-body"><p>Bilateral hilar lymphadenopathy WITHOUT parenchymal lung involvement</p><div class="sc-res">55–90%</div><div class="sc-label">Resolution Rate</div></div></div>
+      <div class="scadding-card"><div class="sc-hd sc2">Stage 2</div><div class="sc-body"><p>Bilateral hilar lymphadenopathy AND parenchymal lung involvement</p><div class="sc-res">40–70%</div><div class="sc-label">Resolution Rate</div></div></div>
+      <div class="scadding-card"><div class="sc-hd sc3">Stage 3</div><div class="sc-body"><p>Parenchymal lung involvement WITHOUT lymphadenopathy</p><div class="sc-res">10–20%</div><div class="sc-label">Resolution Rate</div></div></div>
+      <div class="scadding-card"><div class="sc-hd sc4">Stage 4</div><div class="sc-body"><p>Pulmonary fibrosis with architectural distortion and volume loss</p><div class="sc-res">0%</div><div class="sc-label">Resolution Rate</div></div></div>
+    </div>
+    <div class="co wrn"><div class="co-t">Critical Boards Point</div>Scadding stages <strong>do NOT predict disease activity, progression of lung disease, or extrapulmonary involvement</strong> — they only reveal overall radiographic resolution rates. Do not use staging to predict outcome for individual patients.</div>
+  </div>
+  <div class="sub">
+    <h3>Imaging Findings</h3>
+    <ul class="bl">
+      <li><strong>Distribution:</strong> Upper-lobe predominant; lymphangitic distribution (along pleural/subpleural areas, interlobular septa, bronchovascular bundles)</li>
+      <li><strong>Classic CT:</strong> Widespread small nodules (perilymphatic and subpleural distribution), bronchovascular bundle thickening, thickened interlobular septa, mediastinal/hilar lymphadenopathy (may calcify), conglomerate masses with architectural distortion</li>
+      <li><strong>Advanced disease CT:</strong> Honeycombing, cyst/cavity formation, bronchiectasis</li>
+      <li>Nodular sarcoidosis or necrotizing sarcoid granulomatosis — nodular masses</li>
+      <li>Pleural effusions — rarely direct sarcoidosis (more often infections, heart failure); can cause lymphocytic exudative effusions</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Pulmonary Function</h3>
+    <ul class="bl">
+      <li>Many patients have <strong>normal PFTs</strong> despite abnormal imaging (especially early)</li>
+      <li><strong>Restrictive pattern</strong> in more advanced disease</li>
+      <li><strong>Airflow obstruction</strong> in up to one-third of patients — central airway scarring and distortion</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Upper Respiratory Tract &amp; Fibrosis Complications</h3>
+    <ul class="bl">
+      <li>Upper respiratory tract (larynx, pharynx, sinuses) — <strong>associated with more chronic severe disease</strong>; sinus involvement is adverse prognostic factor</li>
+      <li>Progressive pulmonary fibrosis — significant cause of complications and death</li>
+      <li>Fibrosis complications: cavitary lung disease, <strong>chronic pulmonary aspergillosis / aspergillomas</strong>, pulmonary hypertension</li>
+      <li>Fibrosis can occur <strong>even in the setting of anti-inflammatory therapy</strong></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="s8">
+  <div class="sec-hd"><span class="sec-n">08</span><h2>Cardiac Sarcoidosis &amp; Pulmonary Hypertension</h2><div class="sbar"><button class="lbtn">Learned</button><button class="fbtn">Review</button></div></div>
+  <div class="co dan"><div class="co-t">High-Stakes Organ</div>Cardiac sarcoidosis carries the risk of <strong>sudden death</strong> — which can be the <strong>initial presentation</strong> of disease. Severity of pulmonary involvement does <em>not</em> predict cardiac involvement — <strong>every patient must be screened with an ECG</strong>.</div>
+  <div class="sub">
+    <h3>Epidemiology</h3>
+    <ul class="bl">
+      <li>Clinical evidence in <strong>&lt;5% of U.S. patients</strong> and <strong>23% of Japanese patients</strong>; autopsy suggests higher subclinical rate</li>
+      <li>In broader population, cardiac sarcoidosis causes significant proportion of new-onset AV block, cardiomyopathy, and ventricular dysrhythmias — especially in younger patients</li>
+      <li>Isolated cardiac sarcoidosis can rarely occur</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Cardiac Manifestations</h3>
+    <div class="g2">
+      <div class="card"><div class="clabel c-r">Arrhythmias &amp; Conduction</div><ul class="bl"><li><strong>Sudden death</strong> — most common cause of death in cardiac sarcoidosis; can be initial presentation</li><li><strong>Ventricular tachycardia</strong> — most frequent tachyarrhythmia</li><li>Atrial tachycardias — related to ventricular dysfunction, dilated atria, severe pulmonary disease</li><li>AV block — conduction system infiltration</li></ul></div>
+      <div class="card"><div class="clabel c-a">Structural &amp; Mechanical</div><ul class="bl"><li><strong>Heart failure</strong> — most often from myocardial infiltration; also valve/papillary muscle infiltration</li><li>Pericardial effusion, cardiomyopathy</li><li><strong>Predictors of sudden death:</strong> Severity of heart failure, left ventricular end-diastolic diameter, sustained VT</li></ul></div>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Cardiac Diagnosis</h3>
+    <ul class="bl">
+      <li><strong>ECG — required on initial evaluation of EVERY sarcoidosis patient:</strong> Conduction block, ST-T abnormalities, Q waves, frequent PVCs, resting tachycardia</li>
+      <li>Gold-standard biopsy <strong>lacks sensitivity</strong> — patchy granulomas in cardiac tissue, predominant base-of-heart location, lack of RV involvement</li>
+      <li>If ECG abnormal: Holter monitor, signal-averaged ECG, further cardiac imaging</li>
+      <li><strong>Cardiac MRI (gadolinium-enhanced) — NOW PREFERRED:</strong> Superior resolution, detects early myocardial involvement with high sensitivity and specificity</li>
+      <li><strong>Cardiac PET/CT</strong> — alternative when MRI unavailable (incompatible devices, claustrophobia, inconclusive)</li>
+      <li>Historically: Thallium-201 scintigraphy / Tc-sestamibi SPECT — identify segmental defects</li>
+      <li>Echocardiography — ventricular/valve dysfunction, septal wall thickness, wall motion abnormalities</li>
+    </ul>
+    <div class="co prl"><div class="co-t">Reverse Redistribution — Boards Pearl</div>In cardiac sarcoidosis, nuclear imaging shows perfusion defects that <strong>reverse (improve) with exercise or dipyridamole</strong> — the <em>opposite</em> of coronary artery disease (where defects worsen with stress). This "reverse redistribution" pattern is a key distinguishing clue.</div>
+  </div>
+  <div class="sub">
+    <h3>Cardiac Treatment</h3>
+    <ul class="bl">
+      <li>Traditional treatments for cardiac arrhythmias + heart failure based on presentation</li>
+      <li>Plus <strong>immunosuppressive medications</strong>; optimal duration unclear; cardiac sarcoidosis typically more <strong>chronic and protracted</strong></li>
+      <li><strong>Electrophysiologist referral</strong> for rhythm disturbances — consider ICD/pacemaker implantation</li>
+      <li><strong>Heart transplantation</strong> — for refractory severe cardiac sarcoidosis; better short- and intermediate-term survival</li>
+    </ul>
+  </div>
+  <hr class="sep">
+  <div class="sub">
+    <h3>Pulmonary Hypertension in Sarcoidosis</h3>
+    <div class="co tel"><div class="co-t">Classification</div>WHO Group 5 cause of pulmonary hypertension (multifactorial and/or unclear mechanisms)</div>
+    <ul class="bl">
+      <li>Significantly contributes to morbidity and mortality</li>
+      <li><strong>Mechanisms:</strong> Granulomatous vasculitis; pulmonary arterial occlusion by lymphadenopathy; thrombosis; pulmonary venous occlusion; destruction of vascular bed; left heart dysfunction from myocardial involvement; portopulmonary hypertension (associated liver cirrhosis); hypoxic vasoconstriction from parenchymal disease; rarely resembles idiopathic PAH</li>
+      <li><strong>When to evaluate:</strong> Symptoms disproportionate to parenchymal disease, extensive parenchymal abnormalities, desaturation on 6-min walk test, low diffusing capacity</li>
+      <li><strong>Diagnosis:</strong> Echocardiography (screening) → Right heart catheterization (gold standard)</li>
+      <li><strong>Treatment:</strong> Corticosteroids may improve pressures in some; pulmonary vasodilator therapy on case-by-case basis</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="s9">
+  <div class="sec-hd"><span class="sec-n">09</span><h2>Nervous System &amp; Cutaneous Involvement</h2><div class="sbar"><button class="lbtn">Learned</button><button class="fbtn">Review</button></div></div>
+  <div class="sub">
+    <h3>Neurosarcoidosis</h3>
+    <ul class="bl">
+      <li>Highly associated with systemic disease but can occur <strong>without significant pulmonary or systemic disease</strong></li>
+      <li>Predilection for the <strong>base of the brain</strong></li>
+      <li><strong>Most common manifestation: Cranial nerve involvement</strong> (facial + optic nerves most common) — result of granulomatous basal meningitis OR direct nerve involvement</li>
+      <li>Facial nerve palsy — <strong>good prognosis</strong> compared to other neurologic findings</li>
+      <li><strong>Hypothalamus/pituitary involvement</strong> → neuroendocrine abnormalities (can persist even after immunosuppressive treatment)</li>
+      <li>Other findings: space-occupying masses, acute/chronic meningitis, peripheral neuropathy, neuromuscular or spinal cord involvement</li>
+      <li>Rare: seizures, neuropsychiatric symptoms</li>
+      <li><strong>Small-fiber neuropathy</strong> — increasingly recognized as cause of pain and autonomic dysfunction</li>
+      <li>Pain syndromes often <strong>do not respond well</strong> to immunosuppressives regardless of underlying cause</li>
+    </ul>
+    <div class="sub">
+      <h4>Neurosarcoidosis Workup</h4>
+      <ul class="bl">
+        <li><strong>Gadolinium-enhanced MRI</strong> — preferred; evaluates brain parenchyma, meninges, dura, spinal cord; leptomeningeal/parenchymal enhancement or multiple periventricular white matter lesions are sensitive but nonspecific (can mimic malignancy/infection)</li>
+        <li><strong>CSF analysis:</strong> Mononuclear cell pleocytosis, elevated proteins, elevated ACE, soluble IL-2 receptor, lysozyme, decreased glucose, oligoclonal bands — supportive but not diagnostic; <strong>important to exclude infection</strong></li>
+        <li>Chest imaging often helpful — many have pulmonary abnormality that can be biopsied</li>
+        <li>Histologic confirmation — when significant diagnostic uncertainty or not responding to therapy</li>
+        <li>Large-fiber neuropathy: nerve biopsy or nerve conduction studies</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Cutaneous Sarcoidosis</h3>
+    <ul class="bl">
+      <li>Most common: maculopapular, nodular eruptions, and plaques (granulomatous involvement)</li>
+      <li>Other: infiltration of old scars/tattoos, hypo/hyperpigmented areas, scales, annular lesions, ulcerations, subcutaneous nodules</li>
+      <li>Most lesions are <strong>not painful or pruritic</strong></li>
+    </ul>
+    <div class="g2">
+      <div class="card"><div class="clabel c-a">Erythema Nodosum</div><ul class="bl"><li><strong>Nonspecific, nongranulomatous</strong> (reactive, not direct granulomatous infiltration)</li><li>Raised, tender, erythematous bumps/nodules on <strong>anterior legs</strong></li><li>Common in Europeans and women; prominent feature of Löfgren syndrome</li><li>Remits spontaneously within <strong>6 weeks</strong></li><li>Uncommon in Japanese and Black populations</li></ul></div>
+      <div class="card"><div class="clabel c-r">Lupus Pernio — Boards High-Yield</div><ul class="bl"><li>Distinctive <strong>chronic</strong> lesion: indurated plaques + violaceous discoloration of nose, cheeks, lips, ears; frequently involves nasal mucosa</li><li>Most common in <strong>African-American women</strong></li><li><strong>Adverse prognostic factor</strong> — associated with bone cysts, pulmonary fibrosis, prolonged clinical course</li><li>Can allow clinical diagnosis without biopsy in classic cases</li></ul></div>
+    </div>
+    <ul class="bl"><li><strong>Treatment:</strong> Topical or injected corticosteroids; disfiguring/symptomatic lesions may need systemic therapy</li></ul>
+  </div>
+</section>
+
+<section class="sec" id="s10">
+  <div class="sec-hd"><span class="sec-n">10</span><h2>Other Organ Involvement</h2><div class="sbar"><button class="lbtn">Learned</button><button class="fbtn">Review</button></div></div>
+  <div class="sub">
+    <h3>Eye (Ocular Sarcoidosis)</h3>
+    <ul class="bl">
+      <li>Can affect any part of eye or orbit; ranges from asymptomatic to permanent vision loss</li>
+      <li><strong>Ophthalmologic exam recommended on initial evaluation</strong> AND with any change in visual symptoms</li>
+      <li><strong>Uveitis (anterior, posterior, or panuveitis)</strong> — most common manifestation, often bilateral; chronic uveitis complications: synechiae, glaucoma, cataracts, cystoid macular edema, blindness</li>
+      <li><strong>Optic neuropathy</strong> → sudden permanent vision loss → <strong>treat as emergency with immediate immunosuppression</strong></li>
+      <li>Other: conjunctival/eyelid granulomas, lacrimal gland enlargement, keratoconjunctivitis sicca, dacryocystitis, retinal vasculitis, periorbital swelling</li>
+      <li>Conjunctival nodule biopsy — relatively noninvasive diagnostic approach</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Liver</h3>
+    <ul class="bl">
+      <li>Hepatic granulomas in up to <strong>80%</strong> of pulmonary sarcoidosis patients on autopsy; clinically significant in up to <strong>15%</strong></li>
+      <li>Hepatic sarcoidosis can occur <strong>without lung involvement</strong></li>
+      <li>LFTs abnormal in up to one-third; <strong>elevated alkaline phosphatase most common</strong></li>
+      <li>Elevated transaminases also frequent; elevated bilirubin → more significant progressive disease</li>
+      <li>Hepatomegaly common; imaging shows small innumerable low-attenuation nodules</li>
+      <li>Symptoms: abdominal pain, pruritus, fevers, weight loss, jaundice</li>
+      <li>Rare progression: chronic cholestasis, hepatocellular disease, portal hypertension, Budd-Chiari syndrome, cirrhosis</li>
+      <li>Treatment: immunosuppressives (effective in some); liver transplantation for hepatic failure</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Musculoskeletal</h3>
+    <ul class="bl">
+      <li><strong>Acute arthritis</strong> (as in Löfgren syndrome) — common early; pain is an indication to treat</li>
+      <li>Chronic arthritis/synovitis — rarer than acute presentations</li>
+      <li><strong>Most common joints:</strong> Ankles, knees, elbows, wrists, small joints of hands and feet</li>
+      <li><strong>Bone lesions:</strong> Lacy, reticular osteolytic lesions on X-ray — often asymptomatic; occasionally painful; <strong>cystic bone lesions = adverse prognostic factor</strong></li>
+      <li>Bone marrow involvement → anemia and lymphopenia</li>
+      <li><strong>Muscle involvement:</strong> Pain, tenderness, weakness (myositis, chronic myopathy, muscle nodules); <strong>myopathy more common in women</strong>; can be sole presentation of disease</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Hypercalcemia — Mechanism is Critical</h3>
+    <div class="co prl"><div class="co-t">Pathophysiology — Must Know</div>Activated macrophages and granulomas produce <strong>1,25-hydroxyvitamin D3 (calcitriol)</strong> via <strong>1-alpha-hydroxylase (CYP27B1)</strong>, driven by IFN-γ. This conversion occurs <strong>unregulated</strong> (unlike in the kidney, which is controlled by PTH), causing:<ul class="bl" style="margin-top:8px"><li>Increased intestinal calcium absorption</li><li>Increased bone resorption</li><li>Elevated serum calcium despite <strong>low PTH</strong> (suppressed by hypercalcemia)</li><li>If untreated → <strong>nephrocalcinosis → renal dysfunction</strong></li></ul></div>
+    <ul class="bl">
+      <li>Hypercalcemia: only in <strong>10–20%</strong> of sarcoidosis patients</li>
+      <li>Hypercalciuria: much more frequent — up to <strong>50% of patients</strong></li>
+      <li><strong>Management:</strong> Monitor vitamin D intake, avoid excessive sunlight, maintain hydration</li>
+      <li>Severe acute symptomatic hypercalcemia → hospital admission + urgent corticosteroid therapy</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Kidney</h3>
+    <ul class="bl">
+      <li>Renal dysfunction mostly from <strong>hypercalcemia and nephrocalcinosis</strong> — not direct granulomatous infiltration</li>
+      <li>Sarcoidosis can cause <strong>interstitial nephritis</strong> (with or without granulomas) — generally responsive to treatment</li>
+      <li>Urinalysis: sterile pyuria, bland sediment, or mild proteinuria</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Lymphoid System, Parotid Glands &amp; Other</h3>
+    <div class="g2">
+      <div class="card"><div class="clabel c-b">Lymphoid System</div><ul class="bl"><li>Peripheral lymphadenopathy — presenting sign in minority of cases; cervical, axillary, epitrochlear, inguinal most common extrathoracic glands</li><li>Enlarged glands: discrete, movable, nontender — no ulceration or drainage</li><li>Splenomegaly — common but usually clinically silent; hypodense nodules on imaging</li><li>Rarely: splenic involvement causes pressure, pain, constitutional symptoms, hematologic abnormalities → may require splenectomy</li></ul></div>
+      <div class="card"><div class="clabel c-p">Parotid &amp; Other</div><ul class="bl"><li>Parotid/salivary involvement: <strong>4% of patients</strong>; associated with Heerfordt syndrome</li><li>Can present asymptomatically or with painful swollen glands / xerostomia; self-limiting; can resemble Sjögren's</li><li><strong>GI tract (rare):</strong> Most commonly stomach; symptoms: dysphagia, bleeding, nausea/vomiting, pain, weight loss</li><li><strong>Reproductive:</strong> Female uterus or male epididymis; any new nodules require malignancy exclusion</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="s11">
+  <div class="sec-hd"><span class="sec-n">11</span><h2>Clinical Course &amp; Prognosis</h2><div class="sbar"><button class="lbtn">Learned</button><button class="fbtn">Review</button></div></div>
+  <div class="sub">
+    <h3>Overall Course</h3>
+    <ul class="bl">
+      <li><strong>&gt;50% of patients</strong> resolve spontaneously — full remission without treatment</li>
+      <li><strong>30–40%</strong> develop chronic disease threatening vital organs or causing debilitating symptoms → require treatment</li>
+      <li>Chronic symptoms can be <strong>progressive</strong> or <strong>waxing and waning</strong>; predicting course in any individual is difficult</li>
+      <li>Most cases show improvement in CXR or spirometry after <strong>2 years</strong> of follow-up, whether treated or untreated</li>
+      <li>Serious extrapulmonary involvement (cardiac, CNS, hepatic) occurs in <strong>4–7%</strong> at presentation and can develop as disease evolves</li>
+      <li><strong>Relapses</strong> common — associated with shorter treatment duration; occur in &gt;1/3 of patients</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Mortality</h3>
+    <ul class="bl">
+      <li><strong>Death in 1–5%</strong> of patients — causes:</li>
+    </ul>
+    <div class="g2">
+      <div class="card"><div class="clabel c-r">Pulmonary Deaths (US/Europe)</div><ul class="bl"><li>Progressive respiratory insufficiency</li><li>Complications of pulmonary scarring: hemoptysis, infection, aspergilloma</li><li>Leading cause in Western populations</li></ul></div>
+      <div class="card"><div class="clabel c-r">Other Causes</div><ul class="bl"><li><strong>Cardiac:</strong> heart failure, cardiac block, sudden cardiac death, arrhythmias (predominant in Japan)</li><li><strong>CNS involvement</strong></li><li><strong>Liver failure</strong></li><li>Complications of immunosuppressive therapies</li></ul></div>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Clinical Prognostic Factors</h3>
+    <div class="g2">
+      <div class="card"><div class="clabel c-g">Good Prognosis</div><ul class="bl"><li><strong>Löfgren syndrome</strong> — spontaneous remission up to 80%; occurs in 20–30% of Caucasians (esp. Northern European), &lt;5% of Asians/African Americans</li><li><strong>Heerfordt syndrome</strong> — spontaneous remission up to 80%</li><li>Erythema nodosum + fever → remit within <strong>6 weeks</strong>; lymphadenopathy resolution delayed &gt;1 year</li><li>Facial nerve palsy</li><li>Higher BAL CD4:CD8 ratio (relatively better prognosis)</li><li>Robust initial immune response vs. subacute/chronic presentation</li></ul></div>
+      <div class="card"><div class="clabel c-r">Adverse Prognostic Factors</div><ul class="bl"><li><strong>Lupus pernio</strong></li><li>Chronic uveitis</li><li>Older age at onset</li><li>Chronic hypercalcemia + nephrocalcinosis</li><li><strong>African origins</strong></li><li>Pulmonary hypertension</li><li>Fibrotic pulmonary sarcoidosis</li><li>Sinus involvement</li><li>Cystic bone lesions</li><li><strong>Neurosarcoidosis</strong></li><li><strong>Cardiac involvement</strong></li></ul></div>
+    </div>
+    <div class="co prl" style="margin-top:14px"><div class="co-t">Key Concept — Scadding Stages ≠ Prognosis</div>Parenchymal infiltrates on the Scadding classification <strong>do NOT predict activity, progression of lung disease, or extrapulmonary involvement.</strong> They only reveal overall resolution rates. Do NOT use radiographic stage to guide decisions about extrapulmonary screening.</div>
+  </div>
+  <div class="sub">
+    <h3>Predictive Value of Serum, BAL &amp; Genetics</h3>
+    <div class="ref-table">
+      <table>
+        <thead><tr><th>Marker</th><th>Diagnostic Value</th><th>Prognostic Value</th><th>Clinical Use</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Serum ACE</strong></td><td>Low sensitivity — NOT diagnostic</td><td>NOT prognostic</td><td>Monitor disease activity (correlates with granulomatous burden); also elevated in TB, histoplasmosis, diabetes</td></tr>
+          <tr><td><strong>Soluble IL-2 Receptor</strong></td><td>Lacks sensitivity — NOT diagnostic</td><td>May predict relapse rate</td><td>Correlates with disease activity</td></tr>
+          <tr><td><strong>BAL CD4:CD8 &gt;3.5</strong></td><td>Supports diagnosis (when combined with clinical/radiographic findings); normal does NOT exclude</td><td>Does NOT correlate with progression or need for treatment; higher values = relatively better prognosis</td><td>Diagnostic support only</td></tr>
+          <tr><td><strong>BAL Neutrophils/Eosinophils ↑</strong></td><td>—</td><td><strong>Worse prognosis</strong> — higher proportion with disease progression</td><td>Adverse prognostic marker</td></tr>
+          <tr><td><strong>HLA haplotypes</strong></td><td>Associated with phenotype</td><td>Certain variants → worse prognosis</td><td>Research; not routine clinical use</td></tr>
+          <tr><td><strong>BTNL2, TNF-α, ANXA11</strong></td><td>—</td><td><strong>Worse prognosis</strong></td><td>Research only; lack generalizability</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Follow-Up Schedule</h3>
+    <ul class="bl">
+      <li><strong>First 2 years after presentation:</strong> Most intensive monitoring period — decreasing frequency as time passes</li>
+      <li><strong>After starting therapy:</strong> Follow-up in <strong>1–3 months</strong>, then every <strong>3–6 months</strong> once stable</li>
+      <li><strong>After full remission:</strong> Follow for <strong>a few years</strong> to assess for relapses; lengthier observation needed for severe disease or residual organ dysfunction</li>
+      <li>Follow-up testing: symptoms, complete physical exam, imaging of affected organs, periodic PFTs, markers of specific organ dysfunction</li>
+      <li>Any new symptoms → <strong>full evaluation of that organ system</strong></li>
+    </ul>
+  </div>
+</section>
+
+
+<section class="sec" id="s12">
+  <div class="sec-hd"><span class="sec-n">12</span><h2>Treatment</h2><div class="sbar"><button class="lbtn">Learned</button><button class="fbtn">Review</button></div></div>
+  <div class="sub">
+    <h3>Goals &amp; Philosophy</h3>
+    <div class="co prl"><div class="co-t">No Cure — Goals of Therapy</div><ul class="bl" style="margin-top:8px"><li>Suppress granulomatous inflammation</li><li>Prevent irreversible organ fibrosis</li><li>Alleviate debilitating symptoms</li></ul><p style="margin-top:10px;font-size:13px">Treatment decisions guided by expert opinion, uncontrolled trials, and only a few larger RCTs. Every decision requires weighing risk of immunosuppression vs. benefit of treatment.</p></div>
+    <h4 style="margin-top:16px;font-size:13px;font-weight:600;color:var(--t2)">When NOT to Treat:</h4>
+    <ul class="bl">
+      <li><strong>Asymptomatic Stage I disease</strong> — high inherent rate of spontaneous resolution</li>
+      <li>Mild symptoms — monitor closely; topical therapy preferred for skin if possible</li>
+    </ul>
+    <h4 style="margin-top:16px;font-size:13px;font-weight:600;color:var(--t2)">Indications for Oral Immunosuppressive Therapy:</h4>
+    <ul class="bl">
+      <li>Significant symptoms or disfigurement</li>
+      <li>Dangerous impending organ damage</li>
+      <li><strong>Pulmonary:</strong> worsening cough/dyspnea, moderate-to-severe parenchymal involvement, progressive decline in PFTs</li>
+      <li>Life- or organ-threatening situations: CNS involvement, ocular involvement with vision loss, extensive myocardial inflammation</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>First-Line: Corticosteroids</h3>
+    <div class="co prl"><div class="co-t">Prednisone Dosing Protocol</div>
+      <ul class="bl" style="margin-top:8px">
+        <li><strong>Induction:</strong> Prednisone 0.5 mg/kg/day or <strong>~20–40 mg/day × 4 weeks</strong></li>
+        <li><strong>Maintenance:</strong> Taper to control symptoms/progression — ideally <strong>&lt;10 mg/day</strong></li>
+        <li>Higher starting doses NOT more effective + associated with increased morbidity</li>
+        <li>Consider taper <strong>early</strong> based on clinical improvement to minimize toxicity</li>
+        <li>Greatest pulmonary improvement in first <strong>weeks to months</strong> of therapy</li>
+        <li>Limited data beyond 2 years — unclear if oral steroids modify long-term progression or mortality</li>
+      </ul>
+    </div>
+    <ul class="bl">
+      <li><strong>Inhaled CS:</strong> May be considered for very mild pulmonary cough symptom control — NOT shown to benefit the larger sarcoidosis population</li>
+      <li><strong>Monitoring:</strong> bone health (bisphosphonates for osteoporosis prevention), weight gain, diabetes risk, eye exams (glaucoma and cataracts)</li>
+      <li><strong>More aggressive doses</strong> justified in: CNS involvement, vision-threatening ocular disease, extensive myocardial inflammation</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Second-Line: Steroid-Sparing Agents</h3>
+    <p style="font-size:13px;color:var(--t2);margin-bottom:14px">Indicated for: intolerance or toxicity to CS, inability to taper CS, or refractory disease. Choice guided by alcohol use, pregnancy plans, comorbidities (liver/renal dysfunction), pharmacogenetic profiles.</p>
+    <div class="ref-table">
+      <table>
+        <thead><tr><th>Agent</th><th>Dose</th><th>Key Monitoring / Considerations</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Methotrexate</strong> ⭐ Most recommended</td><td>7.5–20 mg/wk PO or SQ</td><td>Co-administer folic acid; monitor LFTs, renal function, CBC</td><td>Contraindicated with significant alcohol use; most favorable efficacy/side-effect profile</td></tr>
+          <tr><td><strong>Leflunomide</strong></td><td>10–20 mg/day</td><td>Monitor LFTs, renal function, CBC</td><td>Toxicity → cholestyramine to accelerate clearance</td></tr>
+          <tr><td><strong>Azathioprine</strong></td><td>50–200 mg/day or 1–2 mg/kg/day</td><td>Monitor LFTs, renal function, CBC; check <strong>TPMT activity</strong></td><td>Appears equally effective to MTX; higher infectious complication rate</td></tr>
+          <tr><td><strong>Mycophenolate</strong></td><td>1000–3000 mg/day</td><td>Monitor blood counts</td><td>Enteric-coated option available (different dose range)</td></tr>
+          <tr><td><strong>Hydroxychloroquine</strong></td><td>200–400 mg/day</td><td>Periodic eye exams for retinopathy; assess QT interval</td><td><strong>Skin disease + hypercalcemia ONLY — NOT for pulmonary sarcoidosis</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Third-Line: TNF Inhibitors (Refractory Disease)</h3>
+    <div class="co prl"><div class="co-t">Why TNF Inhibitors Work</div>TNF-α is produced by activated macrophages of the granuloma and drives propagation of inflammation. Targeting it interrupts the granulomatous cascade.</div>
+    <div class="g2" style="margin-top:14px">
+      <div class="card"><div class="clabel c-a">Infliximab (Monoclonal Ab) — Most Evidence</div><ul class="bl"><li>Dose: <strong>3–5 mg/kg IV at weeks 0 &amp; 2, then every 4–8 weeks</strong></li><li>Has RCT data + larger case series showing positive effects on PFTs, imaging, and inflammatory cytokines</li><li>Particularly effective in more severe disease</li><li><strong>Pre-treatment:</strong> Screen for tuberculosis (TB reactivation risk)</li><li><strong>Contraindicated</strong> in heart failure</li><li>Allergic/infusion reactions possible</li><li>Long-term risks: demyelination syndrome, malignancy</li><li>Can paradoxically induce sarcoid-like reactions</li></ul></div>
+      <div class="card"><div class="clabel c-b">Adalimumab vs. Etanercept</div><ul class="bl"><li><strong>Adalimumab:</strong> 40 mg SQ every 1–2 weeks (exact dose unknown); monoclonal antibody; similar precautions to infliximab; efficacy esp. in <strong>ocular sarcoidosis</strong></li><li style="border-top:1px solid var(--bd);margin-top:8px;padding-top:8px"><strong class="text-red">Etanercept:</strong> TNF <em>receptor antagonist</em> (not monoclonal Ab) → <strong>INEFFECTIVE for sarcoidosis — do NOT use</strong></li><li style="margin-top:8px"><strong>Other refractory options:</strong> Anti-B-cell therapy; antifibrotic medications</li></ul></div>
+    </div>
+  </div>
+  <div class="sub">
+    <h3>Treatment Duration</h3>
+    <ul class="bl">
+      <li><strong>~1 year for most patients</strong></li>
+      <li>Shorter courses → higher relapse rates (though can be considered for very responsive cases)</li>
+      <li>Longer courses necessary for life-threatening or refractory disease</li>
+      <li><strong>Relapses:</strong> Treat with the <strong>last known effective dosing regimen</strong></li>
+      <li>Greatest pulmonary improvement in first weeks to months → taper early to minimize toxicity</li>
+    </ul>
+  </div>
+  <div class="sub">
+    <h3>Approach to the Whole Patient</h3>
+    <ul class="bl">
+      <li><strong>Fatigue:</strong> &gt;80% of sarcoidosis patients experience multifactorial fatigue; can persist even after treatment and remission; due to medications, sleep disorders, pain, and inflammation itself; associated with extrapulmonary involvement</li>
+      <li><strong>Depression:</strong> Highly prevalent; associated with female sex, dyspnea, and poor access to care</li>
+      <li><strong>Cognitive impairment:</strong> Well-noted, poorly understood; contributes to decreased QOL</li>
+      <li><strong>Pain syndromes</strong> (neuropathic, fibromyalgia, autonomic dysfunction): often do NOT respond well to immunosuppressives → symptomatic care needed</li>
+      <li><strong>Physical training:</strong> Formalized programs improve exercise capacity, strength, and fatigue</li>
+      <li><strong>Pregnancy risk:</strong> All second-line agents have adverse reproductive effects — counsel patients</li>
+      <li><strong>Organ transplantation:</strong> Occasionally necessary for progressive end-organ damage (lungs, liver, heart, kidney); sarcoidosis can recur in transplanted organs but rarely causes post-transplant organ failure</li>
+    </ul>
+  </div>
+</section>
+
+
+<section class="sec" id="s13">
+  <div class="sec-hd"><span class="sec-n">13</span><h2>Exam Traps</h2><div class="sbar"><button class="lbtn">Learned</button><button class="fbtn">Review</button></div></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">Smoking is PROTECTIVE in Sarcoidosis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">You see sarcoidosis — should smoking history push the diagnosis toward or away from it?</div>
+      <div class="trap-a"><strong>Away from it.</strong> Smoking is a <strong>negative predictor</strong> of incident sarcoidosis — it is consistently associated with <em>reduced odds</em> of developing the disease. The mechanism is thought to involve immunomodulatory effects of nicotine and smoke. This counterintuitive fact makes it a favorite board question: do NOT assume that a smoker cannot have sarcoidosis, but recognize that smoking actually makes sarcoidosis less likely, not more.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Löfgren Syndrome: Watchful Waiting, NOT Immunosuppression</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient has fever, erythema nodosum, bilateral ankle arthralgias, and bilateral hilar lymphadenopathy. What is your treatment?</div>
+      <div class="trap-a"><strong>Watchful waiting.</strong> This is classic Löfgren syndrome, which has spontaneous remission in up to 80% of cases. Immunosuppressive therapy is <strong>rarely necessary</strong>. Erythema nodosum and fever typically remit within 6 weeks on their own. Jumping to systemic steroids is a trap — reserve treatment for those who do not resolve spontaneously or who have significant symptoms requiring control.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Scadding Stages Do NOT Predict Activity or Extrapulmonary Involvement</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient is found to have Stage 3 sarcoidosis on CXR. Can you use this to predict disease activity, likelihood of cardiac involvement, or need for treatment?</div>
+      <div class="trap-a"><strong>No.</strong> Scadding radiographic stages <strong>only reveal overall resolution rates</strong> — they do NOT predict disease activity, progression of lung disease, or the presence of extrapulmonary involvement. A patient with Stage 1 can have life-threatening cardiac sarcoidosis. <strong>Every sarcoidosis patient requires a baseline ECG</strong> and full organ assessment regardless of their radiographic stage.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Hypercalcemia in Sarcoidosis: Low PTH, Not High</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A sarcoidosis patient has hypercalcemia. Is PTH elevated, low, or normal? How does this differ from primary hyperparathyroidism?</div>
+      <div class="trap-a"><strong>PTH is LOW (suppressed).</strong> Mechanism: activated macrophages use <strong>CYP27B1 (1-alpha-hydroxylase)</strong> to convert vitamin D to calcitriol <em>unregulated</em> — bypassing the normal PTH-controlled kidney pathway. Elevated calcitriol raises calcium, which then suppresses PTH via normal feedback. Contrast with primary hyperparathyroidism where <strong>PTH is HIGH</strong>. In sarcoidosis: Ca ↑, PTH ↓, Calcitriol ↑. If you see Ca ↑ + PTH ↑ — think primary hyperPTH, not sarcoidosis.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Etanercept is INEFFECTIVE — Use Infliximab or Adalimumab</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Which TNF-targeting agent is contraindicated in sarcoidosis?</div>
+      <div class="trap-a"><strong>Etanercept.</strong> Despite targeting the TNF pathway, etanercept (a <em>TNF receptor antagonist</em>) has been shown to be <strong>ineffective for sarcoidosis and should not be used</strong>. The reason is not fully understood but may relate to the difference between blocking TNF vs. its receptor. Use <strong>infliximab</strong> (most evidence; RCT data) or <strong>adalimumab</strong> (monoclonal antibodies) instead. Boards will test this distinction — "TNF antagonist" does not mean "useful in sarcoidosis."</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Cardiac Nuclear Imaging: Reverse Redistribution = Opposite of CAD</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Thallium scintigraphy shows perfusion defects at rest that improve with exercise. What does this suggest?</div>
+      <div class="trap-a"><strong>Cardiac sarcoidosis.</strong> This pattern is called <em>reverse redistribution</em> — defects appear at rest (granulomatous inflammation or fibrosis) and <em>improve</em> with exercise or dipyridamole. This is the <strong>opposite of coronary artery disease</strong>, where defects appear or worsen with stress (ischemia). In CAD: rest normal → stress defect. In cardiac sarcoidosis: rest defect → exercise improvement. This pearl is high-yield for distinguishing the two conditions.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Lupus Pernio = Adverse Prognosis, NOT Just a Cosmetic Finding</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient has violaceous plaques on the nose, cheeks, lips, and ears. Is this purely cosmetic?</div>
+      <div class="trap-a"><strong>Absolutely not.</strong> Lupus pernio is a <strong>chronic, disfiguring lesion</strong> that is a major <em>adverse prognostic factor</em> — associated with bone cysts, pulmonary fibrosis, and a prolonged clinical course. It is most common in African-American women. Do NOT treat it as cosmetic; it signals systemic severe sarcoidosis requiring aggressive workup. It can also allow clinical diagnosis without biopsy in classic cases (along with Löfgren/Heerfordt syndromes).</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">CD4:CD8 Ratio &gt;3.5: Supports Diagnosis Only — Does Not Predict Progression</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient has BAL showing CD4:CD8 ratio of 5.0. Does this confirm sarcoidosis? Does a normal ratio exclude it? Does this ratio predict who will progress?</div>
+      <div class="trap-a"><strong>No to all three.</strong> A CD4:CD8 ratio &gt;3.5 <strong>supports</strong> the diagnosis when combined with consistent clinical and radiographic findings — it does NOT confirm it. A <strong>normal ratio does NOT exclude sarcoidosis</strong>. The ratio does NOT correlate with disease progression or need for treatment. However, <em>higher values</em> tend to implicate a better overall prognosis. In contrast, elevated BAL neutrophils or eosinophils are associated with worse prognosis.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Hydroxychloroquine: Skin and Hypercalcemia ONLY — NOT Pulmonary</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Can you use hydroxychloroquine to treat pulmonary sarcoidosis?</div>
+      <div class="trap-a"><strong>No.</strong> Hydroxychloroquine is effective for <strong>skin disease and hypercalcemia</strong> but is <strong>not recommended for pulmonary sarcoidosis</strong>. Do not confuse its utility in rheumatoid arthritis and lupus with broad applicability in sarcoidosis. If you see a question asking which agent to use for refractory lung disease — hydroxychloroquine is not the answer. For pulmonary disease, use methotrexate, azathioprine, or leflunomide as second-line agents.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Optic Neuropathy = Emergency → Immediate Immunosuppression</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A sarcoidosis patient presents with acute vision loss. How urgent is this?</div>
+      <div class="trap-a"><strong>This is an emergency.</strong> Optic neuropathy in sarcoidosis can lead to <strong>sudden permanent vision loss</strong> and must be treated with <strong>immediate initiation of immunosuppressive therapy</strong>. Do not delay for additional workup. The clock is ticking — delay means permanent blindness. Contrast this with uveitis, which is more chronic and allows a more measured approach (though still warrants prompt attention).</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">Serum ACE: Monitoring Tool Only — NOT Diagnostic</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient has elevated serum ACE. Does this confirm sarcoidosis?</div>
+      <div class="trap-a"><strong>No.</strong> Serum ACE has <strong>low sensitivity</strong> and is not a clinically useful diagnostic tool — it is also elevated in tuberculosis, histoplasmosis, diabetes, and other conditions. Its value lies in <strong>monitoring systemic disease activity</strong> over time: it correlates roughly with granulomatous burden and can track response to therapy. A normal ACE does not exclude sarcoidosis; an elevated ACE does not confirm it. Never use it as a standalone diagnostic test.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 12</span><span class="trap-title">Cardiac Screening Required for EVERY Sarcoidosis Patient — Regardless of Pulmonary Severity</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Your sarcoidosis patient has minimal pulmonary disease. Do they need cardiac screening?</div>
+      <div class="trap-a"><strong>Yes — always.</strong> Severity of pulmonary involvement does NOT predict the presence of cardiac sarcoidosis. Isolated cardiac sarcoidosis can occur. An <strong>ECG must be obtained on initial evaluation of every sarcoidosis patient</strong>, regardless of pulmonary severity. Cardiac sarcoidosis causes AV block, ventricular tachycardia, heart failure, and sudden death — and it can be the initial presentation of sarcoidosis. Pulmonary Stage 1 does not give you permission to skip cardiac screening.</div>
+    </div>
+  </div>
+
+</section>
+
+
+<section class="sec" id="ref">
+  <div class="sec-hd"><span class="sec-n">★</span><h2>Quick Reference Master Table</h2><div class="sbar"><button class="lbtn">Learned</button><button class="fbtn">Review</button></div></div>
+  <div class="ref-table">
+    <table>
+      <thead><tr><th style="width:28%">Topic</th><th>High-Yield Detail</th></tr></thead>
+      <tbody>
+        <tr><td colspan="2" style="background:var(--nb);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)">EPIDEMIOLOGY</td></tr>
+        <tr><td>Definition</td><td>Systemic inflammatory disease of unknown cause → nonnecrotizing granulomatous inflammation</td></tr>
+        <tr><td>Lung involvement</td><td><strong>&gt;90%</strong> of patients</td></tr>
+        <tr><td>Highest incidence</td><td>African Americans (35.5/100,000) and Northern Europeans (24/100,000); Black Women's Health Study: 71/100,000 annually, 2% prevalence</td></tr>
+        <tr><td>Gender</td><td>Higher incidence in women (ratio rarely exceeds 2:1); men: higher risk for hypercalcemia; women: higher risk for erythema nodosum, ocular, MSK, neuro disease</td></tr>
+        <tr><td>Age peak</td><td>35–45 years; significant proportion after age 55; men manifest earlier than women</td></tr>
+        <tr><td>Smoking</td><td><strong>Negative predictor</strong> — smoking REDUCES odds of sarcoidosis (counterintuitive!)</td></tr>
+        <tr><td>Seasonal variation</td><td>Predominance of diagnoses in <strong>springtime</strong></td></tr>
+        <tr><td>US mortality rate</td><td>4.32 per 1,000,000 (age/gender-adjusted); higher in women and African Americans</td></tr>
+        <tr><td>Leading cause of death</td><td>US/Europe: <strong>pulmonary fibrosis</strong>; Japan: <strong>cardiac involvement</strong></td></tr>
+        <tr><td colspan="2" style="background:var(--nb);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)">ETIOLOGY &amp; PATHOGENESIS</td></tr>
+        <tr><td>Etiology</td><td>Unknown; heightened immune response to undetermined environmental antigen in genetically susceptible individual</td></tr>
+        <tr><td>Smoking direction</td><td>PROTECTIVE / negative predictor; never a risk factor</td></tr>
+        <tr><td>Implicated antigens</td><td>Mycobacterial proteins (mKatG, ESAT-6, mycobacterial SOD-A, antigen 85A, HSPs); Cutibacterium acnes; beryllium; fungi</td></tr>
+        <tr><td>Immunologic hallmark</td><td>TH1 immune polarization; CD4+ TH1 lymphocytes; IFN-γ; IL-1, IL-2, IL-15, IL-18, CXCR3 upregulated</td></tr>
+        <tr><td>WTC firefighters</td><td>Baseline: 13–15/100,000; post-collapse year 1: 86/100,000 "sarcoid-like" disease</td></tr>
+        <tr><td colspan="2" style="background:var(--nb);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)">ACUTE SYNDROMES</td></tr>
+        <tr><td>Löfgren syndrome (up to 10%)</td><td>Fever + erythema nodosum + bilateral ankle arthralgias + bilateral hilar lymphadenopathy → spontaneous remission up to 80%; IS therapy rarely necessary</td></tr>
+        <tr><td>Heerfordt syndrome</td><td>Facial nerve palsy + fever + anterior uveitis + bilateral parotid enlargement → spontaneous remission up to 80%</td></tr>
+        <tr><td colspan="2" style="background:var(--nb);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)">DIAGNOSIS</td></tr>
+        <tr><td>3 Diagnostic criteria</td><td>1) Compatible clinical presentation 2) Nonnecrotizing granulomatous inflammation in ≥1 tissue 3) Exclusion of alternative causes</td></tr>
+        <tr><td>Baseline workup (all patients)</td><td>Full H&amp;P, PFTs, chest imaging, <strong>eye exam</strong>, creatinine/ALP/calcium/CBC, 25- and 1,25-OH vitamin D, <strong>ECG</strong></td></tr>
+        <tr><td>Biopsy (preferred approach)</td><td>Lung/mediastinal involvement → EBUS-guided lymph node sampling (high yield, low risk)</td></tr>
+        <tr><td>BAL CD4:CD8 &gt;3.5</td><td>Supports diagnosis; does NOT confirm; normal does NOT exclude; does NOT predict progression</td></tr>
+        <tr><td>No-biopsy situations</td><td>Classic Löfgren, Heerfordt, lupus pernio; asymptomatic bilateral hilar LAD (patient-oriented decision)</td></tr>
+        <tr><td colspan="2" style="background:var(--nb);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)">PATHOLOGY</td></tr>
+        <tr><td>Granuloma composition</td><td>Macrophages + epithelioid cells + multinucleated giant cells; rim of lymphocytes + fibroblasts; CD4+ T cells inside, CD8+ and B cells at periphery</td></tr>
+        <tr><td>Granuloma type</td><td><strong>Tightly formed, nonnecrotizing</strong> (punctuate necrosis rare; abundant necrosis → infection)</td></tr>
+        <tr><td>vs. TB granuloma</td><td>TB: tightly formed + <strong>necrotizing center</strong></td></tr>
+        <tr><td>vs. HP granuloma</td><td>HP: <strong>loosely formed</strong>, nonnecrotizing</td></tr>
+        <tr><td>Inclusions</td><td>Asteroid bodies, birefringent calcium carbonate/oxalate crystals, Schaumann bodies, Hamazaki-Wesenberg bodies (esp. lymph nodes)</td></tr>
+        <tr><td colspan="2" style="background:var(--nb);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)">SCADDING STAGES</td></tr>
+        <tr><td>Stage 1</td><td>Bilateral hilar LAD without parenchymal involvement → resolution 55–90%</td></tr>
+        <tr><td>Stage 2</td><td>Bilateral hilar LAD + parenchymal involvement → resolution 40–70%</td></tr>
+        <tr><td>Stage 3</td><td>Parenchymal involvement without LAD → resolution 10–20%</td></tr>
+        <tr><td>Stage 4</td><td>Pulmonary fibrosis with architectural distortion/volume loss → resolution 0%</td></tr>
+        <tr><td>Stages predict?</td><td><strong>Resolution rates ONLY</strong> — do NOT predict activity, progression, or extrapulmonary involvement</td></tr>
+        <tr><td colspan="2" style="background:var(--nb);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)">ORGAN FREQUENCIES</td></tr>
+        <tr><td>Organ involvement rates</td><td>Lung 95%, Skin 16%, Peripheral LN 15%, Liver 12%, Eyes 12%, Spleen 7%, Salivary/Parotid 4%, ↑Ca 4%, Ear/Nose/Throat 3%, Neurologic 5%, Heart 2%, Kidneys 1%</td></tr>
+        <tr><td>Cardiac sarcoidosis rates</td><td>&lt;5% US patients clinically; 23% Japanese patients clinically; higher on autopsy (subclinical)</td></tr>
+        <tr><td>Hypercalcemia vs hypercalciuria</td><td>Hypercalcemia: <strong>10–20%</strong>; Hypercalciuria: <strong>up to 50%</strong></td></tr>
+        <tr><td colspan="2" style="background:var(--nb);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)">KEY CLINICAL PEARLS</td></tr>
+        <tr><td>Cardiac imaging pearl</td><td><strong>Reverse redistribution:</strong> perfusion defects at rest that IMPROVE with exercise/dipyridamole → cardiac sarcoidosis (opposite of CAD)</td></tr>
+        <tr><td>Lupus pernio</td><td>Violaceous plaques nose/cheeks/lips/ears; African-American women; ADVERSE prognosis; associated with bone cysts, pulmonary fibrosis</td></tr>
+        <tr><td>Optic neuropathy</td><td><strong>Emergency</strong> — immediate immunosuppression; can cause sudden permanent vision loss</td></tr>
+        <tr><td>Uveitis</td><td>Most common ocular manifestation; bilateral; chronic → glaucoma, cataracts, cystoid macular edema, blindness</td></tr>
+        <tr><td>Hypercalcemia mechanism</td><td>Macrophage CYP27B1 → unregulated calcitriol → Ca ↑, PTH ↓ (low, not high)</td></tr>
+        <tr><td colspan="2" style="background:var(--nb);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)">PROGNOSIS</td></tr>
+        <tr><td>Good prognosis</td><td>Löfgren, Heerfordt (80% remission); erythema nodosum; facial nerve palsy; higher BAL CD4:CD8</td></tr>
+        <tr><td>Adverse prognosis</td><td>Lupus pernio; chronic uveitis; older age; chronic hypercalcemia; nephrocalcinosis; African origins; PH; fibrotic lung; sinus involvement; cystic bone lesions; neurosarcoidosis; cardiac involvement</td></tr>
+        <tr><td>Serum ACE</td><td>NOT diagnostic, NOT prognostic; monitors disease activity only</td></tr>
+        <tr><td>Elevated BAL neutrophils/eos</td><td>Worse prognosis</td></tr>
+        <tr><td>Death</td><td>1–5% of patients; US/Europe → pulmonary; Japan → cardiac</td></tr>
+        <tr><td colspan="2" style="background:var(--nb);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)">TREATMENT</td></tr>
+        <tr><td>First-line</td><td>Prednisone 20–40 mg/day × 4 weeks → taper to &lt;10 mg/day; inhaled CS for very mild cough only (not population benefit)</td></tr>
+        <tr><td>Hydroxychloroquine indication</td><td><strong>Skin + hypercalcemia ONLY — NOT pulmonary disease</strong></td></tr>
+        <tr><td>Best second-line (lung)</td><td>Methotrexate 7.5–20 mg/wk (most recommended); azathioprine equally effective but more infections; TPMT level before AZA</td></tr>
+        <tr><td>Etanercept</td><td><strong>INEFFECTIVE — do not use</strong> (TNF receptor antagonist, not monoclonal Ab)</td></tr>
+        <tr><td>Infliximab</td><td>3–5 mg/kg IV wks 0 &amp; 2 then q4–8wks; most evidence; screen for TB first; avoid in HF; can cause sarcoid-like reactions</td></tr>
+        <tr><td>Adalimumab</td><td>40 mg SQ q1–2wks; esp. effective in ocular sarcoidosis</td></tr>
+        <tr><td>Treatment duration</td><td>~1 year; relapse → last known effective dose; shorter courses → higher relapse rates</td></tr>
+        <tr><td>Fatigue prevalence</td><td>&gt;80% of patients; multifactorial (medications, sleep, pain, inflammation)</td></tr>
+        <tr><td>Transplant recurrence</td><td>Sarcoidosis can recur in transplanted organs but rarely causes post-transplant organ failure</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">Harrison's Principles of Internal Medicine · Chapter 379 · Sarcoidosis · Alicia K. Gerke · Boards Review 2026 · Venos Edition</footer>
+
+
+<script>
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+/* ── HIGHLIGHT SYSTEM ──────────────────────────────── */
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+/* Save all highlights as {text, color} */
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+/* Restore highlights by finding text in DOM */
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+/* ── NOTE SYSTEM ───────────────────────────────────── */
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+/* Restore note anchors by finding ref text in DOM */
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+/* ── POPOVER ───────────────────────────────────────── */
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+/* ── MOUSE SELECTION ───────────────────────────────── */
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+/* ── CLEAR ALL ─────────────────────────────────────── */
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+/* ── SIDEBAR TOGGLE ────────────────────────────────── */
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+/* ── RESIZE ────────────────────────────────────────── */
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+/* ── STATUS BUTTONS ────────────────────────────────── */
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+/* ── NAV TRACKING ──────────────────────────────────── */
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+/* ── INIT — restore everything on page load ──────── */
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
