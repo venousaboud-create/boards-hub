@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Thyroid Gland Disorders · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;--tx:#1c1a17;--t2:#4a4540;--t3:#857f77;--blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;--red:#b91c1c;--red-l:#fef2f2;--amb:#b45309;--amb-l:#fffbeb;--grn:#15803d;--grn-l:#f0fdf4;--pur:#6d28d9;--pur-l:#f5f3ff;--tel:#0e7490;--tel-l:#ecfeff;--hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);--hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);--nav:54px;--snw:300px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;padding:0 12px;display:flex;align-items:center;white-space:nowrap;border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blu);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}.main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green" onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue" onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink" onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase" onclick="setErase()">&#10005;</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd"><span>&#128221; My Notes</span><button id="sn-toggle-btn" onclick="toggleSidebar()">&#9664;</button></div>
+  <div id="sn-body"><div id="sn-empty">Select text &#8594; write note &#8594; Add Note.<br><br>Notes stay connected to sentences even after closing.</div></div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">&#8212;</em></div>
+    <textarea id="sn-ta" placeholder="Add your note&#8230;"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">&#128221; Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">&#215;</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison&#8217;s Principles &#183; Chapters 394&#8211;397 &#183; Endocrinology</div>
+  <h1>Thyroid Gland Disorders</h1>
+  <div class="hero-sub">Physiology &#183; Hypothyroidism &#183; Hyperthyroidism &#183; Nodular Disease &#183; Cancer</div>
+  <div class="hero-authors">Jameson, Weetman, Mandel &#8212; Harrison&#8217;s Principles of Internal Medicine</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">12</div><div class="stat-l">Sections</div></div>
+    <div class="stat-box"><div class="stat-n">25</div><div class="stat-l">Exam Traps</div></div>
+    <div class="stat-box"><div class="stat-n">4</div><div class="stat-l">Chapters</div></div>
+    <div class="stat-box"><div class="stat-n">2026</div><div class="stat-l">Stage A</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Anatomy</a>
+    <a class="toc-a" href="#s2">Synthesis</a>
+    <a class="toc-a" href="#s3">HPT Axis</a>
+    <a class="toc-a" href="#s4">Transport</a>
+    <a class="toc-a" href="#s5">Pregnancy</a>
+    <a class="toc-a" href="#s6">Lab Eval</a>
+    <a class="toc-a" href="#s7">Hypothyroid</a>
+    <a class="toc-a" href="#s8">Hyperthyroid</a>
+    <a class="toc-a" href="#s9">Thyroiditis</a>
+    <a class="toc-a" href="#s10">SES &amp; Amio</a>
+    <a class="toc-a" href="#s11">Nodules &amp; Cancer</a>
+    <a class="toc-a" href="#s12">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<section class="sec" id="s1">
+<div class="sec-hd"><span class="sec-n">01</span><h2>Anatomy &amp; Development</h2></div>
+<div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+<div class="sub"><h3>Gross Anatomy</h3>
+<ul class="bl">
+<li><strong>Two lobes</strong> connected by an isthmus; anterior to trachea between <strong>cricoid cartilage</strong> and suprasternal notch</li>
+<li>Normal weight: <strong>12&#8211;20 g</strong>; highly vascular, soft consistency; each lobe ~4 cm long</li>
+<li><strong>Four parathyroid glands</strong> on posterior poles &#8212; must be identified and preserved during thyroid surgery</li>
+<li><strong>Recurrent laryngeal nerves</strong> traverse lateral borders &#8212; injury causes unilateral or bilateral vocal cord paralysis</li>
+<li>Goiter on clinical exam: lateral lobe volume greater than the patient&#8217;s thumb; ultrasound total volume &gt;30 mL = abnormal</li>
+</ul></div>
+<div class="sub"><h3>Embryology &amp; Migration</h3>
+<ul class="bl">
+<li>Develops from the <strong>floor of the primitive pharynx</strong> at the foramen cecum (junction of anterior 2/3 and posterior 1/3 of tongue) during the <strong>3rd week of gestation</strong></li>
+<li>Migrates caudally along the <strong>thyroglossal duct</strong> to final position in the neck; duct normally obliterates</li>
+<li>Ectopic thyroid tissue: <strong>lingual thyroid</strong> (base of tongue, most common) or anywhere along thyroglossal tract</li>
+<li><strong>Thyroglossal duct cysts</strong>: midline neck mass that moves <em>upward</em> with tongue protrusion &#8212; distinguishing feature</li>
+<li>Thyroid hormone synthesis begins at <strong>~11 weeks&#8217; gestation</strong>; fetal brain depends on maternal T4 until then</li>
+<li>Transcription factors for thyroid development: <strong>TTF1 (NKX2-1), TTF2 (FOXE1), PAX8, NKX2-5</strong> &#8212; mutations cause agenesis or ectopic thyroid with congenital hypothyroidism</li>
+</ul></div>
+<div class="sub"><h3>C Cells (Parafollicular Cells)</h3>
+<ul class="bl">
+<li>Derived from <strong>neural crest cells</strong> via ultimobranchial body; located at junction of upper 1/3 and lower 2/3 of each lobe</li>
+<li>Produce <strong>calcitonin</strong> &#8212; lowers serum calcium but plays minimal physiologic role in calcium homeostasis in humans</li>
+<li>Clinically critical: origin of <strong>medullary thyroid carcinoma (MTC)</strong>; calcitonin is the tumor marker</li>
+</ul></div>
+<div class="sub"><h3>Follicle Architecture</h3>
+<ul class="bl">
+<li>Functional unit: <strong>spherical follicle</strong> &#8212; single layer of polarized follicular epithelial cells surrounding a central lumen of colloid</li>
+<li><strong>Colloid</strong>: viscous fluid containing large amounts of <strong>thyroglobulin (Tg)</strong>, the scaffold for thyroid hormone synthesis</li>
+<li>Follicular cells are <strong>polarized</strong>: basolateral surface (bloodstream-facing) has TSH-R and NIS; apical surface (lumen-facing) has pendrin and TPO</li>
+<li>Iodide enters basolaterally via NIS, is oxidized and attached to Tg apically, stored as colloid, then endocytosed and cleaved to release T4/T3 into bloodstream</li>
+</ul></div>
+<div class="co key"><div class="co-t">&#128276; Congenital Hypothyroidism &#8212; Neonatal Screening</div>
+Congenital hypothyroidism: ~1 in 2000&#8211;4000 newborns. Most common cause of preventable intellectual disability. Neonatal screening (heel-prick TSH or T4) is universal in industrialized countries. LT4 <strong>10&#8211;15 &#956;g/kg/day</strong> started within days of birth prevents irreversible neurologic damage. Early treatment = normal IQ.
+</div>
+</section>
+
+<section class="sec" id="s2">
+<div class="sec-hd"><span class="sec-n">02</span><h2>Thyroid Hormone Synthesis</h2></div>
+<div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+<div class="sub"><h3>Step-by-Step Synthesis Pathway</h3>
+<div class="g2">
+<div class="card"><div class="clabel c-b">Step 1 &#8212; Iodide Uptake (NIS)</div>
+<p><strong>NIS (Na&#8314;/I&#8315; symporter)</strong> on basolateral membrane; electrogenic (2 Na&#8314; per I&#8315;); concentrates iodide 20&#8211;40&#215; above plasma. Driven by Na&#8314;/K&#8314;-ATPase gradient. Upregulated by TSH and iodine deficiency; downregulated by excess iodide and certain drugs. NIS is the target of radioiodine (&#185;&#179;&#185;I) therapy &#8212; concentrated exclusively in functional thyroid tissue.</p></div>
+<div class="card"><div class="clabel c-b">Step 2 &#8212; Apical Transport (Pendrin)</div>
+<p><strong>Pendrin (SLC26A4)</strong> on the apical membrane transports iodide into the follicular lumen. Mutation = <strong>Pendred syndrome</strong>: defective organification + goiter + <strong>sensorineural deafness</strong> (autosomal recessive). Also expressed in cochlea where it regulates endolymph composition.</p></div>
+<div class="card"><div class="clabel c-b">Step 3 &#8212; Organification</div>
+<p><strong>TPO (thyroid peroxidase)</strong> oxidizes iodide using H&#8322;O&#8322; generated by <strong>DUOX1/DUOX2 + DUOXA</strong>. Reactive iodine covalently attaches to tyrosyl residues of Tg &#8212; forming <strong>MIT (monoiodotyrosine)</strong> and <strong>DIT (diiodotyrosine)</strong>. TPO mutations &#8594; dyshormonogenesis + goiter.</p></div>
+<div class="card"><div class="clabel c-b">Step 4 &#8212; Coupling</div>
+<p><strong>TPO</strong> also catalyzes the phenoxy ether bond coupling reaction within the Tg molecule: <strong>MIT + DIT &#8594; T3</strong>; <strong>DIT + DIT &#8594; T4</strong>. Tg is a 660 kDa homodimeric glycoprotein (2769 amino acids, 134 tyrosines of which ~40 are iodinated, ~4&#8211;8 form T4/T3). Thyroid makes predominantly T4.</p></div>
+<div class="card"><div class="clabel c-b">Step 5 &#8212; Storage &amp; Secretion</div>
+<p>Tg-bound T4/T3 is stored in follicular lumen as colloid. TSH stimulus &#8594; Tg endocytosed &#8594; lysosomal proteolysis &#8594; T4 and T3 released into bloodstream. Uncoupled MIT and DIT recycled by <strong>iodotyrosine deiodinase (DEHAL1)</strong> to recover iodide.</p></div>
+<div class="card"><div class="clabel c-b">Wolff-Chaikoff Effect</div>
+<p>Acute large iodide load <em>transiently inhibits</em> organification &#8212; an autoregulatory response. Normal gland <em>escapes</em> within 1&#8211;2 weeks by downregulating NIS (reducing intracellular iodide). In <strong>Hashimoto&#8217;s or post-RAI thyroid</strong>: cannot escape &#8594; sustained hypothyroidism from iodine overload (e.g., amiodarone, contrast agents).</p></div>
+</div></div>
+<div class="sub"><h3>TSH Action on the Thyroid</h3>
+<ul class="bl">
+<li>TSH-R: <strong>7-transmembrane GPCR</strong> coupled to Gs&#945; &#8594; activates <strong>adenylyl cyclase &#8594; cAMP &#8594; PKA</strong> &#8594; promotes thyroid cell growth, iodide uptake, organification, coupling, secretion</li>
+<li>Also couples to <strong>Gq/phospholipase C</strong> pathway at high TSH levels &#8594; IP3/DAG &#8594; PKC activation (less dominant)</li>
+<li><strong>Loss-of-function TSH-R mutations</strong>: thyroid hypoplasia + congenital hypothyroidism (TSH levels very high, gland unresponsive)</li>
+<li><strong>Gain-of-function TSH-R mutations</strong>: constitutive activation &#8594; sporadic/familial hyperthyroidism with thyroid autonomy; somatic mutations found in &gt;90% of toxic adenomas</li>
+<li><strong>TSI</strong> (thyroid-stimulating immunoglobulins) in Graves&#8217; disease mimic TSH &#8594; bind TSH-R &#8594; constitutive hormone excess</li>
+</ul></div>
+<div class="sub"><h3>Iodine Physiology</h3>
+<ul class="bl">
+<li>RDA: <strong>150 &#956;g/day</strong> adults; <strong>220 &#956;g/day</strong> pregnancy; <strong>290 &#956;g/day</strong> breastfeeding (WHO recommends 250 &#956;g for pregnancy/lactation)</li>
+<li>Normal 24-hour RAI uptake: <strong>10&#8211;25%</strong> in iodine-replete state; reflects proportion of plasma iodide trapped by the gland</li>
+<li>Urinary iodine &gt;100 &#956;g/L = population iodine sufficient</li>
+<li>Iodine deficiency &#8594; goiter (upregulated NIS + TSH-driven growth), cretinism (severe deficiency in early life &#8594; irreversible intellectual disability + growth retardation), hypothyroidism</li>
+<li>Iodine excess &#8594; Wolff-Chaikoff effect &#8594; &#8593; risk of autoimmune thyroid disease; Jod-Basedow effect (hyperthyroidism in pre-existing MNG)</li>
+</ul></div>
+<div class="co wrn"><div class="co-t">&#9888; Congenital Hormone Synthesis Defects (Dyshormonogenesis)</div>
+Mutations in: <strong>TPO or Tg</strong> (most common), DUOX2/DUOXA2, DEHAL1, pendrin, NIS, TSH-R, thyroid transcription factors. All cause congenital goitrous hypothyroidism with elevated TSH. Tg goiter = most radio-dense on scan (TSH-driven follicular hyperplasia + Tg accumulation).
+</div>
+</section>
+
+<section class="sec" id="s3">
+<div class="sec-hd"><span class="sec-n">03</span><h2>Thyroid Axis &amp; Hormone Action</h2></div>
+<div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+<div class="sub"><h3>HPT Axis (Hypothalamic-Pituitary-Thyroid)</h3>
+<ul class="bl">
+<li><strong>TRH</strong> (thyrotropin-releasing hormone, tripeptide pyroglutamyl-histidyl-proline): synthesized in <strong>paraventricular nucleus</strong> of hypothalamus &#8594; released into portal circulation &#8594; binds GPCR on pituitary thyrotropes &#8594; &#8593; TSH synthesis and glycosylation + &#8593; TSH secretion</li>
+<li><strong>TSH</strong> (31 kDa glycoprotein) &#8594; binds TSH-R on thyroid follicular cells &#8594; &#8593; T4 and T3 synthesis + secretion</li>
+<li><strong>Negative feedback</strong>: T3/T4 (especially via <strong>TR&#946;2</strong>) directly suppress TRH gene transcription in hypothalamus and TSH &#946;-subunit gene in pituitary; also suppresses TRH-R expression on pituitary</li>
+<li>TSH is secreted in a <strong>pulsatile, diurnal pattern</strong>: highest at night (2&#8211;4 AM), lowest in late afternoon; blunted in illness</li>
+<li>TSH half-life: <strong>~50 min</strong>; carbohydrate modifications regulated by TRH affect bioactivity</li>
+<li>Pharmacologic TSH suppressors: dopamine, glucocorticoids (high dose), somatostatin, bexarotene</li>
+</ul>
+<div class="co key"><div class="co-t">Thyroid hormone is the DOMINANT regulator of TSH</div>
+The log-linear inverse relationship between TSH and free T4 means small changes in free T4 cause large proportional changes in TSH. This is why TSH is the most sensitive test &#8212; it amplifies subtle thyroid dysfunction.
+</div></div>
+<div class="sub"><h3>Thyroid Hormone Receptors (TR&#945; and TR&#946;)</h3>
+<div class="tw"><table>
+<thead><tr><th>Receptor</th><th>High Expression</th><th>Key Function</th></tr></thead>
+<tbody>
+<tr><td>TR&#945;1</td><td>Brain, heart, kidney, gonads, muscle</td><td>Cardiac rate/contractility; brain development; bone maturation</td></tr>
+<tr><td>TR&#946;1</td><td>Liver, kidney, widespread</td><td>Lipid metabolism; cholesterol synthesis regulation</td></tr>
+<tr><td>TR&#946;2</td><td>Pituitary (thyrotropes), hypothalamus</td><td><strong>Negative feedback control</strong> of TRH/TSH axis</td></tr>
+<tr><td>TR&#945;2</td><td>Widely expressed</td><td>Cannot bind T3 (unique C-terminus); may act as dominant negative inhibitor</td></tr>
+</tbody>
+</table></div>
+<ul class="bl">
+<li>All TRs have <strong>zinc-finger DNA-binding domain</strong> + C-terminal ligand-binding domain; bind TREs (thyroid response elements) as homo- or heterodimers with <strong>RXR (retinoid X receptor)</strong></li>
+<li>Unliganded TR &#8594; binds <strong>co-repressor (NCoR/SMRT)</strong> &#8594; chromatin condensation &#8594; gene silencing (WHY hypothyroidism causes more severe effects than simply losing stimulation)</li>
+<li>T3 binding &#8594; co-repressor release &#8594; <strong>co-activator (SRC/p160 family)</strong> recruitment &#8594; histone acetylation &#8594; gene activation</li>
+<li><strong>T3 binds TRs 10&#8211;15&#215;</strong> more avidly than T4 &#8594; explains greater potency</li>
+</ul></div>
+<div class="sub"><h3>Resistance to Thyroid Hormone (RTH)</h3>
+<div class="g2">
+<div class="card"><div class="clabel c-r">RTH-&#946; (Classic RTH)</div>
+<p>Autosomal dominant mutations in <strong>TR&#946; ligand-binding domain</strong> &#8594; mutant receptor retains co-repressor binding even with T3 &#8212; <strong>dominant negative</strong> effect (mutant inhibits wild-type TR&#946; function). Labs: <strong>&#8593;&#8593; free T4/T3 + inappropriately normal or elevated TSH</strong>. Clinical: goiter, ADHD, mild IQ reduction, delayed bone maturation, tachycardia. Most patients are <em>euthyroid in tissues</em> expressing TR&#945;1 (not affected by TR&#946; mutation). Tx: usually none &#8212; avoid misdiagnosing as hyperthyroid.</p></div>
+<div class="card"><div class="clabel c-r">RTH-&#945;</div>
+<p>Mutations in <strong>TR&#945;</strong>. Features of selective tissue hypothyroidism in TR&#945;-expressing organs. Clinical: growth retardation, skeletal dysplasia (short limbs, epiphyseal dysgenesis), severe constipation, bradycardia, delayed neurocognitive development. Labs: <strong>normal TSH + low-normal T4 + elevated T3</strong> (T4&#8594;T3 conversion enhanced to compensate). Thyroxine treatment may improve manifestations.</p></div>
+</div>
+<div class="co dan"><div class="co-t">&#9888; RTH-&#946; vs TSH-Secreting Pituitary Adenoma</div>
+Both: elevated free T4/T3 + non-suppressed TSH. Distinguish by: <strong>TSH-secreting adenoma</strong> = elevated &#945;-subunit of TSH, pituitary mass on MRI, locally invasive, no family history. <strong>RTH-&#946;</strong> = normal &#945;-subunit, no pituitary mass, similar labs in family members, TR&#946; gene mutation on sequencing. Management is completely different.
+</div></div>
+</section>
+
+<section class="sec" id="s4">
+<div class="sec-hd"><span class="sec-n">04</span><h2>Transport, Metabolism &amp; Cell Entry</h2></div>
+<div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+<div class="sub"><h3>Serum Binding Proteins</h3>
+<div class="tw"><table>
+<thead><tr><th>Protein</th><th>Affinity</th><th>Plasma [</th><th>T4 carried</th><th>T3 carried</th></tr></thead>
+<tbody>
+<tr><td>TBG (thyroxine-binding globulin)</td><td>Highest (T4 &gt; T3)</td><td>1&#8211;2 mg/dL</td><td>~80%</td><td>~70%</td></tr>
+<tr><td>Albumin</td><td>Low (but vast quantity)</td><td>3.5&#8211;5 g/dL</td><td>~10%</td><td>~25%</td></tr>
+<tr><td>TTR (transthyretin/prealbumin)</td><td>Intermediate</td><td>~15&#8211;30 mg/dL</td><td>~10%</td><td>&lt;5%</td></tr>
+</tbody>
+</table></div>
+<div class="tw"><table>
+<thead><tr><th>Property</th><th>T4</th><th>T3</th></tr></thead>
+<tbody>
+<tr><td>Protein-bound fraction</td><td>99.98%</td><td>99.7%</td></tr>
+<tr><td>Serum half-life</td><td><strong>7 days</strong></td><td><strong>~18&#8211;24 h</strong></td></tr>
+<tr><td>Total serum concentration</td><td>8 &#956;g/dL (103 nmol/L)</td><td>0.14 &#956;g/dL (2.2 nmol/L)</td></tr>
+<tr><td>From thyroid directly</td><td>100%</td><td>~20% (rest = peripheral T4&#8594;T3)</td></tr>
+<tr><td>Daily production rate</td><td>90 &#956;g/day</td><td>32 &#956;g/day (6.5 &#956;g direct + 26.5 &#956;g peripheral)</td></tr>
+<tr><td>Intracellular concentration</td><td>~20% of total body pool</td><td>~70% of total body pool</td></tr>
+<tr><td>Relative potency</td><td>0.3</td><td>1.0</td></tr>
+</tbody>
+</table></div></div>
+<div class="sub"><h3>Binding Protein Disorders</h3>
+<ul class="bl">
+<li><strong>TBG deficiency (X-linked)</strong>: low total T4/T3, normal free T4, normal TSH &#8594; patient is euthyroid. Do NOT treat &#8212; giving LT4 would cause thyrotoxicosis</li>
+<li><strong>TBG excess</strong> (estrogen, pregnancy, oral estrogens, methadone, heroin): high total T4/T3, normal free T4, normal TSH &#8594; euthyroid. Do not treat</li>
+<li><strong>FDH (Familial Dysalbuminemic Hyperthyroxinemia)</strong>: autosomal dominant albumin mutations (R218H most common) &#8594; albumin binds T4 with abnormally high affinity &#8594; high total T4, normal free T4 (by dialysis), normal TSH. Many immunoassays give falsely elevated &#8220;free T4&#8221; &#8212; equilibrium dialysis is the gold standard to distinguish from true hyperthyroidism</li>
+<li><strong>Salicylates/phenytoin</strong>: displace T4/T3 from binding proteins &#8594; transient rise in free T4, then TSH-mediated restoration of euthyroid state (new steady state with lower total T4 but normal free T4 and TSH)</li>
+</ul></div>
+<div class="sub"><h3>Deiodinase Enzymes</h3>
+<div class="g3">
+<div class="card"><div class="clabel c-b">Type I (DIO1)</div>
+<p>Liver, kidney, thyroid. Low-affinity for T4. Converts T4&#8594;T3 (outer ring, 5&#8217;-deiodination) &#8212; major source of circulating T3. <strong>Inhibited by</strong>: PTU, propranolol (high dose), amiodarone, glucocorticoids, iodinated contrast, systemic illness, fasting. PTU uniquely blocks this (methimazole does not).</p></div>
+<div class="card"><div class="clabel c-g">Type II (DIO2)</div>
+<p>Pituitary, CNS, brown adipose, thyroid, skeletal muscle. High affinity for T4 &#8594; generates local T3 for intracellular use. Critical for LT4 replacement efficacy. <strong>Upregulated in hypothyroidism</strong> &#8594; increased T4&#8594;T3 conversion in brain/pituitary (this is why T3 is often normal in hypothyroid patients).</p></div>
+<div class="card"><div class="clabel c-r">Type III (DIO3)</div>
+<p>Inner ring deiodination &#8594; produces <strong>reverse T3 (rT3, metabolically inactive)</strong> from T4; inactivates T3 to T2. Active in placenta (protects fetus), skin. Massively upregulated in sick euthyroid syndrome &#8594; &#8595;T3, &#8593;rT3. Overexpression in infantile hemangiomas &#8594; consumptive hypothyroidism (treatment-resistant).</p></div>
+</div></div>
+<div class="sub"><h3>Cell Entry &#8212; MCT8 Transporter</h3>
+<ul class="bl">
+<li>T4 and T3 enter cells via <strong>passive diffusion</strong> (lipophilic) AND specific transporters: <strong>MCT8, MCT10, OATP1C1</strong></li>
+<li><strong>MCT8 mutation</strong> (X-linked, Allan-Herndon-Dudley syndrome): T4 cannot enter CNS cells (brain is MCT8-dependent) &#8594; T4 shunted to peripheral T4&#8594;T3 conversion &#8594; paradoxical labs: <strong>LOW T4 + HIGH T3 + HIGH TSH</strong></li>
+<li>Clinical: severe psychomotor retardation, hypotonia, absent speech, peripheral thyrotoxicosis features (tachycardia, hyperthermia, muscle wasting)</li>
+<li>After cell entry: primarily act via <strong>nuclear TRs</strong>; also nongenomic effects on plasma membrane, mitochondria (rapid actions)</li>
+</ul>
+<div class="co dan"><div class="co-t">&#9888; MCT8 Labs are Paradoxical &#8212; Board Trap</div>
+MCT8 mutation &#8594; LOW T4 + HIGH T3 + HIGH TSH. This is the OPPOSITE of what you expect in hypothyroidism (where TSH is high but T4 is low and T3 is usually normal). The elevated T3 results from increased peripheral conversion of the excess T4 that cannot enter brain cells.
+</div></div>
+</section>
+
+<section class="sec" id="s5">
+<div class="sec-hd"><span class="sec-n">05</span><h2>Thyroid Function in Pregnancy</h2></div>
+<div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+<div class="sub"><h3>Five Factors Altering Thyroid Function in Pregnancy</h3>
+<div class="g2">
+<div class="card"><div class="clabel c-b">1. hCG (1st Trimester)</div>
+<p>hCG shares &#945;-subunit with TSH and weakly stimulates TSH-R. Peaks at 8&#8211;10 weeks &#8594; mild thyroid stimulation &#8594; <strong>reciprocal fall in TSH</strong> (often to low-normal or suppressed). Rare TSH-R variants with enhanced hCG affinity &#8594; gestational thyrotoxicosis + hyperemesis gravidarum. Resolves as hCG falls after 1st trimester.</p></div>
+<div class="card"><div class="clabel c-b">2. TBG Rise (Sustained)</div>
+<p>Estrogen &#8594; increased TBG sialylation &#8594; slower TBG clearance &#8594; total TBG doubles by 2nd trimester. Result: <strong>total T4 and T3 rise ~1.5&#215;</strong> throughout pregnancy. Free T4 initially normal, then <em>progressively decreases</em> &#8212; often below nonpregnant range in 3rd trimester. Do not mistake high total T4 for hyperthyroidism.</p></div>
+<div class="card"><div class="clabel c-b">3. Immune Modifications</div>
+<p>Pregnancy-induced immune tolerance (to prevent fetal rejection): can cause <em>improvement</em> of Graves&#8217; disease in later pregnancy (TRAb/TSI levels often fall). Postpartum period: immune rebound &#8594; major relapse risk for Graves&#8217; + onset of postpartum thyroiditis. Graves&#8217; neonatal thyrotoxicosis: maternal TSI crosses placenta &#8594; stimulates fetal TSH-R.</p></div>
+<div class="card"><div class="clabel c-b">4. Placental Type III Deiodinase</div>
+<p>Placenta expresses abundant type III deiodinase &#8594; converts T4&#8594;rT3 and T3&#8594;T2 (protects fetus from excess maternal thyroid hormone). Net effect: <strong>increased maternal thyroid hormone requirements</strong>. Athyreotic women require ~45% more LT4; thyroid-intact women with Hashimoto&#8217;s require less.</p></div>
+<div class="card" style="grid-column:1/-1"><div class="clabel c-b">5. Increased Renal Iodide Clearance</div>
+<p>GFR increases in pregnancy &#8594; increased urinary iodide excretion. In areas of marginal iodine sufficiency: this plus fetal demand &#8594; iodine deficiency &#8594; goiter (maternal + fetal). WHO recommends <strong>250 &#956;g/day iodine</strong> during pregnancy and lactation. Prenatal vitamins: should contain at least <strong>150 &#956;g/day</strong> as potassium iodide.</p></div>
+</div></div>
+<div class="sub"><h3>Lab Ranges in Pregnancy</h3>
+<ul class="bl">
+<li>Use <strong>trimester-specific TSH reference ranges</strong> when available (laboratory-specific, assay-specific)</li>
+<li>First trimester: TSH lower limit &#8595; ~0.4 mIU/L (due to hCG); upper limit &#8595; ~4.0 mIU/L (approximate)</li>
+<li>Second and third trimesters: TSH range approximately same as nonpregnant</li>
+<li>Total T4/T3: ~1.5&#215; higher throughout; do NOT use as index of thyroid status</li>
+<li>Free T4: measured by dialysis is best; immunoassay unreliable in late pregnancy (methodologic interference)</li>
+</ul>
+<div class="co wrn"><div class="co-t">&#9888; Hyperemesis Gravidarum &#8212; Do NOT Give Antithyroid Drugs</div>
+Gestational thyrotoxicosis from hCG: TSH suppressed, T4/T3 elevated, severe nausea/vomiting. No Graves&#8217; features (no ophthalmopathy, no TRAb). Treatment: IV fluid + antiemetics. Antithyroid drugs are NOT indicated unless true Graves&#8217; disease is diagnosed concurrently. The condition is self-limiting as hCG falls.
+</div></div>
+<div class="sub"><h3>LT4 Management in Hypothyroid Pregnant Women</h3>
+<ul class="bl">
+<li>Maternal hypothyroidism associated with: miscarriage, preterm delivery, preeclampsia, gestational hypertension, impaired fetal neurodevelopment</li>
+<li>As soon as pregnancy confirmed: <strong>immediately increase LT4 to 9 doses/week</strong> (take a double dose on 2 nonconsecutive days per week &#8212; this approximates the necessary ~45% increase)</li>
+<li>Monitor TSH: every <strong>4 weeks in first half</strong> of pregnancy; every <strong>6&#8211;8 weeks after 20 weeks</strong></li>
+<li>Goal TSH: lower half of trimester-specific range, or <strong>&lt;2.5 mIU/L</strong> (pre-conception target also &lt;2.5)</li>
+<li>After delivery: return to pre-pregnancy dose; recheck TSH at 6 weeks postpartum</li>
+<li>Separate LT4 from iron/calcium supplements (impair absorption): take on empty stomach, 30 min before other medications</li>
+</ul></div>
+</section>
+
+<section class="sec" id="s6">
+<div class="sec-hd"><span class="sec-n">06</span><h2>Laboratory Evaluation</h2></div>
+<div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+<div class="sub"><h3>TSH &#8212; First-Line Test</h3>
+<ul class="bl">
+<li><strong>TSH is the most sensitive and specific initial test</strong> for primary thyroid dysfunction; used for both screening and evaluation of symptomatic patients</li>
+<li>Normal TSH effectively <em>excludes primary thyroid disease</em> (does NOT exclude central/secondary hypothyroidism)</li>
+<li>Suppressed TSH (&lt;0.01 mIU/L): usually indicates thyrotoxicosis (primary or central excess)</li>
+<li>Elevated TSH: primary hypothyroidism (most common); also RTH-&#946;, TSH-secreting adenoma (rare), recovery from NTI, assay artifact</li>
+<li>Subnormal TSH (0.01&#8211;0.4 mIU/L): 1st trimester pregnancy (hCG), recovery from treated hyperthyroidism, high-dose glucocorticoids or dopamine, NTI in 10%</li>
+<li>Third-generation TSH assays: functional sensitivity &lt;0.01 mIU/L; sufficient for clinical use; TRH stimulation test is now <strong>obsolete</strong></li>
+</ul>
+<div class="co dan"><div class="co-t">&#128680; Biotin Interference &#8212; Critical Pearl</div>
+Most TSH immunoassays use <strong>biotinylated antibodies</strong> with streptavidin solid phase. Biotin (&ge;1000&#956;g/day, including many hair/nail supplement doses) <strong>falsely suppresses TSH + falsely elevates free T4/T3</strong>. The free biotin in serum competes with biotinylated antibodies &#8594; assay failure. Stop biotin for at least <strong>2 days</strong> before testing (effect clears within 18h of last dose). Always ask about biotin use before acting on unexpected thyroid results.
+</div></div>
+<div class="sub"><h3>Free Thyroid Hormone Measurement</h3>
+<ul class="bl">
+<li>Any abnormal TSH &#8594; confirm with <strong>free T4 (unbound T4)</strong> measurement before initiating treatment</li>
+<li><strong>Equilibrium dialysis</strong>: gold standard &#8212; physically separates free from bound fraction; expensive; not routine</li>
+<li><strong>T4 immunoassay with T4 analogue</strong>: most commonly used; affected by protein abnormalities (FDH, pregnancy, severe illness)</li>
+<li><strong>T3 toxicosis</strong> (2&#8211;5% of thyrotoxicosis): suppressed TSH + normal free T4 &#8594; must measure <strong>free T3</strong>; more common in iodine-deficient areas, toxic adenomas, early Graves&#8217;</li>
+<li>T3 measurement in <em>hypothyroidism</em>: NOT indicated &#8212; often normal due to compensatory type II deiodinase upregulation (does not reflect thyroid status)</li>
+</ul></div>
+<div class="sub"><h3>Causes of Elevated Total T4 Without Hyperthyroidism</h3>
+<div class="tw"><table>
+<thead><tr><th>Cause</th><th>Total T4</th><th>Free T4</th><th>TSH</th><th>Mechanism</th></tr></thead>
+<tbody>
+<tr><td>TBG excess (estrogen, pregnancy)</td><td>&#8593;&#8593;</td><td>Normal</td><td>Normal</td><td>&#8593; TBG binds more T4</td></tr>
+<tr><td>FDH (albumin R218H mutation)</td><td>&#8593;</td><td>Normal (by dialysis)</td><td>Normal</td><td>Albumin binds T4 with high affinity; immunoassay falsely elevates &#8220;free T4&#8221;</td></tr>
+<tr><td>TTR mutations</td><td>&#8593;</td><td>Normal</td><td>Normal</td><td>TTR binds T4 with high affinity</td></tr>
+<tr><td>RTH-&#946;</td><td>&#8593;&#8593;</td><td>&#8593;&#8593;</td><td>Normal/&#8593;</td><td>Pituitary insensitive to feedback &#8594; TSH drives excess T4</td></tr>
+<tr><td>TSH-secreting adenoma</td><td>&#8593;&#8593;</td><td>&#8593;&#8593;</td><td>Normal/&#8593;</td><td>Autonomous TSH secretion</td></tr>
+<tr><td>Amiodarone (euthyroid)</td><td>&#8593;</td><td>Normal/slightly &#8593;</td><td>Normal (or transiently &#8593;)</td><td>&#8595;T4&#8594;T3 conversion; TSH normalizes in 1&#8211;3 months</td></tr>
+</tbody>
+</table></div></div>
+<div class="sub"><h3>Autoimmune Thyroid Markers</h3>
+<ul class="bl">
+<li><strong>TPO antibodies (anti-TPO)</strong>: present in &gt;95% of Hashimoto&#8217;s and ~80% of Graves&#8217;; also in 5&#8211;15% of euthyroid women (&#8593; risk of future hypothyroidism and postpartum thyroiditis). Clinically most useful autoimmune marker; complement-fixing</li>
+<li><strong>Tg antibodies (anti-Tg)</strong>: present in fewer patients; less specific; important because they interfere with Tg measurement &#8212; must be checked when monitoring thyroid cancer via Tg levels (falsely low Tg if anti-Tg present)</li>
+<li><strong>TRAb (TSH receptor antibodies)</strong>: measured by competition assay (labeled TSH displaced from TSH-R); elevated in Graves&#8217;; TRAb disappearance after antithyroid drugs predicts remission; high maternal TRAb (&gt;3&#215; ULN in 3rd trimester) predicts fetal/neonatal thyrotoxicosis</li>
+<li><strong>Serum thyroglobulin (Tg)</strong>: elevated in all causes of thyrotoxicosis <em>except</em> <strong>thyrotoxicosis factitia</strong> (exogenous hormone suppresses endogenous Tg production and release). Post-thyroidectomy + RAI ablation: Tg &lt;0.2 ng/mL = remission marker for differentiated thyroid cancer</li>
+</ul></div>
+<div class="sub"><h3>Radioiodine Uptake (RAIU) &amp; Thyroid Scintigraphy</h3>
+<div class="tw"><table>
+<thead><tr><th>Scan Finding</th><th>Interpretation</th></tr></thead>
+<tbody>
+<tr><td>High RAIU + diffuse uptake (70&#8211;90%)</td><td>Graves&#8217; disease</td></tr>
+<tr><td>High RAIU + focal hot area + suppressed surround</td><td>Toxic adenoma (autonomous nodule)</td></tr>
+<tr><td>High RAIU + heterogeneous uptake</td><td>Toxic multinodular goiter (MNG)</td></tr>
+<tr><td>Very low RAIU (&lt;5%)</td><td>Subacute/silent thyroiditis, thyrotoxicosis factitia, excess iodine, recent contrast</td></tr>
+<tr><td>Low RAIU + elevated Tg</td><td>Thyroiditis (pre-formed hormone release)</td></tr>
+<tr><td>Low RAIU + low Tg</td><td>Thyrotoxicosis factitia (exogenous T4/T3)</td></tr>
+</tbody>
+</table></div>
+<p>Scintigraphy for thyroid nodules: ONLY perform if TSH is suppressed. A &#8220;hot&#8221; (hyperfunctioning) nodule on scan &#8594; almost never malignant &#8594; <strong>FNA not needed</strong>.</p></div>
+<div class="sub"><h3>Thyroid Ultrasound &amp; ACR TI-RADS</h3>
+<div class="tw"><table>
+<thead><tr><th>ACR TI-RADS</th><th>Points</th><th>Category</th><th>FNA Threshold</th></tr></thead>
+<tbody>
+<tr><td>TR1</td><td>0</td><td>Benign</td><td>No FNA</td></tr>
+<tr><td>TR2</td><td>2</td><td>Not suspicious</td><td>No FNA</td></tr>
+<tr><td>TR3</td><td>3</td><td>Mildly suspicious</td><td>FNA if &#8805;2.5 cm; follow if &#8805;1.5 cm</td></tr>
+<tr><td>TR4</td><td>4&#8211;6</td><td>Moderately suspicious</td><td>FNA if &#8805;1.5 cm; follow if &#8805;1 cm</td></tr>
+<tr><td>TR5</td><td>&#8805;7</td><td>Highly suspicious</td><td>FNA if &#8805;1 cm; follow if &#8805;0.5 cm</td></tr>
+</tbody>
+</table></div>
+<div class="co key"><div class="co-t">TI-RADS Scoring System</div>
+5 domains scored: (1) <strong>Composition</strong>: cystic/spongiform=0, mixed=1, solid=2. (2) <strong>Echogenicity</strong>: anechoic=0, hyper/iso=1, hypo=2, very hypo=3. (3) <strong>Shape</strong>: wider-than-tall=0, taller-than-wide=3. (4) <strong>Margin</strong>: smooth/ill-defined=0, lobulated/irregular=2, extrathyroidal extension=3. (5) <strong>Echogenic foci</strong>: none=0, large comet-tail=0, macrocalcification=1, peripheral calcification=2, punctate echogenic foci=3.
+</div>
+<div class="co suc"><div class="co-t">Spongiform Nodule &#8212; No FNA Regardless of Size</div>
+Spongiform = &gt;50% of volume is microcystic (honeycombed appearance). Cancer risk &lt;3%. All major guidelines: <strong>observe, do NOT biopsy</strong> regardless of size. This finding alone reduces unnecessary FNAs by ~45%.
+</div></div>
+</section>
+
+<section class="sec" id="s7">
+<div class="sec-hd"><span class="sec-n">07</span><h2>Hypothyroidism</h2></div>
+<div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+<div class="sub"><h3>Causes of Hypothyroidism</h3>
+<div class="tw"><table>
+<thead><tr><th>Category</th><th>Causes</th></tr></thead>
+<tbody>
+<tr><td><strong>Primary &#8212; Autoimmune (most common)</strong></td><td>Hashimoto&#8217;s thyroiditis, atrophic thyroiditis (end-stage Hashimoto&#8217;s)</td></tr>
+<tr><td>Primary &#8212; Iatrogenic</td><td>&#185;&#179;&#185;I therapy for Graves&#8217;/MNG, thyroidectomy, external neck irradiation (lymphoma, head/neck cancer)</td></tr>
+<tr><td>Primary &#8212; Drugs</td><td><strong>Amiodarone</strong> (up to 13% in US), <strong>lithium</strong> (inhibits thyroid hormone release), iodinated contrast, anti-thyroid drugs, <strong>immune checkpoint inhibitors</strong> (5&#8211;20%), TKIs (sunitinib, sorafenib), IFN-&#945;, bexarotene, IL-2</td></tr>
+<tr><td>Primary &#8212; Infiltrative</td><td>Amyloidosis, sarcoidosis, hemochromatosis, scleroderma, Riedel&#8217;s thyroiditis, cystinosis</td></tr>
+<tr><td>Primary &#8212; Congenital</td><td>Thyroid agenesis/dysgenesis (~65%), dyshormonogenesis (~30%), TSH-R mutations, maternal TRAb (transient)</td></tr>
+<tr><td>Primary &#8212; Iodine</td><td>Deficiency (worldwide leading cause); excess (cannot escape Wolff-Chaikoff if autoimmune thyroiditis present)</td></tr>
+<tr><td>Primary &#8212; Consumptive</td><td>Type III deiodinase overexpression in infantile hemangiomas</td></tr>
+<tr><td>Transient</td><td>Subacute thyroiditis, silent/postpartum thyroiditis, after &#185;&#179;&#185;I or thyroidectomy for Graves&#8217;</td></tr>
+<tr><td>Secondary (Central)</td><td>Pituitary disease (tumor, surgery, irradiation, Sheehan&#8217;s syndrome, lymphocytic hypophysitis), isolated TSH deficiency, hypothalamic disease, bexarotene, mitotane</td></tr>
+</tbody>
+</table></div></div>
+<div class="sub"><h3>Hashimoto&#8217;s Thyroiditis &#8212; Pathogenesis</h3>
+<ul class="bl">
+<li>Tissue destruction primarily by <strong>CD8&#8314; cytotoxic T lymphocytes</strong>; CD4&#8314; T cells provide cytokine help</li>
+<li>Cytokines (TNF-&#945;, IL-1&#946;, IFN-&#947;) &#8594; thyroid cell apoptosis via <strong>Fas (CD95) pathway</strong> and perforin/granzyme pathway; also induce thyroid expression of HLA class II, adhesion molecules, CD40, iNOS</li>
+<li><strong>TPO and Tg antibodies</strong>: useful markers; activate complement; do NOT directly cause hypothyroidism (T-cell-mediated injury is required); transplacental passage has no effect on fetal thyroid</li>
+<li><strong>TSH-R blocking antibodies</strong> (~20% of patients, especially Asians): cause hypothyroidism + atrophy rather than Hashimoto&#8217;s goiter; transplacental passage &#8594; transient neonatal hypothyroidism</li>
+<li>Genetics: HLA-DR3, DR4, DR5 (Caucasians); CTLA-4, PTPN22, CD25, CD40 polymorphisms; Down syndrome (Chr 21); Turner syndrome (X chromosome factors)</li>
+<li>Environment: high iodine &#8593; risk; low selenium &#8593; risk; alcohol protective; smoking cessation &#8593; transient risk; postpartum immune rebound</li>
+</ul>
+<div class="co prl"><div class="co-t">Hashimoto&#8217;s Associated Autoimmune Diseases</div>
+Vitiligo, pernicious anemia (anti-IF antibodies + atrophic gastritis), Addison&#8217;s disease (Schmidt syndrome = autoimmune thyroid + Addison&#8217;s), alopecia areata, type 1 DM. Autoimmune polyendocrine syndrome type 2 (APS-2): autoimmune thyroid disease 70%, T1DM 40%, Addison&#8217;s 40%. Also: celiac disease (10%), rheumatoid arthritis, SLE, Sj&#246;gren&#8217;s, myasthenia gravis.
+</div></div>
+<div class="sub"><h3>Clinical Manifestations of Hypothyroidism</h3>
+<div class="g2">
+<div class="card"><div class="clabel c-r">Symptoms (by frequency)</div>
+<ul class="bl" style="margin-top:6px">
+<li>Tiredness, weakness, lethargy</li>
+<li>Dry, coarse skin and hair; hair loss</li>
+<li>Feeling cold (cold intolerance)</li>
+<li>Difficulty concentrating, poor memory, psychomotor slowing</li>
+<li>Constipation; weight gain despite poor appetite</li>
+<li>Dyspnea on exertion; hoarse voice (myxedematous vocal cords)</li>
+<li>Menorrhagia (later oligomenorrhea/amenorrhea), infertility</li>
+<li>Paresthesia (carpal tunnel, tarsal tunnel); impaired hearing</li>
+<li>Depression; decreased libido</li>
+</ul></div>
+<div class="card"><div class="clabel c-r">Signs</div>
+<ul class="bl" style="margin-top:6px">
+<li>Dry, rough, pale, cool skin; carotenemia (yellow tint)</li>
+<li>Periorbital puffiness; non-pitting edema face/hands/feet (<strong>myxedema</strong> &#8212; glycosaminoglycan accumulation)</li>
+<li>Diffuse alopecia; thinning of outer 1/3 eyebrows</li>
+<li>Bradycardia; hypertension (diastolic); cardiac enlargement (effusion or cardiomyopathy)</li>
+<li><strong>Delayed tendon reflex relaxation</strong> (&#8220;hung-up&#8221; reflex &#8212; most specific sign)</li>
+<li>Goiter (Hashimoto&#8217;s) or small/absent gland (atrophic thyroiditis, post-RAI)</li>
+<li>Serous effusions: pericardial (~30%), pleural, ascites</li>
+<li>Proximal muscle weakness; pseudomyotonia; elevated CPK</li>
+</ul></div>
+</div>
+<div class="co key"><div class="co-t">Hypothyroidism Labs</div>
+Elevated TSH; low free T4. Additional: elevated CPK (&#8212; myopathy); elevated LDL + TG (&#8212; impaired LDL receptor expression); elevated homocysteine; normocytic or macrocytic anemia (B12/folate deficiency with pernicious anemia). T3 measurement NOT indicated &#8212; normal in ~25% of hypothyroid patients.
+</div></div>
+<div class="sub"><h3>Levothyroxine (LT4) Treatment</h3>
+<div class="tw"><table>
+<thead><tr><th>Patient</th><th>Starting Dose</th><th>Target TSH</th><th>Key Notes</th></tr></thead>
+<tbody>
+<tr><td>No residual thyroid function</td><td><strong>1.6 &#956;g/kg/day</strong> (typically 100&#8211;150 &#956;g)</td><td>Normal range (0.4&#8211;4.0)</td><td>Empty stomach, 30 min before breakfast</td></tr>
+<tr><td>Healthy adult &lt;60 years</td><td>50&#8211;100 &#956;g/day</td><td>Normal TSH</td><td>Recheck TSH at 6&#8211;8 weeks</td></tr>
+<tr><td>Elderly patient</td><td>12.5&#8211;25 &#956;g/day</td><td>Normal TSH (may accept 4&#8211;6 mIU/L in very elderly)</td><td>Increase every 6&#8211;8 weeks; CV risk with rapid correction</td></tr>
+<tr><td>CAD (stable/unstable)</td><td>12.5&#8211;25 &#956;g/day</td><td>Normal TSH</td><td>Slow titration; may precipitate angina or MI with rapid increase</td></tr>
+<tr><td>Pregnant</td><td>Increase to 9 doses/week immediately</td><td>&lt;2.5 mIU/L</td><td>Monitor TSH every 4 weeks first half</td></tr>
+<tr><td>Central hypothyroidism</td><td>Full replacement dose</td><td>Free T4 upper half of reference range</td><td>Cannot use TSH to monitor</td></tr>
+</tbody>
+</table></div>
+<ul class="bl">
+<li>Dose adjustments: increments of <strong>12.5 &#956;g or 25 &#956;g</strong>; allow 6&#8211;8 weeks for each step (accounts for T4 half-life of 7 days + time for TSH to reach new steady state)</li>
+<li>T4 half-life 7 days &#8594; missed doses can be doubled or tripled on the next day without harm</li>
+<li>Annual TSH monitoring after stable replacement</li>
+<li>Suppressed TSH on replacement: &#8593; risk of atrial fibrillation and osteoporosis &#8212; avoid over-treatment</li>
+<li>10&#8211;15% of patients report persistent symptoms despite euthyroid TSH &#8212; unclear mechanism; addition of LT3 combination therapy remains controversial with inconsistent evidence</li>
+</ul>
+<div class="co wrn"><div class="co-t">&#9888; Causes of Increased LT4 Requirements</div>
+<strong>Malabsorption</strong>: celiac disease, H. pylori gastritis, small bowel bypass, atrophic gastritis. <strong>Drugs that impair T4 absorption</strong>: cholestyramine/colestipol, ferrous sulfate, calcium carbonate, sevelamer, sucralfate, antacids (Ca/Mg-containing), bile acid sequestrants, PPIs (reduce gastric acid &#8594; impair ionization). <strong>Drugs that increase T4 clearance</strong>: rifampicin, carbamazepine, phenytoin, phenobarbital, sertraline, TKIs, ritonavir. <strong>Increased TBG</strong>: oral estrogens (not transdermal), SERMs (tamoxifen, raloxifene). Also: pregnancy (immediate need for dose &#8593;).
+</div></div>
+<div class="sub"><h3>Subclinical Hypothyroidism</h3>
+<ul class="bl">
+<li>Definition: elevated TSH + <strong>normal free T4</strong> + few/no symptoms; prevalence 6&#8211;8% in women, 3% in men (higher in elderly)</li>
+<li>Annual progression to overt hypothyroidism: ~4% (higher when TPO antibodies positive)</li>
+<li><strong>Treat with LT4 when</strong>: (1) TSH &gt;<strong>10 mIU/L</strong>, (2) pregnant or planning pregnancy, (3) symptomatic young/middle-aged patient with CV risk, (4) TPO antibody positive</li>
+<li>First confirm: repeat TSH at <strong>3 months</strong> (transient causes: recovery from illness, subacute thyroiditis, drug effect)</li>
+<li>For TSH 4&#8211;10 mIU/L without symptoms: <strong>annual monitoring</strong> without treatment is appropriate in most adults</li>
+</ul></div>
+<div class="sub"><h3>Myxedema Coma</h3>
+<div class="co dan"><div class="co-t">&#128680; Emergency &#8212; Mortality 20&#8211;40% Even with Treatment</div>
+Almost exclusively in <strong>elderly patients</strong>. Precipitants: sedatives (particularly in hospital), anesthesia, antidepressants, infections, CHF, MI, stroke, GI bleeding, cold exposure. Outcome does NOT correlate with TSH or T4 levels.
+</div>
+<div class="g2">
+<div class="card"><div class="clabel c-r">Clinical Features</div>
+<ul class="bl" style="margin-top:6px">
+<li>Reduced/altered consciousness &#8594; coma; seizures</li>
+<li>Profound hypothermia (can reach <strong>23&#176;C/74&#176;F</strong>)</li>
+<li>Hypoventilation &#8594; hypoxia, hypercapnia, respiratory acidosis</li>
+<li>Hypoglycemia (impaired gluconeogenesis)</li>
+<li>Dilutional hyponatremia (impaired free water excretion)</li>
+<li>Bradycardia; hypotension; ileus; urinary retention</li>
+<li>All classic signs of hypothyroidism</li>
+</ul></div>
+<div class="card"><div class="clabel c-r">Treatment Protocol</div>
+<ul class="bl" style="margin-top:6px">
+<li>IV LT4: <strong>200&#8211;400 &#956;g loading dose IV</strong> &#8594; then 1.6 &#956;g/kg/day IV (75% of usual dose when using IV vs PO)</li>
+<li>IV T3: <strong>5&#8211;20 &#956;g IV loading</strong> &#8594; 2.5&#8211;10 &#956;g q8h (risk: precipitate arrhythmia; use cautiously)</li>
+<li><strong>Hydrocortisone 50&#8211;100 mg IV every 6&#8211;8h</strong> (assume impaired adrenal reserve until proven otherwise)</li>
+<li>Warming: <strong>ONLY active external warming if temp &lt;30&#176;C</strong>; otherwise use space blankets (passive &#8212; prevent further heat loss; active warming at &gt;30&#176;C &#8594; peripheral vasodilation &#8594; cardiovascular collapse)</li>
+<li>Ventilatory support (hypercapnic respiratory failure in first 24&#8211;48h)</li>
+<li>Correct hypoglycemia; avoid hypotonic fluids (worsen hyponatremia)</li>
+<li>Empirical broad-spectrum antibiotics (until infection excluded)</li>
+<li>Avoid CNS depressants (especially sedatives, opioids)</li>
+</ul></div>
+</div></div>
+</section>
+
+<section class="sec" id="s8">
+<div class="sec-hd"><span class="sec-n">08</span><h2>Hyperthyroidism &amp; Thyrotoxicosis</h2></div>
+<div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+<div class="sub"><h3>Definitions &amp; Causes</h3>
+<ul class="bl">
+<li><strong>Thyrotoxicosis</strong>: clinical syndrome of excess thyroid hormone effect regardless of cause</li>
+<li><strong>Hyperthyroidism</strong>: specifically, overproduction of hormone by the thyroid gland itself</li>
+<li>Major causes: <strong>Graves&#8217; disease</strong> (~60&#8211;80%), <strong>toxic MNG</strong>, <strong>toxic adenoma</strong>; rare: TSH-secreting adenoma, hCG-mediated, thyroiditis, struma ovarii, metastatic functioning thyroid cancer</li>
+</ul></div>
+<div class="sub"><h3>Graves&#8217; Disease &#8212; Epidemiology &amp; Pathogenesis</h3>
+<ul class="bl">
+<li>Most common cause of hyperthyroidism; affects up to <strong>2% of women</strong>, 10&#215; less frequent in men</li>
+<li>Typical onset: <strong>20&#8211;50 years</strong>; can occur in elderly (often atypical/apathetic presentation)</li>
+<li>Genetics: <strong>HLA-DR3</strong> in Caucasians; CTLA-4, CD25, CD40, PTPN22, FCRL3, TSH-R gene polymorphisms; concordance ~20&#8211;30% in MZ twins vs &lt;5% DZ</li>
+<li>Environmental triggers: psychosocial stress, postpartum immune rebound, smoking (especially for ophthalmopathy), sudden iodine increase (Jod-Basedow), immune reconstitution (HAART, alemtuzumab), immune checkpoint inhibitors (pembrolizumab, ipilimumab)</li>
+<li>Mechanism: B cells in thyroid, bone marrow, and lymph nodes synthesize <strong>TSI (thyroid-stimulating immunoglobulins)</strong> that bind and activate TSH-R &#8594; constitutive T4/T3 overproduction + thyroid growth (diffuse goiter)</li>
+</ul></div>
+<div class="sub"><h3>Clinical Features of Thyrotoxicosis</h3>
+<div class="g2">
+<div class="card"><div class="clabel c-r">Symptoms</div>
+<ul class="bl" style="margin-top:6px">
+<li>Hyperactivity, nervousness, irritability, anxiety</li>
+<li>Heat intolerance + excessive sweating</li>
+<li>Palpitations; fatigue + proximal muscle weakness</li>
+<li>Weight loss with increased or normal appetite (weight gain in ~5% &#8212; paradoxical)</li>
+<li>Diarrhea, increased bowel frequency</li>
+<li>Oligomenorrhea; decreased libido; infertility</li>
+<li>Polyuria, polydipsia</li>
+</ul></div>
+<div class="card"><div class="clabel c-r">Signs</div>
+<ul class="bl" style="margin-top:6px">
+<li>Tachycardia (most common sign); atrial fibrillation in elderly</li>
+<li>Diffuse goiter (Graves&#8217;); bruit over gland (hypervascular)</li>
+<li>Fine tremor (outstretched fingers); hyperreflexia</li>
+<li>Warm, smooth, moist skin; diffuse alopecia</li>
+<li>Lid retraction (Dalrymple&#8217;s sign); lid lag (von Graefe&#8217;s sign)</li>
+<li>Proximal myopathy (difficulty rising from chair); wasting</li>
+<li>Osteopenia with long-standing disease; mild hypercalcemia (~20%)</li>
+</ul></div>
+</div>
+<div class="co key"><div class="co-t">Apathetic Thyrotoxicosis (Elderly)</div>
+Elderly patients may present with <em>only</em> fatigue, weight loss, and atrial fibrillation &#8212; NO classic hyperadrenergic features. High index of suspicion required. Cardioversion after restoring euthyroidism: AF converts to sinus rhythm in up to 75% without underlying cardiac disease.
+</div></div>
+<div class="sub"><h3>Graves&#8217;-Specific Features</h3>
+<div class="g3">
+<div class="card"><div class="clabel c-b">Ophthalmopathy (TED)</div>
+<p>Present in ~25&#8211;30% with significant features; occurs in <strong>10% without hyperthyroidism</strong>. Mechanism: T cells infiltrate orbital tissues expressing TSH-R &#8594; cytokines activate orbital fibroblasts &#8594; <strong>glycosaminoglycan (hyaluronate)</strong> accumulation &#8594; extraocular muscle swelling + proptosis; late: irreversible fibrosis. Aberrant IGF-1R signaling also implicated.</p>
+<p>Features: gritty sensation, excess tearing, proptosis (&gt;22 mm), periorbital edema, diplopia, corneal exposure. <strong>Sight-threatening</strong>: optic nerve compression (emergency) or corneal breakdown.</p>
+<p>Smoking: major risk factor for development and severity &#8212; counsel all patients to stop.</p></div>
+<div class="card"><div class="clabel c-b">CAS (Clinical Activity Score)</div>
+<p>Score 1 point each for: spontaneous pain, pain on gaze, eyelid erythema, conjunctival injection, chemosis, caruncle edema, eyelid edema. CAS &#8805;3 = active disease &#8594; responds to immunosuppression. CAS &lt;3 = inactive &#8594; surgery for stable deficits.</p>
+<p><strong>NO SPECS</strong> grading (alternative): 0=none, 1=only signs, 2=soft tissue, 3=proptosis, 4=extraocular muscle, 5=cornea, 6=sight.</p></div>
+<div class="card"><div class="clabel c-b">Dermopathy &amp; Acropachy</div>
+<p><strong>Thyroid dermopathy</strong> (pretibial myxedema): &lt;5% of Graves&#8217;; almost always associated with moderate/severe ophthalmopathy; noninflamed indurated pink-purple &#8220;orange peel&#8221; plaques over anterior/lateral lower legs (rarely upper arms/face). Same mechanism as ophthalmopathy (TSH-R-expressing fibroblasts).</p>
+<p><strong>Thyroid acropachy</strong>: rare (&lt;1%); form of clubbing; almost always with dermopathy; no known treatment.</p></div>
+</div></div>
+<div class="sub"><h3>Antithyroid Drug Therapy</h3>
+<p><strong>Thionamides</strong>: inhibit TPO &#8594; block iodide organification and coupling. Also reduce thyroid antibody titers and promote immune tolerance &#8594; may induce remission in Graves&#8217;.</p>
+<div class="tw"><table>
+<thead><tr><th>Drug</th><th>Initial Dose</th><th>Maintenance</th><th>Half-life</th><th>Special</th></tr></thead>
+<tbody>
+<tr><td><strong>Methimazole (MMI)</strong></td><td>10&#8211;30 mg once or divided q12h</td><td>2.5&#8211;10 mg/day</td><td>6h</td><td>Preferred in most situations; once-daily possible; agranulocytosis risk</td></tr>
+<tr><td><strong>Carbimazole</strong></td><td>15&#8211;45 mg/day</td><td>5&#8211;15 mg/day</td><td>~6h (prodrug of MMI)</td><td>Not available in US; widely used in Europe</td></tr>
+<tr><td><strong>PTU (propylthiouracil)</strong></td><td>100&#8211;200 mg q6&#8211;8h</td><td>50&#8211;100 mg bid</td><td>90 min</td><td>Also blocks DIO1 (T4&#8594;T3); <strong>3 indications only</strong> (see below)</td></tr>
+</tbody>
+</table></div>
+<div class="co dan"><div class="co-t">&#128680; PTU: Three Specific Indications Only (FDA Restriction)</div>
+Due to serious hepatotoxicity (hepatic necrosis, acute liver failure), PTU use is restricted to: (1) <strong>First trimester of pregnancy</strong> (methimazole/carbimazole cause embryopathy: aplasia cutis, choanal atresia, tracheoesophageal fistula, omphalocele &#8212; major defects from week 6&#8211;10); (2) <strong>Thyroid storm</strong> (unique DIO1 blockade reduces T4&#8594;T3); (3) <strong>Methimazole intolerance or allergy</strong>. After 1st trimester: switch PTU &#8594; methimazole at ratio ~15:1 (e.g., 100 mg PTU &#8594; 7 mg MMI). Monitor LFTs with PTU.
+</div>
+<ul class="bl">
+<li><strong>Titration regimen</strong>: starting dose then gradual reduction as euthyroid; TSH may stay suppressed for months &#8212; monitor free T4 until TSH recovers</li>
+<li><strong>Block-replace regimen</strong>: fixed high-dose antithyroid drug + simultaneous LT4 supplementation; avoids hypothyroidism; avoids dose adjustments; preferred in some centers</li>
+<li>Remission rate after 12&#8211;18 months: <strong>30&#8211;60%</strong>; predict remission if TRAb disappears before stopping</li>
+<li>Higher relapse risk: young, male, smoker, large goiter, severe initial hyperthyroidism, persistent TRAb</li>
+</ul>
+<div class="co wrn"><div class="co-t">&#9888; Agranulocytosis &#8212; Serious Side Effect</div>
+Rate: &lt;1% with MMI, &lt;0.5% with PTU. Onset is <strong>abrupt and idiosyncratic</strong> &#8212; routine WBC monitoring is NOT helpful (agranulocytosis occurs between checks). Provide written instructions: <em>stop the drug immediately and seek urgent CBC if fever, sore throat, or mouth ulcers develop</em>. Do NOT rechallenge if confirmed. Vasculitis (rare, PTU &gt; MMI), cholestasis (MMI), neonatal hypothyroidism if mother on high-dose drugs.
+</div>
+<p><strong>Beta-blockers</strong>: propranolol 20&#8211;40 mg q6h (or long-acting atenolol/metoprolol) &#8594; control adrenergic symptoms (tachycardia, tremor, anxiety), reduce T4&#8594;T3 at high doses. First-line for thyrotoxicosis symptoms before definitive therapy established.</p></div>
+<div class="sub"><h3>Radioiodine (&#185;&#179;&#185;I) Therapy</h3>
+<ul class="bl">
+<li>Preferred first-line in North America for most Graves&#8217; patients; antithyroid drugs predominate in Europe/Asia</li>
+<li>Standard dose: <strong>370&#8211;555 MBq (10&#8211;15 mCi)</strong>; dose calculated from goiter size, RAIU, and severity</li>
+<li>Pretreatment: antithyroid drugs for 1 month (euthyroid) in elderly/cardiac patients; stop MMI <strong>2&#8211;3 days before</strong> &#185;&#179;&#185;I (radioprotective effect clears); resume 3&#8211;7 days after if needed</li>
+<li>PTU: longer radioprotective effect &#8212; must stop earlier (at least 1 week) or use higher &#185;&#179;&#185;I dose</li>
+<li>Hypothyroidism: at least <strong>10&#8211;20%</strong> by 1 year; ~5%/year thereafter; most favor ablation approach (LT4 replacement straightforward)</li>
+<li>Hyperthyroidism may persist <strong>2&#8211;3 months</strong> post-RAI &#8594; bridge with beta-blockers or antithyroid drugs</li>
+<li>Radiation safety: avoid close contact with children/pregnant women for <strong>5&#8211;7 days</strong>; avoid contact with immunocompromised for 3 days</li>
+</ul>
+<div class="co dan"><div class="co-t">&#128680; RAI Contraindications</div>
+<strong>Pregnancy: ABSOLUTE CONTRAINDICATION</strong>. Fetal thyroid begins functioning at 11 weeks&#8217; gestation &#8212; RAI would ablate it, causing permanent congenital hypothyroidism. Breastfeeding: also contraindicated (excreted in milk). Wait <strong>6 months</strong> after RAI before conceiving. <strong>Active moderate-to-severe ophthalmopathy</strong>: RAI worsens TED (especially in smokers) &#8212; if RAI chosen, protect with prednisolone 0.2&#8211;0.5 mg/kg/day for 6&#8211;12 weeks.
+</div></div>
+<div class="sub"><h3>Thyroidectomy</h3>
+<ul class="bl">
+<li>Preferred in: very large goiters, suspected malignancy, moderate-severe ophthalmopathy (avoids RAI-induced worsening), 1st trimester (control difficult), patient preference</li>
+<li>Pre-op: render euthyroid with antithyroid drugs &#8594; then <strong>SSKI (potassium iodide) 5 drops TID for 10 days immediately before surgery</strong> &#8594; reduces thyroid vascularity and blood loss (Plummer&#8217;s effect/Wolff-Chaikoff)</li>
+<li>Complications: hemorrhage/hematoma (airway emergency), laryngeal edema, temporary hypoparathyroidism (very common, transient), permanent hypoparathyroidism (~1% with expert surgeons), RLN injury (~1%), wound infection</li>
+<li>Recurrence: &lt;2% with experienced surgeon performing near-total/total thyroidectomy</li>
+</ul></div>
+<div class="sub"><h3>Thyroid Storm (Thyrotoxic Crisis)</h3>
+<div class="co dan"><div class="co-t">&#128680; Life-Threatening Emergency &#8212; Mortality 4&#8211;17%</div>
+Precipitants: acute illness (infection &#8212; most common, stroke, DKA, trauma, surgery), RAI in inadequately treated patient, abrupt withdrawal of antithyroid drugs, iodinated contrast, recent delivery. Diagnosis: clinical (Burch-Wartofsky scoring: temp, CNS effects, GI-hepatic dysfunction, HR, CHF, precipitating event &#8212; score &gt;45 = storm).
+</div>
+<div class="tw"><table>
+<thead><tr><th>Step</th><th>Drug &amp; Dose</th><th>Rationale</th></tr></thead>
+<tbody>
+<tr><td>1 &#8212; Block synthesis (FIRST)</td><td><strong>PTU 500&#8211;1000 mg loading PO/NG</strong>, then 250 mg q4h</td><td>PTU preferred over MMI: also blocks DIO1 &#8594; &#8595;T4&#8594;T3 conversion. Must be given BEFORE iodide.</td></tr>
+<tr><td>2 &#8212; Block hormone release (<strong>1h AFTER PTU</strong>)</td><td><strong>SSKI 5 drops q6h PO</strong> or Lugol&#8217;s solution 10 drops q8h</td><td>Wolff-Chaikoff effect; high iodide blocks hormone release. MUST come after PTU &#8212; otherwise iodide used as substrate &#8594; more hormone.</td></tr>
+<tr><td>3 &#8212; Adrenergic control</td><td><strong>Propranolol 60&#8211;80 mg PO q4h</strong> or 0.5&#8211;1 mg IV (dilute, slowly)</td><td>HR control; high-dose also &#8595;T4&#8594;T3. Esmolol infusion if IV preferred.</td></tr>
+<tr><td>4 &#8212; Glucocorticoids</td><td><strong>Hydrocortisone 300 mg IV bolus</strong>, then 100 mg IV q8h (or dexamethasone 2 mg q6h)</td><td>Impaired adrenal reserve; also &#8595;T4&#8594;T3; anti-inflammatory</td></tr>
+<tr><td>5 &#8212; Supportive</td><td>IV fluids, paracetamol/cooling (NOT aspirin &#8212; displaces T4 from TBG), cholestyramine 4g q6h, broad-spectrum antibiotics, O&#8322;</td><td>Cholestyramine sequesters thyroid hormones in GI tract (enterohepatic circulation)</td></tr>
+</tbody>
+</table></div></div>
+<div class="sub"><h3>Graves&#8217; Ophthalmopathy Treatment</h3>
+<div class="tw"><table>
+<thead><tr><th>Severity</th><th>Treatment</th></tr></thead>
+<tbody>
+<tr><td>Mild / inactive</td><td>Lubricating eye drops, sunglasses, head-of-bed elevation; <strong>selenium 100 &#956;g bid&#215;6 months</strong> (reduces progression in mild active TED); smoking cessation; achieve euthyroid</td></tr>
+<tr><td>Moderate-to-severe, active (CAS &#8805;3)</td><td><strong>IV methylprednisolone 500 mg q week &#215;6</strong>, then 250 mg q week &#215;6 (preferred over oral &#8212; better efficacy, fewer hepatic side effects); OR <strong>teprotumumab</strong> (anti-IGF-1R monoclonal Ab; improves proptosis + diplopia in ~80%; relapse in ~30%; expensive)</td></tr>
+<tr><td>Second-line after glucocorticoids</td><td>Rituximab; tocilizumab (anti-IL-6); orbital radiotherapy (modest benefit, best for diplopia)</td></tr>
+<tr><td>Sight-threatening (optic neuropathy)</td><td><strong>IV methylprednisolone 500&#8211;1000 mg on alternate days &#215;3</strong>; if no improvement in 1&#8211;2 weeks &#8594; <strong>emergency surgical orbital decompression</strong> (medial + inferior wall)</td></tr>
+<tr><td>Stable inactive disease</td><td>Rehabilitative surgery: orbital decompression &#8594; strabismus surgery &#8594; eyelid surgery (in that order)</td></tr>
+</tbody>
+</table></div></div>
+</section>
+
+<section class="sec" id="s9">
+<div class="sec-hd"><span class="sec-n">09</span><h2>Thyroiditis</h2></div>
+<div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+<div class="sub"><h3>Acute Suppurative Thyroiditis</h3>
+<ul class="bl">
+<li>Rare bacterial/fungal infection of thyroid. Bacteria: Staph aureus, Strep pyogenes, Enterobacter, anaerobes. Fungi: Aspergillus, Candida, Coccidioides (in immunocompromised)</li>
+<li>Most common route in children/young adults: fistula from <strong>piriform sinus</strong> (4th branchial arch remnant &#8212; predominantly left-sided)</li>
+<li>Presentation: acute unilateral thyroid pain, fever, dysphagia, fluctuance, erythema, cervical lymphadenopathy; thyroid function usually <strong>normal</strong></li>
+<li>Labs: leukocytosis, elevated ESR; FNA = polymorphonuclear leukocytes; culture guides antibiotics</li>
+<li>Surgery to drain abscess + IV antibiotics; piriform sinus fistula requires elective surgical repair after resolution</li>
+<li>Complications (if untreated): tracheal obstruction, mediastinitis, jugular venous thrombosis, septicemia</li>
+</ul></div>
+<div class="sub"><h3>Subacute (de Quervain&#8217;s) Thyroiditis</h3>
+<p>Also: granulomatous thyroiditis, viral thyroiditis. Implicated viruses: mumps, coxsackie B, influenza, adenovirus, echoviruses, SARS-CoV-2 (post-COVID and post-COVID vaccine). Peak incidence: 30&#8211;50 years; women 3&#215; &gt; men. HLA-Bw35 associated.</p>
+<div class="g2">
+<div class="card"><div class="clabel c-b">Pathology &amp; Natural History</div>
+<p>Viral infection + host immune response &#8594; patchy inflammatory infiltrate &#8594; <strong>disruption of follicles</strong> &#8594; <strong>multinucleated giant cells + granuloma formation</strong> &#8594; fibrosis &#8594; follicular regeneration. Released preformed T4/T3 &#8594; transient thyrotoxicosis. Four phases over ~6 months total: (1) thyrotoxic, (2) euthyroid (transition), (3) hypothyroid, (4) recovery. Permanent hypothyroidism in <strong>~15%</strong>.</p></div>
+<div class="card"><div class="clabel c-b">Clinical Features</div>
+<p><strong>Painful goiter</strong> (exquisitely tender, often radiates to jaw/ear/throat), low-grade fever, malaise, preceding upper respiratory infection. Lab: <strong>very high ESR</strong> (often &gt;100 mm/h), high CRP, normal/low WBC. During thyrotoxic phase: &#8593;T4/T3, suppressed TSH, <strong>very low RAIU (&lt;5%)</strong>, negative TPO antibodies, &#8593;Tg (released from damaged follicles).</p></div>
+</div>
+<div class="co key"><div class="co-t">Key Diagnostic Features of Subacute Thyroiditis</div>
+Tender thyroid + very high ESR + low RAIU + negative TPO antibodies + viral prodrome. T4/T3 ratio is LOWER than in Graves&#8217; (Graves&#8217; preferentially secretes T3). Tg is elevated (pre-formed hormone release from damaged follicles).
+</div>
+<div class="co suc"><div class="co-t">Treatment</div>
+Thyrotoxic phase: <strong>beta-blockers</strong> for symptoms; <strong>antithyroid drugs play NO role</strong> (no new hormone being synthesized). Mild pain: NSAIDs or aspirin 600 mg q4&#8211;6h. Severe/not responding: <strong>prednisone 15&#8211;40 mg/day</strong> tapering over 6&#8211;8 weeks (dramatic pain relief in 24&#8211;48h; discontinuing too early &#8594; symptom relapse). Hypothyroid phase: LT4 50&#8211;100 &#956;g/day if prolonged (&gt;3 months) to allow TSH-driven gland recovery; withdraw when TSH-stimulated recovery complete.
+</div></div>
+<div class="sub"><h3>Silent (Painless) and Postpartum Thyroiditis</h3>
+<ul class="bl">
+<li>Underlying predisposition: autoimmune thyroid disease (TPO antibodies); HLA-DR3, DR4, DR5</li>
+<li><strong>Postpartum thyroiditis</strong>: occurs in 5&#8211;9% of all deliveries; 25% of TPO antibody&#8211;positive women; onset 1&#8211;6 months postpartum</li>
+<li>Classic biphasic: thyrotoxicosis (2&#8211;4 weeks) &#8594; hypothyroidism (4&#8211;12 weeks) &#8594; resolution; often only one phase is apparent</li>
+<li>Thyrotoxic phase: mild symptoms (palpitations, heat intolerance), painless small goiter; low RAIU (&lt;5%); <strong>normal ESR</strong>; <strong>positive TPO antibodies</strong></li>
+<li>Permanent hypothyroidism in <strong>~30&#8211;50%</strong> of postpartum thyroiditis (compared to ~15% in subacute); annual follow-up essential</li>
+<li>Treatment thyrotoxic phase: beta-blockers only (antithyroid drugs ineffective &#8212; no synthesis); NO glucocorticoids needed (unlike subacute)</li>
+<li>Hypothyroid phase: LT4 replacement if symptomatic or TSH &gt;10; withdraw after 6&#8211;9 months to assess permanent vs transient</li>
+<li>Recurrence in subsequent pregnancies: ~70%</li>
+</ul>
+<div class="co wrn"><div class="co-t">&#9888; Silent vs Subacute Thyroiditis &#8212; Distinguishing Features</div>
+<table style="font-size:12px;width:100%;border-collapse:collapse"><tr style="background:var(--sf2)"><td style="padding:5px 8px;font-weight:600">Feature</td><td style="padding:5px 8px;font-weight:600">Silent/Postpartum</td><td style="padding:5px 8px;font-weight:600">Subacute (de Quervain&#8217;s)</td></tr>
+<tr><td style="padding:5px 8px">Thyroid pain</td><td style="padding:5px 8px">Absent (painless)</td><td style="padding:5px 8px">Exquisitely tender</td></tr>
+<tr><td style="padding:5px 8px">ESR</td><td style="padding:5px 8px">Normal</td><td style="padding:5px 8px">Very high (&gt;50, often &gt;100)</td></tr>
+<tr><td style="padding:5px 8px">TPO antibodies</td><td style="padding:5px 8px">Positive (pre-existing)</td><td style="padding:5px 8px">Negative (or low-titer)</td></tr>
+<tr><td style="padding:5px 8px">Viral prodrome</td><td style="padding:5px 8px">No</td><td style="padding:5px 8px">Yes (URTI)</td></tr>
+<tr><td style="padding:5px 8px">Glucocorticoids</td><td style="padding:5px 8px">NOT indicated</td><td style="padding:5px 8px">Often needed for pain</td></tr>
+<tr><td style="padding:5px 8px">Permanent hypothyroid</td><td style="padding:5px 8px">~30&#8211;50%</td><td style="padding:5px 8px">~15%</td></tr>
+</table>
+</div></div>
+<div class="sub"><h3>Drug-Induced Thyroiditis</h3>
+<ul class="bl">
+<li><strong>IFN-&#945;</strong> (hepatitis B/C, hematologic malignancies): up to 5% develop thyroid dysfunction; most common in TPO antibody&#8211;positive women; can cause painless thyroiditis, hypothyroidism, or de novo Graves&#8217;</li>
+<li><strong>Immune checkpoint inhibitors</strong> (pembrolizumab, nivolumab, ipilimumab, durvalumab): thyroiditis in 5&#8211;20% of treated cancer patients; often causes hypothyroidism; treat as silent thyroiditis; ASCO recommends routine thyroid function monitoring on these agents</li>
+<li><strong>Tyrosine kinase inhibitors</strong> (sunitinib, sorafenib): hypothyroidism in up to 50% of patients; thyroiditis pattern</li>
+<li><strong>Amiodarone</strong>: destructive AIT type 2 (see Section 10)</li>
+<li><strong>Lithium</strong>: blocks thyroid hormone release (similar to iodide); causes goiter and hypothyroidism in genetically susceptible; rarely causes thyrotoxicosis</li>
+</ul></div>
+<div class="sub"><h3>Riedel&#8217;s Thyroiditis</h3>
+<ul class="bl">
+<li>Rare; typically middle-aged women; associated with <strong>IgG4-related disease</strong> (idiopathic fibrosclerosis &#8212; also affects retroperitoneum, mediastinum, biliary tree, orbit, salivary glands)</li>
+<li>Dense fibrosis replaces normal thyroid parenchyma + extends <em>beyond the thyroid capsule</em> &#8594; adherent to and encasing adjacent structures</li>
+<li>Presentation: insidious painless hard thyroid mass (rock-hard, &#8220;woody&#8221;) with compressive symptoms: tracheal obstruction, dysphagia, venous obstruction, vocal cord paralysis</li>
+<li>Despite extensive fibrosis: thyroid dysfunction <em>uncommon</em> (varies)</li>
+<li>FNA usually inadequate (fibrous tissue); requires <strong>open biopsy</strong> for diagnosis</li>
+<li>Histology: dense keloid-like fibrosis + lymphoplasmacytic infiltrate (IgG4&#8314; plasma cells)</li>
+<li>Treatment: glucocorticoids (first-line), rituximab, tamoxifen; surgery for decompression</li>
+</ul></div>
+</section>
+
+<section class="sec" id="s10">
+<div class="sec-hd"><span class="sec-n">10</span><h2>Sick Euthyroid Syndrome &amp; Amiodarone</h2></div>
+<div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+<div class="sub"><h3>Sick Euthyroid Syndrome (SES / Nonthyroidal Illness, NTI)</h3>
+<p>Any acute, severe illness causes abnormal thyroid hormone levels without intrinsic thyroid disease. Mechanism: cytokines (especially <strong>IL-6</strong>) reduce TBG levels, impair binding-protein function, reduce deiodinase activity. Do NOT routinely test thyroid function in acutely ill patients unless thyroid disorder is strongly suspected on clinical grounds.</p>
+<div class="g2">
+<div class="card"><div class="clabel c-r">Low T3 Syndrome (most common)</div>
+<p>Suppressed DIO1 activity &#8594; &#8595; T4&#8594;T3 conversion &#8594; <strong>low total and free T3</strong>, <strong>elevated rT3</strong>, normal T4 and TSH. Magnitude of T3 fall correlates with illness severity. Considered a physiologic adaptive response (similar to fasting &#8212; reduces metabolic rate).</p></div>
+<div class="card"><div class="clabel c-r">Low T4 Syndrome (severe/critical)</div>
+<p>In severely ill or hypotensive patients: <strong>upregulation of type III deiodinase</strong> in muscle and liver &#8594; accelerated T4 and T3 inactivation &#8594; low T4 and T3, very high rT3. Free T4 immunoassays unreliable (binding proteins low &#8594; underestimate true free T4 by dialysis). Low T4 in sick euthyroid = <strong>very poor prognosis indicator</strong>.</p></div>
+</div>
+<div class="co key"><div class="co-t">TSH in Sick Euthyroid Syndrome</div>
+TSH ranges from 0.01 to &gt;20 mIU/L in NTI: suppressed (~10%, especially with dopamine/glucocorticoid treatment), elevated (~5% during recovery phase as TSH rebounds). Undetectable TSH (&lt;0.01 mIU/L) is more likely to indicate intrinsic thyroid disease &#8212; evaluate further. Thyroid results normalize with clinical recovery &#8212; retest after recovery.
+</div>
+<div class="co wrn"><div class="co-t">&#9888; Treatment of NTI is Controversial</div>
+Most authorities: <strong>do NOT administer thyroid hormone</strong> to NTI patients unless clear historical/clinical evidence of hypothyroidism. No RCT has shown mortality benefit from thyroid hormone in NTI; some suggest harm. Monitor and retest after clinical recovery.
+</div></div>
+<div class="sub"><h3>Amiodarone Effects on Thyroid Function</h3>
+<ul class="bl">
+<li>Class III antiarrhythmic; structurally related to thyroid hormone; contains <strong>39% iodine by weight</strong></li>
+<li>200 mg/day dose &#8594; &gt;40-fold increase in plasma iodine; 6 mg/kg/day of iodine released</li>
+<li>Stored in adipose tissue + liver: plasma half-life 40&#8211;55 days; <strong>iodine levels remain elevated &gt;6 months after discontinuation</strong></li>
+<li>Inhibits DIO1 and DIO2 &#8594; &#8595;T4&#8594;T3 conversion; metabolites (desethylamiodarone) are weak TR antagonists</li>
+</ul>
+<div class="tw"><table>
+<thead><tr><th>State</th><th>Mechanism</th><th>Labs</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Acute effect (first weeks)</td><td>Wolff-Chaikoff &#8594; &#8595;T4 release</td><td>Transient &#8595;T4, &#8593;TSH</td><td>Resolves in days</td></tr>
+<tr><td>Chronic euthyroid state</td><td>&#8595;DIO1 &#8594; &#8595;T4&#8594;T3; weak TR antagonism</td><td><strong>&#8593;T4, &#8595;T3, &#8593;rT3</strong>, TSH may &#8593; transiently to 20 then normalizes in 1&#8211;3 months</td><td>Normal TSH at steady state = euthyroid</td></tr>
+<tr><td>Hypothyroidism (13% in US)</td><td>Cannot escape Wolff-Chaikoff (underlying autoimmune thyroiditis)</td><td>&#8593;TSH, &#8595;T4</td><td>More common in iodine-replete areas; &lt;6% in iodine-deficient (Italy, Spain)</td></tr>
+<tr><td>AIT Type 1 (Jod-Basedow)</td><td>Underlying thyroid abnormality (Graves&#8217;, MNG) + excess iodide &#8594; excess synthesis</td><td>&#8593;T4/T3, suppressed TSH; <strong>&#8593; vascularity</strong> on Color Doppler US</td><td>Often in iodine-deficient areas; antithyroid drugs</td></tr>
+<tr><td>AIT Type 2 (Destructive)</td><td>Drug-induced lysosomal activation &#8594; destructive thyroiditis (histiocyte accumulation); no underlying thyroid disease</td><td>&#8593;T4/T3, suppressed TSH; <strong>&#8595; vascularity</strong> on Color Doppler US; may transition to hypothyroidism</td><td>More common; glucocorticoids</td></tr>
+</tbody>
+</table></div>
+<div class="co key"><div class="co-t">Color-Flow Doppler: AIT Type 1 vs Type 2</div>
+Type 1 AIT: <strong>increased blood flow/vascularity</strong> (active, autonomous synthesis &#8212; hypermetabolic gland). Type 2 AIT: <strong>decreased or absent vascularity</strong> (destructive thyroiditis &#8212; gland not hyperfunctioning, just releasing preformed hormone from damaged tissue). Standard scintigraphy unreliable (high endogenous iodine &#8594; &#8595; tracer uptake in both types, though normal/increased uptake in Type 1 if iodine load not excessive).
+</div></div>
+<div class="sub"><h3>Amiodarone-Induced Thyrotoxicosis (AIT) Management</h3>
+<div class="co wrn"><div class="co-t">&#9888; Do NOT Automatically Stop Amiodarone</div>
+Amiodarone&#8217;s adipose storage means stopping the drug provides <strong>no immediate benefit</strong>. Studies show AIT type 2 resolves at similar rates whether amiodarone is continued or stopped. Decision to discontinue is based on the <strong>severity and necessity of treating the underlying arrhythmia</strong> (VT, VF prevention often outweighs thyroid risk).
+</div>
+<div class="tw"><table>
+<thead><tr><th>Type</th><th>Treatment</th></tr></thead>
+<tbody>
+<tr><td><strong>AIT Type 1</strong></td><td>High-dose antithyroid drugs (MMI 40&#8211;60 mg/day or PTU 600&#8211;800 mg/day; often less effective due to high iodine substrate). Potassium perchlorate 500 mg bid (depletes intrathyroidal iodine; risk agranulocytosis; limited availability). Near-total thyroidectomy if refractory or urgent arrhythmia control needed.</td></tr>
+<tr><td><strong>AIT Type 2</strong></td><td><strong>Prednisone 40&#8211;60 mg/day</strong> (dramatic response in 1&#8211;2 weeks; taper over 2&#8211;3 months). Mild cases may self-resolve; some develop hypothyroidism (may still need LT4).</td></tr>
+<tr><td>Mixed/uncertain type</td><td>Combined antithyroid drug + glucocorticoid; reassess response at 2 weeks</td></tr>
+</tbody>
+</table></div>
+<p><strong>Amiodarone hypothyroidism</strong>: treat with LT4; usually no need to stop amiodarone. Monitor with TSH (note: T4 levels are always elevated on amiodarone &#8212; use TSH as the primary monitor). LT4 dosage requirements often higher.</p></div>
+</section>
+
+<section class="sec" id="s11">
+<div class="sec-hd"><span class="sec-n">11</span><h2>Nodular Disease &amp; Thyroid Cancer</h2></div>
+<div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+<div class="sub"><h3>Goiter</h3>
+<ul class="bl">
+<li><strong>Diffuse nontoxic goiter</strong>: symmetric enlargement without nodules, euthyroid; endemic if &gt;5% of population affected; most common worldwide cause = <strong>iodine deficiency</strong></li>
+<li>Goitrogens: cassava root (thiocyanate), cruciferous vegetables (inhibit NIS), lithium, iodide excess, cassava root, millet, flavonoids (soy)</li>
+<li><strong>Pemberton&#8217;s sign</strong>: facial flushing + neck vein distension when arms raised above head (superior vena caval obstruction from substernal goiter &#8212; increased thoracic inlet pressure)</li>
+<li>Substernal goiter: compressive symptoms (dysphagia, orthopnea, stridor); confirm with CT chest; surgery if symptomatic</li>
+<li><strong>MNG (multinodular goiter)</strong>: up to 12% of adults; polyclonal nodule growth; TSH normal; cancer risk per nodule <em>similar</em> to solitary nodule &#8212; evaluate dominant or suspicious nodule</li>
+</ul></div>
+<div class="sub"><h3>Toxic MNG &amp; Toxic Adenoma</h3>
+<div class="g2">
+<div class="card"><div class="clabel c-b">Toxic Multinodular Goiter (TMNG)</div>
+<p>Autonomous function in pre-existing MNG; common in elderly; often precipitated by iodine exposure (contrast agents). TSH low; free T4 normal or mildly elevated; <strong>T3 disproportionately elevated</strong> (T3 toxicosis pattern). Scan: heterogeneous with multiple &#8220;hot&#8221; and &#8220;cold&#8221; areas.<br>Treatment: antithyroid drugs (temporary control for elderly); RAI (preferred &#8212; also reduces goiter size by 30&#8211;40%); surgery (need euthyroid pre-op).</p></div>
+<div class="card"><div class="clabel c-b">Toxic Adenoma (Hyperfunctioning Solitary Nodule)</div>
+<p>Somatic gain-of-function mutations: <strong>TSH-R</strong> (transmembrane domain, &gt;90%) or GSs&#945; (similar to McCune-Albright) &#8594; constitutive cAMP &#8594; &#8593;cell proliferation + autonomous hormone secretion. Thyrotoxicosis usually when nodule &gt;<strong>3 cm</strong>; TSH subnormal.<br>Scan: focal intense uptake + <strong>suppressed surrounding gland</strong> (normal gland suppressed by autonomous hormone).<br>Treatment: RAI (concentrated in nodule; low hypothyroidism risk since surrounding gland suppressed and less irradiated) or surgical lobectomy. <strong>FNA not needed &#8212; hot nodules are almost never malignant.</strong></p></div>
+</div></div>
+<div class="sub"><h3>Approach to Thyroid Nodules</h3>
+<ul class="bl">
+<li>Palpable nodules: ~5% of adults; US-detected: up to 50% (most &lt;1 cm &#8212; likely over-detected)</li>
+<li><strong>Step 1</strong>: Measure TSH. If <em>suppressed</em> &#8594; scintigraphy &#8594; if hot nodule = no FNA (benign). If TSH normal/elevated &#8594; proceed to ultrasound</li>
+<li><strong>Step 2</strong>: Thyroid US with ACR TI-RADS scoring to determine FNA threshold by pattern + size</li>
+<li>No guideline recommends FNA for nodules &lt;1 cm (micropapillary cancer) unless metastatic cervical LN or ETX present</li>
+</ul>
+<div class="tw"><table>
+<thead><tr><th>Bethesda Category</th><th>Cytology</th><th>ROM (incl. NIFTP)</th><th>Management</th></tr></thead>
+<tbody>
+<tr><td>I &#8212; Nondiagnostic</td><td>Insufficient/acellular</td><td>13% (5&#8211;20%)</td><td>Repeat US-guided FNA in 3&#8211;6 months</td></tr>
+<tr><td>II &#8212; Benign</td><td>Benign follicular nodule, colloid, thyroiditis</td><td>4% (2&#8211;7%)</td><td>Follow; false-negative rate &lt;3%</td></tr>
+<tr><td>III &#8212; AUS/FLUS</td><td>Atypia/follicular lesion of uncertain significance</td><td>22% (13&#8211;30%)</td><td>Repeat FNA, molecular testing, or surgery</td></tr>
+<tr><td>IV &#8212; Follicular Neoplasm</td><td>Microfollicular/cellular; cannot distinguish adenoma vs carcinoma on FNA</td><td>30% (23&#8211;34%)</td><td>Molecular testing (ThyroSeq, Afirma); surgery if indicated</td></tr>
+<tr><td>V &#8212; Suspicious for Malignancy</td><td>Features suggesting PTC/MTC/etc.</td><td>74% (67&#8211;83%)</td><td>Surgery (lobectomy vs total thyroidectomy)</td></tr>
+<tr><td>VI &#8212; Malignant</td><td>Definitive malignancy</td><td>97&#8211;100%</td><td>Surgery</td></tr>
+</tbody>
+</table></div>
+<div class="co key"><div class="co-t">NIFTP &#8212; Important Classification Change</div>
+<strong>NIFTP</strong> (Noninvasive Follicular Thyroid Neoplasm with Papillary-like nuclear features): formerly classified as &#8220;encapsulated follicular variant of PTC.&#8221; Now reclassified as <strong>benign/borderline</strong> &#8212; not malignant. Requires evaluation of the <em>entire capsule</em> for invasiveness &#8212; <strong>cannot be diagnosed on FNA alone; surgical pathology only</strong>. Including NIFTP in ROM lowers calculated ROM for Bethesda III&#8211;V categories compared to earlier estimates.
+</div></div>
+<div class="sub"><h3>Thyroid Cancer</h3>
+<p>Most common endocrine malignancy. Incidence: 4.9 &#8594; &gt;15/100,000 over 30 years (predominantly small PTC &#8212; likely overdiagnosis). Disease-specific mortality minimally changed. 20-year disease-specific mortality for low-risk thyroid cancer: <strong>1%</strong>.</p>
+<div class="tw"><table>
+<thead><tr><th>Type</th><th>% of Thyroid Ca</th><th>Key Features</th><th>Key Mutations</th></tr></thead>
+<tbody>
+<tr><td><strong>PTC (Papillary)</strong></td><td>80&#8211;85%</td><td>&#8220;Orphan Annie eye&#8221; nuclei (powdery chromatin, nuclear grooves, intranuclear pseudoinclusions, eosinophilic macronucleoli); psammoma bodies; multifocal; <strong>lymphatic spread</strong> to cervical LN; excellent prognosis (&gt;95% Stage I or II); microscopic PTC in 25% of thyroid glands at autopsy</td><td>BRAF V600E ~60%, RET/PTC rearrangements ~15%, RAS ~15%; TERT promoter (high-risk)</td></tr>
+<tr><td><strong>FTC (Follicular)</strong></td><td>~5% (in US, higher in iodine-deficient areas)</td><td>Follicular pattern &#8212; FNA cannot distinguish from adenoma (requires <em>capsular or vascular invasion</em> on histology); <strong>hematogenous spread</strong> (bone &#8212; osteolytic, lung); minimally invasive vs widely invasive (poor prognosis)</td><td>PAX8-PPAR&#947;1 rearrangement; RAS mutations; PTEN deletion</td></tr>
+<tr><td><strong>MTC (Medullary)</strong></td><td>~5%</td><td>C-cell origin; serum <strong>calcitonin</strong> (diagnostic marker) + CEA; sporadic (60%) or familial (MEN 2A &#8212; RET C634 mutations, MEN 2B &#8212; RET M918T, familial MTC); genetic testing for <strong>all MTC patients</strong>; exclude pheochromocytoma before surgery; no RAI uptake; extensive surgery often needed</td><td>RET point mutations (MEN 2); somatic RET mutations (~40% sporadic)</td></tr>
+<tr><td><strong>ATC (Anaplastic)</strong></td><td>Rare (&lt;1%)</td><td>Rapidly growing, locally invasive, highly aggressive; median survival &lt;6 months; rare treatment response; BRAF V600E in ~50% &#8594; BRAF &#8214; MEK inhibitor (dabrafenib &#8214; trametinib) may give partial response</td><td>BRAF V600E ~50%, TP53, CTNNB1 (&beta;-catenin), TERT promoter</td></tr>
+</tbody>
+</table></div></div>
+<div class="sub"><h3>Differentiated Thyroid Cancer Treatment (PTC/FTC)</h3>
+<ul class="bl">
+<li><strong>Surgery</strong>: lobectomy acceptable for low-risk PTC &lt;4 cm without ETX or metastases; near-total/total thyroidectomy for: larger tumors, ETX, metastases, aggressive histology, bilateral disease, MTC, patient preference for surveillance simplicity</li>
+<li><strong>TSH suppression (LT4)</strong>: individualized by risk:
+  <ul><li>Low-risk: TSH 0.5&#8211;2.0 mIU/L</li>
+      <li>Intermediate-risk: TSH 0.1&#8211;0.5 mIU/L</li>
+      <li>Known metastatic disease: TSH &lt;0.1 mIU/L (indefinitely)</li></ul></li>
+<li><strong>RAI (&#185;&#179;&#185;I) adjuvant therapy</strong>: NOT recommended for T1a/T1b low-risk (&le;4 cm, intrathyroidal). May be considered for high-risk features: ETX, vascular invasion, large-volume LN metastases, aggressive histology (tall cell, diffuse sclerosing, etc.), older patients with intermediate-risk features</li>
+<li><strong>Surveillance after total thyroidectomy + RAI ablation</strong>: serum Tg + anti-Tg antibodies; neck US at ~6 months (more sensitive than whole-body scan for cervical LN). Tg &lt;0.2 ng/mL = remission (&lt;3% structural recurrence at 5 years)</li>
+<li><strong>Iodine-refractory metastatic disease</strong>: kinase inhibitors &#8212; lenvatinib (first-line), sorafenib; mutation-selective: BRAF V600E inhibitors, RET inhibitors (selpercatinib, pralsetinib), NTRK inhibitors (larotrectinib, entrectinib), immune checkpoint if TMB-high</li>
+</ul></div>
+<div class="sub"><h3>Thyroid Lymphoma &amp; Risk Factors for Malignancy</h3>
+<div class="co dan"><div class="co-t">&#9888; Thyroid Lymphoma &#8212; Do NOT Operate First</div>
+Thyroid lymphoma (DLBCL most common) arises in Hashimoto&#8217;s background. Rapidly enlarging, firm mass. Sensitive to external radiation &#8212; treat with RT &#177; chemotherapy based on staging. Surgical resection as initial therapy <strong>should be AVOIDED</strong> (may spread localized disease). Diagnose by core biopsy + immunohistochemistry, not FNA alone.
+</div>
+<div class="g2">
+<div class="card"><div class="clabel c-r">High-Risk History Features</div>
+<ul class="bl" style="margin-top:6px">
+<li>Head/neck irradiation before age 18 (Chernobyl, prior cancer RT)</li>
+<li>Age &lt;20 or &gt;65 years</li>
+<li>Male gender; rapidly enlarging mass</li>
+<li>Family history: PTC in 2+ relatives, MEN 2, Cowden&#8217;s (PTEN), FAP, Carney complex</li>
+</ul></div>
+<div class="card"><div class="clabel c-r">High-Risk Exam/Imaging Features</div>
+<ul class="bl" style="margin-top:6px">
+<li>Vocal cord paralysis; hoarseness (RLN invasion)</li>
+<li>Fixed nodule; extrathyroidal extension on imaging</li>
+<li>Ipsilateral cervical lymphadenopathy</li>
+<li>&#185;&#8312;FDG-PET avidity or Ga-68 Dotatate avidity</li>
+<li>TI-RADS 5 features on ultrasound</li>
+</ul></div>
+</div></div>
+</section>
+
+<section class="sec" id="s12">
+<div class="sec-hd"><span class="sec-n">12</span><h2>&#9888; Exam Traps &#8212; 25 High-Yield Pitfalls</h2></div>
+<div class="sbar"><button class="lbtn">&#10003; Learned</button><button class="fbtn">&#9873; Review</button></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">Normal TSH Does NOT Rule Out Central Hypothyroidism</span></div>
+<div class="trap-body"><div class="trap-q">A 45-year-old woman with pituitary surgery presents with fatigue and cold intolerance. TSH = 1.8 mIU/L (normal). Can you confidently exclude hypothyroidism?</div>
+<div class="trap-a"><strong>NO.</strong> In secondary (central) hypothyroidism, the pituitary produces bioinactive forms of TSH &#8212; TSH can be low, normal, or even mildly elevated. TSH cannot be used to screen for or monitor central hypothyroidism. Always measure <strong>free T4</strong> when pituitary/hypothalamic disease is present or suspected. Goal of LT4 replacement in central hypothyroidism: free T4 in the upper half of the reference range.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Biotin Supplements Cause Falsely Low TSH + Falsely High T4/T3</span></div>
+<div class="trap-body"><div class="trap-q">A patient on 5000 &#956;g/day biotin (for hair loss) has TSH &lt;0.01 and free T4 of 2.8 (elevated). She has no symptoms of hyperthyroidism. How do you proceed?</div>
+<div class="trap-a"><strong>Stop biotin for 2 days and retest.</strong> Biotin (&ge;1000 &#956;g) interferes with biotinylated TSH assay antibodies &#8594; falsely suppressed TSH + falsely elevated free T4/T3. This can mimic Graves&#8217; disease perfectly. The effect clears within 18 hours of last biotin dose. Always ask about biotin supplements before acting on unexpected thyroid results. This is a <strong>common board exam scenario.</strong></div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">TBG Deficiency: Low Total T4 &#8212; Do NOT Treat</span></div>
+<div class="trap-body"><div class="trap-q">A man has total T4 of 2.5 &#956;g/dL (low) with TSH 1.6 (normal) and no symptoms. Should you start LT4?</div>
+<div class="trap-a"><strong>Absolutely not.</strong> This is X-linked TBG deficiency &#8212; low binding protein means low total T4 but <em>normal free T4</em> and normal TSH &#8594; truly euthyroid. Giving LT4 to normalize total T4 would cause thyrotoxicosis (and the extra T4 would be rapidly cleared without TBG to extend its half-life). Never treat thyroid disease based on total T4 without free T4 and TSH confirmation.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Graves&#8217; Ophthalmopathy Can Exist WITHOUT Hyperthyroidism</span></div>
+<div class="trap-body"><div class="trap-q">A patient has bilateral proptosis and periorbital edema. TSH and free T4 are normal. Can this still be Graves&#8217; disease?</div>
+<div class="trap-a"><strong>YES &#8212; in ~10% of TED patients.</strong> Thyroid eye disease can occur when the patient is euthyroid, hypothyroid (Hashimoto&#8217;s), or in the setting of treated Graves&#8217;. The pathogenesis involves TSH-R and IGF-1R expressed on orbital fibroblasts &#8212; autoimmune attack independent of thyroid hormone levels. TRAb are usually positive even in euthyroid Graves&#8217; ophthalmopathy.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Thyroid Storm: SSKI Must Come AFTER PTU &#8212; Not Before</span></div>
+<div class="trap-body"><div class="trap-q">You plan to administer SSKI first to rapidly block thyroid hormone release in thyroid storm, then give PTU. Is this the correct sequence?</div>
+<div class="trap-a"><strong>WRONG order.</strong> If iodine (SSKI) is given before an antithyroid drug, the thyroid uses the iodine as substrate to synthesize <em>more</em> thyroid hormone, worsening the storm. The correct sequence: (1) PTU first &#8594; blocks TPO (no new synthesis or coupling), (2) wait <strong>1 full hour</strong>, (3) THEN give SSKI (Wolff-Chaikoff &#8212; iodide now inhibits release safely). Never skip or reverse this order.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Hyperemesis Gravidarum: Do NOT Give Antithyroid Drugs</span></div>
+<div class="trap-body"><div class="trap-q">A 9-week pregnant woman has suppressed TSH, mildly elevated free T4, and severe vomiting. No exophthalmos, no TRAb. You diagnose Graves&#8217; and prescribe methimazole. Correct?</div>
+<div class="trap-a"><strong>Not yet &#8212; this is gestational thyrotoxicosis from hCG, not Graves&#8217; disease.</strong> hCG peaks at ~10 weeks and weakly stimulates TSH-R &#8594; transient TSH suppression &#8594; hyperemesis gravidarum in some. Treatment: IV fluids and antiemetics. Antithyroid drugs are NOT indicated unless confirmed true Graves&#8217; disease (positive TRAb, ophthalmopathy, persistent hyperthyroidism past 16 weeks). Drug is self-limiting as hCG falls.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Do NOT Measure T3 in the Hypothyroidism Workup</span></div>
+<div class="trap-body"><div class="trap-q">A patient is confirmed hypothyroid (elevated TSH, low free T4). You order free T3 to complete the picture. Is this useful?</div>
+<div class="trap-a"><strong>No &#8212; T3 measurement is NOT indicated in hypothyroidism.</strong> Circulating T3 is <em>normal in ~25% of hypothyroid patients</em> because type II deiodinase is upregulated in the pituitary and brain, compensating by converting more T4&#8594;T3 locally. A normal T3 does not rule out hypothyroidism and adds no clinical value. T3 is only useful in the workup of <em>thyrotoxicosis</em> (T3 toxicosis, monitoring antithyroid therapy).</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">Myxedema Coma: External Warming ONLY if Temp &lt;30&#176;C</span></div>
+<div class="trap-body"><div class="trap-q">A myxedema coma patient has a temperature of 34&#176;C. You apply a warming blanket to raise her temperature. Is this appropriate?</div>
+<div class="trap-a"><strong>NO &#8212; active external warming is restricted to temperatures &lt;30&#176;C.</strong> When temperature is above 30&#176;C, external warming causes rapid peripheral vasodilation without adequate cardiac output to compensate &#8594; cardiovascular collapse. Instead, use <strong>passive insulation (space blankets)</strong> to prevent further heat loss, and allow temperature to rise gradually as thyroid hormone treatment takes effect. Active warming only at &lt;30&#176;C.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Silent vs Subacute Thyroiditis: ESR + Antibodies Are the Key</span></div>
+<div class="trap-body"><div class="trap-q">A postpartum woman has thyrotoxicosis with low RAIU and painless small goiter. Could be silent or subacute thyroiditis. How do you distinguish?</div>
+<div class="trap-a"><strong>Check ESR and TPO antibodies.</strong> Silent/postpartum thyroiditis: <strong>normal ESR + positive TPO antibodies</strong> (underlying autoimmune thyroiditis). No glucocorticoids needed. Subacute thyroiditis: <strong>very high ESR (often &gt;100 mm/h) + negative TPO antibodies</strong> + exquisitely tender goiter + viral prodrome; often requires glucocorticoids for pain. Both have low RAIU and painless (well, subacute has pain) &#8212; the ESR and antibodies are the discriminating tests.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Thyrotoxicosis Factitia: Distinguish by Serum Thyroglobulin</span></div>
+<div class="trap-body"><div class="trap-q">A patient with weight loss and palpitations has suppressed TSH, elevated T4, and very low RAI uptake (&lt;5%). Could be thyroiditis or exogenous hormone. How do you differentiate?</div>
+<div class="trap-a"><strong>Measure serum thyroglobulin (Tg).</strong> Thyrotoxicosis factitia (exogenous T4/T3): <strong>LOW Tg</strong> (exogenous hormone suppresses TSH + endogenous Tg secretion; no gland destruction). Thyroiditis (pre-formed hormone release): <strong>ELEVATED Tg</strong> (follicle destruction releases Tg into bloodstream). Both have low RAIU. Tg is the critical differentiating test when RAIU is low.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">PTU Has ONLY Three Indications &#8212; Not Default Hyperthyroid Treatment</span></div>
+<div class="trap-body"><div class="trap-q">You automatically prescribe PTU to a newly diagnosed hyperthyroid patient. What&#8217;s wrong with this?</div>
+<div class="trap-a"><strong>PTU should not be used routinely.</strong> Due to FDA warnings about serious hepatotoxicity (acute liver failure, death), PTU use is limited to three situations: (1) <strong>First trimester of pregnancy</strong> (methimazole causes embryopathy weeks 6&#8211;10), (2) <strong>Thyroid storm</strong> (PTU uniquely blocks T4&#8594;T3 via DIO1), (3) <strong>Methimazole allergy/intolerance</strong>. In ALL other situations, methimazole is the preferred thionamide. After the first trimester: switch from PTU &#8594; methimazole.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 12</span><span class="trap-title">Amiodarone-Induced Thyrotoxicosis: Do NOT Stop Amiodarone Reflexively</span></div>
+<div class="trap-body"><div class="trap-q">A patient on amiodarone for VT develops AIT type 2. You immediately discontinue amiodarone to reduce iodine load. Is this the right move?</div>
+<div class="trap-a"><strong>Not necessarily.</strong> Due to amiodarone&#8217;s half-life of 40&#8211;55 days and adipose storage, stopping it provides <strong>no immediate clinical benefit</strong>. Studies show AIT type 2 resolves at similar rates whether amiodarone is continued or stopped. The decision should be based on whether the <strong>underlying arrhythmia</strong> (VT/VF) can be safely managed without amiodarone. If not, continue amiodarone and treat AIT type 2 with glucocorticoids.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 13</span><span class="trap-title">Hot Nodule = Benign; FNA is NOT Indicated</span></div>
+<div class="trap-body"><div class="trap-q">A patient has a 2.5 cm thyroid nodule with suppressed TSH. RAI scan shows it is hyperfunctioning (hot). Should you biopsy it?</div>
+<div class="trap-a"><strong>NO &#8212; hot nodules are almost never malignant.</strong> A functioning (hot) nodule on scintigraphy essentially excludes malignancy. FNA is not indicated and would give confusing cytology results. The appropriate management is to <strong>evaluate and treat the hyperthyroidism</strong> (RAI ablation or lobectomy based on patient preference and nodule size). This is a critical exception to standard nodule evaluation pathways.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 14</span><span class="trap-title">RTH-&#946; vs TSH-Secreting Adenoma: Both Have High T4 + Non-Suppressed TSH</span></div>
+<div class="trap-body"><div class="trap-q">A patient has free T4 2.5 (elevated), free T3 elevated, and TSH 3.1 mIU/L (inappropriately non-suppressed). How do you differentiate RTH-&#946; from a TSH-secreting adenoma?</div>
+<div class="trap-a"><strong>Key tests:</strong> (1) <strong>&#945;-subunit of TSH</strong>: elevated in TSH-secreting adenoma, normal in RTH-&#946;. (2) <strong>Pituitary MRI/CT</strong>: adenoma present in TSH-secreting adenoma, normal in RTH-&#946;. (3) <strong>Family history and TR&#946; gene sequencing</strong>: RTH-&#946; is familial (autosomal dominant); similar labs in relatives; mutation on sequencing. Management differs entirely: RTH-&#946; = usually no treatment; TSH-adenoma = transsphenoidal surgery &#177; somatostatin analogue.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 15</span><span class="trap-title">Thyroid Lymphoma: Avoid Surgery as Initial Therapy</span></div>
+<div class="trap-body"><div class="trap-q">A patient with known Hashimoto&#8217;s develops a rapidly enlarging hard thyroid mass. You plan surgery for diagnosis and resection. Is this appropriate?</div>
+<div class="trap-a"><strong>NO &#8212; do NOT operate first on thyroid lymphoma.</strong> Thyroid lymphoma (usually DLBCL) arises in Hashimoto&#8217;s background and is highly radiosensitive. Surgical resection as initial therapy risks spreading disease that might otherwise be localized. The correct approach: core needle biopsy (FNA may be inadequate) + immunohistochemistry &#8594; staging &#8594; external beam radiation (localized) or CHOP-R chemotherapy (systemic). Surgery is reserved for airway decompression only.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 16</span><span class="trap-title">Estrogen Raises Total T4 but NOT Free T4 or TSH</span></div>
+<div class="trap-body"><div class="trap-q">A woman on oral contraceptives has total T4 of 14 &#956;g/dL (high). She is asymptomatic. Do you investigate for hyperthyroidism?</div>
+<div class="trap-a"><strong>No.</strong> Estrogen increases TBG sialylation &#8594; delayed TBG clearance &#8594; more TBG in serum &#8594; more T4 bound &#8594; high <em>total</em> T4. But <strong>free T4 and TSH remain normal</strong> &#8594; patient is truly euthyroid. This pattern is also seen in pregnancy. Do not order further testing or treat. Simply recognize the medication effect. Note: transdermal estrogen has minimal effect on TBG (no first-pass hepatic effect).</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 17</span><span class="trap-title">RAI is ABSOLUTELY Contraindicated in Pregnancy and Breastfeeding</span></div>
+<div class="trap-body"><div class="trap-q">A pregnant woman at 14 weeks with difficult-to-control Graves&#8217; is discussed for RAI therapy. Why is this not an option?</div>
+<div class="trap-a"><strong>RAI is an ABSOLUTE contraindication in pregnancy.</strong> The fetal thyroid begins concentrating iodine at ~11 weeks&#8217; gestation. RAI crosses the placenta and would completely ablate the fetal thyroid &#8594; permanent congenital hypothyroidism &#8594; irreversible neurologic damage. Also contraindicated in breastfeeding (excreted in breast milk). Patients must not conceive for <strong>6 months</strong> after RAI treatment. Always confirm negative pregnancy test before RAI.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 18</span><span class="trap-title">Pendred Syndrome: Organification Defect + Goiter + Sensorineural Deafness</span></div>
+<div class="trap-body"><div class="trap-q">A child presents with congenital sensorineural deafness and a goiter. What is the thyroid diagnosis?</div>
+<div class="trap-a"><strong>Pendred syndrome.</strong> Mutation in the <em>pendrin</em> (SLC26A4) gene &#8212; pendrin normally transports iodide from cell to follicular lumen on the apical surface. Without it: iodide cannot be organified &#8594; impaired T4/T3 synthesis &#8594; TSH rises &#8594; goiter. Pendrin also regulates cochlear endolymph ion composition &#8594; sensorineural deafness. Autosomal recessive. Classic triad: <strong>organification defect + goiter + sensorineural deafness</strong>. Most common form of syndromic hereditary deafness associated with goiter.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 19</span><span class="trap-title">Subclinical Hypothyroidism: Treat if TSH &gt;10 OR Pregnant &#8212; Not Always</span></div>
+<div class="trap-body"><div class="trap-q">An asymptomatic 60-year-old woman has TSH of 7.5 mIU/L (elevated), normal free T4, and positive TPO antibodies. Her cardiologist wants to know if she needs LT4. What do you advise?</div>
+<div class="trap-a"><strong>Not yet by strict criteria.</strong> LT4 is clearly indicated when TSH &gt;<strong>10 mIU/L</strong>, or if pregnant/planning pregnancy, or for symptomatic young/middle-aged patients with CV risk. For this asymptomatic elderly woman with TSH 7.5: confirm elevation persists over <strong>3 months</strong>, then the decision is individualized. Her positive TPO antibodies predict 4% annual risk of progression. A reasonable approach: shared decision, offering a trial of LT4 with reassessment. In very elderly (&gt;80 years), even TSH 5&#8211;10 may not need treatment (age-specific ranges are higher).</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 20</span><span class="trap-title">Subacute Thyroiditis: Antithyroid Drugs Play NO Role</span></div>
+<div class="trap-body"><div class="trap-q">A patient with confirmed subacute thyroiditis is thyrotoxic. You prescribe methimazole to block the excess thyroid hormone. Is this appropriate?</div>
+<div class="trap-a"><strong>NO &#8212; antithyroid drugs are useless in subacute thyroiditis.</strong> The thyrotoxicosis results from <strong>release of pre-formed, stored hormone</strong> from follicles destroyed by inflammation &#8212; there is no new hormone synthesis occurring. Thionamides (MMI/PTU) only block new synthesis via TPO inhibition. Treatment: <strong>beta-blockers</strong> for symptom control; NSAIDs or glucocorticoids for pain/inflammation. The thyrotoxic phase is self-limited.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 21</span><span class="trap-title">MCT8 Mutation: Low T4 + HIGH T3 + HIGH TSH &#8212; Paradoxical Pattern</span></div>
+<div class="trap-body"><div class="trap-q">An X-linked male infant has severe psychomotor retardation and thyroid labs showing: TSH elevated, T4 low, T3 markedly elevated. What is the diagnosis?</div>
+<div class="trap-a"><strong>MCT8 (Monocarboxylate Transporter 8) mutation &#8212; Allan-Herndon-Dudley syndrome.</strong> MCT8 is required for T4 to enter brain cells. Without it: T4 accumulates peripherally &#8594; shunted to peripheral T4&#8594;T3 conversion &#8594; very high T3. The brain is T4-starved despite high peripheral T3 (brain also MCT8-dependent for T3 entry). TSH is elevated because pituitary cannot sense adequate intracellular T4. Result: <strong>low T4 + high T3 + high TSH</strong> &#8212; a paradoxical and unique pattern. X-linked recessive.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 22</span><span class="trap-title">Pregnant Hypothyroid Women: Increase LT4 to 9 Doses/Week IMMEDIATELY</span></div>
+<div class="trap-body"><div class="trap-q">A hypothyroid woman on 100 &#956;g LT4 daily becomes pregnant. When and how do you adjust her dose?</div>
+<div class="trap-a"><strong>Immediately upon confirmed pregnancy &#8212; increase to 9 doses per week.</strong> This means taking a double dose on 2 nonconsecutive days per week (approximately the 45% increase needed for athyreotic women). Do not wait for the next scheduled appointment. Then monitor TSH every 4 weeks in the first half of pregnancy with a target TSH &lt;2.5 mIU/L. Maternal hypothyroidism, even subclinical, is associated with miscarriage, preterm birth, and fetal neurodevelopmental impairment. After delivery, return to pre-pregnancy dose and recheck TSH at 6 weeks.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 23</span><span class="trap-title">T3 Toxicosis: TSH Suppressed + Normal Free T4 = Must Check Free T3</span></div>
+<div class="trap-body"><div class="trap-q">A patient has symptoms of thyrotoxicosis, TSH = 0.02 mIU/L (suppressed), but free T4 is normal. You conclude the patient is euthyroid. What did you miss?</div>
+<div class="trap-a"><strong>T3 toxicosis.</strong> In 2&#8211;5% of thyrotoxicosis cases, only T3 is elevated while T4 remains normal. Occurs early in Graves&#8217; disease, with toxic adenomas, and in areas of borderline iodine intake. A suppressed TSH with <em>normal free T4</em> must always prompt measurement of <strong>free T3</strong> before concluding the patient is euthyroid. If free T3 is elevated = T3 toxicosis &#8594; treat as hyperthyroidism.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 24</span><span class="trap-title">Spongiform Nodule = No FNA Regardless of Size</span></div>
+<div class="trap-body"><div class="trap-q">An incidental 3.5 cm spongiform thyroid nodule is found. The patient asks about biopsy. Is FNA indicated?</div>
+<div class="trap-a"><strong>NO FNA regardless of size.</strong> A spongiform nodule (microcystic areas comprising &gt;50% of the volume &#8212; honeycomb appearance) has a malignancy risk &lt;3%. All major validated risk stratification systems (ACR TI-RADS, ATA, EU-TIRADS) classify it as benign/not suspicious &#8212; observation only, NO biopsy. This is one of the most important rules reducing unnecessary FNAs by up to 45%. A spongiform nodule = ACR TI-RADS TR1 = 0 points regardless of size.</div>
+</div></div>
+
+<div class="trap"><div class="trap-hd"><span class="trap-num">Trap 25</span><span class="trap-title">NIFTP: No Longer Malignant &#8212; But Can ONLY Be Diagnosed After Surgery</span></div>
+<div class="trap-body"><div class="trap-q">FNA shows &#8220;follicular neoplasm with papillary-like nuclear features&#8221; (Bethesda IV). The pathologist mentions NIFTP. The patient asks why surgery is needed if it&#8217;s not cancer.</div>
+<div class="trap-a"><strong>NIFTP cannot be diagnosed by FNA alone &#8212; it requires surgical pathology.</strong> NIFTP (Noninvasive Follicular Thyroid Neoplasm with Papillary-like nuclear features) is no longer classified as malignant, but diagnosing it requires demonstrating the <em>absence of capsular and vascular invasion</em>, which requires evaluation of the entire capsule &#8212; only possible on surgical pathology. On FNA it appears as an indeterminate follicular-patterned lesion (Bethesda III or IV). Surgery is still needed to determine whether invasion is present. NIFTP inclusion has lowered the apparent malignancy risk across Bethesda categories III&#8211;V.</div>
+</div></div>
+
+</section>
+
+</main>
+<footer class="footer">Harrison&#8217;s Principles of Internal Medicine &#183; Chapters 394&#8211;397 &#183; Thyroid Gland Disorders &#183; Stage A Boards Review 2026</footer>
+<script>
+const FILE_KEY='venos_'+(document.title||'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY=FILE_KEY+'_hl';const NT_KEY=FILE_KEY+'_notes';
+let curColor=null,eraseMode=false,selText='',savedRange=null;
+function setHL(c){curColor=c;eraseMode=false;document.body.style.cursor='crosshair';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));document.getElementById('h-'+c).classList.add('active')}
+function setErase(){eraseMode=true;curColor=null;document.body.style.cursor='cell';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'))}
+function applyHL(range,color){try{const s=document.createElement('span');s.className='hl hl-'+color;s.dataset.hlColor=color;range.surroundContents(s);saveHighlights()}catch(e){try{const f=range.extractContents();const s=document.createElement('span');s.className='hl hl-'+color;s.dataset.hlColor=color;s.appendChild(f);range.insertNode(s);saveHighlights()}catch(e2){}}}
+function saveHighlights(){const spans=document.querySelectorAll('.hl[data-hl-color]');const data=[];spans.forEach(s=>{const t=s.textContent.trim();if(t.length>1)data.push({text:t,color:s.dataset.hlColor})});try{localStorage.setItem(HL_KEY,JSON.stringify(data))}catch(e){}}
+function restoreHighlights(){let saved;try{saved=JSON.parse(localStorage.getItem(HL_KEY))||[]}catch(e){return}if(!saved.length)return;const main=document.querySelector('main')||document.body;saved.forEach(function(item){if(!item.text||!item.color)return;const walker=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,null,false);let node;while(node=walker.nextNode()){if(node.parentElement&&(node.parentElement.classList.contains('hl')||node.parentElement.classList.contains('note-anchor')))continue;const idx=node.nodeValue.indexOf(item.text);if(idx!==-1){try{const r=document.createRange();r.setStart(node,idx);r.setEnd(node,idx+item.text.length);applyHL(r,item.color)}catch(e){}break}}})}
+function getNotes(){try{return JSON.parse(localStorage.getItem(NT_KEY)||'[]')}catch(e){return[]}}
+function saveNotes(n){try{localStorage.setItem(NT_KEY,JSON.stringify(n))}catch(e){}}
+function addNote(){const txt=document.getElementById('sn-ta').value.trim();if(!txt)return;const id=Date.now();const notes=getNotes();notes.unshift({id,ref:selText.substring(0,100)||'—',text:txt});saveNotes(notes);if(savedRange){try{const span=document.createElement('span');span.className='note-anchor';span.dataset.noteId=id;span.title='Click to see your note';savedRange.surroundContents(span);bindAnchor(span,id)}catch(e){try{const frag=savedRange.extractContents();const span=document.createElement('span');span.className='note-anchor';span.dataset.noteId=id;span.title='Click to see your note';span.appendChild(frag);savedRange.insertNode(span);bindAnchor(span,id)}catch(e2){}}savedRange=null}document.getElementById('sn-ta').value='';selText='';document.getElementById('sn-ref-txt').textContent='—';renderNotes()}
+function bindAnchor(span,id){span.addEventListener('click',function(e){e.stopPropagation();const note=getNotes().find(n=>n.id===id);if(note)showPopover(span,note)})}
+function restoreAnchors(){const notes=getNotes();if(!notes.length)return;const main=document.querySelector('main')||document.body;notes.forEach(function(note){if(!note.ref||note.ref==='—'||!note.id)return;const refText=note.ref.trim();if(refText.length<2)return;if(document.querySelector('.note-anchor[data-note-id="'+note.id+'"]'))return;const walker=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,null,false);let node;while(node=walker.nextNode()){if(node.parentElement&&(node.parentElement.classList.contains('note-anchor')||node.parentElement.classList.contains('hl')))continue;const idx=node.nodeValue.indexOf(refText);if(idx!==-1){try{const r=document.createRange();r.setStart(node,idx);r.setEnd(node,idx+refText.length);const span=document.createElement('span');span.className='note-anchor';span.dataset.noteId=String(note.id);span.title='Click to see your note';r.surroundContents(span);bindAnchor(span,note.id)}catch(e){}break}}})}
+function deleteNote(id){saveNotes(getNotes().filter(n=>n.id!==id));document.querySelectorAll('.note-anchor[data-note-id="'+id+'"]').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize()});closePopover();renderNotes()}
+function renderNotes(){const body=document.getElementById('sn-body');const empty=document.getElementById('sn-empty');const notes=getNotes();body.querySelectorAll('.sn-note').forEach(el=>el.remove());if(!notes.length){if(empty)empty.style.display='';return}if(empty)empty.style.display='none';notes.forEach(note=>{const card=document.createElement('div');card.className='sn-note';card.dataset.noteId=note.id;card.innerHTML='<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>'+'<span class="sn-note-ref">'+(note.ref!=='—'?'"'+note.ref+'"':'General note')+'</span>'+'<button class="sn-del" onclick="deleteNote('+note.id+')">×</button></div>'+'<div class="sn-note-body">'+note.text.replace(/\n/g,'<br>')+'</div>'+'<div class="sn-resize"></div>';body.appendChild(card);makeResizable(card,note.id)})}
+let activePopNoteId=null;
+function showPopover(anchorEl,note){const pop=document.getElementById('note-popover');document.getElementById('np-pop-ref').textContent=note.ref!=='—'?'"'+note.ref.substring(0,55)+'"':'Note';document.getElementById('np-pop-text').innerHTML=note.text.replace(/\n/g,'<br>');document.getElementById('pop-del-btn').onclick=()=>deleteNote(note.id);activePopNoteId=note.id;const rect=anchorEl.getBoundingClientRect();pop.style.left=Math.min(rect.left,window.innerWidth-300)+'px';pop.style.top=(rect.bottom+8)+'px';pop.classList.add('show')}
+function closePopover(){document.getElementById('note-popover').classList.remove('show');activePopNoteId=null}
+document.addEventListener('click',function(e){if(!document.getElementById('note-popover').contains(e.target))closePopover()});
+document.addEventListener('mouseup',function(e){const tb=document.getElementById('toolbar');const sb=document.getElementById('sn-sidebar');const np=document.getElementById('note-popover');if(tb.contains(e.target)||sb.contains(e.target)||np.contains(e.target))return;if(eraseMode&&e.target.classList.contains('hl')){const el=e.target;el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();saveHighlights();return}const sel=window.getSelection();if(!sel||sel.isCollapsed)return;const txt=sel.toString().trim();if(!txt)return;selText=txt;savedRange=sel.getRangeAt(0).cloneRange();document.getElementById('sn-ref-txt').textContent=txt.length>48?txt.substring(0,48)+'…':txt;if(curColor){try{applyHL(sel.getRangeAt(0),curColor);sel.removeAllRanges()}catch(err){}}});
+function clearAll(){if(!confirm('Clear ALL highlights and notes?'))return;document.querySelectorAll('.hl').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize()});document.querySelectorAll('.note-anchor').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize()});try{localStorage.removeItem(HL_KEY);localStorage.removeItem(NT_KEY)}catch(e){}curColor=null;eraseMode=false;document.body.style.cursor='';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));closePopover();renderNotes()}
+function toggleSidebar(){const sb=document.getElementById('sn-sidebar');const tab=document.getElementById('sn-tab');sb.classList.toggle('hidden');tab.textContent=sb.classList.contains('hidden')?'📑 Notes':'◄'}
+function makeResizable(card,noteId){const handle=card.querySelector('.sn-resize');let startY=0,startH=0;handle.addEventListener('mousedown',function(e){e.preventDefault();e.stopPropagation();startY=e.clientY;startH=card.offsetHeight;function onMove(ev){card.style.height=Math.max(80,startH+(ev.clientY-startY))+'px'}function onUp(){document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp)}document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp)})}
+document.querySelectorAll('.lbtn').forEach(b=>{b.addEventListener('click',function(){this.classList.toggle('on')})});
+document.querySelectorAll('.fbtn').forEach(b=>{b.addEventListener('click',function(){this.classList.toggle('on')})});
+const _sections=document.querySelectorAll('.sec[id]');const _navLinks=document.querySelectorAll('.toc-a');
+_sections.forEach(s=>new IntersectionObserver(entries=>{if(entries[0].isIntersecting){_navLinks.forEach(l=>l.classList.remove('on'));const lnk=document.querySelector('.toc-a[href="#'+s.id+'"]');if(lnk){lnk.classList.add('on');lnk.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})}}},{rootMargin:'-15% 0px -75% 0px'}).observe(s));
+restoreHighlights();restoreAnchors();renderNotes();
+</script>
+</body>
+</html>
