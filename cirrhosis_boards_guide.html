@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Cirrhosis &amp; Its Complications · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1e1035 0%,#2d1a54 60%,#1e1035 100%);color:#fff;padding:44px 52px 36px;border-bottom:4px solid #6d28d9;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;line-height:1.05;margin-bottom:8px}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;padding:0 12px;display:flex;align-items:center;white-space:nowrap;border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blu);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}tbody tr:last-child{border-bottom:none}tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}.main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+.flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:16px auto;max-width:560px}
+.flow-box{background:var(--sf);border:1.5px solid var(--bd2);border-radius:7px;padding:9px 18px;text-align:center;font-size:12.5px;color:var(--tx);width:100%;line-height:1.45}
+.flow-box.blue{background:var(--blu-l);border-color:var(--blu);color:var(--blu-d)}
+.flow-box.red{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.flow-box.green{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.flow-box.amber{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.flow-box.purple{background:var(--pur-l);border-color:var(--pur);color:var(--pur)}
+.flow-arrow{font-size:16px;color:var(--t3);line-height:1.2;margin:3px 0;text-align:center;width:100%}
+.flow-split{display:flex;gap:10px;width:100%;margin:3px 0}
+.flow-split .flow-box{flex:1}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd"><span>📝 My Notes</span><button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button></div>
+  <div id="sn-body"><div id="sn-empty">Select text → write note → Add Note.<br><br>Notes persist after closing.</div></div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+<div id="note-popover">
+  <div id="np-pop-ref"></div><div id="np-pop-text"></div>
+  <div id="np-pop-actions"><button class="pop-btn" id="pop-del-btn">Delete</button><button class="pop-close" onclick="closePopover()">×</button></div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles · Chapter 355</div>
+  <h1>Cirrhosis &amp; Its Complications</h1>
+  <div class="hero-sub">Portal HTN · Varices · Ascites · SBP · HRS · HE · PBC · PSC · Boards Review</div>
+  <div class="hero-authors">Alex S. Befeler &amp; Bruce R. Bacon</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">HVPG</div><div class="stat-l">&gt;10 mmHg = CSPH</div></div>
+    <div class="stat-box"><div class="stat-n">20–30%</div><div class="stat-l">Variceal Bleed Mortality</div></div>
+    <div class="stat-box"><div class="stat-n">SAAG</div><div class="stat-l">&gt;1.1 = Portal HTN</div></div>
+    <div class="stat-box"><div class="stat-n">ANC &gt;250</div><div class="stat-l">SBP Diagnosis</div></div>
+    <div class="stat-box"><div class="stat-n">&lt;2 yrs</div><div class="stat-l">Median Survival after Decompensation</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Overview</a>
+    <a class="toc-a" href="#s2">Causes</a>
+    <a class="toc-a" href="#s3">Portal HTN</a>
+    <a class="toc-a" href="#s4">Varices</a>
+    <a class="toc-a" href="#s5">Ascites</a>
+    <a class="toc-a" href="#s6">SBP</a>
+    <a class="toc-a" href="#s7">HRS</a>
+    <a class="toc-a" href="#s8">Hepatic Encephalopathy</a>
+    <a class="toc-a" href="#s9">PBC &amp; PSC</a>
+    <a class="toc-a" href="#s10">Other Complications</a>
+    <a class="toc-a" href="#s11">Quick Reference</a>
+    <a class="toc-a" href="#s12">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══ S1 ═══ -->
+<section class="sec" id="s1">
+  <div class="sec-hd"><span class="sec-n">01</span><h2>Overview — What Is Cirrhosis?</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <ul class="bl">
+    <li><strong>Defined histopathologically:</strong> fibrosis → architectural distortion → formation of regenerative nodules → decreased hepatocellular mass + altered blood flow</li>
+    <li>Fibrosis is induced by <strong>activation of hepatic stellate cells</strong> → increased collagen + extracellular matrix deposition</li>
+    <li>Advanced fibrosis = bridging fibrosis with nodularity (<strong>stage 3</strong>); cirrhosis = <strong>stage 4</strong></li>
+    <li><strong>Cirrhosis CAN regress</strong> when the underlying insult is removed — most apparent with HCV cure; also seen in hemochromatosis (phlebotomy) and ALD (abstinence)</li>
+  </ul>
+
+  <div class="g2">
+    <div class="card">
+      <div class="clabel c-b">Compensated Cirrhosis</div>
+      <ul class="bl">
+        <li>Stable; well-functioning</li>
+        <li>HVPG 5–10 mmHg (asymptomatic)</li>
+        <li>Can last &gt;10 years</li>
+        <li>Labs may be completely normal</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-r">Decompensated Cirrhosis</div>
+      <ul class="bl">
+        <li>Ascites, hepatic encephalopathy, or variceal bleeding</li>
+        <li>HVPG ≥10 mmHg = CSPH (clinically significant portal hypertension)</li>
+        <li>Median survival <strong>&lt;2 years</strong> after first decompensation</li>
+        <li>Consider liver transplantation</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="co wrn">
+    <div class="co-t">⚠ Complications of Cirrhosis — Full List</div>
+    Portal hypertension (varices, portal hypertensive gastropathy, hypersplenism) · Ascites · Spontaneous bacterial peritonitis (SBP) · Hepatorenal syndrome (HRS) · Hepatic encephalopathy · Hepatopulmonary syndrome · Portopulmonary hypertension · Coagulopathy · Bone disease (osteoporosis/osteopenia/osteomalacia) · Hematologic abnormalities (anemia, thrombocytopenia, neutropenia) · Malnutrition/sarcopenia · Hepatocellular carcinoma (HCC) · Acute-on-chronic liver failure (ACLF)
+  </div>
+</section>
+
+<!-- ═══ S2 ═══ -->
+<section class="sec" id="s2">
+  <div class="sec-hd"><span class="sec-n">02</span><h2>Causes of Cirrhosis</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="g3">
+    <div class="card">
+      <div class="clabel c-r">Most Common</div>
+      <ul class="bl">
+        <li>Alcohol — <strong>48% of cirrhosis deaths</strong></li>
+        <li>Chronic HCV — ~80% develop chronic HCV; ~20–30% → cirrhosis over 20–30 yrs</li>
+        <li>Chronic HBV — ~5% of adults develop chronic HBV; ~20% → cirrhosis</li>
+        <li>MASH (MASLD-related)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-b">Biliary</div>
+      <ul class="bl">
+        <li>Primary biliary cholangitis (PBC)</li>
+        <li>Primary sclerosing cholangitis (PSC)</li>
+        <li>Autoimmune cholangiopathy (AIC)</li>
+        <li>Secondary biliary cirrhosis</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-p">Metabolic / Inherited</div>
+      <ul class="bl">
+        <li>Hemochromatosis (1 in 250 genetically susceptible; &lt;5% → severe disease)</li>
+        <li>Wilson's disease (1 in 30,000)</li>
+        <li>α1-Antitrypsin deficiency (ZZ phenotype, ~10–20% → CLD)</li>
+        <li>Cystic fibrosis</li>
+        <li>Autoimmune hepatitis</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-a">Other</div>
+      <ul class="bl">
+        <li>Cardiac cirrhosis (right heart failure — increasingly rare)</li>
+        <li>Cryptogenic (many = "burned out" MASH)</li>
+        <li>Budd-Chiari syndrome</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Alcohol-Associated Cirrhosis — Histology</h3>
+    <ul class="bl">
+      <li>Nodules usually <strong>&lt;3 mm = micronodular</strong></li>
+      <li>With alcohol cessation → larger nodules form → <strong>mixed micronodular + macronodular</strong></li>
+      <li>Fibrosis can be centrilobular, pericellular, or periportal</li>
+      <li>Connective tissue connects portal triads with central veins → regenerative nodules</li>
+      <li><strong>Zieve's syndrome</strong> — unique hemolytic anemia with spur cells and acanthocytes; occurs in severe alcoholic hepatitis</li>
+    </ul>
+    <div class="co key">
+      <div class="co-t">📋 Prognosis — Alcohol-Associated Cirrhosis</div>
+      With ongoing alcohol use + complications of cirrhosis: <strong>&lt;50% 5-year survival</strong>. With sustained abstinence: significantly improved prognosis. New biomarker: <strong>phosphatidylethanol (PEth)</strong> — clinically available marker of recent alcohol consumption, useful for evaluating abstinence.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>MASH Cirrhosis — The Cryptogenic Cirrhosis Trap</h3>
+    <p>Many patients previously labeled as "cryptogenic cirrhosis" in fact had MASH. As MASH cirrhosis progresses, patients become catabolic and <strong>lose the telltale histologic signs of steatosis</strong> — so biopsy appears "cryptogenic." Positive ANA or ASMA in AIH-related cirrhosis; if burned-out AIH (no inflammation), immunosuppression will not help.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Specific Metabolic Diseases</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Disease</th><th>Key Diagnostic Feature</th><th>Treatment</th></tr></thead>
+        <tbody>
+          <tr><td>Hemochromatosis</td><td>↑ Transferrin saturation + ↑ ferritin + HFE mutation analysis; portal-based fibrosis → cirrhosis → HCC</td><td>Regular therapeutic phlebotomy</td></tr>
+          <tr><td>Wilson's disease</td><td>Low ceruloplasmin + ↑ 24-h urine copper + Kayser-Fleischer rings + characteristic biopsy; affects adolescents/young adults</td><td>Copper-chelating medications</td></tr>
+          <tr><td>α1-AT deficiency</td><td>PAS-positive, diastase-resistant globules on biopsy; ZZ phenotype; 10–20% → CLD</td><td>Liver transplantation (curative)</td></tr>
+          <tr><td>Cystic fibrosis</td><td>Biliary-type cirrhosis in white patients of northern European descent</td><td>Chronic UDCA may help</td></tr>
+          <tr><td>Cardiac cirrhosis</td><td>↑ ALP, normal/↑ AST; right heart failure with ↑ venous pressure → centrilobular fibrosis; differentiate from Budd-Chiari (no red cell extravasation in cardiac)</td><td>Manage underlying cardiac disease</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ S3 ═══ -->
+<section class="sec" id="s3">
+  <div class="sec-hd"><span class="sec-n">03</span><h2>Portal Hypertension</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">🔢 Key Thresholds — HVPG (Hepatic Venous Pressure Gradient)</div>
+    <div class="g3" style="margin-top:8px">
+      <div class="card"><div class="clabel c-b">HVPG &gt;5 mmHg</div><p>Definition of portal hypertension</p></div>
+      <div class="card"><div class="clabel c-a">HVPG ≥10 mmHg</div><p>Clinically Significant Portal Hypertension (CSPH) — risk of decompensation</p></div>
+      <div class="card"><div class="clabel c-r">HVPG &gt;12 mmHg</div><p>Risk of variceal hemorrhage</p></div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Pathogenesis — Two Simultaneous Processes</h3>
+    <ul class="bl">
+      <li><strong>(1) ↑ Intrahepatic resistance</strong> — due to cirrhosis, regenerative nodules, microthrombi → blood cannot flow through liver freely</li>
+      <li><strong>(2) ↑ Splanchnic blood flow</strong> — splanchnic arterial vasodilation (mediated by <strong>nitric oxide</strong> and other vasodilators) → increased portal venous inflow</li>
+      <li>Advanced stage: activation of neurohumoral systems (RAAS + sympathetic nervous system) → sodium and water retention → ↑ blood volume → hyperdynamic circulation → more portal hypertension</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Classification of Portal Hypertension</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Category</th><th>Causes</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Prehepatic</strong></td><td>Portal vein thrombosis, splenic vein thrombosis, massive splenomegaly (Banti's syndrome)</td></tr>
+          <tr><td><strong>Intrahepatic — Presinusoidal</strong></td><td>Schistosomiasis, congenital hepatic fibrosis</td></tr>
+          <tr><td><strong>Intrahepatic — Sinusoidal</strong></td><td>Cirrhosis (all causes), alcoholic hepatitis — <strong>&gt;95% of all portal HTN cases</strong></td></tr>
+          <tr><td><strong>Intrahepatic — Postsinusoidal</strong></td><td>Hepatic sinusoidal obstruction (venoocclusive syndrome/SOS)</td></tr>
+          <tr><td><strong>Posthepatic</strong></td><td>Budd-Chiari syndrome, IVC webs, cardiac causes (restrictive cardiomyopathy, constrictive pericarditis, severe CHF)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Portal vein thrombosis</strong> may be idiopathic or associated with cirrhosis, infection, pancreatitis, or abdominal trauma. Coagulation disorders (polycythemia vera, essential thrombocytosis, protein C/S deficiency, antithrombin III deficiency, factor V Leiden) can also cause PVT.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Features of Portal Hypertension</h3>
+    <p>The three primary complications are: <strong>(1) gastroesophageal varices with hemorrhage, (2) ascites, (3) hypersplenism</strong></p>
+    <ul class="bl">
+      <li>Portal hypertension first indicated by: thrombocytopenia, enlarged spleen, ascites, encephalopathy, esophageal varices</li>
+      <li><strong>Splenomegaly</strong> is usually the first indication; causes thrombocytopenia and leukopenia</li>
+      <li><strong>Portal hypertensive gastropathy</strong>: snakeskin-like mosaic pattern + central red/brown spots on endoscopy; can cause acute or chronic bleeding; treat with NSBB + iron; refractory → TIPS</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ S4 ═══ -->
+<section class="sec" id="s4">
+  <div class="sec-hd"><span class="sec-n">04</span><h2>Esophageal Varices &amp; Variceal Hemorrhage</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co dan">
+    <div class="co-t">🔴 Variceal Hemorrhage — Key Numbers</div>
+    <ul class="bl">
+      <li><strong>20–30% mortality per bleeding episode</strong></li>
+      <li>~1/3 of cirrhotic patients have varices at diagnosis</li>
+      <li>5–15% of cirrhotics per year develop new varices</li>
+      <li>~1/3 of patients with varices will eventually bleed</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Primary Prophylaxis — Prevention of First Bleed</h3>
+
+    <h4>Screening Endoscopy Intervals</h4>
+    <ul class="bl">
+      <li>Compensated cirrhosis: endoscopy at diagnosis, then <strong>every 2 years</strong> (active disease) or <strong>every 3 years</strong> (inactive — alcohol cessation, HCV eradication)</li>
+      <li>Screening NOT needed if: no thrombocytopenia AND liver stiffness by TE <strong>&lt;20 kPa</strong> (high-risk varices are rare)</li>
+      <li>Endoscopy recommended at time of hepatic decompensation</li>
+    </ul>
+
+    <h4>Who Gets Prophylaxis?</h4>
+    <ul class="bl">
+      <li>Medium or large varices, OR small varices with high-risk stigmata, OR decompensated cirrhosis</li>
+    </ul>
+
+    <h4>Prophylaxis Options</h4>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Non-Selective Beta Blockers (NSBB)</div>
+        <ul class="bl">
+          <li>Propranolol or nadolol — titrate to HR 55–60 bpm with SBP &gt;90 mmHg</li>
+          <li><strong>Carvedilol</strong> — becoming NSBB of choice; additional α1-adrenergic vasodilating properties → more effectively ↓ portal pressure; no HR goal needed; emerging data showing prevention of hepatic decompensation and improved survival in CSPH</li>
+          <li>NSBBs recommended as first-line if tolerated (additional systemic benefits)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Endoscopic Variceal Ligation (EVL)</div>
+        <ul class="bl">
+          <li>Equivalent efficacy to NSBB for primary prophylaxis</li>
+          <li>Used when NSBB not tolerated</li>
+          <li>Once primary prophylaxis started, repeat surveillance endoscopy is unnecessary</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Acute Variceal Bleeding — Treatment</h3>
+    <ul class="bl">
+      <li><strong>Fluid + RBC replacement</strong> to stabilize hemodynamics</li>
+      <li><strong>Restrictive transfusion strategy:</strong> start transfusion when Hgb &lt;7 g/dL; goal Hgb 7–9 g/dL → reduced rebleeding and mortality vs liberal strategy</li>
+      <li><strong>Do NOT correct elevated PT with FFP</strong> unless coagulopathy causing bleeding at other sites (IV lines etc.) — routine FFP correction not recommended</li>
+      <li><strong>Vasoconstricting agents:</strong> somatostatin or octreotide → ↓ bleeding, ↓ transfusion requirements, ↓ all-cause mortality</li>
+      <li><strong>Prophylactic antibiotics</strong> (ceftriaxone, started BEFORE endoscopy) → ↓ infections, ↓ rebleeding, ↓ mortality</li>
+      <li><strong>Upper endoscopy</strong> = first-line treatment to diagnose and control bleeding with EVL</li>
+      <li><strong>Balloon tamponade</strong> (Sengstaken-Blakemore or Minnesota tube) or self-expandable metal stents — stabilization bridge to endoscopy or TIPS, after endoscopic failure</li>
+    </ul>
+
+    <div class="sub">
+      <h4>TIPS (Transjugular Intrahepatic Portosystemic Shunt)</h4>
+      <ul class="bl">
+        <li>Percutaneous approach; expandable metal stent creates direct portocaval shunt through liver substance</li>
+        <li>Used when endoscopic therapy fails, or for gastric varices (band ligation often unsuccessful)</li>
+        <li>Encephalopathy in <strong>up to 20%</strong> post-TIPS — particularly problematic in elderly and those with pre-existing HE</li>
+        <li>Effective at managing ascites but <strong>does NOT improve survival</strong></li>
+        <li>Emerging evidence that early TIPS in high-risk bleeders improves outcome</li>
+        <li>Monitor with <strong>Doppler ultrasound</strong> for stenosis</li>
+        <li>All patients requiring TIPS should be considered for transplant evaluation</li>
+      </ul>
+    </div>
+
+    <h4>Gastric Varices</h4>
+    <ul class="bl">
+      <li>When esophageal varices extend into proximal stomach or bleeding entirely gastric → band ligation often unsuccessful</li>
+      <li>Consider TIPS; also <strong>BRTO</strong> (balloon-occluded retrograde transvenous obliteration) for varices associated with splenorenal shunt</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Secondary Prophylaxis (Prevention of Rebleeding)</h3>
+    <ul class="bl">
+      <li>Repeated EVL until varices obliterated + NSBB</li>
+      <li>Recurrent bleeding → <strong>TIPS</strong> for long-term prevention</li>
+      <li>After TIPS: no further endoscopy for variceal surveillance needed; monitor TIPS with Doppler US</li>
+    </ul>
+
+    <div class="flow">
+      <div class="flow-box blue"><strong>Acute variceal bleed controlled</strong></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-split">
+        <div class="flow-box green"><strong>Compensated — Child's A</strong><br>EVL + NSBB<br>Consider TIPS if rebleed</div>
+        <div class="flow-box red"><strong>Decompensated — Child's B/C</strong><br>TIPS + Transplant evaluation<br>EVL or beta blockers as bridge</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ S5 ═══ -->
+<section class="sec" id="s5">
+  <div class="sec-hd"><span class="sec-n">05</span><h2>Ascites</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Pathogenesis</h3>
+    <div class="flow">
+      <div class="flow-box blue">Cirrhosis → Portal hypertension</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box amber">Splanchnic arterial vasodilation (nitric oxide) → ↑ portal venous inflow + arterial underfilling</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box purple">Activation of RAAS + SNS + ADH → sodium + water retention</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box red">↑ Extracellular fluid volume + ↓ plasma oncotic pressure (hypoalbuminemia) → fluid leaks into peritoneal cavity</div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnosis — SAAG</h3>
+    <div class="co key">
+      <div class="co-t">🔢 SAAG (Serum Ascites-to-Albumin Gradient)</div>
+      <strong>SAAG = Serum albumin − Ascitic fluid albumin</strong><br>
+      Replaces the old "exudate vs transudate" classification.
+      <div class="g2" style="margin-top:10px">
+        <div class="card">
+          <div class="clabel c-r">SAAG ≥ 1.1 g/dL</div>
+          <p>Portal hypertension cause (usually cirrhosis)<br><br><strong>Cardiac ascites:</strong> SAAG ≥1.1 AND ascitic protein &gt;2.5 g/dL</p>
+        </div>
+        <div class="card">
+          <div class="clabel c-b">SAAG &lt; 1.1 g/dL</div>
+          <p>Consider infectious or malignant causes</p>
+        </div>
+      </div>
+    </div>
+
+    <h4>Ascitic Fluid Analysis — Key Values</h4>
+    <ul class="bl">
+      <li>Ascitic protein <strong>&lt;2.5 g/dL</strong> — typical of cirrhotic ascites</li>
+      <li>Ascitic protein <strong>&lt;1.5 g/dL</strong> — increased risk of developing SBP</li>
+      <li><strong>PMN &gt;250/μL</strong> — SBP is likely</li>
+      <li>High RBC in ascites — usually traumatic tap; rarely HCC or ruptured omental varix</li>
+      <li>More than 2 organisms on culture → consider secondary bacterial peritonitis (perforated viscus)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of Ascites</h3>
+    <ul class="bl">
+      <li><strong>Dietary sodium restriction</strong>: goal <strong>2 g/day</strong> (~¾ teaspoon of salt); avoid canned/processed foods</li>
+      <li><strong>Diuretics:</strong>
+        <ul class="bl" style="margin-left:16px">
+          <li>Start: <strong>spironolactone 100 mg/day + furosemide 40 mg/day</strong></li>
+          <li>If not mobilizing fluid: increase incrementally to <strong>spironolactone max 400 mg/day + furosemide max 160 mg/day</strong></li>
+        </ul>
+      </li>
+      <li><strong>Refractory ascites</strong> = persistent ascites on maximum diuretics with low-sodium diet compliance → <strong>large-volume paracentesis (LVP)</strong> or TIPS</li>
+      <li>After <strong>LVP ≥5 L</strong>: give IV 25% albumin at <strong>6–8 g per liter of ascites removed</strong> to prevent circulatory dysfunction</li>
+      <li>TIPS effective for ascites control but <strong>does NOT improve survival</strong> and ↑ encephalopathy risk</li>
+      <li>Ascites prognosis: <strong>&lt;50% survive 2 years</strong> after onset → consider liver transplant</li>
+    </ul>
+
+    <div class="co dan">
+      <div class="co-t">🚫 Drugs to Avoid in Cirrhosis with Ascites</div>
+      <ul class="bl">
+        <li><strong>NSAIDs</strong> — risk of renal failure</li>
+        <li><strong>Aminoglycosides</strong> — nephrotoxic</li>
+        <li><strong>ACE inhibitors / ARBs</strong> — use cautiously with close BP and renal monitoring</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ S6 ═══ -->
+<section class="sec" id="s6">
+  <div class="sec-hd"><span class="sec-n">06</span><h2>Spontaneous Bacterial Peritonitis (SBP)</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <ul class="bl">
+    <li>Spontaneous infection of ascitic fluid without intraabdominal source</li>
+    <li>Occurs in up to <strong>30% of hospitalized cirrhotic patients with ascites</strong></li>
+    <li>In-hospital mortality: <strong>25%</strong></li>
+    <li><strong>Mechanism:</strong> bacterial translocation — gut flora traverse the intestine → mesenteric lymph nodes → bacteremia → seeding of ascitic fluid</li>
+  </ul>
+
+  <div class="sub">
+    <h3>Organisms</h3>
+    <ul class="bl">
+      <li>Most common: <strong>E. coli</strong> and other gut gram-negative bacteria</li>
+      <li>Gram-positives also: Streptococcus viridans, Staphylococcus aureus, Enterococcus spp.</li>
+      <li><strong>More than 2 organisms</strong> → think secondary bacterial peritonitis (perforated viscus), NOT SBP</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnosis</h3>
+    <div class="co key">
+      <div class="co-t">🔢 SBP Diagnosis = Absolute Neutrophil Count (PMN) &gt; 250/μL in Ascitic Fluid</div>
+      Diagnosis made on PMN count — do NOT wait for culture results to start treatment. Cultures via direct injection into blood culture bottles at bedside. Patients may present with fever, altered mental status, ↑ WBC, abdominal pain, AKI — or may present WITHOUT any of these features (high clinical suspicion required).
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment</h3>
+    <ul class="bl">
+      <li><strong>IV third-generation cephalosporin</strong> × 5 days (e.g., cefotaxime)</li>
+      <li><strong>IV albumin</strong>: <strong>1.5 g/kg on day 1</strong> + <strong>1.0 g/kg on day 3</strong> → reduces risk of renal failure and improves survival</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Prevention / Prophylaxis</h3>
+    <ul class="bl">
+      <li><strong>Variceal hemorrhage</strong>: SBP frequency significantly increased → prophylaxis recommended at presentation with upper GI bleeding</li>
+      <li><strong>After a prior SBP episode</strong>: quinolone antibiotic prophylaxis (e.g., norfloxacin) to prevent recurrence</li>
+      <li>Diagnostic paracentesis recommended for any hospitalized cirrhotic patient with ascites and complications or signs of infection</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ S7 ═══ -->
+<section class="sec" id="s7">
+  <div class="sec-hd"><span class="sec-n">07</span><h2>Hepatorenal Syndrome (HRS)</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <ul class="bl">
+    <li>Functional renal failure without renal pathology — occurs in <strong>~10% of patients with advanced cirrhosis or acute liver failure</strong></li>
+    <li>Mechanism: marked renal vasoconstriction (likely multifactorial) + ↓ systemic vascular resistance</li>
+  </ul>
+
+  <div class="sub">
+    <h3>Types — New Terminology</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">HRS-AKI (formerly Type 1 HRS)</div>
+        <ul class="bl">
+          <li>Progressive, rapid impairment of renal function</li>
+          <li>AKI defined: <strong>creatinine rise ≥0.3 mg/dL over 48 h</strong> OR ≥50% rise from baseline</li>
+          <li>Poor prognosis</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">HRS-CKD (formerly Type 2 HRS)</div>
+        <ul class="bl">
+          <li>Reduction in GFR with elevated creatinine — stable</li>
+          <li>Better outcome than Type 1/HRS-AKI</li>
+          <li>Associated with refractory ascites</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnosis — Exclusion-Based</h3>
+    <ul class="bl">
+      <li>Stop diuretics; give albumin <strong>1 g/kg/day × 48 h</strong> without significant improvement</li>
+      <li>Exclude other AKI causes: volume depletion, intrinsic renal (ATN, AIN, glomerulonephritis), obstructive</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment</h3>
+    <ul class="bl">
+      <li><strong>First-line vasoconstrictors:</strong> <strong>terlipressin</strong> (preferred where available) or <strong>low-dose norepinephrine</strong> (requires ICU monitoring)</li>
+      <li><strong>Third-line (US):</strong> midodrine (α-agonist) + octreotide + IV albumin</li>
+      <li>If treatment fails: renal replacement therapy</li>
+      <li><strong>Best therapy = liver transplantation</strong> — recovery of renal function is typical post-transplant</li>
+      <li>Prognosis without transplant: poor (AKI-HRS or CKD-HRS)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ S8 ═══ -->
+<section class="sec" id="s8">
+  <div class="sec-hd"><span class="sec-n">08</span><h2>Hepatic Encephalopathy (HE)</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <ul class="bl">
+    <li>Alteration in mental status and cognitive function from liver failure</li>
+    <li>Mechanism: gut-derived neurotoxins (especially <strong>ammonia</strong>) not removed by failing liver → vascular shunting + decreased hepatic mass → reach brain</li>
+    <li><strong>Ammonia levels poorly correlate</strong> with severity — do not use alone for diagnosis or monitoring</li>
+    <li>Other contributing compounds: false neurotransmitters, mercaptans</li>
+  </ul>
+
+  <div class="sub">
+    <h3>Precipitating Factors</h3>
+    <ul class="bl">
+      <li><strong>Volume depletion</strong></li>
+      <li><strong>GI bleeding</strong> (large nitrogen load)</li>
+      <li><strong>Hyponatremia</strong></li>
+      <li><strong>Infection</strong> (always tap ascites to rule out SBP)</li>
+      <li><strong>Constipation</strong></li>
+      <li>Medications (sedatives, narcotics)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Features</h3>
+    <ul class="bl">
+      <li>Confusion, personality change, violent behavior, excessive somnolence</li>
+      <li><strong>Asterixis</strong> (flapping tremor / "liver flap") — arms extended, wrists flexed back → sudden forward wrist movement</li>
+      <li>In acute liver failure: brain edema can occur → cerebral herniation is feared; treat with <strong>hypertonic saline or mannitol</strong></li>
+      <li>Development of HE = poor prognostic sign</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment</h3>
+    <ul class="bl">
+      <li><strong>Identify and treat precipitating factors</strong> — most important step</li>
+      <li><strong>Lactulose</strong> (nonabsorbable disaccharide) — colonic acidification → catharsis → elimination of nitrogenous products; goal = <strong>2–3 soft stools/day</strong></li>
+      <li><strong>Rifaximin 550 mg twice daily</strong> — poorly absorbed antibiotic; replaced neomycin and metronidazole (lower toxicity); effective in preventing recurrent HE</li>
+      <li><strong>Zinc supplementation</strong> — sometimes helpful; relatively harmless</li>
+      <li><strong>Protein restriction strongly discouraged</strong> — negative nutritional impact outweighs benefit; protein restriction is outdated</li>
+      <li>In recurrent HE despite treatment: closure of large portosystemic shunts can help</li>
+      <li>Electrolyte correction (esp. hyponatremia) essential</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Acute-on-Chronic Liver Failure (ACLF)</h3>
+    <div class="co dan">
+      <div class="co-t">🔴 ACLF</div>
+      <ul class="bl">
+        <li>Acutely decompensating cirrhosis + failure of ≥1 organ systems (liver, kidneys, brain, lung, circulatory, coagulation)</li>
+        <li>Most common precipitants: <strong>alcoholic hepatitis</strong> (most common), infection (bacterial/fungal), GI bleeding, post-op state, flaring viral/autoimmune hepatitis, DILI</li>
+        <li>28-day mortality: <strong>20–70%</strong>; increases with number of organ failures</li>
+        <li>Treat precipitating cause + ICU if needed + consider immediate LT referral</li>
+        <li>If after 3–7 days ICU support: ≥4 organ failures + LT not an option → consider palliative care</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ S9 ═══ -->
+<section class="sec" id="s9">
+  <div class="sec-hd"><span class="sec-n">09</span><h2>Primary Biliary Cholangitis (PBC) &amp; Primary Sclerosing Cholangitis (PSC)</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="clabel c-b">PBC — Primary Biliary Cholangitis</div>
+      <ul class="bl">
+        <li>100–200 per million; <strong>strong female predominance</strong>; median age ~50</li>
+        <li>Portal inflammation + necrosis of cholangiocytes in <strong>small- and medium-sized bile ducts</strong></li>
+        <li><strong>AMAs (antimitochondrial antibodies)</strong> present in <strong>~95%</strong> — target pyruvate dehydrogenase complex (PDC) on inner mitochondrial membrane</li>
+        <li>5–10% are AMA-negative → check sp100 or gp210 antibodies; biopsy most important in this group</li>
+        <li>4 histologic stages (chronic nonsuppurative destructive cholangitis → duct reduction → bridging fibrosis → cirrhosis)</li>
+        <li><strong>Labs:</strong> ↑ ALP + GGT, mild ↑ ALT/AST, ↑ <strong>IgM</strong>, hyperbilirubinemia once cirrhotic, thrombocytopenia/leukopenia/anemia in portal HTN</li>
+        <li><strong>Symptoms:</strong> fatigue (disproportionate to disease severity), <strong>pruritus</strong> (~50% at diagnosis) — intermittent, worst in evenings; pruritus before jaundice = severe disease + poor prognosis</li>
+        <li>Unique features: hyperpigmentation (trunk + arms), xanthelasma, xanthomata (↑ cholesterol), bone pain (osteoporosis)</li>
+        <li><strong>"Overlap" syndrome</strong>: ~10% of PBC patients have features of AIH → usually treated as PBC; may need immunosuppressives</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-p">PSC — Primary Sclerosing Cholangitis</div>
+      <ul class="bl">
+        <li>Chronic cholestatic syndrome; diffuse inflammation + fibrosis involving <strong>entire biliary tree</strong> (intra- + extrahepatic)</li>
+        <li>→ Obliteration of biliary tree → biliary cirrhosis + portal HTN + liver failure</li>
+        <li><strong>Diagnosis requires cholangiography</strong> — biopsy changes NOT pathognomonic; biopsy shows periductal fibrosis, ductopenia, bile duct proliferation</li>
+        <li><strong>Cholangiographic findings:</strong> multifocal strictures + beading (short strictures + normal/dilated segments between them) → <strong>classic beaded appearance</strong></li>
+        <li><strong>MRCP = imaging of choice</strong> first; ERCP if MRCP suboptimal or dominant stricture or newly ↑ bilirubin</li>
+        <li><strong>pANCA</strong> positive in ~65% of PSC patients</li>
+        <li><strong>60–80% of PSC patients have IBD</strong>, predominantly ulcerative colitis → colonoscopy at diagnosis</li>
+        <li>Labs: ALP ≥2× ULN + mild ↑ aminotransferases; ↓ albumin; ↑ PT; some have AIH overlap</li>
+        <li>Gallbladder and cystic duct involved in up to 15%</li>
+        <li><strong>Dreaded complication: cholangiocarcinoma</strong> (relative contraindication to liver transplantation)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment Comparison</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Feature</th><th>PBC</th><th>PSC</th></tr></thead>
+        <tbody>
+          <tr><td>First-line treatment</td><td><strong>UDCA 13–15 mg/kg/day</strong> — improves biochemistry + histology; slows but does NOT cure</td><td>No specific proven treatment; UDCA at standard doses has anecdotal benefit; high-dose UDCA (28–30 mg/kg/day) is <strong>harmful</strong></td></tr>
+          <tr><td>UDCA non-responders</td><td>~30–40% don't respond → obeticholic acid, elafibranor, or seladelpar (avoid if cirrhosis + portal HTN or decompensation)</td><td>Endoscopic dilatation of dominant strictures can help</td></tr>
+          <tr><td>Pruritus treatment</td><td>Antihistamines, naltrexone (narcotic receptor antagonist), SSRIs, rifampin, cholestyramine</td><td>Same as PBC</td></tr>
+          <tr><td>Bone disease</td><td>DEXA scan; calcium + vitamin D; bisphosphonates if osteoporosis; screen fat-soluble vitamins (A, D, E, K) if bilirubin &gt;2 mg/dL</td><td>Same as PBC</td></tr>
+          <tr><td>Definitive treatment</td><td>Liver transplantation for decompensated cirrhosis</td><td>Liver transplantation; cholangitis episodes → antibiotics + may need LT</td></tr>
+          <tr><td>Cholangiocarcinoma</td><td>Not a major association</td><td>Major complication; relative contraindication to LT</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ S10 ═══ -->
+<section class="sec" id="s10">
+  <div class="sec-hd"><span class="sec-n">10</span><h2>Other Complications of Cirrhosis</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="clabel c-b">Hepatopulmonary Syndrome (HPS)</div>
+      <ul class="bl">
+        <li>Arterial hypoxemia in cirrhosis without significant lung disease</li>
+        <li>Intrapulmonary vascular dilations → blood shunts past alveoli → V/Q mismatch</li>
+        <li>Symptoms: dyspnea, <strong>platypnea</strong> (dyspnea worse when upright → improved lying down)</li>
+        <li>Occurs in <strong>4–32%</strong> of cirrhotic patients; often mild</li>
+        <li>Diagnosis: hypoxemia + bubble echocardiography (shunt)</li>
+        <li>Treatment: oxygen + liver transplantation</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-p">Portopulmonary Hypertension (PPHT)</div>
+      <ul class="bl">
+        <li>Pulmonary hypertension in a patient with portal hypertension</li>
+        <li>Portal HTN → vasoconstrictor substances affect pulmonary artery</li>
+        <li>Rare — ~5% of advanced cirrhosis</li>
+        <li>Diagnosis: echocardiogram → confirm with right heart catheterization (↑ mean PAP, ↑ PVR, normal PCWP)</li>
+        <li>Treatment: vasodilatory medications → then liver transplantation if PAP normalized</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-a">Coagulopathy in Cirrhosis</div>
+      <ul class="bl">
+        <li>Both pro- and anticoagulant factors are decreased → "rebalanced" coagulation</li>
+        <li>PT/INR do NOT reliably reflect clotting ability in cirrhosis</li>
+        <li>Platelet function is impaired but offset by ↑ von Willebrand factor</li>
+        <li>Adequate thrombin can form with platelets <strong>&gt;50,000–60,000/L</strong></li>
+        <li>Vitamin K-dependent factors (II, VII, IX, X) deficient in cholestatic disease → IV/IM vitamin K can correct</li>
+        <li><strong>Routine FFP before procedures not required</strong>; clinical judgment over labs</li>
+        <li>Standard DVT prophylaxis when hospitalized is recommended</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-r">Malnutrition &amp; Sarcopenia</div>
+      <ul class="bl">
+        <li>Patients become catabolic with ↑ energy needs but ↓ intake</li>
+        <li>Sarcopenia = loss in muscle mass and function → frailty → ↑ mortality</li>
+        <li>Nutrition goals: <strong>35 kcal/kg/day</strong> + <strong>1.2–1.5 g/kg/day protein</strong></li>
+        <li>Multiple small meals recommended throughout waking hours</li>
+        <li>Exercise: 150–300 min/week aerobic + 2 days muscle-strengthening</li>
+        <li>Protein restriction is strongly discouraged</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-t">Bone Disease</div>
+      <ul class="bl">
+        <li>Osteoporosis common — especially in cholestatic liver disease (malabsorption of vitamin D + ↓ calcium)</li>
+        <li>Rate of bone resorption &gt; new bone formation</li>
+        <li>DEXA scan to assess; bisphosphonates if osteoporosis confirmed</li>
+        <li>Screen fat-soluble vitamins (A, D, E, K) if bilirubin &gt;2 mg/dL</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-g">Hematologic Abnormalities</div>
+      <ul class="bl">
+        <li><strong>Anemia</strong> — multiple causes: hypersplenism, hemolysis, iron deficiency, folate deficiency</li>
+        <li><strong>Macrocytosis</strong> — common in chronic liver disease</li>
+        <li><strong>Neutropenia</strong> — from hypersplenism</li>
+        <li><strong>Thrombocytopenia</strong> — portal HTN → hypersplenism; also platelet dysfunction</li>
+        <li><strong>Zieve's syndrome</strong> — hemolytic anemia with spur cells/acanthocytes in severe alcoholic hepatitis</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ S11 ═══ -->
+<section class="sec" id="s11">
+  <div class="sec-hd"><span class="sec-n">11</span><h2>Quick Reference Master Table</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Topic</th><th>Key Number / Fact</th></tr></thead>
+      <tbody>
+        <tr><td>HVPG definition of portal HTN</td><td>&gt;5 mmHg</td></tr>
+        <tr><td>HVPG = CSPH</td><td>≥10 mmHg</td></tr>
+        <tr><td>HVPG = variceal hemorrhage risk</td><td>&gt;12 mmHg</td></tr>
+        <tr><td>Variceal bleed mortality per episode</td><td>20–30%</td></tr>
+        <tr><td>Cirrhotic patients with varices at diagnosis</td><td>~1/3</td></tr>
+        <tr><td>New varices per year in cirrhotics</td><td>5–15%</td></tr>
+        <tr><td>Varices that eventually bleed</td><td>~1/3</td></tr>
+        <tr><td>Transfusion threshold (acute variceal bleed)</td><td>Hgb &lt;7 g/dL; target 7–9 g/dL</td></tr>
+        <tr><td>Carvedilol advantage over propranolol</td><td>Additional α1 vasodilation; no HR goal; prevents decompensation/improves survival in CSPH</td></tr>
+        <tr><td>TIPS encephalopathy rate</td><td>Up to 20%</td></tr>
+        <tr><td>Endoscopy surveillance — compensated active disease</td><td>Every 2 years</td></tr>
+        <tr><td>Endoscopy surveillance — compensated inactive disease</td><td>Every 3 years</td></tr>
+        <tr><td>No variceal screening needed when</td><td>No thrombocytopenia + liver stiffness &lt;20 kPa</td></tr>
+        <tr><td>Ascites sodium restriction goal</td><td>2 g/day</td></tr>
+        <tr><td>Ascites diuretic start</td><td>Spironolactone 100 mg + furosemide 40 mg</td></tr>
+        <tr><td>Ascites max diuretics</td><td>Spironolactone 400 mg + furosemide 160 mg</td></tr>
+        <tr><td>LVP albumin replacement</td><td>6–8 g per liter of ascites removed (after ≥5 L)</td></tr>
+        <tr><td>SAAG ≥1.1</td><td>Portal hypertension (cirrhosis); cardiac ascites if also protein &gt;2.5</td></tr>
+        <tr><td>SAAG &lt;1.1</td><td>Infectious/malignant cause</td></tr>
+        <tr><td>Ascitic PMN &gt;250/μL</td><td>SBP</td></tr>
+        <tr><td>Ascitic protein &lt;1.5 g/dL</td><td>High SBP risk</td></tr>
+        <tr><td>SBP incidence in hospitalized cirrhotics</td><td>Up to 30%</td></tr>
+        <tr><td>SBP in-hospital mortality</td><td>25%</td></tr>
+        <tr><td>SBP treatment</td><td>IV ceftriaxone × 5 days + albumin 1.5 g/kg day 1, 1.0 g/kg day 3</td></tr>
+        <tr><td>HRS incidence</td><td>~10% of advanced cirrhosis or ALF</td></tr>
+        <tr><td>HRS-AKI definition</td><td>Creatinine ≥0.3 mg/dL in 48 h or ≥50% from baseline</td></tr>
+        <tr><td>HRS albumin challenge</td><td>1 g/kg/day × 48 h before diagnosing HRS</td></tr>
+        <tr><td>HRS first-line tx</td><td>Terlipressin or norepinephrine</td></tr>
+        <tr><td>HE mainstay treatment</td><td>Lactulose (goal 2–3 soft stools/day)</td></tr>
+        <tr><td>HE adjunct antibiotic</td><td>Rifaximin 550 mg twice daily</td></tr>
+        <tr><td>PBC antibody</td><td>AMA in ~95% (anti-pyruvate dehydrogenase complex)</td></tr>
+        <tr><td>PBC IgM finding</td><td>Typically elevated</td></tr>
+        <tr><td>PBC treatment</td><td>UDCA 13–15 mg/kg/day</td></tr>
+        <tr><td>PSC diagnosis tool</td><td>MRCP first (beaded appearance); ERCP if suboptimal or dominant stricture</td></tr>
+        <tr><td>PSC + IBD</td><td>60–80% have IBD (predominantly UC); colonoscopy at diagnosis</td></tr>
+        <tr><td>PSC dreaded complication</td><td>Cholangiocarcinoma (relative CI to LT)</td></tr>
+        <tr><td>High-dose UDCA in PSC</td><td>28–30 mg/kg/day is HARMFUL</td></tr>
+        <tr><td>Nutrition goal in cirrhosis</td><td>35 kcal/kg/day + 1.2–1.5 g/kg/day protein</td></tr>
+        <tr><td>HPS prevalence</td><td>4–32% of cirrhotics; platypnea is characteristic</td></tr>
+        <tr><td>PPHT prevalence</td><td>~5% of advanced cirrhosis</td></tr>
+        <tr><td>Acetaminophen in cirrhosis</td><td>Safe up to 2 g/day if no active alcohol use</td></tr>
+        <tr><td>Survival after ascites onset</td><td>&lt;50% at 2 years</td></tr>
+        <tr><td>ACLF 28-day mortality</td><td>20–70% (increases with organ failure count)</td></tr>
+        <tr><td>Cirrhosis 5-yr survival with ongoing alcohol</td><td>&lt;50%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══ S12 ═══ -->
+<section class="sec" id="s12">
+  <div class="sec-hd"><span class="sec-n">12</span><h2>Exam Traps</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">Transfuse liberally in variceal bleeding? — No, restrictive strategy wins</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A cirrhotic patient presents with massive variceal bleeding. Hemoglobin is 8.5 g/dL. Should packed red blood cells be transfused?</div>
+      <div class="trap-a"><strong>Not yet — the threshold is Hgb &lt;7 g/dL (restrictive strategy).</strong> A randomized trial demonstrated that starting transfusion at Hgb &lt;7 g/dL with a target of 7–9 g/dL reduced early rebleeding and mortality compared to a liberal strategy. Liberal transfusion increases portal pressure, worsening bleeding. The restrictive strategy is now the standard. Note: adjustments should be made based on cardiac risks and hemodynamics.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Give FFP to correct the PT before endoscopy? — Not recommended</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A cirrhotic patient is actively bleeding from varices. PT is prolonged at 21 seconds (INR 2.3). Should FFP be given to "correct" the coagulopathy before endoscopy?</div>
+      <div class="trap-a"><strong>No — routine correction of elevated PT/INR with FFP is NOT recommended in variceal bleeding.</strong> The PT/INR does not reliably reflect true coagulation capacity in cirrhosis (both pro- and anticoagulant factors are reduced; the system is rebalanced). FFP correction is only warranted if there is evidence of active coagulopathy causing bleeding at other sites. Proceeding directly to endoscopy (with antibiotics and octreotide) is the correct approach.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">SAAG ≥1.1 only = cirrhosis? — No, also includes cardiac ascites</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with severe CHF develops ascites. SAAG is 1.4 g/dL. Does this confirm cirrhotic ascites?</div>
+      <div class="trap-a"><strong>No — SAAG ≥1.1 indicates portal hypertension, not specifically cirrhosis.</strong> Cardiac ascites also gives SAAG ≥1.1 because right-sided heart failure elevates hepatic vein pressure, creating portal hypertension. The distinguishing feature is ascitic fluid PROTEIN: in cardiac ascites, protein is typically &gt;2.5 g/dL (rich exudate). In cirrhotic ascites, protein is typically &lt;2.5 g/dL. Always check both SAAG and ascitic protein.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">SBP — "No symptoms" does NOT exclude it</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A hospitalized cirrhotic patient with ascites has no fever, no abdominal pain, and no change in mental status. Is SBP excluded?</div>
+      <div class="trap-a"><strong>No — SBP can be entirely asymptomatic.</strong> The classic features (fever, abdominal pain, altered mental status) may all be absent in SBP. The diagnosis is made on ascitic fluid PMN count (&gt;250/μL), NOT on clinical symptoms. Any hospitalized cirrhotic with ascites who develops complications or signs of infection should have a diagnostic paracentesis. Missing SBP in a "well-appearing" patient is a serious boards (and clinical) trap.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">HRS — always rule out other AKI first</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A cirrhotic patient with large ascites develops rising creatinine. How is HRS diagnosed?</div>
+      <div class="trap-a"><strong>HRS is a diagnosis of exclusion.</strong> First, stop diuretics and give albumin challenge (1 g/kg/day × 48 h). If creatinine does not improve significantly and other causes (ATN, AIN, glomerulonephritis, obstruction, volume depletion) are excluded, then HRS-AKI is diagnosed. Volume depletion is the most common alternative cause and must always be excluded first. The albumin challenge step is essential — skipping it before diagnosing HRS is a board trap.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Restrict protein in HE? — Strongly discouraged</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A cirrhotic patient is admitted with hepatic encephalopathy. Should dietary protein be restricted to reduce ammonia production?</div>
+      <div class="trap-a"><strong>No — protein restriction is strongly discouraged in cirrhosis with HE.</strong> While protein generates ammonia, restricting protein causes severe malnutrition, worsens sarcopenia, and increases mortality. The negative impact on nutrition outweighs any benefit in reducing ammonia. Patients with cirrhosis need INCREASED protein (1.2–1.5 g/kg/day). Lactulose and rifaximin address ammonia without sacrificing nutrition. This was standard teaching 30 years ago but is now explicitly reversed.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">PBC — AMA negative does NOT exclude it</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 52-year-old woman presents with cholestatic liver enzymes, fatigue, and pruritus. AMA is negative. Is PBC excluded?</div>
+      <div class="trap-a"><strong>No — AMA is negative in 5–10% of PBC patients.</strong> In AMA-negative patients, check sp100 and gp210 antibodies (PBC-specific, though not universally available). Liver biopsy is most important in AMA-negative patients. Additionally, PSC must be ruled out with cholangiography (MRCP) in AMA-negative cholestatic disease. AMA-negative PBC still shows the same histologic features and progresses at the same rate as typical PBC.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">High-dose UDCA in PSC is harmful — not just ineffective</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with PSC is not responding to standard-dose UDCA (13–15 mg/kg/day). Should the dose be escalated to 28–30 mg/kg/day for a better effect?</div>
+      <div class="trap-a"><strong>No — high-dose UDCA (28–30 mg/kg/day) in PSC is specifically shown to be HARMFUL.</strong> This is a high-yield board distinction: in PBC, UDCA at 13–15 mg/kg/day is beneficial. In PSC, standard UDCA is of unproven benefit (anecdotal only), and high-dose UDCA was harmful in a clinical study. The only effective treatment for end-stage PSC is liver transplantation. Endoscopic dilation of dominant strictures may help symptomatically.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">TIPS improves ascites but does NOT improve survival</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with refractory ascites is told that TIPS will improve survival compared to repeated large-volume paracentesis. Is this true?</div>
+      <div class="trap-a"><strong>No — TIPS is effective at managing ascites but multiple studies have shown it does NOT improve survival in patients with refractory ascites.</strong> It is also associated with increased frequency of hepatic encephalopathy (up to 20% post-TIPS). TIPS is appropriate for ascites refractory to diuretics and LVP, but the primary treatment goal for end-stage ascites remains liver transplantation evaluation. TIPS can serve as a bridge to transplant, not a substitute for it.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Cryptogenic cirrhosis = often burned-out MASH</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 58-year-old obese diabetic man has cirrhosis. Liver biopsy shows no steatosis, no inflammation, and no specific etiology. All viral and autoimmune markers are negative. He is labeled "cryptogenic cirrhosis." Is this the correct final diagnosis?</div>
+      <div class="trap-a"><strong>Not necessarily — this is likely burned-out MASH (MASLD-related cirrhosis).</strong> As MASH cirrhosis progresses, patients become catabolic and lose the histologic hallmarks of steatosis. The biopsy then appears "cryptogenic" — fat is no longer visible. Clues: obesity, T2DM, metabolic syndrome. Many patients previously labeled cryptogenic were retrospectively found to have MASH. The diagnosis of MASH-related cirrhosis should be considered in any patient with metabolic risk factors and unexplained cirrhosis.</div>
+    </div>
+  </div>
+
+</section>
+
+<hr class="sep">
+<footer class="footer">Harrison's Principles of Internal Medicine 22nd Ed · Chapter 355 · Cirrhosis &amp; Its Complications · Boards Review 2026</footer>
+</main>
+
+<script>
+const FILE_KEY='venos_'+(document.title||'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY=FILE_KEY+'_hl';const NT_KEY=FILE_KEY+'_notes';
+let curColor=null,eraseMode=false,selText='',savedRange=null;
+function setHL(c){curColor=c;eraseMode=false;document.body.style.cursor='crosshair';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));document.getElementById('h-'+c).classList.add('active');}
+function setErase(){eraseMode=true;curColor=null;document.body.style.cursor='cell';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));}
+function applyHL(range,color){try{const s=document.createElement('span');s.className='hl hl-'+color;s.dataset.hlColor=color;range.surroundContents(s);saveHighlights();}catch(e){try{const f=range.extractContents();const s=document.createElement('span');s.className='hl hl-'+color;s.dataset.hlColor=color;s.appendChild(f);range.insertNode(s);saveHighlights();}catch(e2){}}}
+function saveHighlights(){const d=[];document.querySelectorAll('.hl[data-hl-color]').forEach(s=>{const t=s.textContent.trim();if(t.length>1)d.push({text:t,color:s.dataset.hlColor});});try{localStorage.setItem(HL_KEY,JSON.stringify(d));}catch(e){}}
+function restoreHighlights(){let saved;try{saved=JSON.parse(localStorage.getItem(HL_KEY))||[];}catch(e){return;}if(!saved.length)return;const main=document.querySelector('main')||document.body;saved.forEach(function(item){if(!item.text||!item.color)return;const w=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,null,false);let node;while(node=w.nextNode()){if(node.parentElement&&(node.parentElement.classList.contains('hl')||node.parentElement.classList.contains('note-anchor')))continue;const idx=node.nodeValue.indexOf(item.text);if(idx!==-1){try{const r=document.createRange();r.setStart(node,idx);r.setEnd(node,idx+item.text.length);applyHL(r,item.color);}catch(e){}break;}}});}
+function getNotes(){try{return JSON.parse(localStorage.getItem(NT_KEY)||'[]');}catch(e){return[];}}
+function saveNotes(n){try{localStorage.setItem(NT_KEY,JSON.stringify(n));}catch(e){}}
+function addNote(){const txt=document.getElementById('sn-ta').value.trim();if(!txt)return;const id=Date.now();const notes=getNotes();notes.unshift({id,ref:selText.substring(0,100)||'—',text:txt});saveNotes(notes);if(savedRange){try{const s=document.createElement('span');s.className='note-anchor';s.dataset.noteId=id;s.title='Click to see your note';savedRange.surroundContents(s);bindAnchor(s,id);}catch(e){try{const f=savedRange.extractContents();const s=document.createElement('span');s.className='note-anchor';s.dataset.noteId=id;s.title='Click to see your note';s.appendChild(f);savedRange.insertNode(s);bindAnchor(s,id);}catch(e2){}}savedRange=null;}document.getElementById('sn-ta').value='';selText='';document.getElementById('sn-ref-txt').textContent='—';renderNotes();}
+function bindAnchor(span,id){span.addEventListener('click',function(e){e.stopPropagation();const note=getNotes().find(n=>n.id===id);if(note)showPopover(span,note);});}
+function restoreAnchors(){const notes=getNotes();if(!notes.length)return;const main=document.querySelector('main')||document.body;notes.forEach(function(note){if(!note.ref||note.ref==='—'||!note.id)return;const refText=note.ref.trim();if(refText.length<2)return;if(document.querySelector('.note-anchor[data-note-id="'+note.id+'"]'))return;const w=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,null,false);let node;while(node=w.nextNode()){if(node.parentElement&&(node.parentElement.classList.contains('note-anchor')||node.parentElement.classList.contains('hl')))continue;const idx=node.nodeValue.indexOf(refText);if(idx!==-1){try{const r=document.createRange();r.setStart(node,idx);r.setEnd(node,idx+refText.length);const s=document.createElement('span');s.className='note-anchor';s.dataset.noteId=String(note.id);s.title='Click to see your note';r.surroundContents(s);bindAnchor(s,note.id);}catch(e){}break;}}});}
+function deleteNote(id){saveNotes(getNotes().filter(n=>n.id!==id));document.querySelectorAll('.note-anchor[data-note-id="'+id+'"]').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});closePopover();renderNotes();}
+function renderNotes(){const body=document.getElementById('sn-body');const empty=document.getElementById('sn-empty');const notes=getNotes();body.querySelectorAll('.sn-note').forEach(el=>el.remove());if(!notes.length){if(empty)empty.style.display='';return;}if(empty)empty.style.display='none';notes.forEach(note=>{const card=document.createElement('div');card.className='sn-note';card.dataset.noteId=note.id;card.innerHTML='<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span><span class="sn-note-ref">'+(note.ref!=='—'?'"'+note.ref+'"':'General note')+'</span><button class="sn-del" onclick="deleteNote('+note.id+')">×</button></div><div class="sn-note-body">'+note.text.replace(/\n/g,'<br>')+'</div><div class="sn-resize"></div>';body.appendChild(card);makeResizable(card,note.id);});}
+let activePopNoteId=null;
+function showPopover(anchorEl,note){const pop=document.getElementById('note-popover');document.getElementById('np-pop-ref').textContent=note.ref!=='—'?'"'+note.ref.substring(0,55)+'"':'Note';document.getElementById('np-pop-text').innerHTML=note.text.replace(/\n/g,'<br>');document.getElementById('pop-del-btn').onclick=()=>deleteNote(note.id);activePopNoteId=note.id;const rect=anchorEl.getBoundingClientRect();pop.style.left=Math.min(rect.left,window.innerWidth-300)+'px';pop.style.top=(rect.bottom+8)+'px';pop.classList.add('show');}
+function closePopover(){document.getElementById('note-popover').classList.remove('show');activePopNoteId=null;}
+document.addEventListener('click',function(e){if(!document.getElementById('note-popover').contains(e.target))closePopover();});
+document.addEventListener('mouseup',function(e){const tb=document.getElementById('toolbar');const sb=document.getElementById('sn-sidebar');const np=document.getElementById('note-popover');if(tb.contains(e.target)||sb.contains(e.target)||np.contains(e.target))return;if(eraseMode&&e.target.classList.contains('hl')){const el=e.target;el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();saveHighlights();return;}const sel=window.getSelection();if(!sel||sel.isCollapsed)return;const txt=sel.toString().trim();if(!txt)return;selText=txt;savedRange=sel.getRangeAt(0).cloneRange();document.getElementById('sn-ref-txt').textContent=txt.length>48?txt.substring(0,48)+'…':txt;if(curColor){try{applyHL(sel.getRangeAt(0),curColor);sel.removeAllRanges();}catch(err){}}});
+function clearAll(){if(!confirm('Clear ALL highlights and notes?'))return;document.querySelectorAll('.hl').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});document.querySelectorAll('.note-anchor').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});try{localStorage.removeItem(HL_KEY);localStorage.removeItem(NT_KEY);}catch(e){}curColor=null;eraseMode=false;document.body.style.cursor='';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));closePopover();renderNotes();}
+function toggleSidebar(){const sb=document.getElementById('sn-sidebar');const tab=document.getElementById('sn-tab');sb.classList.toggle('hidden');tab.textContent=sb.classList.contains('hidden')?'📝 Notes':'◀';}
+function makeResizable(card,noteId){const handle=card.querySelector('.sn-resize');let startY=0,startH=0;handle.addEventListener('mousedown',function(e){e.preventDefault();e.stopPropagation();startY=e.clientY;startH=card.offsetHeight;function onMove(ev){card.style.height=Math.max(80,startH+(ev.clientY-startY))+'px';}function onUp(){document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp);}document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp);});}
+document.querySelectorAll('.lbtn').forEach(b=>{b.addEventListener('click',function(){this.classList.toggle('on');});});
+document.querySelectorAll('.fbtn').forEach(b=>{b.addEventListener('click',function(){this.classList.toggle('on');});});
+const _sections=document.querySelectorAll('.sec[id]');
+const _navLinks=document.querySelectorAll('.toc-a');
+_sections.forEach(s=>new IntersectionObserver(entries=>{if(entries[0].isIntersecting){_navLinks.forEach(l=>l.classList.remove('on'));const lnk=document.querySelector('.toc-a[href="#'+s.id+'"]');if(lnk){lnk.classList.add('on');lnk.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}}},{rootMargin:'-15% 0px -75% 0px'}).observe(s));
+restoreHighlights();restoreAnchors();renderNotes();
+</script>
+</body>
+</html>
