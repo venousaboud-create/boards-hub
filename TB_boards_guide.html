@@ -190,7 +190,7 @@ footer.footer{text-align:center;padding:24px;font-family:'JetBrains Mono',monosp
   <div id="h-p" class="hbtn" onclick="setHL('p')" title="Pink"></div>
   <div id="h-o" class="hbtn" onclick="setHL('o')" title="Orange"></div>
   <div class="tsep"></div>
-  <button class="tbtn" onclick="setColor('erase')" title="Erase">⌫</button>
+  <button class="tbtn" onclick="setErase()" title="Erase">⌫</button>
   <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
   <div class="tsep"></div>
   <button class="tbtn" onclick="openNoteModal()" title="Add Note">📝</button>
@@ -200,7 +200,7 @@ footer.footer{text-align:center;padding:24px;font-family:'JetBrains Mono',monosp
 <div id="sn-sidebar" class="hidden">
   <div id="sn-hd">
     <span>📝 Study Notes</span>
-    <button id="sn-toggle-btn" onclick="toggleSidebar()" onclick="toggleSidebar()">✕</button>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">✕</button>
   </div>
   <div id="sn-body">
     <div id="sn-empty">Select text, then click 📝<br>to add a note anchored to that passage.</div>
