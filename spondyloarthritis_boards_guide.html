@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Spondyloarthritis · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);
+  border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;
+  z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;
+  display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;
+  position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;
+  line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;
+  padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blu);
+  margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}
+  .main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+/* Flowchart styles */
+.flow{background:#fff;border:1.5px solid var(--bd);border-radius:8px;padding:20px;margin:14px 0;text-align:center}
+.flow-box{display:inline-block;background:var(--blu-l);border:1.5px solid var(--blu);border-radius:6px;padding:7px 14px;font-size:12px;font-weight:600;color:var(--blu-d);margin:4px}
+.flow-box.red{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.flow-box.grn{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.flow-box.amb{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.flow-box.pur{background:var(--pur-l);border-color:var(--pur);color:var(--pur)}
+.flow-box.tel{background:var(--tel-l);border-color:var(--tel);color:var(--tel)}
+.flow-arr{font-size:18px;color:var(--t3);display:block;line-height:1.2}
+.flow-row{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;margin:4px 0}
+.flow-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles · Chapter 374 · Rheumatology</div>
+  <h1>Spondyloarthritis</h1>
+  <div class="hero-sub">Deodhar & Elewaut · Medical Boards Review · 2026</div>
+  <div class="hero-authors">axSpA · Psoriatic Arthritis · Reactive Arthritis · IBD-Arthritis</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">2–3%</div><div class="stat-l">Population Prevalence</div></div>
+    <div class="stat-box"><div class="stat-n">85–90%</div><div class="stat-l">HLA-B27+ in r-axSpA</div></div>
+    <div class="stat-box"><div class="stat-n">5–14 yr</div><div class="stat-l">Diagnostic Delay</div></div>
+    <div class="stat-box"><div class="stat-n">10</div><div class="stat-l">Sections Covered</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Overview</a>
+    <a class="toc-a" href="#s2">Pathology & Pathogenesis</a>
+    <a class="toc-a" href="#s3">HLA-B27 & Genetics</a>
+    <a class="toc-a" href="#s4">axSpA — Clinical</a>
+    <a class="toc-a" href="#s5">axSpA — Diagnosis</a>
+    <a class="toc-a" href="#s6">axSpA — Treatment</a>
+    <a class="toc-a" href="#s7">Psoriatic Arthritis</a>
+    <a class="toc-a" href="#s8">ReA & IBD-Arthritis</a>
+    <a class="toc-a" href="#s9">Other SpA</a>
+    <a class="toc-a" href="#s10">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s1">
+  <div class="sec-hd">
+    <span class="sec-n">01</span>
+    <h2>Overview & SpA Spectrum</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Definition</div>
+    Spondyloarthritis (SpA) is a <b>family of immune-mediated inflammatory arthritis disorders</b> that share clinical, genetic, and pathologic features. First recognized by Moll and Wright in 1974 as distinct from rheumatoid arthritis (RA). Divided by ASAS in 2009 into <b>axial (axSpA)</b> and <b>peripheral (pSpA)</b>.
+  </div>
+
+  <div class="sub">
+    <h3>Shared Features of All SpA</h3>
+    <div class="g2">
+      <div>
+        <h4>Musculoskeletal</h4>
+        <ul class="bl">
+          <li><b>Sacroiliitis</b> — cornerstone of axial involvement</li>
+          <li><b>Inflammatory spinal lesions</b></li>
+          <li><b>Peripheral inflammatory arthritis</b> — asymmetric, large joints, lower limbs</li>
+          <li><b>Enthesitis</b> — inflammation at tendon/ligament attachment to bone</li>
+          <li><b>Tendonitis &amp; tenosynovitis</b></li>
+          <li><b>Dactylitis</b> — "sausage digits" (whole finger/toe swelling)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Extra-Articular</h4>
+        <ul class="bl">
+          <li><b>Uveitis</b> — acute anterior, unilateral, episodic</li>
+          <li><b>Skin psoriasis</b></li>
+          <li><b>IBD</b> (Crohn's or ulcerative colitis)</li>
+          <li><b>RF negative</b> and no nodules (differentiates from RA)</li>
+          <li><b>Familial clustering</b></li>
+          <li><b>HLA-B27 association</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>SpA Classification — Full Spectrum</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Category</th><th>Condition</th><th>Key Clinical Features</th></tr></thead>
+        <tbody>
+          <tr><td>Axial SpA (axSpA)</td><td>Radiographic axSpA (r-axSpA) = Ankylosing Spondylitis (AS)</td><td>Sacroiliitis grade 2 bilateral, or grade 3–4 unilateral or bilateral on x-ray</td></tr>
+          <tr><td>Axial SpA (axSpA)</td><td>Nonradiographic axSpA (nr-axSpA)</td><td>Sacroiliitis grade 1 (unilateral/bilateral) or grade 2 (unilateral only)</td></tr>
+          <tr><td>Peripheral SpA (pSpA)</td><td>Psoriatic Arthritis (PsA)</td><td>Skin psoriasis + nail changes + enthesitis + dactylitis</td></tr>
+          <tr><td>Peripheral SpA (pSpA)</td><td>IBD-Associated Arthritis</td><td>Crohn's or UC with inflammatory arthritis</td></tr>
+          <tr><td>Peripheral SpA (pSpA)</td><td>Reactive Arthritis (ReA)</td><td>Post-genitourinary/GI infection; asymmetric oligoarthritis lower limbs; HLA-B27 up to 50–80%</td></tr>
+          <tr><td>Peripheral SpA (pSpA)</td><td>Undifferentiated pSpA</td><td>SpA phenotype not fitting specific category; enthesitis, dactylitis, HLA-B27</td></tr>
+          <tr><td>Sometimes included</td><td>SAPHO syndrome</td><td>Synovitis, Acne, Pustulosis, Hyperostosis, Osteitis; anterior chest wall joints</td></tr>
+          <tr><td>Sometimes included</td><td>Acne-associated arthritis</td><td>Acne conglobata + peripheral arthritis</td></tr>
+          <tr><td>Sometimes included</td><td>Hidradenitis suppurativa-associated arthritis</td><td>Hidradenitis suppurativa + peripheral arthritis ± asymmetric sacroiliitis</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="co prl">
+    <div class="co-t">Pattern Recognition — Key Diagnostic Clue</div>
+    Typical SpA pattern: <b>asymmetric, mono- or oligoarticular (≤4 joints) inflammatory arthritis of large joints of the lower limb</b> (usually knee) + enthesitis + tendonitis + dactylitis. This contrasts with RA: polyarticular, symmetric MCP/PIP involvement. Cumulative SpA prevalence = <b>2–3% of population</b> — much more common than RA.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s2">
+  <div class="sec-hd">
+    <span class="sec-n">02</span>
+    <h2>Pathology &amp; Pathogenesis</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Core Pathology Concept</h3>
+    <div class="co key">
+      <div class="co-t">Unique Feature of SpA</div>
+      SpA couples <b>inflammation to structural damage</b>. Uniquely, <b>inflammation-induced bone loss coexists with pathologic new bone formation</b> at specific sites: sacroiliac joints, anterior spinal ligaments, and peripheral entheses. Uncontrolled axSpA → complete ankylosis of SI joints + spine = <b>"bamboo spine."</b>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Pathogenesis — Three Triggers</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-p">Trigger 1</div>
+        <p><b>Genetic Predisposition</b><br>HLA-B27 is the dominant risk gene. Additional non-MHC genes in GWAS link to innate immunity, IL-23/IL-17 axis, bone remodeling, epithelial function.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Trigger 2</div>
+        <p><b>Barrier Integrity Loss</b><br>Loss of intestinal/skin/urogenital barrier → microbial translocation → immune activation. ReA follows enteric infections (Salmonella, Shigella, Yersinia, Campylobacter, Chlamydia).</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Trigger 3</div>
+        <p><b>Mechanical Stress</b><br>Entheseal microdamage → immune activation. Enthesitis more common in lower limbs (higher mechanical strain). Physical labor = more structural damage in AS.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Gut–Joint Axis</h3>
+    <ul class="bl">
+      <li>Germ-free HLA-B27 transgenic rats <b>fail to develop SpA</b> → intestinal microbiota is crucial</li>
+      <li>HLA-B27 shapes gut microbiome even <b>before disease onset</b> — intestinal dysbiosis is preclinical</li>
+      <li>Gut inflammation is seen histologically in <b>up to 50% of new-onset treatment-naïve SpA</b> patients (2 types: acute resembling infectious enterocolitis; chronic resembling Crohn's)</li>
+      <li>Chronic gut lesions → risk factor for evolution to full-blown Crohn's disease and progression to AS</li>
+      <li>Skin microbiome alterations also described in psoriasis and PsA</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Cytokine Hubs — The Therapeutic Battleground</h3>
+    <div class="co key">
+      <div class="co-t">Core Cytokines</div>
+      <b>TNF-α</b> and <b>IL-17</b> are the signature cytokines of axSpA. Different disease domains share overlapping (TNF-α) but also distinct (IL-17, IL-23) cytokines — this explains why some biologics work across all domains and others are domain-specific.
+    </div>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>Cytokine/Pathway</th><th>Axial SpA</th><th>IBD</th><th>PsA</th><th>Psoriasis (PsO)</th></tr></thead>
+        <tbody>
+          <tr><td>Anti-TNF</td><td>✓ Effective</td><td>✓ (monoclonal Ab only)</td><td>✓ Effective</td><td>✓ Effective</td></tr>
+          <tr><td>Anti-IL-17A</td><td>✓ Effective</td><td>⛔ CONTRAINDICATED (active IBD)</td><td>✓ Effective</td><td>✓ Effective</td></tr>
+          <tr><td>Anti-IL-23</td><td>✗ No benefit</td><td>✓ Approved</td><td>✓ Effective</td><td>✓ Effective</td></tr>
+          <tr><td>JAK inhibitors</td><td>✓ All domains</td><td>✓ All domains</td><td>✓ All domains</td><td>✓ All domains</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="co wrn">
+      <div class="co-t">Critical Board Point</div>
+      Even though axSpA and IBD both have IL-23R polymorphisms, they differ in cytokine dependency: <b>IL-17A blockade works in axSpA</b> but is <b>contraindicated in active IBD</b> (IL-17 has barrier-protective roles in the gut). Conversely, <b>IL-23 blockers work in IBD</b> but do <b>not benefit axSpA</b>.
+    </div>
+
+    <h4>New Bone Formation Pathway</h4>
+    <ul class="bl">
+      <li>Chronic entheseal inflammation → osteoblast differentiation via <b>prostaglandin E₂ + IL-17A/F + IL-22</b></li>
+      <li>→ Activation of <b>bone morphogenic proteins (BMPs)</b> and <b>Wnt proteins</b></li>
+      <li>→ Generation of bony spurs at vertebral bodies and SI joints → ankylosis</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s3">
+  <div class="sec-hd">
+    <span class="sec-n">03</span>
+    <h2>HLA-B27 &amp; Genetics</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Core Fact</div>
+    HLA-B27 is an <b>MHC class I allele</b> — the <b>strongest genetic risk factor</b> for SpA and specifically axSpA. MHC class I molecules are expressed on all nucleate cells and present peptides to CD8+ T cells.
+  </div>
+
+  <div class="sub">
+    <h3>HLA-B27 Prevalence Numbers</h3>
+    <div class="g4">
+      <div class="card">
+        <div class="clabel c-r">r-axSpA (AS)</div>
+        <p><b>85–90%</b> of patients are HLA-B27 positive</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">nr-axSpA</div>
+        <p><b>50–90%</b> of patients are HLA-B27 positive</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">General Population</div>
+        <p>~<b>5%</b> of healthy Caucasians are HLA-B27 positive</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">First-Degree Relatives</div>
+        <p>Risk of AS in HLA-B27+ first-degree relatives of AS patients = <b>20%</b>. Risk in all HLA-B27+ individuals = <b>5%</b></p>
+      </div>
+    </div>
+    <div class="co prl">
+      <div class="co-t">Geography Pearl</div>
+      In Europe, <b>HLA-B27 frequency increases from south to north</b>, and so does the prevalence of axSpA. Spain: HLA-B27 7%, AS 0.1%. Norway: HLA-B27 9%, axSpA 0.56%.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Three Theories: How HLA-B27 Causes SpA</h3>
+
+    <h4>Theory 1 — Arthritogenic Peptide</h4>
+    <ul class="bl">
+      <li>HLA-B27 presents <b>pathological microbial peptides</b> to CD8+ cytotoxic T cells</li>
+      <li>These T cells target cross-reactive <b>human peptides</b> → inflammation (molecular mimicry)</li>
+      <li>First exposure likely in gut or urogenital tract</li>
+      <li>Not all HLA-B27 subtypes are pathogenic — only those that can present specific peptides:
+        <ul class="bl" style="margin-left:16px;margin-top:4px">
+          <li>Pathogenic subtypes: <b>HLA-B*2704 and HLA-B*2705</b> → confer risk</li>
+          <li>Non-pathogenic (despite differing by only 1 amino acid): <b>HLA-B*2706 and HLA-B*2709</b> → NOT associated with axSpA</li>
+        </ul>
+      </li>
+      <li>HLA-B27-restricted CD8+ T cells found in synovial fluid of AS patients; specific CDR3 motif (CAS**STDTQYF) clonotypes expanded in AS blood and synovium</li>
+    </ul>
+
+    <h4>Theory 2 — HLA-B27 Homodimerization</h4>
+    <ul class="bl">
+      <li>HLA-B27 can <b>homodimerize</b> and be expressed on the cell surface</li>
+      <li>Interacts with innate immune receptors (e.g., KIR3DL2) on T cells and NK cells</li>
+      <li>→ IL-17 production (key pathogenic cytokine in axSpA)</li>
+      <li>Controversy: not all HLA-B27 allotypes form homodimers equally</li>
+    </ul>
+
+    <h4>Theory 3 — Unfolded Protein Response (UPR) & Autophagy</h4>
+    <ul class="bl">
+      <li>HLA-B27 linked to UPR and autophagy → may promote <b>type 17 immune responses</b> via IL-23 release</li>
+      <li>Support from HLA-B27 transgenic rat model</li>
+      <li>BUT no evidence of increased UPR in synovial tissue or blood of HLA-B27+ AS patients in steady state → role in humans questioned</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Beyond HLA-B27</h3>
+    <ul class="bl">
+      <li>Other MHC class I: <b>HLA-Cw6</b> in PsA</li>
+      <li><b>IL-23R gene polymorphisms</b> shared across most SpA forms</li>
+      <li>Non-MHC genes linked to: innate immunity, IL-23/IL-17 axis, bone remodeling, epithelial function, antigen presentation</li>
+      <li><b>ERAP1</b> (peptide-trimming enzyme): SNPs associated with AS and interact epistatically with HLA-B27</li>
+      <li><b>HLA-B27 is NOT a risk factor for IBD</b></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s4">
+  <div class="sec-hd">
+    <span class="sec-n">04</span>
+    <h2>Axial SpA — Epidemiology &amp; Clinical Features</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Definitions</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">r-axSpA = Ankylosing Spondylitis (AS)</div>
+        <p>Sacroiliitis meeting <b>modified New York criteria</b>: Grade 2 bilateral OR grade 3–4 unilateral or bilateral on plain x-ray. Interreader reliability (kappa): <b>0.35–0.45</b> — significant variability even among trained radiologists.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">nr-axSpA</div>
+        <p>Sacroiliitis grade 1 (unilateral/bilateral) or grade 2 (unilateral only) — below the modified NY threshold. <b>Same clinical features and disease burden</b> as r-axSpA. In late-stage r-axSpA, spine/hip fusion adds functional loss.</p>
+      </div>
+    </div>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>Sacroiliitis Grade</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Grade 0</td><td>Normal</td></tr>
+          <tr><td>Grade 1</td><td>Suspicious change only</td></tr>
+          <tr><td>Grade 2</td><td>Minimum abnormality — small localized erosions or sclerosis, without joint width change</td></tr>
+          <tr><td>Grade 3</td><td>Unequivocal abnormality — moderate/advanced sacroiliitis: erosions, sclerosis, widening/narrowing, partial ankylosis</td></tr>
+          <tr><td>Grade 4</td><td>Severe abnormality — total ankylosis</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Epidemiology</h3>
+    <ul class="bl">
+      <li>Sex ratio: <b>r-axSpA = 2:1 (M:F)</b>; <b>nr-axSpA = 1:1</b></li>
+      <li>US (NHANES 2009–2010): HLA-B27 prevalence 6%; axSpA prevalence <b>0.9–1.4%</b>; AS 0.5%</li>
+      <li><b>Diagnostic prevalence = 1/10 of population prevalence</b> → large undiagnosed population</li>
+      <li>Diagnostic delay: <b>5–14 years</b> from symptom onset (due to commonality of mechanical back pain; women mistaken for fibromyalgia; lower HLA-B27 prevalence in nonwhite populations)</li>
+      <li>Incidence of AS: 0.005–0.01 per 100 patient-years globally</li>
+      <li><b>Close to 50%</b> of patients progress from nr to radiographic stage over 20 years; <b>&lt;10%</b> progress to bamboo spine</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Manifestations</h3>
+
+    <h4>Back Pain (Most Common Presenting Feature)</h4>
+    <div class="co key">
+      <div class="co-t">Onset Pattern</div>
+      Starts before age <b>40–45</b>, usually in the 20s–30s. Insidious onset, chronic (&gt;3 months), improves with exercise/activity, worsens with rest, <b>worse in second half of the night</b>, prolonged morning stiffness (&gt;30 min).
+    </div>
+    <div class="co wrn">
+      <div class="co-t">Misnomer Alert</div>
+      "Inflammatory back pain" (IBP) is a misnomer: only <b>15% of patients with IBP have demonstrable inflammation</b> in their axial skeleton on imaging. CRP/ESR elevated in only <b>30–40%</b> of active axSpA — neither sensitive nor specific.
+    </div>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>Feature</th><th>Inflammatory Back Pain (SpA)</th><th>Mechanical Back Pain</th></tr></thead>
+        <tbody>
+          <tr><td>Age at onset</td><td>Before 40–45 years</td><td>20–65 years</td></tr>
+          <tr><td>Onset</td><td>Insidious</td><td>Acute or insidious</td></tr>
+          <tr><td>Morning stiffness</td><td>Prolonged (&gt;30 min)</td><td>&lt;30 min</td></tr>
+          <tr><td>Pain at night</td><td>Yes, usually after midnight</td><td>No, usually late in the day</td></tr>
+          <tr><td>Exercise/activity</td><td><b>Improves</b> pain and stiffness</td><td>Worsens pain</td></tr>
+          <tr><td>Rest/inactivity</td><td><b>Worsens</b> pain and stiffness</td><td>Improves pain</td></tr>
+          <tr><td>NSAIDs</td><td>&gt;50% relief in 48 hours</td><td>Limited relief</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Other Musculoskeletal Manifestations</h4>
+    <ul class="bl">
+      <li><b>Peripheral arthritis:</b> 30–40% of axSpA; asymmetric, oligoarticular, large lower-extremity joints; rarely small joints of hands and feet</li>
+      <li><b>Hip involvement:</b> Most common nonspinal joint — "root joint." Pain in groin radiating to medial thigh or knee. Significant functional impairment.</li>
+      <li><b>Enthesitis:</b> Common — heel pain (plantar fasciitis, Achilles tendon), chest wall pain, epicondylitis, patellar/quadriceps tendon, pelvic rim</li>
+      <li><b>Dactylitis:</b> Uncommon in axSpA (more typical of PsA)</li>
+      <li><b>Spinal fusion:</b> Bony fusion of SI joints + apophyseal joints + syndesmophytes from osteoproliferation in annulus fibrosus → limits spinal and neck mobility</li>
+    </ul>
+
+    <h4>Extra-Musculoskeletal Manifestations</h4>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-r">Uveitis (40%)</div>
+        <p>Most common extra-MSK manifestation. Acute, <b>anterior, unilateral, episodic</b>. Eye discomfort → redness, pain, photophobia, miosis.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">IBD (10% frank; 50% subclinical)</div>
+        <p>Frank IBD in 10% of axSpA. Histologic subclinical gut inflammation in up to <b>50%</b> of patients.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Psoriasis (10%)</div>
+        <p>Seen in 10% of axSpA patients.</p>
+      </div>
+    </div>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">Osteoporosis (40%)</div>
+        <p>Common morbidity despite osteoproliferative changes. Prevalence ~25% after 10 years.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Renal</div>
+        <p><b>IgA nephropathy</b> (microscopic hematuria, any stage) and <b>renal AA amyloidosis</b> (late complication from prolonged inflammation).</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Cardiac</div>
+        <p>Conduction abnormalities (any stage); aortic valve insufficiency (late); cauda equina syndrome (late — urinary hesitancy, saddle anesthesia).</p>
+      </div>
+    </div>
+
+    <h4>Risk Factors for Osteoproliferation/Progression</h4>
+    <ul class="bl">
+      <li>Male sex</li>
+      <li>Persistent inflammation (MRI of SI joints/spine, high CRP)</li>
+      <li>Syndesmophytes at baseline</li>
+      <li>HLA-B27 positive</li>
+      <li>Smoking</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s5">
+  <div class="sec-hd">
+    <span class="sec-n">05</span>
+    <h2>Diagnosing Axial SpA</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Modified New York Criteria for AS</h3>
+    <div class="co key">
+      <div class="co-t">Requires ≥1 Clinical + 1 Radiographic Criterion</div>
+      <b>Clinical Criteria:</b> (1) Low back pain &gt;3 months, improved with exercise, not relieved by rest &nbsp;|&nbsp; (2) Limited lumbar motion in frontal and lateral planes &nbsp;|&nbsp; (3) Reduced chest expansion<br><br>
+      <b>Radiographic Criteria:</b> (1) Bilateral grade &gt;2 sacroiliitis &nbsp;|&nbsp; (2) Unilateral or bilateral grade 3 or 4 sacroiliitis
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnostic Schema for Chronic Back Pain</h3>
+    <div class="flow">
+      <div class="flow-box" style="background:#f0ede8;border-color:var(--bd2);color:var(--t2);max-width:420px">Chronic back pain &gt;3 months, insidious onset &lt;45 years, mechanical back pain / fibromyalgia ruled out</div>
+      <span class="flow-arr">↓</span>
+      <div class="flow-box">SI joint x-ray positive for definite sacroiliitis?</div>
+      <div class="flow-row">
+        <div style="text-align:center">
+          <span class="flow-arr" style="margin:0">↓ YES</span>
+          <div class="flow-box grn">AS (r-axSpA)</div>
+        </div>
+        <div style="text-align:center;margin-left:30px">
+          <span class="flow-arr" style="margin:0">↓ NO</span>
+          <div class="flow-box" style="background:#fff3cd;border-color:#f0c040;color:#856404">Assess SpA Features:<br>IBP, inflammatory arthritis, uveitis, dactylitis, enthesitis, psoriasis, IBD, family history, good NSAID response, high CRP</div>
+          <div class="flow-row" style="margin-top:8px">
+            <div style="text-align:center">
+              <div class="flow-label">≥4 SpA Features</div>
+              <span class="flow-arr">↓</span>
+              <div class="flow-box grn">Nr-axial SpA or Nr-axSpA</div>
+            </div>
+            <div style="text-align:center;margin-left:20px">
+              <div class="flow-label">&lt;4 SpA Features</div>
+              <span class="flow-arr">↓</span>
+              <div class="flow-box amb">MRI SI joints positive for sacroiliitis?</div>
+              <div class="flow-row" style="margin-top:4px">
+                <div style="text-align:center;font-size:11px">
+                  <div>YES → Compelling picture + HLA-B27+</div>
+                  <div class="flow-box grn" style="font-size:11px;padding:4px 8px">Nr-axSpA</div>
+                </div>
+                <div style="text-align:center;font-size:11px;margin-left:10px">
+                  <div>NO → Clinical not compelling / HLA-B27−</div>
+                  <div class="flow-box red" style="font-size:11px;padding:4px 8px">Not axSpA</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Imaging in axSpA</h3>
+
+    <h4>Plain X-Ray (First Line)</h4>
+    <ul class="bl">
+      <li>Single <b>anteroposterior (AP) view</b> or Ferguson view of pelvis — sufficient to image SI joints</li>
+      <li>Multiple/oblique views add little and increase gonadal radiation — avoid</li>
+      <li>Features: marginal sclerosis, erosions, narrowing/widening, fusion</li>
+      <li><b>Avoid routine spine x-rays</b> in chronic back pain patients</li>
+      <li>Spine findings: <b>Romanus lesions</b> (shiny corner sign), <b>squaring of vertebral bodies</b>, Andersson lesion (erosion at disk level), <b>syndesmophytes</b> (vertical — differentiates from horizontal osteophytes in OA), <b>bamboo spine</b> (late, &lt;10%)</li>
+    </ul>
+
+    <h4>MRI (Key for Early Disease)</h4>
+    <ul class="bl">
+      <li>Most sensitive — detects early inflammation before x-ray changes</li>
+      <li>Early: <b>osteitis</b> (bone marrow edema on STIR) = active inflammation; may be only finding</li>
+      <li>Progression: osteitis → <b>fatty metaplasia</b> → new bone formation (sclerosis → backfill → ankylosis)</li>
+      <li><b>Multiple types of lesions</b> increase confidence of axSpA diagnosis</li>
+      <li>Pitfall: MRI very sensitive; mechanical stress in athletes, postpartum women, and normal individuals &gt;40 can mimic osteitis → <b>inappropriate MRI can lead to overdiagnosis</b></li>
+      <li>Fat metaplasia also seen in degenerative arthritis and normal individuals</li>
+    </ul>
+
+    <h4>Low-Dose CT</h4>
+    <ul class="bl">
+      <li>Emerging as alternative to plain radiography for diagnosis and progression assessment</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Differential Diagnosis</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Condition</th><th>Key Distinguishing Features</th></tr></thead>
+        <tbody>
+          <tr><td>Mechanical back pain</td><td>Most common cause; axSpA is etiology in only 4–5% of chronic back pain. Rule out first.</td></tr>
+          <tr><td>DISH (Diffuse Idiopathic Skeletal Hyperostosis)</td><td>Noninflammatory; ossification of ≥4 contiguous anterior/posterior longitudinal ligaments; "flowing" osteophytes typically right side of thoracic spine; <b>NORMAL sacroiliac joints</b>. Obese, diabetic males &gt;50. Can mimic bamboo spine.</td></tr>
+          <tr><td>Osteitis Condensans Ilii (OCI)</td><td>Multiparous women; asymptomatic; triangular dense sclerosis on iliac side of SI joints (inferior portion); <b>NO erosions</b> → key distinction from axSpA. Early MRI can be indistinguishable.</td></tr>
+          <tr><td>Fibromyalgia / Central sensitization</td><td>Young patients with generalized body pain; no imaging findings; commonly mistaken in women with axSpA.</td></tr>
+          <tr><td>Septic sacroiliitis</td><td>Tuberculosis, brucellosis, fungi — fever, systemic signs; often culture-positive</td></tr>
+          <tr><td>Postpartum sacral insufficiency fracture</td><td>Postpartum women; acute onset; MRI shows fracture pattern</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Monitoring Tools</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">Disease Activity</div>
+        <p><b>BASDAI</b> — Bath Ankylosing Spondylitis Disease Activity Index<br><b>ASDAS</b> — Ankylosing Spondylitis Disease Activity Score</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Function</div>
+        <p><b>BASFI</b> — Bath AS Functional Index (10 daily activities, patient-administered)</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Mobility</div>
+        <p><b>Bath AS Metrology Index</b> — measures spinal and hip mobility</p>
+      </div>
+    </div>
+    <div class="co prl">
+      <div class="co-t">What NOT to Monitor With</div>
+      MRI of SI joints/spine is expensive and NOT indicated for routine disease activity monitoring. Spine radiographs are not used for monitoring in daily practice (reserved for persistent/relapsing pain to rule out active inflammation or spinal fractures).
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s6">
+  <div class="sec-hd">
+    <span class="sec-n">06</span>
+    <h2>axSpA — Treatment</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Treatment Target</div>
+    <b>Low disease activity or remission.</b> Principles identical for nr-axSpA and r-axSpA (treated as one disease). Some agents approved for AS only. Shared decision-making is key.
+  </div>
+
+  <div class="sub">
+    <h3>Non-Pharmacologic</h3>
+    <ul class="bl">
+      <li><b>Physical exercise</b> (on land or aquatic) and self-directed exercise — <b>strongly recommended</b> by all international guidelines</li>
+      <li>Physical therapy improves fatigue, mobility, and posture</li>
+      <li>Smoking cessation encouraged in all patients</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Pharmacologic Stepwise Approach</h3>
+    <div class="flow" style="text-align:left;padding:18px">
+      <div class="flow-row" style="justify-content:flex-start;gap:4px">
+        <div class="flow-box" style="background:#f0ede8;border-color:var(--bd2);color:var(--t2)">Step 1: NSAIDs (highest tolerable dose, continuously if active)</div>
+      </div>
+      <span class="flow-arr" style="text-align:left;display:block;margin-left:60px">↓ If active disease after 4-week trial of full-dose NSAIDs</span>
+      <div class="flow-row" style="justify-content:flex-start;gap:4px">
+        <div class="flow-box blu">Step 2: Biologic — TNFi OR IL-17i (either class, provider/patient choice)</div>
+      </div>
+      <span class="flow-arr" style="text-align:left;display:block;margin-left:60px">↓ Primary failure of TNFi → switch to IL-17i or JAKi; Secondary failure → alternative TNFi</span>
+      <div class="flow-row" style="justify-content:flex-start;gap:4px">
+        <div class="flow-box pur">Step 3: JAKi (after failing TNFi — per FDA black box)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Drug Details — axSpA</h3>
+
+    <h4>NSAIDs</h4>
+    <ul class="bl">
+      <li>Used at <b>highest tolerable doses continuously</b> in active disease; as needed if stable</li>
+      <li>No particular NSAID preferred over another</li>
+      <li>Monitor: gastric ulcer disease, hypertension, renal insufficiency, cardiovascular disease</li>
+    </ul>
+
+    <h4>csDMARDs (Peripheral Only — NOT for Axial Disease)</h4>
+    <ul class="bl">
+      <li><b>Sulfasalazine</b> up to 3 g/day — peripheral joints and entheses</li>
+      <li><b>Methotrexate</b> up to 25 mg/week — peripheral joints and entheses</li>
+      <li><b>Systemic glucocorticoids have NO efficacy in axSpA and should be avoided</b></li>
+      <li>Local glucocorticoid injections: indicated for upper extremity enthesitis or intraarticular for peripheral arthritis. <b>Injections around lower limb weight-bearing entheses NOT recommended</b> (risk of rupture)</li>
+    </ul>
+
+    <h4>Biologic Screening Before Initiating (All Biologics + JAKi)</h4>
+    <ul class="bl">
+      <li>Screen for <b>latent tuberculosis</b></li>
+      <li>Screen for <b>hepatitis B and hepatitis C</b></li>
+    </ul>
+
+    <h4>TNF Inhibitors (TNFi)</h4>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug</th><th>Type</th><th>Dose &amp; Route</th><th>Special Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Etanercept</td><td>Soluble receptor of TNF</td><td>50 mg SC once weekly</td><td><b>NOT preferred</b> if concomitant uveitis or IBD</td></tr>
+          <tr><td>Adalimumab</td><td>Monoclonal antibody</td><td>40 mg SC every 2 weeks</td><td>Preferred if uveitis or IBD</td></tr>
+          <tr><td>Certolizumab pegol</td><td>Monoclonal antibody (PEGylated)</td><td>200 mg SC twice/month OR 400 mg SC once/month</td><td>Preferred if uveitis or IBD</td></tr>
+          <tr><td>Golimumab</td><td>Monoclonal antibody</td><td>50 mg SC once/month OR 2 mg/kg IV at wks 0, 4, then q8wk</td><td>Preferred if uveitis or IBD</td></tr>
+          <tr><td>Infliximab</td><td>Monoclonal antibody</td><td>5 mg/kg IV at wks 0, 2, 6, then q6wk</td><td>Preferred if uveitis or IBD; All 5 approved for AS; selective TNFis for nr-axSpA</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>IL-17 Inhibitors (IL-17i)</h4>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug</th><th>Target</th><th>Dose</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Secukinumab</td><td>IL-17A</td><td>150 mg SC at wks 0,1,2,3,4 → then 150 or 300 mg q4wk</td><td>Approved for nr-axSpA and AS</td></tr>
+          <tr><td>Ixekizumab</td><td>IL-17A</td><td>160 mg SC once → then 80 mg q4wk</td><td>Approved for nr-axSpA and AS</td></tr>
+          <tr><td>Bimekizumab</td><td>IL-17A and IL-17F</td><td>160 mg SC q4wk</td><td>Approved in certain regions for nr-axSpA and r-axSpA</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>JAK Inhibitors (JAKi)</h4>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug</th><th>Dose</th><th>Indication</th></tr></thead>
+        <tbody>
+          <tr><td>Tofacitinib</td><td>5 mg PO twice daily</td><td>AS only (not nr-axSpA)</td></tr>
+          <tr><td>Upadacitinib</td><td>15 mg PO once daily</td><td>AS and nr-axSpA</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Biologic Side Effects — Critical Table</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug Class</th><th>Key Side Effects &amp; Warnings</th></tr></thead>
+        <tbody>
+          <tr><td>All biologics/JAKi</td><td>Increased risk of serious bacterial infections. Screen for latent TB, HBV, HCV before initiating.</td></tr>
+          <tr><td>TNFi</td><td>Reactivation of <b>latent tuberculosis</b>; demyelinating disease; worsening congestive heart failure; paradoxical psoriasis-like skin lesions. Injection-site reactions (SC) or infusion reactions (IV).</td></tr>
+          <tr><td>IL-17i</td><td><b>IBD development/worsening</b> (contraindicated in active IBD); leukopenia; mucosal and skin Candida infections</td></tr>
+          <tr><td>JAKi</td><td><b>Herpes zoster</b>; major cardiovascular adverse events; cancers (lymphoma, lung cancers) — especially in patients ≥65, smokers, history of CVD or malignancy. <b>FDA: reserve for patients with inadequate response or intolerance to ≥1 TNFi</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co dan">
+      <div class="co-t">Memory Pearl — Infection Risk by Drug Class</div>
+      <b>TB reactivation → TNFi</b> &nbsp;|&nbsp; <b>Herpes zoster → JAKi</b> &nbsp;|&nbsp; <b>Candida (mucosal/skin) → IL-17i</b>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Surgical Interventions</h3>
+    <ul class="bl">
+      <li><b>Total hip arthroplasty:</b> For refractory hip pain or functional decline with radiographic structural damage</li>
+      <li><b>Spinal osteotomies:</b> Reserved for severe fixed kyphotic deformities in advanced AS affecting horizontal vision — perform only in centers of expertise</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Complications of axSpA</h3>
+    <div class="g2">
+      <ul class="bl">
+        <li><b>Osteoporosis:</b> ~25% prevalence after 10 years</li>
+        <li><b>Vertebral fractures:</b> ~10% of AS patients; lower cervical spine most common; often neurologic compromise</li>
+        <li><b>Cauda equina syndrome:</b> From long-standing AS → arachnoiditis of lumbosacral nerve roots</li>
+        <li><b>Cardiac:</b> Aortic valve insufficiency, conduction abnormalities (heart blocks)</li>
+      </ul>
+      <ul class="bl">
+        <li><b>Pulmonary:</b> Chest expansion restriction (costovertebral ossification), upper lobe ILD (rare), sleep apnea (late — cervical/rib changes)</li>
+        <li><b>Renal:</b> IgA nephropathy (any stage), renal AA amyloidosis (late, untreated)</li>
+        <li><b>Cardiovascular disease:</b> Common comorbidity linked to chronic inflammation — counsel all AS patients about traditional CV risk factors</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s7">
+  <div class="sec-hd">
+    <span class="sec-n">07</span>
+    <h2>Psoriatic Arthritis (PsA)</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Definition (Moll &amp; Wright, 1973)</div>
+    Inflammatory arthritis (peripheral arthritis ±sacroiliitis/spondylitis) + cutaneous psoriasis + <b>absence of RF</b>. Associated with HLA-B*27. Involves peripheral joints, axial skeleton, entheses, tendon sheaths ± uveitis ± IBD.
+  </div>
+
+  <div class="sub">
+    <h3>Epidemiology</h3>
+    <ul class="bl">
+      <li>Skin psoriasis prevalence: <b>2–3%</b> of population</li>
+      <li>PsA in patients with psoriasis: <b>30%</b> (range 6–42%)</li>
+      <li>Incidence of PsA in psoriasis patients: <b>3 per 100 patient-years</b> (range 2–10)</li>
+      <li>Likelihood of developing PsA does not change over time in psoriasis patients</li>
+      <li>Psoriasis usually comes first in <b>~80%</b> of PsA; arthritis and psoriasis simultaneously in ~10%; arthritis first in ~10%</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Five Clinical Phenotypes (Moll &amp; Wright)</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">1</div>
+        <p><b>Asymmetric oligoarticular</b> inflammatory arthritis (most common early)</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">2</div>
+        <p><b>Symmetric polyarticular</b> arthritis (resembles RA but RF negative)</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">3</div>
+        <p><b>Distal interphalangeal (DIP)</b> joint arthritis — closely linked to nail changes</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">4</div>
+        <p><b>Spondylitis</b> — axial involvement ± sacroiliitis</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">5</div>
+        <p><b>Arthritis mutilans</b> — severe end manifestation; joint destruction/lysis</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Added</div>
+        <p><b>Enthesitis</b> and <b>dactylitis</b> — added over the years to the five phenotypes. These phenotypes frequently coexist.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Key Clinical Features</h3>
+
+    <h4>Dactylitis</h4>
+    <ul class="bl">
+      <li>Inflammatory swelling of an <b>entire finger or toe</b> — due to inflammation of joints, tendons, bones, and soft tissues within the digit</li>
+      <li><b>Marker of PsA severity</b> — persistent dactylitis → structural damage</li>
+      <li>Examine feet carefully — a single dactylitic toe or heel enthesitis may be the only MSK manifestation</li>
+    </ul>
+
+    <h4>Enthesitis</h4>
+    <ul class="bl">
+      <li>Most common sites: <b>plantar fascia and Achilles tendon insertion</b> (plantar fasciitis and Achilles enthesitis)</li>
+      <li>Other: quadriceps on patella, patellar tendon on tibia, medial/lateral epicondyle, pelvic rim, spinous processes, intercostal insertions</li>
+    </ul>
+
+    <h4>Nail Involvement</h4>
+    <ul class="bl">
+      <li>40% of psoriasis patients without PsA have nail lesions; but <b>~90% of PsA patients</b> have nail involvement</li>
+      <li><b>Nail matrix disease:</b> pitting, leukonychia, crumbling, red spots in lunula</li>
+      <li><b>Nail bed disease:</b> onycholysis, subungual hyperkeratosis, oil drop change, splinter hemorrhages</li>
+    </ul>
+
+    <h4>Axial Involvement</h4>
+    <ul class="bl">
+      <li>5% of PsA patients in early stage; up to <b>50% after 20 years</b></li>
+      <li>May be asymptomatic or overshadowed by peripheral symptoms</li>
+      <li>Radiographic differences from AS: <b>asymmetric sacroiliitis</b>, <b>nonmarginal and asymmetric bulky ("chunky") syndesmophytes</b> from sites away from vertebral corners, frequent cervical involvement</li>
+    </ul>
+
+    <h4>Comorbidities</h4>
+    <ul class="bl">
+      <li>Cardiovascular disease risk as high as <b>patients with diabetes mellitus</b>; correlates with severity of skin disease, duration, inflammatory markers</li>
+      <li>Hypertension, type 2 diabetes, obesity, metabolic syndrome, fatty liver disease, angina, MI — all more prevalent in PsA vs general population</li>
+      <li>Obesity has adverse impact on PsA disease activity and treatment response</li>
+      <li>Increased rates of <b>depression and suicidality</b></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>CASPAR Classification Criteria</h3>
+    <div class="co key">
+      <div class="co-t">Requirement: Inflammatory articular disease (joint, spine, or entheseal) PLUS ≥3 points</div>
+      Specificity: <b>98.7%</b> | Sensitivity: <b>91.4%</b>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Category</th><th>Description</th><th>Points</th></tr></thead>
+        <tbody>
+          <tr><td>Psoriasis (current)*</td><td>Current psoriasis by rheumatologist or dermatologist</td><td><b>2</b></td></tr>
+          <tr><td>Psoriasis (personal history)</td><td>Personal history of psoriasis from patient or HCP</td><td>1</td></tr>
+          <tr><td>Psoriasis (family history)</td><td>Family history in first- or second-degree relative</td><td>1</td></tr>
+          <tr><td>Nail changes</td><td>Typical psoriatic nail dystrophy (onycholysis, pitting, hyperkeratosis) at assessment</td><td>1</td></tr>
+          <tr><td>Rheumatoid factor</td><td>Rheumatoid factor <b>negative</b></td><td>1</td></tr>
+          <tr><td>Dactylitis</td><td>Current or history of dactylitis recorded by rheumatologist</td><td>1</td></tr>
+          <tr><td>Radiographic evidence</td><td>Juxtaarticular new bone formation (excluding osteophytes) on x-ray of hand or foot</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--t3)">*Psoriasis should account for only one of the three psoriasis descriptors.</p>
+  </div>
+
+  <div class="sub">
+    <h3>PsA Imaging Features</h3>
+    <ul class="bl">
+      <li>Early: soft tissue swelling around involved joints; periarticular osteopenia generally <b>absent</b></li>
+      <li>Marginal erosions with <b>"fluffy" new bone formation</b> — characteristic of PsA</li>
+      <li><b>"Pencil-in-cup" deformity</b>, bony ankylosis in ray distribution — pathognomonic</li>
+      <li><b>Acro-osteolysis</b> — resorption of terminal phalanx in late-stage arthritis mutilans</li>
+      <li>Sacroiliitis in PsA: <b>more likely unilateral</b> (vs bilateral in axSpA)</li>
+      <li><b>Chunky "nonmarginal" syndesmophytes</b> in PsA — grow from sites AWAY from vertebral corners (different from AS)</li>
+    </ul>
+    <div class="co prl">
+      <div class="co-t">Ultrasound Role</div>
+      Ultrasound + Doppler: differentiates enthesitis from fibromyalgia tender points; detects erosions before x-ray; shows tendon thickening, hypoechoic lesion, neovascularization at entheses. Highly operator-dependent — limit use to expert hands.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>PsA Disease Activity</h3>
+    <ul class="bl">
+      <li><b>DAPSA</b> — Disease Activity in Psoriatic Arthritis (most common in clinical practice)</li>
+      <li><b>MDA</b> — Minimal Disease Activity</li>
+      <li>Skin assessment: simple palm-count method (1 palm = ~1% BSA)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>PsA Treatment (Table 374-7 Summary)</h3>
+    <div class="co key">
+      <div class="co-t">Treatment Target</div>
+      Remission or minimal disease activity — achieved via nonpharmacologic + pharmacologic interventions. Multidisciplinary team: rheumatologist, dermatologist, gastroenterologist, ophthalmologist, psychiatrist, dietician, endocrinologist, cardiologist, physical/occupational therapists.
+    </div>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>Principle</th><th>Details</th></tr></thead>
+        <tbody>
+          <tr><td>Treat-to-target</td><td>Minimal disease activity or remission; monitor regularly; adjust treatment appropriately; continue indefinitely (high flare risk on stopping)</td></tr>
+          <tr><td>NSAIDs</td><td>Initial short-term for peripheral arthritis, enthesitis, dactylitis, axial disease; rarely sufficient alone</td></tr>
+          <tr><td>Local GC injections</td><td>Active arthritis, enthesitis, dactylitis; <b>avoid lower-extremity weight-bearing entheses</b> (tendon rupture risk)</td></tr>
+          <tr><td>Systemic glucocorticoids</td><td><b>Avoid</b>; if needed, lowest dose, shortest period only in acute flares</td></tr>
+          <tr><td>csDMARDs</td><td>Methotrexate (preferred if psoriasis), sulfasalazine, leflunomide for peripheral arthritis + enthesitis + dactylitis; <b>avoid in predominant axial disease</b></td></tr>
+          <tr><td>PDE-4 inhibitor / TYK-2 inhibitor</td><td>Apremilast (PDE-4) or deucravacitinib (TYK-2) as initial alternative to csDMARDs for MSK disease (except axial) or skin</td></tr>
+          <tr><td>bDMARDs — axial predominant</td><td>bDMARDs or JAKi after inadequate NSAID response; avoid csDMARDs</td></tr>
+          <tr><td>Biologic choice for skin</td><td>IL-12/23i, IL-17i, or IL-23i are <b>superior to TNFi for skin clearing</b></td></tr>
+          <tr><td>PsA + comorbid IBD</td><td>TNF monoclonal Ab, IL-12/23i, IL-23i, or JAKi preferred. <b>IL-17i avoided in active IBD</b> (can use in history of IBD)</td></tr>
+          <tr><td>PsA + comorbid uveitis</td><td>TNF monoclonal antibodies preferred</td></tr>
+          <tr><td>JAKi</td><td>After failure of TNFi (per FDA black box on CV risk); consider metabolic syndrome/CVD before starting</td></tr>
+          <tr><td>Abatacept</td><td>No efficacy against skin, nail, axial skeleton; modest efficacy for peripheral arthritis</td></tr>
+          <tr><td>Biologic DMARDs available</td><td>TNFi, ustekinumab (IL-12/23), secukinumab/ixekizumab (IL-17A), bimekizumab (IL-17A+F), guselkumab/risankizumab (IL-23), abatacept (costimulatory blockade)</td></tr>
+          <tr><td>Radiographic progression</td><td>All biologics except abatacept + JAKi reduce radiographic progression; csDMARDs, PDE-4i, TYK2i do NOT</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>PsA Differential Diagnosis</h3>
+    <ul class="bl">
+      <li><b>OA of DIP joints:</b> Heberden's nodes + psoriasis; psoriatic nail involvement and enthesitis on ultrasound distinguishes PsA</li>
+      <li><b>Seronegative RA:</b> Examine for hidden psoriasis (scalp, umbilicus, gluteal cleft, nails); family history of psoriasis; many "seronegative RA" patients actually have pSpA</li>
+      <li><b>Gout:</b> High skin turnover in psoriasis → hyperuricemia; gout can coexist — always analyze synovial fluid in monoarticular flares</li>
+      <li><b>CPPD:</b> In elderly with psoriasis; chondrocalcinosis of triangular fibrocartilage, "hook-like" MCP osteophytes, absence of erosions or fluffy new bone formation</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s8">
+  <div class="sec-hd">
+    <span class="sec-n">08</span>
+    <h2>Reactive Arthritis &amp; IBD-Associated Arthritis</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Reactive Arthritis (ReA)</h3>
+    <div class="co key">
+      <div class="co-t">Definition</div>
+      Arthritis following <b>urogenital or gastrointestinal infection</b> with well-defined triggering microorganisms not cultivable from the affected joints. Restricted to <b>HLA-B27- and SpA-related</b> infections. Other post-infectious arthritides (e.g., after rheumatic fever, meningococcus, COVID) should NOT be called ReA.
+    </div>
+
+    <h4>Triggering Organisms</h4>
+    <ul class="bl">
+      <li>Gastrointestinal: <b>Yersinia, Campylobacter, Salmonella, Shigella</b></li>
+      <li>Urogenital: <b>Chlamydia trachomatis</b></li>
+    </ul>
+
+    <h4>Clinical Features</h4>
+    <ul class="bl">
+      <li><b>Hallmark:</b> Time delay from infection to arthritis — <b>1 day to 4 weeks</b></li>
+      <li>Typical: asymmetric oligoarticular arthritis, <b>preferentially lower limbs</b></li>
+      <li>Additional: enthesitis, tendonitis, bursitis, dactylitis, IBP, sacroiliitis</li>
+      <li>Mucocutaneous: uveitis/conjunctivitis, erythema nodosum, oral ulcers, <b>circinate balanitis</b>, <b>keratoderma blenorrhagica</b></li>
+      <li>HLA-B27 positive in <b>50–80%</b> of ReA patients</li>
+      <li>Incidence: <b>3.4 cases per 100,000 person-years</b></li>
+      <li>Estimated 2.6% of enteric infections → ReA</li>
+    </ul>
+
+    <h4>Diagnosis</h4>
+    <ul class="bl">
+      <li>Clinical features + identification of antecedent infection from history and labs</li>
+      <li>Lab: stool cultures (Salmonella, Shigella, Campylobacter, Yersinia); serology; <b>All patients offered screening for Chlamydia</b></li>
+      <li>Diagnostic focus: HLA-B27 + molecular testing for Chlamydia</li>
+      <li>Note: GI symptoms often resolved when arthritis appears → pathogens may not be retrievable</li>
+    </ul>
+
+    <h4>Treatment — Reactive Arthritis</h4>
+    <ul class="bl">
+      <li>No formal treatment guidelines exist</li>
+      <li><b>Acute ReA:</b> NSAIDs + intraarticular glucocorticoids (mono/oligoarthritis) + short-term low-dose systemic GC (polyarticular)</li>
+      <li>Antibiotics: NOT routinely used; one study showed 6-month course of combination antibiotics (doxycycline or azithromycin + rifampicin) better than placebo for chronic Chlamydia-induced ReA — but NOT replicated → long-term antibiotics NOT recommended</li>
+      <li>HLA-B27 → promotes evolution to chronicity (HLA-B27 promotes intracellular survival of causative organisms)</li>
+      <li><b>Chronic ReA (&gt;6 months, inadequate response):</b> csDMARDs (sulfasalazine, methotrexate), even TNFi — follows peripheral SpA principles</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>IBD-Associated Arthritis</h3>
+    <div class="co key">
+      <div class="co-t">Key Relationship</div>
+      Both UC and Crohn's disease are associated with SpA. The gut–joint link is <b>reciprocal</b>: SpA patients (even without GI symptoms) show histologic gut inflammation on ileocolonoscopy in up to 50% (acute or chronic Crohn's-like lesions, primarily in terminal ileum). Chronic gut lesions = risk factor for evolution to AS and full-blown Crohn's.
+    </div>
+
+    <h4>Prevalence</h4>
+    <ul class="bl">
+      <li>r-axSpA develops in up to <b>10% of IBD patients</b></li>
+      <li>pSpA prevalence in IBD varies widely: <b>10–30%</b></li>
+      <li>Conversely, axSpA patients have <b>5–10% prevalence of IBD</b> (increases with disease duration)</li>
+      <li>Microscopic IBD-like gut lesions + elevated fecal calprotectin/CRP in ~50% of new-onset treatment-naïve SpA</li>
+    </ul>
+
+    <h4>Clinical Features</h4>
+    <ul class="bl">
+      <li>Axial IBD-arthritis clinically similar to idiopathic axSpA; may precede or follow IBD diagnosis</li>
+      <li>Peripheral IBD-arthritis: acute oligoarthritis co-occurring with IBD relapses; or chronic forms causing structural damage</li>
+    </ul>
+
+    <h4>Treatment — IBD-Associated Arthritis</h4>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Agent</th><th>IBD Effect</th><th>SpA Effect</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Anti-TNF monoclonal antibodies (not etanercept)</td><td>✓ Effective in IBD</td><td>✓ Axial and peripheral SpA</td><td>Preferred approach</td></tr>
+          <tr><td>Ustekinumab (anti-IL12/23p40)</td><td>✓ Effective</td><td>✓ Peripheral SpA</td><td></td></tr>
+          <tr><td>Guselkumab / Risankizumab (anti-IL23p19)</td><td>✓ Effective</td><td>✓ Peripheral SpA</td><td></td></tr>
+          <tr><td>Anti-IL-17 therapy</td><td>⛔ Contraindicated</td><td>✓ axSpA</td><td>Do NOT use in active IBD</td></tr>
+          <tr><td>Tofacitinib / Upadacitinib (JAKi)</td><td>✓ (UC and Crohn's)</td><td>✓ axSpA and pSpA</td><td>Upadacitinib approved for Crohn's</td></tr>
+          <tr><td>NSAIDs</td><td>⚠ May induce IBD flares — temporary use only</td><td>✓ Helpful for arthritis</td><td>COX2-selective preferred</td></tr>
+          <tr><td>Vedolizumab (gut-selective integrin inhibitor)</td><td>✓ Crohn's + UC</td><td>⚠ Up to 15% develop new-onset or flare of SpA</td><td>Monitor for SpA</td></tr>
+          <tr><td>Sulfasalazine, systemic/local glucocorticoids</td><td>✓ IBD</td><td>Partial (peripheral only)</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s9">
+  <div class="sec-hd">
+    <span class="sec-n">09</span>
+    <h2>Undifferentiated pSpA, SAPHO &amp; Hidradenitis Suppurativa</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Undifferentiated Peripheral SpA</h3>
+    <p>Patients with the <b>typical SpA phenotype</b> (oligoarticular inflammatory arthritis, usually lower limbs, asymmetric, or peripheral enthesitis/dactylitis) who do not fit into any defined category (not axSpA, PsA, ReA, or IBD-arthritis).</p>
+
+    <div class="co key">
+      <div class="co-t">ASAS Criteria for Peripheral SpA (2011)</div>
+      Must have: <b>Arthritis OR enthesitis OR dactylitis</b><br><br>
+      Plus <b>≥1</b> of: psoriasis, IBD, preceding infection, HLA-B27, uveitis, sacroiliitis on imaging<br><br>
+      OR Plus <b>≥2</b> of: arthritis, enthesitis, dactylitis, IBP in the past, positive family history for SpA
+    </div>
+    <p>Some of these patients likely have ReA (silent inciting infection); others may develop psoriasis/IBD features later. Treatment is individualized.</p>
+  </div>
+
+  <div class="sub">
+    <h3>SAPHO Syndrome</h3>
+    <ul class="bl">
+      <li><b>S</b>ynovitis, <b>A</b>cne, <b>P</b>ustulosis, <b>H</b>yperostosis, <b>O</b>steitis</li>
+      <li>Sometimes associated with <b>Propionibacterium acnes</b> infection on bone biopsy</li>
+      <li>Included under SpA because some patients have asymmetric inflammatory arthritis (typically <b>sternoclavicular joints</b> and chest wall costochondral junctions), sacroiliitis, spinal hyperostosis</li>
+      <li>Skin: acne conglobata and <b>palmoplantar pustular lesions</b> pathologically identical to psoriasis</li>
+      <li>Considered adult phenotype of juvenile <b>chronic recurrent multifocal osteomyelitis (CRMO)</b> — osteomyelitis is sterile</li>
+      <li>Treatment: TNFi, IL-17i, JAKi; case reports of <b>pamidronate</b> (bisphosphonate) being effective</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Hidradenitis Suppurativa-Associated Arthritis</h3>
+    <ul class="bl">
+      <li>Hidradenitis suppurativa patients may develop SpA phenotype</li>
+      <li>MSK: peripheral arthritis; rarely <b>asymmetric sacroiliitis</b></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s10">
+  <div class="sec-hd">
+    <span class="sec-n">10</span>
+    <h2>Exam Traps</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+  <p>High-yield board traps — each one tested in the format you'll see on Stage A.</p>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">Inflammatory vs Mechanical Back Pain</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 28-year-old man presents with back pain for 6 months that is worse after waking up in the morning, lasts over 45 minutes, and improves significantly after a morning jog. He takes ibuprofen and gets &gt;50% relief within 48 hours. X-ray shows no sacroiliitis. What is the most likely diagnosis and next step?</div>
+      <div class="trap-a"><strong>Answer:</strong> This is <strong>inflammatory back pain</strong> (IBP) — insidious onset &lt;45 years, prolonged morning stiffness &gt;30 min, improves with activity, responds well to NSAIDs. Axial SpA (nr-axSpA) is most likely. Next step: assess SpA features (HLA-B27, MRI SI joints). Do NOT dismiss because x-ray is normal — nr-axSpA by definition has no definitive sacroiliitis on x-ray.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-num">02</span><span class="trap-title">HLA-B27 Subtypes — NOT All Are Pathogenic</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A question lists HLA-B*2706 and asks if this subtype confers risk for ankylosing spondylitis. The patient is of Southeast Asian ancestry.</div>
+      <div class="trap-a"><strong>Answer: NO — HLA-B*2706 and HLA-B*2709 are NOT associated with axSpA</strong>, even though they differ from the pathogenic subtypes (B*2704, B*2705) by only ONE amino acid/peptide residue. This supports the arthritogenic peptide theory — only specific peptides presented by pathogenic subtypes trigger disease.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">IL-17 Inhibitor CONTRAINDICATED in Active IBD</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with axial SpA is started on secukinumab. Two months later she develops a Crohn's disease flare. Should secukinumab be continued?</div>
+      <div class="trap-a"><strong>Answer: NO — IL-17 inhibitors are CONTRAINDICATED in active IBD.</strong> IL-17 has barrier-protective roles in the gut. Paradoxically, IL-23 blockers are approved in IBD but do NOT benefit axSpA. Switch to a TNF monoclonal antibody or JAKi for a patient who has both axSpA and IBD.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Etanercept NOT Preferred in Uveitis or IBD</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with AS also has recurrent acute anterior uveitis. Which TNF inhibitor should be used?</div>
+      <div class="trap-a"><strong>Answer: TNF monoclonal antibodies (adalimumab, certolizumab, golimumab, infliximab) are preferred — NOT etanercept.</strong> Etanercept is a soluble TNF receptor, NOT a monoclonal antibody, and is <strong>not preferred</strong> in patients with concomitant uveitis or IBD. Monoclonal antibodies are effective against both joint and eye/gut manifestations.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">csDMARDs Do NOT Work for Axial Disease</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with AS fails NSAIDs. Her physician starts methotrexate to treat the spinal inflammation. Is this appropriate?</div>
+      <div class="trap-a"><strong>Answer: NO — csDMARDs (methotrexate, sulfasalazine) are effective for peripheral joints and entheses ONLY, NOT for axial disease in axSpA.</strong> For active axial SpA not responding to full-dose NSAIDs after 4 weeks, escalate to a biologic (TNFi or IL-17i), NOT a csDMARD. Systemic glucocorticoids also have no efficacy in axSpA.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">JAKi After TNFi — FDA Restriction</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 68-year-old male smoker with AS and a prior history of lung cancer asks to start tofacitinib as his first advanced therapy. Is this appropriate?</div>
+      <div class="trap-a"><strong>Answer: NO — JAK inhibitors should be reserved for patients who have failed at least one TNF inhibitor</strong> per FDA black box warning. JAKis carry higher risk of major cardiovascular events and cancers (lymphoma, lung cancers) — especially in patients ≥65 years, current/past smokers, history of CVD or malignancy. This patient should first try a TNFi.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">DISH vs Bamboo Spine</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 58-year-old obese diabetic man has a spine x-ray showing "flowing" ossification of the right anterior longitudinal ligament across ≥4 vertebral bodies with bulky osteophytes. Sacroiliac joints are normal. Is this AS?</div>
+      <div class="trap-a"><strong>Answer: NO — this is DISH (Diffuse Idiopathic Skeletal Hyperostosis), NOT AS.</strong> Key distinction: <strong>DISH = NORMAL sacroiliac joints</strong>. DISH is non-inflammatory, seen in obese diabetic males &gt;50, produces "flowing" anterior/posterior ligamentous ossification typically on the RIGHT side of the thoracic spine. Bamboo spine (AS) always has sacroiliitis.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">OCI vs Sacroiliitis — The Erosion Clue</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 35-year-old woman, G3P3, has x-ray showing triangular dense sclerosis at the lower iliac portion of both SI joints bilaterally. She is asymptomatic. MRI looks similar to early axSpA. What distinguishes this from sacroiliitis?</div>
+      <div class="trap-a"><strong>Answer: This is Osteitis Condensans Ilii (OCI) — distinguished from axSpA by the ABSENCE of erosions.</strong> OCI: multiparous women, asymptomatic, triangular dense sclerosis on the ILIAC side. No erosions = no axSpA. Early MRI can be indistinguishable. Also note: OCI can occur in nulliparous women and even men.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Infection Side Effects by Biologic Class</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient on a biologic for SpA develops recurrent mucosal Candida infections of the mouth and genitals. Which drug class is responsible?</div>
+      <div class="trap-a"><strong>Answer: IL-17 inhibitors (IL-17i) — mucosal and skin Candida infections are characteristic of this class.</strong> Memory: <strong>TB reactivation → TNFi</strong> (screen before starting) | <strong>Herpes zoster → JAKi</strong> | <strong>Candida (mucosal/skin) → IL-17i</strong>. Bacterial infections occur with both biologics and JAKis.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">CASPAR Criteria — Points Required</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient has: inflammatory arthritis of the knee (confirmed), psoriasis present now (2 pts), negative RF (1 pt), and no dactylitis or nail changes. Does she meet CASPAR for PsA?</div>
+      <div class="trap-a"><strong>Answer: YES — she has 3 points (current psoriasis = 2, negative RF = 1) plus inflammatory articular disease, meeting the CASPAR threshold of ≥3 points.</strong> The CASPAR criteria require inflammatory articular disease (joint, spine, or entheseal) PLUS ≥3 points. Specificity 98.7%, sensitivity 91.4%. Note: current psoriasis alone gives 2 points — the highest single-item score.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">Vedolizumab Can Cause SpA Flare</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with Crohn's disease who had no prior joint symptoms starts vedolizumab. 3 months later she develops inflammatory back pain and sacroiliitis on MRI. What happened?</div>
+      <div class="trap-a"><strong>Answer: Vedolizumab (gut-selective integrin inhibitor) can paradoxically cause new-onset or flare of SpA/pSpA in up to 15% of IBD patients treated with it.</strong> Vedolizumab works selectively in the gut — it may redirect systemic immune activity to joints. This is an important adverse event to know.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 12</span><span class="trap-title">Diagnostic Delay &amp; The IBP Misnomer</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Boards often try to imply that "inflammatory back pain" means confirmed inflammation on imaging. Is this accurate?</div>
+      <div class="trap-a"><strong>Answer: NO — "inflammatory back pain" (IBP) is a clinical term and a misnomer. Only 15% of patients with IBP have demonstrable inflammation in the axial skeleton on imaging.</strong> Also: the diagnostic delay for axSpA is 5–14 years from symptom onset. ESR/CRP are elevated in only 30–40% of active axSpA — not sensitive enough to rule in or out. Women are commonly misdiagnosed with fibromyalgia, adding further delay.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 13</span><span class="trap-num">13</span><span class="trap-title">PsA + IBD — Which Biologic Is Safe?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with PsA and active Crohn's disease needs a biologic. What should you choose?</div>
+      <div class="trap-a"><strong>Answer: TNF monoclonal antibodies (adalimumab, infliximab, certolizumab, golimumab), anti-IL-12/23 (ustekinumab), anti-IL-23 (guselkumab, risankizumab), or JAKi.</strong> IL-17 inhibitors are <strong>contraindicated in active IBD</strong> (can use if only history of IBD, not currently active). For patients with both active IBD and uveitis — prioritize TNF monoclonal Ab.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 14</span><span class="trap-title">Syndesmophytes in PsA vs AS</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Spine x-ray shows large, bulky, asymmetric syndesmophytes that seem to arise from the middle of the vertebral body, NOT from the corners. The patient has psoriasis. What disease does this pattern suggest?</div>
+      <div class="trap-a"><strong>Answer: Psoriatic Arthritis (PsA).</strong> PsA syndesmophytes are <strong>nonmarginal, chunky, and asymmetric</strong> — they arise from sites AWAY from vertebral corners. In contrast, AS syndesmophytes are <strong>vertical, marginal, symmetric</strong>. PsA also more commonly shows unilateral sacroiliitis, whereas AS is typically bilateral.</div>
+    </div>
+  </div>
+
+  <hr class="sep">
+  <div class="sub">
+    <h3>Quick-Reference Master Table</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Feature</th><th>axSpA/AS</th><th>PsA</th><th>ReA</th><th>IBD-Arthritis</th></tr></thead>
+        <tbody>
+          <tr><td>HLA-B27</td><td>85–90% (r-axSpA)</td><td>20% overall; 50% axial PsA</td><td>50–80%</td><td>Not a risk factor</td></tr>
+          <tr><td>Sacroiliitis</td><td>Bilateral, symmetric</td><td>Unilateral, asymmetric</td><td>Can occur</td><td>Can occur; similar to idiopathic axSpA</td></tr>
+          <tr><td>Syndesmophytes</td><td>Vertical, marginal, symmetric</td><td>Chunky, nonmarginal, asymmetric</td><td>Rare</td><td>Similar to axSpA</td></tr>
+          <tr><td>Skin</td><td>10% psoriasis</td><td>Psoriasis present (defining feature)</td><td>Keratoderma blennorrhagica</td><td>Erythema nodosum, pyoderma</td></tr>
+          <tr><td>Dactylitis</td><td>Uncommon</td><td>Common; marker of severity</td><td>Can occur</td><td>Rare</td></tr>
+          <tr><td>Uveitis</td><td>Acute, anterior, unilateral, episodic (40%)</td><td>Posterior uveitis also seen (5%)</td><td>Conjunctivitis</td><td>Uveitis possible</td></tr>
+          <tr><td>IBD</td><td>Frank 10%; subclinical 50%</td><td>Can coexist (Crohn's/UC)</td><td>Not typical</td><td>Defining feature</td></tr>
+          <tr><td>First-line therapy</td><td>NSAIDs → TNFi or IL-17i</td><td>NSAIDs → csDMARDs → biologics</td><td>NSAIDs; intraarticular GC</td><td>TNF monoclonal Ab or JAKi</td></tr>
+          <tr><td>Avoid</td><td>IL-17i in active IBD; systemic GC; csDMARDs for axial disease</td><td>IL-17i in active IBD; systemic GC; JAKi before TNFi failure</td><td>Long-term antibiotics (not recommended)</td><td>IL-17i in active IBD; NSAIDs only temporarily (can flare IBD)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">Harrison's Principles · Chapter 374 · Deodhar &amp; Elewaut · Spondyloarthritis · Boards Review · 2026</footer>
+
+<script>
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
