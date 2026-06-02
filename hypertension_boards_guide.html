@@ -1611,10 +1611,22 @@ tbody td:first-child{color:var(--tx);font-weight:500}
 <footer class="footer">Harrison's Principles of Internal Medicine · Chapter 288 · Hypertension · Boards Review · Venos 2026</footer>
 
 <script>
+/* ── ACCORDION TOGGLE ── */
+function tog(hd) {
+  const item = hd.closest('.toggle-item') || hd.parentElement;
+  const body = item.querySelector('.toggle-body');
+  const arrow = hd.querySelector('.toggle-arrow');
+  if (!body) return;
+  const isOpen = body.style.display === 'block';
+  body.style.display = isOpen ? 'none' : 'block';
+  if (arrow) arrow.textContent = isOpen ? '▶' : '▼';
+}
+
 /* ══════════════════════════════════════════
    VENOS BOARDS HUB — Annotation System v4
    ✓ Highlights persist across sessions
    ✓ Note anchors restore on page reload
+   ✓ tog() accordion works
    ✓ CLEAR removes everything
 ══════════════════════════════════════════ */
 
@@ -1628,15 +1640,14 @@ function setHL(c) {
   curColor = c; eraseMode = false;
   document.body.style.cursor = 'crosshair';
   document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
-  document.getElementById('h-' + c).classList.add('active');
+  const map={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};
+  if(document.getElementById(map[c])) document.getElementById(map[c]).classList.add('active');
 }
-
 function setErase() {
   eraseMode = true; curColor = null;
   document.body.style.cursor = 'cell';
   document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
 }
-
 function applyHL(range, color) {
   try {
     const span = document.createElement('span');
@@ -1656,7 +1667,6 @@ function applyHL(range, color) {
     } catch(e2) {}
   }
 }
-
 function saveHighlights() {
   const spans = document.querySelectorAll('.hl[data-hl-color]');
   const data = [];
@@ -1666,7 +1676,6 @@ function saveHighlights() {
   });
   try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
 }
-
 function restoreHighlights() {
   let saved;
   try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
@@ -1692,16 +1701,16 @@ function restoreHighlights() {
     }
   });
 }
-
 function getNotes() {
   try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
 }
 function saveNotes(n) {
   try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
 }
-
 function addNote() {
-  const txt = document.getElementById('sn-ta').value.trim();
+  const ta = document.getElementById('sn-ta');
+  if (!ta) return;
+  const txt = ta.value.trim();
   if (!txt) return;
   const id = Date.now();
   const notes = getNotes();
@@ -1729,12 +1738,12 @@ function addNote() {
     }
     savedRange = null;
   }
-  document.getElementById('sn-ta').value = '';
+  ta.value = '';
   selText = '';
-  document.getElementById('sn-ref-txt').textContent = '—';
+  const ref = document.getElementById('sn-ref-txt');
+  if (ref) ref.textContent = '—';
   renderNotes();
 }
-
 function bindAnchor(span, id) {
   span.addEventListener('click', function(e) {
     e.stopPropagation();
@@ -1742,7 +1751,6 @@ function bindAnchor(span, id) {
     if (note) showPopover(span, note);
   });
 }
-
 function restoreAnchors() {
   const notes = getNotes();
   if (!notes.length) return;
@@ -1775,7 +1783,6 @@ function restoreAnchors() {
     }
   });
 }
-
 function deleteNote(id) {
   saveNotes(getNotes().filter(n => n.id !== id));
   document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
@@ -1785,10 +1792,10 @@ function deleteNote(id) {
   closePopover();
   renderNotes();
 }
-
 function renderNotes() {
   const body = document.getElementById('sn-body');
   const empty = document.getElementById('sn-empty');
+  if (!body) return;
   const notes = getNotes();
   body.querySelectorAll('.sn-note').forEach(el => el.remove());
   if (!notes.length) { if (empty) empty.style.display = ''; return; }
@@ -1807,11 +1814,10 @@ function renderNotes() {
     makeResizable(card, note.id);
   });
 }
-
 let activePopNoteId = null;
-
 function showPopover(anchorEl, note) {
   const pop = document.getElementById('note-popover');
+  if (!pop) return;
   document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
   document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
   document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
@@ -1822,19 +1828,21 @@ function showPopover(anchorEl, note) {
   pop.classList.add('show');
 }
 function closePopover() {
-  document.getElementById('note-popover').classList.remove('show');
+  const pop = document.getElementById('note-popover');
+  if (pop) pop.classList.remove('show');
   activePopNoteId = null;
 }
 document.addEventListener('click', function(e) {
-  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+  const pop = document.getElementById('note-popover');
+  if (pop && !pop.contains(e.target)) closePopover();
 });
-
 document.addEventListener('mouseup', function(e) {
   const tb = document.getElementById('toolbar');
   const sb = document.getElementById('sn-sidebar');
   const np = document.getElementById('note-popover');
-  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
-
+  if (tb && tb.contains(e.target)) return;
+  if (sb && sb.contains(e.target)) return;
+  if (np && np.contains(e.target)) return;
   if (eraseMode && e.target.classList.contains('hl')) {
     const el = e.target;
     el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
@@ -1842,20 +1850,18 @@ document.addEventListener('mouseup', function(e) {
     saveHighlights();
     return;
   }
-
   const sel = window.getSelection();
   if (!sel || sel.isCollapsed) return;
   const txt = sel.toString().trim();
   if (!txt) return;
   selText = txt;
   savedRange = sel.getRangeAt(0).cloneRange();
-  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
-
+  const refEl = document.getElementById('sn-ref-txt');
+  if (refEl) refEl.textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
   if (curColor) {
     try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
   }
 });
-
 function clearAll() {
   if (!confirm('Clear ALL highlights and notes?')) return;
   document.querySelectorAll('.hl').forEach(el => {
@@ -1873,16 +1879,16 @@ function clearAll() {
   closePopover();
   renderNotes();
 }
-
 function toggleSidebar() {
   const sb = document.getElementById('sn-sidebar');
   const tab = document.getElementById('sn-tab');
+  if (!sb) return;
   sb.classList.toggle('hidden');
-  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+  if (tab) tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
 }
-
 function makeResizable(card, noteId) {
   const handle = card.querySelector('.sn-resize');
+  if (!handle) return;
   let startY = 0, startH = 0;
   handle.addEventListener('mousedown', function(e) {
     e.preventDefault(); e.stopPropagation();
@@ -1896,14 +1902,6 @@ function makeResizable(card, noteId) {
     document.addEventListener('mouseup', onUp);
   });
 }
-
-document.querySelectorAll('.lbtn').forEach(b => {
-  b.addEventListener('click', function() { this.classList.toggle('on'); });
-});
-document.querySelectorAll('.fbtn').forEach(b => {
-  b.addEventListener('click', function() { this.classList.toggle('on'); });
-});
-
 const _sections = document.querySelectorAll('.sec[id]');
 const _navLinks = document.querySelectorAll('.toc-a');
 _sections.forEach(s => new IntersectionObserver(entries => {
@@ -1914,6 +1912,7 @@ _sections.forEach(s => new IntersectionObserver(entries => {
   }
 }, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
 
+/* ── INIT ── */
 restoreHighlights();
 restoreAnchors();
 renderNotes();
