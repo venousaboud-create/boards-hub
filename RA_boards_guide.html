@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Rheumatoid Arthritis · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#6b1a1a 0%,#8b2222 60%,#6b1a1a 100%);color:#fff;padding:44px 52px 36px;border-bottom:4px solid #fbbf24;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;padding:0 12px;display:flex;align-items:center;white-space:nowrap;border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--red);border-bottom-color:var(--red)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--red-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--red);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}.main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+.flow{background:#fff;border:1.5px solid var(--bd);border-radius:8px;padding:20px;margin:14px 0;text-align:center}
+.flow-box{display:inline-block;background:var(--blu-l);border:1.5px solid var(--blu);border-radius:6px;padding:7px 14px;font-size:12px;font-weight:600;color:var(--blu-d);margin:4px}
+.flow-box.red{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.flow-box.grn{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.flow-box.amb{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.flow-box.pur{background:var(--pur-l);border-color:var(--pur);color:var(--pur)}
+.flow-arr{font-size:18px;color:var(--t3);display:block;line-height:1.4;margin:4px 0}
+.flow-row{display:flex;justify-content:center;align-items:flex-start;gap:10px;flex-wrap:wrap;margin:6px 0}
+.flow-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd"><span>📝 My Notes</span><button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button></div>
+  <div id="sn-body"><div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div></div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles · Chapter 370 · Rheumatology</div>
+  <h1>Rheumatoid Arthritis</h1>
+  <div class="hero-sub">Shah & St. Clair · Medical Boards Review · 2026</div>
+  <div class="hero-authors">Symmetric Erosive Polyarthritis · Autoimmunity · Treat to Target</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">0.5–1%</div><div class="stat-l">Adult Prevalence</div></div>
+    <div class="stat-box"><div class="stat-n">2–3:1</div><div class="stat-l">Female:Male Ratio</div></div>
+    <div class="stat-box"><div class="stat-n">≥6</div><div class="stat-l">ACR/EULAR Score for RA</div></div>
+    <div class="stat-box"><div class="stat-n">95%</div><div class="stat-l">Anti-CCP Specificity</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Overview</a>
+    <a class="toc-a" href="#s2">Joints & Deformities</a>
+    <a class="toc-a" href="#s3">Extra-articular</a>
+    <a class="toc-a" href="#s4">Epidemiology & Genetics</a>
+    <a class="toc-a" href="#s5">Pathology & Pathogenesis</a>
+    <a class="toc-a" href="#s6">Diagnosis & Labs</a>
+    <a class="toc-a" href="#s7">Treatment — DMARDs</a>
+    <a class="toc-a" href="#s8">Biologics & Special Topics</a>
+    <a class="toc-a" href="#s9">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══════════════ SECTION 1 ═══════════════ -->
+<section class="sec" id="s1">
+  <div class="sec-hd"><span class="sec-n">01</span><h2>Overview &amp; Introduction</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Definition</div>
+    Rheumatoid arthritis (RA) is a <b>chronic inflammatory disease</b> characterized by a <b>symmetric, erosive polyarthritis</b>. It is the <b>most common form of chronic inflammatory arthritis</b>. Persistently active RA → articular cartilage and bone destruction and functional disability. RA is a <b>systemic disease</b> with multiple extra-articular manifestations.
+  </div>
+
+  <div class="sub">
+    <h3>Why Early Aggressive Treatment Is Essential</h3>
+    <ul class="bl">
+      <li>Delays in starting effective treatment are associated with <b>worse outcomes</b></li>
+      <li>Reaching low disease activity and remission is now an achievable goal for most patients</li>
+      <li>Primary care practitioners must <b>refer early</b> to rheumatologist — early referral is key</li>
+      <li>The past 20 years have seen remarkable improvement in RA outcomes — the crippling arthritis of years past is encountered much less frequently</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Key Biomarkers</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Rheumatoid Factor (RF)</div>
+        <p>IgM isotype most commonly measured. Found in <b>75%</b> of RA patients. Lacks diagnostic specificity — also found in Sjögren's, SLE, cryoglobulinemia, SBE, hepatitis B/C. Present in <b>1–5% of healthy population</b>. Has prognostic significance.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Anti-CCP / ACPA</div>
+        <p>Anti-citrullinated protein antibodies. Same sensitivity as RF (~75%) but <b>specificity ~95%</b> — far superior. Positive anti-CCP in early inflammatory arthritis is highly useful for distinguishing RA. Shows the <b>most value for predicting worse outcomes</b>.</p>
+      </div>
+    </div>
+    <div class="co wrn">
+      <div class="co-t">Seropositivity</div>
+      <b>~75% of RA patients are seropositive</b> (positive RF and/or ACPA). The remaining ~<b>25% are seronegative</b>. There is incremental value in testing BOTH RF and anti-CCP — some patients are positive for RF but negative for anti-CCP and vice versa.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Extra-articular Manifestations — Who Gets Them?</h3>
+    <p>Develop in up to <b>40% of patients</b>, even prior to onset of arthritis. Risk factors for extra-articular disease:</p>
+    <ul class="bl">
+      <li>History of <b>cigarette smoking</b></li>
+      <li>Early onset of significant <b>physical disability</b></li>
+      <li>Positive test for <b>serum RF or ACPA</b></li>
+    </ul>
+    <p>Most frequent extra-articular manifestations: subcutaneous nodules, Sjögren's disease, ILD, pulmonary nodules, anemia. Recent studies show a <b>decrease in incidence/severity</b> of many extra-articular manifestations (especially Felty's syndrome and vasculitis) — attributed to early aggressive therapy.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ SECTION 2 ═══════════════ -->
+<section class="sec" id="s2">
+  <div class="sec-hd"><span class="sec-n">02</span><h2>Clinical Features — Joints &amp; Deformities</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Onset Pattern</h3>
+    <ul class="bl">
+      <li>Incidence increases between ages <b>25–55</b>, then plateaus until 75, then decreases</li>
+      <li>Presenting symptoms: inflammation of <b>joints, tendons, and bursae</b></li>
+      <li>Morning stiffness lasting <b>&gt;1 hour</b>, eases with physical activity</li>
+      <li>Initial pattern: monoarticular, oligoarticular (≤4 joints), or <b>polyarticular (&gt;5 joints)</b>, usually <b>symmetric</b></li>
+      <li>Some present with undifferentiated inflammatory arthritis — those most likely to later be diagnosed with RA have higher tender/swollen joint counts, positive RF or ACPA, and higher disability scores</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Joint Distribution</h3>
+    <div class="co key">
+      <div class="co-t">Most Frequently Involved in Established RA</div>
+      <b>Wrists + MCP + PIP joints</b> — symmetric involvement. <b>DIP joint involvement</b> in RA patients is usually due to <b>coexistent osteoarthritis</b>, not RA itself. This is a board-testable distinction.
+    </div>
+    <ul class="bl">
+      <li><b>Flexor tendon tenosynovitis</b>: hallmark of RA → decreased ROM, reduced grip strength, "trigger" fingers</li>
+      <li>Most common tendon to rupture: <b>flexor pollicis longus</b></li>
+      <li><b>MTP joint involvement</b>: early feature; lateral 5th MTP often targeted first on x-ray</li>
+      <li><b>Large joints</b> (knees, shoulders): often affected in established disease; may be asymptomatic for many years</li>
+      <li>Ankle/midtarsal regions → <b>pes planovalgus</b> ("flat feet") — usually later</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Classic Deformities of Long-Standing RA</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Deformity</th><th>Mechanism &amp; Description</th></tr></thead>
+        <tbody>
+          <tr><td>Ulnar deviation</td><td>Subluxation of MCP joints → proximal phalanx slides to volar side; caused by soft tissue/tendon damage</td></tr>
+          <tr><td>Swan-neck deformity</td><td><b>Hyperextension of PIP + flexion of DIP</b> — damage to tendons and joint capsule</td></tr>
+          <tr><td>Boutonnière deformity</td><td><b>Flexion of PIP + hyperextension of DIP</b> — opposite of swan-neck</td></tr>
+          <tr><td>Z-line (Z-thumb) deformity</td><td>Subluxation of 1st MCP joint + hyperextension of 1st IP joint</td></tr>
+          <tr><td>"Piano-key" ulnar styloid</td><td>Inflammation about ulnar styloid + extensor carpi ulnaris tenosynovitis → distal ulna subluxation; pressing ulnar styloid rebounds like a piano key</td></tr>
+          <tr><td>Pes planovalgus</td><td>"Flat feet" — chronic ankle and midtarsal inflammation</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Cervical Spine</h3>
+    <div class="co wrn">
+      <div class="co-t">Atlantoaxial Involvement</div>
+      RA can involve C1 on C2 (atlantoaxial subluxation) → <b>compressive myelopathy</b>. Neurologic manifestations rarely the presenting sign but may slowly evolve. Prevalence is <b>now &lt;10% of patients</b> (declining due to better therapy). <b>Unlike spondyloarthritis, RA rarely affects the thoracic and lumbar spine.</b>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Course</h3>
+    <ul class="bl">
+      <li><b>10%</b> undergo spontaneous remission within 6 months (especially seronegative patients)</li>
+      <li>The vast majority: <b>persistent, progressive disease</b> that waxes and wanes</li>
+      <li>A minority: intermittent explosive attacks with periods of quiescence</li>
+      <li>Mortality: <b>2x the general population</b>; life expectancy shortened by <b>7 years for men, 3 years for women</b></li>
+      <li>High-risk for shortened survival: systemic extraarticular involvement, low functional capacity, low SES, low education, chronic prednisone use</li>
+      <li>HAQ disability worsens over time with poorly controlled disease</li>
+      <li>Historically &gt;50% unable to work 10 years after onset; improved with newer therapies</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════ SECTION 3 ═══════════════ -->
+<section class="sec" id="s3">
+  <div class="sec-hd"><span class="sec-n">03</span><h2>Extra-articular Manifestations</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Constitutional Symptoms</h3>
+    <ul class="bl">
+      <li>Weight loss, fever, fatigue, malaise, depression, cachexia (most severe cases)</li>
+      <li>Reflect high degree of inflammation; may <b>precede</b> onset of joint symptoms</li>
+      <li>Fever &gt;38.3°C at any time → raise suspicion for <b>systemic vasculitis or infection</b></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Subcutaneous Nodules</h3>
+    <ul class="bl">
+      <li>Reported in <b>30–40% of patients</b> (declining prevalence with modern therapy)</li>
+      <li>More common with: highest disease activity, positive RF, shared epitope (SE), radiographic erosions</li>
+      <li>Character: firm, nontender, adherent to periosteum/tendons/bursae</li>
+      <li>Sites: forearm, sacral prominences, Achilles tendon (areas of repeated trauma)</li>
+      <li>Also occur in: lungs, pleura, pericardium, peritoneum</li>
+      <li>Typically benign; can be associated with infection, ulceration, gangrene</li>
+      <li><b>Accelerated growth of smaller nodules</b> in up to <b>10% of patients on long-term methotrexate</b></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Pulmonary Manifestations</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Pleuritis — MOST COMMON Pulmonary Manifestation</div>
+        <p>Pleuritic chest pain and dyspnea; pleural friction rub; pleural effusion on x-ray. Effusions are <b>exudative</b> with increased monocytes and neutrophils.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">ILD — Interstitial Lung Disease</div>
+        <p>Dry cough + progressive SOB. Associated with smoking. Prevalence up to <b>12%</b>; diagnosed in 3.5% before joint symptoms. Diagnosis: <b>high-resolution CT</b> showing infiltrative opacification or ground-glass opacities in periphery of both lungs. Confers poor prognosis.</p>
+      </div>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>ILD Pattern</th><th>CT Findings</th><th>Prognosis</th></tr></thead>
+        <tbody>
+          <tr><td>UIP (Usual Interstitial Pneumonia)</td><td>Honeycombing in <b>periphery and lower lobes</b></td><td>Progressive scarring; prognosis not as poor as idiopathic UIP; responds to immunosuppression</td></tr>
+          <tr><td>NSIP (Nonspecific Interstitial Pneumonia)</td><td>Relatively symmetric, bilateral <b>ground-glass opacities</b> with fine reticulations, volume loss, traction bronchiectasis</td><td>Both patterns: <b>restrictive pattern on PFTs + reduced DLCO</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="bl">
+      <li><b>Pulmonary nodules</b>: common; solitary or multiple</li>
+      <li><b>Caplan's syndrome</b>: rare subset — pulmonary nodules + <b>pneumoconiosis after silica exposure</b></li>
+      <li>Less commonly: respiratory bronchiolitis and bronchiectasis</li>
+    </ul>
+    <div class="co prl">
+      <div class="co-t">RA-ILD Treatment Challenge</div>
+      RA-ILD is treated with high-dose corticosteroids + adjunctive immunosuppression (azathioprine, mycophenolate mofetil, or rituximab). Challenging because <b>methotrexate and leflunomide themselves can cause pulmonary toxicity</b>.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Cardiac Manifestations</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-r">Pericarditis — MOST COMMON Cardiac Manifestation</div>
+        <p>Clinical pericarditis in <b>&lt;10%</b>. BUT pericardial involvement detectable by echo/autopsy in <b>nearly half</b> of cases. Asymptomatic pericardial effusions on echo: <b>up to 20%</b>.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Cardiomyopathy</div>
+        <p>From necrotizing or granulomatous myocarditis, CAD, or diastolic dysfunction. May be subclinical — identified only by echo or cardiac MRI.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">CVD — Cardiovascular Disease</div>
+        <p><b>Most common cause of DEATH in RA.</b> Coronary artery disease + carotid atherosclerosis higher than general population <b>even after controlling for traditional risk factors</b>. CHF: <b>~2x higher rate</b> in RA vs general population.</p>
+      </div>
+    </div>
+    <ul class="bl">
+      <li>Heart muscle may contain rheumatoid nodules or be infiltrated with amyloid (rare)</li>
+      <li>Elevated serum inflammatory markers → increased cardiovascular risk</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Vasculitis</h3>
+    <ul class="bl">
+      <li>Incidence now <b>&lt;1% of patients</b> (significantly decreased)</li>
+      <li>Occurs in: <b>long-standing disease + positive RF/ACPA + hypocomplementemia</b></li>
+      <li>Cutaneous signs: petechiae, purpura, digital infarcts, gangrene, livedo reticularis, large painful lower-extremity ulcerations</li>
+      <li>Vasculitic ulcers can mimic venous insufficiency ulcers</li>
+      <li><b>Mononeuritis multiplex</b>: sensorimotor polyneuropathy associated with systemic rheumatoid vasculitis; presents with numbness, tingling, or focal muscle weakness</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Hematologic Manifestations</h3>
+    <div class="g2">
+      <div>
+        <h4>Anemia</h4>
+        <ul class="bl">
+          <li><b>Most common hematologic abnormality</b> in RA</li>
+          <li>Normochromic, normocytic anemia (anemia of chronic disease)</li>
+          <li>Degree of anemia <b>parallels degree of inflammation</b> (correlates with CRP and ESR)</li>
+          <li>Thrombocytosis: platelets elevated as acute-phase reactant; immune-mediated thrombocytopenia is rare</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Felty's Syndrome</h4>
+        <ul class="bl">
+          <li>Clinical triad: <b>neutropenia + splenomegaly + nodular RA</b></li>
+          <li>Seen in <b>&lt;1% of patients</b> (declining incidence)</li>
+          <li>Typically occurs in <b>late stages of severe RA</b>; more common in whites</li>
+          <li><b>T-LGL leukemia</b>: similar presentation (neutropenia + splenomegaly); chronic indolent clonal LGL growth; <b>can develop EARLY in RA course</b> (unlike Felty's = late)</li>
+          <li>Leukopenia outside of these disorders = usually drug side effect</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Lymphoma</h3>
+    <ul class="bl">
+      <li>Large cohort studies: <b>2–4× increased risk</b> of lymphoma compared to general population</li>
+      <li>Most common type: <b>Diffuse large B-cell lymphoma</b></li>
+      <li>Risk increases with: high disease activity or Felty's syndrome</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Osteoporosis</h3>
+    <ul class="bl">
+      <li>Incidence <b>nearly double</b> age- and sex-matched healthy population</li>
+      <li>Prevalence approximately <b>one-third</b> in postmenopausal women with RA</li>
+      <li>Increased risk of fragility fracture, especially in women</li>
+      <li>Causes: inflammatory milieu activates osteoclasts; both trabecular and cortical bone affected (cortical more susceptible); chronic glucocorticoids; disability-related immobility</li>
+      <li><b>Hip fractures</b> in RA: significant predictor of increased disability and mortality</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Extra-articular Map</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>System</th><th>Manifestations</th></tr></thead>
+        <tbody>
+          <tr><td>Neurologic</td><td>Cervical myelopathy (atlantoaxial)</td></tr>
+          <tr><td>Ocular</td><td>Keratoconjunctivitis sicca, episcleritis, scleritis</td></tr>
+          <tr><td>Oral</td><td>Xerostomia, periodontitis</td></tr>
+          <tr><td>Pulmonary</td><td>Pleural effusions, pulmonary nodules, ILD, pulmonary vasculitis, organizing pneumonia</td></tr>
+          <tr><td>Cardiac</td><td>Pericarditis, ischemic heart disease, myocarditis, cardiomyopathy, arrhythmia, mitral regurgitation</td></tr>
+          <tr><td>Hematologic</td><td>Anemia of chronic disease, neutropenia, splenomegaly, Felty's syndrome, T-LGL leukemia, lymphoma</td></tr>
+          <tr><td>GI</td><td>Vasculitis</td></tr>
+          <tr><td>Renal</td><td>Membranous nephropathy, secondary amyloidosis</td></tr>
+          <tr><td>Skeletal</td><td>Osteoporosis</td></tr>
+          <tr><td>Endocrine</td><td>Hypoandrogenism</td></tr>
+          <tr><td>Skin</td><td>Rheumatoid nodules, purpura, pyoderma gangrenosum</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SECTION 4 ═══════════════ -->
+<section class="sec" id="s4">
+  <div class="sec-hd"><span class="sec-n">04</span><h2>Epidemiology &amp; Genetics</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Epidemiology</h3>
+    <ul class="bl">
+      <li>RA affects <b>~0.5–1%</b> of adult population worldwide</li>
+      <li>Overall incidence <b>decreasing</b>; prevalence <b>stable</b> (patients living longer)</li>
+      <li>Female:male = <b>2–3:1</b> (some Latin American/African countries: 6–8:1)</li>
+      <li>Highest prevalence: Yakima, Pima, Chippewa Native American tribes (~<b>7%</b>)</li>
+      <li>Lower prevalence: Africa and Asia (<b>0.2–0.4%</b>)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Genetics — The Shared Epitope</h3>
+    <div class="co key">
+      <div class="co-t">Core Genetic Concept</div>
+      The alleles conferring greatest RA risk are in the <b>MHC class II region</b>, specifically allelic variation in <b>HLA-DRB1</b> (encodes MHC class II β-chain). Disease-associated HLA-DRB1 alleles share an amino acid sequence at <b>positions 70–74</b> in the third hypervariable region of the HLA-DRβ chain — termed the <b>shared epitope (SE)</b>. This site sits in the antigen-binding groove. Heritability estimates: <b>40–60%</b> (higher in ACPA-positive patients).
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">SE Alleles — Risk Levels</div>
+        <p><b>High risk: HLA-DRB1*0401</b><br>Moderate risk: *0101, *0404, *1001, *0901<br><b>Protective: HLA-DRB1*1301 and *1302</b> — confer protection from ACPA-positive RA<br>&gt;90% of RA patients express ≥1 risk variant</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">SE Risk Quantification</div>
+        <p>Carrying <b>1 SE allele → 4× higher risk</b> of RA vs SE-negative<br>Carrying <b>2 SE alleles → 8× higher risk</b><br>SE carriership also associated with ACPA production and worse disease outcomes</p>
+      </div>
+    </div>
+    <p>Post-translationally modified proteins (via citrullination, acetylation, carbamylation) bind with <b>greater avidity to the SE</b> — providing a molecular explanation for increased disease risk.</p>
+
+    <h4>Non-MHC Risk Genes (GWAS)</h4>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Gene</th><th>Function</th><th>Key Notes</th></tr></thead>
+        <tbody>
+          <tr><td>PTPN22</td><td>Encodes lymphoid tyrosine phosphatase — regulates T- and B-cell function</td><td><b>Gain-of-function</b> → abnormal thymic selection of autoreactive T and B cells. Associated <b>exclusively with ACPA-positive disease</b>. Absent in <b>East Asian</b> ancestry. Frequency varies 3–10% in Europeans.</td></tr>
+          <tr><td>PADI4</td><td>Encodes enzyme converting arginine → citrulline</td><td><b>2× risk</b> of RA; primarily in <b>East Asian</b> descent. Postulated role in development of antibodies to citrullinated antigens.</td></tr>
+          <tr><td>APOM (apolipoprotein M)</td><td>East Asian population</td><td>Increased RA risk + risk for dyslipidemia, independent of RA disease activity</td></tr>
+          <tr><td>Other GWAS loci (&gt;100)</td><td>Regulation of immune response</td><td>Only modest individual effects. Also contribute risk for T1DM, SLE, multiple sclerosis. GWAS alleles account for only <b>~5% of genetic risk</b> — rare variants likely contribute more.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co prl">
+      <div class="co-t">Epigenetics</div>
+      Heritable traits affecting gene expression without modifying DNA sequence. Involved in: disease etiology, perpetuation of chronic inflammation, disease severity. Mechanisms: DNA methylation, posttranslational histone modifications, microRNAs. Smoking-related ACPA-positive RA patients with the SE have higher DNA methylation levels than nonsmokers.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Environmental Factors</h3>
+
+    <h4>Smoking — Most Reproducible Environmental Link</h4>
+    <div class="co dan">
+      <div class="co-t">Critical Board Numbers</div>
+      SE alleles alone: <b>4–6× increased RA risk</b><br>Smoking alone: increases risk<br><b>SE alleles + smoking combined: 20–40× increased risk</b><br>Women who smoke: <b>2.5× greater risk</b>; persists <b>15 years after smoking cessation</b>. Smoking risk almost exclusively related to <b>RF and ACPA-positive disease.</b><br><b>Smoking cessation does NOT reduce the severity or extent of joint inflammation</b>.
+    </div>
+    <ul class="bl">
+      <li>Inhalant-related occupations and silica inhalants also increase RA risk</li>
+      <li>Theory: subclinical lung disease may be a <b>critical early step</b> — autoantibodies appear more than a decade before clinical joint disease</li>
+      <li>Smoking → increased citrullination of proteins in bronchoalveolar fluid → PADI expression in lung → neoepitopes → self-reactivity → immune complexes → joint inflammation</li>
+    </ul>
+
+    <h4>Microbiome</h4>
+    <ul class="bl">
+      <li><b>Porphyromonas gingivalis</b>: the only oral bacterial species with <b>peptidyl arginine deiminase (PAD) enzyme</b> → catalyzes citrullination → induces ACPA. Link between periodontitis, ACPA-positive RA, and smoking.</li>
+      <li>Gut microbiome: <b>Prevotella copri</b> enriched in early untreated RA and "at-risk" population</li>
+    </ul>
+
+    <h4>Infectious Agents</h4>
+    <ul class="bl">
+      <li><b>EBV (Epstein-Barr virus)</b>: most interest among viruses; IgG antibodies against EBV significantly higher in RA; EBV DNA found in synovial fluid and synovial cells of RA patients. Evidence is largely circumstantial.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════ SECTION 5 ═══════════════ -->
+<section class="sec" id="s5">
+  <div class="sec-hd"><span class="sec-n">05</span><h2>Pathology &amp; Pathogenesis</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Pathologic Hallmarks</h3>
+    <div class="co key">
+      <div class="co-t">Three Core Pathologic Findings</div>
+      <b>(1) Synovial inflammation and proliferation</b> &nbsp;|&nbsp; <b>(2) Focal bone erosions</b> &nbsp;|&nbsp; <b>(3) Thinning of articular cartilage</b>
+    </div>
+    <ul class="bl">
+      <li>Synovial membrane normally thin — consists of <b>type A synoviocytes</b> (macrophage-derived) + <b>type B synoviocytes</b> (fibroblast-derived). Fibroblasts are most abundant — produce collagen, fibronectin, laminin.</li>
+      <li>Chronic inflammation → <b>synovial lining hyperplasia</b> + formation of <b>pannus</b>: thickened cellular membrane of fibroblast-like synoviocytes + granulation-reactive fibrovascular tissue → invades underlying cartilage and bone</li>
+      <li>Inflammatory infiltrate: <b>T cells (30–50%)</b>, B cells, plasma cells, dendritic cells, mast cells, granulocytes. May form lymphoid follicles and germinal center-like structures.</li>
+      <li>Bone erosion mediated by <b>osteoclasts</b> at the pannus-bone interface (resorption lacunae)</li>
+      <li>Bone erosions at <b>radial sites of MCP joints</b> — where synovial membrane inserts into periosteal surface near articular cartilage; at attachment sites of tendons, collateral ligaments</li>
+      <li><b>Periarticular osteopenia</b>: thinning of bony trabeculae from bone marrow inflammation; seen on MRI as signal alterations</li>
+      <li><b>Bone marrow lesions on MRI = forerunner of bone erosions</b></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Key Cellular Players</h3>
+
+    <h4>CD4+ T Cells — Central Orchestrators</h4>
+    <ul class="bl">
+      <li><b>Signal 1:</b> TCR binds peptide-MHC class II on APCs</li>
+      <li><b>Signal 2:</b> CD28 binds CD80/86 on APCs (co-stimulatory signal)</li>
+      <li>TH1 cells: IFN-γ, lymphotoxin β, TNF-α</li>
+      <li>TH17 cells: IL-17, IL-21, IL-22, TNF-α, IL-26, IL-6, GM-CSF — induced by TGF-β + IL-1 + IL-6 + IL-23</li>
+      <li>IL-17 important for joint inflammation AND cartilage/bone destruction. BUT <b>anti-IL-17 antibodies were NOT particularly effective in RA clinical trials</b></li>
+      <li><b>Treg cells:</b> CD25+, FOXP3+; suppress inflammation via TGF-β, IL-10, IL-35. Data for suppression of RA inflammation are inconclusive.</li>
+    </ul>
+
+    <h4>Macrophages — The Main Cytokine Factory</h4>
+    <ul class="bl">
+      <li><b>RA is often considered a macrophage-driven disease</b> — predominant source of proinflammatory cytokines</li>
+      <li>Macrophage-like synoviocytes: <b>TNF-α, IL-1, IL-6, IL-12, IL-15, IL-18, IL-23</b></li>
+    </ul>
+
+    <h4>Synovial Fibroblasts</h4>
+    <ul class="bl">
+      <li>Produce: IL-1, IL-6, TNF-α; <b>MMPs</b> (matrix metalloproteinases — cartilage breakdown); VEGF (angiogenesis)</li>
+    </ul>
+
+    <h4>B Cells and Autoantibodies</h4>
+    <ul class="bl">
+      <li>B cells → plasma cells → <b>RF and ACPA</b></li>
+      <li>RF forms large immune complexes inside joint → fixes complement → proinflammatory cytokines and chemokines</li>
+      <li>In mouse models: RF-containing + ACPA-containing immune complexes <b>synergize</b> to exacerbate synovial inflammatory response</li>
+      <li>ACPA recognized citrulline-containing regions of filaggrin, keratin, fibrinogen, vimentin; present at <b>higher levels in joint fluid than serum</b></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>TNF-α — The Pivotal Cytokine</h3>
+    <ul class="bl">
+      <li>Upregulates adhesion molecules on endothelial cells → leukocyte influx</li>
+      <li>Stimulates production of IL-1, IL-6, GM-CSF</li>
+      <li>Drives <b>osteoclastogenesis</b></li>
+      <li>Upregulates <b>DKK-1</b> → inhibits Wnt pathway → <b>suppresses bone formation</b></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Bone Destruction vs Formation — The RANKL System</h3>
+    <div class="co wrn">
+      <div class="co-t">RANKL / OPG / DKK-1 Axis — High Yield</div>
+      <b>RANKL</b> (expressed by stromal cells, synovial fibroblasts, T cells) binds <b>RANK</b> on osteoclast progenitors → stimulates osteoclast differentiation and bone resorption.<br><br>
+      <b>OPG (osteoprotegerin)</b>: decoy receptor for RANKL → <b>blocks osteoclast formation</b>. Wnt proteins also induce OPG formation → shut down bone resorption.<br><br>
+      <b>M-CSF + RANKL</b> → monocytic cells fuse to form preosteoclasts → mature osteoclasts with ruffled membrane → secrete <b>cathepsin K</b> (cleaves collagen → bone matrix degradation).<br><br>
+      <b>DKK-1</b>: upregulated by TNF-α → inhibits Wnt pathway → <b>suppresses osteoblast differentiation and bone formation</b>. In RA, both increased bone resorption AND decreased bone formation occur.
+    </div>
+
+    <div class="sub">
+      <h3>Intracellular Signaling Pathways</h3>
+      <ul class="bl">
+        <li><b>JAK/STAT</b> — key target for JAK inhibitors</li>
+        <li><b>Syk</b> (spleen tyrosine kinase)</li>
+        <li><b>MAPKs</b> (mitogen-activated protein kinases)</li>
+        <li><b>NF-κB</b></li>
+        <li>JAKs are expressed in hematopoietic cells and play an important role in RA inflammatory response</li>
+        <li>JAK family: JAK1, JAK2, JAK3, Tyk2 — mediate signaling of IL-2, -4, -7, -9, -15, -21, IFN-γ, IL-6, IL-12, IL-23, IL-10, type I IFNs, hemopoietic cytokines</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SECTION 6 ═══════════════ -->
+<section class="sec" id="s6">
+  <div class="sec-hd"><span class="sec-n">06</span><h2>Diagnosis, Labs &amp; Imaging</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>2010 ACR/EULAR Classification Criteria</h3>
+    <div class="co key">
+      <div class="co-t">Score ≥6 = Definite RA (Total 0–10)</div>
+      Requires: ≥1 joint with definite clinical synovitis not better explained by another disease. These are <b>classification criteria, NOT diagnostic criteria</b> — they identify patients at onset who have high likelihood of evolution to chronic disease.
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Domain</th><th>Finding</th><th>Score</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="5">Joint Involvement</td><td>1 large joint (shoulder, elbow, hip, knee, ankle)</td><td>0</td></tr>
+          <tr><td>2–10 large joints</td><td>1</td></tr>
+          <tr><td>1–3 small joints (MCP, PIP, thumb IP, MTP, wrists)</td><td>2</td></tr>
+          <tr><td>4–10 small joints</td><td>3</td></tr>
+          <tr><td>&gt;10 joints (at least 1 small joint)</td><td><b>5</b></td></tr>
+          <tr><td rowspan="3">Serology</td><td>Negative RF AND negative ACPA</td><td>0</td></tr>
+          <tr><td>Low-positive RF or low-positive anti-CCP (≤3× ULN)</td><td>2</td></tr>
+          <tr><td>High-positive RF or high-positive anti-CCP (&gt;3× ULN)</td><td><b>3</b></td></tr>
+          <tr><td rowspan="2">Acute-Phase Reactants</td><td>Normal CRP AND normal ESR</td><td>0</td></tr>
+          <tr><td>Abnormal CRP OR abnormal ESR</td><td>1</td></tr>
+          <tr><td rowspan="2">Duration of Symptoms</td><td>&lt;6 weeks</td><td>0</td></tr>
+          <tr><td>≥6 weeks</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Rheumatoid nodules and radiographic joint damage were NOT included as items — they occur only rarely in early RA. These features may inform diagnosis in later stages.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Laboratory Features</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Test</th><th>Sensitivity</th><th>Specificity</th><th>Key Notes</th></tr></thead>
+        <tbody>
+          <tr><td>RF (IgM)</td><td>~75% of RA patients</td><td>Low — found in Sjögren's, SLE, cryoglobulinemia, SBE, hepatitis B/C; 1–5% healthy population</td><td>Negative result does NOT exclude RA. Prognostic significance.</td></tr>
+          <tr><td>Anti-CCP / ACPA</td><td>~Same as RF</td><td><b>~95%</b> — far superior to RF</td><td>Best for predicting worse outcomes. Positive in early inflammatory arthritis → highly specific for RA.</td></tr>
+          <tr><td>ANA</td><td>~30% of RA patients</td><td>Nonspecific</td><td>Would NOT expect anti-MPO or anti-PR3 (that would suggest ANCA-associated vasculitis)</td></tr>
+          <tr><td>ESR, CRP</td><td>Nonspecific</td><td>Nonspecific</td><td>Elevated in systemic inflammatory disease; useful for monitoring</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co prl">
+      <div class="co-t">Synovial Fluid Analysis</div>
+      WBC in RA synovial fluid: <b>5,000–50,000 WBC/μL</b> (vs &lt;2,000 for noninflammatory OA). Predominant cell = <b>neutrophil</b> (contrast to synovial tissue where T cells predominate). Most useful for: confirming inflammatory arthritis AND excluding infection or crystal-induced arthritis (gout/pseudogout).
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Imaging</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">Plain X-Ray</div>
+        <p>Most common in practice. Initial finding: <b>periarticular osteopenia</b> (difficult to appreciate on digitalized films). Other findings: soft tissue swelling, symmetric joint space loss, juxtaarticular and <b>subchondral erosions</b> (wrists, MCPs, PIPs, MTPs). Advanced: subluxation and collapse.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">MRI</div>
+        <p>Greatest sensitivity. Detects synovitis, effusions, early bone/bone marrow changes before x-ray. <b>Bone marrow edema = early sign</b> and <b>predicts subsequent erosions</b>. Limited by cost and availability.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Ultrasound + Doppler</div>
+        <p>Detects more erosions than plain x-ray (especially accessible joints). Detects synovitis (increased vascularity = inflammation). Advantages: <b>portable, no radiation, low cost</b>. Usefulness depends on sonographer experience.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Differential Diagnosis</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Condition</th><th>Key Distinguishing Features</th></tr></thead>
+        <tbody>
+          <tr><td>Primary Sjögren's syndrome</td><td>Dry eyes + dry mouth + polyarthralgia. <b>50% RF positive</b>. <b>ANA positive; ~2/3 have anti-Ro/SSA</b>. May mimic early RA.</td></tr>
+          <tr><td>Spondyloarthropathies (PsA, enteropathy-associated)</td><td>Sacroiliitis, enthesopathy, psoriasis, IBD. Asymmetric in contrast to RA.</td></tr>
+          <tr><td>PMR (polymyalgia rheumatica)</td><td>Elderly; neck/shoulder girdle + lower back/hip girdle pain and stiffness. Seronegative RA in elderly can be difficult to distinguish. PMR: rarely wrist/hand involvement (RA predominantly wrists/hands at onset).</td></tr>
+          <tr><td>RS3PE (remitting seronegative symmetrical synovitis with pitting edema)</td><td><b>Prominent distal limb pitting edema</b> (unusual in RA); responds promptly to low-dose prednisone.</td></tr>
+          <tr><td>Chronic tophaceous gout</td><td>Can mimic severe RA; tophi may be confused with rheumatoid nodules.</td></tr>
+          <tr><td>Hepatitis C arthropathy</td><td>Small joint involvement; <b>~50% positive RF</b>; <b>generally NOT ACPA positive</b>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Disease Activity Measures</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Clinical Trials (Dichotomous)</div>
+        <p><b>ACR 20, 50, 70</b> improvement criteria — 20%, 50%, 70% improvement in joint counts, physician/patient global, pain scale, acute-phase reactants, HAQ disability</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Clinical Practice (Continuous)</div>
+        <p><b>DAS</b> (Disease Activity Score), <b>SDAI</b>, <b>CDAI</b>, <b>RAPID3</b> — used for tracking disease status and documenting treatment response</p>
+      </div>
+    </div>
+    <div class="co suc">
+      <div class="co-t">ACR/EULAR Remission Definition (Table 370-3)</div>
+      <b>Option A:</b> At any time point, ALL of: tender joint count ≤1, swollen joint count ≤1, CRP ≤1 mg/dL, patient global assessment ≤1 (on 0–10 scale)<br><br>
+      <b>Option B:</b> SDAI score ≤3.3 (SDAI = tender joint count + swollen joint count + patient global + physician global + CRP in mg/dL using 28 joints)
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SECTION 7 ═══════════════ -->
+<section class="sec" id="s7">
+  <div class="sec-hd"><span class="sec-n">07</span><h2>Treatment — DMARDs &amp; Approach</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">5 Principles of RA Treatment (Treat to Target)</div>
+    (1) Early, aggressive therapy to prevent joint damage and disability<br>
+    (2) Frequent modification of DMARD therapy to achieve treatment goals with combination therapy where appropriate<br>
+    (3) Individualization of DMARD therapy — maximize response, minimize side effects<br>
+    (4) Minimal use of long-term glucocorticoid therapy<br>
+    (5) Achieve low disease activity or clinical remission
+  </div>
+
+  <div class="sub">
+    <h3>NSAIDs</h3>
+    <ul class="bl">
+      <li>Formerly core RA therapy — now <b>adjunctive agents</b> for symptoms uncontrolled by other measures</li>
+      <li>Mechanism: nonselective inhibition of <b>COX-1 and COX-2</b></li>
+      <li>All roughly equivalent in efficacy; some individuals may prefer a particular NSAID</li>
+      <li>Avoid chronic use: gastritis, peptic ulcer disease, kidney injury</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Glucocorticoids</h3>
+    <ul class="bl">
+      <li><b>Bridge therapy:</b> low-to-moderate dose before DMARD fully effective (6–12 weeks)</li>
+      <li><b>Acute flares:</b> 1–2 week burst guided by severity</li>
+      <li><b>Chronic low-dose:</b> 5–10 mg/d prednisone for inadequate DMARD response (minimize as much as possible)</li>
+      <li><b>High dose:</b> severe extraarticular manifestations (e.g., ILD)</li>
+      <li><b>Intraarticular:</b> triamcinolone acetonide — limited number of inflamed joints; always exclude infection first</li>
+      <li><b>Osteoporosis prevention:</b> oral bisphosphonates (alendronate, risedronate) OR parenteral (zoledronic acid); also denosumab, teriparatide; based on risk factors</li>
+      <li>No evidence-based guidelines recommend routine PPIs for GI ulcer prophylaxis with prednisone (though risk of peptic ulcer increases with concomitant NSAIDs)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Conventional DMARDs — Detailed Reference</h3>
+    <div class="co prl">
+      <div class="co-t">Onset of Action</div>
+      All conventional DMARDs have a <b>delayed onset of 6–12 weeks or longer</b>. This is why glucocorticoid bridging is used.
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug</th><th>Dose</th><th>Key Mechanism / Notes</th><th>Serious Toxicities</th><th>Monitoring</th></tr></thead>
+        <tbody>
+          <tr><td>Hydroxychloroquine</td><td>200–400 mg/d orally<br>(≤5 mg/kg)</td><td><b>NOT a true DMARD</b> — does NOT delay radiographic progression. Used for early mild disease or adjunctive therapy. Lower dose (≤5 mg/kg) to minimize retinal risk.</td><td>Irreversible retinal damage; cardiotoxicity; blood dyscrasia</td><td>Optical coherence tomography + visual field testing every 12 months</td></tr>
+          <tr><td>Sulfasalazine</td><td>Initial: 500 mg PO BID<br>Maintenance: 1000–1500 mg BID</td><td>Reduces joint inflammation AND radiographic progression. Part of oral triple therapy.</td><td>Granulocytopenia; hemolytic anemia (G6PD deficiency)</td><td>CBC q2–4 weeks for first 3 months; then q3 months</td></tr>
+          <tr><td>Methotrexate</td><td>10–25 mg/week oral or SQ<br>+ Folic acid 1 mg/d</td><td><b>DMARD of first choice and anchor drug.</b> Approved for RA in 1988. Mechanism: stimulates adenosine release → anti-inflammatory. Administered weekly (NOT daily).</td><td>Hepatotoxicity; myelosuppression; infection; interstitial pneumonitis; <b>Pregnancy category X</b></td><td>CBC + creatinine + LFTs q2–3 months. Baseline: viral hepatitis panel + chest x-ray</td></tr>
+          <tr><td>Leflunomide</td><td>10–20 mg/d</td><td>Inhibitor of <b>pyrimidine synthesis</b>. Similar efficacy to MTX. Used as monotherapy or in combination with MTX/other DMARDs.</td><td>Hepatotoxicity; myelosuppression; infection; alopecia; <b>Pregnancy category X</b></td><td>CBC + creatinine + LFTs q2–3 months. Baseline: viral hepatitis panel</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="co wrn">
+      <div class="co-t">Oral Triple Therapy</div>
+      <b>Hydroxychloroquine + Sulfasalazine + Methotrexate</b> — effective combination regimen. Used for patients with inadequate response to MTX alone. Can be used effectively for early RA: start MTX → step up to oral triple therapy within 6 months if inadequate response.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment Algorithm — Stepwise Approach</h3>
+    <div class="flow" style="text-align:left;padding:18px">
+      <div class="flow-row" style="justify-content:flex-start">
+        <div class="flow-box" style="background:#f0ede8;border-color:var(--bd2);color:var(--t2)">Start: <b>Methotrexate</b> (DMARD of first choice for moderate-to-severe RA)</div>
+      </div>
+      <span class="flow-arr" style="display:block;text-align:left;margin-left:80px">↓ Inadequate response after 3–6 months</span>
+      <div class="flow-row" style="justify-content:flex-start;gap:6px">
+        <div class="flow-box" style="font-size:11px">Step up to oral triple therapy<br>(HCQ + SSZ + MTX)</div>
+        <div style="padding-top:10px;font-size:13px;color:var(--t3)">OR</div>
+        <div class="flow-box" style="font-size:11px">Switch/add TNFi ± MTX</div>
+        <div style="padding-top:10px;font-size:13px;color:var(--t3)">OR</div>
+        <div class="flow-box" style="font-size:11px">Non-TNF biologic ± MTX</div>
+      </div>
+      <span class="flow-arr" style="display:block;text-align:left;margin-left:80px">↓ Anti-TNF primary failure or intolerance</span>
+      <div class="flow-row" style="justify-content:flex-start;gap:6px">
+        <div class="flow-box pur" style="font-size:11px">Switch to another anti-TNF</div>
+        <div style="padding-top:10px;font-size:13px;color:var(--t3)">OR</div>
+        <div class="flow-box grn" style="font-size:11px">Switch to abatacept<br>(may be more effective than switching anti-TNF)</div>
+        <div style="padding-top:10px;font-size:13px;color:var(--t3)">OR</div>
+        <div class="flow-box amb" style="font-size:11px">Rituximab<br>(after TNFi failure + MTX)</div>
+      </div>
+    </div>
+    <div class="co dan">
+      <div class="co-t">Critical Point on Remission</div>
+      Complete withdrawal of DMARD therapy during established disease <b>almost invariably leads to relapse</b>. Tapering of therapy in patients with long-term minimal disease activity may be considered, but stopping is not recommended.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SECTION 8 ═══════════════ -->
+<section class="sec" id="s8">
+  <div class="sec-hd"><span class="sec-n">08</span><h2>Biologics, JAKi &amp; Special Topics</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Biologic DMARDs — Full Reference Table</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug</th><th>Class / Mechanism</th><th>Dose</th><th>Key Notes &amp; Toxicities</th></tr></thead>
+        <tbody>
+          <tr><td>Infliximab</td><td>TNFi — chimeric (part mouse/human) monoclonal Ab</td><td>3 mg/kg IV at wks 0, 2, 6, then q8wk; may increase to 10 mg/kg q4wk</td><td>Screen for LTBI before starting. Infusion reactions. Increased bacterial/fungal infections, TB reactivation, drug-induced lupus, neurologic deficits. Lymphoma risk (controversial).</td></tr>
+          <tr><td>Etanercept</td><td>TNFi — <b>soluble fusion protein</b> (TNF receptor 2 + Fc of IgG1). NOT a monoclonal antibody.</td><td>50 mg SQ weekly OR 25 mg SQ biweekly</td><td>Screen for LTBI. Injection site reactions.</td></tr>
+          <tr><td>Adalimumab</td><td>TNFi — humanized monoclonal Ab</td><td>40 mg SQ every other week</td><td>Screen for LTBI. Injection site reactions.</td></tr>
+          <tr><td>Golimumab</td><td>TNFi — humanized monoclonal Ab</td><td>50 mg SQ monthly</td><td>Screen for LTBI. Injection site reactions.</td></tr>
+          <tr><td>Certolizumab pegol</td><td>TNFi — PEGylated Fab' fragment of humanized monoclonal Ab</td><td>400 mg SQ wks 0, 2, 4; then 200 mg every other week</td><td>Screen for LTBI. No Fc portion — less placental transfer. Injection site reactions.</td></tr>
+          <tr><td>Abatacept</td><td>Soluble fusion protein: extracellular domain of CTLA-4 + modified IgG. Blocks <b>CD28-CD80/86 co-stimulation</b></td><td>Weight-based IV (&lt;60kg: 500 mg; 60–100kg: 750 mg; &gt;100kg: 1000 mg) at wks 0, 2, 4 then q4wk. OR 125 mg SQ weekly</td><td>Increased risk of bacterial/viral infections. Can inhibit vaccine response. Screen for LTBI.</td></tr>
+          <tr><td>Anakinra</td><td>Recombinant <b>IL-1 receptor antagonist</b></td><td>100 mg SQ daily</td><td>Limited use — less efficacy than other biologics. Neutropenia. Injection site reactions. Screen for LTBI.</td></tr>
+          <tr><td>Rituximab</td><td>Chimeric monoclonal Ab against <b>CD20</b> (B-cell depletion)</td><td>1000 mg IV × 2 (days 0 and 14); repeat course ≥q24 weeks. Premedicate with methylprednisolone 100 mg to decrease infusion reaction.</td><td><b>Approved for refractory RA (after TNFi failure) + MTX.</b> More effective in <b>seropositive</b> than seronegative disease. Hepatitis B reactivation. Infusion reactions. Cytopenia. Rare PML risk (<b>~1:25,000</b>). <b>Significantly inhibits vaccine response</b> (including SARS-CoV-2).</td></tr>
+          <tr><td>Tocilizumab</td><td>Monoclonal Ab against membrane and soluble <b>IL-6 receptor</b></td><td>4–8 mg/kg IV monthly OR 162 mg SQ q2wk (&lt;100 kg) or q1wk (≥100 kg)</td><td>Infection risk; neutropenia; thrombocytopenia; <b>increases LDL cholesterol</b>; <b>GI perforation</b> — avoid in history of diverticulitis or recent gastric/duodenal ulcer</td></tr>
+          <tr><td>Sarilumab</td><td>Monoclonal Ab against <b>IL-6 receptor</b></td><td>200 mg SQ every other week</td><td>Same class as tocilizumab. Same side-effect profile. Screen for LTBI.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co dan">
+      <div class="co-t">Anti-TNF Contraindications</div>
+      Anti-TNF agents are contraindicated in: <b>active infection, hypersensitivity, chronic hepatitis B infection, Class III/IV congestive heart failure.</b> All patients: screen for LTBI with PPD or IFN-γ release assay before starting. If positive for LTBI: treat for <b>at least 1 month before starting anti-TNF therapy.</b>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>JAK Inhibitors (Targeted Synthetic DMARDs)</h3>
+    <div class="co key">
+      <div class="co-t">Why JAKi Are Important</div>
+      Designed to target <b>intracellular signaling pathways</b>. Advantage over biologics: <b>oral formulation</b>. Can be used as monotherapy or with methotrexate.
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug</th><th>JAK Selectivity</th><th>Dose</th></tr></thead>
+        <tbody>
+          <tr><td>Tofacitinib</td><td>Potent JAK1 and JAK3 inhibitor (minor JAK2 and Tyk2)</td><td>5 mg PO BID OR 11 mg PO daily</td></tr>
+          <tr><td>Upadacitinib</td><td>Predominantly selective <b>JAK1 inhibitor</b></td><td>15 mg PO daily</td></tr>
+          <tr><td>Baricitinib</td><td>JAK1 and JAK2 inhibitor (moderate Tyk2; minimal JAK3)</td><td>2 mg PO daily</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co wrn">
+      <div class="co-t">JAKi Side Effects — Critical for Boards</div>
+      Bacterial infections + <b>herpes zoster</b>. Elevated LFTs, dyslipidemia, neutropenia, hypertension, elevated creatinine.<br><br>
+      <b>Recent studies on tofacitinib vs TNFi:</b> increased risk of <b>thrombosis</b>, major adverse <b>cardiovascular events</b>, and <b>malignancies</b> — especially in the <b>elderly</b>. Higher risks in elderly patients than other agents.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Pregnancy — Drug Safety Summary</h3>
+    <div class="co suc">
+      <div class="co-t">Pregnancy Improvement</div>
+      Up to <b>75% of female RA patients improve during pregnancy</b>, but often flare shortly after delivery. Controlling disease activity during pregnancy remains a priority (active inflammation → worse pregnancy outcomes).
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug/Class</th><th>Safety in Pregnancy</th></tr></thead>
+        <tbody>
+          <tr><td>Hydroxychloroquine</td><td>Probably one of the <b>safest DMARDs</b> during pregnancy</td></tr>
+          <tr><td>Sulfasalazine</td><td>Probably one of the <b>safest DMARDs</b> during pregnancy</td></tr>
+          <tr><td>Low-dose prednisone</td><td>Used to treat flares during pregnancy</td></tr>
+          <tr><td>Anti-TNF agents</td><td>Generally accepted as safe; <b>DISCONTINUE during 3rd trimester</b> (per current guidelines)</td></tr>
+          <tr><td>Methotrexate</td><td><b>CONTRAINDICATED — Pregnancy Category X</b>; teratogenic in animals and humans</td></tr>
+          <tr><td>Leflunomide</td><td><b>CONTRAINDICATED — Pregnancy Category X</b>; teratogenic in animals and humans</td></tr>
+          <tr><td>Abatacept, anti-IL-6, rituximab, JAKi</td><td>Insufficient data — <b>discontinued at conception</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Elderly Patients</h3>
+    <ul class="bl">
+      <li>RA presents in up to <b>one-third of patients after age 60</b></li>
+      <li>Conventional DMARDs and biologics equally effective in older vs younger patients</li>
+      <li>Possible exception: <b>JAK inhibitors</b> — higher complication risk in elderly</li>
+      <li>Comorbidities → increased infection risk</li>
+      <li>Aging → declining renal function → increased NSAIDs and methotrexate side effects</li>
+      <li>Methotrexate: adjust dose downward for declining renal function (mostly cleared by kidneys)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Physical Activity &amp; Surgery</h3>
+
+    <h4>Physical Activity (ACR Guidelines)</h4>
+    <ul class="bl">
+      <li>All patients: prescription for exercise (<b>150 min/week</b> moderate-to-vigorous activity)</li>
+      <li>Dynamic strength training, community-based PT, physical-activity coaching → improve muscle strength, perceived health, DAS-28, inflammatory markers</li>
+      <li>Foot orthotics for valgus deformity; wrist splints (offset by decreased dexterity)</li>
+    </ul>
+
+    <h4>Surgery</h4>
+    <ul class="bl">
+      <li>Large joints (knee, hip, shoulder, elbow): <b>total joint arthroplasty</b> for advanced disease</li>
+      <li>Silicone MCP arthroplasty: severe decreased ROM, flexion contractures, MCP pain + radiographic abnormalities, severe ulnar drift</li>
+      <li>Arthrodesis and total wrist arthroplasty: severe disease with substantial pain and functional impairment</li>
+      <li>Hallux valgus forefoot: arthrodesis or arthroplasty; refractory hindfoot pain: primarily arthrodesis</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════ SECTION 9 ═══════════════ -->
+<section class="sec" id="s9">
+  <div class="sec-hd"><span class="sec-n">09</span><h2>Exam Traps</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">DIP Joint Involvement = OA, Not RA</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with established RA presents with bilateral DIP joint swelling and tenderness. Which disease process is responsible for the DIP involvement?</div>
+      <div class="trap-a"><strong>Answer: Coexistent osteoarthritis — NOT RA.</strong> In RA, the most involved joints are wrists, MCPs, and PIPs. DIP joint involvement may occur in RA patients, but it is <strong>usually due to coexistent OA</strong>, not RA itself. Boards will test this. RA = spare DIP; OA/PsA = DIP involved.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Anti-CCP vs RF — Specificity Difference is the Key</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient has inflammatory polyarthritis. RF is positive. Anti-CCP is also positive. Which test has greater diagnostic specificity for RA? Which is better for predicting prognosis?</div>
+      <div class="trap-a"><strong>Answer: Anti-CCP (ACPA) — specificity ~95% vs RF which has low specificity.</strong> RF is found in many conditions (Sjögren's, SLE, cryoglobulinemia, SBE, hepatitis B/C; even 1–5% healthy population). Sensitivity of RF and anti-CCP are similar (~75%). <strong>Anti-CCP shows the most value for predicting worse outcomes</strong>. There is incremental value in testing BOTH — some patients are positive for one but not the other.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Hydroxychloroquine is NOT a True DMARD</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient is started on hydroxychloroquine for mild RA. Will this slow or prevent radiographic progression of joint damage?</div>
+      <div class="trap-a"><strong>Answer: NO — hydroxychloroquine has NOT been shown to delay radiographic progression of disease</strong> and is therefore not considered a "true" DMARD by strict definition. It is used for early, mild RA or as adjunctive therapy in combination with other DMARDs. Maximum dose: ≤5 mg/kg body weight to reduce the risk of irreversible retinal toxicity. Monitor with optical coherence tomography + visual fields every 12 months.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Most Common Pulmonary Manifestation = Pleuritis (NOT ILD)</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Which is the most common pulmonary manifestation of RA — pleuritis or ILD?</div>
+      <div class="trap-a"><strong>Answer: PLEURITIS is the most common pulmonary manifestation of RA.</strong> ILD is also common (prevalence up to 12%) but pleuritis comes first. Pleural effusions in RA are exudative with increased monocytes and neutrophils. ILD can appear before joint symptoms in 3.5% of patients and confers a poor prognosis. UIP pattern: honeycombing in lower lungs; NSIP: bilateral GGOs with reticulations.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Most Common Cardiac = Pericarditis, but CLINICAL Pericarditis is Rare</span></div>
+    <div class="trap-body">
+      <div class="trap-q">What percentage of RA patients have pericardial involvement? What percentage have clinical pericarditis?</div>
+      <div class="trap-a"><strong>Answer: Pericardial involvement detectable by echo/autopsy in nearly HALF of cases. But clinical pericarditis occurs in &lt;10%.</strong> Asymptomatic pericardial effusions on echocardiography: up to 20%. Most common cause of DEATH in RA is <strong>cardiovascular disease</strong> (not pericarditis), and this risk persists even after controlling for traditional cardiac risk factors.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Smoking Risk Persists 15 Years After Cessation</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A woman stopped smoking 12 years ago. Does smoking still increase her risk of RA?</div>
+      <div class="trap-a"><strong>Answer: YES — the increased risk from smoking persists for up to 15 years after cessation.</strong> Women who smoke have ~2.5× greater risk of RA. Smoking risk is almost exclusively related to RF and ACPA-positive disease. Critically: <strong>smoking cessation, while having many health benefits, does NOT reduce the severity or extent of joint inflammation once RA is established</strong>. SE alleles alone: 4–6× risk; combined with smoking: 20–40× risk.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Anti-IL-17 NOT Effective in RA Despite Important Pathogenic Role</span></div>
+    <div class="trap-body">
+      <div class="trap-q">IL-17 plays an important role in RA pathogenesis. Should anti-IL-17 antibodies therefore be a good treatment for RA?</div>
+      <div class="trap-a"><strong>Answer: NO — therapeutic antibodies interfering with the IL-17/IL-17 receptor pathway were NOT particularly effective in clinical trials for reducing joint inflammation in RA.</strong> This is a classic boards disconnect: IL-17 is pathogenically important in RA (promotes joint inflammation + cartilage/bone destruction), but clinical trials did not show meaningful efficacy. Contrast with spondyloarthritis, where IL-17 inhibitors (secukinumab, ixekizumab) ARE approved and effective.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">Felty's = Late Severe RA; T-LGL = Can Be Early</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with newly diagnosed RA presents with neutropenia and splenomegaly. Is this Felty's syndrome?</div>
+      <div class="trap-a"><strong>Answer: More likely T-LGL leukemia — NOT Felty's syndrome.</strong> Felty's syndrome (triad: neutropenia + splenomegaly + nodular RA) <strong>typically occurs in late stages of severe, long-standing RA</strong>. T-LGL (T-cell large granular lymphocyte leukemia) has a similar presentation but <strong>can develop early in the course of RA</strong>. T-LGL = chronic indolent clonal growth of LGL cells → neutropenia + splenomegaly. If RA is new-onset, think T-LGL first.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Rituximab — More Effective in Seropositive; Blocks Vaccine Response</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A seronegative RA patient has failed two TNFi. Her physician wants to try rituximab. Is this a good choice? What vaccination issue should be considered?</div>
+      <div class="trap-a"><strong>Answer: Rituximab is more effective in SEROPOSITIVE than seronegative RA</strong> — consider alternative biologics (abatacept, JAKi, another mechanism) for seronegative patients who failed TNFi. Rituximab <strong>significantly inhibits vaccine response</strong> (e.g., SARS-CoV-2 vaccination) — vaccinations should ideally be updated BEFORE rituximab initiation. Also: rare PML risk (~1:25,000). Premedicate with methylprednisolone 100 mg to reduce infusion reactions.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Anti-IL-6 → GI Perforation Risk; Avoid in Diverticulitis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 65-year-old patient with RA and a history of diverticulitis is started on tocilizumab. What complication is this patient specifically at risk for?</div>
+      <div class="trap-a"><strong>Answer: Gastrointestinal perforation.</strong> Anti-IL-6 receptor agents (tocilizumab, sarilumab) have been associated with an <strong>increased rate of GI perforation</strong> and should be <strong>avoided if possible in patients with a history of diverticulitis</strong> or a recent gastric/duodenal ulcer. Also: anti-IL-6 agents increase LDL cholesterol (unknown if this increases atherosclerotic risk). Hematologic side effects (neutropenia, thrombocytopenia) are reversible upon stopping the drug.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">Pregnancy — MTX and Leflunomide Are Absolutely Contraindicated</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A woman with RA on methotrexate announces she wants to become pregnant. What is the most important immediate step?</div>
+      <div class="trap-a"><strong>Answer: STOP methotrexate immediately — it is absolutely contraindicated in pregnancy (Pregnancy Category X).</strong> Same for leflunomide (also teratogenic). Anti-TNF agents are generally accepted as safe but <strong>should be discontinued during the third trimester</strong> per current guidelines. Hydroxychloroquine and sulfasalazine are the safest DMARDs during pregnancy. Abatacept, anti-IL-6 receptor antibodies, rituximab, and JAK inhibitors are <strong>discontinued at conception</strong> due to insufficient safety data. Active inflammatory disease = worse pregnancy outcomes — always control disease activity.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 12</span><span class="trap-title">HLA-DRB1*1301 and *1302 Are PROTECTIVE (Not Risk)</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A question asks which HLA-DRB1 allele confers protection from ACPA-positive RA. What is the answer?</div>
+      <div class="trap-a"><strong>Answer: HLA-DRB1*1301 (and to a lesser extent *1302) confer PROTECTION from ACPA-positive RA.</strong> Memory aid: The shared epitope (SE) risk alleles are at positions *0401 (highest risk), *0101, *0404, *1001, *0901. In contrast, *1301/*1302 are protective. SE is defined by the amino acid sequence at positions 70–74 in the third hypervariable region of the HLA-DRβ1 chain. 1 SE allele = 4× risk; 2 SE alleles = 8× risk vs SE-negative individuals.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 13</span><span class="trap-title">Methotrexate Nodule Acceleration</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient on long-term methotrexate for RA develops multiple new small subcutaneous nodules despite improved joint disease control. What is happening?</div>
+      <div class="trap-a"><strong>Answer: Accelerated rheumatoid nodulosis — a paradoxical side effect of methotrexate.</strong> Accelerated growth of smaller nodules occurs in up to <strong>10% of patients taking long-term methotrexate</strong>, even when joint disease is otherwise well controlled. The mechanisms are unclear. This does NOT mean methotrexate is failing — joint disease may be well controlled. Boards may present this as a tricky scenario where the drug is working but nodules appear.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 14</span><span class="trap-title">RS3PE — Pitting Edema + Responds to Low-Dose Prednisone</span></div>
+    <div class="trap-body">
+      <div class="trap-q">An elderly patient presents with symmetric synovitis and prominent bilateral distal limb pitting edema. What condition should you consider, and how does it differ from RA?</div>
+      <div class="trap-a"><strong>Answer: RS3PE (Remitting Seronegative Symmetrical Synovitis with Pitting Edema).</strong> Key distinguishing features: <strong>prominent distal limb pitting edema</strong> (which is unusual in RA), typically seronegative, and <strong>responds promptly to low doses of prednisone</strong>. Paraneoplastic syndromes may also present this way — consider malignancy workup. Do NOT confuse with RA (which typically lacks pitting edema of the distal limbs).</div>
+    </div>
+  </div>
+
+  <hr class="sep">
+  <div class="sub">
+    <h3>Quick-Reference Master Table</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Topic</th><th>High-Yield Number / Fact</th></tr></thead>
+        <tbody>
+          <tr><td>RA prevalence</td><td>~0.5–1% adult population worldwide; F:M = 2–3:1</td></tr>
+          <tr><td>RF sensitivity</td><td>75% of RA patients; low specificity; 1–5% healthy population</td></tr>
+          <tr><td>Anti-CCP specificity</td><td>~95% — far superior to RF for specificity; same sensitivity</td></tr>
+          <tr><td>Extra-articular manifestations</td><td>Up to 40% of patients; risk = smoking + early disability + RF/ACPA positive</td></tr>
+          <tr><td>Most common pulmonary manifestation</td><td>Pleuritis (NOT ILD); ILD prevalence up to 12%</td></tr>
+          <tr><td>Most common cardiac manifestation</td><td>Pericarditis (clinical &lt;10%; detectable in nearly half); most common cause of DEATH = CVD</td></tr>
+          <tr><td>Subcutaneous nodules</td><td>30–40% of patients; accelerated in 10% on methotrexate</td></tr>
+          <tr><td>Felty's syndrome</td><td>Neutropenia + splenomegaly + nodular RA; &lt;1% patients; LATE disease (vs T-LGL = EARLY)</td></tr>
+          <tr><td>Lymphoma risk</td><td>2–4× general population; most common type = diffuse large B-cell lymphoma</td></tr>
+          <tr><td>Shared epitope risk</td><td>1 allele = 4×; 2 alleles = 8× vs SE-negative; HLA-DRB1*1301/*1302 = PROTECTIVE</td></tr>
+          <tr><td>Smoking + SE combined</td><td>20–40× risk (vs 4–6× for SE alone); risk persists 15 years after cessation</td></tr>
+          <tr><td>Hydroxychloroquine dose/monitoring</td><td>≤5 mg/kg/day; OCT + visual fields every 12 months; NOT a true DMARD (no radiographic protection)</td></tr>
+          <tr><td>Methotrexate: DMARD of first choice</td><td>10–25 mg/week + folic acid 1 mg/day; hepatotoxicity + myelosuppression; Pregnancy Category X</td></tr>
+          <tr><td>ACR/EULAR remission</td><td>Tender ≤1, swollen ≤1, CRP ≤1 mg/dL, patient global ≤1 OR SDAI ≤3.3</td></tr>
+          <tr><td>Anti-TNF contraindications</td><td>Active infection, chronic hepatitis B, Class III/IV CHF. LTBI: treat ≥1 month before starting.</td></tr>
+          <tr><td>Rituximab specifics</td><td>Anti-CD20; 1000 mg IV × 2 (days 0, 14); premedicate methylprednisolone 100 mg; more effective in seropositive RA; inhibits vaccine response; PML risk ~1:25,000</td></tr>
+          <tr><td>Anti-IL-6 receptor caution</td><td>GI perforation — avoid in diverticulitis/recent gastric ulcer; increases LDL; neutropenia, thrombocytopenia (reversible)</td></tr>
+          <tr><td>JAKi risk (tofacitinib vs TNFi)</td><td>Increased thrombosis, CV events, malignancies — especially elderly; herpes zoster risk</td></tr>
+          <tr><td>Pregnancy — safest DMARDs</td><td>Hydroxychloroquine + sulfasalazine; anti-TNF generally safe (stop in 3rd trimester); MTX + leflunomide = Pregnancy Category X</td></tr>
+          <tr><td>DIP joint involvement</td><td>Usually OA coexisting with RA, NOT RA itself</td></tr>
+          <tr><td>Atlantoaxial subluxation</td><td>&lt;10% of RA patients (declining); C1 on C2; → compressive myelopathy; RA rarely affects T/L spine</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">Harrison's Principles · Chapter 370 · Shah &amp; St. Clair · Rheumatoid Arthritis · Boards Review · 2026</footer>
+
+<script>
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') || node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') || node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+let activePopNoteId = null;
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+document.querySelectorAll('.lbtn').forEach(b => { b.addEventListener('click', function() { this.classList.toggle('on'); }); });
+document.querySelectorAll('.fbtn').forEach(b => { b.addEventListener('click', function() { this.classList.toggle('on'); }); });
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
