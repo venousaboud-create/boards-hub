@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Alcohol-Associated Liver Disease · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);
+  border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;
+  z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;
+  display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;
+  position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+
+.hero{background:linear-gradient(135deg,#3b1a08 0%,#5c2a10 60%,#3b1a08 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b45309;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;
+  line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;
+  padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blu);
+  margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}
+  .main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+
+/* FLOWCHART */
+.flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:18px auto;max-width:560px}
+.flow-box{background:var(--sf);border:1.5px solid var(--bd2);border-radius:7px;
+  padding:9px 18px;text-align:center;font-size:12.5px;color:var(--tx);width:100%;line-height:1.45}
+.flow-box.blue{background:var(--blu-l);border-color:var(--blu);color:var(--blu-d)}
+.flow-box.red{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.flow-box.green{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.flow-box.amber{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.flow-box.purple{background:var(--pur-l);border-color:var(--pur);color:var(--pur)}
+.flow-arrow{font-size:18px;color:var(--t3);line-height:1.2;margin:2px 0}
+.flow-split{display:flex;gap:12px;width:100%;margin:4px 0;align-items:stretch}
+.flow-split .flow-box{flex:1}
+.flow-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t3);margin:2px 0;text-align:center}
+
+/* SPECTRUM DIAGRAM */
+.spectrum{display:flex;border-radius:8px;overflow:hidden;margin:18px 0;border:1.5px solid var(--bd)}
+.sp-stage{flex:1;padding:12px 10px;text-align:center;border-right:1px solid rgba(255,255,255,.3)}
+.sp-stage:last-child{border-right:none}
+.sp-n{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.sp-title{font-size:12px;font-weight:600;margin-bottom:3px}
+.sp-note{font-size:10.5px;opacity:.85}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles · Chapter 353</div>
+  <h1>Alcohol-Associated Liver Disease</h1>
+  <div class="hero-sub">ALD · Pathogenesis · Diagnosis · Scoring · Treatment · Boards Review</div>
+  <div class="hero-authors">Bernd Schnabl</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">48%</div><div class="stat-l">Cirrhosis from Alcohol</div></div>
+    <div class="stat-box"><div class="stat-n">10–20%</div><div class="stat-l">Heavy Drinkers → Cirrhosis</div></div>
+    <div class="stat-box"><div class="stat-n">80%</div><div class="stat-l">AH has Underlying Cirrhosis</div></div>
+    <div class="stat-box"><div class="stat-n">MDF ≥32</div><div class="stat-l">Severe AH Threshold</div></div>
+    <div class="stat-box"><div class="stat-n">#1</div><div class="stat-l">LT Indication in USA</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Spectrum</a>
+    <a class="toc-a" href="#s2">Epidemiology</a>
+    <a class="toc-a" href="#s3">Pathogenesis</a>
+    <a class="toc-a" href="#s4">Risk Factors</a>
+    <a class="toc-a" href="#s5">Clinical Features</a>
+    <a class="toc-a" href="#s6">Labs &amp; Diagnosis</a>
+    <a class="toc-a" href="#s7">Scoring Systems</a>
+    <a class="toc-a" href="#s8">Treatment</a>
+    <a class="toc-a" href="#s9">Quick Reference</a>
+    <a class="toc-a" href="#s10">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══════════════════════════════════════════ SECTION 1 -->
+<section class="sec" id="s1">
+  <div class="sec-hd">
+    <span class="sec-n">01</span>
+    <h2>The ALD Spectrum</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <p>Alcohol-associated liver diseases (ALD) are a <strong>spectrum</strong> ranging from reversible early disease to life-threatening acute decompensation. Understanding the spectrum is the foundation for all board questions on this topic.</p>
+
+  <div class="spectrum">
+    <div class="sp-stage" style="background:#fef9f0">
+      <div class="sp-n" style="color:#b45309">Stage 1</div>
+      <div class="sp-title" style="color:#92400e">Steatosis</div>
+      <div class="sp-note" style="color:#78350f">Fatty liver<br><strong>Reversible</strong><br>Usually silent</div>
+    </div>
+    <div class="sp-stage" style="background:#fef3c7">
+      <div class="sp-n" style="color:#b45309">Stage 2</div>
+      <div class="sp-title" style="color:#92400e">Steatohepatitis</div>
+      <div class="sp-note" style="color:#78350f">Mallory-Denk<br>Ballooning<br><strong>Reversible</strong></div>
+    </div>
+    <div class="sp-stage" style="background:#fee2e2">
+      <div class="sp-n" style="color:#b91c1c">Stage 3</div>
+      <div class="sp-title" style="color:#991b1b">Fibrosis</div>
+      <div class="sp-note" style="color:#7f1d1d">Perivenular<br>→ Septal<br>Partially reversible</div>
+    </div>
+    <div class="sp-stage" style="background:#fecaca">
+      <div class="sp-n" style="color:#b91c1c">Stage 4</div>
+      <div class="sp-title" style="color:#991b1b">Cirrhosis</div>
+      <div class="sp-note" style="color:#7f1d1d">Nodularity<br>Portal HTN<br>Irreversible</div>
+    </div>
+    <div class="sp-stage" style="background:#7f1d1d">
+      <div class="sp-n" style="color:#fca5a5">Acute on Chronic</div>
+      <div class="sp-title" style="color:#fff">Alcohol-Associated Hepatitis</div>
+      <div class="sp-note" style="color:#fecaca">High mortality<br>~30% at 3 mo<br>Superimposed</div>
+    </div>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">💡 Key Concept</div>
+    <strong>Acute alcohol-associated hepatitis (AH)</strong> is an <em>acute-on-chronic</em> form of ALD — it typically occurs superimposed on underlying cirrhosis (80% of cases). It is associated with liver failure and high mortality, and it is the entity most heavily tested on boards. Simple steatosis and steatohepatitis are clinically silent; symptoms arise only at decompensation or when AH develops.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 2 -->
+<section class="sec" id="s2">
+  <div class="sec-hd">
+    <span class="sec-n">02</span>
+    <h2>Epidemiology</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Alcohol Use Definitions</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Definition</th><th>Women</th><th>Men</th></tr></thead>
+        <tbody>
+          <tr><td>Unhealthy drinking</td><td>≥2 drinks/day</td><td>≥3 drinks/day</td></tr>
+          <tr><td>Heavy episodic drinking (binge)</td><td>≥4 drinks on a single occasion</td><td>≥5 drinks on a single occasion</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>1 drink = ~14 g of ethanol = 1 beer = 4 oz wine = 1 oz of 80-proof spirits.</p>
+    <p>Approximately <strong>7% of U.S. adults</strong> meet criteria for unhealthy drinking. The COVID-19 pandemic increased excessive alcohol intake, resulting in a rise in ALD morbidity and mortality.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Prevalence &amp; Burden</h3>
+    <ul class="bl">
+      <li>Alcohol-associated fatty liver disease prevalence: <strong>4.7%</strong> of the general U.S. population; <strong>1.5%</strong> has stage 2 or greater fibrosis</li>
+      <li>Liver cirrhosis is the <strong>11th leading cause of mortality worldwide</strong> — 1.16 million deaths annually; <strong>48% of cirrhosis cases attributable to alcohol</strong></li>
+      <li>Among patients with alcohol misuse: <strong>18% fibrosis, 26% cirrhosis, 7% acute AH</strong> without underlying cirrhosis</li>
+      <li>European annual incidence of acute AH: <strong>24–27 per million women</strong>; <strong>46–65 per million men</strong></li>
+      <li>Alcohol-associated decompensated cirrhosis is the <strong>#1 indication for liver transplantation in the United States</strong></li>
+      <li>Only <strong>10–20%</strong> of heavy daily drinkers will develop progressive liver disease and cirrhosis — cofactors determine who progresses</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 3 -->
+<section class="sec" id="s3">
+  <div class="sec-hd">
+    <span class="sec-n">03</span>
+    <h2>Pathogenesis</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Ethanol Metabolism — The Two Enzymes</h3>
+    <div class="flow">
+      <div class="flow-box blue"><strong>Ethanol</strong> absorbed in upper GI tract → liver via portal vein</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-split">
+        <div class="flow-box"><strong>ADH1</strong> (alcohol dehydrogenase 1)<br><small>Major pathway in hepatocytes</small></div>
+        <div class="flow-box amber"><strong>CYP2E1</strong><br><small>Induced by chronic alcohol; second pathway</small></div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box red"><strong>Acetaldehyde</strong><br><small>Directly toxic; generates ROS → lipid peroxidation + DNA damage</small></div>
+      <div class="flow-arrow">↓ ALDH (acetaldehyde dehydrogenase)</div>
+      <div class="flow-box green"><strong>Acetate</strong> → Acetyl-CoA<br><small>→ fatty acid + triglyceride synthesis → hepatic steatosis</small></div>
+    </div>
+
+    <div class="co dan">
+      <div class="co-t">⚠ Asian Population — ALDH2 Deficiency</div>
+      Inherited deficiency of <strong>ALDH2</strong> is common in Asian countries. It leads to <strong>acetaldehyde accumulation</strong> after alcohol consumption → nausea and cutaneous flushing (the "Asian flush"). These individuals cannot safely metabolize alcohol and are at high risk for organ injury.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Mechanisms of Hepatic Steatosis</h3>
+    <p>Multiple parallel mechanisms converge to cause fat accumulation in the liver:</p>
+    <ul class="bl">
+      <li><strong>Acetyl-CoA from acetate</strong> → direct substrate for fatty acid and triglyceride synthesis</li>
+      <li><strong>Epigenetic changes</strong>: alcohol ↑ expression of lipogenesis genes; ↓ expression of fatty acid transport and oxidation genes</li>
+      <li><strong>↑ NADH/NAD+ ratio</strong>: alcohol metabolism oxidizes NAD+ to NADH → high NADH → impairs mitochondrial β-oxidation of fatty acids</li>
+      <li><strong>↑ Fatty acid mobilization</strong> from adipose tissue and intestine → hepatic fatty acid accumulation</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>From Steatosis to Fibrosis and Cirrhosis</h3>
+    <ul class="bl">
+      <li><strong>Gut microbiome &amp; intestinal permeability</strong>: a subset of patients with alcohol use disorder develop gut dysbiosis and increased intestinal permeability → passage of microbial components (especially <strong>bacterial LPS</strong>) through portal vein into liver → hepatic inflammation, hepatocyte death, activation of fibrotic pathways</li>
+      <li><strong>Ongoing fibrosis</strong> from sustained alcohol consumption → cirrhosis + portal hypertension</li>
+      <li><strong>Impaired liver regeneration</strong> may contribute to acute onset of AH in patients with underlying cirrhosis</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 4 -->
+<section class="sec" id="s4">
+  <div class="sec-hd">
+    <span class="sec-n">04</span>
+    <h2>Risk Factors for Progression</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <p>Most heavy drinkers do NOT progress to cirrhosis — only 10–20% do. Cofactors determine who progresses:</p>
+
+  <div class="g2">
+    <div class="card">
+      <div class="clabel c-r">Behavioral Factors</div>
+      <ul class="bl">
+        <li><strong>Alcohol amount and duration</strong> — dose-dependent increase in cirrhosis risk</li>
+        <li><strong>Drinking pattern</strong> — binge drinking and drinking outside of meals ↑ progressive ALD risk more than the same total amount spread over meals</li>
+        <li><strong>Cigarette smoking</strong> — independent risk factor for alcohol-associated cirrhosis</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-p">Host Factors</div>
+      <ul class="bl">
+        <li><strong>Female sex</strong> — ALD develops at a lower daily alcohol intake in women</li>
+        <li><strong>Obesity and MASLD</strong> — frequent cofactors; a distinct entity called <strong>MetALD</strong> describes patients with MASLD AND increased alcohol consumption</li>
+        <li><strong>Chronic liver disease</strong> — viral hepatitis and hemochromatosis have synergistic effects</li>
+        <li><strong>Intestinal microbiota</strong> — gut dysbiosis ↑ LPS translocation</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-b">Genetic Factors</div>
+      <ul class="bl">
+        <li>Twin studies show genetic predisposition to cirrhosis <em>independent</em> of genetic predisposition to alcohol use disorder</li>
+        <li><strong>PNPLA3</strong> (patatin-like phospholipase domain-containing 3) — most studied; polymorphisms ↑ risk</li>
+        <li><strong>MBOAT7</strong> (membrane bound O-acyltransferase domain-containing 7) — ↑ risk</li>
+        <li><strong>TM6SF2</strong> (transmembrane 6 superfamily member 2) — ↑ risk</li>
+        <li><strong>HSD17B13</strong> and <strong>FAF2</strong> variants — <em>protective</em>; associated with <em>reduced</em> risk of ALD</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-a">Environmental / Mixed</div>
+      <ul class="bl">
+        <li>COVID-19 pandemic increased excessive drinking → rise in ALD morbidity/mortality</li>
+        <li>Combination of multiple cofactors is common in clinical practice (e.g., alcohol + obesity + HCV)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 5 -->
+<section class="sec" id="s5">
+  <div class="sec-hd">
+    <span class="sec-n">05</span>
+    <h2>Clinical Features</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co wrn">
+    <div class="co-t">⚠ Silent Disease</div>
+    The development of alcohol-associated steatosis, steatohepatitis, and even cirrhosis is <strong>most often clinically silent</strong>. Symptoms arise only when the patient decompensates or develops alcohol-associated hepatitis.
+  </div>
+
+  <div class="sub">
+    <h3>Diagnostic Criteria for Alcohol-Associated Hepatitis (Clinical)</h3>
+    <ul class="bl">
+      <li>Heavy drinking: <strong>&gt;40 g/day for women</strong> and <strong>&gt;50–60 g/day for men</strong></li>
+      <li>Duration: <strong>&gt;6 months</strong> of heavy drinking</li>
+      <li>Abstinence: <strong>&lt;60 days of abstinence</strong> before onset of symptoms</li>
+      <li><strong>Rapid onset of jaundice</strong> (serum bilirubin &gt;3 mg/dL)</li>
+      <li>Accompanied by fever, malaise, tender hepatomegaly, and signs of hepatic decompensation (ascites, bacterial infection, variceal bleeding, hepatic encephalopathy)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Full Symptom &amp; Sign Catalogue</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">Abdomen</div>
+        <ul class="bl">
+          <li>Hepatomegaly (tender in AH)</li>
+          <li>Splenomegaly</li>
+          <li>Caput medusae</li>
+          <li>Ascites (weight gain, distension)</li>
+          <li>Abdominal pain</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Skin &amp; Eyes</div>
+        <ul class="bl">
+          <li>Spider angiomata</li>
+          <li>Palmar erythema</li>
+          <li>Jaundice / icteric sclerae</li>
+          <li>Ecchymoses (coagulopathy)</li>
+          <li>Rhinophyma (face)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Reproductive / Endocrine</div>
+        <ul class="bl">
+          <li>Gynecomastia</li>
+          <li>Gonadal atrophy</li>
+          <li>Loss of libido</li>
+          <li>Amenorrhea</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Neurologic</div>
+        <ul class="bl">
+          <li>Peripheral neuropathy</li>
+          <li><strong>Wernicke-Korsakoff syndrome</strong></li>
+          <li>Asterixis (flapping tremor) — hepatic encephalopathy</li>
+          <li>Sleep/wake inversion, confusion, coma</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Alcohol Withdrawal</div>
+        <ul class="bl">
+          <li>Tachycardia, agitation</li>
+          <li>Tremor</li>
+          <li>Seizures</li>
+          <li>Delirium tremens</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Other</div>
+        <ul class="bl">
+          <li>Tiredness / fatigue</li>
+          <li>Malnutrition and sarcopenia</li>
+          <li>Dupuytren contracture (hands)</li>
+          <li>Peripheral edema</li>
+          <li>Shortness of breath (ascites / effusion)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Complications of AH at Presentation</h3>
+    <ul class="bl">
+      <li><strong>Infections</strong> in 12–26% of patients with severe AH at time of admission</li>
+      <li><strong>SIRS</strong> (systemic inflammatory response syndrome) — commonly accompanies AH</li>
+      <li><strong>AKI</strong> — secondary to hepatorenal syndrome, a common complication of severe AH</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 6 -->
+<section class="sec" id="s6">
+  <div class="sec-hd">
+    <span class="sec-n">06</span>
+    <h2>Laboratory Findings &amp; Diagnosis</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Laboratory Pattern — ALD-Specific Signature</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Parameter</th><th>Steatosis</th><th>Steatohepatitis</th><th>Cirrhosis</th><th>Alcohol-Associated Hepatitis</th></tr></thead>
+        <tbody>
+          <tr><td>AST</td><td>Normal</td><td>↑</td><td>↑ or normal</td><td>↑ but <strong>NEVER &gt;400 IU/L</strong></td></tr>
+          <tr><td>ALT</td><td>Normal</td><td>↑</td><td>↑ or normal</td><td>↑ but &lt;400 IU/L</td></tr>
+          <tr><td>AST/ALT ratio</td><td>—</td><td><strong>&gt;1</strong></td><td>&gt;1</td><td><strong>&gt;1.5</strong> (characteristic)</td></tr>
+          <tr><td>GGT (γ-GT)</td><td>—</td><td>↑</td><td>↑</td><td>↑</td></tr>
+          <tr><td>Bilirubin</td><td>Normal</td><td>Normal</td><td>↑ in decompensation</td><td><strong>&gt;3 mg/dL</strong></td></tr>
+          <tr><td>INR</td><td>Normal</td><td>Normal</td><td>↑ in decompensation</td><td>↑</td></tr>
+          <tr><td>Albumin</td><td>Normal</td><td>Normal</td><td>↓</td><td>↓</td></tr>
+          <tr><td>Platelets</td><td>Normal</td><td>Normal</td><td>↓ (portal HTN → hypersplenism)</td><td>↓</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="co key">
+      <div class="co-t">🎯 The ALD Lab Signature — Boards Essential</div>
+      <ul class="bl">
+        <li><strong>AST/ALT ratio &gt;2</strong> is the classic clue for ALD (vs other hepatitis where ALT usually &gt; AST)</li>
+        <li>In ALD/AH: <strong>AST rarely exceeds 300 IU/L</strong> and <strong>NEVER exceeds 400 IU/L</strong></li>
+        <li>If AST &gt;400 IU/L in a "suspected ALD" patient → think DILI, ischemic hepatitis, or another diagnosis → biopsy to confirm</li>
+        <li>In alcohol-associated hepatitis: <strong>AST/ALT ratio &gt;1.5</strong> is characteristic</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnosing the ALD Spectrum — Tools &amp; Thresholds</h3>
+
+    <h4>Steatosis</h4>
+    <ul class="bl">
+      <li><strong>Ultrasound</strong> — simple, first-line; detects steatosis</li>
+      <li><strong>MRI or CT</strong> — also diagnose steatosis</li>
+      <li><strong>CAP</strong> (controlled attenuation parameter) — ultrasound-based noninvasive fat quantification</li>
+      <li><strong>MR-PDFF</strong> (magnetic resonance proton density fat fraction) — noninvasive quantification of hepatic fat</li>
+      <li>Liver biopsy rarely indicated for steatosis alone</li>
+    </ul>
+
+    <h4>Fibrosis Assessment</h4>
+    <ul class="bl">
+      <li><strong>Transient elastography (FibroScan)</strong> — liver stiffness measurement:
+        <ul class="bl" style="margin-left:16px">
+          <li>&lt;6 kPa → normal liver</li>
+          <li>&gt;8 kPa → ≥F3 advanced fibrosis</li>
+          <li>&gt;12.5 kPa → F4 cirrhosis</li>
+        </ul>
+      </li>
+      <li><strong>FIB-4 score</strong> — serum marker based on age, AST, ALT, and platelets; threshold <strong>&lt;3.25 excludes advanced fibrosis/cirrhosis</strong></li>
+      <li>Histology: <strong>perivenular fibrosis</strong> initially → extension of collagen into hepatic lobules (septal fibrosis) → cirrhosis</li>
+    </ul>
+
+    <h4>Cirrhosis</h4>
+    <ul class="bl">
+      <li><strong>Imaging</strong>: liver nodularity on ultrasound/MRI/CT</li>
+      <li><strong>Radiologic signs of portal hypertension</strong>: ascites, splenomegaly, portal-systemic collateral vessels (varices, caput medusae)</li>
+      <li>Prognosis scored by <strong>Child-Pugh-Turcotte (CPT)</strong> or <strong>MELD/MELD-Na</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Histology of ALD — Board-Tested Features</h3>
+
+    <h4>Alcohol-Associated Steatosis</h4>
+    <ul class="bl">
+      <li>Hepatocytes with <strong>large lipid droplets (macrovesicular steatosis)</strong></li>
+      <li>Distribution: <strong>around pericentral veins (zone 3)</strong></li>
+    </ul>
+
+    <h4>Alcohol-Associated Steatohepatitis</h4>
+    <ul class="bl">
+      <li>Hepatocyte injury and <strong>ballooning</strong></li>
+      <li><strong>Mallory-Denk bodies</strong> (intracytoplasmic protein aggregates)</li>
+      <li>Necrosis</li>
+      <li>Lobular inflammation with <strong>mononuclear and neutrophilic granulocytes</strong></li>
+    </ul>
+
+    <h4>Alcohol-Associated Hepatitis (AH)</h4>
+    <ul class="bl">
+      <li>Macrovesicular steatosis</li>
+      <li>Hepatocyte ballooning with <strong>Mallory-Denk bodies</strong></li>
+      <li><strong>Megamitochondria</strong></li>
+      <li><strong>Neutrophil infiltration</strong></li>
+      <li>Ductular reaction</li>
+      <li>Bilirubinostasis</li>
+      <li><strong>Chicken wire fibrosis</strong> (perisinusoidal/pericellular)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>When to Do Transjugular Liver Biopsy in AH</h3>
+    <p>Clinical diagnosis of AH is usually sufficient. A <strong>transjugular liver biopsy is recommended</strong> when confounding factors are present, including:</p>
+    <ul class="bl">
+      <li>Possible ischemic hepatitis (hypotension, massive GI bleeding, recent cocaine use, septic shock)</li>
+      <li>Drug-induced liver injury (DILI)</li>
+      <li>Autoimmune liver disease</li>
+      <li>Uncertain alcohol use history</li>
+      <li><strong>Atypical lab values: AST &lt;50 IU/L or &gt;400 IU/L</strong></li>
+      <li>AST/ALT ratio &lt;1.5</li>
+    </ul>
+    <p>Additionally: <strong>10–20% of patients with a clinical diagnosis of AH will have another liver disease on biopsy</strong> — biopsy confirms diagnosis when uncertainty exists. 80% of AH patients have underlying cirrhosis.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Workup at Presentation of AH</h3>
+    <ul class="bl">
+      <li>Imaging to exclude <strong>biliary obstruction and HCC</strong></li>
+      <li>Exclude other causes: <strong>viral hepatitis, Wilson's disease, severe autoimmune liver disease</strong></li>
+      <li>Infections assessment: <strong>chest X-ray, blood cultures, urine cultures, ascites cultures</strong> (infections in 12–26% at admission)</li>
+      <li>AUDIT questionnaire for alcohol use disorder assessment</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 7 -->
+<section class="sec" id="s7">
+  <div class="sec-hd">
+    <span class="sec-n">07</span>
+    <h2>Scoring Systems — The Key Numbers</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Maddrey Discriminant Function (MDF)</h3>
+    <div class="co key">
+      <div class="co-t">🔢 MDF Formula</div>
+      <strong>MDF = 4.6 × (PT patient − PT control, in seconds) + serum bilirubin (mg/dL)</strong>
+      <div class="g2" style="margin-top:10px">
+        <div class="card"><div class="clabel c-a">MDF &lt; 32</div><p><strong>Moderate AH</strong><br>20% 1-year mortality<br>Supportive care; no steroids needed</p></div>
+        <div class="card"><div class="clabel c-r">MDF ≥ 32</div><p><strong>Severe AH</strong><br>~30% 3-month mortality<br>Candidate for glucocorticoid treatment</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>MELD Score (for AH Severity)</h3>
+    <div class="g2">
+      <div class="card"><div class="clabel c-a">MELD ≤ 20</div><p>Moderate AH</p></div>
+      <div class="card"><div class="clabel c-r">MELD &gt; 20</div><p>Severe AH — high short-term mortality; steroid candidate</p></div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>ABIC Score</h3>
+    <p><strong>Age-Bilirubin-INR-Creatinine</strong> score — an additional tool to predict short-term mortality in AH. Used alongside MDF and MELD.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Lille Score — The Response-to-Treatment Score</h3>
+    <div class="co wrn">
+      <div class="co-t">⏱ Lille Score — Checked at Day 7 of Glucocorticoids</div>
+      The Lille score is calculated after <strong>7 days of glucocorticoid treatment</strong> to determine response:
+      <div class="g2" style="margin-top:10px">
+        <div class="card"><div class="clabel c-g">Lille &lt; 0.45</div><p><strong>Responder</strong><br>Continue prednisolone for full 28 days total</p></div>
+        <div class="card"><div class="clabel c-r">Lille ≥ 0.45</div><p><strong>Non-responder</strong><br><em>Stop glucocorticoids</em><br>Consider early liver transplantation<br>or supportive/palliative care</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>FIB-4 Score (Fibrosis Assessment)</h3>
+    <ul class="bl">
+      <li>Based on: <strong>age, AST, ALT, and platelet count</strong></li>
+      <li>Threshold <strong>&lt;3.25 excludes advanced fibrosis or cirrhosis</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Fibrosis Staging by Transient Elastography</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Liver Stiffness</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td>&lt; 6 kPa</td><td>Normal liver</td></tr>
+          <tr><td>&gt; 8 kPa</td><td>≥ F3 (advanced fibrosis)</td></tr>
+          <tr><td>&gt; 12.5 kPa</td><td>F4 cirrhosis</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 8 -->
+<section class="sec" id="s8">
+  <div class="sec-hd">
+    <span class="sec-n">08</span>
+    <h2>Treatment</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co suc">
+    <div class="co-t">✓ Cornerstone of All ALD Treatment</div>
+    The most effective therapy to reduce progression of and reverse ALD is <strong>prolonged alcohol abstinence</strong>. Alcohol-associated steatosis and steatohepatitis are reversible with cessation. Treatment of the underlying alcohol use disorder is integral. There are currently <strong>no approved drugs</strong> for treatment of alcohol-associated steatosis/steatohepatitis with or without fibrosis.
+  </div>
+
+  <div class="sub">
+    <h3>Treatment Algorithm for Alcohol-Associated Hepatitis</h3>
+
+    <div class="flow">
+      <div class="flow-box blue"><strong>Alcohol-Associated Hepatitis (AH)</strong><br><small>Clinical diagnosis with laboratory findings</small></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box amber"><strong>Rule out confounding factors</strong><br><small>If present → Transjugular liver biopsy to confirm</small></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-split">
+        <div class="flow-box"><strong>Moderate AH</strong><br>MDF &lt;32 or MELD ≤20<br><small>Multidisciplinary team<br>Nutritional support<br>Alcohol use disorder treatment</small></div>
+        <div class="flow-box red"><strong>Severe AH</strong><br>MDF ≥32 or MELD &gt;20<br><small>Assess for steroid contraindications</small></div>
+      </div>
+      <div class="flow-arrow" style="align-self:flex-end;width:48%;margin-right:0">↓</div>
+      <div class="flow-split">
+        <div class="flow-box" style="flex:0.48;visibility:hidden"></div>
+        <div class="flow-split" style="flex:0.52">
+          <div class="flow-box green"><strong>No contraindications</strong><br>Oral prednisolone<br>40 mg/day</div>
+          <div class="flow-box red"><strong>Contraindicated</strong><br>Consider early LT<br>or palliative care</div>
+        </div>
+      </div>
+      <div class="flow-arrow">↓ After 7 days</div>
+      <div class="flow-box purple"><strong>Calculate Lille Score</strong></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-split">
+        <div class="flow-box green"><strong>Lille &lt;0.45 (Responder)</strong><br>Continue prednisolone → full 28 days</div>
+        <div class="flow-box red"><strong>Lille ≥0.45 (Non-responder)</strong><br>Stop prednisolone<br>→ Early LT if eligible<br>→ Supportive/palliative if not</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Glucocorticoid Treatment — Details</h3>
+    <ul class="bl">
+      <li><strong>Indication:</strong> severe AH (MDF ≥32 or MELD &gt;20) without contraindications</li>
+      <li><strong>Drug:</strong> oral <strong>prednisolone 40 mg/day</strong> for a total of <strong>4 weeks</strong> (28 days)</li>
+      <li>If unable to take oral medications: <strong>methylprednisolone 32 mg/day IV</strong></li>
+      <li><strong>Effect:</strong> reduces risk of death within <strong>28 days</strong> — but does NOT confer benefit in the following 6 months</li>
+      <li>Combination with <strong>N-acetylcysteine infusion</strong> may add short-term survival benefit at 1 month</li>
+    </ul>
+
+    <div class="co dan">
+      <div class="co-t">⛔ Contraindications to Glucocorticoids</div>
+      <ul class="bl">
+        <li>Uncontrolled infections or sepsis</li>
+        <li>AKI and hepatorenal syndrome</li>
+        <li>Uncontrolled upper GI bleeding</li>
+        <li>Concomitant diseases: viral hepatitis, HCC, pancreatitis, DILI, active tuberculosis, HIV</li>
+        <li>Multi-organ failure or shock</li>
+      </ul>
+      <p style="margin-top:8px;font-size:12.5px;">Note: Glucocorticoids <strong>can be used once</strong> infection, sepsis, and GI bleeding are <em>adequately controlled</em>.</p>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Nutritional Support in AH</h3>
+    <ul class="bl">
+      <li>Enteral nutrition goal: <strong>35–40 kcal/kg</strong></li>
+      <li>Micronutrient supplementation — especially <strong>zinc</strong></li>
+      <li>Vitamin supplementation — especially <strong>vitamin B1 (thiamine)</strong> and <strong>vitamin K</strong></li>
+      <li>Volume expansion: <strong>IV albumin preferred</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Long-Term Prognosis</h3>
+    <ul class="bl">
+      <li><strong>Short-term prognosis</strong> depends on liver disease severity at presentation</li>
+      <li><strong>Long-term prognosis (&gt;1 year)</strong> largely depends on <strong>alcohol abstinence</strong> and presence of underlying cirrhosis</li>
+      <li>Moderate AH: <strong>20% 1-year mortality</strong></li>
+      <li>Severe AH: <strong>~30% 3-month mortality</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Liver Transplantation in ALD</h3>
+    <ul class="bl">
+      <li>ALD is currently the <strong>#1 indication for liver transplantation in the United States</strong></li>
+      <li>Alcohol-associated decompensated cirrhosis or HCC → definitive therapy</li>
+      <li>Traditional requirement: minimum <strong>6 months of alcohol abstinence</strong> before transplant evaluation (many centers)</li>
+      <li><strong>Early liver transplantation</strong> in severe AH non-responders: can be performed in <strong>highly selected patients with excellent psychosocial profile</strong> — does not require the 6-month rule in these cases</li>
+      <li>Patients with severe AH non-responsive to medical therapy have high 30-day mortality and cannot fulfill the 6-month abstinence rule → early LT may be the only option</li>
+      <li>If ineligible for early LT: supportive or palliative care for multi-organ failure</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Cirrhosis Management (ALD-Specific)</h3>
+    <ul class="bl">
+      <li>Management of complications (variceal bleeding, ascites, HE, HCC) <strong>does not differ</strong> from cirrhosis of other etiologies</li>
+      <li><strong>Upper GI endoscopy</strong> to screen for varices in all cirrhotic patients</li>
+      <li><strong>HCC surveillance</strong>: liver ultrasound + serum <strong>AFP every 6 months</strong></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 9 -->
+<section class="sec" id="s9">
+  <div class="sec-hd">
+    <span class="sec-n">09</span>
+    <h2>Quick Reference Master Table</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Topic</th><th>Key Number / Fact</th></tr></thead>
+      <tbody>
+        <tr><td>1 drink (ethanol content)</td><td>~14 g ethanol = 1 beer = 4 oz wine = 1 oz 80-proof spirits</td></tr>
+        <tr><td>Unhealthy drinking threshold (women)</td><td>≥2 drinks/day or ≥4 on a single occasion</td></tr>
+        <tr><td>Unhealthy drinking threshold (men)</td><td>≥3 drinks/day or ≥5 on a single occasion</td></tr>
+        <tr><td>% of cirrhosis attributable to alcohol</td><td>48%</td></tr>
+        <tr><td>Heavy drinkers who develop cirrhosis</td><td>10–20%</td></tr>
+        <tr><td>AST/ALT ratio in ALD</td><td>&gt;1 (steatohepatitis); &gt;1.5 (alcoholic hepatitis)</td></tr>
+        <tr><td>Maximum AST in AH</td><td>Never &gt;400 IU/L (if &gt;400, reconsider diagnosis)</td></tr>
+        <tr><td>Bilirubin threshold for AH diagnosis</td><td>&gt;3 mg/dL</td></tr>
+        <tr><td>MDF formula</td><td>4.6 × (PT prolongation in seconds) + bilirubin (mg/dL)</td></tr>
+        <tr><td>MDF severe AH threshold</td><td>≥32</td></tr>
+        <tr><td>MELD severe AH threshold</td><td>&gt;20</td></tr>
+        <tr><td>Steroid regimen (severe AH)</td><td>Prednisolone 40 mg/day PO × 28 days; or methylprednisolone 32 mg/day IV</td></tr>
+        <tr><td>Steroid response assessment</td><td>Lille score at day 7; &lt;0.45 = responder (continue), ≥0.45 = stop</td></tr>
+        <tr><td>Moderate AH 1-year mortality</td><td>~20%</td></tr>
+        <tr><td>Severe AH 3-month mortality</td><td>~30%</td></tr>
+        <tr><td>AH patients with underlying cirrhosis</td><td>80%</td></tr>
+        <tr><td>Clinical AH with another diagnosis on biopsy</td><td>10–20%</td></tr>
+        <tr><td>AH nutrition goal</td><td>35–40 kcal/kg; zinc + thiamine + vitamin K supplementation</td></tr>
+        <tr><td>HCC surveillance in cirrhosis</td><td>Ultrasound + AFP every 6 months</td></tr>
+        <tr><td>FIB-4 cutoff (excludes advanced fibrosis)</td><td>&lt;3.25</td></tr>
+        <tr><td>FibroScan: advanced fibrosis</td><td>&gt;8 kPa</td></tr>
+        <tr><td>FibroScan: cirrhosis</td><td>&gt;12.5 kPa</td></tr>
+        <tr><td>Steatosis zone (histology)</td><td>Zone 3 (pericentral/centrilobular)</td></tr>
+        <tr><td>Histologic hallmark of AH</td><td>Mallory-Denk bodies + neutrophilic infiltration + ballooning + chicken wire fibrosis</td></tr>
+        <tr><td>High-risk genetic variant</td><td>PNPLA3 (most studied); also MBOAT7, TM6SF2</td></tr>
+        <tr><td>Protective genetic variants</td><td>HSD17B13, FAF2</td></tr>
+        <tr><td>#1 LT indication in USA</td><td>Alcohol-associated decompensated cirrhosis</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 10 -->
+<section class="sec" id="s10">
+  <div class="sec-hd">
+    <span class="sec-n">10</span>
+    <h2>Exam Traps</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">AST &gt;400 in "alcoholic hepatitis" — reconsider</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 48-year-old alcoholic presents with jaundice, AST 650 IU/L, ALT 300 IU/L, bilirubin 8 mg/dL. You suspect alcoholic hepatitis. What is the most important next step?</div>
+      <div class="trap-a"><strong>Question the diagnosis and consider transjugular liver biopsy.</strong> In true alcohol-associated hepatitis, AST virtually never exceeds 400 IU/L. An AST &gt;400 IU/L should raise strong suspicion for an alternative or concurrent diagnosis: ischemic hepatitis, DILI, acetaminophen toxicity (even covert), or autoimmune hepatitis. The atypical labs (AST &gt;400) are listed as a specific indication for transjugular biopsy to confirm or exclude alternative diagnoses.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">The Lille score — what happens if it's ≥0.45 at day 7?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with severe AH (MDF = 42) is started on prednisolone 40 mg/day. At day 7, the Lille score is 0.52. What do you do?</div>
+      <div class="trap-a"><strong>Stop prednisolone and consider early liver transplantation.</strong> The Lille score ≥0.45 identifies non-responders who will unlikely benefit from continued glucocorticoid treatment. Continuing steroids in a non-responder exposes the patient to the risks of glucocorticoids without benefit. The next step is evaluation for early liver transplantation. If the patient is ineligible for transplant, supportive or palliative care is appropriate. Do NOT simply continue steroids or escalate the dose.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Steroids in AH — do they work long-term?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with severe AH is treated with prednisolone. Does this treatment reduce mortality at 6 months?</div>
+      <div class="trap-a"><strong>No — glucocorticoids reduce mortality only within the first 28 days, not beyond.</strong> This is a classic boards distinction. Steroids reduce short-term death (28-day benefit), but this survival advantage does NOT persist at 6 months or beyond. Long-term prognosis &gt;1 year is determined by alcohol abstinence and the severity of underlying cirrhosis — not by whether steroids were given.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Active infection and steroids — absolute contraindication?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with severe AH (MDF 38) is found to have a urinary tract infection and mild sepsis on admission. Can steroids be started?</div>
+      <div class="trap-a"><strong>Not yet — but not necessarily never.</strong> Uncontrolled infection and sepsis are contraindications to glucocorticoid therapy. However, glucocorticoids CAN be started once infection, sepsis, and gastrointestinal bleeding are adequately controlled. The mistake to avoid is both: (1) starting steroids in the face of active uncontrolled infection, and (2) permanently withholding steroids from an eligible patient just because an infection existed at admission. Treat the infection first, then reassess.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Early liver transplantation — the 6-month rule exception</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 35-year-old with severe AH non-responsive to steroids (Lille ≥0.45) has 30-day mortality risk of ~80%. He has never had formal treatment for alcohol use disorder and cannot complete 6 months of abstinence. Is liver transplantation absolutely contraindicated?</div>
+      <div class="trap-a"><strong>Not absolutely — early LT can be performed in highly selected patients with an excellent psychosocial profile.</strong> The 6-month abstinence rule exists in many centers as a standard, but steroid-nonresponsive severe AH with high 30-day mortality represents a special case where the 6-month rule has been successfully circumvented. Early liver transplantation is an established option for these patients, provided careful psychosocial selection. If early LT is not available or the patient is ineligible, supportive/palliative care is the alternative — not continued futile medical therapy.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">The biopsy trap — 80% with AH have cirrhosis underneath</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient is diagnosed with acute alcohol-associated hepatitis. An abdominal ultrasound appears "normal" with no obvious nodularity. Does this exclude underlying cirrhosis?</div>
+      <div class="trap-a"><strong>No — 80% of patients with alcohol-associated hepatitis have underlying cirrhosis.</strong> Imaging may not always reveal early or compensated cirrhosis. Furthermore, 10–20% of patients with a clinical diagnosis of AH will have another liver disease identified on biopsy. Neither a normal ultrasound nor a clean clinical picture excludes cirrhosis in the AH setting. When confounding factors exist, a transjugular liver biopsy is the right answer to confirm the true diagnosis.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">PNPLA3 — genetic risk that is independent of drinking behavior</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Two patients drink the same amount of alcohol. One develops cirrhosis, the other does not. What explains this?</div>
+      <div class="trap-a"><strong>Genetic predisposition — particularly PNPLA3 polymorphisms.</strong> Twin studies have shown that genetic predisposition to alcohol-associated cirrhosis is independent from genetic predisposition to alcohol use disorder. PNPLA3 (most important), MBOAT7, and TM6SF2 are the three key genes conferring increased risk. Protective variants in HSD17B13 and FAF2 reduce risk. This explains why identical amounts of alcohol cause severe liver disease in some and minimal disease in others — the genetics of hepatic fat handling and inflammation matter as much as the amount consumed.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">HCC surveillance — who gets it and how often?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with alcohol-associated cirrhosis, currently abstinent, asks whether he needs cancer screening. What is the correct answer?</div>
+      <div class="trap-a"><strong>Yes — liver ultrasound + serum AFP every 6 months.</strong> HCC surveillance is recommended for all patients with cirrhosis regardless of etiology or abstinence status. The alcohol etiology does not change the surveillance protocol. Note: management of ALL cirrhosis complications (HCC, varices, ascites, HE) in ALD does NOT differ from cirrhosis of other etiologies.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">The MDF formula — don't confuse PT prolongation with absolute PT</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with AH has a PT of 22 seconds (control = 13 seconds) and a serum bilirubin of 12 mg/dL. Calculate the MDF and determine severity.</div>
+      <div class="trap-a"><strong>MDF = 4.6 × (22 − 13) + 12 = 4.6 × 9 + 12 = 41.4 + 12 = 53.4 → Severe AH (MDF ≥32).</strong> The critical trap: MDF uses the PROLONGATION of PT (PT patient minus PT control), NOT the absolute PT value. Using the absolute value of 22 would give the wrong answer. This patient has severe AH and is a steroid candidate (if no contraindications exist).</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Asian flush — ALDH2 deficiency and acetaldehyde</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 30-year-old patient of East Asian descent reports flushing and nausea after even small amounts of alcohol. What is the mechanism and what is the implication?</div>
+      <div class="trap-a"><strong>Inherited ALDH2 (acetaldehyde dehydrogenase 2) deficiency</strong> — common in Asian countries. Without functional ALDH2, acetaldehyde cannot be converted to acetate and accumulates after alcohol ingestion → nausea and cutaneous flushing ("Asian flush" or "Asian glow"). Acetaldehyde is directly toxic to cells and generates reactive oxygen species, causing lipid peroxidation and DNA damage. These individuals face elevated organ injury with any alcohol consumption. This is a direct-toxic pathway to hepatocyte damage.</div>
+    </div>
+  </div>
+
+</section>
+
+<hr class="sep">
+<footer class="footer">Harrison's Principles of Internal Medicine 22nd Ed · Chapter 353 · Alcohol-Associated Liver Disease · Boards Review 2026</footer>
+</main>
+
+<script>
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
