@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MASLD &amp; MASH · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a3a2a 0%,#1e5c3a 60%,#1a3a2a 100%);color:#fff;padding:44px 52px 36px;border-bottom:4px solid #15803d;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:38px;font-weight:900;line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;padding:0 12px;display:flex;align-items:center;white-space:nowrap;border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blu);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}.main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+.flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:18px auto;max-width:580px}
+.flow-box{background:var(--sf);border:1.5px solid var(--bd2);border-radius:7px;padding:9px 18px;text-align:center;font-size:12.5px;color:var(--tx);width:100%;line-height:1.45}
+.flow-box.blue{background:var(--blu-l);border-color:var(--blu);color:var(--blu-d)}
+.flow-box.red{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.flow-box.green{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.flow-box.amber{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.flow-box.purple{background:var(--pur-l);border-color:var(--pur);color:var(--pur)}
+.flow-arrow{font-size:16px;color:var(--t3);line-height:1.2;margin:3px 0;text-align:center;width:100%}
+.flow-split{display:flex;gap:10px;width:100%;margin:3px 0}
+.flow-split .flow-box{flex:1}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd"><span>📝 My Notes</span><button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button></div>
+  <div id="sn-body"><div id="sn-empty">Select text → write note → Add Note.<br><br>Notes persist after closing.</div></div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+<div id="note-popover">
+  <div id="np-pop-ref"></div><div id="np-pop-text"></div>
+  <div id="np-pop-actions"><button class="pop-btn" id="pop-del-btn">Delete</button><button class="pop-close" onclick="closePopover()">×</button></div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles · Chapter 354</div>
+  <h1>MASLD &amp; MASH</h1>
+  <div class="hero-sub">Metabolic Dysfunction–Associated Steatotic Liver Disease · Boards Review</div>
+  <div class="hero-authors">Manal F. Abdelmalek &amp; Anna Mae Diehl</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">25–30%</div><div class="stat-l">US Adults with MASLD</div></div>
+    <div class="stat-box"><div class="stat-n">3–6%</div><div class="stat-l">MASLD → MASH</div></div>
+    <div class="stat-box"><div class="stat-n">T2DM</div><div class="stat-l">Strongest Risk Factor</div></div>
+    <div class="stat-box"><div class="stat-n">F2+</div><div class="stat-l">"At-Risk MASH"</div></div>
+    <div class="stat-box"><div class="stat-n">#1 FDA</div><div class="stat-l">Resmetirom Approved</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Nomenclature</a>
+    <a class="toc-a" href="#s2">Epidemiology</a>
+    <a class="toc-a" href="#s3">Pathogenesis</a>
+    <a class="toc-a" href="#s4">Risk Factors</a>
+    <a class="toc-a" href="#s5">Clinical Features</a>
+    <a class="toc-a" href="#s6">Staging &amp; NITs</a>
+    <a class="toc-a" href="#s7">Treatment</a>
+    <a class="toc-a" href="#s8">Drug Table</a>
+    <a class="toc-a" href="#s9">Quick Reference</a>
+    <a class="toc-a" href="#s10">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══════════ SECTION 1 ═══════════ -->
+<section class="sec" id="s1">
+  <div class="sec-hd"><span class="sec-n">01</span><h2>Disease Nomenclature — Know the New Names</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">🔄 The Rename — Why It Matters for Boards</div>
+    In 2023, the field adopted new nomenclature under the umbrella term <strong>Steatotic Liver Disease (SLD)</strong>. Old terms NAFLD and NASH are replaced. Almost complete overlap (~98%) exists between NAFLD/NASH and the new MASLD/MASH definitions.
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Old Term</th><th>New Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td>NAFLD</td><td><strong>MASLD</strong> — Metabolic Dysfunction–Associated Steatotic Liver Disease</td><td>Hepatic steatosis + &lt;20 g/day alcohol (women) or &lt;30 g/day (men) + ≥1 cardiometabolic risk factor</td></tr>
+        <tr><td>NASH</td><td><strong>MASH</strong> — Metabolic Dysfunction–Associated Steatohepatitis</td><td>MASLD + inflammatory injury (steatohepatitis on biopsy)</td></tr>
+        <tr><td>Simple steatosis only</td><td><strong>MASL</strong> — Metabolic dysfunction–Associated Steatosis (without hepatitis)</td><td>Fat accumulation without overt injury or inflammation</td></tr>
+        <tr><td>—</td><td><strong>MetALD</strong></td><td>SLD with metabolic dysfunction AND social alcohol consumption: 20–50 g/day (women); 30–60 g/day (men)</td></tr>
+        <tr><td>ALD</td><td><strong>ALD</strong> (unchanged)</td><td>Hazardous alcohol: ≥50 g/day (women); ≥60 g/day (men) — regardless of metabolic factors</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sub">
+    <h3>Cardiometabolic Risk Factors (for MASLD Diagnosis)</h3>
+    <p>At least <strong>one</strong> of the following must be present: overweight/obesity, hypertension, dyslipidemia, insulin resistance, or type 2 diabetes mellitus (T2DM).</p>
+  </div>
+
+  <div class="sub">
+    <h3>Why the Rename?</h3>
+    <ul class="bl">
+      <li>Emphasizes that SLD in non-excessive drinkers is <strong>strongly associated with metabolic dysfunction</strong> — it is fundamentally a metabolic disease</li>
+      <li>Removes stigma from terms <em>nonalcoholic</em> (implies drinking is the only liver disease) and <em>fatty</em> (stigmatizing for patients)</li>
+      <li>Creates the new MetALD category for the grey zone of metabolic + moderate alcohol consumption</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 2 ═══════════ -->
+<section class="sec" id="s2">
+  <div class="sec-hd"><span class="sec-n">02</span><h2>Epidemiology &amp; Natural History</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Prevalence</h3>
+    <ul class="bl">
+      <li><strong>SLD is the most common cause of chronic liver disease</strong> in the United States and worldwide; main causes are ALD and MASLD</li>
+      <li><strong>25–30%</strong> of the general U.S. adult population has MASLD</li>
+      <li>At least <strong>3–6%</strong> of those with MASLD have MASH</li>
+      <li>MASH found in <strong>14% of asymptomatic patients ≥50 years</strong> undergoing colon cancer screening</li>
+      <li>Clinically significant hepatic fibrosis (≥F2) has increased <strong>more than twofold</strong> in the past two decades alone</li>
+      <li>MASLD is currently a <strong>leading indication for liver transplantation</strong> in the United States</li>
+      <li>Cirrhosis from MASLD: risk of primary liver cancer (HCC) = <strong>1–2% per year</strong></li>
+      <li>Decompensation rate in cirrhosis: <strong>3–20% per year</strong></li>
+      <li>MASLD is rising in parallel with the global obesity and metabolic syndrome epidemics</li>
+      <li><strong>Pediatric MASLD</strong> is increasingly documented; childhood obesity is the major driver</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Racial/Ethnic Prevalence</h3>
+    <div class="g3">
+      <div class="card"><div class="clabel c-r">Highest ~50%</div><p>Hispanic and Asian-Indian populations</p></div>
+      <div class="card"><div class="clabel c-b">Intermediate ~30%</div><p>White (non-Hispanic)</p></div>
+      <div class="card"><div class="clabel c-g">Lowest ~25%</div><p>African Americans</p></div>
+    </div>
+    <p>Ethnic and racial factors influence liver fat accumulation. MASLD can occur in <strong>lean individuals</strong> — particularly common with truncal obesity and lipodystrophy (paucity of peripheral fat depots). Lean MASLD prevalence: ~4% in USA up to ~19% in Asia.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Fibrosis Progression Rates — Board-Tested Numbers</h3>
+    <div class="g2">
+      <div class="card"><div class="clabel c-b">Simple Steatosis (MASL)</div><p>Average fibrosis progression: <strong>1 stage every 14 years</strong></p></div>
+      <div class="card"><div class="clabel c-r">MASH</div><p>Average fibrosis progression: <strong>1 stage every 7 years</strong><br>(twice as fast as steatosis alone)</p></div>
+    </div>
+    <div class="co wrn">
+      <div class="co-t">⭐ "At-Risk MASH" — Critical Concept</div>
+      Once fibrosis reaches <strong>≥F2</strong> in a MASH patient, they are designated <strong>"at-risk MASH"</strong>. This triggers:
+      <ul class="bl" style="margin-top:8px">
+        <li>More intensive monitoring</li>
+        <li>Consideration of pharmacotherapy (e.g., resmetirom)</li>
+        <li>Primary treatment goal: prevent fibrosis progression → decrease liver-related and all-cause mortality</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Spectrum of Liver Pathology</h3>
+    <div class="flow">
+      <div class="flow-box blue"><strong>MASL</strong> — Simple steatosis only<br><small>Most benign; stable for years; can regress; 10-year morbidity negligible</small></div>
+      <div class="flow-arrow">↕ reversible transitions</div>
+      <div class="flow-box amber"><strong>MASH</strong> — Steatohepatitis<br><small>Lipotoxic injury + inflammation + ballooning + ± fibrosis; primary driver of fibrosis progression</small></div>
+      <div class="flow-arrow">↓ repeated or sustained MASH</div>
+      <div class="flow-box red"><strong>Progressive Fibrosis F0→F1→F2→F3→F4</strong><br><small>F2+ = "at-risk MASH"; F4 = cirrhosis; irreversible (but CAN regress with treatment)</small></div>
+      <div class="flow-arrow">↓ cirrhosis complications</div>
+      <div class="flow-split">
+        <div class="flow-box red"><strong>Hepatic Decompensation</strong><br><small>Ascites, variceal bleeding, HE</small></div>
+        <div class="flow-box red"><strong>HCC</strong><br><small>1–2%/year in cirrhosis<br>Even in NON-cirrhotic MASLD</small></div>
+      </div>
+    </div>
+    <p><strong>Key note:</strong> MASLD may be premalignant — it increases risk for both primary liver cancers <em>and</em> extrahepatic malignancies even in noncirrhotic livers. Cirrhosis in MASLD CAN regress when the underlying insult is removed.</p>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 3 ═══════════ -->
+<section class="sec" id="s3">
+  <div class="sec-hd"><span class="sec-n">03</span><h2>Molecular &amp; Cellular Pathogenesis</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Steatosis — How Fat Accumulates in Hepatocytes</h3>
+    <p>Steatotic hepatocytes accumulate triglyceride. Sources of excess hepatocyte fat:</p>
+    <ul class="bl">
+      <li><strong>(1) Dietary fatty acids</strong> — increased uptake</li>
+      <li><strong>(2) Lipolysis from adipose depots</strong> — insulin resistance in peripheral adipose → increased free fatty acid release</li>
+      <li><strong>(3) De novo lipogenesis (DNL)</strong> — within hepatocytes themselves, driven by fructose, saturated fat, and hyperinsulinemia</li>
+      <li><strong>Impaired fatty acid oxidation</strong> → fatty acids not consumed → pool available for triglyceride synthesis increases</li>
+      <li><strong>Impaired triglyceride export</strong> → triglyceride accumulates in hepatocytes</li>
+    </ul>
+    <div class="co key">
+      <div class="co-t">💡 Key Concept</div>
+      <strong>Triglyceride accumulation per se (steatosis) does NOT damage the liver.</strong> Steatosis is a biomarker of metabolic dysfunction but is not directly toxic. It is the dysregulated processing of fatty acids into toxic intermediates (lipotoxicity) that causes MASH. The transition from steatosis to steatohepatitis requires lipotoxic stress.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Steatohepatitis — The Lipotoxicity Step</h3>
+    <ul class="bl">
+      <li><strong>Lipotoxicity</strong> = lipid-associated injury from dysregulated processing of fatty acids → accumulation of toxic intermediates/by-products from lipid droplets</li>
+      <li>Damaged hepatocytes must be replaced → triggers regenerative responses → when these become <strong>maladaptive</strong>, functional parenchyma replaced by fibrous scar → cirrhosis</li>
+      <li>Malignant transformation of liver cells → HCC</li>
+      <li>The severity and duration of MASH dictate fibrosis and cancer risk</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Key Drivers of Lipotoxicity and Steatosis</h3>
+    <ul class="bl">
+      <li><strong>Fructose</strong> — drives DNL → ↑ risk for steatosis, MASH, fibrosis independent of calorie intake</li>
+      <li><strong>Saturated fat</strong> (vs unsaturated fat) — more lipotoxic</li>
+      <li><strong>Insulin resistance</strong> → ↑ lipolysis from adipocytes → ↑ free fatty acid substrate for hepatic triglyceride production → also → hyperinsulinemia → promotes lipid uptake, fat synthesis, fat storage (vicious cycle)</li>
+      <li><strong>Gut microbiota alterations</strong> (obesity-associated): ↑ energy harvest from diet + ↑ intestinal permeability → hepatic exposure to gut-derived products → inflammatory mediators → worsen insulin resistance</li>
+      <li><strong>Adipokines</strong> from obese adipose tissue → inhibit tissue insulin sensitivity</li>
+      <li><strong>Uric acid production, oxidative stress, cytokine-mediated inflammation</strong> — all contribute to MASH</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 4 ═══════════ -->
+<section class="sec" id="s4">
+  <div class="sec-hd"><span class="sec-n">04</span><h2>Disease Modifiers &amp; Risk Factors</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="clabel c-r">T2DM — Strongest Single Risk Factor</div>
+      <ul class="bl">
+        <li>Prevalence of MASLD in T2DM: <strong>30–75%</strong></li>
+        <li>T2DM = nearly <strong>2× increased risk</strong> for MASH with fibrosis vs normal glycemic control</li>
+        <li>Risk of advanced fibrosis increases with <strong>duration and severity</strong> of T2DM</li>
+        <li>Relationship is <strong>bidirectional</strong>: MASLD ↑ risk of T2DM by 2–5×; T2DM worsens MASLD</li>
+        <li>As liver disease progresses, insulin resistance worsens → T2DM control becomes harder</li>
+        <li>Screen all MASLD patients for T2DM</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-b">Obesity &amp; Body Fat Distribution</div>
+      <ul class="bl">
+        <li>Obesity present in <strong>50–90%</strong> of MASLD patients</li>
+        <li>Can occur in <strong>lean individuals</strong> (BMI &lt;25 kg/m² or &lt;23 in Asian) — especially with truncal obesity or lipodystrophy</li>
+        <li><strong>Android body fat</strong> (truncal/visceral fat) &gt; gynoid fat distribution (hips/buttocks) for MASLD/MASH risk</li>
+        <li>Visceral adiposity → insulin resistance → ↑ free fatty acids → hepatic steatosis</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-a">Metabolic Syndrome Components</div>
+      <ul class="bl">
+        <li>MASLD may <em>precede</em> development of metabolic syndrome — it can be the first manifestation</li>
+        <li><strong>Hypertension</strong> — adds to MASH and fibrosis risk</li>
+        <li><strong>Dyslipidemia</strong> — plasma lipid abnormalities are 2× more prevalent in MASLD; more atherogenic subfractions → ↑ cardiovascular risk</li>
+        <li>MASLD patients with MASH: <strong>2–3× increased risk</strong> for developing metabolic syndrome</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-p">CVD &amp; Obstructive Sleep Apnea</div>
+      <ul class="bl">
+        <li>Both CVD and OSA are associated with MASLD and independently associated with MASH and fibrosis</li>
+        <li>MASLD is independently associated with endothelial dysfunction, ↑ carotid intimal thickness, coronary plaques</li>
+        <li>Screen MASLD patients for OSA and CVD (and vice versa)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-t">Endocrine Disorders</div>
+      <ul class="bl">
+        <li><strong>Hypothyroidism</strong> — associated with MASLD (promotes obesity/metabolic syndrome)</li>
+        <li><strong>Hypogonadism</strong> and <strong>GH deficiency</strong> — associated with MASLD</li>
+        <li><strong>PCOS</strong> — hyperinsulinemia + excess androgens → <strong>2–4× increased prevalence</strong> of MASLD, MASH with fibrosis, T2DM</li>
+        <li>Postmenopausal women have higher MASLD than premenopausal (role of estrogen/free testosterone)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-g">Genetic &amp; Epigenetic Factors</div>
+      <ul class="bl">
+        <li><strong>PNPLA3 I148M</strong> — impairs lipolysis of triglyceride lipid droplets; strong influence on hepatic fat, MASH severity, fibrosis</li>
+        <li><strong>TM6SF2</strong> — influences cholesterol metabolism</li>
+        <li><strong>MBOAT7</strong> — influences phospholipid metabolism</li>
+        <li><strong>HSD17B13 loss-of-function</strong> — <em>protective</em> against MASH, fibrosis, liver cancer (localizes to lipid droplets)</li>
+        <li>Twin studies: genetics accounts for ~<strong>50% of cirrhosis risk</strong></li>
+        <li>First-degree relatives of MASH cirrhosis patients: <strong>12× higher risk</strong> of advanced fibrosis</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 5 ═══════════ -->
+<section class="sec" id="s5">
+  <div class="sec-hd"><span class="sec-n">05</span><h2>Clinical Features &amp; Diagnosis</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co wrn">
+    <div class="co-t">⚠ Asymptomatic Disease</div>
+    Most MASLD patients are <strong>asymptomatic</strong>. The diagnosis is often made incidentally: abnormal liver enzymes or fatty liver on imaging done for other reasons. MASLD may present with vague right upper quadrant pain, hepatomegaly, or an abnormal-appearing liver found at abdominal surgery.
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Associations of MASLD</h3>
+    <ul class="bl">
+      <li>Obesity, T2DM, hypertriglyceridemia, hypertension, CVD</li>
+      <li>Chronic fatigue, mood alterations</li>
+      <li>Obstructive sleep apnea</li>
+      <li>Thyroid dysfunction, PCOS</li>
+      <li>Chronic pain syndrome</li>
+      <li>MASLD is an <strong>independent risk factor for metabolic syndrome AND T2DM</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnosis — Key Rules</h3>
+    <ul class="bl">
+      <li>MASLD suspected when steatosis is present in context of metabolic dysfunction (≥1 of 5 metabolic syndrome criteria)</li>
+      <li>Must <strong>exclude other causes of chronic hepatitis</strong>: viral hepatitis, autoimmune liver disease, iron/copper overload, α1-antitrypsin deficiency</li>
+      <li><strong>Normal liver enzymes do NOT exclude MASLD</strong> — liver may be normal even with significant disease</li>
+      <li>True normal ALT: <strong>29–33 U/L in men; 19–25 U/L in women</strong> (standard "normal ranges" are inflated by undiagnosed disease in reference populations)</li>
+      <li>Liver may not be enlarged; signs of liver disease may be absent; all other liver tests (ALP, bilirubin, albumin, PT) may be completely normal</li>
+      <li>No single blood test is specific for MASLD/MASH — diagnosis requires clinical context</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Alternative Causes of Hepatic Steatosis (Differential Diagnosis)</h3>
+    <div class="g3">
+      <div class="card"><div class="clabel c-r">Drug-Induced</div><p>Amiodarone, glucocorticoids, tamoxifen, methotrexate, valproate, NRTIs, tetracyclines, cocaine — all cause steatosis via distinct mechanisms</p></div>
+      <div class="card"><div class="clabel c-b">Other Liver Diseases</div><p>ALD, HCV genotype 3, Wilson's disease</p></div>
+      <div class="card"><div class="clabel c-a">Metabolic / Systemic</div><p>Lipodystrophy, bacterial overgrowth, starvation, parenteral nutrition, IBD, renal disease</p></div>
+      <div class="card"><div class="clabel c-p">Surgical Causes</div><p>Jejunoileal bypass, gastric bypass, extensive small-bowel resection, biliopancreatic diversion</p></div>
+      <div class="card"><div class="clabel c-g">Inborn Errors</div><p>Abetalipoproteinemia, glycogen storage disease, galactosemia, Wilson's disease, Wolman's disease</p></div>
+      <div class="card"><div class="clabel c-t">Pregnancy-Related</div><p>Acute fatty liver of pregnancy, HELLP syndrome, Reye's syndrome</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 6 ═══════════ -->
+<section class="sec" id="s6">
+  <div class="sec-hd"><span class="sec-n">06</span><h2>Staging &amp; Noninvasive Tests (NITs)</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <p>The goal of staging is to (1) distinguish MASH from steatosis and (2) identify which MASH patients have advanced fibrosis. Staging determines prognosis and drives treatment decisions.</p>
+
+  <div class="sub">
+    <h3>FIB-4 Score — The First-Line Tool</h3>
+    <div class="co key">
+      <div class="co-t">🔢 FIB-4 Formula</div>
+      <strong>FIB-4 = (Age × AST) ÷ (Platelet count × √ALT)</strong><br>
+      Based on: age, AST, ALT, and platelet count
+      <div class="g3" style="margin-top:10px">
+        <div class="card"><div class="clabel c-g">FIB-4 &lt; 1.3</div><p><strong>Low risk</strong><br>Excellent negative predictive value<br>Manage in primary care<br>Reassess q2–3 years<br>(q1–2 years if pre-DM, T2DM, or ≥2 metabolic risk factors)</p></div>
+        <div class="card"><div class="clabel c-a">FIB-4 1.3–2.67</div><p><strong>Intermediate</strong><br>Periodic reassessment<br>See algorithm notes</p></div>
+        <div class="card"><div class="clabel c-r">FIB-4 ≥ 2.67</div><p><strong>High risk</strong><br>Proceed to secondary NIT (elastography or ELF panel)<br>Refer to specialist</p></div>
+      </div>
+      <p style="margin-top:8px;font-size:12.5px">⚠ FIB-4 has <strong>low accuracy in patients &lt;35 or &gt;65 years</strong> — use a secondary test in these age groups.</p>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Secondary NITs — After FIB-4 ≥ 2.67</h3>
+
+    <h4>Vibration-Controlled Transient Elastography (VCTE / FibroScan)</h4>
+    <ul class="bl">
+      <li>LSM <strong>&lt;8 kPa</strong> → rules out advanced fibrosis</li>
+      <li>LSM <strong>8–12 kPa</strong> → may be associated with fibrotic MASH</li>
+      <li>LSM <strong>&gt;12 kPa</strong> → high likelihood of advanced fibrosis (though positive predictive value is low: 0.34–0.71)</li>
+      <li>≥20% increase in LSM may indicate disease progression</li>
+      <li><strong>False elevation factors</strong>: obesity, nonfasting state, severe hepatic inflammation, hepatic congestion, iron overload — reduces specificity; interpret with caution</li>
+    </ul>
+
+    <h4>ELF Panel (Enhanced Liver Fibrosis)</h4>
+    <ul class="bl">
+      <li>Proprietary blood test: <strong>hyaluronic acid + tissue inhibitor of metalloproteinase-1 + N-terminal procollagen III peptide</strong></li>
+      <li>FDA-approved for prognostication in MASLD</li>
+      <li>ELF <strong>≥9.8</strong> → increased risk of progression to cirrhosis and liver-related events</li>
+      <li>ELF <strong>&gt;11.8</strong> → suspect cirrhosis</li>
+      <li>Use when access to VCTE is limited</li>
+    </ul>
+
+    <h4>MRI-Based Tools (Specialist Setting)</h4>
+    <ul class="bl">
+      <li><strong>MRE</strong> (magnetic resonance elastography) — most accurate elastography for fibrosis</li>
+      <li><strong>MRI-cT1</strong> (corrected T1) — additional MRI fibrosis marker</li>
+      <li><strong>MRI-PDFF</strong> — most accurate noninvasive fat quantification; superior to CAP; not point-of-care</li>
+      <li>≥<strong>30% reduction in MRI-PDFF liver fat</strong> → 5× improved likelihood of MASH resolution</li>
+    </ul>
+
+    <h4>Liver Biopsy — When is it Indicated?</h4>
+    <ul class="bl">
+      <li>Indeterminate or discordant NITs</li>
+      <li>Clinical suspicion of advanced disease not confirmed by NITs</li>
+      <li>Competing or concomitant diagnoses (iron overload, autoimmune hepatitis, DILI)</li>
+      <li>Persistent elevated liver enzymes (&gt;6 months) without steatosis or metabolic risk factors</li>
+      <li>Limitations: sampling variability, inter/intraobserver variability, single time point (static), impractical at population level</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Risk Stratification Algorithm Summary</h3>
+    <div class="flow">
+      <div class="flow-box blue"><strong>Suspected MASLD</strong> (metabolic risk + steatosis on imaging or ↑ ALT)</div>
+      <div class="flow-arrow">↓ All patients: CVD risk reduction, metabolic comorbidities, alcohol assessment, lifestyle modification</div>
+      <div class="flow-box"><strong>Primary Risk Assessment: FIB-4</strong></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-split">
+        <div class="flow-box green"><strong>FIB-4 &lt; 1.3</strong><br>Low risk<br>PCP follow-up<br>Reassess q2–3 yrs</div>
+        <div class="flow-box amber"><strong>FIB-4 ≥ 1.3</strong><br>Secondary NIT<br>(VCTE or ELF)</div>
+      </div>
+      <div class="flow-arrow" style="text-align:right;padding-right:10%">↓</div>
+      <div class="flow-split">
+        <div class="flow-box" style="visibility:hidden;flex:0.48"></div>
+        <div class="flow-split" style="flex:0.52">
+          <div class="flow-box green"><strong>Low</strong><br>VCTE &lt;8 or ELF &lt;7.7<br>Stage 0–1<br>Reassess q2–3 yrs</div>
+          <div class="flow-box red"><strong>High</strong><br>VCTE &gt;12 or ELF &gt;9.8<br>→ Specialist<br>Consider biopsy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 7 ═══════════ -->
+<section class="sec" id="s7">
+  <div class="sec-hd"><span class="sec-n">07</span><h2>Treatment</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Lifestyle Modification — The Foundation</h3>
+    <div class="co suc">
+      <div class="co-t">✓ Cornerstone of All MASLD Management</div>
+      Healthy diet and routine physical activity are foundational for ALL MASLD patients regardless of weight loss goals or disease stage. No pharmacotherapy replaces lifestyle modification.
+    </div>
+    <ul class="bl">
+      <li><strong>3–5% weight loss</strong> → improves hepatic steatosis</li>
+      <li><strong>&gt;10% weight loss</strong> → improves MASH and fibrosis</li>
+      <li>&lt;10% of patients achieve effective weight loss despite structured interventions at 1 year</li>
+      <li>In advanced fibrosis/cirrhosis: moderate-to-high intensity exercise may decrease portal hypertension, sarcopenia, and HCC risk</li>
+    </ul>
+
+    <h4>Dietary Recommendations</h4>
+    <ul class="bl">
+      <li>Avoid excess saturated fats, refined carbohydrates, and sugar-sweetened beverages ("Western obesogenic diet")</li>
+      <li><strong>Fructose</strong> — independently increases MASLD/MASH/fibrosis risk regardless of total calorie intake; limit fructose consumption</li>
+      <li><strong>Mediterranean diet</strong> — often recommended: long-term adherence, culturally adaptable, cardiovascular benefits</li>
+      <li><strong>Coffee ≥3 cups/day</strong> — epidemiologic evidence supports reduced risk of hepatic fibrosis and HCC</li>
+      <li>Mediterranean green diet, low-fat/low-carbohydrate, and intermittent fasting are comparably effective</li>
+    </ul>
+
+    <h4>Exercise</h4>
+    <ul class="bl">
+      <li>Moderate exercise: <strong>≥5 times/week for total ≥150 min/week</strong></li>
+      <li>More intensive exercise: <strong>≥60 min/week</strong></li>
+      <li>Dose-dependent benefit; aerobic vs resistance can be individualized</li>
+      <li>Improves insulin sensitivity and cardiometabolic risk independent of weight loss</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Pharmacologic Therapies</h3>
+
+    <h4>Resmetirom — The First FDA-Approved Liver-Directed Therapy</h4>
+    <div class="co key">
+      <div class="co-t">⭐ Resmetirom (Rezdiffra) — New for Boards</div>
+      <ul class="bl">
+        <li><strong>Mechanism:</strong> Selective thyroid hormone receptor beta (THR-β) agonist — mimics thyroid hormone in the liver → promotes lipid metabolism, reduces liver fat, improves liver function</li>
+        <li><strong>Indication (FDA-approved):</strong> "At-risk MASH" — MASH with <strong>F2–F3 fibrosis</strong> (not yet cirrhosis)</li>
+        <li><strong>Approval status:</strong> Accelerated approval</li>
+        <li><strong>MAESTRO-NASH trial</strong> (52 weeks, n=966, biopsy-proven NASH F1–F3 without cirrhosis):
+          <ul class="bl" style="margin-left:16px">
+            <li>NASH resolution: resmetirom 100 mg = <strong>30%</strong>; 80 mg = 26%; placebo = 10% (p&lt;0.0001)</li>
+            <li>Fibrosis improvement: resmetirom 100 mg = <strong>26%</strong>; 80 mg = 24%; placebo = 14% (p&lt;0.0001)</li>
+          </ul>
+        </li>
+        <li><strong>Side effects:</strong> Early transient GI symptoms — nausea, loose stools (predominant treatment-emergent effects; generally well tolerated)</li>
+        <li>Ongoing MAESTRO-NASH study for long-term safety and liver-related outcomes (full FDA approval pending)</li>
+      </ul>
+    </div>
+
+    <h4>GLP-1 Receptor Agonists (Incretin Mimetics)</h4>
+    <ul class="bl">
+      <li><strong>Mechanism:</strong> Act on pancreas to optimize insulin/glucagon release; improve lipids, glucose, and weight; decrease cardiovascular risk</li>
+      <li>Approved for obesity and T2DM — benefit MASH via weight loss and insulin sensitization</li>
+      <li><strong>Liraglutide</strong> (small study): improved steatosis, resolved NASH, reduced fibrosis progression vs placebo</li>
+      <li><strong>Semaglutide</strong> (n=320, F1–F3, 72 weeks): NASH resolution without worsening of fibrosis — <strong>59% (0.4 mg)</strong> vs 17% placebo (p&lt;0.001); no statistically significant fibrosis improvement, but protective against progression. Phase 3 trial ongoing.</li>
+      <li><strong>Tirzepatide</strong> (GLP-1/GIP dual agonist): weight loss up to <strong>20.9%</strong> at 72 weeks vs 3.1% placebo; significant reductions in liver fat content</li>
+      <li>GLP-1RAs largely have superseded pioglitazone in clinical practice</li>
+    </ul>
+
+    <h4>Pioglitazone (Thiazolidinedione, PPAR-γ agonist)</h4>
+    <ul class="bl">
+      <li>Improves insulin resistance and serum lipids; approved for T2DM</li>
+      <li><strong>PIVENS trial</strong>: pioglitazone 30 mg/day × 18 months in NASH without prediabetes/T2DM → resolved NASH vs placebo (<strong>47% vs 21%</strong>, p&lt;0.001)</li>
+      <li>Also showed benefit in NASH with prediabetes/T2DM (NAS score improvement)</li>
+      <li><strong>Side effects:</strong> weight gain, bone loss in postmenopausal women, potential worsening of heart failure, debated bladder cancer risk</li>
+    </ul>
+
+    <h4>Vitamin E</h4>
+    <ul class="bl">
+      <li>Antioxidant (addresses oxidative stress pathway)</li>
+      <li><strong>PIVENS trial</strong>: vitamin E 800 IU/day × 96 weeks → improved histologic steatohepatitis vs placebo (<strong>43% vs 19%</strong>, p&lt;0.04) in adults without prediabetes/T2DM</li>
+      <li>No established antifibrotic effect</li>
+      <li>Retrospective study: in NASH with advanced fibrosis, vitamin E → lower hepatic decompensation and higher transplant-free survival</li>
+      <li><strong>Safety concerns</strong> dampen enthusiasm: perioperative bleeding, hemorrhagic stroke, increased cardiac mortality, prostate cancer risk with long-term use</li>
+    </ul>
+
+    <h4>SGLT-2 Inhibitors</h4>
+    <ul class="bl">
+      <li>↑ urinary glucose excretion; mild weight loss (2–3%); cardioprotective benefits; approved for T2DM</li>
+      <li>Limited histologic endpoint data in MASH; available data suggest improvement in aminotransferases and quantitative steatosis</li>
+      <li>Whether this translates to MASH resolution or fibrosis improvement remains to be defined</li>
+    </ul>
+
+    <h4>Metformin</h4>
+    <ul class="bl">
+      <li>Improves hepatic insulin sensitivity; used in T2DM</li>
+      <li><strong>Not recommended as treatment for NASH/MASH</strong> — did NOT improve liver histology in TONIC study (children) or most adult trials</li>
+      <li>May decrease HCC risk in T2DM (meta-analyses)</li>
+    </ul>
+
+    <h4>Statins</h4>
+    <ul class="bl">
+      <li>Treat dyslipidemia and ↓ cardiovascular risk — <strong>safe across the entire spectrum of MASLD</strong>, including compensated cirrhosis</li>
+      <li>↓ cardiovascular morbidity/mortality; underutilized in MASLD despite strong evidence of safety</li>
+      <li>Beneficial effects: decrease portal pressure → ↓ risk of hepatic decompensation; may decrease risk of cirrhosis and HCC</li>
+      <li>Liver enzyme elevations in MASLD patients on statins = same rate as healthy controls</li>
+      <li>Justified even without proven histologic MASH benefit given cardiovascular benefit and safety</li>
+      <li>Use caution in <strong>decompensated cirrhosis</strong> (limited data)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Drugs That Do NOT Benefit MASH (Should Not Be Used)</h3>
+    <div class="co dan">
+      <div class="co-t">🚫 These Are Well-Studied But Ineffective</div>
+      <ul class="bl">
+        <li><strong>Ursodeoxycholic acid (UDCA)</strong> — does not offer meaningful histologic benefit in NASH/MASH</li>
+        <li><strong>Betaine</strong> — no meaningful histologic benefit</li>
+        <li><strong>Dipeptidylpeptidase-4 (DPP-4) inhibitors</strong> — insulin-sensitizing, but no histologic MASH benefit</li>
+        <li><strong>Silymarin (milk thistle)</strong> — no meaningful histologic benefit</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Bariatric Surgery</h3>
+    <ul class="bl">
+      <li>Indications: BMI ≥40 (any), or BMI ≥35 with comorbidities (T2DM, hypertension, OSA)</li>
+      <li>Cures T2DM in majority; improves MASH and hepatic fibrosis; ↓ liver-related and all-cause mortality</li>
+      <li>Prospective study: bariatric surgery resolved MASH histology and improved fibrosis in <strong>80% at 1 year</strong>; maintained in those sustaining weight loss at 5 years</li>
+      <li>Malabsorptive procedures (e.g., Roux-en-Y gastric bypass) &gt; restrictive procedures (less weight loss)</li>
+      <li><strong>Cannot</strong> be considered primary salvage therapy for compensated MASH cirrhosis</li>
+      <li>Decompensated cirrhosis + bariatric surgery = ↑ mortality; only at high-volume centers with combined liver transplant expertise</li>
+      <li>Weight regain after surgery → persistent MASH</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Liver Transplantation</h3>
+    <ul class="bl">
+      <li>Indicated for end-stage MASLD</li>
+      <li>Outcomes generally good, but comorbidities (obesity, T2DM, CVD) often <strong>limit transplant candidacy</strong></li>
+      <li>MASLD may <strong>recur after transplantation</strong></li>
+      <li>Risk factors for recurrent or de novo MASLD post-transplant: hypertriglyceridemia, obesity, diabetes mellitus, and <strong>immunosuppressive therapies (especially glucocorticoids)</strong></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 8 ═══════════ -->
+<section class="sec" id="s8">
+  <div class="sec-hd"><span class="sec-n">08</span><h2>Drug-Induced Steatosis Table</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <p>These medications cause steatosis/steatohepatitis and must be excluded as alternative causes before diagnosing MASLD:</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Drug</th><th>Pattern</th><th>Mechanism</th></tr></thead>
+      <tbody>
+        <tr><td>Amiodarone</td><td>Macrovesicular steatosis, steatohepatitis, fibrosis</td><td>↓ β-oxidation; ↑ lipid peroxidation, ROS, lipogenesis</td></tr>
+        <tr><td>Glucocorticoids</td><td>Macrovesicular steatosis</td><td>Glucose intolerance + weight gain; inhibit mitochondrial β-oxidation; ↓ hepatic TG secretion; induce lipid peroxidation</td></tr>
+        <tr><td>Tamoxifen</td><td>Macrovesicular steatosis + steatohepatitis</td><td>Promotes de novo FA synthesis; inhibits FA β-oxidation</td></tr>
+        <tr><td>Methotrexate</td><td>Macrovesicular steatosis, steatohepatitis, fibrosis</td><td>Inhibits mitochondrial ETC</td></tr>
+        <tr><td>NRTIs (zidovudine, didanosine)</td><td>Microvesicular steatosis</td><td>Mitochondrial dysfunction via mtDNA depletion</td></tr>
+        <tr><td>Valproic acid</td><td>Microvesicular steatosis</td><td>Inhibits CPT-1; sequesters CoA; arrests ETC and ATP synthesis</td></tr>
+        <tr><td>Tetracyclines (IV)</td><td>Microvesicular steatosis</td><td>Inhibit β-oxidation and VLDL secretion</td></tr>
+        <tr><td>NSAIDs</td><td>Microvesicular steatosis</td><td>Inhibit β-oxidation of short- and medium-chain FAs</td></tr>
+        <tr><td>Cocaine</td><td>Microvesicular steatosis</td><td>N-oxidation produces hepatotoxic products; inhibits β-oxidation</td></tr>
+        <tr><td>Aspirin (Reye's)</td><td>Microvesicular steatosis</td><td>Inhibits long chain 3-hydroxyacyl-CoA dehydrogenase (LCHAD); β-oxidation arrest</td></tr>
+        <tr><td>Androgens</td><td>Macrovesicular steatosis</td><td>↑ hepatic lipid accumulation; impaired glycemic control</td></tr>
+        <tr><td>Fluoxetine</td><td>Macrovesicular steatosis</td><td>↑ lipid accumulation and intracellular serotonin</td></tr>
+        <tr><td>L-Asparaginase</td><td>Microvesicular steatosis</td><td>Inhibits protein synthesis and export of lipoproteins/lipids</td></tr>
+        <tr><td>Irinotecan</td><td>Macrovesicular steatosis</td><td>Unknown</td></tr>
+        <tr><td>5-Fluorouracil</td><td>Macrovesicular steatosis</td><td>Unknown</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 9 ═══════════ -->
+<section class="sec" id="s9">
+  <div class="sec-hd"><span class="sec-n">09</span><h2>Quick Reference Master Table</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Topic</th><th>Key Fact</th></tr></thead>
+      <tbody>
+        <tr><td>MASLD alcohol threshold (women)</td><td>&lt;20 g/day</td></tr>
+        <tr><td>MASLD alcohol threshold (men)</td><td>&lt;30 g/day</td></tr>
+        <tr><td>MetALD range (women)</td><td>20–50 g/day alcohol</td></tr>
+        <tr><td>MetALD range (men)</td><td>30–60 g/day alcohol</td></tr>
+        <tr><td>ALD threshold (women)</td><td>≥50 g/day alcohol</td></tr>
+        <tr><td>ALD threshold (men)</td><td>≥60 g/day alcohol</td></tr>
+        <tr><td>US MASLD prevalence</td><td>25–30% of general adult population</td></tr>
+        <tr><td>MASH prevalence in MASLD</td><td>3–6%</td></tr>
+        <tr><td>True normal ALT (men)</td><td>29–33 U/L</td></tr>
+        <tr><td>True normal ALT (women)</td><td>19–25 U/L</td></tr>
+        <tr><td>Fibrosis progression (steatosis)</td><td>1 stage every 14 years</td></tr>
+        <tr><td>Fibrosis progression (MASH)</td><td>1 stage every 7 years</td></tr>
+        <tr><td>"At-risk MASH" definition</td><td>MASH with fibrosis ≥F2</td></tr>
+        <tr><td>FIB-4 low risk cutoff</td><td>&lt;1.3</td></tr>
+        <tr><td>FIB-4 high risk cutoff</td><td>≥2.67</td></tr>
+        <tr><td>VCTE low (rule out advanced fibrosis)</td><td>&lt;8 kPa</td></tr>
+        <tr><td>VCTE intermediate</td><td>8–12 kPa</td></tr>
+        <tr><td>VCTE high (advanced fibrosis)</td><td>&gt;12 kPa</td></tr>
+        <tr><td>ELF ≥9.8 meaning</td><td>Increased risk of cirrhosis / liver events (FDA-approved threshold)</td></tr>
+        <tr><td>ELF &gt;11.8 meaning</td><td>Suspect cirrhosis</td></tr>
+        <tr><td>MRI-PDFF response threshold</td><td>≥30% reduction → 5× improved MASH resolution likelihood</td></tr>
+        <tr><td>Weight loss for steatosis</td><td>3–5%</td></tr>
+        <tr><td>Weight loss for MASH + fibrosis</td><td>&gt;10%</td></tr>
+        <tr><td>Resmetirom indication</td><td>At-risk MASH (F2–F3, not cirrhosis); THR-β agonist; FDA accelerated approval</td></tr>
+        <tr><td>MAESTRO-NASH MASH resolution (100 mg)</td><td>30% vs 10% placebo</td></tr>
+        <tr><td>Resmetirom side effects</td><td>Transient GI symptoms (nausea, loose stools)</td></tr>
+        <tr><td>PIVENS pioglitazone result</td><td>47% NASH resolution vs 21% placebo</td></tr>
+        <tr><td>PIVENS vitamin E result</td><td>43% NASH histologic improvement vs 19% placebo</td></tr>
+        <tr><td>Semaglutide NASH resolution</td><td>59% (0.4 mg) vs 17% placebo</td></tr>
+        <tr><td>Bariatric surgery MASH resolution</td><td>80% at 1 year</td></tr>
+        <tr><td>Strongest genetic risk variant</td><td>PNPLA3 I148M</td></tr>
+        <tr><td>Protective genetic variant</td><td>HSD17B13 loss-of-function</td></tr>
+        <tr><td>MASLD annual HCC incidence (cirrhosis)</td><td>1–2% per year</td></tr>
+        <tr><td>Cirrhosis decompensation rate</td><td>3–20% per year</td></tr>
+        <tr><td>MASLD racial prevalence — highest</td><td>Hispanic / Asian-Indian (~50%)</td></tr>
+        <tr><td>MASLD racial prevalence — lowest</td><td>African American (~25%)</td></tr>
+        <tr><td>Drugs NOT beneficial for MASH</td><td>UDCA, betaine, DPP-4 inhibitors, silymarin</td></tr>
+        <tr><td>Metformin in MASH</td><td>Not recommended (no histologic benefit in trials)</td></tr>
+        <tr><td>Statins in MASLD</td><td>Safe even in compensated cirrhosis; cardiovascular benefit; do not cause more liver injury than in healthy controls</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 10 ═══════════ -->
+<section class="sec" id="s10">
+  <div class="sec-hd"><span class="sec-n">10</span><h2>Exam Traps</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">Normal liver enzymes do NOT exclude MASLD</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 52-year-old with T2DM and BMI 32 is found to have hepatic steatosis on ultrasound during an abdominal workup. Her ALT is 28 U/L (lab reference range: "normal ≤40"). Is MASLD excluded?</div>
+      <div class="trap-a"><strong>No — normal liver enzymes do NOT exclude MASLD.</strong> The standard lab "normal" ranges for aminotransferases are inflated because they include values from people with undiagnosed liver disease. The true normal ALT is 29–33 U/L in men and 19–25 U/L in women. Even with normal ALT, MASLD can be present and can be at advanced stages. The diagnosis is rendered by the combination of steatosis + metabolic risk factor(s) + exclusion of other causes.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Lean MASLD — overweight is NOT required</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 38-year-old Asian man with BMI 22 is found to have elevated ALT and fatty liver on imaging. He has no known metabolic syndrome. Can he have MASLD?</div>
+      <div class="trap-a"><strong>Yes — lean MASLD is well-established.</strong> Although MASLD typically occurs with overweight/obese status, it can occur in lean individuals (BMI &lt;25 kg/m²; &lt;23 in Asians). It is particularly common with truncal obesity and lipodystrophy (paucity of peripheral fat depots). In Asia, lean MASLD prevalence can be as high as 19%. Lean MASLD patients still have visceral adiposity, insulin resistance, and metabolic comorbidities despite normal BMI.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Steatosis alone does NOT damage the liver — it is lipotoxicity that does</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A board question states that "triglyceride accumulation in hepatocytes is directly hepatotoxic." Is this correct?</div>
+      <div class="trap-a"><strong>No — triglyceride accumulation per se does NOT damage the liver.</strong> Steatosis (triglyceride accumulation) is a relatively safe storage form of lipids and is not directly toxic. It is a biomarker of metabolic dysfunction. It is the dysregulated processing of fatty acids into toxic intermediates — lipotoxicity — that causes MASH (steatohepatitis). This distinction is fundamental: MASL (simple steatosis) has negligible 10-year liver-related morbidity; MASH (with lipotoxicity) drives fibrosis progression.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">T2DM is the STRONGEST risk factor — not obesity alone</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Which is the strongest single risk factor for MASLD acquisition, fibrosis progression, and HCC in MASLD?</div>
+      <div class="trap-a"><strong>Type 2 diabetes mellitus (T2DM).</strong> Not obesity. T2DM confers a nearly twofold increased risk for MASH with fibrosis, and the probability of advanced fibrosis increases with the duration and severity of T2DM. The relationship is bidirectional: MASLD increases T2DM risk by 2–5×, and T2DM worsens MASLD. All MASLD patients should be screened for T2DM. As liver disease progresses, insulin resistance worsens further, creating a vicious cycle.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Metformin — do NOT use for MASH treatment</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with T2DM and biopsy-proven MASH (F2) is initiated on metformin for glycemic control. Should this count as MASH treatment?</div>
+      <div class="trap-a"><strong>No — metformin is not recommended as treatment for MASH.</strong> Despite improving hepatic insulin sensitivity, metformin did NOT improve liver histology in the TONIC study (children) or most adult NASH trials. It is appropriate to use for glycemic control in T2DM with MASLD, but it is not a liver-directed MASH therapy. For at-risk MASH (F2–F3), the appropriate liver-directed pharmacotherapy is resmetirom (FDA-approved). GLP-1RAs and pioglitazone have histologic evidence of benefit.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">FIB-4 is unreliable at extremes of age</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 68-year-old patient with MASLD has a FIB-4 of 1.6 (intermediate risk). Should they be referred to a specialist?</div>
+      <div class="trap-a"><strong>A secondary NIT is needed before deciding, because FIB-4 has low accuracy in patients &gt;65 years AND &lt;35 years.</strong> In older patients, FIB-4 frequently overestimates fibrosis risk because age is directly in the numerator of the formula. The algorithm specifically recommends performing a secondary NIT (VCTE or ELF) in these age groups before proceeding with specialist referral or biopsy decisions. Do not make management decisions based on FIB-4 alone in patients outside the 35–65 age range.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Resmetirom — F2–F3 only, not cirrhosis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with MASH and F4 cirrhosis asks about the new FDA-approved MASH drug. Can resmetirom be used?</div>
+      <div class="trap-a"><strong>No — resmetirom is indicated only for at-risk MASH with F2–F3 fibrosis, NOT in patients with cirrhosis (F4).</strong> The MAESTRO-NASH trial explicitly enrolled patients with fibrosis that had NOT yet advanced to cirrhosis. The accelerated FDA approval is for F2–F3 disease. Patients with F4 (cirrhosis) require cirrhosis-based management — varices screening per Baveno criteria, biannual HCC surveillance, and evaluation for liver transplantation.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">UDCA — commonly used but should NOT be used for MASH</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A hepatologist prescribes UDCA to a patient with biopsy-proven MASH because "it helps cholestatic liver disease." Is this appropriate?</div>
+      <div class="trap-a"><strong>No — UDCA does not offer meaningful histologic benefit in NASH/MASH.</strong> Despite being well-studied and effective in primary biliary cholangitis (a cholestatic liver disease), UDCA is specifically listed as a drug that should NOT be used for MASH. The same applies to betaine, DPP-4 inhibitors, and silymarin. The confusion arises because UDCA is effective in other liver conditions, but the evidence is clear that it provides no meaningful histologic improvement in MASH.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">MASLD can cause HCC even WITHOUT cirrhosis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 58-year-old with biopsy-proven MASH (F2 fibrosis, no cirrhosis) asks whether HCC surveillance is needed. What is the correct answer?</div>
+      <div class="trap-a"><strong>MASLD may be a premalignant condition, increasing risk for primary liver cancers even in noncirrhotic livers.</strong> Standard HCC surveillance (ultrasound + AFP every 6 months) is triggered by the diagnosis of cirrhosis. However, for noncirrhotic MASH, the question is evolving. The key board fact is: HCC can occur in MASLD WITHOUT cirrhosis. In practice, biannual HCC surveillance is formally recommended once cirrhosis is confirmed — but the risk exists before cirrhosis and is higher than in the general population.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">MASLD recurs after liver transplantation</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with end-stage MASH undergoes successful liver transplantation. Five years later, liver enzymes are elevated and biopsy shows steatohepatitis. What is happening?</div>
+      <div class="trap-a"><strong>Recurrent MASLD after liver transplantation.</strong> MASLD is a systemic metabolic disease — transplanting a healthy liver does not cure the underlying metabolic dysfunction. MASLD recurs (or can develop de novo) post-transplant. Risk factors for recurrent/de novo MASLD: hypertriglyceridemia, obesity, T2DM, and immunosuppressive therapies (especially glucocorticoids). Post-transplant metabolic management is critical to prevent disease recurrence and protect graft function.</div>
+    </div>
+  </div>
+
+</section>
+
+<hr class="sep">
+<footer class="footer">Harrison's Principles of Internal Medicine 22nd Ed · Chapter 354 · MASLD &amp; MASH · Boards Review 2026</footer>
+</main>
+
+<script>
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY = FILE_KEY + '_hl';
+const NT_KEY = FILE_KEY + '_notes';
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c){curColor=c;eraseMode=false;document.body.style.cursor='crosshair';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));document.getElementById('h-'+c).classList.add('active');}
+function setErase(){eraseMode=true;curColor=null;document.body.style.cursor='cell';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));}
+function applyHL(range,color){try{const s=document.createElement('span');s.className='hl hl-'+color;s.dataset.hlColor=color;range.surroundContents(s);saveHighlights();}catch(e){try{const f=range.extractContents();const s=document.createElement('span');s.className='hl hl-'+color;s.dataset.hlColor=color;s.appendChild(f);range.insertNode(s);saveHighlights();}catch(e2){}}}
+function saveHighlights(){const d=[];document.querySelectorAll('.hl[data-hl-color]').forEach(s=>{const t=s.textContent.trim();if(t.length>1)d.push({text:t,color:s.dataset.hlColor});});try{localStorage.setItem(HL_KEY,JSON.stringify(d));}catch(e){}}
+function restoreHighlights(){let saved;try{saved=JSON.parse(localStorage.getItem(HL_KEY))||[];}catch(e){return;}if(!saved.length)return;const main=document.querySelector('main')||document.body;saved.forEach(function(item){if(!item.text||!item.color)return;const w=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,null,false);let node;while(node=w.nextNode()){if(node.parentElement&&(node.parentElement.classList.contains('hl')||node.parentElement.classList.contains('note-anchor')))continue;const idx=node.nodeValue.indexOf(item.text);if(idx!==-1){try{const r=document.createRange();r.setStart(node,idx);r.setEnd(node,idx+item.text.length);applyHL(r,item.color);}catch(e){}break;}}});}
+function getNotes(){try{return JSON.parse(localStorage.getItem(NT_KEY)||'[]');}catch(e){return[];}}
+function saveNotes(n){try{localStorage.setItem(NT_KEY,JSON.stringify(n));}catch(e){}}
+function addNote(){const txt=document.getElementById('sn-ta').value.trim();if(!txt)return;const id=Date.now();const notes=getNotes();notes.unshift({id,ref:selText.substring(0,100)||'—',text:txt});saveNotes(notes);if(savedRange){try{const s=document.createElement('span');s.className='note-anchor';s.dataset.noteId=id;s.title='Click to see your note';savedRange.surroundContents(s);bindAnchor(s,id);}catch(e){try{const f=savedRange.extractContents();const s=document.createElement('span');s.className='note-anchor';s.dataset.noteId=id;s.title='Click to see your note';s.appendChild(f);savedRange.insertNode(s);bindAnchor(s,id);}catch(e2){}}savedRange=null;}document.getElementById('sn-ta').value='';selText='';document.getElementById('sn-ref-txt').textContent='—';renderNotes();}
+function bindAnchor(span,id){span.addEventListener('click',function(e){e.stopPropagation();const note=getNotes().find(n=>n.id===id);if(note)showPopover(span,note);});}
+function restoreAnchors(){const notes=getNotes();if(!notes.length)return;const main=document.querySelector('main')||document.body;notes.forEach(function(note){if(!note.ref||note.ref==='—'||!note.id)return;const refText=note.ref.trim();if(refText.length<2)return;if(document.querySelector('.note-anchor[data-note-id="'+note.id+'"]'))return;const w=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,null,false);let node;while(node=w.nextNode()){if(node.parentElement&&(node.parentElement.classList.contains('note-anchor')||node.parentElement.classList.contains('hl')))continue;const idx=node.nodeValue.indexOf(refText);if(idx!==-1){try{const r=document.createRange();r.setStart(node,idx);r.setEnd(node,idx+refText.length);const s=document.createElement('span');s.className='note-anchor';s.dataset.noteId=String(note.id);s.title='Click to see your note';r.surroundContents(s);bindAnchor(s,note.id);}catch(e){}break;}}});}
+function deleteNote(id){saveNotes(getNotes().filter(n=>n.id!==id));document.querySelectorAll('.note-anchor[data-note-id="'+id+'"]').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});closePopover();renderNotes();}
+function renderNotes(){const body=document.getElementById('sn-body');const empty=document.getElementById('sn-empty');const notes=getNotes();body.querySelectorAll('.sn-note').forEach(el=>el.remove());if(!notes.length){if(empty)empty.style.display='';return;}if(empty)empty.style.display='none';notes.forEach(note=>{const card=document.createElement('div');card.className='sn-note';card.dataset.noteId=note.id;card.innerHTML='<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span><span class="sn-note-ref">'+(note.ref!=='—'?'"'+note.ref+'"':'General note')+'</span><button class="sn-del" onclick="deleteNote('+note.id+')">×</button></div><div class="sn-note-body">'+note.text.replace(/\n/g,'<br>')+'</div><div class="sn-resize"></div>';body.appendChild(card);makeResizable(card,note.id);});}
+let activePopNoteId=null;
+function showPopover(anchorEl,note){const pop=document.getElementById('note-popover');document.getElementById('np-pop-ref').textContent=note.ref!=='—'?'"'+note.ref.substring(0,55)+'"':'Note';document.getElementById('np-pop-text').innerHTML=note.text.replace(/\n/g,'<br>');document.getElementById('pop-del-btn').onclick=()=>deleteNote(note.id);activePopNoteId=note.id;const rect=anchorEl.getBoundingClientRect();pop.style.left=Math.min(rect.left,window.innerWidth-300)+'px';pop.style.top=(rect.bottom+8)+'px';pop.classList.add('show');}
+function closePopover(){document.getElementById('note-popover').classList.remove('show');activePopNoteId=null;}
+document.addEventListener('click',function(e){if(!document.getElementById('note-popover').contains(e.target))closePopover();});
+document.addEventListener('mouseup',function(e){const tb=document.getElementById('toolbar');const sb=document.getElementById('sn-sidebar');const np=document.getElementById('note-popover');if(tb.contains(e.target)||sb.contains(e.target)||np.contains(e.target))return;if(eraseMode&&e.target.classList.contains('hl')){const el=e.target;el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();saveHighlights();return;}const sel=window.getSelection();if(!sel||sel.isCollapsed)return;const txt=sel.toString().trim();if(!txt)return;selText=txt;savedRange=sel.getRangeAt(0).cloneRange();document.getElementById('sn-ref-txt').textContent=txt.length>48?txt.substring(0,48)+'…':txt;if(curColor){try{applyHL(sel.getRangeAt(0),curColor);sel.removeAllRanges();}catch(err){}}});
+function clearAll(){if(!confirm('Clear ALL highlights and notes?'))return;document.querySelectorAll('.hl').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});document.querySelectorAll('.note-anchor').forEach(el=>{el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});try{localStorage.removeItem(HL_KEY);localStorage.removeItem(NT_KEY);}catch(e){}curColor=null;eraseMode=false;document.body.style.cursor='';document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));closePopover();renderNotes();}
+function toggleSidebar(){const sb=document.getElementById('sn-sidebar');const tab=document.getElementById('sn-tab');sb.classList.toggle('hidden');tab.textContent=sb.classList.contains('hidden')?'📝 Notes':'◀';}
+function makeResizable(card,noteId){const handle=card.querySelector('.sn-resize');let startY=0,startH=0;handle.addEventListener('mousedown',function(e){e.preventDefault();e.stopPropagation();startY=e.clientY;startH=card.offsetHeight;function onMove(ev){card.style.height=Math.max(80,startH+(ev.clientY-startY))+'px';}function onUp(){document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp);}document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp);});}
+document.querySelectorAll('.lbtn').forEach(b=>{b.addEventListener('click',function(){this.classList.toggle('on');});});
+document.querySelectorAll('.fbtn').forEach(b=>{b.addEventListener('click',function(){this.classList.toggle('on');});});
+const _sections=document.querySelectorAll('.sec[id]');
+const _navLinks=document.querySelectorAll('.toc-a');
+_sections.forEach(s=>new IntersectionObserver(entries=>{if(entries[0].isIntersecting){_navLinks.forEach(l=>l.classList.remove('on'));const lnk=document.querySelector('.toc-a[href="#'+s.id+'"]');if(lnk){lnk.classList.add('on');lnk.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}}},{rootMargin:'-15% 0px -75% 0px'}).observe(s));
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
