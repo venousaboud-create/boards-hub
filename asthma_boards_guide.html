@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Asthma · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);
+  border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;
+  z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;
+  display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;
+  position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;
+  line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;
+  padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blu);
+  margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.bl.sub-bl{margin-left:18px}
+.bl.sub-bl li::before{color:var(--pur);content:'–'}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}
+  .main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles · Chapter 298</div>
+  <h1>Asthma</h1>
+  <div class="hero-sub">Elliot Israel · Medical Boards Review</div>
+  <div class="hero-authors">Episodic airway obstruction · Airway hyperresponsiveness · Airway inflammation</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">262M</div><div class="stat-l">Affected Globally</div></div>
+    <div class="stat-box"><div class="stat-n">7.9%</div><div class="stat-l">US Prevalence</div></div>
+    <div class="stat-box"><div class="stat-n">5</div><div class="stat-l">Treatment Steps</div></div>
+    <div class="stat-box"><div class="stat-n">4</div><div class="stat-l">Biologic Classes</div></div>
+    <div class="stat-box"><div class="stat-n">~50%</div><div class="stat-l">Severe Asthma Costs</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Overview</a>
+    <a class="toc-a" href="#s2">Pathophysiology</a>
+    <a class="toc-a" href="#s3">Inflammation</a>
+    <a class="toc-a" href="#s4">Mediators</a>
+    <a class="toc-a" href="#s5">Risk Factors &amp; Triggers</a>
+    <a class="toc-a" href="#s6">Comorbidities</a>
+    <a class="toc-a" href="#s7">Diagnosis</a>
+    <a class="toc-a" href="#s8">Treatment</a>
+    <a class="toc-a" href="#s9">Special Situations</a>
+    <a class="toc-a" href="#s10">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 1: OVERVIEW -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="sec" id="s1">
+  <div class="sec-hd">
+    <span class="sec-n">01</span>
+    <h2>Overview — Definition, Manifestations &amp; Epidemiology</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Definition</h3>
+    <div class="co key">
+      <div class="co-t">Core Definition</div>
+      Asthma is a disease characterized by <strong>episodic airway obstruction</strong> and <strong>airway hyperresponsiveness</strong>, usually accompanied by <strong>airway inflammation</strong>. In most cases, the obstruction is <strong>reversible</strong>; however, in a subset of asthmatics, a component may become <strong>irreversible</strong>.
+    </div>
+    <ul class="bl">
+      <li>In a <strong>large proportion</strong> of patients, the airway inflammation is <strong>eosinophilic</strong></li>
+      <li>Some patients present with <strong>differing types</strong> of airway inflammation (neutrophilic, mixed)</li>
+      <li>In some cases, <strong>no obvious evidence</strong> of airway inflammation exists (pauci-granulocytic)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Manifestations</h3>
+    <ul class="bl">
+      <li><strong>Episodic shortness of breath, wheezing, and cough</strong> — can occur in relation to triggers or spontaneously</li>
+      <li>Symptoms can occur in <strong>combination or separately</strong></li>
+      <li>Additional symptoms: <strong>chest tightness</strong> and/or <strong>mucus production</strong></li>
+      <li>Symptoms can resolve <strong>spontaneously or with therapy</strong></li>
+      <li>In some patients, wheezing and/or dyspnea can be <strong>persistent</strong></li>
+      <li><strong>Exacerbations</strong> (episodes of acute bronchospasm) may be severe enough to require emergency care, hospitalization, and may result in death</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Epidemiology</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Global Burden</div>
+        <ul class="bl">
+          <li><strong>262 million</strong> people affected globally</li>
+          <li>Most common chronic disease associated with significant morbidity and mortality</li>
+          <li>Prevalence: <strong>7.9% in the US</strong> vs <strong>~4.3% worldwide</strong></li>
+          <li>Prevalence increasing (7.3% in 2001 → 7.9% now); associated with rural-to-urban transition</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">US Statistics</div>
+        <ul class="bl">
+          <li>2016: <strong>1.8 million ER visits</strong> for asthma; <strong>189,000 hospitalizations</strong></li>
+          <li>Total economic cost in 2013: <strong>$82 billion</strong></li>
+          <li>More prevalent in <strong>Blacks</strong> than Caucasians; Black race associated with greater morbidity</li>
+          <li>Highest US prevalence: <strong>Puerto Rican population</strong></li>
+        </ul>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-a">Age &amp; Sex Distribution</div>
+        <ul class="bl">
+          <li>More prevalent in <strong>children (8.4%)</strong> than adults (7.7%)</li>
+          <li>Children: <strong>boys &gt; girls (2:1 male-to-female ratio)</strong></li>
+          <li>By age 20: sex difference recedes; by age 40: <strong>women &gt; men</strong></li>
+          <li>Some resolve entering adulthood, only to "recur" later in life</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Mortality Trends</div>
+        <ul class="bl">
+          <li>Mortality increased worldwide in <strong>1960s</strong> (related to overuse of inhaled β₂-agonists)</li>
+          <li>Reduction attributed to increased use of <strong>inhaled corticosteroids</strong></li>
+          <li>Declined from <strong>0.44 per 100,000</strong> (1993) to <strong>0.19</strong> (2006)</li>
+          <li>No further reduction in mortality since 2006</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 2: PATHOPHYSIOLOGY -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="sec" id="s2">
+  <div class="sec-hd">
+    <span class="sec-n">02</span>
+    <h2>Pathophysiology</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co tel">
+    <div class="co-t">Development Pathway (Fig. 298-1)</div>
+    The development of asthma involves an interplay between <strong>genetic susceptibility</strong> (risk genes and atopy) and <strong>environmental exposures and endogenous developmental factors</strong> (aging, menopause). Continued exposures and triggers affect the <strong>progression of disease</strong> and degree of impairment.
+  </div>
+
+  <div class="sub">
+    <h3>Airway Hyperresponsiveness</h3>
+    <div class="co key">
+      <div class="co-t">Definition — Hallmark of Asthma</div>
+      An <strong>acute narrowing response</strong> of the airways in reaction to agents that do not elicit airway responses in nonaffected individuals, or an <strong>excess narrowing response</strong> to inhaled agents compared to nonaffected individuals.
+    </div>
+    <p><strong>Three mechanisms produce AHR:</strong></p>
+    <ul class="bl">
+      <li><strong>Direct smooth muscle hyperresponsiveness:</strong> to direct SM-acting agents (histamine, methacholine)</li>
+      <li><strong>Indirect activation:</strong> stimulation of inflammatory cells (release bronchoconstrictors, mediators causing edema/mucus) and/or sensory nerves that act on smooth muscle</li>
+      <li><strong>Structural etiology:</strong> airway wall thickness (from SM hypertrophy/hyperplasia, subepithelial collagen deposition, airway edema, mucosal inflammation) → airway narrows disproportionately to stimuli</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">Major Therapeutic Objective</div>
+      A major goal of asthma treatment is to <strong>decrease the degree of airway hyperresponsiveness</strong>.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Pathologic Changes in Asthmatic Airways</h3>
+    <p>These processes can occur individually or simultaneously, involve the entire airway (but not the parenchyma), and show significant spatial heterogeneity.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Structure</th><th>Pathologic Change</th><th>Mechanism</th><th>Consequence</th></tr></thead>
+        <tbody>
+          <tr><td>Inflammatory Cells</td><td>Eosinophilic (most common), neutrophilic, mixed, mast cells increased</td><td>Chronic activation; allergen/non-allergen stimuli</td><td>Mediator release, AHR, epithelial damage</td></tr>
+          <tr><td>Airway Smooth Muscle</td><td>Hypertrophy and hyperplasia</td><td>Inflammatory cytokines; mechanical stress</td><td>AHR, wall thickening, chemokine/cytokine production, mast cell survival</td></tr>
+          <tr><td>Subepithelial Basement Membrane</td><td>Collagen deposition (repair-type collagens, tenascin, periostin, fibronectin, osteopontin); from myofibroblasts</td><td>Chronic repair processes</td><td>Airway stiffening; exaggerated response to SM tension; lumen narrowing; decreased relaxation → chronic obstruction</td></tr>
+          <tr><td>Airway Epithelium</td><td>Separation of columnar cells from basal cells (epithelial denudation)</td><td>Inflammatory mediators; oxidative stress</td><td>Forms trophic unit with mesenchyme → growth factors → remodeling; source of alarmins and cytokines</td></tr>
+          <tr><td>Vasculature</td><td>Angiogenesis; vascular leakage from postcapillary venules</td><td>Angiogenic factors; inflammatory mediators</td><td>Acute and chronic airway edema</td></tr>
+          <tr><td>Submucosal Edema</td><td>Fluid accumulation</td><td>Inflammatory mediators; vascular leakage</td><td>Acute response + chronic wall thickening</td></tr>
+          <tr><td>Goblet Cells</td><td>Metaplasia; mucus hypersecretion</td><td>Chronic inflammation; IL-13</td><td>Reduced airway luminal area; mucus plugs → persistent obstruction (even into small airways)</td></tr>
+          <tr><td>Neuronal Tissue</td><td>Proliferation via neurotrophins from SM, epithelial, and inflammatory cells</td><td>Neurotrophin elaboration</td><td>Regulation of SM tone and mucus production → acute bronchospasm + chronic increased airway tone</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co wrn">
+      <div class="co-t">Important Note</div>
+      All these changes <strong>may not be present in one individual</strong>, and certain patients may have normal-appearing airways.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Airway Smooth Muscle — Three Contributions</h3>
+    <ul class="bl">
+      <li><strong>Hyperresponsiveness</strong> to stimuli (direct contribution to AHR)</li>
+      <li><strong>Hypertrophy and hyperplasia</strong> → airway wall thickening → structural AHR</li>
+      <li><strong>Production of chemokines and cytokines</strong> → promotes airway inflammation + promotes survival of inflammatory cells, particularly <strong>mast cells</strong></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 3: AIRWAY INFLAMMATION -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="sec" id="s3">
+  <div class="sec-hd">
+    <span class="sec-n">03</span>
+    <h2>Airway Inflammation — Type 2 &amp; Non-Type 2</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co prl">
+    <div class="co-t">Modern Nosology Shift</div>
+    The old paradigm of <em>atopic vs. nonatopic (intrinsic)</em> asthma is being superseded by consideration of whether asthma is associated with <strong>Type 2 or Non-Type 2 inflammation</strong>. This framework is driven by understanding immune processes and by the development of therapeutics targeting Type 2 inflammation.
+  </div>
+
+  <div class="sub">
+    <h3>Type 2 Inflammation</h3>
+    <div class="co key">
+      <div class="co-t">Definition</div>
+      An immune response involving the <strong>innate and adaptive arms</strong> of the immune system to promote barrier immunity on mucosal surfaces. Called "Type 2" because it is associated with the <strong>type 2 subset of CD4+ T-helper (TH2) cells</strong>.
+    </div>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">IL-4</div>
+        <ul class="bl">
+          <li>Induces <strong>B-cell isotype switching</strong> to IgE production</li>
+          <li>IgE binds basophils and mast cells → environmental sensitivity to allergens via IgE cross-linking</li>
+          <li>Products released: Type 2 cytokines + <strong>direct activators of smooth-muscle constriction and edema</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">IL-5</div>
+        <ul class="bl">
+          <li><strong>Critical role in regulating eosinophils</strong></li>
+          <li>Controls <strong>formation, recruitment, and survival</strong> of eosinophils</li>
+          <li>Primary therapeutic target (mepolizumab, reslizumab, benralizumab)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">IL-13</div>
+        <ul class="bl">
+          <li>Induces <strong>airway hyperresponsiveness</strong></li>
+          <li>Induces <strong>mucus hypersecretion</strong></li>
+          <li>Induces <strong>goblet cell metaplasia</strong></li>
+          <li>Stimulates nitric oxide production</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4>Non-Allergic Pathway to Type 2 Inflammation — ILC2s</h4>
+    <div class="co tel">
+      <div class="co-t">Key Concept — Non-Allergic Type 2</div>
+      <strong>Non-allergic stimuli</strong> (irritants, pollutants, oxidative agents, fungi, viruses) can trigger production of Type 2 cytokines via <strong>Type 2 innate lymphoid cells (ILC2)</strong>. Epithelial cells release <strong>alarmins</strong> (TSLP, IL-25, IL-33) → activate ILC2 → produce IL-5 and IL-13 → <strong>eosinophilia even without allergen sensitization</strong>.
+    </div>
+
+    <h4>Role of Eosinophils</h4>
+    <div class="co key">
+      <div class="co-t">Eosinophils in Asthma Pathobiology</div>
+      Anti-IL-5 drugs that dramatically reduce eosinophils have confirmed that eosinophils play a <strong>major role in asthma pathobiology</strong> in many asthmatics.
+    </div>
+    <ul class="bl">
+      <li>Induce AHR via <strong>oxidative radicals</strong> and <strong>major basic protein</strong> → disrupt epithelium</li>
+      <li>Produce <strong>cysteinyl-leukotrienes</strong> → directly stimulate smooth muscle contraction → airway constriction</li>
+      <li>Mucus plugs with significant <strong>eosinophil aggregates</strong> may accumulate in airways → contribute to asthma severity (CT evidence)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Non-Type 2 Inflammation</h3>
+    <ul class="bl">
+      <li>Can exist <strong>in combination with</strong> Type 2 or <strong>without</strong> Type 2 inflammation</li>
+      <li><strong>Neutrophilic inflammation:</strong> more common in severe asthma not responding to corticosteroids; associated with chronic infection (atypical pathogens like <em>Mycoplasma</em> → explains some response to macrolide antibiotics); also seen in RADS</li>
+      <li><strong>Pauci-granulocytic asthma:</strong> structural changes (Fig. 298-2) without any evidence of tissue infiltration by inflammatory cells; etiology unclear</li>
+      <li><strong>Mixed eosinophilic + neutrophilic:</strong> presents with the <strong>most severe phenotype</strong></li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">Clinical Implication</div>
+      Patients with both eosinophilic <em>and</em> neutrophilic inflammation may present with the <strong>most severe phenotype</strong>. Mast cells are also more frequent in this group.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 4: MEDIATORS -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="sec" id="s4">
+  <div class="sec-hd">
+    <span class="sec-n">04</span>
+    <h2>Mediators of Asthma</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Cytokines</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Cytokine</th><th>Type</th><th>Source</th><th>Role</th><th>Therapeutic Target?</th></tr></thead>
+        <tbody>
+          <tr><td>IL-4</td><td>Type 2</td><td>TH2 cells</td><td>B-cell IgE switching; IgE-mediated sensitization</td><td>Yes (dupilumab — IL-4Rα)</td></tr>
+          <tr><td>IL-5</td><td>Type 2</td><td>TH2 cells, ILC2</td><td>Eosinophil formation, recruitment, survival</td><td>Yes (mepolizumab, reslizumab, benralizumab)</td></tr>
+          <tr><td>IL-13</td><td>Type 2</td><td>TH2 cells, ILC2</td><td>AHR, mucus hypersecretion, goblet cell metaplasia, NO production</td><td>Yes (dupilumab)</td></tr>
+          <tr><td>TSLP</td><td>Alarmin</td><td>Epithelial cells</td><td>Proximal signal; activates ILC2; affects multiple downstream pathways</td><td>Yes (tezepelumab)</td></tr>
+          <tr><td>IL-25 (IL-17E)</td><td>Alarmin</td><td>Epithelial cells</td><td>Activates ILC2 → Type 2 cytokines</td><td>Under study</td></tr>
+          <tr><td>IL-33</td><td>Alarmin</td><td>Epithelial cells</td><td>Activates ILC2; also activates mast cells, TH2 cells</td><td>In advanced development</td></tr>
+          <tr><td>IL-9</td><td>Type 2 related</td><td>TH9 cells</td><td>Implicated in asthma pathobiology</td><td>Under study</td></tr>
+          <tr><td>IL-6, IL-17, TNF-α, IL-1β, IL-8</td><td>Non-Type 2</td><td>Neutrophils, macrophages</td><td>Non-Type 2 inflammation; neutrophilic asthma</td><td>Trials not shown efficacy</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Fatty Acid Mediators</h3>
+    <h4>Cysteinyl Leukotrienes (LTC₄, LTD₄, LTE₄)</h4>
+    <ul class="bl">
+      <li>Produced by <strong>eosinophils and mast cells</strong> from arachidonic acid</li>
+      <li><strong>Potent smooth-muscle constrictors</strong></li>
+      <li>Stimulate <strong>mucus secretion</strong></li>
+      <li>Recruit allergic inflammatory cells</li>
+      <li>Cause <strong>microvascular leakage</strong></li>
+      <li>Modulate cytokine production; influence neural transmission</li>
+      <li><strong>Leukotriene modifiers have shown clinical benefit in asthma</strong></li>
+    </ul>
+
+    <h4>LTB₄ (Non-cysteinyl Leukotriene)</h4>
+    <ul class="bl">
+      <li>Produced primarily from <strong>neutrophils</strong>; also macrophages and epithelial cells</li>
+      <li><strong>Potent neutrophil chemoattractant</strong></li>
+    </ul>
+
+    <h4>Prostaglandins</h4>
+    <ul class="bl">
+      <li>Prostaglandins are for the most part <strong>proinflammatory</strong></li>
+      <li><strong>PGD₂</strong>: produced by mast cells; CRTH2 receptors present on TH2, ILC2, mast cells, eosinophils, macrophages, and epithelial cells → <strong>upregulates Type 2 inflammation</strong></li>
+      <li>Studies with drugs blocking CRTH2 have been <strong>relatively disappointing</strong> thus far</li>
+    </ul>
+
+    <h4>Pro-Resolving Mediators</h4>
+    <div class="co suc">
+      <div class="co-t">Resolution of Inflammation</div>
+      <strong>Resolvins and lipoxins</strong> are responsible for the resolution of inflammation. Several studies suggest that <strong>deficiencies in these moieties</strong> may be responsible for ongoing inflammation in asthma, especially in severe asthma. Pro-resolving pathway therapies may be promising.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Other Mediators</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-t">Nitric Oxide (NO)</div>
+        <ul class="bl">
+          <li>Potent vasodilator</li>
+          <li>In vitro: may increase mucus production and SM proliferation</li>
+          <li>Produced by epithelial cells (especially in response to <strong>IL-13</strong>), eosinophils, mast cells, neutrophils</li>
+          <li>Detectable in <strong>exhaled breath (FeNO)</strong></li>
+          <li>Reduced by interventions interfering with IL-13 production or activity</li>
+          <li>Precise role in asthma unclear</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Reactive Oxygen Species</div>
+        <ul class="bl">
+          <li>Released when allergens, pollutants, bacteria, viruses activate inflammatory cells → <strong>respiratory bursts</strong></li>
+          <li>Result in <strong>oxidative stress</strong> in surrounding tissue</li>
+          <li>Effects: SM contraction, ↑ mucus secretion, AHR, <strong>epithelial shedding</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Chemokines</div>
+        <ul class="bl">
+          <li>Secreted by epithelium and other inflammatory cells</li>
+          <li><strong>Eotaxin:</strong> eosinophil chemoattractant</li>
+          <li><strong>TARC and MDC:</strong> attract TH2 cells</li>
+          <li><strong>RANTES:</strong> pluripotent pro-phlogistic effects</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 5: RISK FACTORS & TRIGGERS -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="sec" id="s5">
+  <div class="sec-hd">
+    <span class="sec-n">05</span>
+    <h2>Risk Factors, Etiologic Mechanisms &amp; Triggers</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Heritable Predisposition</h3>
+    <div class="co key">
+      <div class="co-t">Heritability</div>
+      Family and twin studies suggest a <strong>25–80% degree of heritability</strong>. Complex polygenic inheritance complicated by interaction with environmental exposures and epigenetic modifications. Only <strong>7.2% of asthma risk</strong> can be explained by the SNPs currently associated with asthma.
+    </div>
+    <h4>Key Asthma Genes</h4>
+    <ul class="bl">
+      <li><strong>ORMDL3/GSDMB</strong> (17q21 chromosomal region) — most consistently identified; regulation associated with altered TH2 cytokine levels</li>
+      <li>ADAM33, DPP-10, TSLP, IL-12, IL-33, ST2 (IL-33 receptor), HLA-DQB1, HLA-DQB2, TLR1, IL-13, IL6R</li>
+      <li><strong>PYHIN1</strong> (interferon inducible protein X): only found in people of <strong>African descent</strong> — example of ancestry heterogeneity</li>
+      <li>Most currently identified traits act as <strong>"enhancers"</strong> of biologic processes (polymorphisms in noncoding regions)</li>
+    </ul>
+    <h4>Pharmacogenomics</h4>
+    <ul class="bl">
+      <li><strong>β-receptor polymorphism (Arg16Gly in ADRB2)</strong> → altered response to β₂-agonists</li>
+      <li>Glucocorticoid-induced transcript 1 gene → altered corticosteroid response</li>
+      <li>Leukotriene synthesis and receptor pathway variants → altered leukotriene modifier response</li>
+    </ul>
+    <h4>Atopy</h4>
+    <ul class="bl">
+      <li><strong>Atopy</strong> = genetic tendency toward specific IgE production in response to allergen exposure</li>
+      <li>Serum IgE levels correlate closely with development of asthma</li>
+      <li><strong>NHANES III:</strong> half of asthma in patients aged 6–59 attributed to atopy with allergic sensitization</li>
+      <li>Allergens most associated with risk: <strong>house dust mites, indoor fungi, cockroaches, indoor animals</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Exposures &amp; Risk Factors</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Risk Factor</th><th>Key Details &amp; Numbers</th></tr></thead>
+        <tbody>
+          <tr><td>Allergen Sensitization</td><td>Interplay between heritable susceptibility and allergen exposure; varied microbiome exposure (rural environments) may reduce atopy; early avoidance studies → contradictory results</td></tr>
+          <tr><td>Tobacco</td><td>Maternal smoking/SHS → ↑ childhood asthma; childhood SHS → <strong>2x increased asthma risk</strong>; active smoking → up to <strong>4x increased incidence</strong> in adolescents/young adults</td></tr>
+          <tr><td>Air Pollution</td><td>Proximity to major roadways → early childhood asthma (NO₂); most risk with CO and NO₂ (marginal SO₂ effect); indoor air pollution (gas stoves); pollutants → oxidative injury → inflammation, remodeling, sensitization</td></tr>
+          <tr><td>Infections</td><td>Rhinovirus and RSV in children → associated with asthma development (causal role unclear); <em>Mycoplasma pneumoniae</em> → asthma in Taiwanese adults</td></tr>
+          <tr><td>Occupational Exposures</td><td><strong>10–25% of adult-onset asthma</strong>; most common occupations: nursing and cleaning; two types: (1) immunologic (latency period; high-MW: proteins, flour; low-MW: formaldehyde, diisocyanate) and (2) irritative (RADS)</td></tr>
+          <tr><td>Diet</td><td>Vitamin D insufficiency → ↑ asthma risk in progeny; maternal vitamins C/E/zinc → ↓ childhood asthma; maternal polyunsaturated fatty acid supplementation may ↓ childhood risk; ↑ maternal sugar intake → ↑ childhood risk</td></tr>
+          <tr><td>Obesity</td><td>Risk factor for childhood and adult asthma; adipokines and IL-6 play pathobiologic role; some argue risk overestimated</td></tr>
+          <tr><td>Medications</td><td>H₂ blockers and PPIs in pregnancy → ↑ risk in children (RR <strong>1.36–1.45</strong>); acetaminophen data conflicting; acetaminophen not associated with ↑ exacerbation risk vs ibuprofen (prospective study)</td></tr>
+          <tr><td>Prenatal/Perinatal</td><td>Preeclampsia, prematurity → ↑ risk; cesarean section → ↑ risk; neonatal jaundice → ↑ risk; breast-feeding → reduces early wheezing (less clear effect on later asthma)</td></tr>
+          <tr><td>Endogenous Developmental</td><td>Boys &gt; girls until ~age 20 (atopy more prevalent, reduced airway size); Women &gt; men by age 40; subset of women develop asthma around menopause (non-Type 2 mechanisms); pregnancy may precipitate or aggravate asthma</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Special Etiologic Entities</h3>
+    <h4>RADS — Reactive Airway Dysfunction Syndrome</h4>
+    <div class="co wrn">
+      <div class="co-t">RADS Definition</div>
+      A <strong>solitary exposure</strong> to a high concentration of irritant agents that <strong>rapidly (usually within hours)</strong> produces bronchospasm and bronchial hyperactivity.
+    </div>
+    <ul class="bl">
+      <li>Causative agents: oxidizing and reducing agents in aerosol or high levels of particulates</li>
+      <li>Acute pathology: <strong>epithelial injury with neutrophilia</strong>; little evidence of Type 2 inflammation</li>
+      <li>Key distinction from occupational asthma: <strong>NOT sensitized</strong> to the provocative agent → <strong>can return to work</strong> in that environment once recovered</li>
+      <li>Course variable: some series show documented abnormalities and persistent symptoms <strong>10 years after exposure</strong></li>
+    </ul>
+
+    <h4>ABPA — Allergic Bronchopulmonary Aspergillosis</h4>
+    <div class="co dan">
+      <div class="co-t">ABPA Criteria</div>
+      <strong>1–2% of asthmatics</strong> have IgE-mediated sensitization to airway colonization by fungi. Most common fungus: <em>Aspergillus fumigatus</em>. ABPA criteria:
+    </div>
+    <ul class="bl">
+      <li>Type 2 airway inflammatory response to <em>Aspergillus</em></li>
+      <li><strong>IgE &gt;1000 IU/mL</strong></li>
+      <li><strong>Eosinophils &gt;500/μL</strong></li>
+      <li>Positive skin test to <em>Aspergillus</em></li>
+      <li>Specific IgE <em>and</em> IgG antibodies to <em>Aspergillus</em></li>
+      <li>Intermittent mucus plugging and <strong>central bronchiectasis</strong></li>
+      <li>Up to <strong>two-thirds</strong> of patients will grow <em>Aspergillus</em> from sputum</li>
+      <li><strong>Treatment:</strong> systemic antifungal (itraconazole or voriconazole) + oral corticosteroids; role for biologics also suggested</li>
+    </ul>
+
+    <h4>Exercise-Induced Symptoms in Elite Athletes</h4>
+    <ul class="bl">
+      <li>Exercise-induced airway narrowing during extreme exercise in strenuous conditions</li>
+      <li>These athletes may have <strong>little or no AHR or asthma risk factors</strong></li>
+      <li>May involve <strong>direct epithelial injury</strong></li>
+      <li>Also reported in swimmers — possibly related to pool chlorination</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Triggers of Airway Narrowing</h3>
+    <div class="co key">
+      <div class="co-t">Table 298-2 — Major Triggers</div>
+      Allergens · Irritants · Viral infections · Exercise and cold/dry air · Air pollution · Drugs · Occupational exposures · Hormonal changes · Pregnancy
+    </div>
+    <div class="g2">
+      <div>
+        <h4>Allergens</h4>
+        <ul class="bl">
+          <li>Allergen-specific IgE → mast cell/basophil activation → bronchoactive mediators</li>
+          <li><strong>Immediate bronchospasm (early response)</strong> + <strong>late response (2–24h)</strong> with bronchial narrowing and inflammation</li>
+          <li>Accounts for: pollens, mold/dust, cockroaches, animals, occupational materials, seasonal worsening, "thunderstorm asthma"</li>
+          <li>Food allergies → bronchospasm via anaphylaxis; generally <strong>NOT etiologically linked</strong> to asthma</li>
+        </ul>
+        <h4>Viral Infections</h4>
+        <ul class="bl">
+          <li>Most asthmatics report URTI-triggered exacerbations</li>
+          <li>Inflammation: neutrophilic <em>and</em> eosinophilic</li>
+          <li>IgE generation may reduce interferon production → predisposition to viral effects</li>
+          <li>Increased AHR after viral infections persists <strong>4–6 weeks</strong>; sometimes associated with permanent changes</li>
+          <li><strong>~50% reduction in exacerbations during COVID-19 pandemic</strong> attributed to decreased viral infections</li>
+        </ul>
+        <h4>Exercise and Cold/Dry Air</h4>
+        <ul class="bl">
+          <li>Hyperventilation dries airway lining → changes tonicity → bronchoconstrictive mediators released</li>
+          <li>More prominent with <strong>lower moisture and lower temperature</strong> of inspired air</li>
+          <li>Cold air → airway edema during airway wall rewarming</li>
+          <li>At routine exercise levels: effects short-lived</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Drugs</h4>
+        <ul class="bl">
+          <li><strong>Beta blockers</strong>: may trigger bronchospasm even in ophthalmic preparations; more selective agents safer for most asthmatics; may be cause of difficult-to-control asthma</li>
+          <li><strong>Aspirin/NSAIDs</strong>: precipitate bronchospasm in aspirin-exacerbated respiratory disease</li>
+          <li><strong>ACE inhibitors</strong> (and to lesser extent ARBs): may cause cough attributed to poorly controlled asthma</li>
+        </ul>
+        <h4>Irritants</h4>
+        <ul class="bl">
+          <li>Strong odors, smoke, combustion products, cleaning fluids, perfumes</li>
+          <li>Effects generally short-lived; chronic/large-quantity exposure → long-lasting or permanent symptoms</li>
+        </ul>
+        <h4>Hormonal Factors</h4>
+        <ul class="bl">
+          <li>Small proportion of women: regular increase in <strong>perimenstrual symptoms</strong></li>
+          <li>Symptoms may worsen during <strong>perimenopause</strong> — related to rapid estrogen fluctuations</li>
+          <li>Pregnancy precipitates worsening in approximately <strong>one-third</strong> of pregnant patients</li>
+        </ul>
+        <h4>Air Pollution &amp; Stress</h4>
+        <ul class="bl">
+          <li>↑ exacerbations with ↑ ambient ozone, SO₂, and NO₂</li>
+          <li>Stress: asthmatics report ↑ symptoms; mechanisms poorly understood</li>
+        </ul>
+      </div>
+    </div>
+    <div class="co wrn">
+      <div class="co-t">Important</div>
+      Severe asthma exacerbations (those requiring systemic corticosteroids) may, in and of themselves, <strong>accelerate lung function decline</strong>. Chronic trigger exposure may lead to permanent deterioration in asthma control (except exercise or stress).
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 6: COMORBIDITIES -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="sec" id="s6">
+  <div class="sec-hd">
+    <span class="sec-n">06</span>
+    <h2>Comorbidities &amp; Differential Diagnosis</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Differential Diagnosis — Conditions Mimicking Asthma (Table 298-3)</h3>
+    <ul class="bl">
+      <li>Heart failure</li>
+      <li>Chronic obstructive pulmonary disease (COPD)</li>
+      <li>α₁-Antitrypsin deficiency</li>
+      <li>Airway obstruction from mass or foreign body</li>
+      <li>Inducible laryngeal dysfunction (vocal cord dysfunction)</li>
+      <li>Bronchiolitis obliterans</li>
+      <li>Bronchiectasis</li>
+      <li>Tracheobronchomalacia</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Key Comorbidities</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Obesity</div>
+        <ul class="bl">
+          <li>Obese adults with asthma have <strong>more severe symptoms</strong> than lean adults</li>
+          <li><strong>2–4x more likely</strong> to be hospitalized with asthma exacerbation</li>
+          <li>Adipokines and IL-6: pathobiologic role</li>
+          <li>Nonrandomized studies: improvement and significant reduction in exacerbations after <strong>bariatric surgery</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">GERD</div>
+        <ul class="bl">
+          <li>Predicts poor quality of life; independent predictor of asthma exacerbations</li>
+          <li>Treatment of <strong>symptomatic</strong> GERD → modest improvements in airway function, symptoms, and exacerbation frequency</li>
+          <li>Treatment of <strong>asymptomatic</strong> patients → <strong>no benefit</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Rhinosinusitis / Nasal Polyposis</div>
+        <ul class="bl">
+          <li>Rhinosinusitis may be a manifestation of eosinophilic inflammation in the lower airway</li>
+          <li>Poorly controlled → aggravates asthma (inflammatory/irritant secretions, neural reflexes, inflammatory mediators)</li>
+          <li>Intranasal corticosteroids → decreased AHR and ER visits/hospitalizations</li>
+          <li>Surgical therapy evidence: inconclusive</li>
+          <li>Biologics targeting Type 2 inflammation particularly useful for asthma with rhinosinusitis/polyposis</li>
+          <li><strong>Nasal polyposis rare in children</strong>; in adults → raises suspicion of <strong>aspirin-exacerbated respiratory disease</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Inducible Laryngeal Obstruction</div>
+        <ul class="bl">
+          <li>Previously known as <strong>vocal cord dysfunction</strong></li>
+          <li>Inappropriate narrowing of the larynx → resistance to airflow</li>
+          <li>Can <strong>complicate</strong> asthma and <strong>mimic</strong> it</li>
+          <li>More common in <strong>women</strong> and patients with <strong>anxiety and depression</strong></li>
+          <li>Definitive diagnosis: <strong>laryngoscopy during symptomatic episodes</strong> or during induced obstruction</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Anxiety/Depression</div>
+        <ul class="bl">
+          <li>Increased rates of asthma exacerbations in asthmatics with anxiety, depression, or chronic stress</li>
+          <li>Some patients may be <strong>unable to distinguish anxiety attacks from asthma</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Obstructive Sleep Apnea</div>
+        <ul class="bl">
+          <li>Listed as a comorbidity that can make asthma difficult to control</li>
+          <li>Must be assessed in poorly controlled asthma</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 7: DIAGNOSIS -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="sec" id="s7">
+  <div class="sec-hd">
+    <span class="sec-n">07</span>
+    <h2>Diagnosis &amp; Evaluation</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co dan">
+    <div class="co-t">Critical Fact</div>
+    Studies have shown that <strong>more than one-third</strong> of patients with a physician diagnosis of asthma do <strong>not meet the criteria</strong> for the diagnosis. Always confirm with PFTs or AHR demonstration.
+  </div>
+
+  <div class="sub">
+    <h3>Approach</h3>
+    <ul class="bl">
+      <li>Presumptive diagnosis: compatible history of recurrent wheezing, SOB, chest tightness, or cough with common bronchoconstrictor precipitants after eliminating the differential</li>
+      <li>In some cases, a <strong>therapeutic trial of low-dose ICS</strong> may be considered</li>
+      <li>In all but the mildest cases, confirm with <strong>PFTs or demonstration of AHR</strong></li>
+      <li>Caution: diagnosis may be difficult to confirm <em>after</em> initiating therapy (obstruction/AHR may be mitigated)</li>
+      <li>Cases requiring more than daily moderate-dose ICS/LABA → formal evaluation for comorbidities and reassessment of confounding diagnoses</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>History</h3>
+    <ul class="bl">
+      <li>Episodic wheeze, SOB, chest tightness, mucus production, or cough on trigger exposure (Table 298-2)</li>
+      <li>Symptoms may be <strong>worse on arising in the morning</strong></li>
+      <li><strong>Nocturnal symptoms alone:</strong> evaluate for post-nasal drip or GERD if sole presenting symptom</li>
+      <li>Rapid changes of <strong>temperature or humidity</strong> frequently reported</li>
+      <li>Exercise-induced symptoms: <strong>develop more slowly</strong> after initiation of exercise and <strong>resolve more slowly</strong> unless β₂-agonist administered (vs cardiac dyspnea)</li>
+      <li>Careful <strong>exposure history:</strong> home (pets, molds, dust, smoke), work (occupational sensitizers), recreational (hobbies, recreational inhalants)</li>
+      <li>Up to <strong>two-thirds of patients</strong> with asthma will be atopic; almost half have history of rhinitis</li>
+      <li>Adult-onset asthma: obtain careful occupational history; reactions to NSAIDs; use of beta blockers (including ophthalmic) or ACE inhibitors</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Physical Examination</h3>
+    <ul class="bl">
+      <li>Between attacks: physical findings may be <strong>normal</strong></li>
+      <li>Many patients: evidence of allergic rhinitis with <strong>pale nasal mucus membranes</strong></li>
+      <li><strong>≥5% of patients</strong> may have nasal polyps (increased frequency in more severe asthma and aspirin-exacerbated disease)</li>
+      <li>Some patients: wheezing on expiration (less so on inspiration)</li>
+      <li>During acute attack: tachypnea, tachycardia, use of accessory muscles, prolonged expiratory phase, wheezing</li>
+      <li>As severity progresses, chest may become <strong>"silent"</strong> with loss of breath sounds — ominous sign</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Pulmonary Function Tests</h3>
+    <div class="co key">
+      <div class="co-t">PFT Pattern in Asthma</div>
+      Reduced PEFR, FEV₁, and FEV₁/FVC ratio (below LLN). Flow-volume loop shows characteristic <strong>scalloping</strong>. These findings may NOT be present during acute attacks or on therapy.
+    </div>
+    <h4>Reversibility Criteria</h4>
+    <ul class="bl">
+      <li><strong>New definition:</strong> ≥<strong>10% absolute increase</strong> in FEV₁ percent of predicted (e.g., 60% → 70%) at least 15 min after β₂-agonist or after several weeks of corticosteroid therapy</li>
+      <li><strong>Old definition (still widely used):</strong> 12% increase in baseline FEV₁ + minimum <strong>200-mL change</strong></li>
+      <li><strong>Diurnal peak flow variability &gt;20%:</strong> proposed as indicator of reversible airways disease; less reliable (quality control difficulties)</li>
+    </ul>
+    <h4>Lung Volumes &amp; DLCO</h4>
+    <ul class="bl">
+      <li>Should be <strong>normal in uncomplicated asthma</strong></li>
+      <li>In more severe asthma with severe airway obstruction: lung volumes may indicate <strong>air trapping</strong></li>
+      <li>Total lung capacity may be under- or overestimated depending on whether body box or gas dilution methods are used (respectively)</li>
+    </ul>
+    <div class="co tel">
+      <div class="co-t">Oscillometry</div>
+      Oscillometry does not require forced expiratory maneuvers and is gaining increased use. Can be particularly useful for diagnosing <strong>large airway and variable tracheal obstruction</strong>.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Assessment of Airway Responsiveness</h3>
+    <p>Used when PFTs are nonconfirmatory and diagnosis remains in doubt.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Test</th><th>Agent</th><th>Positive Criteria</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Methacholine Challenge</td><td>Cholinergic agonist, increasing concentrations</td><td>Cumulative PD₂₀ ≤<strong>400 μg</strong></td><td>Most commonly used; PD₂₀ = provocative dose causing 20% drop in FEV₁</td></tr>
+          <tr><td>Mannitol Challenge</td><td>Mannitol (osmotic agent)</td><td>≥15% drop in FEV₁</td><td>Used as alternative to methacholine</td></tr>
+          <tr><td>Hypertonic Saline</td><td>Hypertonic saline inhalation</td><td>≥15% drop in FEV₁</td><td>Occasionally used</td></tr>
+          <tr><td>Exercise/Cold Dry Air</td><td>Exercise or cold, dry air inhalation</td><td>≥<strong>10% drop in FEV₁</strong> from baseline</td><td>Positive response if ≥10% FEV₁ drop</td></tr>
+          <tr><td>Specific Allergen Challenge</td><td>Specific allergens</td><td>Significant FEV₁ drop</td><td>Only in specialized labs; for suspected environmental/occupational exposures</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Adjunctive Assessment Tools</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-r">Eosinophil Counts</div>
+        <ul class="bl">
+          <li>Large proportion of untreated patients (not on oral or high-dose ICS) will have <strong>≥300 cells/μL</strong></li>
+          <li>Correlate with severity of disease in population studies</li>
+          <li>In severe asthma: indicates likelihood of <strong>response to Type 2 biologics</strong></li>
+          <li><strong>Extremely elevated levels:</strong> prompt consideration of <strong>EGPA</strong> or primary eosinophilic disorders</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">IgE / Skin Tests / RAST</div>
+        <ul class="bl">
+          <li>Total IgE: useful for eligibility for <strong>anti-IgE therapy</strong></li>
+          <li><strong>IgE &gt;1000 IU/mL:</strong> prompt consideration of <strong>ABPA</strong></li>
+          <li>Skin tests or RAST: confirm atopy and allergic rhinitis; help identify environmental exposures aggravating asthma</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Exhaled Nitric Oxide (FeNO)</div>
+        <ul class="bl">
+          <li>Indicator of <strong>Type 2 (particularly IL-13-induced)</strong> inflammation</li>
+          <li><strong>Easily suppressed by ICS</strong> → can assess adherence (if initially elevated)</li>
+          <li><strong>&gt;35–40 ppb in untreated patients:</strong> indicative of Type 2 inflammation</li>
+          <li><strong>&gt;20–25 ppb on moderate-to-high ICS:</strong> poor adherence <em>OR</em> persistent Type 2 inflammation despite therapy</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Additional Evaluation in Severe / Poorly Responsive Asthma</h3>
+    <ul class="bl">
+      <li><strong>Sinus radiographic studies</strong> (even in those without symptoms of sinus disease)</li>
+      <li><strong>Esophageal studies</strong> in those with symptoms of reflux</li>
+      <li>Serum <strong>α₁-antitrypsin level</strong> in patients with nonreversible disease</li>
+      <li><strong>Chest CT:</strong> assess for bronchiectasis and structural abnormalities; new image analysis tools assess airway wall thickness, diameter, mucus plugging, and air trapping</li>
+      <li><strong>Induced sputum:</strong> characterize Type 2 (eosinophils) and non-Type 2 (neutrophils) inflammation; some patients have localized persistent eosinophilic inflammation despite lack of peripheral eosinophilia on blood analysis</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 8: TREATMENT -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="sec" id="s8">
+  <div class="sec-hd">
+    <span class="sec-n">08</span>
+    <h2>Treatment</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Goals of Asthma Therapy (Table 298-4)</h3>
+    <div class="g2">
+      <ul class="bl">
+        <li>Reduction in symptom frequency to <strong>≤2 times/week</strong></li>
+        <li>Reduction of nighttime awakenings to <strong>≤2 times/month</strong></li>
+        <li>Reduction of reliever use to <strong>≤2 times/week</strong> (except before exercise)</li>
+        <li>No more than <strong>1 exacerbation/year</strong></li>
+      </ul>
+      <ul class="bl">
+        <li>Optimization of lung function</li>
+        <li>Maintenance of normal daily activities</li>
+        <li>Satisfaction with asthma care with <strong>minimal or no side effects</strong> of treatment</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Reducing Triggers</h3>
+    <h4>Mitigation</h4>
+    <ul class="bl">
+      <li>Occupational exposures: removal from offending environment may result in complete resolution or significant improvement</li>
+      <li>Secondhand smoke exposure and cannabis combustion products are remediable</li>
+      <li>Removal of pets clearly associated with symptoms can reduce symptoms</li>
+      <li>Pest control (cockroach-sensitive patients with IgE RAST evidence)</li>
+      <li>Dust/mold control: <strong>moderate evidence</strong> that dust control (impermeable mattress and pillowcase covers) is effective only <em>when part of a comprehensive allergen mitigation strategy</em></li>
+    </ul>
+    <h4>Allergen Immunotherapy</h4>
+    <ul class="bl">
+      <li>Clearly reduces symptoms of <strong>allergic rhinitis</strong> (helpful as comorbidity treatment)</li>
+      <li>Evidence for isolated asthma: <strong>variable</strong></li>
+      <li>Guidelines: only in patients whose asthma is <strong>under control</strong> with <strong>mild to moderate asthma</strong> (anaphylaxis risk)</li>
+      <li>Evidence for sublingual immunotherapy in asthma: <strong>not substantial</strong></li>
+    </ul>
+    <h4>Vaccination</h4>
+    <ul class="bl">
+      <li>Adult asthmatics: <strong>pneumococcal vaccines (regardless of age)</strong> and <strong>yearly influenza vaccines</strong> strongly advised</li>
+      <li>COVID-19 vaccination and RSV vaccines also advised</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Bronchodilators</h3>
+    <h4>β₂-Agonists — Mechanism</h4>
+    <p>Activate β₂-receptors (G protein-coupled) on airway smooth muscle → activate adenyl cyclase → ↑ cyclic AMP → smooth muscle relaxation. β₂-receptors also present on mast cells (contribute little to efficacy).</p>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>Class</th><th>Agents</th><th>Onset/Duration</th><th>Key Uses</th><th>Warnings</th></tr></thead>
+        <tbody>
+          <tr><td>SABA (Short-Acting β₂-Agonists)</td><td><strong>Albuterol (salbutamol)</strong> — most common</td><td>Onset: <strong>3–5 min</strong>; Duration: <strong>4–6h</strong></td><td>Relief of acute bronchospasm; pre-exercise; nebulized for children</td><td>Frequent use → tachyphylaxis; without ICS → ↑ asthma mortality; Arg16 polymorphism → more pronounced tachyphylaxis</td></tr>
+          <tr><td>LABA (Long-Acting β₂-Agonists)</td><td><strong>Salmeterol</strong> (slow onset), <strong>Formoterol</strong> (quick onset = SABA-like)</td><td>Duration: <strong>~12h</strong></td><td>Combination with ICS for persistent asthma; prophylaxis for exercise-induced bronchospasm</td><td><strong>NOT monotherapy in asthma</strong>; must combine with ICS; several studies confirm no adverse outcomes vs maintaining ICS dose</td></tr>
+          <tr><td>Ultra-Long-Acting β₂-Agonists</td><td>Indacaterol, olodaterol, vilanterol</td><td>Duration: <strong>24h</strong></td><td>Combination with ICS only in asthma treatment</td><td>Only used in combination with ICS</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="co dan">
+      <div class="co-t">β₂-Agonist Safety — Key Adverse Effects</div>
+      <ul class="bl">
+        <li>Tremor, tachycardia, palpitations, hypertension (β₂ specificity imperfect at higher doses)</li>
+        <li>Promote potassium reentry into cells → <strong>hypokalemia</strong> at high doses</li>
+        <li><strong>Type B lactic acidosis</strong> (nonhypoxic): via ↑ glycogenolysis/glycolysis, ↑ lipolysis → ↑ fatty acids → inhibit conversion of pyruvate to acetyl-CoA</li>
+        <li>Increased asthma mortality with high-potency β₂-agonists (Australia/NZ)</li>
+        <li>Increased β₂-agonist use = <strong>clear marker of poor asthma control</strong></li>
+      </ul>
+    </div>
+
+    <h4>Anticholinergics</h4>
+    <ul class="bl">
+      <li><strong>Mechanism:</strong> antagonize cholinergic nerve-induced smooth-muscle constriction; pharmacologically designed to minimize systemic absorption</li>
+      <li>Long-acting agents = <strong>LAMAs</strong> (Long-Acting Muscarinic Antagonists)</li>
+      <li><strong>Short-acting:</strong> can be used alone for acute bronchodilation; somewhat less effective than β₂-agonists; slower onset</li>
+      <li><strong>Safety:</strong> dry mouth; at higher doses in elderly → acute glaucoma, urinary retention; numerical (not significant) mortality difference in African Americans with ICS/LAMA vs ICS/LABA</li>
+    </ul>
+
+    <h4>Theophylline</h4>
+    <div class="co wrn">
+      <div class="co-t">Now Rarely Used</div>
+      Increases cyclic AMP levels by inhibiting phosphodiesterase. Now rarely used for asthma due to <strong>narrow therapeutic window, drug-drug interactions, and reduced bronchodilation</strong> compared to other agents.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Controller (Anti-Inflammatory/Antimediator) Therapies</h3>
+    <div class="co key">
+      <div class="co-t">Important Limitation</div>
+      None of these therapies have yet been shown to <strong>prevent progression of airway remodeling</strong> or the more rapid decline in lung function that can occur in a subset of asthma patients.
+    </div>
+
+    <h4>Corticosteroids</h4>
+    <p><strong>Mechanism:</strong> Bind cytoplasmic glucocorticoid receptor → complex translocates to nucleus → binds positive and negative response elements → inhibition of T-cell activation; eosinophil function/migration/proliferation; proinflammatory cytokine elaboration; NF-κB activation. Also attaches to other transcription factors → deactivates other proinflammatory pathways.</p>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>Form</th><th>Use</th><th>Dose/Notes</th><th>Side Effects</th></tr></thead>
+        <tbody>
+          <tr><td>ICS (Inhaled)</td><td>Cornerstone of asthma therapy; all persistent asthma; first-line</td><td>Generally twice daily; effects noticeable in days, majority of improvement in first month; adherence poor (as few as 25% of prescriptions refilled)</td><td>Local: thrush (reduce with spacer + gargling), hoarseness; higher doses: bruising, osteoporosis acceleration, slight ↑ glaucoma/cataracts; children: growth suppression</td></tr>
+          <tr><td>ICS/LABA (combined)</td><td>When low-dose ICS insufficient; produces control at lower ICS dose</td><td>For daily maintenance when more than low-dose ICS required</td><td>Combined side effects; LABAs NOT for monotherapy in asthma</td></tr>
+          <tr><td>OCS (Oral)</td><td>Severe/uncontrolled asthma; exacerbation treatment</td><td>Exacerbations: <strong>40–60 mg/day prednisone or equivalent</strong> with rapid taper over <strong>1–2 weeks</strong>; alternate-day dosing preferred for chronic use</td><td>Diabetes, osteoporosis, cataracts/glaucoma, bruising, weight gain, truncal obesity, hypertension, ulcers, depression, accelerated cardiac risk; pneumocystis prophylaxis if ≥20 mg/day chronically</td></tr>
+          <tr><td>IV Corticosteroids</td><td>Hospitalized patients</td><td>Rapidly transitioned to OCS once stabilized</td><td>As for systemic steroids</td></tr>
+          <tr><td>IM Corticosteroids</td><td>High-risk, poorly adherent patients</td><td>Triamcinolone acetonide IM</td><td>As for systemic steroids</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Leukotriene Modifiers</h4>
+    <ul class="bl">
+      <li>Inhibit production of leukotrienes (5-LOX inhibition) or action (CysLT1 receptor blockade)</li>
+      <li>Moderately effective in asthma; also effective for allergic rhinitis</li>
+      <li>Effective for <strong>exercise-induced bronchoconstriction without tachyphylaxis</strong> (unlike regular LABA use)</li>
+      <li>Particularly effective in <strong>aspirin-exacerbated respiratory disease</strong> (characterized by significant leukotriene overproduction)</li>
+      <li>Modest add-on effect in patients poorly controlled on high-dose ICS/LABA</li>
+    </ul>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Agent</th><th>Class</th><th>Dose</th><th>Safety</th></tr></thead>
+        <tbody>
+          <tr><td>Montelukast</td><td>CysLT1 antagonist</td><td>Once daily; onset rapid (hours), majority of chronic effect within 1 month</td><td><strong>Associated with suicidal ideation — FDA Black Box Warning</strong>; well tolerated otherwise; frequently used in children (ICS growth concerns)</td></tr>
+          <tr><td>Zafirlukast</td><td>CysLT1 antagonist</td><td>Twice daily</td><td>Generally well tolerated</td></tr>
+          <tr><td>Zileuton (extended release)</td><td>5-LOX inhibitor</td><td>Twice daily</td><td>Increases transaminases in <strong>3% of patients</strong>; inhibits <strong>CYP1A2</strong> (drug interactions)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Cromolyn Sodium</h4>
+    <ul class="bl">
+      <li>Inhaled agent believed to stabilize mast cells</li>
+      <li>Only available by nebulization; administered <strong>2–4 times/day</strong></li>
+      <li>Mildly to modestly effective; helpful for exercise-induced bronchospasm</li>
+      <li>Used primarily in <strong>pediatrics</strong> (concern about ICS side effects)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Biologics</h3>
+    <div class="co tel">
+      <div class="co-t">General Principle</div>
+      Biologics are <strong>incredibly effective in their specific endotypes</strong> (Type 2 with exacerbations and specific biomarkers), but their high cost currently relegates them to <strong>Step 5 therapy or beyond</strong>.
+    </div>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>Biologic</th><th>Target</th><th>Mechanism</th><th>Biomarker Required</th><th>Exacerbation Reduction</th><th>Special Points</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Omalizumab</strong></td>
+            <td>Anti-IgE</td>
+            <td>Binds Fc portion of IgE → prevents IgE binding to mast cells/basophils → blocks antigen signaling</td>
+            <td>IgE ≥30 IU/mL + positive skin test/RAST to perennial allergen</td>
+            <td><strong>25–50%</strong></td>
+            <td>Dosing based on weight and IgE; SC every 2–4 weeks; max 300 mg/2 weeks (≤150 kg); effects in 3–6 months; anaphylaxis in <strong>0.2%</strong>; also effective in chronic idiopathic urticaria and nasal polyposis; increases interferon → ↓ viral-induced exacerbations</td>
+          </tr>
+          <tr>
+            <td><strong>Mepolizumab</strong><br><strong>Reslizumab</strong></td>
+            <td>Anti-IL-5</td>
+            <td>Bind IL-5 → blocks eosinophil formation, recruitment, survival</td>
+            <td>≥300 cells/μL eosinophils (without chronic OCS) OR on chronic OCS regardless of count</td>
+            <td><strong>~50% or more</strong></td>
+            <td>Require ≥2 OCS exacerbations/year on moderate-high ICS/LABA; less effective at eosinophils &lt;300/μL (without OCS); reduces OCS need regardless of count in chronic OCS patients; mepolizumab approved for nasal polyposis; minimal side effects</td>
+          </tr>
+          <tr>
+            <td><strong>Benralizumab</strong></td>
+            <td>Anti-IL-5 Receptor</td>
+            <td>Binds IL-5 receptor → blocks IL-5 signaling; also activates ADCC → rapid eosinophil depletion</td>
+            <td>≥300 cells/μL eosinophils (similar to above)</td>
+            <td><strong>~50% or more</strong></td>
+            <td>Rapid eosinophil reduction (within a day); similar indications as mepolizumab/reslizumab</td>
+          </tr>
+          <tr>
+            <td><strong>Dupilumab</strong></td>
+            <td>Anti-IL-4Rα (blocks both IL-4 and IL-13)</td>
+            <td>Binds IL-4 receptor α subunit shared by IL-4 and IL-13 receptors → blocks both signaling pathways</td>
+            <td>Moderate-high ICS/LABA PLUS elevated FeNO ≥20–25 ppb <em>or</em> elevated eosinophils; OR on chronic OCS regardless of biomarker levels</td>
+            <td><strong>≥50%</strong></td>
+            <td>Effective even if eosinophils not elevated (if FeNO elevated); more effect on FEV₁ than anti-IL-5; paradoxical temporary <strong>↑ in circulating eosinophils initially</strong>; gradually reduces FeNO and IgE; also approved for atopic dermatitis, nasal polyposis, eosinophilic esophagitis, lupus pernio, COPD with exacerbations + elevated eosinophils; cases of serious systemic eosinophilia (when reducing OCS)</td>
+          </tr>
+          <tr>
+            <td><strong>Tezepelumab</strong></td>
+            <td>Anti-TSLP</td>
+            <td>Binds TSLP (proximal alarmin in epithelial response cascade) → affects multiple downstream pathways</td>
+            <td><strong>No specific biomarker required</strong> — effective even without elevated FeNO or blood eosinophils</td>
+            <td><strong>50–70%</strong></td>
+            <td>Decreases blood eosinophils, FeNO, AND IgE; broadest indication among biologics; effects within 3–6 months, biomarkers continue to fall over time; NOT shown effective in atopic eczema or reducing OCS dose; minimal side effects</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="co wrn">
+      <div class="co-t">Biomarker Response Guide</div>
+      <ul class="bl">
+        <li><strong>Omalizumab best responders:</strong> FeNO ≥20 ppb OR eosinophils ≥260/μL</li>
+        <li><strong>Anti-IL-5 best responders:</strong> eosinophils ≥300/μL (on chronic OCS: any count)</li>
+        <li><strong>Dupilumab also works:</strong> FeNO ≥20–25 ppb even if eosinophils NOT elevated</li>
+        <li><strong>Tezepelumab:</strong> works even WITHOUT elevated biomarkers — broadest coverage</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Step Therapy (Table 298-5) — Ages 12+</h3>
+    <div class="co prl">
+      <div class="co-t">Major Paradigm Change — AIR (Anti-Inflammatory Reliever)</div>
+      Evidence has accumulated that as-needed ICS can replace regular ICS in milder asthma, triggered by patient perception of needing a reliever. GINA now recommends <strong>ICS/formoterol (AIR) as the reliever at ALL steps</strong> including Step 1. NAEPP recommends it for Steps 3 and 4. Only <strong>formoterol</strong> can be used this way (quick onset); other LABAs are slower.
+    </div>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr>
+            <th>Step</th>
+            <th>Preferred Regular Therapy</th>
+            <th>Alternative Regular Therapy</th>
+            <th>PRN Reliever</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Step 1</strong></td><td>None</td><td>None</td><td>ICS/formoterol (low dose) OR SABA OR ICS/SABA</td></tr>
+          <tr><td><strong>Step 2</strong></td><td>None or low-dose ICS</td><td>LTRA (e.g., montelukast)</td><td>ICS/formoterol (low dose) OR PRN concomitant ICS + SABA OR SABA OR ICS/SABA</td></tr>
+          <tr><td><strong>Step 3</strong></td><td><strong>Low-dose ICS/formoterol</strong></td><td>Medium-dose ICS</td><td>ICS/formoterol (low or medium dose) OR ICS/SABA</td></tr>
+          <tr><td><strong>Step 4</strong></td><td><strong>Medium-dose ICS/formoterol</strong></td><td>High-dose ICS</td><td>ICS/formoterol (low or medium dose) OR ICS/SABA</td></tr>
+          <tr><td><strong>Step 5</strong></td><td><strong>High-dose ICS/LABA + add-on LAMA</strong></td><td>Anti-IgE OR anti-IL-5 OR anti-IL-4Rα OR anti-TSLP</td><td>ICS/formoterol or ICS/SABA; Adjunctive: LTM, azithromycin, OCS (minimize)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="bl">
+      <li>Always address <strong>exposures and comorbidities</strong> first (Tables 298-2 and 298-3)</li>
+      <li>Always confirm <strong>inhaler technique</strong> and optimize <strong>adherence</strong> — poor technique/adherence identified as cause of poor control in <strong>up to 50%</strong> of referred patients</li>
+      <li>Move <strong>up or down steps</strong> based on control (Table 298-4 goals)</li>
+      <li>LTRAs (montelukast): alternative in Step 2 — recent suicidal ideation warnings make less appealing</li>
+      <li>Leukotriene modifiers and LAMAs: possible add-on therapies for Steps 4 and 5</li>
+      <li>Biologics: Step 5 or beyond (high cost); incredibly effective in correct endotype</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Bronchial Thermoplasty &amp; Alternative Therapies</h3>
+    <ul class="bl">
+      <li><strong>Bronchial Thermoplasty:</strong> radiofrequency ablation of airway smooth muscle in major airways; 3 bronchoscopies; some evidence of reduced exacerbations in very select patients; significant morbidity; most guidelines: <strong>only in clinical trials/registries</strong>; manufacturer discontinued production</li>
+      <li><strong>Macrolides (e.g., azithromycin):</strong> effective in a subset with poor response to other therapies; suggested as adjunctive therapy at Step 5</li>
+      <li><strong>Acupuncture and yoga:</strong> not shown to improve asthma in controlled trials; studies demonstrate significant placebo response</li>
+      <li><strong>Therapies in development:</strong> IL-33, OX-40, mucin production mediators; mast cell targeting via tyrosine kinase inhibition (proof-of-concept); pro-resolving pathway therapies</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 9: SPECIAL SITUATIONS -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="sec" id="s9">
+  <div class="sec-hd">
+    <span class="sec-n">09</span>
+    <h2>Special Situations</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Asthma Attacks — Management Algorithm</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Initial Treatment (Mild-Moderate)</div>
+        <ul class="bl">
+          <li>β₂-agonist administered up to <strong>every 1 hour</strong></li>
+          <li>Increasing ICS dose by <strong>4–5 fold</strong> may help</li>
+          <li>If requires β₂-agonists hourly for several hours → refer for <strong>urgent care</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Urgent Care Setting</div>
+        <ul class="bl">
+          <li>Assess PEFR or FEV₁</li>
+          <li>Nebulized β₂-agonists up to every <strong>20 minutes</strong></li>
+          <li><strong>PEFR &gt;60% predicted:</strong> frequently respond to β₂-agonists alone</li>
+          <li>Fail to respond in <strong>1–2 hours:</strong> intravenous corticosteroids</li>
+          <li>Supplemental oxygen for hypoxemia</li>
+          <li>Nebulized anticholinergics for additional bronchodilation</li>
+          <li>LTRA and magnesium sometimes given</li>
+          <li>Fail PEFR &gt;60% or persistent severe tachypnea over <strong>4–6 hours</strong> → consider <strong>hospital admission</strong></li>
+        </ul>
+      </div>
+    </div>
+    <div class="co dan">
+      <div class="co-t">Ventilatory Management — Critical Point</div>
+      Most patients with asthma attacks present with <strong>hypocapnia</strong> (high respiratory rate). A <strong>normal or near-normal PCO₂ in a patient with asthma in respiratory distress</strong> should raise concerns of impending respiratory failure and need for mechanical ventilation.
+    </div>
+    <h4>Mechanical Ventilation in Status Asthmaticus</h4>
+    <ul class="bl">
+      <li>High positive pressures from high resistance; aim for <strong>low respiratory rates and/or low ventilation volumes</strong> to decrease peak airway pressures</li>
+      <li><strong>Permissive hypercapnia:</strong> allow PCO₂ to rise; temporarily correct critical acidosis with bicarbonate to increase pH</li>
+      <li>Neuromuscular paralysis sometimes beneficial</li>
+      <li>Noninvasive positive-pressure ventilation to prevent need for intubation</li>
+      <li>Helium-oxygen (heliox) mixtures to decrease work of breathing</li>
+      <li><strong>Antibiotics only if signs of infection</strong></li>
+      <li>Bronchoscopy to clear mucus plugs has been described but may be <strong>dangerous with MV difficulties</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>High-Risk Asthma Patients (Table 298-6)</h3>
+    <div class="co dan">
+      <div class="co-t">3,000–4,000 Deaths per Year in the US</div>
+    </div>
+    <div class="g2">
+      <ul class="bl">
+        <li>History of <strong>ICU admission</strong> for asthma</li>
+        <li>History of <strong>intubation</strong> for asthma</li>
+        <li>Illicit drug use</li>
+        <li>Depression</li>
+        <li>New diagnosis within past year</li>
+      </ul>
+      <ul class="bl">
+        <li>≥2 emergency unit visits in past 6 months</li>
+        <li>Severe psychosocial problems</li>
+        <li>Lower socioeconomic status</li>
+        <li>On <strong>daily prednisone prior to admission</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Exercise-Induced Symptoms</h3>
+    <ul class="bl">
+      <li>May reflect <strong>poor asthma control</strong> → treat with step therapy first</li>
+      <li>Increase exercise capacity: starting at lower levels (<strong>warming up</strong>) and using a <strong>mask in colder weather</strong> to condition air</li>
+      <li>Pretreatment with a <strong>SABA</strong> increases the threshold of ventilation required to induce bronchoconstriction</li>
+      <li>LABAs may extend period of protection; <strong>not recommended for use alone in asthma</strong></li>
+      <li>For occasional exercise: ICS/LABA can be used</li>
+      <li>If <strong>regular exercise:</strong> LTRAs can be used (prevent exercise-induced without tachyphylaxis)</li>
+      <li>Elite athletes: direct epithelial injury; conditioning incoming air of major assistance; ipratropium reported useful</li>
+      <li>SABA (or ICS/formoterol) should always be available for quick relief</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Pregnancy</h3>
+    <ul class="bl">
+      <li>Asthma may <strong>improve, deteriorate, or remain unchanged</strong> during pregnancy</li>
+      <li>Poor asthma control especially exacerbations → <strong>poor fetal outcomes</strong></li>
+      <li>General principles of asthma management and goals are <strong>unchanged</strong></li>
+      <li>Avoid triggers especially <strong>smoking environments</strong> (smoking + child's asthma risk)</li>
+      <li><strong>Safe medications in pregnancy:</strong> inhaled albuterol, beclomethasone, budesonide, fluticasone; reassuring: formoterol, salmeterol</li>
+      <li>Animal studies show no toxicity for: montelukast, zafirlukast, omalizumab, ipratropium</li>
+      <li>Antibodies cross the placenta → <strong>few human data on asthma biologics</strong></li>
+      <li>Chronic OCS risks: neonatal adrenal insufficiency, preeclampsia, low birth weight, slight ↑ cleft palate — but poorly controlled asthma carries <strong>greater risk</strong> to fetus and mother</li>
+      <li><strong>No hesitancy</strong> in administering routine pharmacotherapy for acute exacerbations</li>
+      <li><strong>Do NOT initiate allergen immunotherapy</strong> during pregnancy</li>
+      <li><strong>PGF₂-α should be avoided</strong> — associated with bronchoconstriction</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Aspirin-Exacerbated Respiratory Disease (AERD)</h3>
+    <div class="co dan">
+      <div class="co-t">Prevalence: 5–10% of Asthmatics</div>
+    </div>
+    <ul class="bl">
+      <li>Adult onset; difficult-to-control asthma + Type 2 inflammation with <strong>eosinophilia, sinusitis, nasal polyposis</strong></li>
+      <li>Severe asthma exacerbations precipitated by <strong>COX inhibitors (aspirin most prominent)</strong></li>
+      <li>Mechanism: overproduce leukotrienes in response to COX-1 inhibition (secondary to PGE₂ inhibition)</li>
+      <li>Avoid: <strong>COX-1 inhibitors (aspirin and NSAIDs)</strong></li>
+      <li>Can tolerate: <strong>COX-2 inhibitors and acetaminophen</strong></li>
+      <li>Treat with: <strong>leukotriene modifiers</strong></li>
+      <li>Aspirin desensitization: for those requiring chronic aspirin/NSAIDs for another indication; decreases upper respiratory symptoms</li>
+      <li>Dupilumab and IL-5-active biologics particularly helpful; approved to treat nasal polyposis; <strong>appearing to supersede aspirin desensitization</strong> in management</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Severe Asthma</h3>
+    <div class="co dan">
+      <div class="co-t">Definition</div>
+      Asthma that, having undergone appropriate evaluation for comorbidities and mimics, education, and trigger mitigation, remains <strong>uncontrolled on Step 5 therapy</strong> or <strong>requires Step 5 therapy</strong> for its control.
+    </div>
+    <ul class="bl">
+      <li>Composes <strong>~5–10%</strong> of all asthma</li>
+      <li>Accounts for almost <strong>50% of the cost</strong> of asthma care in the United States</li>
+      <li>Significant proportion have trouble with <strong>adherence and/or inhaler technique</strong> — must investigate vigorously</li>
+      <li><strong>More than half</strong> have evidence of persistent eosinophilic inflammation (peripheral blood eosinophils and/or induced sputum)</li>
+      <li>Recurrent exacerbations → substantially increased likelihood of responding to <strong>Type 2 targeted biologics</strong></li>
+      <li>Tezepelumab shown effective even in those <strong>without elevated Type 2 biomarkers</strong></li>
+      <li>Treatment for mixed inflammation, isolated neutrophilic, or pauci-granulocytic inflammation: <strong>remains to be determined</strong></li>
+      <li>Some data suggest aberrations in <strong>pro-resolving pathways</strong>; macrolides useful in a subset</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Elderly Patients with Asthma</h3>
+    <ul class="bl">
+      <li>Mortality in those <strong>&gt;65 years old is 5x greater</strong> than younger cohorts (even adjusting for comorbidities)</li>
+      <li>Many had childhood asthma with quiescent periods; almost half of new-onset elderly asthmatics are/were smokers</li>
+      <li>One-quarter of adult-onset asthma attributed to occupational exposure</li>
+      <li>Eosinophilic inflammation → more severe asthma in elderly</li>
+      <li>May need adjustment to step therapy based on intolerance of β₂-agonist therapy due to <strong>arrhythmia or tremulousness</strong></li>
+      <li>Coexistence of COPD must be carefully considered</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Asthma-COPD Overlap</h3>
+    <ul class="bl">
+      <li>Most clinicians agree it is <strong>not a syndrome</strong>; useful to identify patients with simultaneous asthma and COPD</li>
+      <li><strong>Smoking can blunt the response to ICS</strong> — important consideration</li>
+      <li><strong>Dupilumab</strong> has been shown effective in COPD with recurrent exacerbations and elevated eosinophils — <strong>approved for this use</strong></li>
+      <li>In patients with both diseases: <strong>earlier initiation of anticholinergics</strong> may be considered</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 10: EXAM TRAPS -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="sec" id="s10">
+  <div class="sec-hd">
+    <span class="sec-n">10</span>
+    <h2>Exam Traps — Board Exam Coach Edition</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">The SABA Monotherapy Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 28-year-old with mild persistent asthma currently uses only albuterol MDI as needed, approximately 3 times per week. Her symptoms are partially controlled. What is the most important change to make to her regimen?</div>
+      <div class="trap-a"><strong>Add an ICS — do not allow albuterol monotherapy.</strong> Frequent SABA use is a marker of poor control AND is associated with increased asthma mortality. GINA now recommends that ICS/formoterol (AIR) or ICS/SABA be used as the reliever at ALL severity levels instead of SABA alone. Using SABA only without inhaled corticosteroids is no longer acceptable as the sole treatment in persistent asthma.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">The Reversibility Definition Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A spirometry test shows FEV₁ of 65% predicted. After bronchodilator administration, FEV₁ rises to 73% predicted. Is this diagnostic of reversible airflow obstruction?</div>
+      <div class="trap-a"><strong>YES — by the new definition.</strong> The new GINA definition of reversibility is ≥10% absolute increase in FEV₁ percent of predicted. 65% → 73% = 8 percentage points... actually, this is 8%, NOT 10%, so it would be borderline. The old definition (also still used) requires a 12% increase OVER BASELINE FEV₁ PLUS ≥200 mL change. Know BOTH definitions. The new definition uses percentage POINTS (absolute), not relative change.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">The Normal CO₂ Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with acute severe asthma is in respiratory distress. His arterial blood gas shows PCO₂ of 41 mmHg. The attending physician says this is "reassuring" because the PCO₂ is normal. Is the attending correct?</div>
+      <div class="trap-a"><strong>NO — a normal PCO₂ in an asthmatic in respiratory distress is an OMINOUS sign.</strong> Most patients with acute asthma HYPERVENTILATE and present with HYPOCAPNIA. A normal or near-normal PCO₂ in this context means the patient is tiring and can no longer maintain the compensatory hyperventilation — it signals IMPENDING RESPIRATORY FAILURE and should prompt urgent consideration of mechanical ventilation.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">The Tezepelumab "No Biomarker" Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with severe asthma on high-dose ICS/LABA has two exacerbations per year requiring oral steroids. His FeNO is 15 ppb (normal) and blood eosinophils are 180 cells/μL (normal). Which biologic is most appropriate?</div>
+      <div class="trap-a"><strong>Tezepelumab (anti-TSLP).</strong> It is the only biologic with demonstrated effectiveness in patients WITHOUT elevated Type 2 biomarkers. Anti-IL-5 drugs require eosinophils ≥300/μL (without chronic OCS). Dupilumab works best with FeNO ≥20-25 ppb or elevated eosinophils. Only tezepelumab, by targeting TSLP (the most proximal alarmin), can help patients with non-Type 2 or low-biomarker asthma.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">The Dupilumab Eosinophilia Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient started on dupilumab for severe asthma returns for a 2-week follow-up. Blood eosinophil count is now 850 cells/μL (up from 420 at baseline). She feels the drug is making things worse and wants to stop. What do you advise?</div>
+      <div class="trap-a"><strong>Continue dupilumab — this is expected and paradoxical.</strong> Dupilumab paradoxically causes a temporary INITIAL INCREASE in circulating eosinophil counts. This is a known side effect, NOT a sign of treatment failure. The eosinophilia typically resolves over time. Most clinical effects are seen by 3–6 months. True serious systemic eosinophilia occurs rarely, most frequently when reducing oral corticosteroids.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">The RADS Return-to-Work Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A chemical plant worker was exposed to a high concentration of chlorine gas. Within 2 hours, he developed severe bronchospasm. He was diagnosed with RADS. Once he recovers, can he return to the same chemical plant?</div>
+      <div class="trap-a"><strong>YES — unlike occupational asthma, RADS patients CAN return to work.</strong> The key distinction is that RADS results from a single high-concentration irritant exposure, and the patient does NOT become sensitized to the provocative agent. In true occupational asthma (immunologic form), sensitization occurs, and re-exposure triggers symptoms. RADS patients who recover can return to the same environment — though some have persistent symptoms for years.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">The Montelukast Safety Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">You are about to prescribe montelukast to an 8-year-old with mild persistent asthma. The parents ask about safety. What critical warning must you give?</div>
+      <div class="trap-a"><strong>Montelukast carries an FDA Black Box Warning for neuropsychiatric effects including suicidal ideation.</strong> This warning applies to all ages. The parents must be counseled about this risk and should watch for any behavioral changes, mood changes, or thoughts of self-harm. This warning has made montelukast a less appealing choice at Step 2, particularly when alternatives exist. (Note: zileuton also has hepatotoxicity risk and inhibits CYP1A2.)</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">The FeNO on ICS Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with severe asthma on high-dose ICS/LABA has a FeNO of 30 ppb (normal &lt;25 ppb on therapy). The physician considers switching to a biologic. What should be done first?</div>
+      <div class="trap-a"><strong>Assess and address ADHERENCE first.</strong> FeNO is easily suppressed by ICS. Elevated FeNO (&gt;20–25 ppb) in a patient on moderate-to-high ICS indicates EITHER poor adherence (most common) OR persistent Type 2 inflammation despite therapy. Since poor adherence has been identified as the cause of poor asthma control in up to 50% of referred patients, adherence must be confirmed before escalating therapy to biologics.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">The ABPA IgE Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with asthma has central bronchiectasis on CT and an IgE of 1300 IU/mL. What should be suspected and what are the treatment pillars?</div>
+      <div class="trap-a"><strong>Suspect ABPA (Allergic Bronchopulmonary Aspergillosis).</strong> IgE &gt;1000 IU/mL in an asthmatic with central bronchiectasis is classic. Confirm with: eosinophils &gt;500/μL, positive Aspergillus skin test, specific Aspergillus IgE and IgG. Treatment: <strong>systemic antifungal (itraconazole or voriconazole) PLUS oral corticosteroids</strong>. Don't forget: up to 2/3 of ABPA patients grow Aspergillus from sputum. Biologics also have an emerging role.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">The Exercise-Induced vs Cardiac Dyspnea Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 45-year-old describes breathing difficulty during exercise. She says symptoms come on "soon after starting exercise" and resolve immediately when she rests. Does this sound like exercise-induced asthma?</div>
+      <div class="trap-a"><strong>No — this pattern is more suggestive of CARDIAC dyspnea.</strong> Exercise-induced asthma (bronchoconstriction) typically develops MORE SLOWLY after initiation of exercise (not immediately), and symptoms RESOLVE MORE SLOWLY, unless a β₂-agonist is administered. Cardiac dyspnea develops quickly with exertion and typically improves with rest. This distinction on boards often hides in the description of onset timing.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">The Pregnancy Prostaglandin Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A pregnant asthmatic patient requires a prostaglandin for obstetric management of her third trimester. The obstetrician asks which prostaglandin is safe to use in her asthmatic patient. What is your recommendation?</div>
+      <div class="trap-a"><strong>Avoid PGF₂-α — it is associated with bronchoconstriction.</strong> PGF₂-α should NOT be used in asthmatic pregnant patients. Other prostaglandin preparations (e.g., PGE₂ variants used for cervical ripening or postpartum hemorrhage) do not carry the same risk of bronchoconstriction. This is a classic board question on the intersection of pregnancy management and asthma contraindications.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 12</span><span class="trap-title">The LABA Monotherapy Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with COPD is doing well on salmeterol monotherapy. He is then also diagnosed with asthma (asthma-COPD overlap). His COPD pulmonologist wants to keep the same salmeterol-only regimen. What is your recommendation?</div>
+      <div class="trap-a"><strong>Do NOT use LABA monotherapy in asthma.</strong> In contrast to COPD (where LABA monotherapy is acceptable), LABAs are NOT recommended as monotherapy in asthma. Their use in asthma is generally restricted to use in combination with an ICS. In asthma-COPD overlap, ICS should be added, and earlier initiation of anticholinergics may also be considered.</div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="sub">
+    <h3>Quick Reference — Key Numbers to Memorize</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Value</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>7.9% (US) / 4.3% (worldwide)</td><td>Asthma prevalence</td></tr>
+          <tr><td>262 million</td><td>People affected globally</td></tr>
+          <tr><td>≥10% absolute ↑ in FEV₁ %predicted</td><td>New reversibility definition (after bronchodilator)</td></tr>
+          <tr><td>12% ↑ in baseline FEV₁ + ≥200 mL</td><td>Old reversibility definition (still used)</td></tr>
+          <tr><td>Cumulative PD₂₀ ≤400 μg methacholine</td><td>Positive methacholine challenge (AHR)</td></tr>
+          <tr><td>≥10% drop in FEV₁</td><td>Positive exercise/cold air challenge</td></tr>
+          <tr><td>&gt;35–40 ppb FeNO</td><td>Elevated (Type 2 inflammation) in untreated patients</td></tr>
+          <tr><td>&gt;20–25 ppb FeNO on ICS</td><td>Poor adherence OR persistent Type 2 inflammation</td></tr>
+          <tr><td>≥300 cells/μL eosinophils</td><td>Threshold for anti-IL-5 biologic response (without OCS)</td></tr>
+          <tr><td>≥260 cells/μL eosinophils or FeNO ≥20 ppb</td><td>Best omalizumab response predictors</td></tr>
+          <tr><td>IgE ≥30 IU/mL + positive skin test/RAST</td><td>Omalizumab eligibility criteria</td></tr>
+          <tr><td>IgE &gt;1000 IU/mL</td><td>Suspect ABPA; consider anti-IgE therapy in severe asthma</td></tr>
+          <tr><td>ABPA eosinophils &gt;500/μL</td><td>ABPA eosinophil criterion</td></tr>
+          <tr><td>≤2x/week symptoms; ≤2x/month nocturnal awakenings</td><td>Goals of asthma therapy (controlled)</td></tr>
+          <tr><td>40–60 mg/day prednisone → taper 1–2 weeks</td><td>OCS for acute exacerbation</td></tr>
+          <tr><td>25–50%</td><td>Exacerbation reduction with omalizumab</td></tr>
+          <tr><td>≥50%</td><td>Exacerbation reduction with dupilumab</td></tr>
+          <tr><td>50–70%</td><td>Exacerbation reduction with tezepelumab</td></tr>
+          <tr><td>~50%</td><td>Exacerbation reduction with anti-IL-5 agents</td></tr>
+          <tr><td>0.2%</td><td>Anaphylaxis rate with omalizumab</td></tr>
+          <tr><td>3%</td><td>Transaminase elevation rate with zileuton</td></tr>
+          <tr><td>5–10%</td><td>Prevalence of aspirin-exacerbated respiratory disease</td></tr>
+          <tr><td>5–10%</td><td>Proportion of asthma that is severe</td></tr>
+          <tr><td>10–25%</td><td>Adult-onset asthma attributable to occupational exposure</td></tr>
+          <tr><td>3–5 min onset, 4–6h duration</td><td>Albuterol pharmacokinetics</td></tr>
+          <tr><td>~12h duration</td><td>LABA (salmeterol, formoterol) duration</td></tr>
+          <tr><td>24h duration</td><td>Ultra-long-acting β₂-agonists (indacaterol, olodaterol, vilanterol)</td></tr>
+          <tr><td>&gt;1/3 of diagnosed patients</td><td>Physician-diagnosed asthma that does NOT meet criteria</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">Harrison's Principles of Internal Medicine · Chapter 298 · Asthma · Boards Review 2026 · Elliot Israel</footer>
+
+<script>
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+/* ── HIGHLIGHT SYSTEM ──────────────────────────────── */
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+/* Save all highlights as {text, color} */
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+/* Restore highlights by finding text in DOM */
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+/* ── NOTE SYSTEM ───────────────────────────────────── */
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+/* Restore note anchors by finding ref text in DOM */
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+/* ── POPOVER ───────────────────────────────────────── */
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+/* ── MOUSE SELECTION ───────────────────────────────── */
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+/* ── CLEAR ALL ─────────────────────────────────────── */
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+/* ── SIDEBAR TOGGLE ────────────────────────────────── */
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+/* ── RESIZE ────────────────────────────────────────── */
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+/* ── STATUS BUTTONS ────────────────────────────────── */
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+/* ── NAV TRACKING ──────────────────────────────────── */
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+/* ── INIT — restore everything on page load ──────── */
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
