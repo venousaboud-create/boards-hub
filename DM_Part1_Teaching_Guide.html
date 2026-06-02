@@ -1349,6 +1349,18 @@ tbody td:first-child{color:var(--tx);font-weight:500}
 <footer class="footer">Harrison&#8217;s Principles Ch. 415 · DM Part 1: Diagnosis, Classification &amp; Pathophysiology · Boards Review 2026</footer>
 
 <script>
+/* ── ACCORDION TOGGLE ── */
+function tog(hd) {
+  const item = hd.closest('.toggle-item') || hd.parentElement;
+  const body = item.querySelector('.toggle-body');
+  const arrow = hd.querySelector('.toggle-arrow');
+  if (!body) return;
+  const isOpen = body.style.display === 'block';
+  body.style.display = isOpen ? 'none' : 'block';
+  if (arrow) arrow.textContent = isOpen ? '▶' : '▼';
+}
+
+
 /* ══════════════════════════════════════════
    VENOS BOARDS HUB — Annotation System v4
    ✓ Highlights persist across sessions
