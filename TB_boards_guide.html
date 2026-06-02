@@ -167,6 +167,16 @@ footer.footer{text-align:center;padding:24px;font-family:'JetBrains Mono',monosp
 .sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize}
 .note-anchor{cursor:pointer;border-bottom:2px dotted #6d28d9;padding-bottom:1px}
 .note-anchor:hover{background:rgba(109,40,217,.06);border-radius:2px}
+
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:rgba(253,224,71,.5)}
+.hl-g{background:rgba(134,239,172,.5)}
+.hl-b{background:rgba(147,197,253,.5)}
+.hl-p{background:rgba(249,168,212,.5)}
+.hl-o{background:rgba(253,186,116,.5)}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-sidebar{transition:transform .25s}
+#sn-sidebar.hidden ~ #sn-tab{right:0}
 </style>
 </head>
 <body>
@@ -190,7 +200,7 @@ footer.footer{text-align:center;padding:24px;font-family:'JetBrains Mono',monosp
 <div id="sn-sidebar" class="hidden">
   <div id="sn-hd">
     <span>📝 Study Notes</span>
-    <button id="sn-toggle-btn" onclick="toggleSidebar()">✕</button>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()" onclick="toggleSidebar()">✕</button>
   </div>
   <div id="sn-body">
     <div id="sn-empty">Select text, then click 📝<br>to add a note anchored to that passage.</div>
