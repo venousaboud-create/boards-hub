@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Respiratory Function & Diagnostics — Boards Master Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8f7f4;--surface:#fff;--surface2:#f2f1ee;--border:#e0ddd8;--text:#1a1917;--muted:#6b6660;--blue:#1e4d8c;--blue-l:#e8f0fb;--green:#1a6b3a;--green-l:#e6f4ec;--red:#8c1a1a;--red-l:#fbeaea;--amber:#7a4f00;--amber-l:#fdf3dc;--purple:#5c1a8c;--purple-l:#f2e8fb;--teal:#0d5c5c;--teal-l:#e0f5f5;--slate:#2d3f5c;--sh:0 2px 12px rgba(0,0,0,.07);--r:12px;--rsm:8px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);font-size:15.5px;line-height:1.7}
+.hero{background:linear-gradient(135deg,#0d1b35 0%,#1e3a6e 50%,#0d4040 100%);color:#fff;padding:60px 48px 48px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(100,180,255,.08) 0%,transparent 70%)}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#a8d4ff;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;padding:5px 14px;border-radius:20px;margin-bottom:20px;text-transform:uppercase}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,44px);font-weight:900;line-height:1.2;margin-bottom:16px;max-width:700px}
+.hero h1 span{color:#7ec8e3}
+.hero p{color:rgba(255,255,255,.75);max-width:600px;font-size:16px}
+.hero-meta{display:flex;gap:20px;margin-top:28px;flex-wrap:wrap}
+.hero-meta-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:10px 16px;font-size:13px;color:rgba(255,255,255,.85)}
+.hero-meta-item strong{color:#7ec8e3;display:block;font-size:18px}
+.toc{background:var(--surface);border-bottom:1px solid var(--border);padding:0 48px;display:flex;gap:4px;flex-wrap:wrap;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.toc a{display:block;padding:13px 14px;font-size:12px;font-weight:600;color:var(--muted);text-decoration:none;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;letter-spacing:.3px}
+.toc a:hover{color:var(--blue);border-bottom-color:var(--blue)}
+.main{max-width:1160px;margin:0 auto;padding:40px 48px 80px}
+.section{margin-bottom:56px}
+.section-header{display:flex;align-items:center;gap:16px;margin-bottom:28px;padding-bottom:16px;border-bottom:2px solid var(--border)}
+.sn{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:#fff;background:var(--blue);padding:4px 10px;border-radius:6px;letter-spacing:1px}
+.sn.g{background:var(--green)}.sn.r{background:var(--red)}.sn.a{background:var(--amber)}.sn.p{background:var(--purple)}.sn.t{background:var(--teal)}.sn.s{background:var(--slate)}.sn.trap{background:#c0392b}
+.st{font-family:'Playfair Display',serif;font-size:26px;font-weight:700}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px 28px;margin-bottom:20px;box-shadow:var(--sh)}
+.ct{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.dot.g{background:var(--green)}.dot.r{background:var(--red)}.dot.a{background:var(--amber)}.dot.p{background:var(--purple)}.dot.t{background:var(--teal)}
+.card.ba{border-left:4px solid var(--blue)}.card.ga{border-left:4px solid var(--green)}.card.ra{border-left:4px solid var(--red)}.card.aa{border-left:4px solid var(--amber)}.card.pa{border-left:4px solid var(--purple)}.card.ta{border-left:4px solid var(--teal)}.card.sa{border-left:4px solid var(--slate)}
+ul.s,ol.s{padding-left:22px;margin:10px 0}
+ul.s li,ol.s li{margin-bottom:6px;line-height:1.65}
+ul.s li::marker{color:var(--blue)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+@media(max-width:768px){.g2,.g3{grid-template-columns:1fr}}
+.hl{border-radius:var(--rsm);padding:14px 18px;margin:12px 0;font-size:14.5px}
+.hl.b{background:var(--blue-l);border-left:3px solid var(--blue)}
+.hl.g{background:var(--green-l);border-left:3px solid var(--green)}
+.hl.r{background:var(--red-l);border-left:3px solid var(--red)}
+.hl.a{background:var(--amber-l);border-left:3px solid var(--amber)}
+.hl.p{background:var(--purple-l);border-left:3px solid var(--purple)}
+.hl.t{background:var(--teal-l);border-left:3px solid var(--teal)}
+.tag{display:inline-block;padding:2px 9px;border-radius:4px;font-size:12px;font-weight:700;margin:2px;font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
+.tag.b{background:var(--blue-l);color:var(--blue)}.tag.g{background:var(--green-l);color:var(--green)}.tag.r{background:var(--red-l);color:var(--red)}
+table{width:100%;border-collapse:collapse;font-size:14px;background:var(--surface);border-radius:var(--rsm);overflow:hidden;box-shadow:var(--sh)}
+.tw{overflow-x:auto;margin:16px 0}
+th{background:#1e3a6e;color:#fff;padding:11px 14px;text-align:left;font-weight:600;font-size:12.5px;letter-spacing:.5px}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:var(--surface2)}
+td.gd{color:var(--green);font-weight:600}td.bd{color:var(--red);font-weight:600}td.nt{color:var(--amber);font-weight:600}
+.formula{background:#0d1b35;color:#7ec8e3;font-family:'JetBrains Mono',monospace;font-size:14px;padding:16px 22px;border-radius:var(--rsm);margin:14px 0;line-height:1.9}
+.formula .c{color:rgba(255,255,255,.4);font-size:12px}
+.dc{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin:16px 0;text-align:center}
+.dc h4{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;font-family:'JetBrains Mono',monospace}
+.fvg{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.fvi{background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px;flex:1;min-width:130px;max-width:170px}
+.fvi p{font-size:12px;font-weight:700;margin-top:8px;color:var(--text);text-align:center}
+.dis-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:20px;box-shadow:var(--sh)}
+.dis-h{padding:16px 22px;display:flex;align-items:center;gap:14px}
+.dis-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.dis-h h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:700}
+.dis-h p{font-size:12.5px;color:var(--muted);margin-top:2px}
+.dis-b{padding:16px 22px;border-top:1px solid var(--border)}
+.pftr{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.pc{padding:5px 12px;border-radius:20px;font-size:13px;font-weight:600;font-family:'JetBrains Mono',monospace;display:flex;align-items:center;gap:5px}
+.pc.u{background:#fce4e4;color:#8c1a1a}.pc.d{background:#e4f0fc;color:#1a4d8c}.pc.n{background:#e8f4ea;color:#1a6b3a}.pc.v{background:#fdf3dc;color:#7a4f00}
+.pc.u::before{content:'↑'}.pc.d::before{content:'↓'}.pc.n::before{content:'↔'}
+.trap-card{background:var(--surface);border:2px solid #c0392b;border-radius:var(--r);overflow:hidden;margin-bottom:24px;box-shadow:0 4px 20px rgba(192,57,43,.12)}
+.trap-h{background:linear-gradient(135deg,#c0392b,#96281b);color:#fff;padding:14px 22px;display:flex;align-items:center;gap:12px}
+.tn{background:rgba(255,255,255,.2);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;font-size:15px;flex-shrink:0}
+.trap-h h3{font-size:15px;font-weight:700;line-height:1.3}
+.trap-b{padding:20px 22px}
+.trs{margin-bottom:14px}
+.trl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;font-family:'JetBrains Mono',monospace;margin-bottom:5px}
+.trl.tk{color:#e74c3c}.trl.tr{color:var(--green)}.trl.tm{color:var(--blue)}.trl.tc{color:var(--purple)}
+.trs p{font-size:14.5px;line-height:1.6}
+.cb{font-weight:700;background:#fef9c3;padding:10px 14px;border-radius:6px;border-left:3px solid #f59e0b;display:block;margin-top:6px;font-size:14px}
+.kp{background:linear-gradient(135deg,#0d1b35,#1a3560);color:#fff;border-radius:var(--r);padding:20px 24px;margin:20px 0}
+.kp h4{font-size:11px;font-family:'JetBrains Mono',monospace;color:#7ec8e3;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.kp p,.kp li{font-size:14.5px;color:rgba(255,255,255,.88)}
+.kp ul{padding-left:20px}
+h3.sub{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;margin:28px 0 12px;padding-left:14px;border-left:4px solid var(--blue)}
+h3.sub.g{border-left-color:var(--green)}h3.sub.r{border-left-color:var(--red)}h3.sub.a{border-left-color:var(--amber)}h3.sub.p{border-left-color:var(--purple)}h3.sub.t{border-left-color:var(--teal)}
+h4.sub2{font-size:12px;font-weight:700;color:var(--blue);margin:16px 0 7px;text-transform:uppercase;letter-spacing:.8px;font-family:'JetBrains Mono',monospace}
+.mt th{background:#0d1b35;font-size:12px}
+.mt{font-size:13px}
+strong{color:var(--text)}
+em{color:var(--blue);font-style:normal;font-weight:600}
+code{font-family:'JetBrains Mono',monospace;background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:13px;color:var(--red)}
+
+/* ── ANNOTATION SYSTEM ── */
+:root{--pur:#6d28d9;--pur-l:#f5f3ff;--bd:#ddd9d2;--bd2:#b8b3aa;--bg:#f8f7f4;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;--snw:300px;--red:#b91c1c;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);--hb:rgba(147,197,253,.5);
+  --hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5)}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid #1e4db7;outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:0;width:var(--snw);height:100vh;
+  background:#f0ede8;border-left:1.5px solid var(--bd2);display:flex;
+  flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:80px;position:relative;overflow:hidden;margin-bottom:6px}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;flex-shrink:0}
+.sn-drag-icon{color:#a89a30;font-size:12px}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8px;color:#78610a;
+  flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s}
+#sn-sidebar.hidden~#sn-tab{right:0}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-size:12px;resize:none;height:60px;background:#f8f7f4;color:var(--tx);display:block}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:8px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer;display:block}
+#sn-add:hover{background:#5b21b6}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55}
+#note-popover.show{display:block}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3)}
+.pop-btn:hover{background:#fef2f2;border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3)}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px}
+.note-anchor:hover{background:rgba(109,40,217,.06);border-radius:2px}
+.hl{border-radius:2px;padding:0 1px}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}
+.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+</style>
+</head>
+<body>
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select any text in the guide,<br>write a note below,<br>then click + Add Note.<br><br>Notes stay connected to<br>sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+
+<div class="hero">
+  <div class="hero-badge">BOARDS MASTER GUIDE · INTERNAL MEDICINE · STAGE A</div>
+  <h1>Disturbances of <span>Respiratory Function</span><br>&amp; Diagnostic Procedures</h1>
+  <p>Mechanism-first review built from the exact topics tested in your question bank. Every concept explains the WHY, not just the WHAT.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><strong>9</strong>Core Sections</div>
+    <div class="hero-meta-item"><strong>11</strong>Disease PFT Profiles</div>
+    <div class="hero-meta-item"><strong>15</strong>Exam Traps</div>
+    <div class="hero-meta-item"><strong>1</strong>Master Reference Table</div>
+  </div>
+</div>
+<nav class="toc">
+  <a href="#s1">§1 Lung Mechanics</a>
+  <a href="#s2">§2 Spirometry</a>
+  <a href="#s3">§3 DLCO</a>
+  <a href="#s4">§4 Gas Exchange</a>
+  <a href="#s5">§5 Disease Profiles</a>
+  <a href="#s6">§6 Diagnostics</a>
+  <a href="#s7">§7 Physical Exam</a>
+  <a href="#s8">§8 Imaging</a>
+  <a href="#s9">§9 Master Table</a>
+  <a href="#s10">§10 Exam Traps</a>
+</nav>
+<div class="main">
+<!-- SECTION 1 -->
+<div class="section" id="s1">
+<div class="section-header"><span class="sn">§ 01</span><h2 class="st">Lung Mechanics &amp; Volumes</h2></div>
+<div class="card ba">
+  <div class="ct"><span class="dot"></span>The Three-Component Model</div>
+  <div class="g3">
+    <div class="hl b"><strong>① Lung</strong><br>Natural tendency = collapse (surface tension + elastic recoil). Must be kept inflated by transpulmonary pressure.</div>
+    <div class="hl g"><strong>② Chest Wall</strong><br>Everything NOT lung/active muscles. Includes rib cage, abdomen (obese belly!), heart (enlarged heart). Natural tendency = OUTWARD recoil.</div>
+    <div class="hl a"><strong>③ Neuromuscular System</strong><br>Force generated to overcome elastic loads of both. Weakness here = Neuromuscular restriction pattern (MG, ALS, GBS).</div>
+  </div>
+  <div class="hl r" style="margin-top:10px"><strong>The clinical payoff:</strong> Each component causes a DISTINCT PFT pattern. Identifying which is failing = identifying the diagnosis.</div>
+</div>
+
+<h3 class="sub">Lung Volume Definitions &amp; Their Determinants</h3>
+<div class="tw">
+<table>
+<tr><th>Volume</th><th>Definition</th><th>Key Determinant</th><th>Critical Points</th></tr>
+<tr><td><strong>TLC</strong></td><td>Total volume at full inflation</td><td>Inspiratory muscle strength vs lung stiffness (at high volumes, lung becomes very stiff — limiting factor)</td><td>NOT measured by spirometry. Low in restriction; HIGH in emphysema (↓recoil allows over-inflation)</td></tr>
+<tr><td><strong>RV</strong></td><td>Volume remaining after maximal exhalation</td><td>Airway closure (small airways tethered open by radial traction; as lung deflates, they close, trapping gas)</td><td>NOT measured by spirometry. RISES in obstruction (airway closure earlier). Also high in muscle weakness</td></tr>
+<tr><td><strong>FRC</strong></td><td>Passive resting point after quiet exhalation</td><td>Balance: outward chest wall recoil = inward lung recoil</td><td>LOW in obesity/fibrosis (more inward pull). HIGH in emphysema (less inward pull from lost recoil). NORMAL in neuromuscular disease</td></tr>
+<tr><td><strong>VC</strong></td><td>TLC − RV (maximal excursion)</td><td>Both TLC and RV</td><td>Easy to measure but alone tells you little. Interpret TLC and RV separately!</td></tr>
+<tr><td><strong>FVC</strong></td><td>Forced vital capacity (VC done forcefully)</td><td>TLC and RV; also airflow</td><td>Can be reduced in BOTH obstruction AND restriction. Must check FEV₁/FVC to distinguish!</td></tr>
+</table>
+</div>
+<div class="hl a"><strong>⚡ Fundamental Rule:</strong> Spirometry measures FEV₁, FVC, and their ratio. It CANNOT measure TLC, FRC, or RV. You need <em>body plethysmography</em> or <em>gas dilution</em> for absolute volumes.</div>
+
+<h3 class="sub g">Measuring Absolute Volumes: Two Methods</h3>
+<div class="g2">
+<div class="card ga">
+  <div class="ct"><span class="dot g"></span>Body Plethysmography (Gold Standard)</div>
+  <ul class="s">
+    <li>Airtight transparent box; patient pants against closed shutter at FRC</li>
+    <li>Uses <strong>Boyle's Law (P₁V₁ = P₂V₂)</strong>: pressure fluctuations at mouth + box volume changes → thoracic gas volume</li>
+    <li>Measures ALL gas, including <em>trapped gas in poorly ventilated regions</em></li>
+    <li>Accurate even in severe COPD/emphysema</li>
+    <li>Then: TLC = FRC + IC; RV = FRC − ERV</li>
+  </ul>
+</div>
+<div class="card aa">
+  <div class="ct"><span class="dot a"></span>Inert Gas Dilution (Helium / Neon)</div>
+  <ul class="s">
+    <li>Known amount of non-absorbable inert gas inhaled; diluted by resident lung gas → concentration reveals volume</li>
+    <li><strong>Critical limitation:</strong> Gas doesn't reach poorly ventilated/obstructed regions</li>
+    <li>Result: <em>UNDERESTIMATES true lung volumes in obstruction</em></li>
+    <li>Gap between plethysmography and helium TLC = volume of trapped gas</li>
+  </ul>
+  <div class="hl r">If helium TLC &lt;&lt; plethysmography TLC → significant gas trapping (obstructive physiology)</div>
+</div>
+</div>
+
+<h3 class="sub r">FRC — The Most Clinically Useful Volume</h3>
+<div class="g2">
+<div class="card">
+  <h4 class="sub2">FRC Decreases When:</h4>
+  <ul class="s">
+    <li><strong>Obesity:</strong> Fat weight → ↓ chest wall outward recoil → lung wins → FRC falls. TLC usually NORMAL (muscle strength intact, lung recoil normal)</li>
+    <li><strong>Pulmonary fibrosis:</strong> ↑ lung inward recoil → FRC + TLC + RV all fall</li>
+    <li><strong>Supine position:</strong> Gravity assists inward chest wall recoil; abdominal organs push up diaphragm → FVC drops 3–8% in normal subjects, &gt;10–25% in diaphragm weakness</li>
+  </ul>
+</div>
+<div class="card">
+  <h4 class="sub2">FRC Increases When:</h4>
+  <ul class="s">
+    <li><strong>Emphysema:</strong> Loss of elastic recoil → less inward pull → FRC rises dramatically (220% in severe emphysema)</li>
+    <li><strong>Dynamic hyperinflation (obstructive disease):</strong> Expiratory flow so slow that next breath begins before static FRC reached → operating FRC &gt; static FRC → may approach TLC</li>
+    <li><strong>Clinical result:</strong> At very high lung volumes, respiratory system is stiff → each tidal breath costs much more elastic work → patient feels unable to inhale, even though the root problem is expiratory obstruction</li>
+  </ul>
+</div>
+</div>
+
+<h3 class="sub a">Dynamic Airflow Limitation — The Bernoulli Mechanism</h3>
+<div class="card aa">
+  <div class="ct"><span class="dot a"></span>Why Harder Effort Doesn't Increase Flow Past the Flow Limit</div>
+  <ul class="s">
+    <li>Airways are <strong>collapsible tubes</strong> (not rigid). During exhalation, gas speeds up as it travels from periphery (large summed cross-section) to central airways (small total area)</li>
+    <li>Faster flow → <strong>Bernoulli effect</strong>: intraluminal pressure drops → transmural pressure falls → airway <em>narrows</em></li>
+    <li>Harder effort → faster velocity → more narrowing → no net gain in flow → <em>flow limit reached</em></li>
+    <li>After peak expiratory flow, the FVC maneuver is <strong>effort-independent</strong> — effort doesn't change measured values, making it reproducible</li>
+    <li>Diseases that ↓ airway lumen (asthma, chronic bronchitis) or ↓ elastic recoil tethering airways open (emphysema) lower this flow limit → reduced maximal expiratory flows</li>
+  </ul>
+</div>
+
+<h3 class="sub t">Respiratory Muscle Strength Testing</h3>
+<div class="g2">
+<div class="card ta">
+  <div class="ct"><span class="dot t"></span>Standard Test (MIP / MEP)</div>
+  <ul class="s">
+    <li>Maximal inspiratory/expiratory effort against closed shutter at FRC</li>
+    <li>Pressure monitored at mouth</li>
+    <li><strong>Normal: &gt;±60 cmH₂O at FRC</strong> → muscle weakness unlikely cause of any identified ventilatory dysfunction</li>
+  </ul>
+</div>
+<div class="card ba">
+  <div class="ct"><span class="dot"></span>Supine Spirometry (More Sensitive)</div>
+  <ul class="s">
+    <li>Supine position → diaphragm must work against abdominal contents (gravity no longer assists)</li>
+    <li><strong>Normal:</strong> FVC drops only 3–8% supine vs upright</li>
+    <li><strong>Diaphragm weakness / hemidiaphragm paralysis / ALS / MG: drops 10–&gt;25%</strong></li>
+    <li>More sensitive AND better tolerated than formal pressure testing</li>
+  </ul>
+</div>
+</div>
+</div><!-- end section 1 -->
+<!-- SECTION 2 -->
+<div class="section" id="s2">
+<div class="section-header"><span class="sn g">§ 02</span><h2 class="st">Spirometry &amp; Flow-Volume Loops</h2></div>
+<div class="card ga">
+  <div class="ct"><span class="dot g"></span>Key Spirometric Values</div>
+  <div class="tw">
+  <table>
+  <tr><th>Parameter</th><th>Full Name</th><th>What It Measures</th><th>Normal</th></tr>
+  <tr><td><strong>FVC</strong></td><td>Forced Vital Capacity</td><td>Total air exhaled in maximal forced breath from TLC to RV</td><td>≥80% predicted</td></tr>
+  <tr><td><strong>FEV₁</strong></td><td>Forced Expiratory Volume in 1 second</td><td>Air exhaled in FIRST SECOND — a flow rate (volume/time)</td><td>≥80% predicted</td></tr>
+  <tr><td><strong>FEV₁/FVC</strong></td><td>Tiffeneau ratio</td><td>Fraction of FVC exhaled in 1st second — the KEY ratio</td><td>≥0.70 (70%)</td></tr>
+  </table>
+  </div>
+  <div class="hl a">Spirometry DIRECTLY measures FEV₁ and FVC (and their ratio). It CANNOT measure TLC, FRC, or RV.</div>
+</div>
+
+<h3 class="sub">Step 1: Obstructive vs Restrictive Pattern</h3>
+<div class="g2">
+<div class="card ba">
+  <div class="ct"><span class="dot"></span>Obstructive Pattern</div>
+  <ul class="s">
+    <li><strong>FEV₁/FVC &lt; 0.70</strong></li>
+    <li>FEV₁ reduced; FVC may be normal OR reduced (if RV is very high)</li>
+    <li>Airway obstruction slows expiratory flow, especially at low lung volumes</li>
+    <li>Causes: Asthma, COPD, emphysema, bronchiectasis, CF</li>
+  </ul>
+  <div class="hl r"><strong>TRAP:</strong> In severe obstruction, RV rises so much that FVC also falls → both numerator and denominator fall → FEV₁/FVC appears "normal." ALWAYS check TLC. If TLC is HIGH (not low) → obstruction with gas trapping, NOT restriction.</div>
+</div>
+<div class="card ga">
+  <div class="ct"><span class="dot g"></span>Restrictive Pattern</div>
+  <ul class="s">
+    <li><strong>FEV₁/FVC normal or ELEVATED (often ≥0.8–0.9)</strong></li>
+    <li>Both FEV₁ and FVC reduced proportionally</li>
+    <li><strong>Requires TLC &lt; 80% to formally confirm</strong></li>
+    <li>Lungs are small — flow per unit volume is preserved or elevated</li>
+    <li>Causes: ILD/IPF, obesity, neuromuscular disease, chest wall deformity, pleural disease</li>
+  </ul>
+  <div class="hl b">A "normal" FEV₁/FVC with low FEV₁ and FVC does NOT equal obstruction — could be restriction. Must measure TLC!</div>
+</div>
+</div>
+
+<h3 class="sub g">Bronchodilator Reversibility Testing</h3>
+<div class="card">
+  <div class="ct"><span class="dot g"></span>Criteria &amp; Interpretation</div>
+  <div class="g2">
+  <div>
+    <h4 class="sub2">Positive Response (Asthma favored):</h4>
+    <ul class="s">
+      <li>FEV₁ improves <strong>≥12% AND ≥200 mL</strong> after bronchodilator</li>
+      <li>Or FVC improves ≥12% AND ≥200 mL</li>
+      <li>Supports reversible airflow obstruction = asthma</li>
+    </ul>
+  </div>
+  <div>
+    <h4 class="sub2">No Response (COPD favored):</h4>
+    <ul class="s">
+      <li>&lt;12% or &lt;200 mL improvement</li>
+      <li>Favors irreversible obstruction = COPD</li>
+      <li><strong>BUT:</strong> Lack of response does NOT rule out asthma!</li>
+      <li>GOLD criteria: post-BD FEV₁/FVC &lt;0.70 = COPD (by definition)</li>
+    </ul>
+  </div>
+  </div>
+  <div class="hl a"><strong>FeNO test:</strong> Elevated FeNO (≥30 ppb) → type 2 eosinophilic inflammation → supports asthma diagnosis AND predicts ICS response. Main use in practice: assessing ICS adherence.</div>
+</div>
+
+<h3 class="sub r">Flow-Volume Loops — Pattern Recognition</h3>
+<div class="card">
+  <div class="ct"><span class="dot r"></span>Loop Anatomy: Flow (y-axis) vs Volume (x-axis)</div>
+  <p style="margin-bottom:14px">Expiratory curve is above x-axis. Starts at TLC (left). Ends at RV (right). Inspiratory curve below x-axis. Shape of expiratory limb tells you the site of obstruction.</p>
+  <div class="dc">
+    <h4>Flow-Volume Loop Pattern Reference</h4>
+    <div class="fvg">
+      <div class="fvi">
+        <svg viewBox="0 0 110 80" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <rect width="110" height="80" fill="#f8f7f4" rx="4"/>
+          <line x1="8" y1="40" x2="105" y2="40" stroke="#ccc" stroke-width="1"/>
+          <line x1="8" y1="8" x2="8" y2="75" stroke="#ccc" stroke-width="1"/>
+          <path d="M12,40 L14,16 C28,16 50,18 70,26 C88,34 100,39 104,40" stroke="#1e4d8c" stroke-width="2" fill="none"/>
+          <path d="M104,40 C95,57 75,64 55,64 C38,64 24,57 12,40" stroke="#1e4d8c" stroke-width="2" fill="none"/>
+          <text x="93" y="37" font-size="8" fill="#6b6660">TLC</text>
+          <text x="3" y="37" font-size="8" fill="#6b6660">RV</text>
+        </svg>
+        <p>Normal</p>
+      </div>
+      <div class="fvi">
+        <svg viewBox="0 0 110 80" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <rect width="110" height="80" fill="#f8f7f4" rx="4"/>
+          <line x1="8" y1="40" x2="105" y2="40" stroke="#ccc" stroke-width="1"/>
+          <line x1="8" y1="8" x2="8" y2="75" stroke="#ccc" stroke-width="1"/>
+          <path d="M12,40 L13,20 C20,20 34,28 55,36 C76,42 98,40 104,40" stroke="#c0392b" stroke-width="2" fill="none"/>
+          <path d="M104,40 C95,58 75,64 55,64 C38,64 24,57 12,40" stroke="#c0392b" stroke-width="2" fill="none"/>
+          <text x="45" y="33" font-size="8" fill="#c0392b" font-weight="700">SCOOP</text>
+        </svg>
+        <p>Obstruction<br><small style="color:#6b6660">(Asthma/COPD)</small></p>
+      </div>
+      <div class="fvi">
+        <svg viewBox="0 0 110 80" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <rect width="110" height="80" fill="#f8f7f4" rx="4"/>
+          <line x1="8" y1="40" x2="105" y2="40" stroke="#ccc" stroke-width="1"/>
+          <line x1="8" y1="8" x2="8" y2="75" stroke="#ccc" stroke-width="1"/>
+          <path d="M12,40 L13,25 L98,25 L104,40" stroke="#8c1a1a" stroke-width="2" fill="none"/>
+          <path d="M104,40 L98,55 L16,55 L12,40" stroke="#8c1a1a" stroke-width="2" fill="none"/>
+          <text x="38" y="21" font-size="7" fill="#8c1a1a" font-weight="700">BILATERAL PLATEAU</text>
+        </svg>
+        <p>Fixed Airway<br><small style="color:#6b6660">(Goiter, tracheal stenosis)</small></p>
+      </div>
+      <div class="fvi">
+        <svg viewBox="0 0 110 80" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <rect width="110" height="80" fill="#f8f7f4" rx="4"/>
+          <line x1="8" y1="40" x2="105" y2="40" stroke="#ccc" stroke-width="1"/>
+          <line x1="8" y1="8" x2="8" y2="75" stroke="#ccc" stroke-width="1"/>
+          <path d="M12,40 L14,16 C28,16 50,20 70,26 C88,34 100,39 104,40" stroke="#7a4f00" stroke-width="2" fill="none"/>
+          <path d="M104,40 L96,55 L18,55 L12,40" stroke="#7a4f00" stroke-width="2" fill="none"/>
+          <text x="32" y="62" font-size="7" fill="#7a4f00" font-weight="700">INS PLATEAU ONLY</text>
+        </svg>
+        <p>Variable Extrathoracic<br><small style="color:#6b6660">(Vocal cord paralysis)</small></p>
+      </div>
+      <div class="fvi">
+        <svg viewBox="0 0 110 80" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <rect width="110" height="80" fill="#f8f7f4" rx="4"/>
+          <line x1="8" y1="40" x2="105" y2="40" stroke="#ccc" stroke-width="1"/>
+          <line x1="8" y1="8" x2="8" y2="75" stroke="#ccc" stroke-width="1"/>
+          <path d="M12,40 L13,25 L96,25 L104,40" stroke="#5c1a8c" stroke-width="2" fill="none"/>
+          <path d="M104,40 C95,58 75,64 55,64 C38,64 24,57 12,40" stroke="#5c1a8c" stroke-width="2" fill="none"/>
+          <text x="30" y="21" font-size="7" fill="#5c1a8c" font-weight="700">EXP PLATEAU ONLY</text>
+        </svg>
+        <p>Variable Intrathoracic<br><small style="color:#6b6660">(Tracheomalacia below inlet)</small></p>
+      </div>
+      <div class="fvi">
+        <svg viewBox="0 0 110 80" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <rect width="110" height="80" fill="#f8f7f4" rx="4"/>
+          <line x1="8" y1="40" x2="105" y2="40" stroke="#ccc" stroke-width="1"/>
+          <line x1="8" y1="8" x2="8" y2="75" stroke="#ccc" stroke-width="1"/>
+          <path d="M35,40 L36,22 C46,22 62,24 76,30 C88,35 94,39 96,40" stroke="#1a6b3a" stroke-width="2" fill="none"/>
+          <path d="M96,40 C88,53 72,58 58,58 C44,58 35,52 35,40" stroke="#1a6b3a" stroke-width="2" fill="none"/>
+          <path d="M12,40 L14,16 C28,16 50,18 70,26 C88,34 100,39 104,40" stroke="#ccc" stroke-width="1" fill="none" stroke-dasharray="3,2"/>
+          <text x="55" y="19" font-size="7" fill="#1a6b3a" font-weight="700">SMALL</text>
+        </svg>
+        <p>Restriction<br><small style="color:#6b6660">(Small but normal shape)</small></p>
+      </div>
+    </div>
+  </div>
+  <div class="tw" style="margin-top:14px">
+  <table>
+  <tr><th>Pattern</th><th>Expiratory</th><th>Inspiratory</th><th>Classic Cause</th></tr>
+  <tr><td><strong>Obstruction</strong></td><td class="bd">Scooped / concave</td><td class="gd">Normal</td><td>Asthma, COPD, emphysema — flow drops rapidly as lung volume falls (airways collapse)</td></tr>
+  <tr><td><strong>Fixed upper airway</strong></td><td class="bd">Flat plateau</td><td class="bd">Flat plateau</td><td>Tracheal stenosis, thyroid goiter, bilateral vocal cord paralysis — fixed rigid obstruction limits both phases equally</td></tr>
+  <tr><td><strong>Variable extrathoracic</strong></td><td class="gd">Normal</td><td class="bd">Plateau only</td><td>Unilateral vocal cord paralysis, posttracheostomy stricture — worsens on inspiration as intraluminal pressure falls</td></tr>
+  <tr><td><strong>Variable intrathoracic</strong></td><td class="bd">Plateau only</td><td class="gd">Normal</td><td>Tracheomalacia below thoracic inlet — expiratory pressure rise compresses lesion</td></tr>
+  <tr><td><strong>Restriction</strong></td><td>Normal shape but SMALL — elevated flow for given volume</td><td>Small, normal shape</td><td>IPF, neuromuscular disease, obesity — lungs small but intrinsically flow-efficient</td></tr>
+  </table>
+  </div>
+</div>
+
+<div class="kp">
+  <h4>★ Goiter Pearl — Fixed vs Variable</h4>
+  <p>A large compressive goiter encircles the trachea as a <strong>rigid external ring</strong>. Unlike vocal cord disease (stented open by expiratory pressure), the goiter is rigid — it compresses equally in both phases → <strong>BOTH inspiratory AND expiratory plateaus = fixed central airway obstruction</strong>. NOT variable extrathoracic (which would be inspiratory plateau only). Pattern recognition: bilateral flat loops = goiter/tracheal stenosis.</p>
+</div>
+</div><!-- end section 2 -->
+<!-- SECTION 3: DLCO -->
+<div class="section" id="s3">
+<div class="section-header"><span class="sn r">§ 03</span><h2 class="st">Diffusing Capacity (DLCO)</h2></div>
+<div class="card ra">
+  <div class="ct"><span class="dot r"></span>How DLCO Works</div>
+  <ul class="s">
+    <li>Inhale small safe amount of CO + inert tracer gas; hold breath for <strong>10 seconds</strong></li>
+    <li>CO measured in exhaled air → quantity that crossed alveolar membrane and bound hemoglobin = DLCO</li>
+    <li>Why CO? Binds Hb with very high affinity → no back-pressure → ideal to measure diffusion</li>
+    <li>Inert gas (helium/methane) distributes by ventilation only → used to calculate alveolar volume (VA)</li>
+    <li>Note: In obstruction, DLCO by gas dilution may underestimate (same reason as lung volumes)</li>
+  </ul>
+</div>
+<div class="formula">DLCO ∝ (Surface Area × Hemoglobin) / Membrane Thickness<br><span class="c">// All three factors must be considered when interpreting DLCO</span></div>
+<div class="g2">
+<div class="card">
+  <div class="ct"><span class="dot r"></span>Causes of DECREASED DLCO</div>
+  <ul class="s">
+    <li><strong>Thickened/destroyed alveolar membrane:</strong>
+      <ul class="s"><li>IPF — scarring thickens membrane AND destroys surface area</li>
+      <li>Emphysema — destroys alveolar walls → ↓ surface area</li></ul>
+    </li>
+    <li><strong>Reduced pulmonary vasculature:</strong>
+      <ul class="s"><li>Pulmonary hypertension (PAH) — less capillary surface</li>
+      <li>Pulmonary embolism — dead space (ventilated, not perfused)</li></ul>
+    </li>
+    <li><strong>Reduced alveolar capillary hemoglobin:</strong>
+      <ul class="s"><li>Anemia — always correct DLCO for hemoglobin!</li></ul>
+    </li>
+  </ul>
+</div>
+<div class="card">
+  <div class="ct"><span class="dot g"></span>Causes of ELEVATED DLCO</div>
+  <ul class="s">
+    <li><strong>Asthma:</strong> ↑ pulmonary blood volume during attack; mild polycythemia</li>
+    <li><strong>Polycythemia:</strong> More Hb in capillaries → more CO captured</li>
+    <li><strong>Pulmonary hemorrhage (DAH, Goodpasture):</strong> Free Hb in alveolar space binds CO → DLCO paradoxically elevated</li>
+    <li><strong>Obesity:</strong> More blood in pulmonary circuit (unless PAH develops)</li>
+  </ul>
+  <div class="hl g"><strong>Classic Board:</strong> Hemoptysis + elevated DLCO = <strong>alveolar hemorrhage</strong> (blood in alveoli acts like extra hemoglobin binding CO)</div>
+</div>
+</div>
+<h3 class="sub r">DLCO as the Key Discriminating Test</h3>
+<div class="tw">
+<table>
+<tr><th>Scenario</th><th>DLCO</th><th>Mechanism</th></tr>
+<tr><td>Obstruction + emphysema (COPD)</td><td class="bd">↓↓</td><td>Alveolar wall destruction → ↓ surface area</td></tr>
+<tr><td>Obstruction + asthma (no destruction)</td><td class="gd">Normal or ↑</td><td>No alveolar destruction; may be elevated (↑ blood, polycythemia)</td></tr>
+<tr><td>Obstruction + PAH</td><td class="bd">↓↓</td><td>Curtailed pulmonary vasculature</td></tr>
+<tr><td>Restriction + IPF</td><td class="bd">↓↓↓</td><td>Fibrosis thickens membrane + destroys capillaries</td></tr>
+<tr><td>Restriction + neuromuscular (MG, ALS)</td><td class="gd">Normal</td><td>Airways and vasculature intact — only muscle failing</td></tr>
+<tr><td>Restriction + obesity (no PAH)</td><td class="gd">Normal</td><td>Lungs intrinsically normal</td></tr>
+<tr><td>Normal spirometry + normal TLC</td><td class="bd">↓ in isolation</td><td>PAH or chronic PE — vascular problem, not parenchymal</td></tr>
+<tr><td>Pulmonary hemorrhage</td><td class="gd">↑↑ elevated!</td><td>Free Hb in alveoli binds CO → falsely elevated</td></tr>
+<tr><td>PE (pulmonary embolism)</td><td class="bd">↓</td><td>Dead space → loss of vascular surface</td></tr>
+<tr><td>Sarcoidosis</td><td class="bd">↓</td><td>Granulomatous destruction of lung parenchyma</td></tr>
+</table>
+</div>
+</div><!-- end section 3 -->
+<!-- SECTION 4: GAS EXCHANGE -->
+<div class="section" id="s4">
+<div class="section-header"><span class="sn a">§ 04</span><h2 class="st">Gas Exchange — Alveolar Gas Equation &amp; V/Q</h2></div>
+<h3 class="sub">Alveolar Gas Equation</h3>
+<div class="card ba">
+  <div class="ct"><span class="dot"></span>The Formula &amp; How to Use It</div>
+  <div class="formula">PAO₂ = FiO₂ × (P<sub>bar</sub> – P<sub>H₂O</sub>) – PaCO₂/R<br><span class="c">// FiO₂ = 0.21 on room air &nbsp;&nbsp; Pbar = 760 mmHg at sea level &nbsp;&nbsp; PH₂O = 47 mmHg at 37°C &nbsp;&nbsp; R ≈ 0.8</span><br><br>On room air at sea level:<br>PAO₂ = 0.21 × (760–47) – PaCO₂/0.8 = 150 – PaCO₂/0.8</div>
+  <div class="g2">
+    <div class="hl b"><strong>Example:</strong> PaCO₂ = 60 mmHg<br>PAO₂ = 150 – 60/0.8 = 150 – 75 = <strong>75 mmHg</strong></div>
+    <div class="hl g"><strong>Example:</strong> PaCO₂ = 40 mmHg<br>PAO₂ = 150 – 40/0.8 = 150 – 50 = <strong>100 mmHg</strong></div>
+  </div>
+  <div class="hl a"><strong>Key insight:</strong> Even severe hypoventilation (high PaCO₂) only modestly reduces PAO₂ at sea level on room air → severe hypoxemia from hypoventilation ALONE is rare. There must be V/Q mismatch or shunt to cause severe hypoxemia.</div>
+</div>
+
+<h3 class="sub a">A-a Oxygen Gradient</h3>
+<div class="card aa">
+  <div class="ct"><span class="dot a"></span>A-a Gradient = PAO₂ – PaO₂</div>
+  <div class="formula">A-a gradient = PAO₂ (calculated from alveolar gas equation) – PaO₂ (measured from ABG)<br><span class="c">// Normal: Age/4 + 4 mmHg &nbsp; (upper limit ~15–20 mmHg in young adults; rises with age)</span></div>
+  <div class="g2">
+  <div>
+    <h4 class="sub2">Normal A-a Gradient + Hypoxemia:</h4>
+    <div class="hl g">
+      <strong>= Pure Hypoventilation</strong><br>
+      Lungs working fine — not enough ventilation reaching them.<br><br>
+      <strong>Causes:</strong> ALS, MG, GBS, opioid overdose, central hypoventilation, severe obesity, chest wall restriction<br><br>
+      <strong>Classic clue:</strong> Normal CXR + high PaCO₂ + normal A-a gradient = think <strong>neuromuscular disease</strong>
+    </div>
+  </div>
+  <div>
+    <h4 class="sub2">Elevated A-a Gradient + Hypoxemia:</h4>
+    <div class="hl r">
+      <strong>= Lung parenchymal problem</strong><br>
+      <strong>V/Q mismatch:</strong> COPD, asthma, PE, pneumonia → O₂ responsive<br><br>
+      <strong>Shunt (V/Q = 0):</strong> Alveolar filling (ARDS, pneumonia, pulmonary edema), AVM → O₂ NOT responsive<br><br>
+      <strong>Diffusion limitation:</strong> ILD at exercise, extreme altitude (rare)
+    </div>
+  </div>
+  </div>
+</div>
+
+<h3 class="sub g">V/Q Mismatch vs Shunt — The Critical Distinction</h3>
+<div class="card ga">
+  <div class="ct"><span class="dot g"></span>How O₂ Separates the Two</div>
+  <div class="tw">
+  <table>
+  <tr><th>Feature</th><th>V/Q Mismatch (Low V/Q)</th><th>True Shunt (V/Q = 0)</th></tr>
+  <tr><td>Definition</td><td>Some ventilation reaches perfused alveoli; just not enough</td><td>No ventilation at all — alveoli filled or collapsed</td></tr>
+  <tr><td>Response to 100% O₂</td><td class="gd">PaO₂ rises — O₂ can reach the low-V/Q alveolus</td><td class="bd">PaO₂ does NOT rise — no gas can reach those alveoli</td></tr>
+  <tr><td>A-a Gradient</td><td class="bd">Elevated</td><td class="bd">Elevated (more so)</td></tr>
+  <tr><td>Clinical examples</td><td>COPD, asthma, PE, partial pneumonia</td><td>ARDS, lobar pneumonia (consolidated), pulmonary edema (severe), AVM</td></tr>
+  <tr><td>Management</td><td>Supplemental O₂ usually sufficient</td><td>PEEP/mechanical ventilation to recruit collapsed alveoli</td></tr>
+  </table>
+  </div>
+  <div class="hl r" style="margin-top:10px"><strong>Mechanism of shunt refractoriness to O₂:</strong> Raising FiO₂ has NO effect on nonventilated alveoli. In ventilated alveoli, Hb is already near 100% saturation — only a tiny increase in dissolved O₂ occurs in plasma. Not enough to offset the large volume of deoxygenated shunt blood.</div>
+</div>
+</div><!-- end section 4 -->
+<!-- SECTION 5: DISEASE PROFILES -->
+<div class="section" id="s5">
+<div class="section-header"><span class="sn p">§ 05</span><h2 class="st">Disease PFT Profiles</h2></div>
+
+<!-- IPF -->
+<div class="dis-card">
+<div class="dis-h" style="background:#fff7f7"><div class="dis-icon" style="background:#fbeaea">🫁</div><div><h3>Idiopathic Pulmonary Fibrosis (IPF)</h3><p>Restriction due to Increased Elastic Recoil</p></div></div>
+<div class="dis-b">
+  <div class="pftr">
+    <span class="pc d">TLC ↓↓</span><span class="pc d">FRC ↓↓</span><span class="pc d">RV ↓↓</span><span class="pc d">FVC ↓↓</span><span class="pc d">FEV₁ ↓</span><span class="pc u">FEV₁/FVC ↑ (preserved/elevated)</span><span class="pc n">Raw NORMAL</span><span class="pc d">DLCO ↓↓↓</span>
+  </div>
+  <div class="g2">
+  <div>
+    <h4 class="sub2">Mechanism:</h4>
+    <ul class="s">
+      <li>Fibrosis → ↑ elastic recoil → all volumes fall (TLC, FRC, RV)</li>
+      <li>FEV₁ and FVC fall proportionally → FEV₁/FVC preserved or elevated</li>
+      <li>Stiff parenchyma pulls airways open via radial traction → Raw NORMAL, flows elevated per unit volume</li>
+      <li>Flow-volume loop: <em>miniature normal loop</em> shifted to lower absolute volumes</li>
+      <li>Fibrosis destroys alveolar surface + capillaries → DLCO ↓↓↓</li>
+    </ul>
+  </div>
+  <div>
+    <h4 class="sub2">Clinical Keys:</h4>
+    <ul class="s">
+      <li>CT: bibasilar honeycombing + traction bronchiectasis + GGO = UIP pattern</li>
+      <li>Hypoxemia from low V/Q: alveoli underventilated (fibrosed, stretched to max) but still perfused</li>
+      <li>A-a gradient elevated; worsens with exercise (diffusion limitation)</li>
+      <li>Clubbing common; bibasilar "Velcro" crackles</li>
+    </ul>
+  </div>
+  </div>
+</div>
+</div>
+
+<!-- EMPHYSEMA -->
+<div class="dis-card">
+<div class="dis-h" style="background:#fffbf2"><div class="dis-icon" style="background:#fdf3dc">💨</div><div><h3>Severe Emphysema</h3><p>Obstruction due to Decreased Elastic Recoil</p></div></div>
+<div class="dis-b">
+  <div class="pftr">
+    <span class="pc u">TLC ↑↑ (130%)</span><span class="pc u">FRC ↑↑↑ (220%)</span><span class="pc u">RV ↑↑↑ (310%)</span><span class="pc d">FVC ↓↓ (60%)</span><span class="pc d">FEV₁ ↓↓ (35%)</span><span class="pc d">FEV₁/FVC ↓</span><span class="pc n">Raw NORMAL (1.5)</span><span class="pc d">DLCO ↓↓↓ (40%)</span>
+  </div>
+  <div class="g2">
+  <div>
+    <h4 class="sub2">Mechanism:</h4>
+    <ul class="s">
+      <li>Alveolar destruction → ↓ elastic recoil → FRC and TLC BOTH rise</li>
+      <li>Small airways no longer tethered open (lost radial traction) → collapse on expiration → air trapping → RV massively elevated</li>
+      <li>FVC falls because RV is so high (bottom of VC displaced upward)</li>
+      <li>Central airways relatively preserved → Raw NORMAL in "pure" emphysema</li>
+      <li>Loss of alveolar surface + capillaries → DLCO ↓↓↓</li>
+    </ul>
+  </div>
+  <div>
+    <h4 class="sub2">Flow-Volume &amp; Clinical:</h4>
+    <ul class="s">
+      <li>Marked scooping; initial transient spike (air from collapsing central airways at start)</li>
+      <li>At rest: hypoxemia mild (poorly ventilated acini also poorly perfused — they match)</li>
+      <li>During exercise: PaO₂ may fall sharply if vasculature destroyed → can't ↑ cardiac output → mixed venous O₂ falls</li>
+      <li>CT: centrilobular (upper lobes, smoking) or panlobular (lower lobes, α₁-AT deficiency)</li>
+    </ul>
+  </div>
+  </div>
+  <div class="hl r"><strong>Key distinction from asthma:</strong> DLCO very low in emphysema; normal/elevated in asthma. Obstructive PFTs + very low DLCO = emphysema or PAH, NOT asthma</div>
+</div>
+</div>
+
+<!-- ASTHMA -->
+<div class="dis-card">
+<div class="dis-h" style="background:#f7f9ff"><div class="dis-icon" style="background:#e8f0fb">🫧</div><div><h3>Acute Bronchial Asthma</h3><p>Obstruction due to Decreased Airway Diameter (Reversible)</p></div></div>
+<div class="dis-b">
+  <div class="pftr">
+    <span class="pc n">TLC normal (100%)</span><span class="pc u">FRC ↑ (104%) — dynamic hyperinflation</span><span class="pc u">RV ↑ (120%)</span><span class="pc d">FVC ↓ (90%)</span><span class="pc d">FEV₁ ↓↓ (35% pre-BD → 75% post-BD)</span><span class="pc d">FEV₁/FVC ↓</span><span class="pc u">Raw ↑ (2.5)</span><span class="pc u">DLCO ↑ (120%)</span>
+  </div>
+  <div class="g2">
+  <div>
+    <h4 class="sub2">Mechanism:</h4>
+    <ul class="s">
+      <li>Smooth muscle bronchoconstriction + mucosal inflammation + thickened walls → ↑ Raw → scooped loop</li>
+      <li>Airway closure at low lung volumes → RV ↑ → FRC ↑ (dynamic hyperinflation)</li>
+      <li>TLC usually normal (elastic recoil and muscle strength preserved)</li>
+      <li>DLCO normal or elevated (more pulmonary blood volume)</li>
+    </ul>
+  </div>
+  <div>
+    <h4 class="sub2">Diagnosis Keys:</h4>
+    <ul class="s">
+      <li>Reversibility: FEV₁ improves ≥12% AND ≥200 mL after bronchodilator</li>
+      <li>Mild hypoxemia from low V/Q mismatch (responsive to O₂)</li>
+      <li>PaCO₂ initially LOW (hyperventilation) → if PaCO₂ normalizes in severe attack = DANGER SIGN</li>
+      <li>FeNO elevated (type 2 eosinophilic inflammation) → predicts ICS response; elevated FeNO on treatment = poor adherence</li>
+    </ul>
+  </div>
+  </div>
+</div>
+</div>
+
+<!-- MYASTHENIA GRAVIS -->
+<div class="dis-card">
+<div class="dis-h" style="background:#f7fff9"><div class="dis-icon" style="background:#e6f4ec">💪</div><div><h3>Myasthenia Gravis (Neuromuscular Restriction)</h3><p>Restriction due to Reduced Muscle Strength</p></div></div>
+<div class="dis-b">
+  <div class="pftr">
+    <span class="pc d">TLC ↓ (75%)</span><span class="pc n">FRC NORMAL (100%)</span><span class="pc u">RV ↑ (120%)</span><span class="pc d">FVC ↓↓ (60%)</span><span class="pc d">FEV₁ ↓ (60%)</span><span class="pc n">FEV₁/FVC NORMAL (1.0)</span><span class="pc n">Raw NORMAL</span><span class="pc n">DLCO NORMAL (80%)</span>
+  </div>
+  <div class="g2">
+  <div>
+    <h4 class="sub2">Mechanism (the WHY):</h4>
+    <ul class="s">
+      <li><strong>FRC is NORMAL:</strong> Passive balance of lung vs chest wall recoil — no muscles needed at rest</li>
+      <li><strong>TLC low:</strong> Inspiratory muscles too weak to inflate lungs fully</li>
+      <li><strong>RV elevated:</strong> Expiratory muscles too weak to complete exhalation</li>
+      <li><strong>FVC = TLC − RV:</strong> Both extremes moving toward each other → FVC compressed from both ends ("innocent bystander")</li>
+      <li>Airways and vasculature untouched → Raw and DLCO NORMAL</li>
+    </ul>
+  </div>
+  <div>
+    <h4 class="sub2">How to Diagnose:</h4>
+    <ul class="s">
+      <li>Supine FVC drops &gt;10–25% → diaphragm weakness</li>
+      <li>MIP and MEP reduced</li>
+      <li>Normal A-a gradient (lungs innocent — pure hypoventilation)</li>
+      <li>Normal CXR (or bibasilar atelectasis from poor sighs)</li>
+      <li>ACh receptor antibody + → diagnostic; CT chest for thymoma</li>
+    </ul>
+  </div>
+  </div>
+  <div class="hl p"><strong>Board Favorite:</strong> FVC and FEV₁ low + FEV₁/FVC normal + DLCO normal + FRC normal → NEUROMUSCULAR DISEASE. The preserved DLCO and FRC distinguish this from ALL parenchymal causes of restriction.</div>
+</div>
+</div>
+
+<!-- OBESITY -->
+<div class="dis-card">
+<div class="dis-h" style="background:#fffbf2"><div class="dis-icon" style="background:#fef9e7">⚖️</div><div><h3>Moderate Obesity</h3><p>Restriction due to Chest Wall Abnormality</p></div></div>
+<div class="dis-b">
+  <div class="pftr">
+    <span class="pc n">TLC NORMAL (95%)</span><span class="pc d">FRC ↓↓ (65%)</span><span class="pc n">RV NORMAL (100%)</span><span class="pc n">FEV₁/FVC NORMAL</span><span class="pc n">Raw NORMAL</span><span class="pc n">DLCO NORMAL (95%)</span>
+  </div>
+  <ul class="s">
+    <li>Fat weight → ↓ chest wall outward recoil → lung's inward recoil wins → <em>FRC falls</em></li>
+    <li>Lung and muscle strength intact → TLC NORMAL (key distinction from ILD or neuromuscular)</li>
+    <li>Mild hypoxemia: low FRC → breathing near FRC → dependent airways close → low V/Q → mild O₂-responsive hypoxemia</li>
+    <li>DLCO decreases ONLY if OSA develops → chronic intermittent hypoxemia → pulmonary arterial hypertension</li>
+  </ul>
+</div>
+</div>
+
+<!-- PULMONARY EMBOLISM -->
+<div class="dis-card">
+<div class="dis-h" style="background:#fff5f5"><div class="dis-icon" style="background:#fbeaea">🩸</div><div><h3>Pulmonary Embolism (PE)</h3><p>Vascular Obstruction — Isolated DLCO reduction</p></div></div>
+<div class="dis-b">
+  <div class="pftr">
+    <span class="pc n">TLC normal</span><span class="pc n">FVC normal</span><span class="pc n">FEV₁ ≈98%</span><span class="pc n">FEV₁/FVC normal (≈0.9)</span><span class="pc d">DLCO ↓↓ (50%)</span><span class="pc u">A-a gradient ↑</span>
+  </div>
+  <div class="hl a"><strong>Classic Board Pattern:</strong> Isolated DLCO reduction with otherwise normal spirometry and volumes. The vasculature is obstructed (dead space) but airways and parenchyma are intact — ONLY DLCO falls. CTA shows filling defects. DLCO falls because less pulmonary capillary surface is available to take up CO.</div>
+  <div class="hl r"><strong>Hypoxemia mechanism in PE:</strong> V/Q mismatch (NOT true shunt) — blood diverted to unobstructed zones → overloads normal units → low V/Q. Also ↓ cardiac output → ↑ O₂ extraction → low mixed venous O₂ → worsens hypoxemia. Responds to supplemental O₂.</div>
+</div>
+</div>
+
+<!-- SARCOIDOSIS -->
+<div class="dis-card">
+<div class="dis-h" style="background:#f7f0ff"><div class="dis-icon" style="background:#e9d8ff">🔬</div><div><h3>Sarcoidosis</h3><p>Restrictive ILD + Bilateral Hilar Adenopathy</p></div></div>
+<div class="dis-b">
+  <div class="pftr">
+    <span class="pc d">TLC ↓</span><span class="pc d">FVC ↓</span><span class="pc n">FEV₁/FVC normal or ↑</span><span class="pc d">DLCO ↓</span>
+  </div>
+  <ul class="s">
+    <li>Granulomatous inflammation → restrictive ILD pattern (similar to IPF but less severe DLCO typically)</li>
+    <li>CT: bilateral hilar adenopathy + upper lobe peribronchial nodules (classic perilymphatic distribution)</li>
+    <li>Diagnosis: EBUS-TBNA sensitivity ≥80% for sarcoidosis; higher if combined with endobronchial + transbronchial biopsies</li>
+    <li>DLCO can be preserved early, falls as disease progresses</li>
+    <li>FEV₁/FVC may appear falsely normal even with low spirometry values</li>
+  </ul>
+  <div class="hl b"><strong>Key from questions:</strong> CT showing "Egg Shell" calcifications in paratracheal nodes (calcification at periphery) → classic sarcoidosis or silicosis → next step = <strong>EBUS-TBNA</strong></div>
+</div>
+</div>
+
+<!-- BRONCHIECTASIS -->
+<div class="dis-card">
+<div class="dis-h" style="background:#f0f7ff"><div class="dis-icon" style="background:#ddeeff">🌀</div><div><h3>Chronic Bronchiectasis</h3><p>Obstruction with Air Trapping + Variable DLCO</p></div></div>
+<div class="dis-b">
+  <div class="pftr">
+    <span class="pc u">TLC ↑ (130%)</span><span class="pc u">FRC ↑</span><span class="pc u">RV ↑↑ (190%)</span><span class="pc n">FVC normal or ↓</span><span class="pc d">FEV₁ ↓</span><span class="pc d">FEV₁/FVC ↓</span><span class="pc n">DLCO normal or ↓</span>
+  </div>
+  <ul class="s">
+    <li>Obstructive pattern (↑ TLC, FRC, RV) with DLCO relatively preserved vs emphysema (no alveolar destruction)</li>
+    <li>CT: dilated airways (signet ring sign), cylindrical bronchiectasis lower lobes (COPD) or cystic upper lobes (CF)</li>
+    <li>Chronic productive cough; clubbing common</li>
+    <li>DLCO falls if disease progresses or PAH develops</li>
+  </ul>
+</div>
+</div>
+</div><!-- end section 5 -->
+<!-- SECTION 6: DIAGNOSTIC PROCEDURES -->
+<div class="section" id="s6">
+<div class="section-header"><span class="sn t">§ 06</span><h2 class="st">Diagnostic Procedures</h2></div>
+
+<div class="g2">
+<div class="card ta">
+  <div class="ct"><span class="dot t"></span>Flexible vs Rigid Bronchoscopy</div>
+  <div class="tw">
+  <table>
+  <tr><th>Feature</th><th>Flexible</th><th>Rigid</th></tr>
+  <tr><td>Reach</td><td>Distal airways</td><td>Central airways only</td></tr>
+  <tr><td>Sedation</td><td>Conscious sedation</td><td>General anesthesia</td></tr>
+  <tr><td>Airway control</td><td>No — cannot ventilate through scope</td><td>YES — ventilate through scope</td></tr>
+  <tr><td>Instrument channel</td><td>Constrained working channel</td><td>Free passage of large tools</td></tr>
+  <tr><td>Main use</td><td>BAL, EBUS, biopsies</td><td>Massive hemoptysis, foreign body, large airway interventions, cryobiopsy backup</td></tr>
+  </table>
+  </div>
+</div>
+<div class="card ga">
+  <div class="ct"><span class="dot g"></span>Bronchoalveolar Lavage (BAL)</div>
+  <ul class="s">
+    <li><strong>Gold standard</strong> for respiratory secretion sampling</li>
+    <li>Scope wedged in distal airway; 1–3 aliquots ~50 mL saline instilled then suctioned back</li>
+    <li>Samples distal airways and alveolar space — areas NOT directly visible</li>
+    <li>Avoids salivary contamination (vs sputum)</li>
+    <li><strong>Alveolar hemorrhage:</strong> Serial BALs from same site → progressively bloodier returns (rising RBC count) → diagnostic</li>
+    <li>Useful when sputum can't be obtained or when specific lobe sampling needed</li>
+  </ul>
+</div>
+</div>
+
+<h3 class="sub t">Biopsy Techniques — Forceps vs Cryobiopsy</h3>
+<div class="g2">
+<div class="card">
+  <div class="ct"><span class="dot t"></span>Forceps Transbronchial Biopsy</div>
+  <ul class="s">
+    <li>2.0 or 2.8 mm flexible forceps</li>
+    <li>Malignant nodules: <strong>3 samples adequate</strong></li>
+    <li>Lung transplant rejection: <strong>≥5 distinct pieces</strong> of alveolated lung required</li>
+    <li>Guided by fluoroscopy, radial EBUS, or navigation systems</li>
+  </ul>
+</div>
+<div class="card">
+  <div class="ct"><span class="dot r"></span>Cryobiopsy</div>
+  <ul class="s">
+    <li>Liquid nitrogen/CO₂ probe freezes lung tissue → adheres to probe → removed with bronchoscope</li>
+    <li><strong>Higher diagnostic yield</strong> for diffuse parenchymal disease (ILD/IPF)</li>
+    <li><strong>Higher risk:</strong> major bleeding + pneumothorax</li>
+    <li>Rigid bronchoscope sometimes used as safety backup</li>
+    <li>Tradeoff: better histology for IPF vs higher complication rate</li>
+  </ul>
+</div>
+</div>
+
+<h3 class="sub g">EBUS-TBNA — The Most Important Procedure to Know</h3>
+<div class="card ga">
+  <div class="ct"><span class="dot g"></span>Endobronchial Ultrasound-Guided Transbronchial Needle Aspiration</div>
+  <ul class="s">
+    <li>Specialized flexible bronchoscope with convex ultrasound probe at distal tip + video camera</li>
+    <li>Under real-time ultrasound, needle passes through airway wall into mediastinal target</li>
+    <li><strong>Has largely REPLACED surgical mediastinoscopy</strong> as first-line for mediastinal lymph node sampling</li>
+    <li>Surgery reserved for EBUS-negative cases where suspicion remains high</li>
+  </ul>
+  <div class="tw" style="margin-top:10px">
+  <table>
+  <tr><th>Disease</th><th>EBUS-TBNA Sensitivity</th></tr>
+  <tr><td>Epithelial malignancy (lung cancer staging)</td><td class="gd">~90%</td></tr>
+  <tr><td>Lymphoma (de novo)</td><td class="nt">~70%</td></tr>
+  <tr><td>Lymphoma (recurrence)</td><td class="gd">Higher than de novo</td></tr>
+  <tr><td>Sarcoidosis</td><td class="gd">≥80% (higher if + endobronchial + transbronchial biopsies)</td></tr>
+  </table>
+  </div>
+  <div class="hl b" style="margin-top:10px"><strong>ROSE (Rapid On-Site Cytologic Evaluation):</strong> Cytotechnologist examines aspirate immediately → tells bronchoscopist whether sample is adequate → reduces need for repeat procedures</div>
+  <div class="hl t"><strong>EUS-B adjunct:</strong> Esophageal approach with EBUS bronchoscope → samples mediastinal stations better accessed via esophagus → combined sensitivity slightly higher than either alone</div>
+  <div class="hl a"><strong>From questions — CT with "Egg Shell" calcifications in paratracheal nodes:</strong> Classic for silicosis or sarcoidosis → next step = <strong>EBUS-TBNA</strong>. Not CT-guided TTNA (not optimal for mediastinal nodes), not VATS (too invasive first), not BAL alone (won't sample nodes)</div>
+</div>
+
+<h3 class="sub a">TTNA — Transthoracic Needle Aspiration</h3>
+<div class="card aa">
+  <div class="ct"><span class="dot a"></span>CT-Guided TTNA for Peripheral Lung Lesions</div>
+  <div class="g2">
+  <div>
+    <ul class="s">
+      <li>CT most common guidance modality; sensitivity + specificity &gt;90%</li>
+      <li>Sensitivity increased for peripheral lesions</li>
+      <li>US-guided: shorter procedure time, lower cost, comparable diagnostic rate, real-time dynamic imaging</li>
+      <li>FNA vs core needle: core gives better material for molecular testing</li>
+    </ul>
+  </div>
+  <div>
+    <h4 class="sub2">Complications:</h4>
+    <ul class="s">
+      <li><strong>Pneumothorax: 17–28%</strong> (majority don't need chest tube)</li>
+      <li><strong>Hemorrhage: 25–33%</strong></li>
+      <li>Core needle complications: 38.8% vs FNA: 24%</li>
+      <li>Risk factors: smaller nodule, larger needle, more lung traversed, central location</li>
+    </ul>
+    <div class="hl r"><strong>NPV ~70%</strong> → negative TTNA does NOT rule out malignancy</div>
+  </div>
+  </div>
+</div>
+
+<h3 class="sub p">Miscellaneous Tests</h3>
+<div class="g2">
+<div class="card pa">
+  <div class="ct"><span class="dot p"></span>FeNO (Fraction of Exhaled Nitric Oxide)</div>
+  <ul class="s">
+    <li>Marker of type 2 airway eosinophilic inflammation</li>
+    <li>High FeNO (≥30 ppb) = elevated; suggests asthma and ICS response</li>
+    <li><strong>Primary clinical use: assessing ICS adherence</strong></li>
+    <li>High FeNO on "ICS therapy" → patient likely not taking medication</li>
+    <li>Does NOT reliably guide dose titration</li>
+    <li>Influenced by ethnicity — no universal standards yet</li>
+    <li>NOT formally approved for clinical use in all guidelines</li>
+  </ul>
+</div>
+<div class="card ba">
+  <div class="ct"><span class="dot"></span>Sweat Test — Cystic Fibrosis</div>
+  <ul class="s">
+    <li>Pilocarpine iontophoresis stimulates sweat → chloride measured</li>
+    <li><strong>≥60 mmol/L = CF confirmed</strong></li>
+    <li><strong>30–59 mmol/L = Indeterminate</strong> (updated from old 40–59 to catch milder phenotypes)</li>
+    <li><strong>&lt;30 mmol/L = CF unlikely</strong></li>
+    <li>Must be correlated with genetics + clinical manifestations</li>
+  </ul>
+</div>
+</div>
+
+<div class="card">
+  <div class="ct"><span class="dot"></span>Sputum Testing — Key Points</div>
+  <div class="g2">
+  <div>
+    <h4 class="sub2">For Infection:</h4>
+    <ul class="s">
+      <li>Microscopy + culture; safe induction with nebulized saline even in airflow limitation</li>
+      <li>TB, Legionella, Pneumocystis: raise concern even in poor quality sample</li>
+      <li>Multiplex PCR: analyze ALL samples regardless of quality (40% of detections missed if only high-quality analyzed)</li>
+    </ul>
+  </div>
+  <div>
+    <h4 class="sub2">For Malignancy (Cytology):</h4>
+    <ul class="s">
+      <li><strong>Highly specific</strong> if malignant cells seen</li>
+      <li><strong>Sensitivity &lt;40%</strong> — very low</li>
+      <li>No benefit combined with CXR for cancer screening</li>
+      <li>Use only when more invasive techniques not possible</li>
+    </ul>
+  </div>
+  </div>
+</div>
+</div><!-- end section 6 -->
+<!-- SECTION 7: PHYSICAL EXAM -->
+<div class="section" id="s7">
+<div class="section-header"><span class="sn s">§ 07</span><h2 class="st">Physical Examination</h2></div>
+<h3 class="sub">Tactile Fremitus — Consolidation vs Effusion</h3>
+<div class="card sa">
+  <div class="ct"><span class="dot" style="background:var(--slate)"></span>Fremitus = vibrations felt when patient says "99"</div>
+  <div class="tw">
+  <table>
+  <tr><th>Finding</th><th>Meaning</th><th>Classic Cause</th></tr>
+  <tr><td><strong>Fremitus INCREASED</strong></td><td>Solid medium transmits vibration better than air — BUT bronchus must be patent</td><td>Pneumonia (consolidation): air replaced by fluid/pus, bronchus patent</td></tr>
+  <tr><td><strong>Fremitus DECREASED / absent</strong></td><td>Fluid or air between bronchus and chest wall absorbs vibrations</td><td>Pleural effusion (fluid outside lung), pneumothorax (air outside), bronchial obstruction</td></tr>
+  <tr><td><strong>Fremitus NORMAL</strong></td><td>Normal air transmission</td><td>Normal lung; emphysema (reduced but not absent)</td></tr>
+  </table>
+  </div>
+  <div class="hl a"><strong>Key combination:</strong> Consolidation = dull percussion + <em>increased</em> fremitus. Effusion = stony dull + <em>decreased/absent</em> fremitus. This combination distinguishes the two entities on exam.</div>
+</div>
+<h3 class="sub a">Percussion</h3>
+<div class="g2">
+<div class="card">
+  <div class="ct"><span class="dot a"></span>Percussion Findings</div>
+  <div class="tw">
+  <table>
+  <tr><th>Sound</th><th>Meaning</th></tr>
+  <tr><td>Resonant (normal)</td><td>Air-filled lung</td></tr>
+  <tr><td><strong>Dull / stony dull</strong></td><td>Consolidation (pneumonia) or pleural effusion</td></tr>
+  <tr><td><strong>Hyperresonant</strong></td><td>Pneumothorax or emphysema (excess air)</td></tr>
+  </table>
+  </div>
+</div>
+<div class="card">
+  <div class="ct"><span class="dot a"></span>Integrating Exam Findings</div>
+  <ul class="s">
+    <li><strong>Consolidation:</strong> Dull + ↑ fremitus + bronchial breath sounds + egophony</li>
+    <li><strong>Pleural effusion:</strong> Stony dull + ↓ fremitus + absent breath sounds</li>
+    <li><strong>Pneumothorax:</strong> Hyperresonant + ↓ fremitus + absent breath sounds</li>
+    <li><strong>Atelectasis:</strong> Dull + trachea DEVIATED TOWARD lesion</li>
+    <li><strong>Large effusion/tension PTX:</strong> Trachea deviated AWAY from lesion</li>
+  </ul>
+</div>
+</div>
+<h3 class="sub r">Auscultation — Key Sounds</h3>
+<div class="tw">
+<table>
+<tr><th>Sound</th><th>Character</th><th>Mechanism</th><th>Condition</th></tr>
+<tr><td><strong>Fine crackles (Velcro)</strong></td><td>Soft, high-pitched, end-inspiratory</td><td>Opening of collapsed small airways/alveoli</td><td>IPF, early pulmonary edema, early pneumonia</td></tr>
+<tr><td><strong>Coarse crackles</strong></td><td>Loud, low-pitched, early inspiratory</td><td>Secretions in large airways</td><td>COPD, bronchiectasis, pneumonia</td></tr>
+<tr><td><strong>Wheeze (polyphonic)</strong></td><td>Continuous musical, expiratory &gt; inspiratory</td><td>Multiple airways narrowed — oscillation</td><td>Asthma, COPD</td></tr>
+<tr><td><strong>Wheeze (monophonic, fixed)</strong></td><td>Single pitch, same location every breath</td><td>ONE airway partially obstructed</td><td>Endobronchial tumor, foreign body, stricture</td></tr>
+<tr><td><strong>Stridor</strong></td><td>High-pitched inspiratory, audible without stethoscope</td><td>Upper airway obstruction</td><td>Croup, epiglottitis, vocal cord paralysis, goiter, foreign body</td></tr>
+<tr><td><strong>Pleural friction rub</strong></td><td>Creaking/grating, both phases, doesn't clear with cough</td><td>Inflamed pleural surfaces rubbing</td><td>Pleuritis (pneumonia, PE, viral, RA)</td></tr>
+<tr><td><strong>Bronchial breath sounds over periphery</strong></td><td>Hollow, tubular, E &gt; I</td><td>Consolidated lung transmits tracheal sounds</td><td>Pneumonia (consolidated lobe)</td></tr>
+<tr><td><strong>Egophony (E→A)</strong></td><td>Spoken "E" sounds like "A"</td><td>Consolidation alters sound transmission</td><td>Pneumonia, upper border of pleural effusion</td></tr>
+</table>
+</div>
+<div class="hl a" style="margin-top:14px"><strong>Physical Exam Pearl (from question):</strong> Percussion is the most specific finding in the physical exam. A percussion change (dull vs resonant) is highly specific for consolidation/fluid vs normal. Fremitus corroborates. Percussion is more specific to localize than auscultation findings alone.</div>
+</div><!-- end section 7 -->
+
+<!-- SECTION 8: IMAGING -->
+<div class="section" id="s8">
+<div class="section-header"><span class="sn">§ 08</span><h2 class="st">Chest Imaging</h2></div>
+<div class="g2">
+<div class="card ba">
+  <div class="ct"><span class="dot"></span>CXR — Key Points</div>
+  <ul class="s">
+    <li>Standard views: PA + lateral (outpatient); AP (bedside — cardiac appears larger)</li>
+    <li>2D representation of 3D structures — both views used for superimposed structures</li>
+    <li><strong>CHF on CXR:</strong> Kerley B lines (lymphatics), cephalization (blood redistribution), bronchial cuffing (thickened walls)</li>
+    <li><strong>Many airway/vascular diseases have NORMAL CXR</strong> (COPD, PAH early, PE)</li>
+    <li>CXR = initial diagnostic for nonspecific symptoms (can discriminate pulmonary vs extrapulmonary)</li>
+  </ul>
+</div>
+<div class="card ga">
+  <div class="ct"><span class="dot g"></span>CT — Hounsfield Units &amp; Secondary Pulmonary Lobule</div>
+  <ul class="s">
+    <li>Density in Hounsfield units (HU): water = 0, air = –1000</li>
+    <li>Lung windows = low-density parenchyma; Mediastinal windows = high-density structures</li>
+    <li><strong>Secondary pulmonary lobule:</strong> Fundamental subunit — central airway + artery, parenchyma, surrounding interstitium/veins</li>
+    <li>CLE = centrilobular emphysema (upper lobes, smoking)</li>
+    <li>PLE = panlobular emphysema (basilar predominant, α₁-AT)</li>
+    <li>PA trunk &gt;3 cm = elevated pulmonary vascular pressure (PAH)</li>
+    <li>Basal/dependent ILD distribution → IPF; apical → NSIP</li>
+    <li>Traction bronchiectasis → indicates reduced lung compliance → ILD severity marker</li>
+  </ul>
+</div>
+</div>
+<div class="g2" style="margin-top:16px">
+<div class="card aa">
+  <div class="ct"><span class="dot a"></span>CT with Contrast (CTPA) — PE</div>
+  <ul class="s">
+    <li>Timed iodinated contrast bolus through pulmonary arteries</li>
+    <li>PE = <strong>filling defects</strong> (dark voids in bright contrast-filled vessels)</li>
+    <li>Also useful: mediastinal lymph node assessment, pleural disease</li>
+  </ul>
+</div>
+<div class="card pa">
+  <div class="ct"><span class="dot p"></span>PET-CT &amp; US vs CT</div>
+  <ul class="s">
+    <li>PET tracer [¹⁸F]-FDG: taken up proportional to metabolic activity</li>
+    <li>Main use: benign vs malignant nodule; lung cancer staging</li>
+    <li>Co-registered with CT → structural source of activity</li>
+    <li><strong>US advantage:</strong> Real-time (dynamic imaging), portable, no radiation, good for biopsy guidance, soft tissue detection</li>
+    <li><strong>CT advantage:</strong> Superior anatomical detail, mediastinal assessment, PE</li>
+    <li>Mediastinal nodes: CT cannot separate blood from lymph → EBUS-TBNA for tissue</li>
+  </ul>
+</div>
+</div>
+</div><!-- end section 8 -->
+
+<!-- SECTION 9: MASTER TABLE -->
+<div class="section" id="s9">
+<div class="section-header"><span class="sn">§ 09</span><h2 class="st">Master Reference Table</h2></div>
+<div class="tw">
+<table class="mt">
+<tr><th>Disease</th><th>TLC</th><th>FRC</th><th>RV</th><th>FVC</th><th>FEV₁</th><th>FEV₁/FVC</th><th>Raw</th><th>DLCO</th><th>A-a Grad</th><th>Key Clue</th></tr>
+<tr><td><strong>IPF</strong></td><td class="bd">↓ 60%</td><td class="bd">↓ 60%</td><td class="bd">↓ 60%</td><td class="bd">↓ 60%</td><td class="bd">↓ 75%</td><td class="gd">↑ N</td><td class="gd">N 1.0</td><td class="bd">↓↓ 60%</td><td class="bd">↑</td><td>CT: honeycombing, traction bronchiectasis; Velcro crackles; clubbing</td></tr>
+<tr><td><strong>Emphysema</strong></td><td class="bd">↑↑ 130%</td><td class="bd">↑↑↑ 220%</td><td class="bd">↑↑↑ 310%</td><td class="bd">↓ 60%</td><td class="bd">↓↓ 35%</td><td class="bd">↓ 0.38</td><td class="nt">1.5 N</td><td class="bd">↓↓↓ 40%</td><td class="bd">↑ (exercise)</td><td>Hyperinflated CXR; scooped loop; minimal BD response; CT: CLE or PLE</td></tr>
+<tr><td><strong>Asthma</strong></td><td class="gd">N 100%</td><td class="bd">↑ 104%</td><td class="bd">↑ 120%</td><td class="bd">↓ 90%</td><td class="bd">↓↓ 35% → 75% BD</td><td class="bd">↓</td><td class="bd">↑ 2.5</td><td class="gd">↑↑ 120%</td><td class="nt">Mild ↑</td><td>Reversibility ≥12%+200mL; elevated DLCO; normal TLC; wheezing</td></tr>
+<tr><td><strong>Myasthenia</strong></td><td class="bd">↓ 75%</td><td class="gd">N 100%</td><td class="bd">↑ 120%</td><td class="bd">↓ 60%</td><td class="bd">↓ 60%</td><td class="gd">N 1.0</td><td class="gd">N 1.0</td><td class="gd">N 80%</td><td class="gd">N</td><td>FRC normal; DLCO normal; supine FVC drops &gt;25%; AChR-Ab positive</td></tr>
+<tr><td><strong>Obesity</strong></td><td class="gd">N 95%</td><td class="bd">↓ 65%</td><td class="gd">N 100%</td><td class="nt">N 92%</td><td class="nt">N 92%</td><td class="gd">N 1.0</td><td class="gd">N 1.0</td><td class="gd">N 95%</td><td class="nt">Mild</td><td>FRC most affected; TLC normal; DLCO normal (unless OSA→PAH)</td></tr>
+<tr><td><strong>COPD</strong></td><td class="bd">↑ 115%</td><td class="bd">↑ 150%</td><td class="bd">↑ 190%</td><td class="bd">↓ 63%</td><td class="bd">↓↓</td><td class="bd">↓ &lt;0.7</td><td class="bd">↑</td><td class="bd">↓ (variable)</td><td class="bd">↑</td><td>Post-BD FEV₁/FVC &lt;0.70; GOLD staging; smoking history</td></tr>
+<tr><td><strong>PE</strong></td><td class="gd">N</td><td class="gd">N</td><td class="gd">N</td><td class="gd">N</td><td class="gd">N 98%</td><td class="gd">N 0.9</td><td class="gd">N</td><td class="bd">↓↓ 50%</td><td class="bd">↑</td><td>Isolated DLCO reduction + normal spirometry; CTA: filling defects</td></tr>
+<tr><td><strong>Bronchiectasis</strong></td><td class="bd">↑ 130%</td><td class="bd">↑</td><td class="bd">↑↑ 190%</td><td class="nt">N or ↓</td><td class="bd">↓</td><td class="bd">↓</td><td class="bd">↑</td><td class="nt">N or ↓</td><td class="bd">↑</td><td>CT: dilated airways (signet ring); productive cough; clubbing</td></tr>
+<tr><td><strong>Sarcoidosis</strong></td><td class="bd">↓</td><td class="bd">↓</td><td class="bd">↓</td><td class="bd">↓</td><td class="nt">N or ↓</td><td class="gd">N or ↑</td><td class="gd">N</td><td class="bd">↓</td><td class="bd">↑</td><td>Bilateral hilar adenopathy; upper lobe peribronchial nodules; EBUS diagnostic</td></tr>
+<tr><td><strong>PAH</strong></td><td class="nt">N or ↓</td><td class="gd">N</td><td class="gd">N</td><td class="nt">N or ↓</td><td class="gd">N</td><td class="gd">N or ↑</td><td class="gd">N</td><td class="bd">↓↓</td><td class="bd">↑</td><td>Disproportionately low DLCO; PA trunk &gt;3cm CT; Echo: RV dilation</td></tr>
+<tr><td><strong>Alveolar Hemorrhage</strong></td><td class="gd">N</td><td class="gd">N</td><td class="gd">N</td><td class="gd">N</td><td class="gd">N</td><td class="gd">N</td><td class="gd">N</td><td class="gd">↑↑↑</td><td class="bd">↑</td><td>Hemoptysis + elevated DLCO = pathognomonic; serial BALs progressively bloody</td></tr>
+<tr><td><strong>ALS/Neuromuscular</strong></td><td class="bd">↓</td><td class="gd">N</td><td class="bd">↑</td><td class="bd">↓↓</td><td class="bd">↓</td><td class="gd">N</td><td class="gd">N</td><td class="gd">N</td><td class="gd">N</td><td>Normal CXR + high PaCO₂ + NORMAL A-a gradient; supine FVC drop &gt;25%</td></tr>
+</table>
+</div>
+</div><!-- end section 9 -->
+<!-- SECTION 10: EXAM TRAPS -->
+<div class="section" id="s10">
+<div class="section-header"><span class="sn trap">§ 10</span><h2 class="st">Exam Traps — Expert Board Coach Analysis</h2></div>
+<div class="hl r" style="margin-bottom:24px;font-size:15px"><strong>How to use this section:</strong> Each trap shows what examiners WANT you to think, what is actually TRUE, why it matters clinically, and then presents a BOLDED case answer.</div>
+
+<div class="trap-card">
+<div class="trap-h"><div class="tn">1</div><h3>"Normal FEV₁/FVC = No Obstruction"</h3></div>
+<div class="trap-b">
+  <div class="trs"><div class="trl tk">🪤 The Trap</div><p>If FEV₁/FVC ≥0.70, there is no airflow obstruction — look for restriction instead.</p></div>
+  <div class="trs"><div class="trl tr">✓ The Truth</div><p>In severe obstructive disease, rising RV compresses FVC from below. Both FEV₁ and FVC fall → ratio may appear "normal" — the <em>artifactually normal FEV₁/FVC</em>. You MUST measure TLC. If TLC is elevated (not low), you have obstruction with gas trapping, NOT restriction.</p></div>
+  <div class="trs"><div class="trl tm">⚡ Why It Matters</div><p>Calling obstruction "restriction" leads to ILD workup and wrong diagnosis.</p></div>
+  <div class="trs"><div class="trl tc">📋 Case</div><span class="cb">Patient: FEV₁ 35%, FVC 60%, FEV₁/FVC 0.58 → plethysmography TLC 130%, RV 310%. Question: "What pattern?" Answer: <strong>OBSTRUCTIVE (emphysema)</strong> — elevated TLC confirms obstruction with gas trapping. The low FVC is due to massively elevated RV, not reduced TLC.</span></div>
+</div>
+</div>
+
+<div class="trap-card">
+<div class="trap-h"><div class="tn">2</div><h3>"Low FVC + Low FEV₁ = Restriction — Order HRCT for ILD"</h3></div>
+<div class="trap-b">
+  <div class="trs"><div class="trl tk">🪤 The Trap</div><p>Whenever FVC and FEV₁ are low with preserved ratio, it's restriction → immediately think pulmonary fibrosis.</p></div>
+  <div class="trs"><div class="trl tr">✓ The Truth</div><p>You CANNOT diagnose restriction without TLC. A "restrictive pattern" on spirometry could be: actual restriction (ILD, chest wall) OR severe obstruction with air trapping (ratio normalizing). Only TLC &lt;80% confirms restriction. Furthermore, restriction can come from chest wall (obesity, normal TLC), neuromuscular (normal FRC, DLCO), or parenchymal (low DLCO) — DLCO is the key discriminator.</p></div>
+  <div class="trs"><div class="trl tm">⚡ Why It Matters</div><p>MG or ALS patient could receive ILD diagnosis and unnecessary immunosuppression.</p></div>
+  <div class="trs"><div class="trl tc">📋 Case</div><span class="cb">68-year-old woman, FVC 55%, FEV₁ 55%, FEV₁/FVC 0.95, DLCO 80%, FRC normal, supine FVC drops 22%. Best diagnosis: <strong>Myasthenia Gravis (neuromuscular restriction)</strong> — normal DLCO, normal FRC, supine FVC drop &gt;10% = diaphragm/neuromuscular weakness, NOT ILD. Order AChR antibody + EMG, not HRCT.</span></div>
+</div>
+</div>
+
+<div class="trap-card">
+<div class="trap-h"><div class="tn">3</div><h3>"DLCO Reduced = Parenchymal Disease (ILD or Emphysema)"</h3></div>
+<div class="trap-b">
+  <div class="trs"><div class="trl tk">🪤 The Trap</div><p>Low DLCO = damaged alveolar membrane → always think fibrosis or emphysema.</p></div>
+  <div class="trs"><div class="trl tr">✓ The Truth</div><p>DLCO = Surface Area × Hb / Membrane Thickness. It can fall from: anemia (↓Hb), pulmonary vascular disease (↓capillary surface: PAH, chronic PE), as well as parenchymal disease. An isolated DLCO reduction with normal spirometry and normal TLC is the classic presentation of PAH or chronic thromboembolic disease — NOT ILD. Always check for anemia and vascular disease first. Correct for hemoglobin before interpreting results.</p></div>
+  <div class="trs"><div class="trl tm">⚡ Why It Matters</div><p>Missing PAH means missing a life-threatening, treatable condition.</p></div>
+  <div class="trs"><div class="trl tc">📋 Case</div><span class="cb">35-year-old woman, exertional dyspnea, FEV₁ 98%, FVC 90%, TLC 95%, DLCO 50%, normal CT chest. Best next step: <strong>Echocardiogram to assess for pulmonary arterial hypertension</strong> — isolated DLCO reduction with normal spirometry, normal TLC, and normal CT means the parenchyma is fine. The vascular bed is the problem.</span></div>
+</div>
+</div>
+
+<div class="trap-card">
+<div class="trap-h"><div class="tn">4</div><h3>"Normal A-a Gradient = No Lung Disease"</h3></div>
+<div class="trap-b">
+  <div class="trs"><div class="trl tk">🪤 The Trap</div><p>If A-a gradient is normal, the lungs are fine — look for systemic/non-pulmonary cause of hypoxia.</p></div>
+  <div class="trs"><div class="trl tr">✓ The Truth</div><p>Normal A-a gradient + hypoxemia = pure hypoventilation. The lungs are innocent but ventilation is impaired. This is the neuromuscular disease pattern. The A-a gradient checks whether there is an intrinsic lung problem — if normal, there is not. Elevated PaCO₂ with normal A-a gradient = neuromuscular, central, or chest wall cause.</p></div>
+  <div class="trs"><div class="trl tm">⚡ Why It Matters</div><p>Treating hypoventilation with bronchodilators or steroids misses the correct diagnosis. These patients need NIV/BiPAP, not inhalers.</p></div>
+  <div class="trs"><div class="trl tc">📋 Case</div><span class="cb">61-year-old, normal CXR, pH 7.31, PaCO₂ 70, PaO₂ 50, HCO₃ 37. A-a gradient = PAO₂ – PaO₂ = [150–70/0.8] – 50 = [150–87.5] – 50 = 12.5 (NORMAL). Correct diagnosis: <strong>ALS (pure hypoventilation)</strong> — normal A-a gradient + high PaCO₂ = lung parenchyma fine, muscles failing. Order nerve conduction studies + EMG, initiate NIV discussion.</span></div>
+</div>
+</div>
+
+<div class="trap-card">
+<div class="trap-h"><div class="tn">5</div><h3>"Shunt Hypoxemia Responds to High-Flow Oxygen"</h3></div>
+<div class="trap-b">
+  <div class="trs"><div class="trl tk">🪤 The Trap</div><p>Give all hypoxemic patients high-flow O₂ — it will always improve saturation.</p></div>
+  <div class="trs"><div class="trl tr">✓ The Truth</div><p>True shunt (V/Q = 0) is REFRACTORY to supplemental oxygen. When alveoli are completely filled or collapsed, no inspired oxygen can reach them regardless of FiO₂. Raising FiO₂ only improves oxygenation in V/Q mismatch (some ventilation still reaches the unit). In shunt: raising FiO₂ has no effect on the nonventilated alveoli; in ventilated alveoli Hb is already ~100% saturated — only dissolved O₂ increases marginally.</p></div>
+  <div class="trs"><div class="trl tm">⚡ Why It Matters</div><p>Understanding shunt physiology is essential for ARDS management.</p></div>
+  <div class="trs"><div class="trl tc">📋 Case</div><span class="cb">Patient with bilateral infiltrates (ARDS), PaO₂ 55 on 100% FiO₂ non-rebreather mask — barely improves. Best next step: <strong>Intubation with PEEP</strong> — refractory hypoxemia despite maximal FiO₂ defines shunt physiology. PEEP recruits collapsed alveoli → converts shunt to low V/Q → restores O₂ responsiveness. More O₂ via same route will not help.</span></div>
+</div>
+</div>
+
+<div class="trap-card">
+<div class="trap-h"><div class="tn">6</div><h3>"Goiter Compresses Trachea = Variable Extrathoracic Obstruction"</h3></div>
+<div class="trap-b">
+  <div class="trs"><div class="trl tk">🪤 The Trap</div><p>Goiter is extrathoracic → variable extrathoracic obstruction → inspiratory plateau only on flow-volume loop.</p></div>
+  <div class="trs"><div class="trl tr">✓ The Truth</div><p>A large compressive goiter creates FIXED obstruction — it encircles the trachea as a rigid external ring. Unlike vocal cord disease (stented open by expiratory pressure), the goiter doesn't change its compression based on respiratory phase. Result: FIXED bilateral plateaus on BOTH inspiration AND expiration. Variable extrathoracic (e.g., vocal cord paralysis) causes inspiratory plateau ONLY.</p></div>
+  <div class="trs"><div class="trl tm">⚡ Why It Matters</div><p>Pattern recognition on flow-volume loops is a high-yield exam topic. Goiter = bilateral plateau (Pattern C in textbook). Variable extrathoracic = inspiratory plateau only (Pattern D).</p></div>
+  <div class="trs"><div class="trl tc">📋 Case</div><span class="cb">35-year-old woman with goiter, inspiratory stridor, exertional dyspnea. Flow-volume loop shows flattening of BOTH expiratory and inspiratory curves. Correct answer: <strong>Fixed central airway obstruction (bilateral plateau) — Pattern C</strong>. NOT variable extrathoracic (which only affects inspiration). The goiter is a rigid external mass compressing the trachea equally in both phases.</span></div>
+</div>
+</div>
+
+<div class="trap-card">
+<div class="trap-h"><div class="tn">7</div><h3>"Body Plethysmography and Helium Dilution Give the Same TLC"</h3></div>
+<div class="trap-b">
+  <div class="trs"><div class="trl tk">🪤 The Trap</div><p>Both methods measure the same lung volumes — pick whichever is available.</p></div>
+  <div class="trs"><div class="trl tr">✓ The Truth</div><p>In obstructive disease with significant gas trapping, helium dilution UNDERESTIMATES TLC because helium cannot enter poorly ventilated/obstructed regions. Plethysmography measures ALL gas (including trapped gas) using Boyle's Law. The gap between them = trapped gas volume. Plethysmography is the gold standard in suspected obstruction.</p></div>
+  <div class="trs"><div class="trl tm">⚡ Why It Matters</div><p>Using helium dilution in COPD will underestimate severity. Use plethysmography for accurate obstruction assessment.</p></div>
+  <div class="trs"><div class="trl tc">📋 Case</div><span class="cb">COPD patient: TLC by helium dilution = 110%, TLC by plethysmography = 140%. The 30% discrepancy means: <strong>Significant gas trapping — trapped gas in poorly ventilated bullae/obstructed lung units that helium cannot access.</strong> Plethysmography is the gold standard. This is consistent with severe emphysema with bullous disease.</span></div>
+</div>
+</div>
+
+<div class="trap-card">
+<div class="trap-h"><div class="tn">8</div><h3>"High FeNO + Poor Asthma Control = Step Up Treatment / Add Biologic"</h3></div>
+<div class="trap-b">
+  <div class="trs"><div class="trl tk">🪤 The Trap</div><p>Elevated FeNO in asthmatic not responding to ICS → step up therapy → add LABA or anti-IL-5 biologic.</p></div>
+  <div class="trs"><div class="trl tr">✓ The Truth</div><p>The most important interpretation of persistently elevated FeNO despite being "on" ICS therapy is POOR ADHERENCE. FeNO measures airway eosinophilic inflammation — this should be suppressed by ICS if properly taken. If FeNO remains high, the patient is likely not taking their ICS. Stepping up therapy before confirming adherence is incorrect. FeNO is primarily a tool for assessing adherence, NOT for titrating biologics.</p></div>
+  <div class="trs"><div class="trl tm">⚡ Why It Matters</div><p>Incorrect escalation wastes resources and exposes patients to unnecessary biologics.</p></div>
+  <div class="trs"><div class="trl tc">📋 Case</div><span class="cb">Asthma patient on ICS, still symptomatic, FeNO 45 ppb (high). Best interpretation: <strong>Poor adherence to inhaled corticosteroid therapy</strong> — high FeNO indicates ongoing type 2 inflammation that should be suppressed by ICS. Confirm adherence and proper technique before changing treatment. FeNO monitors adherence — not the indication for biologics.</span></div>
+</div>
+</div>
+
+<div class="trap-card">
+<div class="trap-h"><div class="tn">9</div><h3>"Mediastinal Lymphadenopathy → Proceed to Surgical Mediastinoscopy"</h3></div>
+<div class="trap-b">
+  <div class="trs"><div class="trl tk">🪤 The Trap</div><p>For mediastinal masses, the definitive diagnostic test is surgical mediastinoscopy — it's the gold standard.</p></div>
+  <div class="trs"><div class="trl tr">✓ The Truth</div><p>EBUS-TBNA has largely REPLACED mediastinoscopy as the FIRST-LINE approach for mediastinal lymph node sampling. Surgery is reserved for cases where needle-based sampling is negative BUT suspicion remains high. EBUS-TBNA sensitivity: ~90% for epithelial malignancies, ~70–80% for lymphoma, ≥80% for sarcoidosis. Combined EBUS + EUS-B gives even higher sensitivity without surgery.</p></div>
+  <div class="trs"><div class="trl tm">⚡ Why It Matters</div><p>Performing surgery first is inappropriate when a less invasive, equally effective technique exists.</p></div>
+  <div class="trs"><div class="trl tc">📋 Case</div><span class="cb">55-year-old with mediastinal lymphadenopathy with "Egg Shell" calcifications on CT. Best next step: <strong>EBUS-TBNA</strong> — minimally invasive first-line approach for mediastinal sampling. Sensitivity ~90% for malignancy, ≥80% for sarcoidosis. Mediastinoscopy reserved for EBUS-negative cases with high clinical suspicion.</span></div>
+</div>
+</div>
+
+<div class="trap-card">
+<div class="trap-h"><div class="tn">10</div><h3>"Obesity Pattern on PFTs = Always Restriction (Low TLC)"</h3></div>
+<div class="trap-b">
+  <div class="trs"><div class="trl tk">🪤 The Trap</div><p>Obese patient with reduced FVC → low TLC → restriction → standard restrictive workup.</p></div>
+  <div class="trs"><div class="trl tr">✓ The Truth</div><p>In moderate obesity, TLC is typically NORMAL. Only FRC is reduced (fat pushing up chest wall's resting position). FVC may be mildly reduced because ERV is reduced (FRC is low), but TLC is preserved. DLCO is normal. Only morbid obesity causes TLC reduction. FRC is the obesity-sensitive volume, NOT TLC.</p></div>
+  <div class="trs"><div class="trl tm">⚡ Why It Matters</div><p>Could send an obese patient for unnecessary bronchoscopy or HRCT when the problem is purely mechanical.</p></div>
+  <div class="trs"><div class="trl tc">📋 Case</div><span class="cb">55-year-old BMI 38, FVC 80%, FEV₁/FVC 0.88, TLC 95%, FRC 65%, DLCO 95%. Correct interpretation: <strong>Normal lung function consistent with moderate obesity</strong> — only abnormality is reduced FRC (mechanical effect of adipose tissue). TLC, DLCO, and FEV₁/FVC all normal. No further respiratory workup needed; weight management is the intervention.</span></div>
+</div>
+</div>
+
+<div class="trap-card">
+<div class="trap-h"><div class="tn">11</div><h3>"IPF Has a High FEV₁/FVC = No Obstruction: Simple Restriction"</h3></div>
+<div class="trap-b">
+  <div class="trs"><div class="trl tk">🪤 The Trap</div><p>A high FEV₁/FVC in a patient with ILD on CT confirms pure restriction — airways are fine.</p></div>
+  <div class="trs"><div class="trl tr">✓ The Truth</div><p>In IPF, the stiff fibrotic parenchyma tethers airways OPEN via radial traction → airways are actually wider than normal → Raw NORMAL and FEV₁/FVC elevated. This elevated FEV₁/FVC is a direct physiological consequence of the fibrotic process pulling airways open, not an independent finding. Additionally, in a smoker with both emphysema and IPF (CPFE), the two conditions "cancel each other out" — FEV₁/FVC and volumes may appear paradoxically near-normal while DLCO is severely reduced.</p></div>
+  <div class="trs"><div class="trl tm">⚡ Why It Matters</div><p>Combined Pulmonary Fibrosis and Emphysema (CPFE) has poor prognosis and misleading PFT pattern.</p></div>
+  <div class="trs"><div class="trl tc">📋 Case</div><span class="cb">75-year-old heavy smoker, CT: upper lobe emphysema + bibasilar honeycombing. FEV₁ 75%, FVC 72%, FEV₁/FVC 0.85, TLC 90%, DLCO 40%. Best diagnosis: <strong>Combined Pulmonary Fibrosis and Emphysema (CPFE)</strong> — emphysema hyperinflates while fibrosis shrinks the lung → paradoxically near-normal volumes; the severely disproportionate DLCO drop is the key indicator of severe gas exchange impairment.</span></div>
+</div>
+</div>
+
+<div class="trap-card">
+<div class="trap-h"><div class="tn">12</div><h3>"Cryobiopsy Has Higher Yield = Use It Always for ILD Diagnosis"</h3></div>
+<div class="trap-b">
+  <div class="trs"><div class="trl tk">🪤 The Trap</div><p>Since cryobiopsy gives better diagnostic yield for ILD, it should replace forceps biopsy in all cases.</p></div>
+  <div class="trs"><div class="trl tr">✓ The Truth</div><p>Cryobiopsy has HIGHER diagnostic yield than forceps for diffuse parenchymal disease like IPF, BUT it comes with significantly higher complication rates: major bleeding and pneumothorax. Because of this risk, rigid bronchoscope is sometimes used as a precautionary backup. The tradeoff must be assessed per patient — severely compromised patients (low FVC, low FEV₁) are at prohibitive risk.</p></div>
+  <div class="trs"><div class="trl tm">⚡ Why It Matters</div><p>Selecting biopsy technique requires weighing diagnostic yield against complication risk, especially in frail patients with impaired respiratory reserve.</p></div>
+  <div class="trs"><div class="trl tc">📋 Case</div><span class="cb">65-year-old with ILD, FVC 45%, FEV₁ 40%. Bronchoscopy planned for ILD diagnosis. Choice of biopsy: <strong>In this severely compromised patient, cryobiopsy carries prohibitively high risk of major bleeding and pneumothorax. Forceps biopsy (lower yield but safer) or multidisciplinary team review for surgical biopsy (VATS) should be considered.</strong> Cryobiopsy higher yield does NOT outweigh risk in severe restriction.</span></div>
+</div>
+</div>
+
+<div class="trap-card">
+<div class="trap-h"><div class="tn">13</div><h3>"Emphysema Has Elevated Airway Resistance (Raw)"</h3></div>
+<div class="trap-b">
+  <div class="trs"><div class="trl tk">🪤 The Trap</div><p>Emphysema destroys lung tissue → airways become floppy → airway resistance (Raw) is elevated.</p></div>
+  <div class="trs"><div class="trl tr">✓ The Truth</div><p>In PURE emphysema, Raw is NORMAL because the central airways (which dominate airway resistance) are relatively unaffected. The problem is loss of elastic recoil (which causes dynamic airflow limitation during forced exhalation) — not increased Raw per se. The scooped flow-volume loop and low FEV₁ are due to reduced driving pressure (lost recoil) and airway collapse at low lung volumes. Raw is elevated in COPD when there is concurrent chronic bronchitis (mucus + wall thickening) or in asthma (smooth muscle contraction).</p></div>
+  <div class="trs"><div class="trl tm">⚡ Why It Matters</div><p>Directly tested in PFT interpretation tables — Raw normal = pure emphysema; Raw elevated = asthma or chronic bronchitis.</p></div>
+  <div class="trs"><div class="trl tc">📋 Case</div><span class="cb">PFT table: TLC 130%, FRC 220%, RV 310%, FEV₁ 35%, FEV₁/FVC 0.38, Raw 1.5 cmH₂O/L/s, DLCO 40%. "What is Raw?" Correct answer: <strong>1.5 — NORMAL</strong>. In pure emphysema, central airways are intact so resistance is normal. The dramatically reduced FEV₁ is due to loss of recoil and airway collapse during forced exhalation, not to increased resistance.</span></div>
+</div>
+</div>
+
+<div class="trap-card">
+<div class="trap-h"><div class="tn">14</div><h3>"Alveolar Hemorrhage Causes Low DLCO (Blood Damages the Membrane)"</h3></div>
+<div class="trap-b">
+  <div class="trs"><div class="trl tk">🪤 The Trap</div><p>Blood in alveoli damages the membrane → diffusion is impaired → DLCO falls.</p></div>
+  <div class="trs"><div class="trl tr">✓ The Truth</div><p>In alveolar hemorrhage, DLCO is paradoxically ELEVATED. Free hemoglobin in the alveolar space acts like an "extra" pool of hemoglobin available to bind CO during the single-breath maneuver. The CO combines with this alveolar Hb → measured uptake increases → DLCO rises. This is one of the key features of pulmonary hemorrhage alongside hemoptysis and hypoxemia.</p></div>
+  <div class="trs"><div class="trl tm">⚡ Why It Matters</div><p>Elevated DLCO with hemoptysis should always prompt consideration of alveolar hemorrhage syndrome (Goodpasture, ANCA vasculitis, DAH).</p></div>
+  <div class="trs"><div class="trl tc">📋 Case</div><span class="cb">Patient with hemoptysis and progressive dyspnea, DLCO 140% predicted. Correct interpretation: <strong>Elevated DLCO in the setting of hemoptysis = alveolar hemorrhage</strong> — free Hb in alveoli binds CO, artificially elevating DLCO. Confirm with serial BALs (progressively bloodier returns). Order ANCA, anti-GBM antibody. Do NOT reassure that lungs are "fine" based on elevated DLCO.</span></div>
+</div>
+</div>
+
+<div class="trap-card">
+<div class="trap-h"><div class="tn">15</div><h3>"FEV₁/FVC is Low in ILD — Always Need to Confirm Obstruction First"</h3></div>
+<div class="trap-b">
+  <div class="trs"><div class="trl tk">🪤 The Trap</div><p>If spirometry shows low FEV₁, low FVC, and FEV₁/FVC around 0.65–0.70 in a patient with ILD on CT → there must be coexisting obstruction → treat COPD + ILD.</p></div>
+  <div class="trs"><div class="trl tr">✓ The Truth</div><p>In end-stage ILD (advanced pulmonary fibrosis), the FVC can fall so low that even though FEV₁ is also very low, the FEV₁/FVC ratio approaches or falls below 0.7 as an artifact of the severely restricted lung (RV proportionally relatively elevated for the small TLC). This is NOT true obstruction — TLC will be very LOW (not elevated), and DLCO will be very low. Look at TLC and DLCO together, not just the ratio.</p></div>
+  <div class="trs"><div class="trl tm">⚡ Why It Matters</div><p>Treating end-stage IPF as COPD with bronchodilators misses the actual management (antifibrotics, transplant evaluation).</p></div>
+  <div class="trs"><div class="trl tc">📋 Case</div><span class="cb">IPF patient on spirometry: FEV₁ 62%, FVC 70%, FEV₁/FVC 0.65, TLC 60%, DLCO 45%. Question: "Is there coexisting obstruction?" Answer: <strong>No — this is advanced restrictive disease only.</strong> TLC is very LOW (60%), not elevated. DLCO severely reduced. Low FEV₁/FVC is an artifact of advanced fibrosis, not true obstruction. Do not add inhaled bronchodilators as primary management. Continue antifibrotic therapy and assess for transplant listing.</span></div>
+</div>
+</div>
+
+</div><!-- end section 10 -->
+</div><!-- end main -->
+<footer style="background:#0d1b35;color:rgba(255,255,255,.5);text-align:center;padding:24px;font-size:13px;font-family:'JetBrains Mono',monospace;margin-top:40px">
+  Respiratory Boards Master Guide · Disturbances of Respiratory Function &amp; Diagnostic Procedures · Based on Harrison's Chapters 296 &amp; 297
+</footer>
+<script>
+/* ── ACCORDION TOGGLE ── */
+function tog(hd) {
+  const item = hd.closest('.toggle-item') || hd.parentElement;
+  const body = item.querySelector('.toggle-body');
+  const arrow = hd.querySelector('.toggle-arrow');
+  if (!body) return;
+  const isOpen = body.style.display === 'block';
+  body.style.display = isOpen ? 'none' : 'block';
+  if (arrow) arrow.textContent = isOpen ? '▶' : '▼';
+}
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c){curColor=c;eraseMode=false;document.body.style.cursor='crosshair';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));
+  const map={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};
+  if(document.getElementById(map[c]))document.getElementById(map[c]).classList.add('active');}
+function setErase(){eraseMode=true;curColor=null;document.body.style.cursor='cell';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));}
+function applyHL(range,color){
+  try{const span=document.createElement('span');span.className='hl hl-'+color;
+    span.dataset.hlColor=color;range.surroundContents(span);saveHighlights();}
+  catch(e){try{const frag=range.extractContents();const span=document.createElement('span');
+    span.className='hl hl-'+color;span.dataset.hlColor=color;span.appendChild(frag);
+    range.insertNode(span);saveHighlights();}catch(e2){}}}
+function saveHighlights(){
+  const data=[];
+  document.querySelectorAll('.hl[data-hl-color]').forEach(s=>{
+    const text=s.textContent.trim();if(text.length>1)data.push({text,color:s.dataset.hlColor});});
+  try{localStorage.setItem(HL_KEY,JSON.stringify(data));}catch(e){}}
+function restoreHighlights(){
+  let saved;try{saved=JSON.parse(localStorage.getItem(HL_KEY))||[];}catch(e){return;}
+  if(!saved.length)return;
+  const main=document.body;
+  saved.forEach(function(item){
+    if(!item.text||!item.color)return;
+    const walker=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,null,false);
+    let node;
+    while(node=walker.nextNode()){
+      if(node.parentElement&&(node.parentElement.classList.contains('hl')||
+        node.parentElement.classList.contains('note-anchor')))continue;
+      const idx=node.nodeValue.indexOf(item.text);
+      if(idx!==-1){try{const range=document.createRange();range.setStart(node,idx);
+        range.setEnd(node,idx+item.text.length);applyHL(range,item.color);}catch(e){}break;}}});}
+function getNotes(){try{return JSON.parse(localStorage.getItem(NT_KEY)||'[]');}catch(e){return[];}}
+function saveNotes(n){try{localStorage.setItem(NT_KEY,JSON.stringify(n));}catch(e){}}
+function addNote(){
+  const ta=document.getElementById('sn-ta');if(!ta)return;
+  const txt=ta.value.trim();if(!txt)return;
+  const id=Date.now();const notes=getNotes();
+  notes.unshift({id,ref:selText.substring(0,100)||'—',text:txt});
+  saveNotes(notes);
+  if(savedRange){
+    try{const span=document.createElement('span');span.className='note-anchor';
+      span.dataset.noteId=id;span.title='Click to see your note';
+      savedRange.surroundContents(span);bindAnchor(span,id);}
+    catch(e){try{const frag=savedRange.extractContents();const span=document.createElement('span');
+      span.className='note-anchor';span.dataset.noteId=id;span.appendChild(frag);
+      savedRange.insertNode(span);bindAnchor(span,id);}catch(e2){}}
+    savedRange=null;}
+  ta.value='';selText='';
+  const ref=document.getElementById('sn-ref-txt');if(ref)ref.textContent='—';
+  renderNotes();}
+function bindAnchor(span,id){
+  span.addEventListener('click',function(e){e.stopPropagation();
+    const note=getNotes().find(n=>n.id===id);if(note)showPopover(span,note);});}
+function restoreAnchors(){
+  const notes=getNotes();if(!notes.length)return;
+  const main=document.body;
+  notes.forEach(function(note){
+    if(!note.ref||note.ref==='—'||!note.id)return;
+    const refText=note.ref.trim();if(refText.length<2)return;
+    if(document.querySelector('.note-anchor[data-note-id="'+note.id+'"]'))return;
+    const walker=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,null,false);
+    let node;
+    while(node=walker.nextNode()){
+      if(node.parentElement&&(node.parentElement.classList.contains('note-anchor')||
+        node.parentElement.classList.contains('hl')))continue;
+      const idx=node.nodeValue.indexOf(refText);
+      if(idx!==-1){try{const range=document.createRange();range.setStart(node,idx);
+        range.setEnd(node,idx+refText.length);const span=document.createElement('span');
+        span.className='note-anchor';span.dataset.noteId=String(note.id);
+        span.title='Click to see your note';range.surroundContents(span);
+        bindAnchor(span,note.id);}catch(e){}break;}}});}
+function deleteNote(id){
+  saveNotes(getNotes().filter(n=>n.id!==id));
+  document.querySelectorAll('.note-anchor[data-note-id="'+id+'"]').forEach(el=>{
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});
+  closePopover();renderNotes();}
+function renderNotes(){
+  const body=document.getElementById('sn-body');const empty=document.getElementById('sn-empty');
+  if(!body)return;const notes=getNotes();
+  body.querySelectorAll('.sn-note').forEach(el=>el.remove());
+  if(!notes.length){if(empty)empty.style.display='';return;}
+  if(empty)empty.style.display='none';
+  notes.forEach(note=>{const card=document.createElement('div');card.className='sn-note';
+    card.dataset.noteId=note.id;
+    card.innerHTML='<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>'+
+      '<span class="sn-note-ref">'+(note.ref!=='—'?'"'+note.ref+'"':'General note')+'</span>'+
+      '<button class="sn-del" onclick="deleteNote('+note.id+')">×</button></div>'+
+      '<div class="sn-note-body">'+note.text.replace(/\n/g,'<br>')+'</div>'+
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);makeResizable(card,note.id);});}
+let activePopNoteId=null;
+function showPopover(anchorEl,note){
+  const pop=document.getElementById('note-popover');if(!pop)return;
+  document.getElementById('np-pop-ref').textContent=note.ref!=='—'?'"'+note.ref.substring(0,55)+'"':'Note';
+  document.getElementById('np-pop-text').innerHTML=note.text.replace(/\n/g,'<br>');
+  document.getElementById('pop-del-btn').onclick=()=>deleteNote(note.id);
+  activePopNoteId=note.id;
+  const rect=anchorEl.getBoundingClientRect();
+  pop.style.left=Math.min(rect.left,window.innerWidth-300)+'px';
+  pop.style.top=(rect.bottom+8)+'px';pop.classList.add('show');}
+function closePopover(){
+  const pop=document.getElementById('note-popover');if(pop)pop.classList.remove('show');
+  activePopNoteId=null;}
+document.addEventListener('click',function(e){
+  const pop=document.getElementById('note-popover');
+  if(pop&&!pop.contains(e.target))closePopover();});
+document.addEventListener('mouseup',function(e){
+  const tb=document.getElementById('toolbar');const sb=document.getElementById('sn-sidebar');
+  const np=document.getElementById('note-popover');
+  if(tb&&tb.contains(e.target))return;if(sb&&sb.contains(e.target))return;if(np&&np.contains(e.target))return;
+  if(eraseMode&&e.target.classList.contains('hl')){const el=e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);
+    el.parentNode.normalize();saveHighlights();return;}
+  const sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+  const txt=sel.toString().trim();if(!txt)return;
+  selText=txt;savedRange=sel.getRangeAt(0).cloneRange();
+  const refEl=document.getElementById('sn-ref-txt');
+  if(refEl)refEl.textContent=txt.length>48?txt.substring(0,48)+'…':txt;
+  if(curColor){try{applyHL(sel.getRangeAt(0),curColor);sel.removeAllRanges();}catch(err){}}});
+function clearAll(){
+  if(!confirm('Clear ALL highlights and notes?'))return;
+  document.querySelectorAll('.hl').forEach(el=>{
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});
+  document.querySelectorAll('.note-anchor').forEach(el=>{
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});
+  try{localStorage.removeItem(HL_KEY);localStorage.removeItem(NT_KEY);}catch(e){}
+  curColor=null;eraseMode=false;document.body.style.cursor='';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));
+  closePopover();renderNotes();}
+function toggleSidebar(){
+  const sb=document.getElementById('sn-sidebar');const tab=document.getElementById('sn-tab');
+  if(!sb)return;sb.classList.toggle('hidden');
+  if(tab)tab.textContent=sb.classList.contains('hidden')?'📝 Notes':'◀';}
+function makeResizable(card,noteId){
+  const handle=card.querySelector('.sn-resize');if(!handle)return;
+  let startY=0,startH=0;
+  handle.addEventListener('mousedown',function(e){e.preventDefault();e.stopPropagation();
+    startY=e.clientY;startH=card.offsetHeight;
+    function onMove(ev){card.style.height=Math.max(80,startH+(ev.clientY-startY))+'px';}
+    function onUp(){document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp);}
+    document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp);});}
+
+/* ── INIT ── */
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
