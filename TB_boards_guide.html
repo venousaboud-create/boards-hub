@@ -174,11 +174,11 @@ footer.footer{text-align:center;padding:24px;font-family:'JetBrains Mono',monosp
 <!-- ANNOTATION TOOLBAR -->
 <div id="toolbar">
   <span class="albl">Highlight</span>
-  <div id="h-y" class="hbtn" onclick="setColor('yellow')" title="Yellow"></div>
-  <div id="h-g" class="hbtn" onclick="setColor('green')" title="Green"></div>
-  <div id="h-b" class="hbtn" onclick="setColor('blue')" title="Blue"></div>
-  <div id="h-p" class="hbtn" onclick="setColor('pink')" title="Pink"></div>
-  <div id="h-o" class="hbtn" onclick="setColor('orange')" title="Orange"></div>
+  <div id="h-y" class="hbtn" onclick="setHL('y')" title="Yellow"></div>
+  <div id="h-g" class="hbtn" onclick="setHL('g')" title="Green"></div>
+  <div id="h-b" class="hbtn" onclick="setHL('b')" title="Blue"></div>
+  <div id="h-p" class="hbtn" onclick="setHL('p')" title="Pink"></div>
+  <div id="h-o" class="hbtn" onclick="setHL('o')" title="Orange"></div>
   <div class="tsep"></div>
   <button class="tbtn" onclick="setColor('erase')" title="Erase">⌫</button>
   <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
@@ -187,7 +187,7 @@ footer.footer{text-align:center;padding:24px;font-family:'JetBrains Mono',monosp
 </div>
 
 <!-- STICKY NOTE SIDEBAR -->
-<div id="sn-sidebar">
+<div id="sn-sidebar" class="hidden">
   <div id="sn-hd">
     <span>📝 Study Notes</span>
     <button id="sn-toggle-btn" onclick="toggleSidebar()">✕</button>
