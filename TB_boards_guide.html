@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Tuberculosis · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7;margin-right:var(--snw)}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-tab{position:fixed;right:0;top:calc(var(--nav) + 80px);z-index:801;background:var(--pur);color:#fff;border:none;border-radius:8px 0 0 8px;padding:8px 10px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;letter-spacing:.1em;box-shadow:-2px 2px 8px rgba(0,0,0,.2)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-card{background:#fff;border:1.5px solid var(--bd);border-radius:8px;padding:10px 12px;position:relative;resize:vertical;overflow:hidden;min-height:80px;box-shadow:0 2px 6px rgba(0,0,0,.06);cursor:grab}
+.sn-card:active{cursor:grabbing}
+.sn-card-ref{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--pur);margin-bottom:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-card-body{font-size:12px;color:var(--tx);line-height:1.55;white-space:pre-wrap;word-break:break-word}
+.sn-del{position:absolute;top:6px;right:8px;background:none;border:none;color:var(--t3);cursor:pointer;font-size:13px;line-height:1;padding:0}
+.sn-del:hover{color:var(--red)}
+.sn-drag-handle{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);color:var(--t3);font-size:10px;cursor:grab;user-select:none}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);border-radius:10px;padding:14px;width:260px;box-shadow:0 8px 28px rgba(0,0,0,.18);display:none}
+#note-popover.show{display:block}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--pur);margin-bottom:6px;font-style:italic}
+#np-pop-text{font-size:12px;line-height:1.55;color:var(--tx);margin-bottom:10px;white-space:pre-wrap}
+#pop-del-btn{font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;padding:0}
+#pop-del-btn:hover{text-decoration:underline}
+#note-modal{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:3000;display:none;align-items:center;justify-content:center}
+#note-modal.show{display:flex}
+#note-box{background:#fff;border-radius:14px;padding:22px;width:420px;box-shadow:0 16px 50px rgba(0,0,0,.25)}
+#note-box h3{font-family:'Playfair Display',serif;font-size:15px;margin-bottom:8px;color:var(--pur)}
+#note-ref-preview{font-size:11px;color:var(--t3);margin-bottom:12px;font-style:italic}
+#note-ta{width:100%;height:100px;border:1.5px solid var(--bd2);border-radius:8px;padding:10px;font-family:'Source Sans 3',sans-serif;font-size:13px;resize:vertical;outline:none;color:var(--tx)}
+#note-ta:focus{border-color:var(--pur)}
+.nm-btns{display:flex;gap:10px;margin-top:12px;justify-content:flex-end}
+.nm-btn{padding:7px 18px;border-radius:7px;border:none;cursor:pointer;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:13px}
+#nm-save{background:var(--pur);color:#fff}
+#nm-save:hover{background:#5b21b6}
+#nm-cancel{background:var(--sf2);color:var(--t2)}
+#nm-cancel:hover{background:var(--bd)}
+.note-anchor{border-bottom:2px dotted var(--pur);cursor:pointer;color:inherit}
+.note-anchor:hover{background:var(--pur-l)}
+.hero{background:linear-gradient(135deg,#1e3a6e 0%,#1e4db7 50%,#0e7490 100%);color:#fff;padding:60px 48px 48px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;line-height:1.15;margin-bottom:8px}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.8);margin-bottom:32px;max-width:600px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;max-width:700px}
+.stat-box{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:14px 16px;backdrop-filter:blur(4px)}
+.stat-n{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:#fff}
+.stat-l{font-size:11px;color:rgba(255,255,255,.75);margin-top:2px}
+nav.sticky-nav{position:sticky;top:0;z-index:700;background:var(--sf);border-bottom:1.5px solid var(--bd);height:var(--nav);display:flex;align-items:center;overflow-x:auto;gap:0;scrollbar-width:none}
+nav.sticky-nav::-webkit-scrollbar{display:none}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);text-decoration:none;padding:0 16px;white-space:nowrap;height:100%;display:flex;align-items:center;border-bottom:2.5px solid transparent;transition:all .2s}
+.toc-a:hover{color:var(--blu);background:var(--blu-l)}
+.toc-a.on{color:var(--blu);border-bottom-color:var(--blu);background:var(--blu-l)}
+.main{max-width:860px;margin:0 auto;padding:32px 24px 80px}
+.sec{scroll-margin-top:calc(var(--nav) + 12px);margin-bottom:48px}
+.sec-hd{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.sec-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.sec-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx)}
+.sec-sub{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--tx);margin:20px 0 10px;padding-bottom:4px;border-bottom:2px solid var(--bd)}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:18px 20px;margin-bottom:14px}
+.card-title{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
+.pill{display:inline-block;padding:2px 9px;border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.06em;margin:2px}
+.pill-blu{background:var(--blu-l);color:var(--blu)}
+.pill-red{background:var(--red-l);color:var(--red)}
+.pill-grn{background:var(--grn-l);color:var(--grn)}
+.pill-amb{background:var(--amb-l);color:var(--amb)}
+.pill-pur{background:var(--pur-l);color:var(--pur)}
+.pill-tel{background:var(--tel-l);color:var(--tel)}
+.alert{border-radius:10px;padding:14px 16px;margin:14px 0;display:flex;gap:12px;align-items:flex-start}
+.alert-red{background:var(--red-l);border-left:4px solid var(--red)}
+.alert-grn{background:var(--grn-l);border-left:4px solid var(--grn)}
+.alert-amb{background:var(--amb-l);border-left:4px solid var(--amb)}
+.alert-blu{background:var(--blu-l);border-left:4px solid var(--blu)}
+.alert-pur{background:var(--pur-l);border-left:4px solid var(--pur)}
+.alert-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.alert-body{font-size:13px;line-height:1.6}
+.alert-body strong{display:block;margin-bottom:3px}
+ul{padding-left:20px}
+li{margin-bottom:4px}
+li::marker{color:var(--t3)}
+.vs-box{display:grid;grid-template-columns:1fr auto 1fr;gap:0;border:1px solid var(--bd);border-radius:12px;overflow:hidden;margin:14px 0}
+.vs-l,.vs-r{padding:18px 16px}
+.vs-l{background:var(--blu-l)}
+.vs-r{background:var(--grn-l)}
+.vs-mid{background:var(--sf2);display:flex;align-items:center;justify-content:center;padding:0 12px;font-family:'Playfair Display',serif;font-weight:900;font-size:14px;color:var(--t3)}
+.vs-title{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;margin-bottom:8px}
+.vs-l .vs-title{color:var(--blu)}
+.vs-r .vs-title{color:var(--grn)}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+th{background:var(--sf2);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:9px 12px;text-align:left;color:var(--t2);border:1px solid var(--bd)}
+td{padding:9px 12px;border:1px solid var(--bd);vertical-align:top;line-height:1.5}
+tr:nth-child(even) td{background:rgba(0,0,0,.02)}
+.flow{display:flex;flex-direction:column;gap:0;margin:14px 0}
+.flow-step{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;background:var(--sf);border:1px solid var(--bd);position:relative}
+.flow-step:not(:last-child)::after{content:'↓';position:absolute;bottom:-16px;left:26px;font-size:18px;color:var(--t3);z-index:1}
+.flow-step:not(:first-child){margin-top:8px}
+.flow-n{width:28px;height:28px;border-radius:50%;background:var(--blu);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;flex-shrink:0}
+.flow-body{font-size:13px;line-height:1.6}
+.sep{border:none;border-top:1px solid var(--bd);margin:40px 0}
+.status-bar{display:flex;gap:10px;margin-top:20px;padding-top:14px;border-top:1px solid var(--bd)}
+.st-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--bd);background:var(--sf2);cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--t2);transition:all .2s}
+.st-btn:hover{border-color:var(--grn);color:var(--grn);background:var(--grn-l)}
+.st-btn.learned{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.st-btn.review{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.trap{background:var(--sf);border:1.5px solid var(--amb);border-radius:12px;padding:20px;margin-bottom:18px}
+.trap-n{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;color:var(--amb);text-transform:uppercase;margin-bottom:10px}
+.trap-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;margin-bottom:10px;color:var(--tx)}
+.trap-vig{background:var(--amb-l);border-radius:8px;padding:12px 14px;font-size:13px;margin-bottom:10px;line-height:1.6}
+.trap-distractor{font-size:12.5px;color:var(--red);margin:8px 0}
+.trap-answer{font-size:13px;margin:8px 0;padding:10px 14px;background:var(--grn-l);border-radius:8px;border-left:3px solid var(--grn)}
+.trap-mech{font-size:12px;color:var(--t2);margin-top:8px;line-height:1.6}
+.trap-kw{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:9px;background:var(--pur-l);color:var(--pur);display:inline-block;padding:3px 10px;border-radius:20px}
+.note-btn{background:var(--pur-l);border:1.5px solid var(--pur);color:var(--pur);border-radius:6px;padding:3px 10px;font-size:11px;cursor:pointer;font-family:'JetBrains Mono',monospace;margin-left:8px}
+.note-btn:hover{background:var(--pur);color:#fff}
+footer.footer{text-align:center;padding:24px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);border-top:1px solid var(--bd);margin-top:40px}
+@media print{#toolbar,#sn-sidebar,#sn-tab,nav.sticky-nav{display:none!important}body{margin-right:0}}
+
+#sn-input{padding:10px;border-top:1.5px solid var(--bd,#ddd9d2);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:#857f77;margin-bottom:5px}
+#sn-selref em{color:#6d28d9;font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid #b8b3aa;border-radius:5px;font-size:12px;resize:none;height:60px;background:#f8f7f4;color:#1c1a17;display:block}
+#sn-ta:focus{outline:2px solid #6d28d9;border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:8px;background:#6d28d9;color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer;display:block}
+#sn-add:hover{background:#5b21b6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;display:flex;flex-direction:column;min-height:80px;position:relative;overflow:hidden;margin-bottom:6px}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.sn-drag-icon{color:#a89a30;font-size:12px}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8px;color:#78610a;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1}
+.sn-del:hover{color:#b91c1c}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;overflow-y:auto}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize}
+.note-anchor{cursor:pointer;border-bottom:2px dotted #6d28d9;padding-bottom:1px}
+.note-anchor:hover{background:rgba(109,40,217,.06);border-radius:2px}
+</style>
+</head>
+<body>
+
+<!-- ANNOTATION TOOLBAR -->
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <div id="h-y" class="hbtn" onclick="setColor('yellow')" title="Yellow"></div>
+  <div id="h-g" class="hbtn" onclick="setColor('green')" title="Green"></div>
+  <div id="h-b" class="hbtn" onclick="setColor('blue')" title="Blue"></div>
+  <div id="h-p" class="hbtn" onclick="setColor('pink')" title="Pink"></div>
+  <div id="h-o" class="hbtn" onclick="setColor('orange')" title="Orange"></div>
+  <div class="tsep"></div>
+  <button class="tbtn" onclick="setColor('erase')" title="Erase">⌫</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+  <div class="tsep"></div>
+  <button class="tbtn" onclick="openNoteModal()" title="Add Note">📝</button>
+</div>
+
+<!-- STICKY NOTE SIDEBAR -->
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 Study Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">✕</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text, then click 📝<br>to add a note anchored to that passage.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">◀ Notes</button>
+
+<!-- NOTE POPOVER -->
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <button id="pop-del-btn">🗑 Delete note</button>
+</div>
+
+<!-- NOTE MODAL -->
+<div id="note-modal">
+  <div id="note-box">
+    <h3>📝 Add Study Note</h3>
+    <div id="note-ref-preview"></div>
+    <textarea id="note-ta" placeholder="Type your note here…"></textarea>
+    <div class="nm-btns">
+      <button class="nm-btn" id="nm-cancel" onclick="closeNoteModal()">Cancel</button>
+      <button class="nm-btn" id="nm-save" onclick="saveNote()">Save Note</button>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Chapter 183 · Mycobacterial Diseases · Boards Review</div>
+  <h1>Tuberculosis</h1>
+  <p class="hero-sub">Complete boards study guide — diagnosis, treatment, drug-resistant TB, preventive therapy, and high-yield exam traps based on Harrison's Chapter 183</p>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">10.8M</div><div class="stat-l">New cases worldwide (2023)</div></div>
+    <div class="stat-box"><div class="stat-n">1.25M</div><div class="stat-l">TB deaths in 2023</div></div>
+    <div class="stat-box"><div class="stat-n">6.1%</div><div class="stat-l">New cases in PLWH</div></div>
+    <div class="stat-box"><div class="stat-n">400K</div><div class="stat-l">MDR/RR-TB cases (2023)</div></div>
+    <div class="stat-box"><div class="stat-n">10%</div><div class="stat-l">Lifetime risk of active TB after infection</div></div>
+  </div>
+</div>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav">
+  <a href="#epi" class="toc-a">Epidemiology</a>
+  <a href="#patho" class="toc-a">Pathogenesis</a>
+  <a href="#clinical" class="toc-a">Clinical Presentation</a>
+  <a href="#extra" class="toc-a">Extrapulmonary TB</a>
+  <a href="#hiv" class="toc-a">TB + HIV</a>
+  <a href="#diagnosis" class="toc-a">Diagnosis</a>
+  <a href="#testing" class="toc-a">TST vs IGRA</a>
+  <a href="#treatment" class="toc-a">Treatment</a>
+  <a href="#drugtox" class="toc-a">Drug Toxicity</a>
+  <a href="#mdr" class="toc-a">MDR-TB</a>
+  <a href="#prevention" class="toc-a">TPT / Prevention</a>
+  <a href="#traps" class="toc-a">⚠ Exam Traps</a>
+</nav>
+
+<main class="main">
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 1: EPIDEMIOLOGY -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="sec" id="epi">
+  <div class="sec-hd">
+    <div class="sec-icon" style="background:var(--blu-l)">🌍</div>
+    <h2 class="sec-title">Epidemiology & Risk Factors</h2>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Global Burden (2023)</div>
+      <ul>
+        <li><strong>10.8 million</strong> new cases estimated worldwide</li>
+        <li>8.2 million cases reported to WHO (under-detection is common)</li>
+        <li>Top 8 countries = <strong>2/3 of all cases</strong>: India (26%), Indonesia (10%), China (6.8%), Philippines (6.8%), Pakistan (6.3%), Nigeria (4.6%), Bangladesh (3.5%), DRC (3.1%)</li>
+        <li>55% male, 33% female, 12% children</li>
+        <li>1.25 million deaths including 160,000 among PLWH</li>
+        <li>TB returned as <strong>#1 infectious killer</strong> in 2023 (dethroned COVID)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">U.S. Epidemiology</div>
+      <ul>
+        <li>2022: 8,300 cases (2.5 per 100,000)</li>
+        <li>71% among non-U.S.-born persons</li>
+        <li>Highest rates: elderly ≥65 years old</li>
+        <li>Lowest rates: children &lt;14 years old</li>
+        <li>Highest burden by race: Non-Hispanic Black (34%), White (29%), Hispanic/Latino (24%)</li>
+        <li>~13 million persons are <em>latently</em> infected</li>
+        <li>Primary MDR-TB rate: &lt;1% since 2000</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-sub">Risk Factors for Active TB (After Infection)</div>
+  <div class="alert alert-red">
+    <span class="alert-icon">🔴</span>
+    <div class="alert-body"><strong>MOST IMPORTANT EXAM POINT:</strong> In absolute terms, the single most potent risk factor for active TB among infected individuals is <strong>HIV co-infection</strong> (relative risk 21–&gt;30). HIV suppresses cellular immunity, and the risk directly correlates with degree of immunosuppression.</div>
+  </div>
+
+  <table>
+    <thead><tr><th>Risk Factor</th><th>Relative Risk/Odds</th><th>Boards Pearl</th></tr></thead>
+    <tbody>
+      <tr><td><strong>HIV infection</strong></td><td><strong>21–&gt;30</strong></td><td>Strongest risk factor; risk rises as CD4 falls</td></tr>
+      <tr><td>Recent infection (&lt;1 year)</td><td>12.9</td><td>Highest risk in first year → first 18 months</td></tr>
+      <tr><td>Silicosis</td><td>30</td><td>Also: Jejunoileal bypass = 30–60</td></tr>
+      <tr><td>IV drug use</td><td>10–30</td><td>PPD cutoff ≥10mm in IVDU</td></tr>
+      <tr><td>Chronic renal failure/HD</td><td>10–25</td><td>PPD cutoff ≥5mm; hemodialysis = high risk</td></tr>
+      <tr><td>Posttransplantation</td><td>20–70</td><td>PPD cutoff ≥5mm; screen before transplant</td></tr>
+      <tr><td>TNF-α inhibitors</td><td>4–5</td><td>PPD cutoff ≥5mm; screen BEFORE starting anti-TNF!</td></tr>
+      <tr><td>Immunosuppressive treatment</td><td>10</td><td>Glucocorticoids, biologics</td></tr>
+      <tr><td>Diabetes mellitus</td><td>2–4</td><td>PPD cutoff depends on other factors</td></tr>
+      <tr><td>Excessive alcohol</td><td>3</td><td>Also increases hepatotoxicity risk</td></tr>
+      <tr><td>Tobacco smoking</td><td>2–3</td><td>Often tested in comorbidities list</td></tr>
+      <tr><td>Malnutrition</td><td>2</td><td>RATIONS trial: nutritional support → less TB</td></tr>
+      <tr><td>Gastrectomy</td><td>2–5</td><td>Anatomic risk; less absorption</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-sub">Age and Timing of Disease</div>
+  <div class="card">
+    <ul>
+      <li>Overall: <strong>~10% of infected persons</strong> will develop active TB in their lifetime</li>
+      <li><strong>Half</strong> of those develop it within the <strong>first 18 months</strong> after infection</li>
+      <li>Incidence of TB is highest during <strong>late adolescence and early adulthood</strong> (post-primary reactivation window)</li>
+      <li>Among women, peak incidence at <strong>25–34 years</strong> of age</li>
+      <li>Risk increases again in the elderly (waning immunity + comorbidity)</li>
+      <li><strong>Primary TB</strong> = common in young children and immunocompromised</li>
+      <li><strong>Post-primary (reactivation) TB</strong> = more common in adults; more infectious due to cavitation</li>
+    </ul>
+  </div>
+
+  <div class="status-bar">
+    <button class="st-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="st-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 2: PATHOGENESIS -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="sec" id="patho">
+  <div class="sec-hd">
+    <div class="sec-icon" style="background:var(--red-l)">🔬</div>
+    <h2 class="sec-title">Pathogenesis & Immunity</h2>
+  </div>
+
+  <div class="sec-sub">Transmission → Infection → Disease</div>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-n">1</div>
+      <div class="flow-body"><strong>Transmission:</strong> Droplet nuclei (&lt;5–10 μm) from patient with infectious pulmonary TB; reach terminal airways. Sputum smear-positive cavitary TB = most infectious (10⁵–10⁷ AFB/mL)</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-n">2</div>
+      <div class="flow-body"><strong>Alveolar invasion:</strong> Bacilli phagocytosed by alveolar macrophages → M. tuberculosis blocks phagosome-lysosome fusion → survives intracellularly → macrophage rupture → cycle repeats</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-n">3</div>
+      <div class="flow-body"><strong>Granuloma formation (2–4 weeks):</strong> CD4+ T cells activated → macrophages aggregate → granuloma (tubercle) with caseous necrosis center. This limits spread but doesn't always eradicate</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-n">4</div>
+      <div class="flow-body"><strong>Latency (LTBI):</strong> Bacilli persist within granulomas (in necrotic areas). TST/IGRA become positive. No symptoms, not infectious. ~10% will reactivate over a lifetime</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-n">5</div>
+      <div class="flow-body"><strong>Reactivation (Post-primary TB):</strong> Upper lobe predilection (high O₂ tension). Cavitation → infectious, high bacterial load. Triggers: immunosuppression, aging, HIV, TNF inhibitors</div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Key Immune Players</div>
+      <ul>
+        <li><strong>CD4+ T cells (TH1):</strong> produce IFN-γ → activate macrophages; central to protective immunity</li>
+        <li><strong>CD8+ T cells:</strong> cytotoxic, also produce IFN-γ and TNF-α</li>
+        <li><strong>TNF-α:</strong> critical for granuloma formation and maintenance → anti-TNF therapy = major TB risk</li>
+        <li><strong>Macrophages:</strong> primary effectors; can kill if activated but also harbor bacilli</li>
+        <li><strong>IFN-γ:</strong> the key cytokine measured in IGRA tests</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Why HIV = Highest Risk</div>
+      <ul>
+        <li>CD4+ T cell depletion → impaired macrophage activation</li>
+        <li>Granulomas are <em>less well-organized</em> → higher bacterial burden</li>
+        <li>TB can appear at ANY stage of HIV infection</li>
+        <li>With CD4 &lt;200/μL: "primary TB-like" pattern (lower lobe, no cavitation, lymphadenopathy)</li>
+        <li>With CD4 &gt;200/μL: more "typical" upper lobe + cavitation pattern</li>
+        <li>Person with positive TST + HIV: <strong>3–13% annual risk</strong> of active TB</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alert alert-amb">
+    <span class="alert-icon">⚠️</span>
+    <div class="alert-body"><strong>Anti-TNF = Major Risk Factor:</strong> TNF-α is essential for granuloma integrity. Blocking TNF (infliximab, adalimumab, etanercept, etc.) can cause latent TB to reactivate. Always screen for TB (PPD/IGRA) <em>before</em> starting any anti-TNF treatment. PPD cutoff: <strong>≥5 mm</strong> = positive in this group.</div>
+  </div>
+
+  <div class="status-bar">
+    <button class="st-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="st-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 3: CLINICAL PRESENTATION -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="sec" id="clinical">
+  <div class="sec-hd">
+    <div class="sec-icon" style="background:var(--amb-l)">🫁</div>
+    <h2 class="sec-title">Clinical Presentation: Pulmonary TB</h2>
+  </div>
+
+  <div class="vs-box">
+    <div class="vs-l">
+      <div class="vs-title">Primary TB</div>
+      <ul>
+        <li>Occurs soon after initial infection</li>
+        <li>Common in <strong>children</strong> and immunocompromised</li>
+        <li>Middle/lower lung zones (where air goes)</li>
+        <li>Ghon focus (peripheral) + hilar lymphadenopathy = <strong>Ghon complex</strong></li>
+        <li>Usually asymptomatic or mild fever</li>
+        <li>Pleural effusion in up to 2/3 of cases</li>
+        <li>Generally NOT highly infectious (less cavitation)</li>
+        <li>Miliary TB / meningitis possible if no immune response</li>
+      </ul>
+    </div>
+    <div class="vs-mid">VS</div>
+    <div class="vs-r">
+      <div class="vs-title">Post-Primary (Reactivation) TB</div>
+      <ul>
+        <li>Endogenous reactivation (or reinfection)</li>
+        <li>Common in <strong>adults</strong></li>
+        <li><strong>Upper lobes</strong> (apical/posterior segments) — high O₂</li>
+        <li>Cavitation → very infectious (10⁵–10⁷ AFB/mL)</li>
+        <li>Symptoms: cough, hemoptysis, night sweats, weight loss, fever</li>
+        <li>CXR: upper-lobe infiltrates with cavities</li>
+        <li>Sputum smear often positive</li>
+        <li>Hemoptysis in 20–30% of cases</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-sub">Classic Symptoms of Active TB</div>
+  <div class="g4">
+    <div class="card"><div class="card-title">Constitutional</div>Fever (low-grade, intermittent), night sweats, weight loss, anorexia, malaise, weakness</div>
+    <div class="card"><div class="card-title">Respiratory</div>Cough (up to 90% eventually), initially dry → productive; purulent sputum; hemoptysis (20–30%); dyspnea in severe disease</div>
+    <div class="card"><div class="card-title">CXR Findings</div>Upper-lobe infiltrates; cavitation; hilar adenopathy; miliary pattern; pleural effusion; air-fluid level in cavity</div>
+    <div class="card"><div class="card-title">Labs</div>Mild anemia, leukocytosis, thrombocytosis, elevated ESR/CRP; hyponatremia (SIADH); none pathognomonic</div>
+  </div>
+
+  <div class="alert alert-blu">
+    <span class="alert-icon">💡</span>
+    <div class="alert-body"><strong>CXR in HIV:</strong> In advanced HIV (CD4 &lt;200), CXR may show lower-zone infiltrates WITHOUT cavitation, diffuse interstitial infiltrates, or even a NORMAL CXR. Do not rely on "classic" upper-lobe cavitation in PLWH.</div>
+  </div>
+
+  <div class="status-bar">
+    <button class="st-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="st-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 4: EXTRAPULMONARY TB -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="sec" id="extra">
+  <div class="sec-hd">
+    <div class="sec-icon" style="background:var(--pur-l)">🦴</div>
+    <h2 class="sec-title">Extrapulmonary TB</h2>
+  </div>
+
+  <div class="alert alert-pur">
+    <span class="alert-icon">📌</span>
+    <div class="alert-body"><strong>Frequency order (descending):</strong> Lymph nodes → Pleura → Genitourinary → Bones/Joints → Meninges → Peritoneum → Pericardium. Extrapulmonary TB occurs in 10–40% of all TB patients; up to 60% of PLWH with TB have extrapulmonary disease.</div>
+  </div>
+
+  <div class="sec-sub">TB Meningitis — HIGH YIELD ★</div>
+  <div class="card">
+    <div class="card-title">CSF Findings in TB Meningitis vs Others</div>
+    <table>
+      <thead><tr><th>Parameter</th><th>TB Meningitis</th><th>Bacterial</th><th>Viral</th></tr></thead>
+      <tbody>
+        <tr><td>WBC</td><td>Up to 1000/μL, lymphocyte predominance (neutrophils early)</td><td>High, neutrophils</td><td>Lymphocytes</td></tr>
+        <tr><td>Protein</td><td><strong>100–800 mg/dL</strong> (1–8 g/L) — HIGH</td><td>High</td><td>Normal/mildly elevated</td></tr>
+        <tr><td>Glucose</td><td><strong>LOW</strong> (classically)</td><td>Very low</td><td>Normal</td></tr>
+        <tr><td>Course</td><td><strong>1–2 weeks</strong> (subacute)</td><td>Days</td><td>Days–weeks</td></tr>
+        <tr><td>AFBs on smear</td><td>Infrequent; repeated LPs increase yield</td><td>N/A</td><td>N/A</td></tr>
+        <tr><td>Culture</td><td>Gold standard — positive in up to 80%</td><td>—</td><td>—</td></tr>
+        <tr><td>Xpert MTB/RIF</td><td>Sensitivity up to 80% — <strong>preferred first test</strong></td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <div class="alert alert-red" style="margin-top:12px">
+      <span class="alert-icon">🔴</span>
+      <div class="alert-body"><strong>TB Meningitis + HIV:</strong> DO NOT start ART in the first 8 weeks of TB treatment in TB meningitis patients. ART + IRIS in CNS TB can be fatal. Start ART only after 8 weeks, regardless of CD4 count.</div>
+    </div>
+    <ul style="margin-top:10px">
+      <li>Cranial nerve palsies (especially ocular) are common due to basilar involvement</li>
+      <li>Neurological sequelae in 25% of treated cases (often due to delayed diagnosis)</li>
+      <li>Treatment extension: ATS/CDC/IDSA recommend continuation phase of <strong>7–10 months</strong> for TB meningitis</li>
+      <li>Adjunctive glucocorticoids (dexamethasone): WHO recommends; reduces mortality in HIV-negative patients; no benefit shown for PLWH in recent trial</li>
+    </ul>
+  </div>
+
+  <div class="sec-sub">Pleural TB — HIGH YIELD ★</div>
+  <div class="card">
+    <ul>
+      <li>Accounts for ~<strong>20%</strong> of extrapulmonary cases</li>
+      <li>Isolated pleural effusion = usually <strong>primary infection</strong> (hypersensitivity response to mycobacterial antigens)</li>
+      <li>Fluid characteristics: straw-colored, <em>exudate</em>, protein &gt;50% serum, lymphocyte predominance (neutrophils early), low glucose, pH ~7.3</li>
+      <li>AFB smear of pleural fluid: <strong>rarely positive</strong></li>
+      <li>Culture of pleural fluid: often falsely negative</li>
+    </ul>
+    <div class="g2" style="margin-top:12px">
+      <div class="card" style="border-color:var(--grn)">
+        <div class="card-title" style="color:var(--grn)">Best Diagnostic Tests for Pleural TB</div>
+        <ul>
+          <li><strong>Needle biopsy of the pleura:</strong> granulomas + positive culture in up to 80% — this is the recommended first choice over fluid analysis</li>
+          <li><strong>ADA (Adenosine Deaminase):</strong> elevated = consistent with TB; very low = can exclude TB. Useful but not definitive</li>
+          <li><strong>Xpert MTB/RIF on pleural biopsy:</strong> yields positive result in ~75% of cases — preferred; <em>NOT recommended on pleural fluid</em> (low sensitivity, ~50%)</li>
+          <li><strong>IFN-γ measurement:</strong> diagnostically helpful</li>
+          <li>rtPCR (real-time PCR) of pleural biopsy: adds sensitivity ~75%+</li>
+        </ul>
+      </div>
+      <div class="card" style="border-color:var(--red)">
+        <div class="card-title" style="color:var(--red)">What Does NOT Work Well</div>
+        <ul>
+          <li>AFB smear of pleural fluid — very low yield</li>
+          <li>Xpert on <em>fluid</em> (not biopsy) — sensitivity only ~50%</li>
+          <li>ADA alone — not definitive</li>
+          <li>Pleural fluid culture — often falsely negative</li>
+          <li>PCR on fluid alone — not routinely recommended</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert alert-amb" style="margin-top:10px">
+      <span class="alert-icon">⚠️</span>
+      <div class="alert-body"><strong>TB Empyema</strong> (different entity): Rupture of cavity → large number of organisms in pleural space → bronchopleural fistula possible. Fluid is purulent/thick, AFB smear often positive. Requires surgical drainage + chemotherapy.</div>
+    </div>
+  </div>
+
+  <div class="sec-sub">Pott's Disease (Spinal TB) — HIGH YIELD ★</div>
+  <div class="card">
+    <ul>
+      <li>TB spondylitis = most common form of skeletal TB (~40% of all skeletal cases)</li>
+      <li>Usually involves <strong>2+ adjacent vertebral bodies</strong></li>
+      <li>Children: upper thoracic; <strong>Adults: lower thoracic and upper lumbar</strong></li>
+      <li>Classic presentation: back pain, weight loss, kyphosis (gibbus deformity)</li>
+      <li>Paravertebral "cold" abscess → can track to chest wall (upper) or inguinal/psoas (lower)</li>
+      <li>Paraplegia is a catastrophic complication → <strong>medical emergency, requires rapid drainage</strong></li>
+      <li>CT/MRI: characteristic lesion with vertebral destruction</li>
+      <li>Confirms by aspiration or bone biopsy</li>
+    </ul>
+    <div class="alert alert-red" style="margin-top:10px">
+      <span class="alert-icon">🔴</span>
+      <div class="alert-body"><strong>BOARDS TRAP:</strong> Pott's disease is treated with chemotherapy (isoniazid + rifampin-based). <strong>Steroids are NOT indicated</strong> in Pott's disease (unlike TB meningitis or pericarditis). Do not confuse with the paraparesis complication which requires surgical drainage — not steroids.</div>
+    </div>
+  </div>
+
+  <div class="sec-sub">Lymph Node TB</div>
+  <div class="card">
+    <ul>
+      <li>Most common form of extrapulmonary TB in PLWH and children</li>
+      <li>Painless swelling of <strong>posterior cervical and supraclavicular</strong> nodes (scrofula)</li>
+      <li>Matted, nontender mass; fistulous tracts draining caseous material</li>
+      <li>Diagnosis: fine-needle aspiration (FNA) — yield up to 80%; surgical excision biopsy</li>
+      <li>Cultures positive in 70–80% of cases</li>
+      <li>In PLWH: granulomas absent/poorly formed; higher bacterial loads</li>
+    </ul>
+  </div>
+
+  <div class="status-bar">
+    <button class="st-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="st-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 5: TB + HIV -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="sec" id="hiv">
+  <div class="sec-hd">
+    <div class="sec-icon" style="background:var(--red-l)">🔴</div>
+    <h2 class="sec-title">TB + HIV Co-infection</h2>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Key Facts</div>
+      <ul>
+        <li>HIV = strongest individual risk factor for TB (RR 21–&gt;30)</li>
+        <li>TB responsible for up to <strong>25% of all HIV-related mortality</strong></li>
+        <li>Positive TST + HIV: <strong>3–13% annual risk</strong> of active TB</li>
+        <li>New TB infection in PLWH → active disease in <strong>weeks</strong> (not months/years)</li>
+        <li>With CD4 &lt;200: lower-zone infiltrates, no cavitation, lymphadenopathy; CXR can be NORMAL</li>
+        <li>40–60% of PLWH with TB have extrapulmonary disease</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">TB Screening in HIV</div>
+      <ul>
+        <li>TST threshold in HIV: <strong>≥5 mm = positive</strong> (not 10 or 15)</li>
+        <li>IGRA is preferred in HIV (not affected by BCG, higher specificity)</li>
+        <li>TST can be falsely negative due to anergy → treat empirically if high-risk exposure</li>
+        <li><strong>HIV patients should receive TPT regardless of TST result if exposed to TB</strong></li>
+        <li>Screen ALL HIV patients at diagnosis and annually if in endemic area</li>
+        <li>Clinical algorithm for PLWH: absence of all 4 symptoms (cough, fever, weight loss, night sweats) → can start TPT</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-sub">IRIS — Immune Reconstitution Inflammatory Syndrome</div>
+  <div class="card">
+    <ul>
+      <li>Occurs in ~<strong>10%</strong> of HIV-infected TB patients who start ART</li>
+      <li>Usually develops <strong>1–3 months</strong> after ART initiation</li>
+      <li>More common: advanced immunosuppression, extrapulmonary TB, earlier ART start, lower baseline CD4</li>
+      <li>Presentation: worsening lymphadenopathy, fever, pulmonary infiltrates, pleural effusion — exacerbation of TB signs</li>
+      <li>Diagnosis of exclusion: rule out TB treatment failure or new opportunistic infection first</li>
+      <li>Management: mild IRIS → symptom-based; severe IRIS → prednisolone (1.5 mg/kg/day × 2 weeks → 0.75 mg/kg/day × 2 weeks)</li>
+    </ul>
+    <div class="alert alert-red" style="margin-top:10px">
+      <span class="alert-icon">🔴</span>
+      <div class="alert-body"><strong>Critical Rule:</strong> In TB MENINGITIS, do NOT start ART during the first <strong>8 weeks</strong> of TB treatment (irrespective of CD4 count). IRIS in CNS TB can cause death.</div>
+    </div>
+  </div>
+
+  <div class="sec-sub">When to Start ART in TB Patients</div>
+  <table>
+    <thead><tr><th>Situation</th><th>When to Start ART</th></tr></thead>
+    <tbody>
+      <tr><td>CD4 &lt;50/μL (any TB)</td><td><strong>Within first 2 weeks</strong> of TB treatment</td></tr>
+      <tr><td>CD4 ≥50/μL (pulmonary TB)</td><td>Within first 8 weeks of TB treatment</td></tr>
+      <tr><td><strong>TB Meningitis</strong></td><td><strong>Delay ART until 8 weeks post-TB treatment start</strong></td></tr>
+      <tr><td>All other PLWH with TB</td><td>As soon as possible after TB diagnosis</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-amb" style="margin-top:14px">
+    <span class="alert-icon">💊</span>
+    <div class="alert-body"><strong>Rifampin Drug Interactions with ART:</strong> Rifampin is a potent CYP450 inducer → lowers levels of protease inhibitors, NNRTIs (except efavirenz), and some integrase inhibitors. Preferred ART with rifampin: <strong>dolutegravir (double dose = 50 mg BID) + 2 NRTIs</strong> or <strong>efavirenz</strong>. Alternatively, substitute rifabutin (less CYP induction) for rifampin.</div>
+  </div>
+
+  <div class="status-bar">
+    <button class="st-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="st-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 6: DIAGNOSIS -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="sec" id="diagnosis">
+  <div class="sec-hd">
+    <div class="sec-icon" style="background:var(--tel-l)">🔭</div>
+    <h2 class="sec-title">Diagnosis of Active TB</h2>
+  </div>
+
+  <div class="alert alert-blu">
+    <span class="alert-icon">💡</span>
+    <div class="alert-body"><strong>Diagnostic Hierarchy:</strong> The gold standard for definitive diagnosis is <strong>culture of M. tuberculosis</strong>. However, Xpert MTB/RIF is now the recommended first-line test (rapid, detects rifampin resistance simultaneously in &lt;2 hours).</div>
+  </div>
+
+  <div class="sec-sub">Nucleic Acid Amplification — Xpert MTB/RIF ★</div>
+  <div class="card">
+    <div class="g2">
+      <div>
+        <ul>
+          <li>Fully automated, real-time PCR system</li>
+          <li>Results in <strong>&lt;2 hours</strong></li>
+          <li>Simultaneously detects TB AND rifampin resistance</li>
+          <li><strong>WHO recommendation:</strong> First-line diagnostic test for ALL adults and children with symptoms of TB</li>
+          <li>Also recommended as first-line in PLWH</li>
+        </ul>
+      </div>
+      <div>
+        <table>
+          <thead><tr><th>Population</th><th>Sensitivity</th><th>Specificity</th></tr></thead>
+          <tbody>
+            <tr><td>AFB smear-positive</td><td>98%</td><td>98%</td></tr>
+            <tr><td>AFB smear-negative</td><td>~70%</td><td>98%</td></tr>
+            <tr><td>Overall pulmonary</td><td>85%</td><td>98%</td></tr>
+            <tr><td>Rifampin resistance</td><td>96%</td><td>98%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="alert alert-red" style="margin-top:10px">
+      <span class="alert-icon">🔴</span>
+      <div class="alert-body"><strong>A NEGATIVE Xpert MTB/RIF does NOT exclude TB.</strong> Culture is still needed to confirm. Also: Xpert is NOT appropriate for monitoring treatment response (detects dead bacilli DNA).</div>
+    </div>
+  </div>
+
+  <div class="sec-sub">AFB Smear Microscopy</div>
+  <div class="card">
+    <ul>
+      <li>Still widely used in resource-limited settings; inexpensive</li>
+      <li>Sensitivity: only <strong>40–60%</strong> in culture-confirmed pulmonary TB</li>
+      <li>Cannot distinguish TB from nontuberculous mycobacteria (NTM)</li>
+      <li>Collect <strong>1–2 morning sputum specimens</strong></li>
+      <li>LED fluorescence microscopy is now WHO recommended over traditional Ziehl-Neelsen</li>
+      <li>NOT useful for monitoring treatment response (dead bacilli still stain positive)</li>
+    </ul>
+  </div>
+
+  <div class="sec-sub">Culture (Gold Standard)</div>
+  <div class="card">
+    <ul>
+      <li>Liquid culture (MGIT system): results in <strong>10 days to 2–3 weeks</strong></li>
+      <li>Solid media (Löwenstein-Jensen): 4–8 weeks</li>
+      <li>Allows drug susceptibility testing (DST)</li>
+      <li>Universal DST recommended by WHO for all TB patients (at minimum, test rifampin resistance)</li>
+      <li>Sputum cultures monitored monthly until negative; by end of month 3, virtually all drug-susceptible TB patients should be culture-negative</li>
+    </ul>
+  </div>
+
+  <div class="sec-sub">Diagnosis by Site — Extrapulmonary</div>
+  <table>
+    <thead><tr><th>Site</th><th>Best Diagnostic Test(s)</th><th>Pearl</th></tr></thead>
+    <tbody>
+      <tr><td>Pleura</td><td>Needle biopsy (culture + histology); ADA; Xpert on biopsy (not fluid)</td><td>Fluid culture often false-negative; biopsy yields 80%</td></tr>
+      <tr><td>Meninges (CSF)</td><td>Xpert MTB/RIF (sens 80%) → preferred; culture (gold std)</td><td>Start treatment immediately on positive Xpert; don't wait for culture</td></tr>
+      <tr><td>Lymph nodes</td><td>FNA biopsy (yield 80%) or surgical excision biopsy</td><td>Culture positive in 70–80%; granulomas ± AFB</td></tr>
+      <tr><td>Spine (Pott's)</td><td>CT/MRI + bone biopsy aspiration/culture</td><td>Histology highly typical; no steroids!</td></tr>
+      <tr><td>Genitourinary</td><td>3 morning urine cultures (yield ~90%)</td><td>Culture-negative pyuria in acid urine → suspect TB</td></tr>
+      <tr><td>Miliary TB</td><td>Bone marrow/liver biopsy; bronchoalveolar lavage</td><td>TST negative in up to 50%; CXR miliary pattern</td></tr>
+      <tr><td>Pleural (post-primary)</td><td>Pleural biopsy; IFN-γ; ADA</td><td>ADA elevated = consistent; very low = can exclude</td></tr>
+    </tbody>
+  </table>
+
+  <div class="status-bar">
+    <button class="st-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="st-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 7: TST vs IGRA -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="sec" id="testing">
+  <div class="sec-hd">
+    <div class="sec-icon" style="background:var(--grn-l)">🩸</div>
+    <h2 class="sec-title">TST vs IGRA — Diagnosing TB Infection (LTBI)</h2>
+  </div>
+
+  <div class="alert alert-pur">
+    <span class="alert-icon">📌</span>
+    <div class="alert-body"><strong>Both TST and IGRA detect TB infection (LTBI), NOT active TB.</strong> They measure the host immune response to M. tuberculosis antigens. Neither can distinguish active disease from latent infection, nor can they predict who will progress to disease.</div>
+  </div>
+
+  <div class="vs-box">
+    <div class="vs-l">
+      <div class="vs-title">TST (Tuberculin Skin Test / PPD)</div>
+      <ul>
+        <li>5 TU PPD injected intradermally (Mantoux)</li>
+        <li>Read at <strong>48–72 hours</strong> (induration, not erythema)</li>
+        <li>Measures CD4+ T cells residing in skin</li>
+        <li><strong>Affected by BCG vaccination</strong> → false positives</li>
+        <li>Can be boosted by serial testing (boosting effect)</li>
+        <li>Two-step testing: first test followed by repeat in 1–3 weeks (for healthcare workers, long-term care admissions)</li>
+        <li>Preferred in children &lt;5 years old</li>
+        <li>Cheap, widely available</li>
+      </ul>
+    </div>
+    <div class="vs-mid">VS</div>
+    <div class="vs-r">
+      <div class="vs-title">IGRA (Interferon-gamma Release Assay)</div>
+      <ul>
+        <li>Blood test measuring IFN-γ release by T cells in response to ESAT-6 and CFP-10 (RD1 antigens)</li>
+        <li>Results in 24–48 hours</li>
+        <li>Measures recirculating memory CD4+ T cells</li>
+        <li><strong>NOT affected by BCG vaccination</strong> → more specific</li>
+        <li>No boosting effect</li>
+        <li>Preferred in BCG-vaccinated individuals</li>
+        <li>Preferred in adults and children ≥5 years in the U.S.</li>
+        <li>More expensive; requires lab processing</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-sub">PPD Cutoff Thresholds — MUST MEMORIZE ★</div>
+  <table>
+    <thead><tr><th>Cutoff</th><th>Risk Group</th></tr></thead>
+    <tbody>
+      <tr><td style="color:var(--red);font-weight:700">≥5 mm</td><td>HIV-infected persons; Recent contacts of TB patient; Organ transplant recipients; Fibrotic lesions on CXR consistent with old TB; Immunosuppressed (glucocorticoids, <strong>TNF-α inhibitors</strong>); High-risk medical conditions (silicosis, end-stage renal disease/HD)</td></tr>
+      <tr><td style="color:var(--amb);font-weight:700">≥10 mm</td><td>Recent immigrants (≤5 years) from high-prevalence countries; <strong>IV drug users</strong>; Mycobacteriology lab personnel; Healthcare workers in high-risk settings; Children &lt;5 years; Children and adolescents exposed to high-risk adults</td></tr>
+      <tr><td style="color:var(--grn);font-weight:700">≥15 mm</td><td>Low-risk persons with no known risk factors (rarely tested)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-sub">When to Use IGRA vs TST</div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-title" style="color:var(--grn)">Prefer IGRA</div>
+      <ul>
+        <li>BCG-vaccinated individuals (IGRA is NOT affected by BCG)</li>
+        <li>Adults in low-incidence, high-income settings</li>
+        <li>IVDU patients (higher specificity than PPD)</li>
+        <li>When one-visit testing is preferred (no need for return visit)</li>
+        <li>Healthcare workers in the U.S. (preferred)</li>
+        <li>HIV-infected patients: IGRA provides more reliable results than PPD due to immune dysfunction affecting skin response</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--blu)">Prefer TST/PPD</div>
+      <ul>
+        <li>Children &lt;5 years old (limited IGRA data)</li>
+        <li>Resource-limited settings (cheaper)</li>
+        <li>High-incidence TB settings (both tests have limitations)</li>
+        <li>Two-step testing programs for baseline screening</li>
+        <li>When IGRA is not available</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alert alert-amb">
+    <span class="alert-icon">⚠️</span>
+    <div class="alert-body"><strong>IGRA in BCG-vaccinated patients:</strong> BCG causes false-positive PPD reactions (since PPD antigens are shared with BCG). IGRA uses ESAT-6 and CFP-10 antigens that are NOT present in BCG → <strong>IGRA is more specific</strong> in BCG-vaccinated persons. This is the single most important reason to prefer IGRA in BCG-vaccinated populations.</div>
+  </div>
+
+  <div class="alert alert-red" style="margin-top:12px">
+    <span class="alert-icon">🔴</span>
+    <div class="alert-body"><strong>HIV patients screening for TB:</strong> A negative TST in HIV does NOT exclude TB infection (anergy). <strong>HIV patients should receive TPT regardless of TST/IGRA result if they have been exposed to an infectious TB patient.</strong> In active HIV disease (any age ≥1 year), TPT is recommended regardless of test result.</div>
+  </div>
+
+  <div class="sec-sub">Healthcare Worker / Pre-op TB Screening</div>
+  <div class="card">
+    <ul>
+      <li>Hospital exposure (e.g., post-neurosurgery, ICU) → screen ALL exposed staff with PPD or IGRA</li>
+      <li>PPD for all staff (healthcare workers fall in the ≥10 mm category)</li>
+      <li>Two-step testing for new employees (baseline) to avoid misclassifying "boosted" reactions as conversions</li>
+      <li>Pre-transplant: screen with TST or IGRA; if BCG vaccinated → prefer IGRA</li>
+      <li>Pre-anti-TNF: MUST screen; threshold ≥5 mm = positive; treat LTBI before starting</li>
+    </ul>
+  </div>
+
+  <div class="status-bar">
+    <button class="st-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="st-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 8: TREATMENT -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="sec" id="treatment">
+  <div class="sec-hd">
+    <div class="sec-icon" style="background:var(--grn-l)">💊</div>
+    <h2 class="sec-title">Treatment of Drug-Susceptible TB</h2>
+  </div>
+
+  <div class="sec-sub">Standard 6-Month Regimen (Drug-Susceptible TB) ★</div>
+  <div class="card">
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-n">1</div>
+        <div class="flow-body"><strong>Intensive Phase (2 months):</strong> Isoniazid (H) + Rifampin (R) + Pyrazinamide (Z) + Ethambutol (E) — 2HRZE. Kills majority of bacilli; symptoms resolve; patient becomes non-infectious</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-n">2</div>
+        <div class="flow-body"><strong>Continuation Phase (4 months):</strong> Isoniazid (H) + Rifampin (R) — 4HR. Eliminates persisting mycobacteria; prevents relapse. Total = 6 months (2HRZE/4HR)</div>
+      </div>
+    </div>
+    <div class="alert alert-grn" style="margin-top:10px">
+      <span class="alert-icon">✅</span>
+      <div class="alert-body">Cure rate: <strong>&gt;90%</strong> with this regimen. By end of month 2: &gt;80% have negative sputum cultures. By end of month 3: virtually all should be culture-negative.</div>
+    </div>
+  </div>
+
+  <div class="sec-sub">Drug Doses ★</div>
+  <table>
+    <thead><tr><th>Drug</th><th>Adult Dose</th><th>Max</th><th>Phase Used</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Isoniazid (H)</strong></td><td>5 mg/kg/day</td><td>300 mg/day</td><td>Both (2 + 4 months)</td></tr>
+      <tr><td><strong>Rifampin (R)</strong></td><td>10 mg/kg/day</td><td>600 mg/day</td><td>Both (2 + 4 months)</td></tr>
+      <tr><td><strong>Pyrazinamide (Z)</strong></td><td>25 mg/kg/day</td><td>2 g/day</td><td>Intensive phase only (2 months)</td></tr>
+      <tr><td><strong>Ethambutol (E)</strong></td><td>15 mg/kg/day</td><td>—</td><td>Intensive phase only (2 months)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-blu" style="margin-top:12px">
+    <span class="alert-icon">💡</span>
+    <div class="alert-body"><strong>New 4-Month Regimen (2HPMZ/2HPM):</strong> Isoniazid + Rifapentine (1200mg/day) + Moxifloxacin + Pyrazinamide for 2 months, then Rifapentine + Moxifloxacin for 2 months. Non-inferior to standard 6-month regimen. Recommended by WHO/CDC for patients ≥12 years. NOT for: body weight &lt;40kg, severe extrapulmonary TB, CD4 &lt;100, pregnancy, prolonged QT history.</div>
+  </div>
+
+  <div class="sec-sub">Monitoring Treatment Response</div>
+  <div class="card">
+    <ul>
+      <li>Sputum cultures monthly until negative</li>
+      <li>If <strong>culture-positive at 2 months</strong> → retest immediately for drug resistance, consider extending treatment</li>
+      <li>If cultures/smears positive at <strong>≥3 months</strong> despite adherence → suspect drug resistance</li>
+      <li><strong>Do NOT monitor with Xpert MTB/RIF</strong> (detects dead bacilli DNA → misleading positive)</li>
+      <li>Serial CXRs NOT routinely recommended for monitoring (lags behind bacteriologic response)</li>
+      <li>Monitor weight; adjust drug doses if significant weight change</li>
+    </ul>
+  </div>
+
+  <div class="sec-sub">Special Situations</div>
+  <table>
+    <thead><tr><th>Situation</th><th>Modification</th></tr></thead>
+    <tbody>
+      <tr><td>TB Meningitis</td><td>Continue phase 7–10 months (ATS/CDC/IDSA); WHO: up to 12 months for children</td></tr>
+      <tr><td>Bone/Joint TB, Miliary TB</td><td>Up to 12 months (children per WHO)</td></tr>
+      <tr><td>Pregnancy</td><td>2HRE/7HR (9 months total; avoid pyrazinamide in US); streptomycin contraindicated</td></tr>
+      <tr><td>Renal failure</td><td>Avoid aminoglycosides; use ethambutol only with drug level monitoring; pyrazinamide dose modification</td></tr>
+      <tr><td>Hepatic disease</td><td>Avoid pyrazinamide in severe liver disease; monitor LFTs closely</td></tr>
+      <tr><td>Silicosis</td><td>Extend by at least 2 extra months</td></tr>
+      <tr><td>Isoniazid resistance</td><td>Rifampin + Ethambutol + Pyrazinamide + Levofloxacin × 6 months</td></tr>
+    </tbody>
+  </table>
+
+  <div class="status-bar">
+    <button class="st-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="st-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 9: DRUG TOXICITY -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="sec" id="drugtox">
+  <div class="sec-hd">
+    <div class="sec-icon" style="background:var(--red-l)">⚠️</div>
+    <h2 class="sec-title">Anti-TB Drug Toxicity — HIGH YIELD ★</h2>
+  </div>
+
+  <div class="alert alert-red">
+    <span class="alert-icon">🔴</span>
+    <div class="alert-body"><strong>Hepatotoxicity — most common significant adverse event overall.</strong> Drug-susceptible TB hepatotoxicity (drug-susceptible TB hepatitis) occurs in up to 20% of patients (usually mild/asymptomatic rises). The most common cause: isoniazid, but also rifampin and pyrazinamide are hepatotoxic.</div>
+  </div>
+
+  <table>
+    <thead><tr><th>Drug</th><th>Key Toxicities</th><th>Monitoring</th><th>Boards Pearl</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Isoniazid (INH)</strong></td>
+        <td>• Hepatitis (most common significant AE)<br>• Peripheral neuropathy (B6 deficiency)<br>• Drug-induced lupus<br>• Seizures (rare)</td>
+        <td>Baseline LFTs; monthly if high risk; stop if AST/ALT &gt;3x ULN with symptoms or &gt;5x ULN asymp.</td>
+        <td><strong>Add pyridoxine (10–25 mg/day)</strong> in high-risk patients (alcohol abuse, malnutrition, pregnancy, CRF, diabetes, HIV). Take on EMPTY stomach (with rifampin)</td>
+      </tr>
+      <tr>
+        <td><strong>Rifampin</strong></td>
+        <td>• <strong>Autoimmune thrombocytopenia</strong> → STOP permanently<br>• Orange discoloration of body fluids (urine, tears, sweat)<br>• Drug interactions (CYP450 inducer)<br>• Flu-like syndrome<br>• Hepatitis (less common than INH)</td>
+        <td>LFTs at baseline; watch for thrombocytopenia</td>
+        <td><strong>Autoimmune thrombocytopenia = ABSOLUTE indication to stop rifampin permanently (not to rechallenge).</strong> Take on EMPTY stomach for absorption</td>
+      </tr>
+      <tr>
+        <td><strong>Pyrazinamide</strong></td>
+        <td>• Hyperuricemia → arthralgia → gout<br>• Hepatotoxicity (most hepatotoxic of 4 drugs)<br>• Nausea, vomiting</td>
+        <td>LFTs; uric acid</td>
+        <td>Gout (gouty arthritis) = STOP pyrazinamide. Simple arthralgia/hyperuricemia → manage with aspirin (can continue PZA). Contraindicated in severe liver disease</td>
+      </tr>
+      <tr>
+        <td><strong>Ethambutol</strong></td>
+        <td>• <strong>Optic neuritis</strong> → decreased visual acuity, red-green color blindness<br>• Peripheral neuropathy</td>
+        <td>Monthly visual acuity testing; stop if optic neuritis</td>
+        <td><strong>Optic neuritis = STOP ethambutol permanently.</strong> Test color vision baseline. Avoid in patients who can't report visual changes</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="sec-sub">When to Stop Which Drug — EXAM FAVORITE ★</div>
+  <div class="g2">
+    <div class="card" style="border-color:var(--red)">
+      <div class="card-title" style="color:var(--red)">STOP PERMANENTLY (Absolute Indications)</div>
+      <ul>
+        <li><strong>Rifampin:</strong> Autoimmune thrombocytopenia</li>
+        <li><strong>Ethambutol:</strong> Optic neuritis (visual changes)</li>
+        <li><strong>Pyrazinamide:</strong> Gouty ARTHRITIS (not just hyperuricemia)</li>
+        <li><strong>Isoniazid:</strong> Active liver disease, symptomatic hepatitis (AST/ALT &gt;3–5x ULN)</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:var(--grn)">
+      <div class="card-title" style="color:var(--grn)">CAN CONTINUE (Manageable)</div>
+      <ul>
+        <li>Pyrazinamide: hyperuricemia + arthralgia (not arthritis) → aspirin</li>
+        <li>Isoniazid: asymptomatic AST/ALT &lt;3x ULN → monitor closely</li>
+        <li>QT prolongation: bedaquiline, levofloxacin, delamanid → monitor EKG, adjust only if QTc &gt;500ms</li>
+        <li>Pruritus, GI upset → manage symptomatically without stopping</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-sub">Hepatotoxicity — Step-by-Step Protocol</div>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-n">1</div>
+      <div class="flow-body">Baseline LFTs for ALL adult patients before starting treatment</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-n">2</div>
+      <div class="flow-body">Monitor monthly if: elderly, alcohol use, liver disease history (especially hep C), daily alcohol use</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-n">3</div>
+      <div class="flow-body">Asymptomatic AST/ALT ≤3x ULN: common (up to 20%), no consequence → continue, monitor</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-n">4</div>
+      <div class="flow-body"><strong>STOP:</strong> Symptomatic hepatitis + AST/ALT ≥3x ULN OR asymptomatic AST/ALT ≥5x ULN</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-n">5</div>
+      <div class="flow-body">Rechallenge: reintroduce drugs ONE AT A TIME after LFTs normalize; rifampin first (least hepatotoxic among the 3)</div>
+    </div>
+  </div>
+
+  <div class="status-bar">
+    <button class="st-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="st-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 10: MDR-TB -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="sec" id="mdr">
+  <div class="sec-hd">
+    <div class="sec-icon" style="background:var(--red-l)">🧬</div>
+    <h2 class="sec-title">Drug-Resistant TB (MDR-TB)</h2>
+  </div>
+
+  <div class="sec-sub">Definitions</div>
+  <div class="g3">
+    <div class="card">
+      <div class="card-title">MDR-TB</div>
+      Resistant to at minimum <strong>isoniazid AND rifampin</strong>. Most important definition. ~400,000 new cases in 2023.
+    </div>
+    <div class="card">
+      <div class="card-title">RR-TB (Rifampin-Resistant)</div>
+      Resistant to rifampin (with or without isoniazid resistance). Treated with same approach as MDR-TB.
+    </div>
+    <div class="card">
+      <div class="card-title">XDR-TB (Extensively Drug-Resistant)</div>
+      MDR-TB + resistance to any fluoroquinolone + at least one Group A drug (bedaquiline or linezolid).
+    </div>
+  </div>
+
+  <div class="alert alert-red" style="margin-top:14px">
+    <span class="alert-icon">🔴</span>
+    <div class="alert-body"><strong>When to suspect MDR-TB:</strong> Culture-positive at ≥3 months despite good adherence; exposure to known MDR case; failure of standard regimen; history of prior TB treatment (especially incomplete); origin from high-MDR-burden country (former Soviet Union, SE Asia).</div>
+  </div>
+
+  <div class="sec-sub">MDR-TB Regimens (WHO 2024) ★</div>
+  <table>
+    <thead><tr><th>Regimen</th><th>Duration</th><th>Drugs</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>BPaLM (preferred)</strong></td>
+        <td>6 months</td>
+        <td>Bedaquiline + Pretomanid + Linezolid (600mg) + Moxifloxacin</td>
+        <td>Success rate ~90%; for MDR/RR-TB ≥14 years; all forms except disseminated/CNS/osteoarticular</td>
+      </tr>
+      <tr>
+        <td><strong>BDLLfxCfz</strong></td>
+        <td>6 months</td>
+        <td>Bedaquiline + Delamanid + Linezolid + Levofloxacin + Clofazimine</td>
+        <td>Non-inferior to 9-month+ regimens; safe in children, adolescents, pregnant women</td>
+      </tr>
+      <tr>
+        <td>9-month regimen (BLMZ)</td>
+        <td>9 months</td>
+        <td>Bedaquiline + Linezolid + Moxifloxacin + Pyrazinamide</td>
+        <td>For no fluoroquinolone resistance; no prior exposure to B/D/L</td>
+      </tr>
+      <tr>
+        <td>Longer individualized</td>
+        <td>≥18 months</td>
+        <td>Built per Table 183-3 (Group A+B+C priority)</td>
+        <td>For complex XDR-TB patterns</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="sec-sub">WHO Drug Groups for Longer MDR-TB Regimens</div>
+  <div class="g3">
+    <div class="card" style="border-color:var(--red)">
+      <div class="card-title" style="color:var(--red)">Group A — All 3 should be included</div>
+      <ul>
+        <li>Levofloxacin or moxifloxacin (fluoroquinolone)</li>
+        <li><strong>Bedaquiline</strong></li>
+        <li><strong>Linezolid</strong></li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:var(--amb)">
+      <div class="card-title" style="color:var(--amb)">Group B — At least 1</div>
+      <ul>
+        <li>Clofazimine</li>
+        <li>Cycloserine or terizidone</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:var(--grn)">
+      <div class="card-title" style="color:var(--grn)">Group C — To complete regimen</div>
+      <ul>
+        <li>Ethambutol, Delamanid, Pyrazinamide</li>
+        <li>Imipenem-cilastatin/meropenem</li>
+        <li>Amikacin (or streptomycin)</li>
+        <li>Ethionamide, PAS</li>
+        <li>❌ Kanamycin/capreomycin: NOT to be included</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alert alert-amb" style="margin-top:14px">
+    <span class="alert-icon">⚠️</span>
+    <div class="alert-body"><strong>When to suspect MDR-TB on boards:</strong> A patient with active TB on standard therapy who remains sputum culture-positive after 3 months despite good adherence (proven by DOT). Immediate approach: send cultures + drug susceptibility testing, and start empiric MDR regimen — do NOT wait for culture results if patient is deteriorating rapidly. Always add ≥2 new drugs at once to a failing regimen, never just one.</div>
+  </div>
+
+  <div class="sec-sub">QT Interval Monitoring in MDR-TB</div>
+  <div class="card">
+    <ul>
+      <li>QT-prolonging drugs in MDR regimens: bedaquiline, delamanid, clofazimine, fluoroquinolones</li>
+      <li>EKG required at baseline and repeated during treatment</li>
+      <li><strong>QTc &gt;500 ms or history of ventricular arrhythmia → contraindicated</strong></li>
+      <li>This is why levofloxacin QT monitoring is important — levofloxacin alone does NOT require stopping if QTc is &lt;500ms</li>
+    </ul>
+  </div>
+
+  <div class="status-bar">
+    <button class="st-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="st-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 11: TPT / PREVENTION -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="sec" id="prevention">
+  <div class="sec-hd">
+    <div class="sec-icon" style="background:var(--grn-l)">🛡️</div>
+    <h2 class="sec-title">TB Preventive Treatment (TPT) — LTBI Treatment</h2>
+  </div>
+
+  <div class="sec-sub">Who Should Receive TPT ★</div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Definite Indications (WHO)</div>
+      <ul>
+        <li><strong>HIV patients:</strong> ALL PLWH (regardless of TST/IGRA result if exposed); children &gt;12 months with HIV</li>
+        <li>All household contacts of infectious pulmonary TB (including children &lt;5 years — treat even without positive test)</li>
+        <li>Patients starting <strong>anti-TNF therapy</strong></li>
+        <li>Patients on dialysis / end-stage renal disease</li>
+        <li>Patients with silicosis</li>
+        <li>Pre-transplant (organ or hematologic)</li>
+        <li>Positive TST or IGRA in any appropriate risk group</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Before Starting TPT — Always Do This</div>
+      <ul>
+        <li><strong>Exclude active TB first</strong> — TPT would be monotherapy for active disease → creates resistance</li>
+        <li>Clinical algorithm for PLWH: no cough, no fever, no weight loss, no night sweats → can start TPT</li>
+        <li>Any one of the 4 symptoms → investigate for active TB first</li>
+        <li>PPD/IGRA NOT mandatory if clinical situation clearly warrants treatment (e.g., child contact aged &lt;5 years, PLWH in high-burden setting)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-sub">TPT Regimens — MUST KNOW ★</div>
+  <table>
+    <thead><tr><th>Regimen</th><th>Duration</th><th>Dose</th><th>Key Points</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Isoniazid (INH) alone</strong></td>
+        <td>9 months (optimal) or 6 months (WHO-accepted)</td>
+        <td>5 mg/kg/day (max 300 mg)</td>
+        <td>Most widely studied; reduces TB risk by up to 90%; protective effect lifelong without reinfection</td>
+      </tr>
+      <tr>
+        <td><strong>Rifapentine + INH (3HP)</strong></td>
+        <td>3 months (12 weeks)</td>
+        <td>INH 900mg + Rifapentine 900mg weekly</td>
+        <td>As effective as 9-month INH; higher completion (82% vs 69%); less hepatotoxicity; NOT for children &lt;2 years or pregnancy</td>
+      </tr>
+      <tr>
+        <td><strong>Rifampin alone (4R)</strong></td>
+        <td>4 months</td>
+        <td>10 mg/kg/day (max 600 mg)</td>
+        <td>Good alternative; effective against isoniazid-resistant strains</td>
+      </tr>
+      <tr>
+        <td>INH + Rifampin (3HR)</td>
+        <td>3 months</td>
+        <td>Standard doses</td>
+        <td>Used in UK; for HIV-negative adults and children</td>
+      </tr>
+      <tr>
+        <td>Rifapentine + INH (1HP)</td>
+        <td>1 month</td>
+        <td>INH 300mg + Rifapentine 600mg daily (28 doses)</td>
+        <td>For PLWH ≥13 years; non-inferior to 9-month INH; highest completion rate</td>
+      </tr>
+      <tr>
+        <td>Levofloxacin</td>
+        <td>6 months</td>
+        <td>10–15 mg/kg/day</td>
+        <td>For MDR-TB contacts; WHO-recommended; no grade 3/4 adverse events in trials</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-grn" style="margin-top:14px">
+    <span class="alert-icon">✅</span>
+    <div class="alert-body"><strong>Key Message for PLWH:</strong> HIV patients must receive TPT regardless of TST result if they have been exposed to TB. A negative PPD in HIV does NOT rule out LTBI (anergy). Use clinical screening algorithm (4 symptoms). ART + TPT can be given concurrently — ensure drug interactions considered (rifampin/rifapentine + protease inhibitors/NNRTIs).</div>
+  </div>
+
+  <div class="sec-sub">Pyridoxine (Vitamin B6) Supplementation</div>
+  <div class="card">
+    <div class="alert alert-amb" style="margin:0">
+      <span class="alert-icon">⚠️</span>
+      <div class="alert-body"><strong>Add pyridoxine (10–25 mg/day)</strong> with isoniazid in patients at high risk of peripheral neuropathy:<br>• Alcohol use disorder<br>• Malnutrition<br>• Pregnant and lactating women<br>• Chronic renal failure<br>• Diabetes mellitus<br>• HIV infection<br>This prevents isoniazid-induced peripheral neuropathy (B6 depletion).</div>
+    </div>
+  </div>
+
+  <div class="sec-sub">BCG Vaccination</div>
+  <div class="card">
+    <ul>
+      <li>Derived from attenuated M. bovis; first given in 1921</li>
+      <li>Efficacy varies widely: 0–80% in different studies</li>
+      <li>Most effective: prevents severe disseminated childhood TB (meningitis, miliary) in young children</li>
+      <li>WHO recommends for routine use at birth in high-prevalence countries</li>
+      <li>NOT recommended for routine use in U.S. (low prevalence; variability in protection; confounds TST)</li>
+      <li><strong>Contraindicated in HIV-infected adults and children</strong></li>
+      <li>BCG induces TST reactivity → reason to prefer IGRA in BCG-vaccinated persons</li>
+    </ul>
+  </div>
+
+  <div class="status-bar">
+    <button class="st-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="st-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- QUICK REFERENCE TABLE -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="sec" id="quickref">
+  <div class="sec-hd">
+    <div class="sec-icon" style="background:var(--tel-l)">📋</div>
+    <h2 class="sec-title">Quick-Reference Master Table</h2>
+  </div>
+  <table>
+    <thead><tr><th>Topic</th><th>Key Number / Fact</th></tr></thead>
+    <tbody>
+      <tr><td>Standard TB treatment</td><td>2HRZE / 4HR (6 months total); daily</td></tr>
+      <tr><td>HIV + TB: ART timing (CD4 &lt;50)</td><td>Start ART within first 2 weeks of TB Rx</td></tr>
+      <tr><td>HIV + TB meningitis: ART timing</td><td>Delay ART until 8 weeks post-TB Rx start</td></tr>
+      <tr><td>PPD cutoff: HIV, TNF inhibitors, transplant</td><td>≥5 mm = positive</td></tr>
+      <tr><td>PPD cutoff: IVDU, immigrants ≤5yr, healthcare workers</td><td>≥10 mm = positive</td></tr>
+      <tr><td>PPD cutoff: low-risk persons</td><td>≥15 mm = positive</td></tr>
+      <tr><td>IGRA advantage vs PPD</td><td>Not affected by BCG vaccination → more specific</td></tr>
+      <tr><td>Culture-positive at 2 months</td><td>Retest for drug resistance; consider regimen change</td></tr>
+      <tr><td>Culture-positive at ≥3 months</td><td>Suspect drug resistance (MDR-TB)</td></tr>
+      <tr><td>Rifampin toxicity → stop permanently</td><td>Autoimmune thrombocytopenia</td></tr>
+      <tr><td>Ethambutol toxicity → stop permanently</td><td>Optic neuritis</td></tr>
+      <tr><td>Pyrazinamide → stop</td><td>Gouty arthritis (hyperuricemia + arthralgia: aspirin, continue)</td></tr>
+      <tr><td>Isoniazid → stop</td><td>Symptomatic hepatitis with AST/ALT ≥3x ULN; or asymptomatic ≥5x ULN</td></tr>
+      <tr><td>Add pyridoxine with INH when:</td><td>Alcohol, malnutrition, pregnancy, CRF, DM, HIV</td></tr>
+      <tr><td>Best test for pleural TB</td><td>Pleural needle biopsy (80% yield); NOT Xpert on pleural fluid</td></tr>
+      <tr><td>Best initial test for TB meningitis</td><td>Xpert MTB/RIF on CSF (sensitivity 80%)</td></tr>
+      <tr><td>Pott's disease + steroids</td><td>Steroids NOT indicated in Pott's disease</td></tr>
+      <tr><td>MDR-TB preferred regimen (2024)</td><td>BPaLM (bedaquiline + pretomanid + linezolid + moxifloxacin) × 6 months</td></tr>
+      <tr><td>TPT for household contact &lt;5 years</td><td>Treat even without positive TST/IGRA</td></tr>
+      <tr><td>TPT: best regimen for completion</td><td>3HP (rifapentine + INH weekly × 12 weeks)</td></tr>
+      <tr><td>TB risk in first year after infection</td><td>~50% of lifetime risk occurs in first 18 months</td></tr>
+      <tr><td>Lifetime risk of active TB after infection</td><td>~10% overall; much higher with HIV</td></tr>
+      <tr><td>QTc contraindication for bedaquiline/delamanid/fluoroquinolones</td><td>QTc &gt;500 ms or history of ventricular arrhythmia</td></tr>
+    </tbody>
+  </table>
+</section>
+<hr class="sep">
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 12: EXAM TRAPS -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="sec" id="traps">
+  <div class="sec-hd">
+    <div class="sec-icon" style="background:var(--amb-l)">⚠️</div>
+    <h2 class="sec-title">Exam Traps — Board Exam Coach</h2>
+  </div>
+  <div class="alert alert-amb">
+    <span class="alert-icon">🎯</span>
+    <div class="alert-body">These traps are derived directly from the 23 exam questions. Each one shows how the question is presented, why the wrong answer is tempting, and what the correct reasoning is.</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-n">★ Trap 01 — PPD Cutoff in Hemodialysis Patient</div>
+    <div class="trap-title">Diabetic on Hemodialysis, Family Member with TB, PPD Induration 8mm</div>
+    <div class="trap-vig">65-year-old man with diabetes mellitus on hemodialysis. A family member was recently diagnosed with active TB. PPD shows 8mm induration. What is the best treatment?</div>
+    <div class="trap-distractor">⚠ Distractor: "8mm is below the standard 10mm cutoff, so no treatment needed." Many students use the 10mm threshold by default.</div>
+    <div class="trap-answer">✅ <strong>Isoniazid for 6 months (TPT).</strong> This patient's PPD cutoff is ≥5mm, not 10mm. Hemodialysis (end-stage renal disease) = HIGH RISK group → threshold is ≥5mm. 8mm &gt; 5mm → treat.</div>
+    <div class="trap-mech">Chronic renal failure/hemodialysis carries a relative risk of 10–25 for active TB. Combined with recent close contact exposure (family member), this patient meets criteria for preventive treatment. Also: diabetes alone → more stringent cutoff. Active TB must be excluded before starting TPT.</div>
+    <div class="trap-kw">🔑 Keyword: HEMODIALYSIS → ≥5mm cutoff</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-n">★ Trap 02 — Culture-Positive at 3 Months: MDR-TB</div>
+    <div class="trap-title">Standard 4-Drug TB Therapy, Culture Still Positive at 3 Months</div>
+    <div class="trap-vig">32-year-old with active TB on standard 4-drug therapy for 3 months. Good adherence (DOT). Monthly sputum cultures still positive. What is the most appropriate next step?</div>
+    <div class="trap-distractor">⚠ Distractor: "Add streptomycin to the regimen" or "Continue the same regimen for the remaining time." Students may not connect persistent culture positivity to MDR-TB.</div>
+    <div class="trap-answer">✅ <strong>Send cultures for drug susceptibility testing (DST) immediately and initiate MDR-TB workup. Reclassify as MDR-TB and treat accordingly (refer for MDR regimen including Bedaquiline/Fluoroquinolone).</strong></div>
+    <div class="trap-mech">Culture-positive at ≥3 months despite good adherence = treatment failure → drug resistance is likely. Never add just one drug to a failing regimen (creates resistance). Always add ≥2 effective new drugs simultaneously. Start empiric MDR regimen while awaiting DST. MDR-TB requires bedaquiline-containing all-oral regimens (BPaLM preferred).</div>
+    <div class="trap-kw">🔑 Keyword: CULTURE POSITIVE AT 3 MONTHS → suspect MDR-TB</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-n">★ Trap 03 — BCG-Vaccinated Transplant Candidate: Use IGRA</div>
+    <div class="trap-title">Diabetic Preparing for Transplant, BCG-Vaccinated, PPD 11mm</div>
+    <div class="trap-vig">A diabetic patient is preparing for transplantation. She received BCG vaccination as a child. PPD shows 11mm induration. What is the next best step?</div>
+    <div class="trap-distractor">⚠ Distractor: "PPD 11mm &gt; 10mm → treat with INH." However, BCG vaccination causes false-positive PPD reactions. The 11mm may not represent true M. tuberculosis infection.</div>
+    <div class="trap-answer">✅ <strong>Perform IGRA (Interferon-Gamma Release Assay) — it is more specific in BCG-vaccinated patients and not affected by BCG.</strong> If IGRA is positive → treat. If IGRA negative → no treatment needed.</div>
+    <div class="trap-mech">BCG antigens cross-react with PPD antigens → false-positive TST. IGRA uses RD1-encoded antigens (ESAT-6 and CFP-10) that are NOT present in BCG → highly specific for M. tuberculosis. In BCG-vaccinated individuals, IGRA is the preferred test. Organ transplant recipients: threshold for positive TST is ≥5mm, but specificity concerns in BCG-vaccinated patients make IGRA the better choice.</div>
+    <div class="trap-kw">🔑 Keyword: BCG vaccinated → IGRA more specific (not PPD)</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-n">★ Trap 04 — Rifampin Toxicity: Autoimmune Thrombocytopenia</div>
+    <div class="trap-title">Which Condition Requires Stopping Anti-TB Therapy?</div>
+    <div class="trap-vig">A patient on anti-TB therapy develops purpura and thrombocytopenia. Lab confirms autoimmune thrombocytopenia. Which drug is responsible and what should be done?</div>
+    <div class="trap-distractor">⚠ Distractor: "Isoniazid causes thrombocytopenia" or "Pyrazinamide causes platelet drop." Isoniazid causes hepatitis and peripheral neuropathy; pyrazinamide causes hyperuricemia/gout.</div>
+    <div class="trap-answer">✅ <strong>Rifampin causes autoimmune thrombocytopenia → STOP rifampin PERMANENTLY. It should never be re-administered.</strong></div>
+    <div class="trap-mech">Rifampin is a known cause of immune-mediated thrombocytopenia. This is an absolute contraindication to re-exposure. Rechallenging with rifampin risks severe, potentially fatal thrombocytopenic episodes. The patient requires a rifampin-free regimen for the remainder of TB treatment.</div>
+    <div class="trap-kw">🔑 Keyword: THROMBOCYTOPENIA → rifampin → stop permanently</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-n">★ Trap 05 — TB Screening in Hospital (Post-Surgical Exposure)</div>
+    <div class="trap-title">60-Year-Old Post-Neurosurgery, Healthcare Workers Exposed</div>
+    <div class="trap-vig">A 60-year-old patient undergoes neurosurgery. Postoperatively, it is discovered he has active pulmonary TB. Healthcare workers in the operating and recovery rooms were exposed. What is the screening recommendation?</div>
+    <div class="trap-distractor">⚠ Distractor: "Only screen those who directly coughed on" or "Only screen those with symptoms." Some may think selective screening is sufficient.</div>
+    <div class="trap-answer">✅ <strong>Screen ALL exposed healthcare workers with PPD (or IGRA).</strong> Surgery does not generate aerosols (unlike active coughing), but exposure in an unventilated shared space still carries risk. All staff in the OR and recovery room should be screened.</div>
+    <div class="trap-mech">TB transmission occurs via droplet nuclei. Healthcare workers in enclosed spaces with an unrecognized infectious TB patient require screening even without direct coughing exposure. PPD cutoff for healthcare workers: ≥10mm. Two-step baseline testing for new HCW to prevent misclassification of boosted reactions as conversions.</div>
+    <div class="trap-kw">🔑 Keyword: EXPOSED HEALTHCARE WORKERS → PPD for all</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-n">★ Trap 06 — TB Meningitis: CSF Pattern</div>
+    <div class="trap-title">Subacute Meningitis with High Protein, Low Glucose, Lymphocytes → Diagnosis</div>
+    <div class="trap-vig">75-year-old man with 38 weeks of fever, headache, CSF shows: lymphocytes 30, protein elevated, glucose low. Most likely diagnosis?</div>
+    <div class="trap-distractor">⚠ Distractor: "West Nile virus" — WNV meningitis can have lymphocytic CSF but glucose is typically NORMAL; it would not present with 38 weeks of symptoms (too long a course). Herpes viral meningitis: normal glucose, shorter course.</div>
+    <div class="trap-answer">✅ <strong>M. tuberculosis (TB meningitis).</strong> The combination of: lymphocytic pleocytosis + HIGH protein (100–800 mg/dL) + LOW glucose + SUBACUTE course (weeks) is classic for TB meningitis.</div>
+    <div class="trap-mech">TB meningitis evolves over 1–2 weeks (longer than bacterial meningitis), is pronounced at the base of the brain, and causes cranial nerve palsies. Protein is markedly elevated (1–8 g/L). AFBs are rarely seen on direct CSF smear. Treatment should be started immediately on positive Xpert or on high clinical suspicion.</div>
+    <div class="trap-kw">🔑 Keyword: HIGH protein + LOW glucose + LYMPHOCYTES + WEEKS course = TB meningitis</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-n">★ Trap 07 — Pleural TB: Best Diagnostic Test</div>
+    <div class="trap-title">What Is the Best Test for Pleural TB Effusion?</div>
+    <div class="trap-vig">What is the most informative diagnostic test for pleural TB (pleural effusion)?</div>
+    <div class="trap-distractor">⚠ Distractor: "Acid-fast smear of pleural fluid" or "Xpert MTB/RIF on pleural fluid." Both have very low sensitivity for pleural TB. Culture of pleural fluid is often falsely negative.</div>
+    <div class="trap-answer">✅ <strong>Needle biopsy of the pleura (with culture and histology) — yields positive results in up to 80% of cases. ADA (Adenosine Deaminase) is also helpful. Xpert on BIOPSY yields ~75% sensitivity; Xpert on FLUID is NOT recommended (only ~50% sensitivity).</strong></div>
+    <div class="trap-mech">Pleural TB is a hypersensitivity reaction — organisms are sparse in the fluid. The pleural biopsy samples the tissue directly where granulomas form → much higher yield. ADA is a useful adjunct: elevated = consistent with TB; very low = can exclude TB.</div>
+    <div class="trap-kw">🔑 Keyword: PLEURAL TB → biopsy (not fluid) → 80% yield</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-n">★ Trap 08 — IGRA in IVDU: Best Test and Threshold</div>
+    <div class="trap-title">IVDU Patient: What Should You Know About Testing?</div>
+    <div class="trap-vig">A patient who is an intravenous drug user (IVDU) needs TB screening. What is the preferred approach?</div>
+    <div class="trap-distractor">⚠ Distractor: "PPD is positive at ≥10mm, so use 10mm cutoff" or "IGRA is the same as PPD in IVDU." While the PPD threshold is ≥10mm in IVDU, IGRA is preferred because it's not affected by BCG and is more specific.</div>
+    <div class="trap-answer">✅ <strong>IGRA is more reliable in IVDU (not affected by BCG, more specific). If PPD is used: threshold is ≥10mm. IGRA does not require reading at 48–72 hours and is not affected by boosting phenomena or BCG vaccination.</strong></div>
+    <div class="trap-mech">IVDU have a relative risk of 10–30 for active TB. They often have BCG vaccination history (immigrants, certain populations). IGRA avoids BCG false-positives and has no boosting effect.</div>
+    <div class="trap-kw">🔑 Keyword: IVDU → PPD ≥10mm; IGRA preferred (BCG-independent)</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-n">★ Trap 09 — HIV + Active TB Exposure: No TST Needed</div>
+    <div class="trap-title">HIV-Positive Patient Exposed to TB: TPT Without TST?</div>
+    <div class="trap-vig">A 30-year-old anergic HIV-positive woman was unknowingly exposed to active TB. TST = 3mm (negative). What is the correct treatment approach?</div>
+    <div class="trap-distractor">⚠ Distractor: "TST is negative → no treatment needed." This is wrong. HIV patients are anergic and can have false-negative TST even when infected.</div>
+    <div class="trap-answer">✅ <strong>HIV-infected patients should receive TPT regardless of TST/IGRA result if they have been exposed to an infectious TB patient.</strong> The negative TST in an HIV patient represents anergy, not absence of infection.</div>
+    <div class="trap-mech">HIV suppresses cell-mediated immunity → TST (skin test) requires functional CD4+ T cells to mount a skin reaction. False-negative TST is common in HIV. The risk of progression from infection to disease in PLWH is very high (up to 13% per year). TPT with isoniazid reduces this risk significantly.</div>
+    <div class="trap-kw">🔑 Keyword: HIV + TB exposure → treat REGARDLESS of TST result</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-n">★ Trap 10 — Standard Initial Regimen: 4 Drugs</div>
+    <div class="trap-title">80-Year-Old With No Suspected Drug Resistance: What Regimen?</div>
+    <div class="trap-vig">An 80-year-old patient is newly diagnosed with drug-susceptible pulmonary TB with no prior exposure to anti-TB drugs. What is the correct treatment?</div>
+    <div class="trap-distractor">⚠ Distractor: "3 drugs (INH + Rifampin + PZA)" or "Add levofloxacin instead of ethambutol." Levofloxacin is NOT part of the standard first-line 4-drug regimen.</div>
+    <div class="trap-answer">✅ <strong>Isoniazid + Rifampin + Pyrazinamide + Ethambutol (2HRZE/4HR)</strong> — the standard 6-month first-line regimen for drug-susceptible TB.</div>
+    <div class="trap-mech">The intensive phase requires 4 drugs to prevent emergence of resistance. Ethambutol protects against resistance to the other 3 drugs while DST results are pending. Levofloxacin is used for MDR-TB or isoniazid-resistant TB, not standard drug-susceptible disease. Tobramycin has no role in TB treatment.</div>
+    <div class="trap-kw">🔑 Keyword: Drug-susceptible TB → HRZE × 2 months + HR × 4 months</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-n">★ Trap 11 — Diagnosis: What to Order for Suspected Active TB</div>
+    <div class="trap-title">Young Woman with Hemoptysis, Upper Lobe CXR Infiltrate, ESR High → Best Next Step</div>
+    <div class="trap-vig">37-year-old woman with hemoptysis, fever, upper-lobe CXR infiltrate. Hb 10, elevated ESR, CRP elevated. What is the most appropriate diagnostic test?</div>
+    <div class="trap-distractor">⚠ Distractor: "PCR test is the best" or "Acid-fast smear is definitive." PCR alone doesn't replace comprehensive workup; smear alone has only 40–60% sensitivity.</div>
+    <div class="trap-answer">✅ <strong>Tuberculin Skin Test (TST/PPD) + sputum cultures/Xpert MTB/RIF to confirm active TB.</strong> For latent TB screening in this context, TST is appropriate. For active disease: Xpert MTB/RIF is first-line diagnostic test; culture is gold standard.</div>
+    <div class="trap-mech">In this clinical scenario, the combination of upper-lobe infiltrate + hemoptysis + constitutional symptoms in a young woman = classic post-primary TB. TST (PPD) helps document infection. Xpert MTB/RIF on sputum confirms active disease rapidly. Sputum culture is the gold standard for definitive diagnosis and allows DST.</div>
+    <div class="trap-kw">🔑 Keyword: Suspected active TB → Xpert MTB/RIF (rapid) + culture (gold standard)</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-n">★ Trap 12 — Pott's Disease: NO Steroids</div>
+    <div class="trap-title">Which Disease Cannot Be Treated with Steroids in TB?</div>
+    <div class="trap-vig">A 30-year-old Eritrean woman presents with back pain and progressive paraparesis. CXR shows old TB lesions. MRI shows vertebral destruction at T10-T11. Diagnosis: Pott's disease. Steroids — yes or no?</div>
+    <div class="trap-distractor">⚠ Distractor: "Steroids are used adjunctively in TB meningitis and pericarditis, so they should be used here too." Students confuse the TB contexts where steroids ARE used with Pott's disease.</div>
+    <div class="trap-answer">✅ <strong>Pott's disease (TB spondylitis) is NOT treated with steroids.</strong> Treatment: anti-TB chemotherapy. Paraparesis from large abscess → surgical drainage (emergency).</div>
+    <div class="trap-mech">Steroids are used in: TB meningitis (reduces mortality in HIV-negative), pericardial TB (trend toward benefit), and IRIS. Pott's disease responds to chemotherapy alone. Steroids have NO proven benefit in skeletal TB and may worsen outcomes by reducing immune containment. The paraparesis is managed surgically (abscess drainage), not with steroids.</div>
+    <div class="trap-kw">🔑 Keyword: Pott's disease → NO steroids; surgery for paraparesis</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-n">★ Trap 13 — Isoniazid-Resistant TB: Add Quinolone for 6 Months</div>
+    <div class="trap-title">Patient with Isoniazid-Resistant TB Already on Standard Regimen</div>
+    <div class="trap-vig">28-year-old woman, regular close contact with TB index case, on isoniazid-based regimen. Resistance to isoniazid is confirmed. What is the best revised treatment approach?</div>
+    <div class="trap-distractor">⚠ Distractor: "Continue INH + add more drugs" or "Switch to 5-drug regimen with 18 months." Isoniazid-resistant TB (still rifampin-susceptible) has its own specific guideline.</div>
+    <div class="trap-answer">✅ <strong>Rifampin + Ethambutol + Pyrazinamide + Levofloxacin (a fluoroquinolone) for 6 months.</strong> This is the recommended regimen for isoniazid-resistant, rifampin-susceptible TB.</div>
+    <div class="trap-mech">When isoniazid resistance is confirmed but rifampin resistance is excluded, the regimen replaces isoniazid with a fluoroquinolone (levofloxacin). This 6-month fluoroquinolone-containing regimen is effective. Only use this after rifampin resistance has been definitively excluded by DST.</div>
+    <div class="trap-kw">🔑 Keyword: INH-resistant TB → Rifampin + EMB + PZA + Levofloxacin × 6 months</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-n">★ Trap 14 — IGRA Tests Latent TB, NOT Active TB</div>
+    <div class="trap-title">What Does IGRA Actually Detect?</div>
+    <div class="trap-vig">What does the Interferon-Gamma Release Assay (IGRA) diagnose?</div>
+    <div class="trap-distractor">⚠ Distractor: "Active tuberculosis" or "HIV-related immunodeficiency" or "Severity of TB disease." IGRA is frequently misunderstood as a test for active disease.</div>
+    <div class="trap-answer">✅ <strong>IGRA detects Latent Tuberculosis Infection (LTBI).</strong> It measures the host's immune response (IFN-γ release by memory T cells) to M. tuberculosis antigens — it confirms the immune system has encountered M. tuberculosis, NOT that there is active disease.</div>
+    <div class="trap-mech">IGRA and TST both measure immunological memory of M. tuberculosis exposure. They cannot distinguish active disease from latent infection, cannot predict progression, and have reduced sensitivity in immunocompromised patients. For ACTIVE disease, use sputum culture + Xpert MTB/RIF.</div>
+    <div class="trap-kw">🔑 Keyword: IGRA → detects LATENT TB infection, not active disease</div>
+  </div>
+
+</section>
+
+</main>
+
+<footer class="footer">Chapter 183 · Tuberculosis · Harrison's Principles of Internal Medicine · Boards Study Guide · 2025–2026</footer>
+
+<script>
+/* ── ACCORDION TOGGLE ── */
+function tog(hd) {
+  const item = hd.closest('.toggle-item') || hd.parentElement;
+  const body = item.querySelector('.toggle-body');
+  const arrow = hd.querySelector('.toggle-arrow');
+  if (!body) return;
+  const isOpen = body.style.display === 'block';
+  body.style.display = isOpen ? 'none' : 'block';
+  if (arrow) arrow.textContent = isOpen ? '▶' : '▼';
+}
+
+/* ══ VENOS ANNOTATION SYSTEM v4 ══
+   ✓ Highlights persist after closing
+   ✓ Notes stay connected to sentences
+   ✓ CLEAR removes everything         */
+
+const FILE_KEY = 'venos_' + (document.title||'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+let curColor=null, eraseMode=false, selText='', savedRange=null;
+
+function setHL(c){curColor=c;eraseMode=false;document.body.style.cursor='crosshair';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));
+  const map={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};
+  if(document.getElementById(map[c]))document.getElementById(map[c]).classList.add('active');}
+function setErase(){eraseMode=true;curColor=null;document.body.style.cursor='cell';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));}
+function applyHL(range,color){
+  try{const s=document.createElement('span');s.className='hl hl-'+color;s.dataset.hlColor=color;
+    range.surroundContents(s);saveHighlights();}
+  catch(e){try{const f=range.extractContents();const s=document.createElement('span');
+    s.className='hl hl-'+color;s.dataset.hlColor=color;s.appendChild(f);
+    range.insertNode(s);saveHighlights();}catch(e2){}}}
+function saveHighlights(){
+  const data=[];
+  document.querySelectorAll('.hl[data-hl-color]').forEach(s=>{
+    const t=s.textContent.trim();if(t.length>1)data.push({text:t,color:s.dataset.hlColor});});
+  try{localStorage.setItem(HL_KEY,JSON.stringify(data));}catch(e){}}
+function restoreHighlights(){
+  let saved;try{saved=JSON.parse(localStorage.getItem(HL_KEY))||[];}catch(e){return;}
+  if(!saved.length)return;
+  saved.forEach(function(item){
+    if(!item.text||!item.color)return;
+    const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);
+    let node;
+    while(node=walker.nextNode()){
+      if(node.parentElement&&(node.parentElement.classList.contains('hl')||
+        node.parentElement.classList.contains('note-anchor')))continue;
+      const idx=node.nodeValue.indexOf(item.text);
+      if(idx!==-1){try{const r=document.createRange();r.setStart(node,idx);
+        r.setEnd(node,idx+item.text.length);applyHL(r,item.color);}catch(e){}break;}}});}
+function getNotes(){try{return JSON.parse(localStorage.getItem(NT_KEY)||'[]');}catch(e){return[];}}
+function saveNotes(n){try{localStorage.setItem(NT_KEY,JSON.stringify(n));}catch(e){}}
+function addNote(){
+  const ta=document.getElementById('sn-ta');if(!ta)return;
+  const txt=ta.value.trim();if(!txt)return;
+  const id=Date.now();const notes=getNotes();
+  notes.unshift({id,ref:selText.substring(0,100)||'—',text:txt});saveNotes(notes);
+  if(savedRange){
+    try{const s=document.createElement('span');s.className='note-anchor';
+      s.dataset.noteId=id;s.title='Click to see your note';
+      savedRange.surroundContents(s);bindAnchor(s,id);}
+    catch(e){try{const f=savedRange.extractContents();const s=document.createElement('span');
+      s.className='note-anchor';s.dataset.noteId=id;s.appendChild(f);
+      savedRange.insertNode(s);bindAnchor(s,id);}catch(e2){}}
+    savedRange=null;}
+  ta.value='';selText='';
+  const r=document.getElementById('sn-ref-txt');if(r)r.textContent='—';renderNotes();}
+function bindAnchor(span,id){
+  span.addEventListener('click',function(e){e.stopPropagation();
+    const note=getNotes().find(n=>n.id===id);if(note)showPopover(span,note);});}
+function restoreAnchors(){
+  const notes=getNotes();if(!notes.length)return;
+  notes.forEach(function(note){
+    if(!note.ref||note.ref==='—'||!note.id)return;
+    const refText=note.ref.trim();if(refText.length<2)return;
+    if(document.querySelector('.note-anchor[data-note-id="'+note.id+'"]'))return;
+    const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);
+    let node;
+    while(node=walker.nextNode()){
+      if(node.parentElement&&(node.parentElement.classList.contains('note-anchor')||
+        node.parentElement.classList.contains('hl')))continue;
+      const idx=node.nodeValue.indexOf(refText);
+      if(idx!==-1){try{const r=document.createRange();r.setStart(node,idx);
+        r.setEnd(node,idx+refText.length);const s=document.createElement('span');
+        s.className='note-anchor';s.dataset.noteId=String(note.id);
+        s.title='Click to see your note';r.surroundContents(s);bindAnchor(s,note.id);}
+      catch(e){}break;}}});}
+function deleteNote(id){
+  saveNotes(getNotes().filter(n=>n.id!==id));
+  document.querySelectorAll('.note-anchor[data-note-id="'+id+'"]').forEach(el=>{
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});
+  closePopover();renderNotes();}
+function renderNotes(){
+  const body=document.getElementById('sn-body');const empty=document.getElementById('sn-empty');
+  if(!body)return;const notes=getNotes();
+  body.querySelectorAll('.sn-note').forEach(el=>el.remove());
+  if(!notes.length){if(empty)empty.style.display='';return;}
+  if(empty)empty.style.display='none';
+  notes.forEach(note=>{const card=document.createElement('div');card.className='sn-note';
+    card.dataset.noteId=note.id;
+    card.innerHTML='<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>'+
+      '<span class="sn-note-ref">'+(note.ref!=='—'?'"'+note.ref+'"':'General note')+'</span>'+
+      '<button class="sn-del" onclick="deleteNote('+note.id+')">×</button></div>'+
+      '<div class="sn-note-body">'+note.text.replace(/
+/g,'<br>')+'</div>'+
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);makeResizable(card,note.id);});}
+let activePopNoteId=null;
+function showPopover(anchorEl,note){
+  const pop=document.getElementById('note-popover');if(!pop)return;
+  document.getElementById('np-pop-ref').textContent=note.ref!=='—'?'"'+note.ref.substring(0,55)+'"':'Note';
+  document.getElementById('np-pop-text').innerHTML=note.text.replace(/
+/g,'<br>');
+  document.getElementById('pop-del-btn').onclick=()=>deleteNote(note.id);
+  activePopNoteId=note.id;
+  const rect=anchorEl.getBoundingClientRect();
+  pop.style.left=Math.min(rect.left,window.innerWidth-300)+'px';
+  pop.style.top=(rect.bottom+8)+'px';pop.classList.add('show');}
+function closePopover(){
+  const pop=document.getElementById('note-popover');if(pop)pop.classList.remove('show');
+  activePopNoteId=null;}
+document.addEventListener('click',function(e){
+  const pop=document.getElementById('note-popover');
+  if(pop&&!pop.contains(e.target))closePopover();});
+document.addEventListener('mouseup',function(e){
+  const tb=document.getElementById('toolbar');const sb=document.getElementById('sn-sidebar');
+  const np=document.getElementById('note-popover');
+  if(tb&&tb.contains(e.target))return;if(sb&&sb.contains(e.target))return;
+  if(np&&np.contains(e.target))return;
+  if(eraseMode&&e.target.classList.contains('hl')){const el=e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);
+    el.parentNode.normalize();saveHighlights();return;}
+  const sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+  const txt=sel.toString().trim();if(!txt)return;
+  selText=txt;savedRange=sel.getRangeAt(0).cloneRange();
+  const ref=document.getElementById('sn-ref-txt');
+  if(ref)ref.textContent=txt.length>48?txt.substring(0,48)+'…':txt;
+  if(curColor){try{applyHL(sel.getRangeAt(0),curColor);sel.removeAllRanges();}catch(err){}}});
+function clearAll(){
+  if(!confirm('Clear ALL highlights and notes?'))return;
+  document.querySelectorAll('.hl').forEach(el=>{
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});
+  document.querySelectorAll('.note-anchor').forEach(el=>{
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});
+  try{localStorage.removeItem(HL_KEY);localStorage.removeItem(NT_KEY);}catch(e){}
+  curColor=null;eraseMode=false;document.body.style.cursor='';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));
+  closePopover();renderNotes();}
+function toggleSidebar(){
+  const sb=document.getElementById('sn-sidebar');const tab=document.getElementById('sn-tab');
+  if(!sb)return;sb.classList.toggle('hidden');
+  if(tab)tab.textContent=sb.classList.contains('hidden')?'📝 Notes':'◀';}
+function makeResizable(card){
+  const handle=card.querySelector('.sn-resize');if(!handle)return;
+  let startY=0,startH=0;
+  handle.addEventListener('mousedown',function(e){e.preventDefault();e.stopPropagation();
+    startY=e.clientY;startH=card.offsetHeight;
+    function onMove(ev){card.style.height=Math.max(80,startH+(ev.clientY-startY))+'px';}
+    function onUp(){document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp);}
+    document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp);});}
+const _secs=document.querySelectorAll('.sec[id]');
+const _navs=document.querySelectorAll('.toc-a');
+_secs.forEach(s=>new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){_navs.forEach(l=>l.classList.remove('on'));
+    const lnk=document.querySelector('.toc-a[href="#'+s.id+'"]');
+    if(lnk){lnk.classList.add('on');lnk.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}}
+},{rootMargin:'-15% 0px -75% 0px'}).observe(s));
+
+/* ── INIT ── */
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
