@@ -1065,6 +1065,18 @@ Thyroid lymphoma (DLBCL most common) arises in Hashimoto&#8217;s background. Rap
 </main>
 <footer class="footer">Harrison&#8217;s Principles of Internal Medicine &#183; Chapters 394&#8211;397 &#183; Thyroid Gland Disorders &#183; Stage A Boards Review 2026</footer>
 <script>
+/* ── ACCORDION TOGGLE ── */
+function tog(hd) {
+  const item = hd.closest('.toggle-item') || hd.parentElement;
+  const body = item.querySelector('.toggle-body');
+  const arrow = hd.querySelector('.toggle-arrow');
+  if (!body) return;
+  const isOpen = body.style.display === 'block';
+  body.style.display = isOpen ? 'none' : 'block';
+  if (arrow) arrow.textContent = isOpen ? '▶' : '▼';
+}
+
+
 const FILE_KEY='venos_'+(document.title||'guide').replace(/\s+/g,'_').toLowerCase();
 const HL_KEY=FILE_KEY+'_hl';const NT_KEY=FILE_KEY+'_notes';
 let curColor=null,eraseMode=false,selText='',savedRange=null;
