@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Glomerular Diseases Part 2 · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);
+  border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;
+  z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;
+  display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;position:relative}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3)}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+.hero{background:linear-gradient(135deg,#14384a 0%,#1e5270 60%,#163a50 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #0e7490;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:40px;font-weight:900;
+  line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#67e8f9}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--tel);border-bottom-color:var(--tel)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;
+  padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--tel);
+  margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--tel-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--tel);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.bl li ul{list-style:none;padding:0;margin:4px 0 4px 16px}
+.bl li ul li{padding-left:14px}
+.bl li ul li::before{content:'–';color:var(--t3)}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}
+  .main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow"  onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"   onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"    onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"    onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange"  onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select any text, write a note below, then click Add Note.<br><br>Notes stay connected to their sentences — even after closing and reopening.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Write your note here…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles of Internal Medicine · Chapter 326</div>
+  <h1>Glomerular Diseases</h1>
+  <div class="hero-sub">Part 2 · Nephrotic · Deposition · Basement Membrane · Vascular · Infectious · Boards Review 2026</div>
+  <div class="hero-authors">Julia B. Lewis &amp; Eric G. Neilson</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">10</div><div class="stat-l">Disease Groups</div></div>
+    <div class="stat-box"><div class="stat-n">14</div><div class="stat-l">Exam Traps</div></div>
+    <div class="stat-box"><div class="stat-n">⭐</div><div class="stat-l">High Yield</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s-mcd">MCD</a>
+    <a class="toc-a" href="#s-fsgs">FSGS</a>
+    <a class="toc-a" href="#s-mgn">Membranous GN</a>
+    <a class="toc-a" href="#s-dn">Diabetic Nephropathy</a>
+    <a class="toc-a" href="#s-deposition">Deposition Diseases</a>
+    <a class="toc-a" href="#s-fabry">Fabry's Disease</a>
+    <a class="toc-a" href="#s-pulrena">Pulmonary-Renal</a>
+    <a class="toc-a" href="#s-bm">Basement Membrane</a>
+    <a class="toc-a" href="#s-vascular">Vascular GN</a>
+    <a class="toc-a" href="#s-infectious">Infectious GN</a>
+    <a class="toc-a" href="#s-traps2">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══ 01: MINIMAL CHANGE DISEASE ═══ -->
+<section class="sec" id="s-mcd">
+  <div class="sec-hd"><span class="sec-n">01</span><h2>Minimal Change Disease (MCD)</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Epidemiology</h3>
+    <ul class="bl">
+      <li><strong>Nephrotic syndrome in children:</strong> MCD accounts for <strong>70–90%</strong> of cases — the default diagnosis until proven otherwise</li>
+      <li><strong>Nephrotic syndrome in adults:</strong> MCD accounts for only <strong>10–15%</strong> — membranous GN and FSGS are more common in adults</li>
+      <li>Peak in children 2–6 years of age; males &gt; females in children; equal sex distribution in adults</li>
+      <li>Second peak in older adults — often secondary</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Pathogenesis</h3>
+    <ul class="bl">
+      <li>Thought to be caused by a circulating <strong>T cell–derived permeability factor</strong> → damages podocyte slit-pore membranes → foot process effacement → massive proteinuria</li>
+      <li>No identifiable antigen-antibody complex; glomeruli look completely normal on LM and IF</li>
+      <li><strong>Secondary causes (MUST KNOW):</strong>
+        <ul>
+          <li><strong>NSAIDs</strong> (most common drug cause in adults)</li>
+          <li><strong>Hodgkin's lymphoma</strong> (classic paraneoplastic MCD — lymphokine production by Reed-Sternberg cells)</li>
+          <li>Non-Hodgkin's lymphoma (less classic)</li>
+          <li>Lithium, penicillamine, mercury, gold</li>
+          <li>Bee sting, poison ivy, vaccinations</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Biopsy Findings</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-g">Light Microscopy</div>
+        <p><strong>Normal</strong> — no hypercellularity, no immune deposits, no sclerosis visible. "Minimal change" name comes from here.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Immunofluorescence</div>
+        <p><strong>Negative</strong> — no immune deposits. If IgM staining → may suggest FSGS rather than pure MCD.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Electron Microscopy</div>
+        <p><strong>Diffuse podocyte foot process effacement</strong> — the ONLY abnormality. Foot processes are retracted and replaced by a flat continuous cytoplasmic layer. This is the diagnostic key.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Presentation</h3>
+    <ul class="bl">
+      <li>Abrupt onset of <strong>massive proteinuria</strong> (often &gt;10 g/24hr) with classic nephrotic triad: hypoalbuminemia, edema, hyperlipidemia</li>
+      <li>Edema is often severe — periorbital edema (classic in children, especially in the morning), ascites, pleural effusions</li>
+      <li><strong>Hematuria: rare</strong> — distinguishes from nephritic syndromes</li>
+      <li><strong>Selective proteinuria</strong> (albumin &gt;&gt; globulins) — reflects intact size barrier; only charge barrier impaired</li>
+      <li><strong>Complement: normal</strong> — no complement activation</li>
+      <li>HTN: variable; GFR usually preserved initially</li>
+      <li>Hypercholesterolemia + lipiduria (oval fat bodies, "Maltese cross" under polarized light) — result of ↓oncotic pressure → liver upregulates lipoprotein synthesis</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Complications</div>
+      Thrombotic events (venous &gt; arterial) from hypoalbuminemia → ↓antithrombin III, ↓protein C and S. Infection (pneumococcal peritonitis, cellulitis) from loss of immunoglobulins in urine and immunosuppression. Steroid side effects with long-term treatment.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment</h3>
+    <ul class="bl">
+      <li><strong>High-dose prednisone</strong> = first-line. Response rate:
+        <ul>
+          <li>Children: <strong>90–95%</strong> achieve complete remission within 8 weeks</li>
+          <li>Adults: <strong>75–85%</strong> respond but more slowly (may take 16 weeks)</li>
+        </ul>
+      </li>
+      <li><strong>Frequent relapsers / steroid dependent:</strong> cyclophosphamide, mycophenolate mofetil, calcineurin inhibitors (cyclosporine, tacrolimus), or <strong>rituximab</strong> (CD20 B-cell depletion — increasingly preferred to avoid cytotoxic agents)</li>
+      <li>Supportive: ACEi/ARB for proteinuria reduction, salt restriction, loop diuretics for edema</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Prognosis</h3>
+    <ul class="bl">
+      <li>Excellent — <strong>rarely progresses to ESKD</strong></li>
+      <li>Majority achieve complete remission; up to 70% relapse at least once; steroid-dependent course in 30–40%</li>
+      <li>Adults have higher steroid toxicity burden and slower response → treatment-related morbidity is main concern</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ 02: FSGS ═══ -->
+<section class="sec" id="s-fsgs">
+  <div class="sec-hd"><span class="sec-n">02</span><h2>Focal Segmental Glomerulosclerosis (FSGS)</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co dan">
+    <div class="co-t">Boards Importance</div>
+    FSGS = <strong>#1 cause of primary GN leading to ESKD in the United States</strong>. Disproportionately affects African Americans (APOL1 risk alleles). One of the most clinically important nephrotic diseases on the boards.
+  </div>
+
+  <div class="sub">
+    <h3>Epidemiology</h3>
+    <ul class="bl">
+      <li>Male predominance; any age; peak incidence in 3rd–4th decade for primary FSGS</li>
+      <li><strong>APOL1 high-risk genotypes</strong> (G1/G2 alleles): account for the majority of FSGS in African Americans and for much of the excess risk of kidney disease in this population</li>
+      <li>Rapidly increasing incidence in the USA — now the leading cause of primary nephrotic syndrome in adults</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Pathogenesis — Podocyte Injury Model</h3>
+    <ul class="bl">
+      <li><strong>Primary FSGS:</strong> circulating <strong>permeability factor</strong> (identity debated; some evidence for suPAR, anti-CD40 antibodies, cardiolipin-like factor) → podocyte injury → foot process effacement throughout ALL glomeruli → eventual segmental collapse and sclerosis</li>
+      <li><strong>Secondary FSGS:</strong> podocyte stress from hyperfiltration, reduced nephron mass, or direct toxin → segmental sclerosis in some glomeruli (especially at corticomedullary junction where tubular oxygen demand is highest)</li>
+      <li>Podocytes are terminally differentiated — cannot regenerate after loss → scarring is permanent</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Columbia Classification (5 Variants)</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Variant</th><th>Key Histologic Feature</th><th>Prognosis</th><th>Association</th></tr></thead>
+        <tbody>
+          <tr><td><strong>NOS (Not Otherwise Specified)</strong></td><td>Segmental sclerosis without features of other variants; most common</td><td>Intermediate</td><td>Primary FSGS; many secondary causes</td></tr>
+          <tr><td><strong>Perihilar</strong></td><td>Sclerosis predominantly at glomerular hilum (entry of capillaries)</td><td>Intermediate</td><td>Adaptive (obesity, solitary kidney, reduced nephron mass, hyperfiltration)</td></tr>
+          <tr><td><strong>Tip Lesion</strong></td><td>Sclerosis at the tubular pole (tip) of the glomerulus</td><td><strong>Best</strong> — most steroid-responsive; rarely progresses to ESKD</td><td>Primary FSGS; steroid-responsive</td></tr>
+          <tr><td><strong>Cellular</strong></td><td>Endocapillary proliferation filling capillary lumens + foam cells; may be early collapsing</td><td>Poor</td><td>May progress to collapsing</td></tr>
+          <tr><td><strong>Collapsing</strong></td><td>Wrinkling and collapse of GBM + visceral podocyte hypertrophy/hyperplasia</td><td><strong>Worst</strong> — most aggressive; rapid progression to ESKD</td><td><strong>HIV (HIVAN), COVID-19, APOL1 high-risk, interferon therapy, pamidronate</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Primary vs. Secondary FSGS — Critical Distinction</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Primary FSGS</div>
+        <p>Circulating permeability factor. <strong>EM: foot process effacement throughout ALL glomeruli</strong> (diffuse, even in non-sclerotic segments). Rapid onset of heavy proteinuria. Recurs in transplant (30–40%).</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Secondary FSGS</div>
+        <p>Hyperfiltration, toxin, infection, reduced nephron mass. <strong>EM: foot process effacement ONLY in sclerotic segments</strong> (focal). Slower onset, less proteinuria. Does NOT recur in transplant.</p>
+      </div>
+    </div>
+    <div class="sub">
+      <h4>Secondary Causes of FSGS</h4>
+      <ul class="bl">
+        <li><strong>HIV</strong> (HIVAN — collapsing variant; APOL1 amplifies risk)</li>
+        <li><strong>Heroin nephropathy</strong> (perihilar or NOS)</li>
+        <li><strong>Obesity / hyperfiltration</strong> (perihilar; adaptive; occurs even in morbid obesity without DM)</li>
+        <li>Reflux nephropathy, unilateral renal agenesis, surgical nephrectomy → reduced nephron mass → hyperfiltration</li>
+        <li>Sickle cell disease (collapsing or NOS)</li>
+        <li>Pamidronate (bisphosphonate) → collapsing FSGS</li>
+        <li>Fabry's disease → podocyte Gb3 accumulation → NOS pattern</li>
+        <li>Familial/genetic: COL4A mutations, APOL1 risk alleles</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Presentation</h3>
+    <ul class="bl">
+      <li>Nephrotic-range proteinuria (often &gt;5 g/24hr in primary); may be subnephrotic in secondary</li>
+      <li>Hypoalbuminemia, edema, hyperlipidemia — typical nephrotic syndrome features</li>
+      <li>Microscopic hematuria in ~50%</li>
+      <li>HTN common; GFR often ↓ at presentation (especially collapsing)</li>
+      <li>Often detected incidentally on routine urinalysis</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment</h3>
+    <ul class="bl">
+      <li><strong>High-dose corticosteroids</strong> (prednisone 1 mg/kg/day) for 4–6 months — only 25–45% of adults achieve complete remission</li>
+      <li><strong>Steroid-resistant primary FSGS:</strong> calcineurin inhibitors (cyclosporine, tacrolimus), MMF, rituximab</li>
+      <li><strong>Sparsentan</strong> (dual ETA/AT1 receptor antagonist): FDA approved for primary FSGS — reduces proteinuria, slows GFR decline</li>
+      <li>Secondary FSGS: treat underlying cause (antiretrovirals for HIVAN, weight loss for obesity-related); ACEi/ARB for proteinuria</li>
+      <li>SGLT2 inhibitors: emerging nephroprotective role in FSGS</li>
+      <li>Recurrence post-transplant (primary FSGS): plasmapheresis; rituximab</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Prognosis</h3>
+    <ul class="bl">
+      <li>Without treatment: <strong>50% reach ESKD within 10–20 years</strong></li>
+      <li>Proteinuria &gt;3 g/24hr, HTN, ↑ creatinine at presentation = poor prognosis</li>
+      <li>Complete remission (proteinuria &lt;300 mg/24hr) → excellent long-term outcomes</li>
+      <li>Collapsing variant → often ESKD within 1–3 years</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ 03: MEMBRANOUS GN ═══ -->
+<section class="sec" id="s-mgn">
+  <div class="sec-hd"><span class="sec-n">03</span><h2>Membranous Glomerulonephritis (Membranous Nephropathy)</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Epidemiology Pearl</div>
+    Most common cause of <strong>primary nephrotic syndrome in white adults over age 50</strong>. 80% = primary (PLA2R-associated). 20% = secondary. Highest thrombotic risk of all nephrotic syndromes.
+  </div>
+
+  <div class="sub">
+    <h3>Pathogenesis — In Situ Immune Complex Formation</h3>
+    <ul class="bl">
+      <li><strong>Primary (80%):</strong> Circulating IgG4 autoantibodies against <strong>PLA2R (phospholipase A2 receptor, ~70–80%)</strong> or THSD7A (~5%) on podocytes → in situ immune complex formation on subepithelial surface of GBM</li>
+      <li>Also: NELL-1, Sema3B, EXT1/EXT2, NCAM1 (new antigens in non-PLA2R primary MGN)</li>
+      <li>Mechanism: antigen expressed on podocyte foot processes → IgG antibody binds → subepithelial immune complex → <strong>complement activation (C5b-9 membrane attack complex)</strong> → podocyte injury → proteinuria</li>
+      <li>WHY subepithelial? Podocytes face the outer GBM surface; their antigens are on the subepithelial side</li>
+      <li><strong>Secondary (20%) causes — MUST KNOW ALL:</strong>
+        <ul>
+          <li><strong>Malignancy</strong> (paraneoplastic): solid tumors — colon, lung, breast, prostate; associated antigen = NELL-1 (colorectal), Sema3B (pediatric)</li>
+          <li><strong>Hepatitis B</strong> (HBsAg and anti-HBe in immune complexes)</li>
+          <li><strong>Lupus</strong> (Class V lupus nephritis)</li>
+          <li><strong>Drugs:</strong> gold, penicillamine, NSAIDs, captopril, mercury</li>
+          <li>Syphilis, malaria</li>
+          <li>Autoimmune: thyroiditis, rheumatoid arthritis, Sjögren's</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Biopsy Findings</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">Light Microscopy</div>
+        <p>Diffuse thickening of GBM. <strong>"Spikes"</strong> on Jones silver stain = new GBM material projecting up between subepithelial deposits (encasing them). No significant hypercellularity.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Immunofluorescence</div>
+        <p>Diffuse granular <strong>IgG along GBM</strong>. Also C3, C4, C1q in secondary MGN. PLA2R staining: positive in primary MGN.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Electron Microscopy (Stages)</div>
+        <p>Stage I: small subepithelial deposits. Stage II: GBM spikes between deposits. Stage III: deposits incorporated into GBM. Stage IV: deposits resorb → lucent areas in GBM ("moth-eaten" appearance). Foot process effacement.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>PLA2R Antibody — Clinical Use</h3>
+    <ul class="bl">
+      <li>PLA2R antibody titer <strong>correlates with disease activity</strong>: high titer = active disease</li>
+      <li>Falling titers precede clinical remission (often by months) → early predictor of treatment response</li>
+      <li>PLA2R positive biopsy AND negative serum antibody = early remission OR inactive burnt-out disease</li>
+      <li><strong>Pre-transplant PLA2R positivity</strong> → risk of disease recurrence in the allograft</li>
+      <li>PLA2R NEGATIVE primary MGN → consider biopsy staining for THSD7A, NELL-1, Sema3B; and rule out secondary causes aggressively</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Presentation</h3>
+    <ul class="bl">
+      <li>Heavy proteinuria — median ~8 g/24hr; often insidious onset</li>
+      <li>Microscopic hematuria in ~50%</li>
+      <li>HTN in ~50%</li>
+      <li>Complement levels: <strong>normal in primary</strong> MGN (C5b-9 formed locally at GBM, does not lower serum complement levels)</li>
+      <li>Edema typically less severe than MCD</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Thrombosis Risk — Highest of All Nephrotic Syndromes</div>
+      Membranous GN has the highest risk of DVT/PE of all nephrotic syndromes. Also: <strong>renal vein thrombosis</strong> (classic association). Mechanism: heavy proteinuria → massive urinary loss of antithrombin III, protein C, protein S → hypercoagulable state. Consider prophylactic anticoagulation when albumin &lt;2.0 g/dL.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>The Rule of Thirds</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-g">1/3 Spontaneous Remission</div>
+        <p>Complete or partial remission without treatment, typically within 2–5 years. Basis for "watchful waiting" in mild/moderate disease.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">1/3 Stable, Non-Progressive</div>
+        <p>Persistent proteinuria but stable kidney function. May have chronic nephrotic complications but do not progress to ESKD over decades.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">1/3 Progression to ESKD</div>
+        <p>Predictors: male sex, older age, persistent heavy proteinuria &gt;8 g/24hr, HTN, ↑ creatinine, high PLA2R titer. These patients need aggressive treatment.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment</h3>
+    <ul class="bl">
+      <li><strong>Watchful waiting 6–12 months first</strong> in stable patients — to assess for spontaneous remission</li>
+      <li>ACEi/ARB: reduce proteinuria in all patients regardless of immunosuppression</li>
+      <li><strong>Rituximab (anti-CD20):</strong> now considered first-line immunosuppression for primary MGN — targets B cells producing anti-PLA2R; superior safety vs. alkylating agents</li>
+      <li><strong>Ponticelli regimen</strong> (alternating monthly cyclophosphamide + methylprednisolone × 6 months): traditional first-line, still used</li>
+      <li>Calcineurin inhibitors (cyclosporine, tacrolimus): alternative, but high relapse rate when stopped</li>
+      <li>Obinutuzumab, belimumab: emerging agents targeting B cells</li>
+      <li>Secondary MGN: treat underlying cause (antivirals for HBV, stop offending drug)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ 04: DIABETIC NEPHROPATHY ═══ -->
+<section class="sec" id="s-dn">
+  <div class="sec-hd"><span class="sec-n">04</span><h2>Diabetic Nephropathy</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Epidemiology</div>
+    <strong>#1 cause of CKD and ESKD worldwide</strong>. Complicates both Type 1 and Type 2 DM. Affects ~30–40% of all diabetics over their lifetime. Prevention and early detection are the most impactful interventions.
+  </div>
+
+  <div class="sub">
+    <h3>Pathogenesis</h3>
+    <ul class="bl">
+      <li>Hyperglycemia → <strong>advanced glycosylation end products (AGEs)</strong> + <strong>reactive oxygen species (ROS)</strong> + activation of PKC, TGF-β, RAAS → GBM thickening + mesangial expansion + podocyte injury</li>
+      <li>Glomerular hyperfiltration (early): diabetic kidneys initially hyperperfuse → large, hyperfunctioning kidneys → elevated GFR → damage over time</li>
+      <li>Proteinuria → amplifies tubular injury → fibrosis (same downstream mechanism as all GN)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Staging</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Stage</th><th>GFR</th><th>Albuminuria</th><th>Kidney Size</th><th>Comment</th></tr></thead>
+        <tbody>
+          <tr><td>1 — Hyperfiltration</td><td>↑ (may be 120–150 mL/min)</td><td>Normal</td><td>Enlarged</td><td>Reversible with glucose control; no biopsy finding yet</td></tr>
+          <tr><td>2 — Silent</td><td>Normal</td><td>Normal or minimally ↑</td><td>Enlarged</td><td>GBM thickening on EM; no clinical manifestation</td></tr>
+          <tr><td>3 — Incipient</td><td>Normal</td><td><strong>30–300 mg/24hr (microalbuminuria)</strong></td><td>Normal</td><td>First detectable stage; reversible with aggressive treatment</td></tr>
+          <tr><td>4 — Overt</td><td>↓ (declining)</td><td><strong>&gt;300 mg/24hr</strong></td><td>Shrinking</td><td>Hypertension; irreversible; retinopathy nearly always present</td></tr>
+          <tr><td>5 — ESKD</td><td>&lt;15 mL/min</td><td>Often decreases as GFR falls</td><td>Small</td><td>Dialysis or transplant</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Biopsy Findings</h3>
+    <ul class="bl">
+      <li><strong>Light microscopy:</strong>
+        <ul>
+          <li>Diffuse mesangial expansion + GBM thickening</li>
+          <li><strong>Kimmelstiel-Wilson (K-W) nodules</strong> — ovoid/ellipsoidal PAS-positive acellular nodules in the peripheral mesangium; <strong>pathognomonic</strong> of diabetic nodular glomerulosclerosis</li>
+          <li>Exudative lesions: "fibrin caps" (PAS-positive homogeneous material in capillary loops) and "capsular drops" (material between Bowman's capsule and parietal epithelium)</li>
+          <li>Afferent AND efferent arteriolar hyalinosis (efferent arteriolar hyalinosis = specific for DM; not seen in other diseases)</li>
+        </ul>
+      </li>
+      <li><strong>IF:</strong> Non-specific; linear IgG, albumin, fibrinogen along GBM (no immune complex pattern)</li>
+      <li><strong>EM:</strong> GBM thickening (&gt;450nm women, &gt;430nm men); diffuse foot process effacement</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>When to Biopsy a Diabetic Patient</h3>
+    <div class="co wrn">
+      <div class="co-t">Clinical Rule</div>
+      Diabetic nephropathy is usually diagnosed <em>clinically</em> (DM + microalbuminuria + retinopathy = sufficient). Biopsy when: (1) <strong>nephrotic syndrome without retinopathy</strong>, (2) <strong>gross hematuria</strong>, (3) <strong>RBC casts</strong>, (4) <strong>rapid loss of kidney function</strong>, (5) short duration of DM (&lt;5 years Type 1 DM with nephrotic syndrome). These suggest a coexisting non-diabetic GN.
+    </div>
+    <div class="co dan">
+      <div class="co-t">Board Trap</div>
+      <strong>Hematuria in a diabetic patient = investigate for another cause.</strong> Diabetic nephropathy alone does NOT cause gross hematuria and only rarely causes significant microscopic hematuria. If hematuria is prominent → think IgA nephropathy, lupus, ANCA, or bladder malignancy.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment — Evidence-Based Hierarchy</h3>
+    <ul class="bl">
+      <li><strong>Glycemic control</strong> (HbA1c &lt;7.0%): prevents/delays microalbuminuria; slows progression at early stages</li>
+      <li><strong>Blood pressure control</strong> (&lt;130/80 mmHg): ACEi or ARB = first-line (even without HTN if microalbuminuria present); prevent progression</li>
+      <li><strong>SGLT2 inhibitors</strong> (dapagliflozin, empagliflozin, canagliflozin): independently nephroprotective; reduce adverse kidney outcomes by 30–40% regardless of glycemic effect; now recommended for all DKD regardless of HbA1c</li>
+      <li><strong>Finerenone</strong> (non-steroidal mineralocorticoid receptor antagonist): reduces proteinuria + CKD progression in DKD</li>
+      <li><strong>GLP-1 receptor agonists</strong> (semaglutide, liraglutide): reduce proteinuria and slow kidney decline; cardiovascular + renal benefits</li>
+      <li>Protein restriction: modest benefit; limit to 0.8 g/kg/day</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ 05: DEPOSITION DISEASES ═══ -->
+<section class="sec" id="s-deposition">
+  <div class="sec-hd"><span class="sec-n">05</span><h2>Glomerular Deposition Diseases</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <p>Abnormal proteins deposit in the glomerulus → structural damage. Key diseases: AL amyloidosis, LCDD/HCDD, MGRS, fibrillary GN, immunotactoid GN. The unifying theme: <strong>always look for an underlying plasma cell or B-cell clone</strong>.</p>
+
+  <div class="sub">
+    <h3>AL Amyloidosis (Light Chain Amyloid)</h3>
+    <ul class="bl">
+      <li>Monoclonal light chains (usually <strong>lambda</strong> &gt; kappa) misfolded → amyloid fibrils → deposit in mesangium, GBM, arterioles, tubular basement membranes</li>
+      <li>Associated with: <strong>multiple myeloma</strong>, MGUS, Waldenström's macroglobulinemia</li>
+    </ul>
+    <div class="sub">
+      <h4>Biopsy</h4>
+      <ul class="bl">
+        <li>LM: pale, acellular amorphous deposits expanding the mesangium</li>
+        <li><strong>Congo red stain → apple-green birefringence under polarized light</strong> = diagnostic for amyloid</li>
+        <li>IF: monoclonal lambda (or kappa) staining; also positive for SAP (serum amyloid P component)</li>
+        <li>EM: <strong>8–12nm randomly arranged, non-branching, fibrillary deposits</strong> — the defining ultrastructure of amyloid</li>
+      </ul>
+    </div>
+    <div class="sub">
+      <h4>Clinical</h4>
+      <ul class="bl">
+        <li><strong>Heavy proteinuria / nephrotic syndrome</strong> is the most common kidney manifestation</li>
+        <li>Multi-organ involvement: <strong>cardiac amyloidosis</strong> (most important; restrictive cardiomyopathy, arrhythmias), peripheral neuropathy (glove-and-stocking), autonomic dysfunction, macroglossia (tongue enlargement — pathognomonic), periorbital purpura ("raccoon eyes"), hepatomegaly, "shoulder pad sign" (amyloid in shoulder joint)</li>
+        <li>Low voltage on EKG + thick-walled heart on echo = cardiac amyloid</li>
+      </ul>
+    </div>
+    <div class="sub">
+      <h4>Treatment</h4>
+      <ul class="bl">
+        <li><strong>Daratumumab + bortezomib + cyclophosphamide + dexamethasone</strong> (Dara-CyBorD): current standard first-line for AL amyloidosis</li>
+        <li><strong>Autologous stem cell transplant (ASCT)</strong>: for eligible patients (&lt;70 years, good performance status, limited cardiac involvement)</li>
+        <li>Tafamidis, patisiran (TTR amyloid-specific, NOT AL): do not confuse with AL amyloidosis treatment</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>AA Amyloidosis (Secondary Amyloid)</h3>
+    <ul class="bl">
+      <li>Serum amyloid A protein (SAP) accumulates → amyloid fibrils</li>
+      <li>Caused by chronic inflammatory diseases: <strong>RA, IBD, FMF, osteomyelitis, bronchiectasis</strong></li>
+      <li>Congo red positive; staining for SAA protein positive; NO monoclonal Ig</li>
+      <li>Treatment: control the underlying inflammatory disease</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>LCDD (Light Chain Deposition Disease)</h3>
+    <ul class="bl">
+      <li>Monoclonal light chains (usually <strong>kappa</strong> &gt; lambda — opposite of AL amyloid) deposit as non-fibrillar material in glomeruli, tubules, and arterioles</li>
+      <li>Associated with multiple myeloma, MGUS, lymphoma</li>
+      <li>LM: <strong>nodular glomerulosclerosis</strong> — KW-like nodules (mimics diabetic nephropathy!)</li>
+      <li>IF: linear <strong>kappa</strong> light chain along GBM AND tubular basement membranes (unlike membranous GN which is granular IgG)</li>
+      <li>EM: <strong>granular, powdery, non-fibrillar</strong> deposits (contrast with amyloid fibrils)</li>
+      <li>Clinical: proteinuria, hematuria, progressive kidney failure, often with chronic renal failure</li>
+      <li>Treatment: treat the underlying plasma cell disorder (bortezomib-based regimen ± ASCT)</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">LCDD vs. Amyloid — Key Distinctions</div>
+      Both produce nodular glomerulosclerosis and are monoclonal. <strong>LCDD: kappa, Congo red NEGATIVE, non-fibrillar on EM. AL amyloid: lambda, Congo red POSITIVE, 8–12nm fibrils on EM.</strong>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>MGRS — Monoclonal Gammopathy of Renal Significance</h3>
+    <ul class="bl">
+      <li>Kidney damage from monoclonal Ig produced by a <strong>small B-cell or plasma cell clone</strong> — not yet meeting diagnostic criteria for overt myeloma, lymphoma, or CLL</li>
+      <li>The clone is "too small" for hematology treatment but "too damaging" for nephrology to ignore → must treat the clone to save the kidney</li>
+      <li>Spectrum of kidney manifestations: AL amyloid, LCDD, HCDD, fibrillary GN, immunotactoid GP, cryoglobulinemic GN, MPGN, C3 glomerulopathy (when driven by monoclonal complement inhibitor)</li>
+      <li>Diagnosis requires: paraprotein in serum/urine (SPEP, UPEP, serum free light chains) + biopsy showing monoclonal protein deposits + kidney injury</li>
+      <li>Treatment: clone-directed therapy (bortezomib, daratumumab, rituximab, ASCT depending on clone type) even though clone is small</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Fibrillary GN &amp; Immunotactoid GN</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-p">Fibrillary GN</div>
+        <p><strong>12–22nm fibrils</strong> composed of polyclonal IgG. Congo red <strong>NEGATIVE</strong>. <strong>DNAJB9 on IF = pathognomonic</strong>. Associated with HCV, autoimmune disease, monoclonal gammopathy. Clinical: nephrotic range proteinuria, hematuria, progressive CKD. Treatment: based on underlying cause; rituximab for idiopathic.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Immunotactoid GN</div>
+        <p>Large organized <strong>microtubular structures (30–50nm)</strong> — much larger than amyloid (8–12nm) or fibrillary GN (12–22nm). Congo red <strong>NEGATIVE</strong>. Strongly associated with B-cell lymphoproliferative disorders, CLL, cryoglobulinemia. Treatment: treat underlying lymphoproliferative disorder.</p>
+      </div>
+    </div>
+    <div class="co key">
+      <div class="co-t">EM Diameter Memory Aid</div>
+      Amyloid = <strong>8–12nm</strong> (smallest) → Fibrillary GN = <strong>12–22nm</strong> (medium) → Immunotactoid GN = <strong>30–50nm</strong> (largest, microtubular). All Congo red negative except amyloid.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 06: FABRY'S DISEASE ═══ -->
+<section class="sec" id="s-fabry">
+  <div class="sec-hd"><span class="sec-n">06</span><h2>Fabry's Disease</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Overview</h3>
+    <ul class="bl">
+      <li><strong>X-linked</strong> lysosomal storage disease caused by deficiency of <strong>α-galactosidase A (GLA)</strong></li>
+      <li>Deficiency → accumulation of <strong>globotriaosylceramide (Gb3)</strong> in lysosomes of podocytes, endothelial cells, tubular cells, smooth muscle cells, neurons</li>
+      <li>Affected males: full syndrome. Carrier females: variable (can have significant kidney/cardiac disease)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Kidney Manifestations</h3>
+    <ul class="bl">
+      <li>Early: proteinuria (often subnephrotic), microscopic hematuria, concentrating defect</li>
+      <li>Progressive FSGS → CKD → ESKD in males in <strong>3rd–4th decade</strong></li>
+      <li>Kidney is the leading cause of death in untreated males</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Biopsy Findings</h3>
+    <ul class="bl">
+      <li>LM: vacuolization of podocytes and tubular cells; eventual FSGS pattern</li>
+      <li>IF: non-specific</li>
+      <li>EM: <strong>Myelin figures / "zebra bodies"</strong> — lamellated, concentric membrane-bound inclusions in podocytes (from Gb3 accumulation). Pathognomonic. Also present in endothelial cells and tubular cells</li>
+      <li>Oil Red O: lipid in tubular cells</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Systemic Manifestations</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Early Onset (Childhood/Adolescence)</div>
+        <p><strong>Neuropathic pain</strong> (burning in hands/feet — acroparesthesias); episodes triggered by heat, exercise, fever. <strong>Anhidrosis</strong> (decreased sweating → heat intolerance). <strong>Angiokeratomas</strong> (small dark-red skin lesions over trunk/genitalia).</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Later Onset</div>
+        <p><strong>Cornea verticillata</strong> (whorled corneal opacity on slit lamp — does NOT impair vision). <strong>Cardiac:</strong> LVH, arrhythmias, valve abnormalities. <strong>Stroke</strong> (young patients, white matter lesions). <strong>ESKD</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnosis &amp; Treatment</h3>
+    <ul class="bl">
+      <li><strong>Diagnosis:</strong> Plasma α-galactosidase A activity (low in males; may be normal in females → gene sequencing needed); plasma lyso-Gb3 elevated; urine Gb3 elevated</li>
+      <li><strong>Enzyme replacement therapy (ERT):</strong> agalsidase alfa or agalsidase beta (IV infusion every 2 weeks) — slows kidney/cardiac progression, reduces pain</li>
+      <li><strong>Migalastat</strong> (oral pharmacological chaperone): only for patients with amenable (responsive) GLA mutations — stabilizes misfolded enzyme</li>
+      <li>ACEi/ARB for proteinuria; dialysis/transplant for ESKD (ERT should continue post-transplant)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ 07: PULMONARY-RENAL SYNDROME ═══ -->
+<section class="sec" id="s-pulrena">
+  <div class="sec-hd"><span class="sec-n">07</span><h2>Pulmonary-Renal Syndrome</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co dan">
+    <div class="co-t">Emergency</div>
+    Pulmonary-renal syndrome = <strong>RPGN + diffuse alveolar hemorrhage</strong>. One of the most dangerous presentations in nephrology — high mortality without immediate treatment. Requires urgent serologies, urgent biopsy, and often empirical treatment before results are back.
+  </div>
+
+  <div class="sub">
+    <h3>Causes — Three Must-Know Categories</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-r">Anti-GBM Disease (Goodpasture's)</div>
+        <p>Linear IgG on IF. Anti-α3 NC1 antibodies. Target = alveolar + glomerular BM. Predominantly young men. Plasmapheresis + CYC + steroids.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">ANCA Vasculitis</div>
+        <p>Pauci-immune on IF. Anti-PR3 (GPA) or Anti-MPO (MPA). Alveolar capillaritis. Steroids + rituximab/CYC ± plasmapheresis.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Lupus (SLE)</div>
+        <p>Granular IgG + C3 on IF. Anti-dsDNA, ↓complement. Diffuse alveolar hemorrhage + Class III/IV nephritis. Pulse steroids + CYC or rituximab.</p>
+      </div>
+    </div>
+    <div class="sub">
+      <h4>Less Common Causes</h4>
+      <ul class="bl">
+        <li>Cryoglobulinemic vasculitis (usually HCV-related)</li>
+        <li>IgA vasculitis (Henoch-Schönlein purpura — rare pulmonary involvement)</li>
+        <li>Antiphospholipid syndrome (TMA + pulmonary capillaritis)</li>
+        <li>Rheumatoid vasculitis</li>
+        <li>Drug-induced ANCA vasculitis (hydralazine, propylthiouracil, minocycline → MPO-ANCA)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Approach to the Patient</h3>
+    <ul class="bl">
+      <li><strong>Urgent serologies STAT:</strong> anti-GBM (α3 NC1), ANCA (PR3 + MPO), ANA, anti-dsDNA, complement C3/C4, cryoglobulins</li>
+      <li><strong>Urgent kidney biopsy</strong> (when coagulation allows): IF pattern is the pivotal diagnostic step</li>
+      <li>Bronchoalveolar lavage: hemosiderin-laden macrophages confirm alveolar hemorrhage</li>
+      <li><strong>Empirical treatment:</strong> pulse methylprednisolone + plasmapheresis before diagnosis confirmed if rapidly deteriorating</li>
+      <li>ICU admission often needed; mechanical ventilation for severe hemorrhage; dialysis for AKI</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ 08: BASEMENT MEMBRANE DISEASES ═══ -->
+<section class="sec" id="s-bm">
+  <div class="sec-hd"><span class="sec-n">08</span><h2>Hereditary Basement Membrane Diseases</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Alport's Syndrome</h3>
+    <ul class="bl">
+      <li>Mutations in <strong>type IV collagen chains</strong> → structurally abnormal GBM → progressive nephritis</li>
+      <li><strong>Inheritance patterns:</strong>
+        <ul>
+          <li>X-linked (85%): mutations in <strong>COL4A5</strong> on X chromosome → absent α5 chain → destabilized α345 hexamer in GBM, alveoli, cochlea, lens</li>
+          <li>Autosomal recessive (10%): mutations in <strong>COL4A3 or COL4A4</strong> → absent α3 or α4</li>
+          <li>Autosomal dominant: heterozygous COL4A3/A4 — generally milder</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="sub">
+      <h4>Biopsy Findings</h4>
+      <ul class="bl">
+        <li>LM: variable, often non-specific; glomerulosclerosis, tubular atrophy with progression</li>
+        <li>IF: absent α5 staining on GBM in X-linked males; patchwork pattern in carrier females</li>
+        <li>EM: <strong>GBM splitting, irregular thickening and thinning, "basketweave" lamination of lamina densa</strong> — pathognomonic; alternating dense/lucent lamellae</li>
+      </ul>
+    </div>
+    <div class="sub">
+      <h4>Clinical Features</h4>
+      <ul class="bl">
+        <li>Kidney: persistent <strong>microscopic hematuria from birth</strong> (often first clue); then progressive proteinuria; ESKD in males in <strong>20s–40s</strong> (X-linked); carrier females can progress</li>
+        <li><strong>Sensorineural hearing loss</strong>: predominantly high-frequency; often before ESKD; bilateral</li>
+        <li><strong>Anterior lenticonus</strong>: protrusion of lens nucleus through anterior capsule → myopia, oil droplet appearance on ophthalmoscopy</li>
+        <li>Dot-and-fleck retinopathy: macular flecks; usually asymptomatic</li>
+        <li><strong>Anti-GBM post-transplant:</strong> X-linked Alport males receive normal kidney with "foreign" α345 collagen IV → ~50% develop anti-GBM antibodies → only 3–5% develop overt Goodpasture's; most have no clinical disease; transplant outcomes generally good</li>
+      </ul>
+    </div>
+    <div class="sub">
+      <h4>Treatment</h4>
+      <ul class="bl">
+        <li><strong>ACEi (gold standard):</strong> slows progression; best when started early (even before proteinuria)</li>
+        <li>Losartan ARB: also slows progression</li>
+        <li>SGLT2 inhibitors: emerging role in Alport's</li>
+        <li>No cure yet; transplant for ESKD</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Thin Basement Membrane Disease (TBMD) / Benign Familial Hematuria</h3>
+    <ul class="bl">
+      <li><strong>Most common cause of persistent isolated microscopic hematuria</strong> in young adults</li>
+      <li>Heterozygous mutations in <strong>COL4A3 or COL4A4</strong> = carrier state of autosomal recessive Alport's</li>
+      <li>LM and IF: <strong>normal</strong></li>
+      <li>EM: diffusely <strong>thinned GBM</strong> (&lt;250nm; normal = 300–350nm in adults)</li>
+      <li>Clinical: persistent microscopic hematuria, normal kidney function, no proteinuria initially</li>
+      <li>Generally benign prognosis — <strong>most do NOT progress</strong> to ESKD; some may develop mild proteinuria and CKD over decades</li>
+      <li>No specific treatment; ACEi if proteinuria develops; reassurance is key</li>
+      <li>Family members should be screened (may reveal Alport's carriers)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Nail-Patella Syndrome</h3>
+    <ul class="bl">
+      <li>Mutations in <strong>LMX1B</strong> (transcription factor regulating COL4A3/A4 expression) → <strong>autosomal dominant</strong></li>
+      <li>Kidney disease in ~30%: proteinuria, hematuria, progressive CKD</li>
+      <li>EM: "moth-eaten" GBM with irregular areas of lucency + <strong>fibrillar collagen cross-fibers within lamina densa</strong> (pathognomonic)</li>
+      <li>Extrarenal findings: <strong>absent or hypoplastic patellae</strong>, nail dysplasia (triangular lunulae), <strong>iliac horns</strong> (bony outgrowths from posterior iliac crests — visible on X-ray; pathognomonic), elbow dysplasia (limited extension/supination)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ 09: VASCULAR GN ═══ -->
+<section class="sec" id="s-vascular">
+  <div class="sec-hd"><span class="sec-n">09</span><h2>Glomerular-Vascular Syndromes</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Hypertensive Nephrosclerosis</h3>
+    <ul class="bl">
+      <li><strong>#2 cause of ESKD in USA</strong> (after DM); disproportionately affects African Americans</li>
+      <li><strong>APOL1 high-risk genotype</strong>: G1/G2 alleles dramatically increase risk of hypertensive ESKD in African Americans; explains why Black Americans have 3–4× higher rates of ESKD from HTN vs. white Americans despite similar levels of blood pressure control</li>
+      <li>Pathology: afferent arteriolar hyalinosis → ischemia of glomerulus → global glomerulosclerosis → nephron loss → interstitial fibrosis</li>
+      <li>Clinical: mild proteinuria (&lt;1 g/day), slowly progressive CKD, HTN for many years</li>
+      <li>Treatment: aggressive BP control (&lt;130/80); ACEi/ARB; in APOL1 high-risk patients: consider aggressive treatment even at "lower" BP levels</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Malignant Hypertension (Separate Entity)</div>
+      Rapid, extreme BP elevation → fibrinoid necrosis of arterioles + "onion-skin" hyperplastic arteriolitis → TMA pattern → AKI. Presents with AKI, MAHA, ↑ LDH, schistocytes, retinal hemorrhages/papilledema, encephalopathy. Emergency BP reduction + supportive care.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Cholesterol Emboli Nephropathy</h3>
+    <ul class="bl">
+      <li>Cholesterol crystals shed from aortic/renal artery atherosclerotic plaques → lodge in intrarenal arteries → downstream ischemia</li>
+      <li>Triggers: aortic surgery, cardiac catheterization, arteriography, anticoagulation (dislodges plaques)</li>
+      <li>LM: <strong>"biconvex clefts"</strong> or <strong>"needle-shaped spaces"</strong> where cholesterol crystals dissolved during processing → foreign body giant cell reaction</li>
+      <li>Clinical:
+        <ul>
+          <li>Subacute or chronic progressive kidney failure (over weeks–months, unlike contrast nephropathy which peaks at 48–72hr)</li>
+          <li><strong>Eosinophilia (40%)</strong> + eosinophiluria</li>
+          <li><strong>Livedo reticularis</strong> (net-like skin discoloration on extremities)</li>
+          <li><strong>"Blue toe" syndrome</strong> (digital ischemia)</li>
+          <li><strong>Hollenhorst plaques</strong> in retinal arteries (cholesterol crystals visible on funduscopy)</li>
+          <li>Low complement (activation); eosinophilia may mimic ANCA vasculitis</li>
+        </ul>
+      </li>
+      <li>No specific treatment; discontinue anticoagulation if possible; statins may stabilize plaques; supportive care</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Sickle Cell Disease Nephropathy</h3>
+    <ul class="bl">
+      <li>Renal medulla = most susceptible: low oxygen tension + high osmolarity + sluggish flow → <strong>sickling in vasa recta</strong></li>
+      <li><strong>Earliest manifestation:</strong> loss of urinary concentrating ability → <strong>hyposthenuria / isosthenuria</strong> (urine specific gravity fixed at ~1.010) → polyuria + nocturia in young patients</li>
+      <li><strong>Gross hematuria:</strong> common; from medullary ischemia + papillary necrosis</li>
+      <li><strong>FSGS:</strong> most common glomerular lesion — from hyperfiltration (remaining nephrons work harder after medullary loss) + APOL1 alleles in many African Americans</li>
+      <li>Heavy proteinuria (nephrotic syndrome) → progressive CKD → ESKD in adulthood</li>
+      <li>Treatment: hydroxyurea (HbF induction), ACEi/ARB for proteinuria, transplant for ESKD</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Thrombotic Microangiopathy (TMA)</h3>
+    <p>Microvascular injury → thrombi in arterioles and glomerular capillaries → ischemia.</p>
+    <div class="co key">
+      <div class="co-t">TMA Lab Triad</div>
+      <strong>Microangiopathic hemolytic anemia (MAHA)</strong> — schistocytes on blood smear; <strong>thrombocytopenia</strong>; <strong>elevated creatinine</strong> (kidney injury). Also: ↑ LDH, ↓ haptoglobin, negative Coombs test.
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Type</th><th>Mechanism</th><th>Key Feature</th><th>Treatment</th></tr></thead>
+        <tbody>
+          <tr><td><strong>TTP</strong></td><td>ADAMTS13 deficiency (&lt;10% activity) → ultra-large vWF multimers → platelet aggregation</td><td>Neurologic symptoms (confusion, seizures), severe thrombocytopenia. ADAMTS13 activity &lt;10%</td><td><strong>Plasma exchange (PLEX)</strong> + caplacizumab. Steroids + rituximab if autoimmune</td></tr>
+          <tr><td><strong>Typical HUS</strong></td><td>Shiga toxin (STEC — O157:H7) → endothelial injury → TMA</td><td>Hemorrhagic colitis + AKI in children. No antibiotics (may ↑ toxin release)</td><td><strong>Supportive</strong> (dialysis, transfusion). No PLEX needed</td></tr>
+          <tr><td><strong>aHUS</strong></td><td>Complement mutations (CFH, CFI, CFB, C3, MCP/CD46) → uncontrolled alternative pathway</td><td>Often recurrent; no diarrhea prodrome; family history. Normal ADAMTS13</td><td><strong>Eculizumab</strong> (anti-C5) = dramatic response. Continue lifelong or 6 months then reassess</td></tr>
+          <tr><td>Drug-induced</td><td>Endothelial toxicity</td><td>Quinine, clopidogrel, ticlopidine, gemcitabine, calcineurin inhibitors, VEGF inhibitors</td><td>Stop offending drug; PLEX if needed</td></tr>
+          <tr><td>Malignant HTN</td><td>Pressure-induced fibrinoid necrosis</td><td>Severe HTN; schistocytes + AKI + retinopathy</td><td>Emergency BP reduction</td></tr>
+          <tr><td>Pregnancy</td><td>HELLP, preeclampsia, postpartum aHUS</td><td>Third trimester or post-partum. Delivery is key for HELLP</td><td>Delivery for HELLP; eculizumab for postpartum aHUS</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co dan">
+      <div class="co-t">TTP vs. aHUS Distinction — Boards Favorite</div>
+      <strong>TTP:</strong> ADAMTS13 &lt;10% activity → plasma exchange. <strong>aHUS:</strong> Normal ADAMTS13 + complement mutation → eculizumab. If ADAMTS13 &gt;10% + no Shiga toxin + no obvious cause → suspect aHUS → eculizumab may be indicated while awaiting genetic results.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 10: INFECTIOUS GN ═══ -->
+<section class="sec" id="s-infectious">
+  <div class="sec-hd"><span class="sec-n">10</span><h2>Infectious Disease–Associated GN</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <p>The most common cause of GN <strong>worldwide</strong> — far more common than immune-mediated GN in developing countries. Mechanisms: direct infection of glomerular cells, immune complex deposition of microbial antigens, or complement activation.</p>
+
+  <div class="sub">
+    <h3>HIV-Associated Nephropathy (HIVAN)</h3>
+    <ul class="bl">
+      <li>Most common and clinically significant kidney disease in HIV</li>
+      <li>Pathology: <strong>collapsing FSGS</strong> — visceral podocyte proliferation + collapse of glomerular capillary tuft; tubuloreticular inclusions (TRI) on EM</li>
+      <li>IF: pauci-immune (no deposits) — unlike other immune complex diseases</li>
+      <li>Predominantly in <strong>Black Americans with APOL1 high-risk alleles</strong> — APOL1 G1/G2 dramatically amplifies HIV-mediated podocyte injury</li>
+      <li>Clinical: <strong>heavy proteinuria (often nephrotic)</strong>, rapid progression to ESKD (weeks–months untreated), large echogenic kidneys on ultrasound</li>
+      <li><strong>Treatment: antiretroviral therapy (ART)</strong> → dramatic improvement in kidney function; decline in HIVAN since HAART era</li>
+      <li>Also: HIV immune complex kidney disease (HIVICK) — mesangioproliferative or MPGN pattern with immune deposits; distinct from HIVAN</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Hepatitis B Virus (HBV)</h3>
+    <ul class="bl">
+      <li><strong>Classic pattern: Membranous GN</strong> (especially in children with chronic HBV) — HBsAg and anti-HBe in subepithelial immune complexes</li>
+      <li>Also: MPGN, diffuse proliferative GN, polyarteritis nodosa (medium vessel vasculitis — HBV-associated)</li>
+      <li>Children: often <strong>spontaneous remission</strong> with HBeAg seroconversion (30–60% remit spontaneously)</li>
+      <li>Adults: less spontaneous remission; need antiviral therapy</li>
+      <li>Treatment: <strong>antivirals</strong> (tenofovir disoproxil, entecavir) → suppress viral replication → improve GN. Avoid steroids/immunosuppression (may reactivate HBV)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Hepatitis C Virus (HCV) — Cryoglobulinemia</h3>
+    <ul class="bl">
+      <li>Classic HCV kidney disease: <strong>type II mixed cryoglobulinemia</strong> → cryoglobulinemic vasculitis → <strong>MPGN pattern</strong></li>
+      <li>Pathogenesis: HCV drives B-cell clonal expansion → monoclonal IgM (with rheumatoid factor activity) + polyclonal IgG → cryoprecipitate at cold temperatures → deposit in small vessels → complement activation → vasculitis</li>
+      <li><strong>Clinical triad of cryoglobulinemia:</strong> purpura (palpable, lower extremities), arthralgia, peripheral neuropathy → + kidney = MPGN pattern</li>
+      <li><strong>Key lab:</strong> Low <strong>C4</strong> (cryoglobulins preferentially activate classical pathway via IgM) with relatively preserved C3; positive rheumatoid factor; positive cryocrit; positive HCV RNA</li>
+      <li>Treatment: <strong>DAAs</strong> (direct-acting antivirals — sofosbuvir-based regimens) → eradicate HCV → dramatic improvement or resolution of cryoglobulinemia and GN</li>
+      <li>Active vasculitis with organ-threatening disease: rituximab + plasmapheresis while awaiting antiviral response</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>SARS-CoV-2 / COVID-19 Nephropathy</h3>
+    <ul class="bl">
+      <li>Most common kidney manifestation: AKI from tubular injury (COVID-19 ATN) — not GN</li>
+      <li>GN pattern: <strong>collapsing FSGS</strong> — similar mechanism to HIVAN; predominantly in Black patients with APOL1 G1/G2 risk alleles; direct viral infection of podocytes + APOL1-mediated podocyte toxicity</li>
+      <li>Also described: TMA (endotheliitis), minimal change disease (cytokine storm theory), IgA nephropathy flares, pauci-immune GN</li>
+      <li>Treatment: treat COVID-19 (antivirals); RAAS inhibition + supportive care for kidney manifestations</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Parasitic Infections — Global Burden</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Organism</th><th>Kidney Pattern</th><th>Region</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><em>Plasmodium falciparum</em> (malaria)</td><td>MPGN → acute GN; mesangial deposits</td><td>Sub-Saharan Africa, Asia</td><td>Severe malaria: AKI + MAHA + organ failure. <em>P. malariae</em>: membranous GN (quartan malaria nephropathy)</td></tr>
+          <tr><td><em>Schistosoma mansoni</em></td><td>MPGN, mesangioproliferative GN</td><td>Africa, South America</td><td>Schistosomal antigens in immune complexes; hepatosplenic schistosomiasis amplifies kidney disease</td></tr>
+          <tr><td><em>Wuchereria bancrofti</em> (filariasis)</td><td>Membranous GN, MPGN</td><td>Tropics</td><td>Microfilarial antigens in GBM; treated with diethylcarbamazine</td></tr>
+          <tr><td><em>Toxoplasma gondii</em></td><td>Membranous GN</td><td>Worldwide</td><td>Congenital toxoplasmosis; immune complex deposition</td></tr>
+          <tr><td>Trypanosomiasis</td><td>MPGN</td><td>Africa (T. brucei), Americas (T. cruzi)</td><td>Chagas disease: cardiac + GN</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 11: EXAM TRAPS ═══ -->
+<section class="sec" id="s-traps2">
+  <div class="sec-hd"><span class="sec-n">⚠</span><h2>Exam Traps — Board Exam Coach</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">MCD vs. FSGS — How to Distinguish on EM</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A biopsy shows normal LM, no deposits on IF, and diffuse foot process effacement on EM in ALL glomeruli. Another biopsy shows segmental sclerosis on LM and foot process effacement ONLY in the sclerotic segment on EM. What are the diagnoses?</div>
+      <div class="trap-a"><strong>Patient 1 = MCD (primary).</strong> Diffuse foot process effacement throughout ALL glomeruli without segmental sclerosis = primary podocyte permeability factor disorder. Responds to steroids. Does NOT recur in transplant as its own entity. <strong>Patient 2 = Secondary FSGS.</strong> Foot process effacement limited to sclerotic segments = adaptive/secondary mechanism, not a circulating permeability factor. Does NOT recur in transplant. Primary FSGS: diffuse FPE throughout all segments (even non-sclerotic) + recurs in transplant in 30–40%.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">MCD Secondary Causes — Hodgkin's and NSAIDs</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 62-year-old with nephrotic syndrome has normal biopsy LM, negative IF, diffuse podocyte effacement on EM. They have been taking ibuprofen for arthritis for years. A 45-year-old develops similar nephrotic syndrome and is found to have mediastinal lymphadenopathy. What are the diagnoses?</div>
+      <div class="trap-a">Both = <strong>secondary MCD.</strong> Patient 1: <strong>NSAID-induced MCD</strong> — NSAIDs are the most common drug cause of MCD in adults; stop NSAID → proteinuria often resolves. Patient 2: <strong>Hodgkin's lymphoma–associated MCD</strong> — classic paraneoplastic cause; Reed-Sternberg cells produce lymphokines acting as the circulating permeability factor. Also: penicillamine, lithium, gold, mercury. Always screen adults with new MCD for occult malignancy and review medications thoroughly.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">FSGS Columbia Classification — Best vs. Worst Prognosis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Match these FSGS variants to their prognosis: (a) collapsing, (b) tip lesion, (c) perihilar. What disease is collapsing FSGS most classically associated with?</div>
+      <div class="trap-a"><strong>Tip lesion = BEST prognosis</strong> (steroid-responsive, rarely ESKD). <strong>Perihilar = Intermediate</strong> (secondary/adaptive — obesity, hyperfiltration). <strong>Collapsing = WORST prognosis</strong> (rapid ESKD in 1–3 years). Collapsing FSGS classic associations: <strong>HIV (HIVAN)</strong> — most classic; also COVID-19 (SARS-CoV-2), APOL1 high-risk genotype, pamidronate (bisphosphonate), interferon therapy. Remember: APOL1 G1/G2 alleles dramatically amplify collapsing FSGS risk in both HIV and COVID-19.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Membranous GN — Normal Complement Is Part of the Diagnosis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with heavy proteinuria and the "rule of thirds" prognosis has serum complement levels checked. C3 is normal; C4 is normal. What is the diagnosis? What if both C3 and C4 were low?</div>
+      <div class="trap-a">Normal C3 + normal C4 + heavy proteinuria + subepithelial deposits = <strong>primary membranous GN</strong>. WHY normal complement? C5b-9 forms locally at the GBM surface — the complement is consumed locally without lowering serum levels. If C4 and C3 were BOTH low → think <strong>lupus Class V nephritis</strong> (lupus membranous GN, which activates the classical pathway systemically). The complement pattern in MGN is one of the highest-yield board distinctions. Also: PLA2R testing distinguishes primary (positive) from secondary (negative) MGN.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Membranous GN — The Highest DVT/PE Risk</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Among all nephrotic syndromes, which has the highest risk of DVT and pulmonary embolism? Which specific thrombotic complication is classically associated with membranous GN?</div>
+      <div class="trap-a"><strong>Membranous GN has the highest thrombotic risk of all nephrotic syndromes.</strong> All nephrotic syndromes cause hypercoagulability (urinary loss of antithrombin III, protein C, protein S + increased hepatic synthesis of clotting factors + platelet hyperaggregability). But membranous GN is specifically associated with <strong>renal vein thrombosis</strong> — clinically: sudden flank pain + worsening proteinuria + hematuria + CT showing filling defect in renal vein. DVT and PE are also elevated. Anticoagulate prophylactically when albumin &lt;2.0 g/dL or in patients with prior thrombosis.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Diabetic Nephropathy — Hematuria = Look for Another Cause</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A Type 2 diabetic with 15 years of poorly controlled DM has nephrotic syndrome, retinopathy, and gross hematuria. Does this presentation fit diabetic nephropathy? What should you do?</div>
+      <div class="trap-a"><strong>NO — gross hematuria does NOT fit diabetic nephropathy.</strong> Diabetic nephropathy causes proteinuria (slowly progressive) but does NOT cause gross hematuria and only rarely causes significant microscopic hematuria. Gross hematuria in a diabetic demands a different explanation: IgA nephropathy, lupus, ANCA vasculitis, anti-GBM disease, papillary necrosis, bladder malignancy. <strong>Biopsy indications in diabetics:</strong> nephrotic syndrome without retinopathy, gross hematuria, RBC casts, rapid GFR loss, or DM duration &lt;5 years with nephrotic syndrome.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">AL vs. LCDD — Congo Red and the Fibril Rule</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Two patients have nodular glomerulosclerosis on LM resembling Kimmelstiel-Wilson nodules. Patient A has Congo red positive staining with apple-green birefringence. Patient B has Congo red negative staining but linear kappa light chain on IF. What are the diagnoses?</div>
+      <div class="trap-a"><strong>Patient A = AL Amyloidosis</strong>: Congo red POSITIVE + 8–12nm fibrils on EM = amyloid; monoclonal lambda (usually) light chain. <strong>Patient B = LCDD (Light Chain Deposition Disease)</strong>: Congo red NEGATIVE + granular non-fibrillar deposits on EM; monoclonal KAPPA (not lambda) staining linearly along GBM and TBM. Both produce nodular glomerulosclerosis mimicking diabetes. Key memory rule: <strong>amyloid = fibrillary + Congo red+; LCDD = granular + Congo red negative. Amyloid = lambda dominant; LCDD = kappa dominant.</strong></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">Fibrillary GN vs. Immunotactoid GN — EM Fibril Size</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A biopsy shows non-amyloid fibrillary deposits on EM. How do you distinguish fibrillary GN from immunotactoid GN, and which is more associated with lymphoproliferative disease?</div>
+      <div class="trap-a">Both are Congo red NEGATIVE. Distinguish by EM fibril diameter: <strong>Fibrillary GN = 12–22nm randomly arranged fibrils; DNAJB9 staining on IF is pathognomonic.</strong> Associated with HCV, autoimmune disease, gammopathy. <strong>Immunotactoid GN = 30–50nm organized parallel microtubules</strong> (much larger, organized differently — true microtubules, not random fibrils). <strong>Immunotactoid is more strongly associated with lymphoproliferative disorders</strong> (CLL, B-cell lymphoma). Memory: Immunotactoid = I for Immunoglobulin organization + biggest fibrils. Fibrillary = DNAJB9. Both need treatment of underlying cause.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">HIVAN — Who Gets It and Why APOL1 Matters</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Two HIV-positive patients — one White, one Black — are biopsied and both show collapsing FSGS. Why is HIVAN so much more common in African Americans, and what is the treatment?</div>
+      <div class="trap-a">HIVAN (collapsing FSGS from HIV) occurs in ALL races but is <strong>dramatically more common in Black Americans because of APOL1 G1/G2 risk alleles</strong>. APOL1 normally protects against African trypanosomiasis but in the kidney, the G1/G2 variants cause podocyte toxicity — HIV further amplifies this injury through direct podocyte infection and inflammatory cytokines. The APOL1 risk alleles explain why Black patients have 60–70% of all HIVAN cases despite not having proportionally more HIV. Treatment: <strong>immediate antiretroviral therapy (ART)</strong> — since the HAART era, HIVAN has dramatically decreased. Without ART, ESKD occurs in weeks–months. ACEi also used for proteinuria reduction.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">HCV Cryoglobulinemia — C4 Is LOW, Not C3</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with known HCV has purpura, arthralgias, and nephrotic syndrome with MPGN on biopsy. Labs show low C4, normal-low C3, elevated rheumatoid factor. What is the mechanism of the complement abnormality?</div>
+      <div class="trap-a">This is <strong>HCV-associated type II mixed cryoglobulinemia</strong>. The monoclonal IgM rheumatoid factor activates the <strong>classical complement pathway via C1q</strong> → <strong>C4 is consumed first and is disproportionately low</strong> relative to C3. This pattern (low C4 &gt;&gt; low C3) is characteristic of cryoglobulinemia and is the opposite of poststrep GN (low C3, normal C4 — alternative pathway). HCV complement rule: <strong>↓↓C4 + ↓C3 = cryoglobulinemia → think HCV.</strong> Cryocrit positive. Treatment: DAAs (direct-acting antivirals) → cure HCV → resolve cryoglobulinemia.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">Alport's and Anti-GBM Post-Transplant — Reassurance, Not Contraindication</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 28-year-old male with Alport's syndrome (X-linked, COL4A5 mutation) reaches ESKD. His mother asks whether kidney transplantation is safe given the risk of anti-GBM disease in the transplanted kidney. What do you tell her?</div>
+      <div class="trap-a">Transplantation is <strong>safe and recommended.</strong> X-linked Alport males lack the normal α3–α4–α5 hexamer of type IV collagen in their native kidneys → when they receive a normal kidney, they encounter "foreign" α345 collagen IV epitopes they were never tolerant to → ~50% develop anti-GBM antibodies post-transplant. However, only <strong>3–5% develop overt Goodpasture's syndrome</strong> with clinical anti-GBM GN; most have antibodies without clinical disease. Allograft survival in Alport's is <strong>comparable to or better</strong> than other causes of ESKD. Living related donation: evaluate donors for TBMD or Alport's carriers (COL4A3/A4 mutations) before using as donors.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 12</span><span class="trap-title">TMA Differentiation — The ADAMTS13 Key</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient has MAHA (schistocytes), thrombocytopenia, AKI, and neurologic symptoms. ADAMTS13 activity returns at 5%. Another similar patient has ADAMTS13 of 60% and a history of bloody diarrhea from a cookout. How do you manage each?</div>
+      <div class="trap-a"><strong>Patient 1 = TTP:</strong> ADAMTS13 &lt;10% = diagnostic. Treatment: <strong>plasma exchange (PLEX)</strong> immediately (replaces ADAMTS13 + removes antibodies) + caplacizumab (anti-vWF) + if autoimmune (antibody-mediated): rituximab + steroids. <strong>Patient 2 = Shiga toxin–HUS (typical HUS):</strong> Bloody diarrhea + cookout = E. coli O157:H7; ADAMTS13 normal. Treatment: <strong>supportive only</strong> (fluids, dialysis). <strong>NO antibiotics</strong> (increase toxin release) and <strong>NO plasma exchange</strong>. aHUS: ADAMTS13 normal + no Shiga toxin + no obvious cause → <strong>eculizumab</strong>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 13</span><span class="trap-title">Cholesterol Emboli — Not the Same as Contrast Nephropathy</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Two patients undergo cardiac catheterization. Patient A develops AKI peaking at 48 hours with eosinophilia and livedo reticularis. Patient B develops AKI peaking at 72 hours that resolves in 1 week with hydration. What is the diagnosis for each?</div>
+      <div class="trap-a"><strong>Patient A = Cholesterol emboli nephropathy:</strong> <strong>eosinophilia</strong> (up to 40%), livedo reticularis, blue toes, subacute onset (days–weeks post-procedure), progressive (not self-limited), Hollenhorst plaques on funduscopy. AKI does NOT typically peak at 48–72 hours — it progresses slowly. <strong>Patient B = Contrast-induced nephropathy (AKI):</strong> peaks at 48–72 hours post-contrast, non-oliguric, self-limiting, no eosinophilia, no skin findings. Distinguishing feature: cholesterol emboli = eosinophilia + skin findings + progressive; contrast = rapid self-limited creatinine rise. No specific treatment for cholesterol emboli — discontinue anticoagulation if possible.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 14</span><span class="trap-title">Primary FSGS Recurrence in Transplant — The Circulating Factor</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 35-year-old with primary FSGS (heavy proteinuria, diffuse FPE on EM, steroid-resistant) receives a deceased donor kidney transplant. Within 24 hours, massive proteinuria appears. What happened and how is it managed?</div>
+      <div class="trap-a"><strong>Recurrence of primary FSGS in the transplant</strong> — occurs in <strong>30–40%</strong> of recipients with primary FSGS. Recurs within hours to days of transplantation because the <strong>circulating permeability factor</strong> (unknown exact identity — suPAR, anti-CD40, others postulated) immediately attacks the new graft's podocytes. This is the most dramatic evidence that primary FSGS is a circulating factor disease. Treatment of recurrence: <strong>plasmapheresis</strong> (to remove the circulating factor) + high-dose steroids ± rituximab. If caught early and treated aggressively, the graft can be saved. Patients should be counseled pre-transplant about this risk; plasmapheresis sometimes used prophylactically.</div>
+    </div>
+  </div>
+
+</section>
+
+<hr class="sep">
+<footer class="footer">Harrison's Ch. 326 · Glomerular Diseases · Part 2: Nephrotic · Deposition · Basement Membrane · Vascular · Infectious · Venos Boards Review 2026</footer>
+
+</main>
+
+<script>
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref.substring(0,40) + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+let activePopNoteId = null;
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-10% 0px -80% 0px' }).observe(s));
+
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
