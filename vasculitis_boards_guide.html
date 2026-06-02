@@ -1,0 +1,2129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>The Vasculitis Syndromes · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);
+  border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;
+  z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;
+  display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;
+  position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;
+  line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;
+  padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blu);
+  margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}
+  .main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+.flowchart{background:var(--sf);border:1.5px solid var(--bd);border-radius:8px;padding:18px;margin:14px 0;font-size:12px}
+.flow-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0}
+.fbox{background:var(--blu-l);border:1.5px solid var(--blu);border-radius:6px;padding:6px 12px;font-size:12px;color:var(--blu-d);font-weight:500;text-align:center}
+.fbox-r{background:var(--red-l);border:1.5px solid var(--red);border-radius:6px;padding:6px 12px;font-size:12px;color:var(--red);font-weight:500;text-align:center}
+.fbox-g{background:var(--grn-l);border:1.5px solid var(--grn);border-radius:6px;padding:6px 12px;font-size:12px;color:var(--grn);font-weight:500;text-align:center}
+.fbox-a{background:var(--amb-l);border:1.5px solid var(--amb);border-radius:6px;padding:6px 12px;font-size:12px;color:var(--amb);font-weight:500;text-align:center}
+.farr{color:var(--t3);font-size:16px;font-weight:300}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles · Chapter 375 · Langford &amp; Fauci</div>
+  <h1>The Vasculitis Syndromes</h1>
+  <div class="hero-sub">Comprehensive Boards Review · Internal Medicine Stage A · 2026</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">15+</div><div class="stat-l">Syndromes</div></div>
+    <div class="stat-box"><div class="stat-n">3</div><div class="stat-l">Pathogenic Mechanisms</div></div>
+    <div class="stat-box"><div class="stat-n">375</div><div class="stat-l">Harrison's Chapter</div></div>
+    <div class="stat-box"><div class="stat-n">Ch. 375</div><div class="stat-l">Rheumatology</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Classification</a>
+    <a class="toc-a" href="#s2">Pathogenesis</a>
+    <a class="toc-a" href="#s3">Diagnosis &amp; Tx Principles</a>
+    <a class="toc-a" href="#s4">Drug Toxicities</a>
+    <a class="toc-a" href="#s5">GPA</a>
+    <a class="toc-a" href="#s6">MPA</a>
+    <a class="toc-a" href="#s7">EGPA</a>
+    <a class="toc-a" href="#s8">PAN</a>
+    <a class="toc-a" href="#s9">GCA &amp; PMR</a>
+    <a class="toc-a" href="#s10">Takayasu</a>
+    <a class="toc-a" href="#s11">IgA Vasculitis</a>
+    <a class="toc-a" href="#s12">Cryoglobulinemic</a>
+    <a class="toc-a" href="#s13">Other Syndromes</a>
+    <a class="toc-a" href="#s14">Secondary Vasculitis</a>
+    <a class="toc-a" href="#s15">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══════════════════════════════════════════ SECTION 1 -->
+<section class="sec" id="s1">
+  <div class="sec-hd">
+    <span class="sec-n">§ 01</span>
+    <h2>Definition &amp; Classification</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Core Definition</div>
+    Vasculitis is a <strong>clinicopathologic process</strong> characterized by inflammation of and damage to blood vessels. The vessel lumen is usually compromised → ischemia of supplied tissues. Any type, size, and location of blood vessel may be involved. May be primary or secondary; confined to one organ or multisystem.
+  </div>
+
+  <div class="sub">
+    <h3>Primary vs. Secondary Vasculitis Syndromes</h3>
+    <div class="g2">
+      <div>
+        <h4>Primary Vasculitis Syndromes</h4>
+        <ul class="bl">
+          <li><strong>Granulomatosis with Polyangiitis (GPA)</strong> — Wegener's</li>
+          <li><strong>Microscopic Polyangiitis (MPA)</strong></li>
+          <li><strong>Eosinophilic GPA (EGPA)</strong> — Churg-Strauss</li>
+          <li><strong>IgA Vasculitis</strong> — Henoch-Schönlein</li>
+          <li><strong>Cryoglobulinemic Vasculitis</strong></li>
+          <li><strong>Polyarteritis Nodosa (PAN)</strong></li>
+          <li><strong>Kawasaki Disease</strong></li>
+          <li><strong>Giant Cell Arteritis (GCA)</strong></li>
+          <li><strong>Takayasu Arteritis</strong></li>
+          <li><strong>Behçet's Disease</strong></li>
+          <li><strong>Cogan's Syndrome</strong></li>
+          <li>Single-organ vasculitis (cutaneous leukocytoclastic angiitis, cutaneous arteritis, primary CNS vasculitis, isolated aortitis)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Secondary Vasculitis Syndromes</h4>
+        <ul class="bl">
+          <li><strong>Drug-induced vasculitis</strong></li>
+          <li><strong>HCV-associated cryoglobulinemic vasculitis</strong></li>
+          <li><strong>HBV-associated vasculitis</strong></li>
+          <li><strong>Cancer-associated vasculitis</strong></li>
+          <li><strong>Lupus vasculitis</strong></li>
+          <li><strong>Rheumatoid vasculitis</strong></li>
+          <li><strong>Sarcoid vasculitis</strong></li>
+          <li>Others</li>
+        </ul>
+        <div class="co wrn">
+          <div class="co-t">Key Point</div>
+          Despite heterogeneity, these syndromes also share a considerable degree of <strong>overlap</strong> — classification guides treatment but individual patient factors always guide final decisions.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Vessel Size Classification (Concept Framework)</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-r">Large Vessel</div>
+        <p><strong>GCA, Takayasu arteritis</strong><br>Aorta and main branches; temporal artery</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Medium Vessel</div>
+        <p><strong>PAN, Kawasaki</strong><br>Muscular arteries; renal, visceral, coronary arteries</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Small Vessel</div>
+        <p><strong>GPA, MPA, EGPA, IgA, Cryoglobulinemic, Cutaneous</strong><br>Capillaries, venules, arterioles</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 2 -->
+<section class="sec" id="s2">
+  <div class="sec-hd">
+    <span class="sec-n">§ 02</span>
+    <h2>Pathophysiology &amp; Pathogenesis</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <p>Most vasculitic syndromes are assumed to be mediated at least in part by <strong>immunopathogenic mechanisms</strong> in response to antigenic stimuli — but evidence is largely indirect. Genetic predisposition, environmental exposures, and regulatory immune mechanisms all contribute. Three major hypothesized mechanisms:</p>
+
+  <div class="sub">
+    <h3>Mechanism 1: Pathogenic Immune-Complex Formation</h3>
+    <div class="co key">
+      <div class="co-t">Pathophysiology</div>
+      Antigen–antibody complexes form in <strong>antigen excess</strong> → deposited in vessel walls (permeability increased by vasoactive amines: histamine, bradykinin, leukotrienes from platelets/mast cells via IgE) → activate complement (<strong>C5a</strong> strongly chemotactic for neutrophils) → neutrophils infiltrate vessel wall, phagocytose complexes, release intracytoplasmic enzymes → vessel wall damage → lumen compromise → ischemia.
+    </div>
+    <div class="g2">
+      <div>
+        <h4>Associated Diseases</h4>
+        <ul class="bl">
+          <li>IgA vasculitis (Henoch-Schönlein)</li>
+          <li>Lupus vasculitis</li>
+          <li>Serum sickness and cutaneous vasculitis syndromes</li>
+          <li>HCV-associated cryoglobulinemic vasculitis</li>
+          <li>HBV-associated vasculitis</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Evidence &amp; Caveats</h4>
+        <ul class="bl">
+          <li>First and most widely accepted mechanism</li>
+          <li><strong>Causal role NOT clearly established</strong> in most syndromes</li>
+          <li>Many patients with active vasculitis do NOT have demonstrable circulating or deposited immune complexes</li>
+          <li><strong>HBV antigen</strong> identified in complexes in PAN-like vasculitis</li>
+          <li><strong>HCV virions + antigen-antibody complexes</strong> identified in cryoglobulinemic vasculitis</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Mechanism 2: Antineutrophil Cytoplasmic Antibodies (ANCA)</h3>
+    <div class="co key">
+      <div class="co-t">ANCA Types</div>
+      <strong>cANCA (cytoplasmic)</strong>: diffuse granular cytoplasmic staining by immunofluorescence → antigen = <strong>Proteinase-3 (PR3)</strong>, a 29-kDa neutral serine proteinase in neutrophil azurophilic granules. >90% of active GPA patients have anti-PR3.<br><br>
+      <strong>pANCA (perinuclear)</strong>: perinuclear/nuclear staining → major antigen = <strong>myeloperoxidase (MPO)</strong>. Only anti-MPO convincingly associated with vasculitis. Other targets (elastase, cathepsin G, lactoferrin, lysozyme, BPI) can produce pANCA pattern but NOT vasculitis.
+    </div>
+    <div class="co prl">
+      <div class="co-t">Mechanism of Pathogenesis</div>
+      At rest: PR3 and MPO reside in azurophilic granules — inaccessible to serum antibodies. When neutrophils/monocytes are primed by <strong>TNF-α, IL-1, or alternative complement cascade</strong> → PR3/MPO translocate to cell membrane → interact with extracellular ANCA → neutrophils degranulate + produce reactive oxygen species → tissue damage. ANCA-activated neutrophils can adhere to and kill endothelial cells in vitro. Monocyte activation → releases pro-inflammatory cytokines (IL-1, IL-8).
+    </div>
+    <div class="g2">
+      <div>
+        <h4>ANCA-Associated Diseases</h4>
+        <ul class="bl">
+          <li><strong>GPA</strong> — mainly anti-PR3 (cANCA)</li>
+          <li><strong>MPA</strong> — mainly anti-MPO (pANCA)</li>
+          <li><strong>EGPA (Churg-Strauss)</strong> — anti-MPO in ~48%</li>
+          <li>Isolated necrotizing crescentic GN</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Arguments AGAINST Primary ANCA Role</h4>
+        <ul class="bl">
+          <li>Active GPA <strong>can occur in the absence of ANCA</strong></li>
+          <li>Absolute antibody titers do <strong>NOT correlate well</strong> with disease activity</li>
+          <li>Patients in remission may have <strong>high ANCA levels for years</strong></li>
+          <li>pANCA NOT due to anti-MPO → associated with non-vasculitic entities (IBD, CTD, endocarditis, cystic fibrosis)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="co dan">
+      <div class="co-t">Important Limitation of ANCA</div>
+      These three diseases share ANCA positivity and are called "ANCA-associated vasculitis" — but they possess <strong>unique clinical phenotypes</strong> and must continue to be viewed as separate entities.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Mechanism 3: Pathogenic T Lymphocyte Responses &amp; Granuloma Formation</h3>
+    <div class="co key">
+      <div class="co-t">Pathophysiology</div>
+      Granulomatous vasculitis evidence for cell-mediated immune injury. Vascular endothelial cells express <strong>HLA class II molecules</strong> after cytokine activation (IFN-γ) → interact with CD4+ T lymphocytes (like antigen-presenting macrophages). Endothelial cells secrete <strong>IL-1</strong> → activates T lymphocytes → in situ immunologic processes. IL-1 and TNF-α induce <strong>ELAM-1 and VCAM-1</strong> → enhances leukocyte-endothelial adhesion.
+    </div>
+    <div class="g2">
+      <div>
+        <h4>Associated Diseases</h4>
+        <ul class="bl">
+          <li><strong>Giant cell arteritis</strong></li>
+          <li><strong>Takayasu arteritis</strong></li>
+          <li><strong>GPA</strong></li>
+          <li><strong>EGPA (Churg-Strauss)</strong></li>
+        </ul>
+      </div>
+      <div>
+        <h4>GPA Cytokine Pattern</h4>
+        <ul class="bl">
+          <li>Peripheral blood mononuclear cells: ↑<strong>IFN-γ</strong>, NOT IL-4/IL-5/IL-10</li>
+          <li>↑<strong>TNF-α</strong> from PBMCs and CD4+ T cells</li>
+          <li>↑<strong>IL-12</strong> from monocytes</li>
+          <li>Result: unbalanced <strong>TH1-type T-cell cytokine pattern</strong> — pathogenic and therapeutic implications</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 3 -->
+<section class="sec" id="s3">
+  <div class="sec-hd">
+    <span class="sec-n">§ 03</span>
+    <h2>Approach to Diagnosis &amp; General Treatment Principles</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>When to Suspect Vasculitis</h3>
+    <p>Consider vasculitis in any patient with an <strong>unexplained systemic illness</strong>. Clinical features that should specifically raise suspicion:</p>
+    <div class="g2">
+      <ul class="bl">
+        <li>Palpable purpura</li>
+        <li>Pulmonary infiltrates + microscopic hematuria</li>
+        <li>Chronic sinusitis</li>
+      </ul>
+      <ul class="bl">
+        <li>Mononeuritis multiplex</li>
+        <li>Unexplained ischemic events</li>
+        <li>Glomerulonephritis with evidence of multisystem disease</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Step 1: Rule Out Mimics First</h3>
+    <div class="co dan">
+      <div class="co-t">Critical First Step</div>
+      Especially important to exclude <strong>infectious diseases</strong> with overlapping features, particularly if patient is deteriorating rapidly and empirical immunosuppression is being considered.
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Category</th><th>Specific Conditions</th></tr></thead>
+        <tbody>
+          <tr><td>Infectious Diseases</td><td>Bacterial endocarditis, disseminated gonococcal infection, pulmonary histoplasmosis, coccidioidomycosis, syphilis, Lyme disease, Rocky Mountain spotted fever, Whipple's disease</td></tr>
+          <tr><td>Coagulopathies/Thrombotic Microangiopathies</td><td>Antiphospholipid syndrome, thrombotic thrombocytopenic purpura (TTP)</td></tr>
+          <tr><td>Neoplasms</td><td>Atrial myxoma, lymphoma, carcinomatosis</td></tr>
+          <tr><td>Drug Toxicity</td><td>Cocaine, levamisole, amphetamines, ergot alkaloids, methysergide, arsenic</td></tr>
+          <tr><td>Other</td><td>Sarcoidosis, atheroembolic disease, Goodpasture's syndrome, amyloidosis, migraine, fibromuscular dysplasia, heritable connective tissue disorders, segmental arterial mediolysis (SAM), reversible cerebral vasoconstrictive syndrome (RCVS)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnostic Algorithm</h3>
+    <div class="flowchart">
+      <div class="flow-row"><div class="fbox">Presentation: Suspected Vasculitis</div></div>
+      <div class="flow-row"><span class="farr">↓</span></div>
+      <div class="flow-row"><div class="fbox">Clinical findings + Lab workup + Biopsy + Angiogram where appropriate</div></div>
+      <div class="flow-row"><span class="farr">↓</span></div>
+      <div class="flow-row"><div class="fbox">Establish Diagnosis → Properly categorize to specific syndrome</div></div>
+      <div class="flow-row"><span class="farr">↓</span></div>
+      <div class="flow-row">
+        <div class="fbox-a">Look for offending antigen</div>
+        <div style="margin:0 8px;color:#999">|</div>
+        <div class="fbox-a">Look for underlying disease</div>
+        <div style="margin:0 8px;color:#999">|</div>
+        <div class="fbox-r">Characteristic primary syndrome (GPA, PAN, Takayasu)</div>
+      </div>
+      <div class="flow-row">
+        <div class="fbox-g">Remove antigen → syndrome resolves</div>
+        <div style="margin:0 8px;color:#999">|</div>
+        <div class="fbox-g">Treat underlying disease</div>
+        <div style="margin:0 8px;color:#999">|</div>
+        <div class="fbox-r">Treat vasculitis directly</div>
+      </div>
+    </div>
+    <div class="co prl">
+      <div class="co-t">Biopsy Rule</div>
+      Definitive diagnosis = <strong>biopsy of involved tissue</strong>. "Blind" biopsies of organs with no subjective/objective evidence of involvement have very low yield — avoid. When PAN, Takayasu, or CNS vasculitis are suspected, <strong>arteriogram</strong> of organs with suspected involvement should be performed.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>General Treatment Principles</h3>
+    <ul class="bl">
+      <li>Remove offending antigen if identified</li>
+      <li>Treat underlying disease if secondary vasculitis</li>
+      <li>Decisions based on published literature supporting efficacy for that specific vasculitic disease</li>
+      <li>Weigh risk-versus-benefit carefully — treatment toxicity can be substantial</li>
+      <li>Immediately institute glucocorticoids ± immunosuppression in diseases with <strong>irreversible organ system dysfunction and high morbidity/mortality</strong></li>
+      <li>Avoid aggressive therapy for manifestations that rarely cause irreversible damage (e.g., isolated idiopathic cutaneous vasculitis)</li>
+      <li>Continually attempt to taper glucocorticoids and discontinue when possible</li>
+      <li>Most vasculitides carry relapse potential → treatment planning must include relapse risk assessment</li>
+    </ul>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">Cyclophosphamide Safety</div>
+        <p>Take all at once in the <strong>morning</strong> with large fluid intake throughout day → reduces bladder injury risk. Monitor for bladder cancer <strong>indefinitely</strong>.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Blood Count Monitoring</div>
+        <p>Maintain WBC >3000/μL and neutrophils >1500/μL. CBC every <strong>1–2 weeks</strong> while on cyclophosphamide. MTX/AZA/MMF: CBC q1–2 weeks × first 1–2 months then monthly.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Methotrexate Pearls</div>
+        <p>Add <strong>folic acid 1 mg/day</strong> or folinic acid 5–10 mg/week (24h after MTX). Contraindicated in <strong>renal insufficiency</strong>. Check TPMT before AZA.</p>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Rituximab Precautions</div>
+        <p>Screen for <strong>HBV reactivation</strong> before use. Administer in skilled infusion center (infusion reactions). Premedications can lessen reactions. Monitor immunoglobulins.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Infection Prevention</div>
+        <p><em>Pneumocystis jirovecii</em> and fungi can occur even with normal WBC on GC. GPA/MPA on induction (GC + another immunosuppressive) → <strong>TMP-SMX prophylaxis</strong>. Continue through maintenance, especially with rituximab or persistent lymphopenia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 4 -->
+<section class="sec" id="s4">
+  <div class="sec-hd">
+    <span class="sec-n">§ 04</span>
+    <h2>Drug Toxicity Reference</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Conventional Immunosuppressive Agents</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Glucocorticoids</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li>Osteoporosis, avascular necrosis of bone</li>
+          <li>Cataracts, glaucoma</li>
+          <li>Diabetes mellitus, metabolic abnormalities</li>
+          <li>Hypertension, electrolyte abnormalities</li>
+          <li>Severe &amp; opportunistic infections</li>
+          <li>Cushingoid features, myopathy</li>
+          <li>Growth suppression (children)</li>
+          <li>Mood alterations, psychosis, pseudotumor cerebri</li>
+          <li>Peptic ulcer diathesis, pancreatitis</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Cyclophosphamide</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li><strong>Bone marrow suppression</strong></li>
+          <li><strong>Cystitis, bladder carcinoma</strong> (lifelong monitoring)</li>
+          <li><strong>Gonadal suppression</strong></li>
+          <li>GI intolerance</li>
+          <li>Hypogammaglobulinemia</li>
+          <li>Pulmonary fibrosis, myelodysplasia</li>
+          <li>Oncogenesis, teratogenicity</li>
+          <li>Severe &amp; opportunistic infections</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Methotrexate</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li>GI intolerance, stomatitis</li>
+          <li>Bone marrow suppression</li>
+          <li><strong>Hepatotoxicity</strong> (fibrosis/cirrhosis)</li>
+          <li>Pneumonitis</li>
+          <li>Teratogenicity</li>
+          <li>Severe &amp; opportunistic infections</li>
+          <li><strong>Contraindicated in renal insufficiency</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Azathioprine</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li>GI intolerance, hypersensitivity</li>
+          <li>Bone marrow suppression</li>
+          <li>Hepatotoxicity</li>
+          <li>Severe &amp; opportunistic infections</li>
+          <li><strong>Check TPMT before initiating</strong> (inadequate levels → severe cytopenia)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Mycophenolate Mofetil</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li>Bone marrow suppression</li>
+          <li>GI intolerance</li>
+          <li>Severe &amp; opportunistic infections</li>
+          <li>Teratogenicity</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Biologic Agents &amp; Small-Molecule Inhibitors</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-p">Rituximab (GPA, MPA)</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li>Infusion reactions</li>
+          <li><strong>Progressive multifocal leukoencephalopathy (PML)</strong></li>
+          <li>Mucocutaneous reactions</li>
+          <li>Hypogammaglobulinemia (long-term use)</li>
+          <li>Impaired vaccine response</li>
+          <li><strong>HBV reactivation</strong> — screen all before use</li>
+          <li>Tumor lysis syndrome, late-onset neutropenia</li>
+          <li>Severe &amp; opportunistic infections</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Tocilizumab (GCA) / Sarilumab (PMR)</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li>Bone marrow suppression</li>
+          <li>Hepatotoxicity, hyperlipidemia</li>
+          <li>Severe &amp; opportunistic infections</li>
+          <li><strong>GI perforation</strong></li>
+          <li>Hypersensitivity reactions</li>
+          <li><strong>Normalizes CRP and ESR</strong> → cannot use as disease activity monitor</li>
+          <li>Monitor labs at 4–8 weeks then q3 months</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Mepolizumab (EGPA)</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li>Hypersensitivity reactions</li>
+          <li>Opportunistic infections: <strong>herpes zoster</strong></li>
+          <li><strong>NOT for life-threatening EGPA</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Avacopan (C5a-RI, severe GPA/MPA)</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li><strong>Hepatotoxicity</strong></li>
+          <li>Hypersensitivity reactions</li>
+          <li>HBV reactivation</li>
+          <li>Serious infections</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Apremilast (Behçet's)</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li>Diarrhea, nausea, vomiting</li>
+          <li>Depression</li>
+          <li>Weight decrease</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 5 -->
+<section class="sec" id="s5">
+  <div class="sec-hd">
+    <span class="sec-n">§ 05</span>
+    <h2>Granulomatosis with Polyangiitis (GPA)</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Core Definition</div>
+    Distinct clinicopathologic entity characterized by <strong>granulomatous vasculitis of the upper AND lower respiratory tracts</strong> together with <strong>glomerulonephritis</strong>. Variable degrees of disseminated vasculitis involving small arteries and veins may also occur.
+  </div>
+
+  <div class="sub">
+    <h3>Epidemiology</h3>
+    <div class="g4">
+      <div class="card"><div class="clabel c-b">Prevalence</div><p>3 per 100,000</p></div>
+      <div class="card"><div class="clabel c-b">Sex Ratio</div><p>M:F = 1:1</p></div>
+      <div class="card"><div class="clabel c-b">Age of Onset</div><p>Mean 40–60 years; 15% are &lt;19 years; <strong>extremely rare before adolescence</strong></p></div>
+      <div class="card"><div class="clabel c-b">Race</div><p>Extremely rare in Blacks compared to Whites</p></div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Pathology &amp; Pathogenesis</h3>
+    <ul class="bl">
+      <li>Histopathologic hallmarks: <strong>necrotizing vasculitis of small arteries and veins + granuloma formation</strong> (intravascular or extravascular)</li>
+      <li>Lung: multiple bilateral nodular or cavitary infiltrates → biopsy reveals necrotizing granulomatous vasculitis</li>
+      <li>Upper airway: inflammation, necrosis, granuloma formation ± vasculitis</li>
+      <li>Renal: earliest = focal segmental glomerulitis → can evolve to rapidly progressive crescentic GN; granuloma rarely seen on renal biopsy</li>
+      <li><strong>Pauci-immune glomerulonephritis</strong> — NO immune complex deposition in the renal lesion (distinguishes GPA from immune complex-mediated GN)</li>
+      <li>Immunopathogenesis: unclear; suggests aberrant cell-mediated immune response to exogenous or endogenous antigen entering through or residing in upper airway</li>
+      <li><strong>Staphylococcus aureus</strong> nasal carriage → associated with higher relapse rate (but no evidence of direct pathogenic role)</li>
+      <li>TH1-type cytokine pattern: ↑IFN-γ, ↑TNF-α, ↑IL-12; NOT IL-4/IL-5/IL-10</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Manifestations (Table 375-5, NIH data: n=158)</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>System</th><th>% at Onset</th><th>% Throughout Disease</th><th>Key Manifestations</th></tr></thead>
+        <tbody>
+          <tr><td>Ear/Nose/Throat</td><td>73%</td><td><strong>92%</strong></td><td>Sinusitis (85%), nasal disease (68%), otitis media (44%), hearing loss (42%), subglottic stenosis (16%), saddle nose deformity</td></tr>
+          <tr><td>Lung</td><td>45%</td><td>85%</td><td>Pulmonary infiltrates (66%), pulmonary nodules (58%), hemoptysis (30%), pleuritis (28%); up to 30% asymptomatic</td></tr>
+          <tr><td>Renal</td><td>18%</td><td><strong>77%</strong></td><td>Glomerulonephritis → rapidly progressive renal failure if untreated; accounts for most mortality</td></tr>
+          <tr><td>Eyes</td><td>—</td><td>52%</td><td>Conjunctivitis (18%), dacryocystitis (18%), scleritis (16%), proptosis (15%), granulomatous sclerouveitis, ciliary vessel vasculitis</td></tr>
+          <tr><td>Skin</td><td>13%</td><td>46%</td><td>Papules, vesicles, palpable purpura, ulcers, subcutaneous nodules</td></tr>
+          <tr><td>Arthralgias/Arthritis</td><td>32%</td><td>67%</td><td>Nonspecific joint symptoms</td></tr>
+          <tr><td>Nervous System</td><td>—</td><td>23%</td><td>Cranial neuritis, mononeuritis multiplex, rarely cerebral vasculitis/granuloma</td></tr>
+          <tr><td>Cardiac</td><td>2%</td><td>8%</td><td>Pericarditis, coronary vasculitis, rarely cardiomyopathy</td></tr>
+          <tr><td>Fever</td><td>23%</td><td>50%</td><td>Often reflects secondary infection, not disease activity</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co dan">
+      <div class="co-t">Renal Disease Is the Key Prognostic Factor</div>
+      Renal disease dominates the clinical picture and, if untreated, <strong>accounts directly or indirectly for most mortality</strong>. Even when initially mild (proteinuria, hematuria, RBC casts), once clinically detectable renal functional impairment occurs, rapidly progressive renal failure usually ensues.
+    </div>
+    <div class="co wrn">
+      <div class="co-t">Increased VTE Risk</div>
+      Patients with GPA have an increased incidence of venous thrombotic events. While routine anticoagulation is not recommended, maintain heightened awareness for DVT/PE clinical features.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Laboratory Findings</h3>
+    <ul class="bl">
+      <li>↑ESR and/or CRP, anemia, leukocytosis, mild hypergammaglobulinemia, thrombocytosis (acute-phase reactant)</li>
+      <li><strong>Anti-PR3 ANCA (cANCA): positive in ~90% of active GPA</strong></li>
+      <li>Sensitivity drops to ~60–70% in the absence of active disease (remission)</li>
+      <li>Small percentage have anti-MPO instead of anti-PR3; up to <strong>20% may lack ANCA entirely</strong></li>
+    </ul>
+    <div class="co prl">
+      <div class="co-t">ANCA Predictive Value</div>
+      <strong>Active glomerulonephritis:</strong> positive ANCA predictive value = 90%<br>
+      <strong>Sinus/lung disease alone (no renal):</strong> predictive value drops to 30–60% → tissue biopsy necessary to rule out infection or malignancy. Also biopsy if clinically inconsistent features or ANCA absent.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnosis &amp; Differential Diagnosis</h3>
+    <ul class="bl">
+      <li>Established by demonstration of <strong>necrotizing granulomatous vasculitis on biopsy</strong> in patient with compatible clinical features</li>
+      <li><strong>Pulmonary tissue offers highest diagnostic yield</strong> — almost invariably reveals granulomatous vasculitis</li>
+      <li>Upper airway biopsy: acute/chronic inflammation; can show granulomas ± vasculitis</li>
+      <li>Renal biopsy: confirms pauci-immune GN</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Critical Differentials</div>
+      <strong>Midline destructive diseases:</strong> Extreme tissue destruction localized to midline upper airway; <strong>erosion through skin of face common</strong> (extremely rare in GPA); primary vasculitis NOT seen → most important: <strong>extranodal NK/T-cell lymphoma (nasal type)</strong> — EBV+, polymorphous atypical lymphoid cells with NK cell immunophenotype → treat with irradiation (NEVER irradiate GPA lesions).<br><br>
+      <strong>Cocaine-induced midline destructive disease:</strong> ANCA that target human neutrophil elastase (HNE) can mimic GPA; levamisole adulteration → cutaneous infarction + serologic changes mimicking vasculitis; <strong>granulocytopenia common in levamisole-induced disease</strong> (NOT seen in GPA).<br><br>
+      <strong>Lymphomatoid granulomatosis:</strong> EBV+ B-cell proliferation + exuberant T-cell reaction; lung/skin/CNS/kidney; angioinvasive perivascular infiltration of atypical mononuclear cells (NOT inflammatory vasculitis); up to 50% develop true malignant lymphoma.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment — Historical Context</h3>
+    <div class="co suc">
+      <div class="co-t">Impact of Cyclophosphamide</div>
+      Pre-therapy: universally fatal within months. GC alone: some symptomatic improvement, little effect on course. Addition of cyclophosphamide: <strong>improvement in &gt;90%</strong>, complete remission in <strong>75%</strong>, 5-year patient survival in <strong>&gt;80%</strong>. Despite this, 50–70% of remissions later relapse.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment — Two Phases: Induction + Maintenance</h3>
+    <div class="co key">
+      <div class="co-t">Relapse Determination Rule</div>
+      Relapse must be based on <strong>objective evidence of disease activity</strong> — rule out infection, medication toxicity, chronic disease sequelae. Many patients in remission remain ANCA positive for years. <strong>A rise in ANCA alone should NOT lead to reinstitution of immunosuppressive therapy</strong> (only 43% relapsed within 1 year of ↑ANCA).
+    </div>
+
+    <h4>Remission Induction of Severe Disease</h4>
+    <p>Severe disease = life- or organ-threatening manifestations. Active GN is always severe even when renal function is normal. Alveolar hemorrhage = severe; nodular disease without respiratory compromise = nonsevere.</p>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Cyclophosphamide Induction</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li>Standard: <strong>2 mg/kg/day PO</strong>; dose-reduce in renal insufficiency</li>
+          <li>IV option: 15 mg/kg, 3 infusions q2 weeks then q3 weeks — similar remission rate but <strong>higher relapse rate</strong></li>
+          <li>Switch after 3–6 months to maintenance agent</li>
+          <li>Daily preferred in rapidly progressive GN (Cr &gt;4 mg/dL) or alveolar hemorrhage with mechanical ventilation</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Rituximab Induction</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li>375 mg/m² IV once weekly × 4 weeks + GC</li>
+          <li><strong>As effective as CYC</strong> for inducing remission in two RCTs</li>
+          <li><strong>Superior to CYC</strong> in relapsing disease</li>
+          <li>No bladder toxicity or infertility risk</li>
+          <li>Rate of adverse events similar to CYC</li>
+          <li><strong>Do NOT combine CYC + RTX for induction</strong> — no added efficacy; additive toxicity (especially infection)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Glucocorticoid Strategy</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li>Historically: prednisone 1 mg/kg/day × 1 month then taper</li>
+          <li><strong>Reduced-dose GC</strong> RCT: noninferior to standard-dose + lower rate of serious infection</li>
+          <li>Life-threatening disease: methylprednisolone <strong>1000 mg/day × 3 days</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Avacopan (C5a Receptor Inhibitor)</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li>RCT: sustained remission at 52 weeks higher with avacopan vs. prednisone</li>
+          <li>Allows <strong>rapid glucocorticoid withdrawal</strong> in severe active disease</li>
+          <li>GC exposure markedly less in avacopan group</li>
+          <li>No data yet in nonsevere disease</li>
+        </ul>
+      </div>
+    </div>
+    <div class="co dan">
+      <div class="co-t">Plasma Exchange in GPA/MPA</div>
+      <strong>RCT finding:</strong> Plasma exchange provides NO added benefit in reducing composite outcome of ESRD or death.<br>
+      <strong>Alveolar hemorrhage:</strong> Retrospective study also showed no benefit.<br>
+      <strong>Exception — USE plasma exchange:</strong> GPA/MPA patients who are also <strong>anti-GBM antibody positive</strong>.<br>
+      <strong>High Cr &gt;5.7 mg/dL + active GN:</strong> Meta-analysis shows improved renal function but increased risk of serious infection.<br>
+      <strong>If plasma exchange + rituximab:</strong> must be separated by <strong>≥48 hours</strong> to avoid RTX removal.
+    </div>
+
+    <h4>Remission Maintenance of Severe Disease (switch from CYC after 3–6 months)</h4>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Agent</th><th>Dosing</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Rituximab (preferred after RTX induction)</td><td>500 mg × 2 doses then 500 mg q6 months</td><td><strong>Lower relapse vs. AZA</strong> in RCT; 1000 mg q4mo in another trial (not longer sustained remission after d/c); long-term → hypogammaglobulinemia</td></tr>
+          <tr><td>Azathioprine</td><td>2 mg/kg/day</td><td>Standard comparator</td></tr>
+          <tr><td>Methotrexate</td><td>15 mg/week start, ↑2.5 mg q2wk to 20–25 mg/week PO or SC</td><td>Similar relapse/toxicity to AZA; contraindicated in renal insufficiency</td></tr>
+          <tr><td>Mycophenolate mofetil</td><td>1000 mg BID</td><td><strong>Higher relapse rate vs. AZA</strong>; use if can't tolerate MTX/AZA</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="bl">
+      <li>Maintenance usually given for <strong>minimum of 2 years</strong></li>
+      <li>Relapse risk is higher once medication is stopped — individualize decision to continue vs. taper over 6–12 months</li>
+      <li>Patients with significant organ damage or history of relapse → benefit from longer-term maintenance</li>
+    </ul>
+
+    <h4>Remission Induction + Maintenance of Nonsevere Disease</h4>
+    <ul class="bl">
+      <li>Methotrexate or mycophenolate mofetil + glucocorticoids (often lower dose) → induce then maintain remission</li>
+      <li>Rituximab can be used (weigh risks/benefits)</li>
+      <li><strong>Cyclophosphamide is rarely, if ever, justified for nonsevere GPA</strong></li>
+      <li>No data for avacopan in nonsevere disease</li>
+    </ul>
+
+    <h4>Failed Biologic Agents (Do Not Use)</h4>
+    <ul class="bl">
+      <li><strong>Etanercept (TNF inhibitor):</strong> did NOT sustain remission — do not use in GPA</li>
+      <li><strong>Belimumab (anti-B lymphocyte stimulator):</strong> no added benefit in reducing relapse as adjunctive to AZA</li>
+      <li><strong>Abatacept (CTLA4-Ig):</strong> RCT in nonsevere relapsing GPA — did NOT reduce relapse, worsening, or failure to achieve remission</li>
+    </ul>
+
+    <h4>Organ-Specific Treatment Pearls</h4>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-a">Sinonasal Disease</div>
+        <p>TMP-SMX may benefit isolated sinonasal GPA. <strong>NEVER use TMP-SMX alone to treat active GPA involving other organs.</strong> Local care: moisturization + humidification.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Subglottic Stenosis</div>
+        <p>Often scars. Responds best to <strong>nonmedical intervention: dilation + glucocorticoid injection</strong>. Does NOT require systemic immunosuppression.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 6 -->
+<section class="sec" id="s6">
+  <div class="sec-hd">
+    <span class="sec-n">§ 06</span>
+    <h2>Microscopic Polyangiitis (MPA)</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Core Definition (Chapel Hill Consensus 1992)</div>
+    Necrotizing vasculitis with <strong>few or no immune complexes</strong> affecting <strong>small vessels</strong> (capillaries, venules, arterioles). Glomerulonephritis very common. Pulmonary capillaritis often occurs. <strong>Absence of granulomatous inflammation</strong> differentiates from GPA.
+  </div>
+
+  <div class="sub">
+    <h3>Epidemiology &amp; Pathology</h3>
+    <div class="g3">
+      <div class="card"><div class="clabel c-b">Incidence</div><p>3–5 per 100,000</p></div>
+      <div class="card"><div class="clabel c-b">Age of Onset</div><p>Mean ~57 years; males slightly more affected</p></div>
+      <div class="card"><div class="clabel c-b">Historical Note</div><p>First described by Davson in 1948 in GN patients with PAN</p></div>
+    </div>
+    <ul class="bl">
+      <li>Predilection to involve <strong>capillaries and venules</strong> (also small- and medium-sized arteries)</li>
+      <li><strong>Pauci-immune</strong> — immunohistochemical staining reveals paucity of immunoglobulin deposition → immune complex formation does NOT play a pathogenic role</li>
+      <li>Renal lesion <strong>histologically identical to GPA</strong></li>
+      <li>Highly associated with ANCA (may play role in pathogenesis)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical, Labs &amp; Diagnosis</h3>
+    <div class="g2">
+      <div>
+        <h4>Key Clinical Features</h4>
+        <ul class="bl">
+          <li>Onset may be gradual (fever, weight loss, musculoskeletal pain) or <strong>acute</strong></li>
+          <li><strong>Glomerulonephritis ≥79%</strong> of patients → can be rapidly progressive → renal failure</li>
+          <li>Alveolar hemorrhage: 12% (hemoptysis first symptom)</li>
+          <li>Mononeuritis multiplex; GI and cutaneous vasculitis</li>
+          <li><strong>Upper airway disease and pulmonary nodules NOT typical</strong> → if present, suggests GPA</li>
+          <li>↑ESR/CRP, anemia, leukocytosis, thrombocytosis</li>
+          <li><strong>ANCA in 75%</strong>, predominantly <strong>anti-MPO (pANCA)</strong></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Diagnosis &amp; Treatment</h4>
+        <ul class="bl">
+          <li>Diagnosis: histologic evidence of vasculitis or <strong>pauci-immune GN</strong> + compatible clinical features of multisystem disease</li>
+          <li>Tissue biopsy should be pursued even in strongly ANCA-associated cases if clinical picture is not fully compatible</li>
+          <li><strong>Treatment: identical to GPA</strong></li>
+          <li>5-year survival with treatment: <strong>74%</strong></li>
+          <li>Disease-related mortality: alveolar hemorrhage, GI/cardiac/renal disease</li>
+          <li>Relapse observed in at least <strong>34%</strong> of patients</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 7 -->
+<section class="sec" id="s7">
+  <div class="sec-hd">
+    <span class="sec-n">§ 07</span>
+    <h2>Eosinophilic Granulomatosis with Polyangiitis (EGPA / Churg-Strauss)</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Core Definition (Churg &amp; Strauss, 1951)</div>
+    Characterized by <strong>asthma</strong> + <strong>peripheral and tissue eosinophilia</strong> + extravascular granuloma formation + vasculitis of multiple organ systems.
+  </div>
+
+  <div class="sub">
+    <h3>Epidemiology</h3>
+    <div class="g4">
+      <div class="card"><div class="clabel c-b">Incidence</div><p>1–3 per million/year</p></div>
+      <div class="card"><div class="clabel c-b">Age of Onset</div><p>Mean 48 years; any age (except possibly infants)</p></div>
+      <div class="card"><div class="clabel c-b">Sex</div><p>F:M = 1.2:1</p></div>
+      <div class="card"><div class="clabel c-b">ANCA</div><p>~48% ANCA positive (usually anti-MPO)</p></div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Pathology &amp; Pathogenesis</h3>
+    <ul class="bl">
+      <li>Necrotizing vasculitis: small- and medium-sized muscular arteries, capillaries, veins, venules</li>
+      <li>Characteristic histopathologic feature: <strong>granuloma</strong> (in tissues or vessel walls) + <strong>eosinophilic infiltration</strong></li>
+      <li>Any organ can be involved; lung predominant; also skin, cardiovascular, kidney, PNS, GI</li>
+      <li>Strong association with asthma + eosinophilia + granuloma + vasculitis → aberrant immunologic phenomena</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical &amp; Laboratory Manifestations</h3>
+    <div class="g2">
+      <div>
+        <h4>Key Clinical Features</h4>
+        <ul class="bl">
+          <li><strong>Asthmatic attacks + pulmonary infiltrates</strong> — dominate the clinical picture</li>
+          <li><strong>Mononeuritis multiplex:</strong> 2nd most common — up to 72%</li>
+          <li>Allergic rhinitis + sinusitis: up to 61% (often early in course)</li>
+          <li><strong>Cardiac disease:</strong> ~14% (myocarditis, pericarditis, endocarditis, coronary vasculitis) → <strong>most common cause of death (39% of mortality)</strong></li>
+          <li>Skin lesions: ~51% (purpura + cutaneous/subcutaneous nodules)</li>
+          <li>Renal disease: less common than GPA/MPA</li>
+          <li>Nonspecific: fever, malaise, anorexia, weight loss</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Laboratory Findings</h4>
+        <ul class="bl">
+          <li><strong>Striking eosinophilia</strong> — virtually all patients; &gt;1000 cells/μL in &gt;80%</li>
+          <li>↑ESR and/or CRP, fibrinogen, α₂-globulins in 81%</li>
+          <li>ANCA (usually anti-MPO): ~48%</li>
+          <li>Other labs reflect organ system involved</li>
+        </ul>
+        <div class="co dan">
+          <div class="co-t">Diagnosis Criteria</div>
+          Patient must have: <strong>asthma + peripheral blood eosinophilia + clinical features consistent with vasculitis</strong>. Histologic confirmation can be challenging because pathognomonic features often do NOT occur simultaneously.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment</h3>
+    <div class="g2">
+      <div class="card"><div class="clabel c-r">Prognosis Without Treatment</div><p>5-year survival: <strong>25%</strong>. With treatment: 78-month actuarial survival <strong>72%</strong>. Myocardial involvement most frequent cause of death.</p></div>
+      <div class="card"><div class="clabel c-r">First Critical Step</div><p><strong>Echocardiography in ALL newly diagnosed patients</strong> — cardiac involvement may influence therapeutic decisions.</p></div>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Situation</th><th>Treatment</th></tr></thead>
+        <tbody>
+          <tr><td>Most patients (non-fulminant)</td><td>Glucocorticoids alone — often effective</td></tr>
+          <tr><td>Fulminant multisystem disease (especially cardiac)</td><td>Daily <strong>cyclophosphamide + prednisone</strong> → then AZA or MTX</td></tr>
+          <tr><td>ANCA-positive with GN or severe small-vessel vasculitis</td><td>Rituximab + prednisone (consider)</td></tr>
+          <tr><td>Asthma dose-limiting for GC taper</td><td><strong>Mepolizumab</strong> — note: asthma often persists after vasculitis recovery</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co suc">
+      <div class="co-t">Mepolizumab (Anti-IL-5) — 300 mg SC Monthly</div>
+      RCT findings vs. placebo: <strong>Higher weeks in remission (28% vs 3%)</strong> and <strong>higher proportion in remission (32% vs 3%)</strong>.<br>
+      Particularly beneficial for: relapsing/resistant asthma requiring GC, sinus disease, mild-to-moderate eosinophilic features, mild vasculitis.<br>
+      <strong>NOT for life-threatening EGPA</strong> — life-threatening patients were excluded from the trial.<br><br>
+      <strong>Benralizumab</strong> (also anti-IL-5): demonstrated noninferior rates of remission vs. mepolizumab in relapsing/refractory, non-life-threatening EGPA.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 8 -->
+<section class="sec" id="s8">
+  <div class="sec-hd">
+    <span class="sec-n">§ 08</span>
+    <h2>Polyarteritis Nodosa (PAN)</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Core Definition (Kussmaul &amp; Maier, 1866)</div>
+    Multisystem, necrotizing vasculitis of <strong>small- and medium-sized muscular arteries</strong> characteristically involving <strong>renal and visceral arteries</strong>.<br>
+    <strong>Does NOT involve pulmonary arteries</strong> (bronchial vessels may be involved).<br>
+    <strong>No</strong> glomerulonephritis, <strong>no</strong> granuloma, <strong>no</strong> significant eosinophilia, <strong>no</strong> venule involvement (if present → MPA).
+  </div>
+
+  <div class="sub">
+    <h3>Pathology</h3>
+    <ul class="bl">
+      <li>Vascular lesion: segmental necrotizing inflammation of small- and medium-sized muscular arteries; tends to involve <strong>bifurcations and branchings</strong></li>
+      <li>May spread circumferentially to involve adjacent veins — but <strong>NOT venules</strong></li>
+      <li>Acute: PMNs infiltrate all vessel wall layers → intimal proliferation + degeneration</li>
+      <li>Subacute/chronic: mononuclear cell infiltration → fibrinoid necrosis → thrombosis → infarction</li>
+      <li>Healing: collagen deposition → further lumen occlusion</li>
+      <li><strong>Aneurysmal dilations up to 1 cm in size</strong> along involved arteries are characteristic</li>
+      <li>Kidney: arteritis <strong>without glomerulonephritis</strong>; glomerulosclerosis if significant HTN</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">Special Associations</div>
+      <strong>HBV-associated PAN:</strong> circulating immune complexes (HBV Ag + IgM + complement) in vessel walls → suggests immunologic pathogenesis. First-line = antiviral therapy + concurrent immunosuppression for severe vasculitis, then withdraw immunosuppression.<br>
+      <strong>HCV-associated PAN:</strong> similar approach.<br>
+      <strong>Hairy cell leukemia:</strong> can be associated with PAN (mechanism unclear).<br>
+      <strong>DADA2 (adenosine deaminase type 2 deficiency):</strong> PAN-like vasculitis → <strong>TNF inhibitors</strong> (not standard PAN treatment); usually childhood onset, variable vascular pathology.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Manifestations</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Organ System</th><th>% Incidence</th><th>Clinical Manifestations</th></tr></thead>
+        <tbody>
+          <tr><td>Musculoskeletal</td><td>64%</td><td>Arthritis, arthralgia, myalgia</td></tr>
+          <tr><td>Renal</td><td>60%</td><td>Renal failure, <strong>hypertension</strong> (most common renal manifestation)</td></tr>
+          <tr><td>Peripheral Nervous System</td><td>51%</td><td>Peripheral neuropathy, mononeuritis multiplex</td></tr>
+          <tr><td>Gastrointestinal</td><td>44%</td><td>Abdominal pain, N/V, bleeding, bowel infarction/perforation, cholecystitis, hepatic/pancreatic infarction</td></tr>
+          <tr><td>Skin</td><td>43%</td><td>Rash, purpura, nodules, cutaneous infarcts, livedo reticularis, Raynaud's phenomenon</td></tr>
+          <tr><td>Cardiac</td><td>36%</td><td>CHF, MI, pericarditis</td></tr>
+          <tr><td>Genitourinary</td><td>25%</td><td>Testicular, ovarian, or epididymal pain</td></tr>
+          <tr><td>CNS</td><td>23%</td><td>CVA, altered mental status, seizure</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co tel">
+      <div class="co-t">Laboratory Findings</div>
+      No diagnostic serologic tests for PAN. Leukocytosis &gt;75% (neutrophil predominance). <strong>Eosinophilia RARE</strong> — if present at high levels → suggests EGPA instead. ↑ESR/CRP (almost always). Anemia of chronic disease. Hypergammaglobulinemia. <strong>Screen all for HBV and HCV</strong>. <strong>ANCA rarely found</strong>.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnosis</h3>
+    <ul class="bl">
+      <li>Biopsy of symptomatic organs (nodular skin lesions, painful testes, nerve/muscle) → highest diagnostic yield</li>
+      <li>If no accessible tissue: <strong>catheter-directed dye arteriogram</strong> (MR/CT arteriography does NOT have sufficient resolution) → aneurysms of small- and medium-sized arteries in renal, hepatic, visceral vasculature is sufficient for diagnosis</li>
+      <li>Aneurysms are NOT pathognomonic; findings may also be limited to stenotic segments and obliteration of vessels</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment</h3>
+    <div class="g3">
+      <div class="card"><div class="clabel c-r">Untreated Prognosis</div><p>5-year survival: <strong>10–20%</strong>. Death: GI complications (bowel infarction/perforation) and cardiovascular causes; hypertension compounds dysfunction in kidneys/heart/CNS.</p></div>
+      <div class="card"><div class="clabel c-g">Treatment Response</div><p>Prednisone + cyclophosphamide → significantly improves survival. Less severe cases: glucocorticoids alone. Treat hypertension to lessen vascular complications.</p></div>
+      <div class="card"><div class="clabel c-a">Relapse</div><p>Estimated 10–20% relapse after remission.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 9 -->
+<section class="sec" id="s9">
+  <div class="sec-hd">
+    <span class="sec-n">§ 09</span>
+    <h2>Giant Cell Arteritis &amp; Polymyalgia Rheumatica</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Key Relationship</div>
+    GCA and PMR represent <strong>differing clinical spectrums of a single disease process</strong>. PMR is seen in 40–50% of GCA patients. 10–20% of isolated PMR patients later develop GCA. Always perform careful history/exam at initial and subsequent visits in PMR patients to look for GCA features.
+  </div>
+
+  <div class="sub">
+    <h3>Giant Cell Arteritis (GCA)</h3>
+    <div class="co key">
+      <div class="co-t">Definition</div>
+      Inflammation of medium- and large-sized arteries. Characteristically involves one or more branches of the carotid artery, particularly the <strong>temporal artery</strong>. Systemic disease — can involve arteries in multiple locations, particularly the <strong>aorta and its main branches</strong>.
+    </div>
+    <div class="g3">
+      <div class="card"><div class="clabel c-b">Age</div><p>Almost exclusively &gt;50 years</p></div>
+      <div class="card"><div class="clabel c-b">Sex/Race</div><p>More common in women; rare in Blacks</p></div>
+      <div class="card"><div class="clabel c-b">Incidence</div><p>6.9–32.8/100,000 in ≥50 years; highest in Scandinavia and regions with large Scandinavian populations</p></div>
+      <div class="card"><div class="clabel c-b">Genetics</div><p>HLA-DR4 association; HLA-DRB1*04 variants; familial aggregation</p></div>
+      <div class="card"><div class="clabel c-b">PMR Incidence</div><p>58.7/100,000 in ≥50 years (Olmsted County, MN)</p></div>
+    </div>
+
+    <h4>Pathology &amp; Pathogenesis</h4>
+    <ul class="bl">
+      <li>Panarteritis with <strong>inflammatory mononuclear cell infiltrates + frequent giant cell formation</strong></li>
+      <li>Proliferation of intima + fragmentation of internal elastic lamina</li>
+      <li>Antigen-driven disease: activated T lymphocytes, macrophages, and dendritic cells play critical roles</li>
+      <li>T-cell receptor analysis: <strong>restricted clonal expansion</strong> → antigen residing in arterial wall</li>
+      <li>CD4+ T cell subsets in lesions: IFN-γ–producing <strong>TH1</strong> cells + IL-17–producing <strong>TH17</strong> cells; TH17 may have differing (less) responsiveness to glucocorticoids</li>
+      <li>CD4+ T cells enter through vasa vasorum → activate → orchestrate macrophage differentiation</li>
+    </ul>
+
+    <h4>Clinical — 4 Phenotypic Manifestations</h4>
+    <div class="g2">
+      <div>
+        <h5 style="font-weight:600;margin-bottom:6px;font-size:13px">1. Cranial Arteritis</h5>
+        <ul class="bl">
+          <li>Headache (predominant) + tender/thickened/nodular temporal artery (pulsating early, may become occluded)</li>
+          <li>Scalp pain, jaw claudication, tongue claudication</li>
+          <li><strong>Ischemic optic neuropathy → sudden blindness</strong> — most dreaded complication (particularly in untreated patients)</li>
+          <li>Most patients have head/eye complaints BEFORE visual loss → early treatment lessens risk</li>
+          <li>Other cranial ischemic complications: strokes, scalp/tongue infarction</li>
+        </ul>
+        <h5 style="font-weight:600;margin-bottom:6px;font-size:13px;margin-top:10px">2. Polymyalgia Rheumatica</h5>
+        <ul class="bl">
+          <li>Stiffness, aching, pain in neck/shoulder/lower back/hip/thigh muscles</li>
+        </ul>
+      </div>
+      <div>
+        <h5 style="font-weight:600;margin-bottom:6px;font-size:13px">3. Large-Vessel Disease (up to 1/3)</h5>
+        <ul class="bl">
+          <li>Can be primary presentation or emerge later</li>
+          <li>Subclavian artery stenosis → arm claudication</li>
+          <li><strong>Aortic aneurysms</strong> (thoracic &gt; abdominal) → risk of rupture/dissection</li>
+          <li><strong>GCA patients are 18× more likely to develop thoracic aortic aneurysms</strong> than general population</li>
+        </ul>
+        <h5 style="font-weight:600;margin-bottom:6px;font-size:13px;margin-top:10px">4. Systemic Inflammation</h5>
+        <ul class="bl">
+          <li>Malaise, fatigue, anorexia, weight loss, sweats</li>
+          <li>↑ESR/CRP (most patients), normochromic/slightly hypochromic anemia</li>
+          <li>↑Alkaline phosphatase, ↑IgG and complement</li>
+        </ul>
+      </div>
+    </div>
+    <div class="co dan">
+      <div class="co-t">IL-6 Inhibitor Monitoring Caveat</div>
+      Therapeutic IL-6 blockade (tocilizumab) <strong>prevents hepatic CRP production and normalizes ESR</strong>. These values will normalize in treated patients, <strong>eliminating the ability to use CRP and ESR to monitor disease activity or infection</strong> in these patients.
+    </div>
+
+    <h4>Diagnosis of GCA</h4>
+    <ul class="bl">
+      <li>Clinical: fever + anemia + high ESR/CRP ± PMR in patient &gt;50 years</li>
+      <li><strong>Temporal artery biopsy</strong> (3–5 cm segment, serial sectioning) — not positive in all patients due to patchy findings</li>
+      <li><strong>Do NOT delay therapy pending biopsy</strong> — temporal artery biopsies may still show vasculitis after ~14 days of GC therapy</li>
+      <li>Ultrasound (temporal ± axillary arteries): noncompressible "<strong>halo sign</strong>" supports diagnosis</li>
+      <li>Large-vessel disease: MRI or CT arteriography (PET increasingly investigated but role in diagnosis/monitoring unclear)</li>
+      <li>Dramatic clinical response to glucocorticoid trial further supports diagnosis</li>
+    </ul>
+
+    <h4>Treatment of GCA</h4>
+    <div class="co suc">
+      <div class="co-t">Treatment Goals</div>
+      Reduce symptoms and, <strong>most importantly, prevent visual loss</strong>. Same approach for cranial and large-vessel disease.
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Situation</th><th>Treatment</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Standard</td><td>Prednisone <strong>40–60 mg/day × ~1 month</strong> → gradual taper</td><td>60–85% recur during taper (require dose increase); GC usually needed ≥2 years; GC toxicity in 35–65%</td></tr>
+          <tr><td>Ocular signs/symptoms</td><td>Methylprednisolone <strong>1000 mg/day × 3 days</strong></td><td>To protect remaining vision</td></tr>
+          <tr><td>Steroid-sparing (preferred)</td><td>Tocilizumab (anti-IL-6R) <strong>162 mg SC qwk or q2wk</strong> + 26-week prednisone taper</td><td>Superior to prednisone alone in sustaining GC-free remission (RCT); IV option: 6 mg/kg q4wk</td></tr>
+          <tr><td>GC toxicity, can't take TCZ</td><td>Methotrexate</td><td>Two conflicting RCTs; consider in select patients</td></tr>
+          <tr><td>No contraindications</td><td>Aspirin <strong>81 mg/day</strong></td><td>Retrospective studies: reduces cranial ischemic complications; adjunctive use recommended</td></tr>
+          <tr><td>Investigational</td><td>Abatacept</td><td>Small RCT: greater efficacy than GC alone</td></tr>
+          <tr><td>Ineffective</td><td>Infliximab (anti-TNF)</td><td>RCT: no benefit — do NOT use</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co prl">
+      <div class="co-t">Monitoring on GC Alone</div>
+      ESR and/or CRP serves as indicator of inflammatory disease activity → guide tapering schedule. Minor increases during taper do NOT necessarily reflect exacerbation (continue tapering with caution if patient remains symptom-free). ESR/CRP can rise for other reasons (infection) — this cannot be relied upon on IL-6 inhibitors.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Polymyalgia Rheumatica (PMR)</h3>
+    <h4>Diagnosis</h4>
+    <p>Clinical diagnosis: typical symptoms (stiffness/aching/pain in hip and shoulder girdle muscles) + ↑ESR/CRP + absence of GCA features + prompt response to low-dose prednisone. RF and anti-CCP: <strong>must be negative</strong>. CK levels: <strong>not elevated</strong> (distinguishes from myositis). Can mimic RA with peripheral arthritis — if worsening arthritis pattern, consider seronegative RA or other inflammatory arthropathy.</p>
+    <h4>Treatment</h4>
+    <ul class="bl">
+      <li>Prednisone <strong>10–20 mg/day</strong> → most patients respond promptly</li>
+      <li>Majority recur during prednisone taper</li>
+      <li><strong>Sarilumab (anti-IL-6R) 200 mg SC q2wk</strong> + 14-week GC taper: higher sustained remission vs. GC alone in GC-resistant PMR (relapsed on ≥7.5 mg/day) — restrict to those with inadequate GC response or GC-taper relapse</li>
+      <li>MTX: reduced prednisone dose by only ~1 mg on average; did NOT decrease GC side effects</li>
+      <li>Infliximab: no benefit in relapse or GC requirements</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 10 -->
+<section class="sec" id="s10">
+  <div class="sec-hd">
+    <span class="sec-n">§ 10</span>
+    <h2>Takayasu Arteritis</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Core Definition</div>
+    Inflammatory disease of <strong>large-sized arteries</strong> with a <strong>strong predilection for the aortic arch and its branches</strong>. Pulmonary artery may also be involved.
+  </div>
+
+  <div class="sub">
+    <h3>Epidemiology &amp; Pathology</h3>
+    <div class="g3">
+      <div class="card"><div class="clabel c-b">Incidence</div><p>1.2–2.6 cases per million/year</p></div>
+      <div class="card"><div class="clabel c-b">Demographics</div><p>Most prevalent in <strong>adolescent girls and young women</strong>; more common in Asia but NOT racially or geographically restricted</p></div>
+      <div class="card"><div class="clabel c-b">Disease Course</div><p>Often chronic and relapsing; spontaneous remissions possible</p></div>
+    </div>
+    <h4>Pathology</h4>
+    <ul class="bl">
+      <li>Panarteritis with inflammatory mononuclear cell infiltrates ± giant cells</li>
+      <li>Marked intimal proliferation + fibrosis, scarring + vascularization of media, disruption of elastic lamina</li>
+      <li><strong>Vasa vasorum frequently involved</strong></li>
+      <li>Narrowing of lumen ± thrombosis; aneurysms from vessel wall weakening</li>
+      <li>Involvement more marked at <strong>origin of arteries</strong> than distally</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Arteriographic Abnormalities (Key Table)</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Artery</th><th>% Arteriographic Abnormalities</th><th>Potential Clinical Manifestations</th></tr></thead>
+        <tbody>
+          <tr><td>Subclavian</td><td><strong>93%</strong></td><td>Arm claudication, Raynaud's phenomenon</td></tr>
+          <tr><td>Common carotid</td><td>58%</td><td>Visual changes, syncope, TIA, stroke</td></tr>
+          <tr><td>Abdominal aorta*</td><td>47%</td><td>Abdominal pain, nausea, vomiting</td></tr>
+          <tr><td>Renal</td><td>38%</td><td>Hypertension, renal failure</td></tr>
+          <tr><td>Aortic arch or root</td><td>35%</td><td>Aortic insufficiency, CHF</td></tr>
+          <tr><td>Vertebral</td><td>35%</td><td>Visual changes, dizziness</td></tr>
+          <tr><td>Coeliac axis*</td><td>18%</td><td>Usually asymptomatic; abdominal pain/N/V</td></tr>
+          <tr><td>Superior mesenteric*</td><td>18%</td><td>Usually asymptomatic; abdominal pain/N/V</td></tr>
+          <tr><td>Iliac</td><td>17%</td><td>Leg claudication</td></tr>
+          <tr><td>Pulmonary</td><td>10–40%</td><td>Atypical chest pain, dyspnea</td></tr>
+          <tr><td>Coronary</td><td>&lt;10%</td><td>Chest pain, myocardial infarction</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:11.5px;color:var(--t3)">*Arteriographic lesions at these locations usually asymptomatic but may potentially cause these symptoms.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical &amp; Diagnosis</h3>
+    <ul class="bl">
+      <li>Generalized symptoms first: malaise, fever, night sweats, arthralgias, anorexia, weight loss (may precede vessel involvement by months)</li>
+      <li>Then vascular compromise: <strong>absent pulses</strong> (especially subclavian), BP discrepancy between arms, arterial bruits</li>
+      <li><strong>HTN in 32–93%</strong> → contributes to renal, cardiac, and cerebral injury</li>
+      <li>Labs: ↑ESR/CRP, mild anemia, ↑immunoglobulin levels</li>
+    </ul>
+    <div class="co tel">
+      <div class="co-t">Diagnostic Clue</div>
+      Suspect strongly in a <strong>young woman with decreased/absent peripheral pulses, BP discrepancy between arms, or arterial bruits</strong>. Confirmed by characteristic arteriographic pattern: irregular vessel walls, stenosis, post-stenotic dilation, aneurysm formation, occlusion, ↑collateral circulation. Complete MRI or CT arteriography of aorta and major branches.
+    </div>
+    <div class="co wrn">
+      <div class="co-t">IgG4-Related Disease Mimic</div>
+      IgG4-related disease can cause aortitis and periaortitis. Histologically differentiated by: dense lymphoplasmacytic infiltrate rich in <strong>IgG4+ plasma cells</strong> + storiform pattern of fibrosis + obliterative phlebitis.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment</h3>
+    <div class="g2">
+      <div class="card"><div class="clabel c-r">Outcomes</div><p>North American reports: overall survival ≥94%. Other studies: 5-year mortality 0–35%. Death from CHF, CVA, MI, aneurysm rupture, renal failure.</p></div>
+      <div class="card"><div class="clabel c-g">Best Outcomes</div><p>Combination of GC for acute symptoms + <strong>aggressive surgical/arterioplastic approach</strong> to stenosed vessels: ↓stroke risk, corrects HTN from renal artery stenosis, ↑blood flow. Surgical correction only when vascular inflammation is well-controlled.</p></div>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Agent</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td>Glucocorticoids (prednisone 40–60 mg/day + taper)</td><td>Alleviates symptoms; <strong>no convincing evidence of improved survival</strong></td></tr>
+          <tr><td>Methotrexate (up to 25 mg/week)</td><td>Positive results in GC-refractory/unable to taper cases (retrospective)</td></tr>
+          <tr><td>Anti-TNF agents</td><td>Retrospective benefit; <strong>no RCTs</strong></td></tr>
+          <tr><td>Tocilizumab</td><td>RCT: did NOT reach primary efficacy endpoint; GC-sparing effect + ↑well-being seen; utility remains an active question</td></tr>
+          <tr><td>Abatacept</td><td>RCT: no efficacy beyond GC alone</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 11 -->
+<section class="sec" id="s11">
+  <div class="sec-hd">
+    <span class="sec-n">§ 11</span>
+    <h2>IgA Vasculitis (Henoch-Schönlein)</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Core Definition</div>
+    Small-vessel vasculitis characterized by: <strong>palpable purpura</strong> (buttocks + lower extremities) + <strong>arthralgias</strong> + <strong>GI signs/symptoms</strong> + <strong>glomerulonephritis</strong>.
+  </div>
+
+  <div class="sub">
+    <h3>Epidemiology &amp; Pathogenesis</h3>
+    <div class="g3">
+      <div class="card"><div class="clabel c-b">Age</div><p>Usually children 4–7 years; can occur in infants and adults</p></div>
+      <div class="card"><div class="clabel c-b">Epidemiology</div><p>M:F = 1.5:1; <strong>spring peak incidence</strong>; not rare (5–24 admissions/year at pediatric hospital)</p></div>
+      <div class="card"><div class="clabel c-b">Pathogenesis</div><p>Immune complex deposition; <strong>IgA</strong> = antibody class most common in complexes and renal biopsies. Inciting antigens: URI, drugs, foods, insect bites, immunizations</p></div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Manifestations</h3>
+    <div class="g2">
+      <div>
+        <h4>Pediatric Presentation</h4>
+        <ul class="bl">
+          <li><strong>Palpable purpura: virtually all patients</strong></li>
+          <li>Polyarthralgias (without frank arthritis): most</li>
+          <li><strong>GI involvement 70%:</strong> colicky abdominal pain + N/V/D/constipation + blood/mucus per rectum; <strong>bowel intussusception</strong> may occur</li>
+          <li>Renal 10–50%: mild GN (proteinuria + hematuria + RBC casts) → usually resolves spontaneously; progressive GN rare</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Adult Presentation (Differences)</h4>
+        <ul class="bl">
+          <li>Presenting symptoms most frequently: skin + joints</li>
+          <li>Initial GI complaints less common</li>
+          <li>Renal disease: may be more frequent and severe (not consistent finding) but more <strong>insidious → requires close follow-up</strong></li>
+          <li>Myocardial involvement: rare in children, can occur in adults</li>
+          <li>Labs: mild leukocytosis, normal platelets, occasional eosinophilia, normal complement, IgA elevated in ~50%</li>
+        </ul>
+      </div>
+    </div>
+    <h4>Diagnosis</h4>
+    <ul class="bl">
+      <li>Clinical diagnosis</li>
+      <li>Skin biopsy: leukocytoclastic vasculitis with <strong>IgA + C3 deposition by immunofluorescence</strong></li>
+      <li>Renal biopsy: rarely needed for diagnosis but may provide prognostic information</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment &amp; Prognosis</h3>
+    <div class="co suc">
+      <div class="co-t">Prognosis: Excellent</div>
+      Mortality exceedingly rare. 1–5% of children progress to ESRD (may be higher in adults). Most recover completely; some do not require therapy. Recurrences in 10–40%.
+    </div>
+    <div class="co wrn">
+      <div class="co-t">Prednisone Limitations in IgA Vasculitis</div>
+      Prednisone 1 mg/kg/day tapered useful for: tissue edema, arthralgias, abdominal pain.<br>
+      <strong>NOT proved beneficial for skin or renal disease.</strong> Does NOT shorten duration of active disease or lessen recurrence.<br>
+      Rapidly progressive GN: anecdotal reports of benefit from GC + additional immunosuppressive agent.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 12 -->
+<section class="sec" id="s12">
+  <div class="sec-hd">
+    <span class="sec-n">§ 12</span>
+    <h2>Cryoglobulinemic Vasculitis</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Core Definition</div>
+    Cryoglobulins = <strong>cold-precipitable mono/polyclonal immunoglobulins</strong>. Cryoglobulinemia → systemic vasculitis: palpable purpura + arthralgias + weakness + neuropathy + glomerulonephritis. Most common association: <strong>hepatitis C virus (HCV)</strong>.
+  </div>
+
+  <div class="sub">
+    <h3>Epidemiology, Pathology &amp; Pathogenesis</h3>
+    <div class="g2">
+      <div>
+        <ul class="bl">
+          <li>Incidence not established; ~5% of chronic HCV → cryoglobulinemic vasculitis</li>
+          <li>Also associated with: multiple myeloma, lymphoproliferative disorders, CTD, infection, liver disease; can be idiopathic</li>
+          <li>Skin biopsy: inflammatory infiltrate around vessel walls + fibrinoid necrosis + endothelial hyperplasia + hemorrhage; Ig + complement deposition</li>
+          <li><strong>Membranoproliferative GN: 80% of all renal lesions</strong></li>
+          <li>Abnormalities of uninvolved skin: basement membrane alterations + deposits in vessel walls</li>
+        </ul>
+      </div>
+      <div>
+        <div class="co prl">
+          <div class="co-t">HCV Pathogenic Mechanism</div>
+          Aberrant immune response to HCV → immune complexes consisting of: <strong>HCV antigens + polyclonal HCV-specific IgG + monoclonal IgM rheumatoid factor</strong> → deposited in vessel walls → inflammatory cascade → cryoglobulinemic vasculitis. Supported by: high frequency of HCV infection, HCV RNA + anti-HCV Ab in cryoprecipitates, HCV antigens in vasculitic skin lesions, effectiveness of antiviral therapy.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical, Labs &amp; Treatment</h3>
+    <div class="g2">
+      <div>
+        <h4>Clinical &amp; Lab</h4>
+        <ul class="bl">
+          <li>Cutaneous vasculitis + arthritis + peripheral neuropathy + GN (most common)</li>
+          <li>Renal disease: 10–30%</li>
+          <li>Life-threatening RPGN/CNS/GI/cardiac: infrequent</li>
+          <li><strong>Circulating cryoprecipitates</strong> (fundamental finding)</li>
+          <li><strong>Rheumatoid factor almost always present</strong> — useful clue when cryoglobulins not detected</li>
+          <li><strong>Hypocomplementemia: 90%</strong></li>
+          <li>↑ESR/CRP, anemia; screen all for HCV (antibodies + RNA)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Treatment &amp; Prognosis</h4>
+        <ul class="bl">
+          <li>Acute mortality uncommon; GN poor prognosis: 15% → ESRD; 40% → fatal CV disease/infection/liver failure</li>
+          <li><strong>HCV-associated:</strong> antiviral therapy = first-line; viral clearance → objective vasculitis improvement + ↓cryoglobulins, IgM, RF</li>
+          <li>GC: transient improvement only; complete response in <strong>only 7%</strong></li>
+          <li><strong>Rituximab:</strong> RCT evidence of benefit → use with antiviral therapy or alone if relapsed through/intolerant to/contraindicated to antivirals</li>
+          <li>Plasma exchange + cytotoxic agents: anecdotal only; significant risks; not confirmed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 13 -->
+<section class="sec" id="s13">
+  <div class="sec-hd">
+    <span class="sec-n">§ 13</span>
+    <h2>Other Vasculitis Syndromes</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Kawasaki Disease</h3>
+    <div class="co key">
+      <div class="co-t">Key Features</div>
+      Acute, febrile, <strong>multisystem disease of children</strong>. 80% &lt;5 years; peak ≤2 years. Nonsuppurative cervical adenitis + skin/mucous membrane changes (edema, conjunctival congestion, erythema oral cavity/lips/palms, <strong>fingertip desquamation</strong>).
+    </div>
+    <div class="g2">
+      <div>
+        <h4>Cardiac Complications</h4>
+        <ul class="bl">
+          <li><strong>Coronary artery aneurysms: ~25%</strong></li>
+          <li>Case-fatality rate: 0.5–2.8%</li>
+          <li>Complications typically in <strong>3rd–4th week (convalescent stage)</strong></li>
+          <li>Path: intimal proliferation + mononuclear infiltration; beadlike aneurysms + thromboses</li>
+          <li>Also: pericarditis, myocarditis, MI, cardiomegaly</li>
+          <li>Vasculitis of coronary arteries in almost all fatal autopsied cases</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Treatment</h4>
+        <ul class="bl">
+          <li><strong>IV γ-globulin 2 g/kg</strong> as single infusion over 10h + <strong>aspirin 100 mg/kg/day × 14 days</strong>, then 3–5 mg/kg/day × several weeks → reduces coronary artery abnormalities</li>
+          <li>Surgery for giant coronary artery aneurysms: thromboendarterectomy, thrombus clearing, aneurysmal reconstruction, CABG</li>
+          <li>Test for <strong>SARS-CoV-2</strong> in any patient with Kawasaki-like presentation (MIS-C: also GI symptoms, myocarditis, neurocognitive symptoms, shock)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Idiopathic Cutaneous Vasculitis</h3>
+    <p><strong>Most commonly encountered vasculitis in clinical practice.</strong> &gt;70% = part of primary systemic vasculitis or secondary vasculitis (inciting agent/underlying disease). Only 30% = truly idiopathic.</p>
+    <div class="g2">
+      <div>
+        <h4>Clinical Features</h4>
+        <ul class="bl">
+          <li>Hallmark: <strong>palpable purpura</strong> (also macules, papules, vesicles, bullae, subcutaneous nodules, ulcers, recurrent urticaria)</li>
+          <li>Pruritic or painful (burning/stinging sensation)</li>
+          <li>Lower extremities (ambulatory) or sacral (bedridden) — hydrostatic forces on postcapillary venules</li>
+          <li>Edema; hyperpigmentation with recurrent lesions</li>
+          <li>Path: postcapillary venules most common; leukocytoclasis; RBC extravasation → purpura; cutaneous arteritis (slightly larger vessels) can also occur</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Treatment</h4>
+        <ul class="bl">
+          <li>Remove antigenic stimulus; treat underlying disease</li>
+          <li>Self-limited: no therapy needed</li>
+          <li>Persistent, no systemic cause: dapsone, colchicine, hydroxychloroquine, NSAIDs (anecdotal)</li>
+          <li>GC often used (lowest effective prednisone, rapid taper)</li>
+          <li>Chronic cutaneous venule vasculitis: rarely responds dramatically; immunosuppressives only as last resort; MTX/AZA anecdotally</li>
+          <li><strong>Cyclophosphamide: almost NEVER use</strong> (potential toxicity)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Primary CNS Vasculitis</h3>
+    <ul class="bl">
+      <li>Vasculitis restricted to <strong>CNS vessels</strong>; no systemic vasculitis; usually mononuclear infiltrates ± granuloma formation</li>
+      <li>Presents: headaches + altered mental function + focal neurologic defects; <strong>systemic symptoms generally absent</strong></li>
+      <li>Diagnosis: abnormal MRI brain + abnormal LP + arteriographic abnormalities (beading) → <strong>confirmed by brain parenchyma + leptomeningeal biopsy</strong></li>
+      <li>Key DDx: <strong>Reversible Cerebral Vasoconstrictive Syndrome (RCVS)</strong> — thunderclap headache + reversible arteriographic changes; also infection, atherosclerosis, emboli, CTD, sarcoidosis, malignancy, drugs</li>
+      <li><strong>Prognosis: poor.</strong> Some reports: GC ± cyclophosphamide → clinical remissions</li>
+      <li>After remission: switch CYC to <strong>AZA or mycophenolate mofetil</strong> (good CNS penetration)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Single-Organ Vasculitis</h3>
+    <p>Vasculitis in arteries or veins of any size in a single organ with no features of systemic vasculitis. Examples: isolated aortitis, testicular vasculitis, vasculitis of the breast, isolated cutaneous vasculitis, primary CNS vasculitis. Some patients may later develop more systemic disease. If affected organ entirely removed and no systemic evidence: close follow-up without immunosuppression.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Behçet's Disease &amp; Cogan's Syndrome</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Behçet's Disease</div>
+        <p>Recurrent episodes of <strong>oral and genital ulcers + iritis + cutaneous lesions</strong>. Underlying pathologic process = leukocytoclastic venulitis. Vessels of any size and any organ can be involved. Treated with apremilast (among others). Detailed coverage in Chap. 376.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Cogan's Syndrome</div>
+        <p><strong>Interstitial keratitis + vestibuloauditory symptoms</strong>. May be associated with systemic vasculitis, particularly <strong>aortitis with involvement of the aortic valve</strong>. Initiation of treatment as early as possible after hearing loss onset → improves outcome. Glucocorticoids are the mainstay of treatment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 14 -->
+<section class="sec" id="s14">
+  <div class="sec-hd">
+    <span class="sec-n">§ 14</span>
+    <h2>Secondary Vasculitis</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Drug-Induced Vasculitis</h3>
+    <ul class="bl">
+      <li>Usually presents as <strong>palpable purpura</strong> (generalized or lower extremities/dependent areas); also urticarial lesions, ulcers, hemorrhagic blisters</li>
+      <li>Signs limited to skin OR systemic (fever, malaise, polyarthralgias)</li>
+      <li>Classic drugs: allopurinol, thiazides, gold, sulfonamides, phenytoin, penicillin</li>
+    </ul>
+    <div class="co prl">
+      <div class="co-t">ANCA-Associated Drug Vasculitis</div>
+      Best evidence of causality: <strong>hydralazine</strong> and <strong>propylthiouracil (PTU)</strong>. Clinical manifestations range from cutaneous lesions to GN and pulmonary hemorrhage. Outside of drug discontinuation → treat based on severity. Life-threatening small-vessel vasculitis → GC + cyclophosphamide (as in GPA); may taper more rapidly than primary vasculitis.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Serum Sickness &amp; Serum Sickness–Like Reactions</h3>
+    <ul class="bl">
+      <li>Fever + urticaria + polyarthralgias + lymphadenopathy; onset 7–10 days after primary exposure or 2–4 days after secondary exposure to heterologous protein (classic) or nonprotein drug such as penicillin/sulfa (serum sickness-like)</li>
+      <li><strong>Most manifestations NOT due to vasculitis</strong>; occasional patients have cutaneous venulitis → rarely progresses to systemic vasculitis</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Vasculitis Associated with Other Underlying Diseases</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-r">Infectious</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li><strong>Rickettsias:</strong> invade endothelial cells of small blood vessels → vasculitis</li>
+          <li>Systemic fungi (histoplasmosis): inflammatory response around vessels may mimic primary vasculitis</li>
+          <li>Also: SBE, EBV, HIV and other infections</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Malignancies</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li>Leukemic, lymphoid, or reticuloendothelial neoplasms</li>
+          <li>Most common: <strong>leukocytoclastic venulitis confined to skin</strong></li>
+          <li>Systemic vasculitis may occur</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Connective Tissue Diseases</div>
+        <ul class="bl" style="margin-bottom:0">
+          <li><strong>SLE, RA, inflammatory myositis, relapsing polychondritis, Sjögren's syndrome</strong></li>
+          <li>Most common: small-vessel venulitis isolated to skin</li>
+          <li>Some → fulminant systemic necrotizing vasculitis</li>
+        </ul>
+      </div>
+    </div>
+    <div class="co tel">
+      <div class="co-t">Other Associations</div>
+      Secondary vasculitis also observed with: ulcerative colitis, congenital complement component deficiencies, sarcoidosis, primary biliary cirrhosis, α₁-antitrypsin deficiency, intestinal bypass surgery.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Polyangiitis Overlap Syndromes</h3>
+    <p>Patients with clinicopathologic characteristics that do NOT fit a specific disease but have overlapping features of different vasculitides. Diagnostic/therapeutic considerations and prognosis depend on sites and severity of active vasculitis. If potential for irreversible damage to a major organ → treat as per GPA protocol.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 15 -->
+<section class="sec" id="s15">
+  <div class="sec-hd">
+    <span class="sec-n">§ 15</span>
+    <h2>Exam Traps</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">ANCA Rise Alone = Reinstitute Therapy?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with GPA in clinical remission is found to have a rising anti-PR3 titer. The vignette implies you should increase immunosuppressive therapy. What is the correct action?</div>
+      <div class="trap-a"><strong>CORRECT:</strong> Do NOT reinstitute or increase immunosuppressive therapy based on ANCA rise alone. A large prospective study showed only 43% of patients relapsed within 1 year of an increase in ANCA levels. Relapse determination must be based on objective evidence of disease activity, after ruling out infection, medication toxicity, or chronic disease sequelae.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">GPA Renal Biopsy = Immune Complex Deposition?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with GPA has a renal biopsy. The question asks what immune complex pattern is expected. The answer choices include various immune complex deposits. Which is correct?</div>
+      <div class="trap-a"><strong>CORRECT:</strong> GPA produces <strong>PAUCI-IMMUNE glomerulonephritis</strong> — immune complex deposition is NOT found in the renal lesion of GPA. This distinguishes it from immune complex-mediated GN (IgA nephropathy, lupus nephritis, post-infectious GN, etc.).</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Subglottic Stenosis in GPA — Systemic Immunosuppression?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with GPA has developed subglottic stenosis causing significant airway obstruction. The question asks for optimal management. Systemic immunosuppression is one of the options.</div>
+      <div class="trap-a"><strong>CORRECT:</strong> Subglottic stenosis in GPA often scars and responds <strong>optimally to nonmedical intervention: dilation + glucocorticoid injection</strong>. Systemic immunosuppressive therapy is NOT the correct treatment for subglottic stenosis.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">PAN = Pulmonary Artery Involvement?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with confirmed PAN develops new dyspnea. You diagnose pulmonary artery vasculitis. Is this consistent with PAN?</div>
+      <div class="trap-a"><strong>CORRECT:</strong> PAN does <strong>NOT involve pulmonary arteries</strong> (bronchial vessels may be involved, but this is uncommon). Pulmonary artery involvement should make you think of another diagnosis. Additionally, PAN does NOT cause GN, granulomas, or significant eosinophilia, and ANCA is rarely found.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Temporal Artery Biopsy After Starting GC?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">An elderly patient with fever, headache, jaw claudication, and markedly elevated ESR has suspected GCA. You want to perform temporal artery biopsy before starting treatment to avoid "masking" the diagnosis. Is this the correct approach?</div>
+      <div class="trap-a"><strong>CORRECT:</strong> Do <strong>NOT delay therapy</strong> pending biopsy. Temporal artery biopsies may still show vasculitis even after approximately <strong>14 days of glucocorticoid therapy</strong>. The risk of visual loss in untreated GCA far outweighs the diagnostic benefit of delaying treatment.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Monitoring GCA on Tocilizumab with ESR/CRP?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A GCA patient on tocilizumab has a normal ESR and CRP. Does this mean their disease is in remission?</div>
+      <div class="trap-a"><strong>CORRECT:</strong> You CANNOT use CRP or ESR to monitor disease activity or assess for infection in patients on tocilizumab (or sarilumab). These agents block IL-6 signaling, which prevents hepatic CRP production and normalizes ESR. These values will be normalized regardless of disease activity.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">EGPA — Echocardiography Optional?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A newly diagnosed EGPA patient presents primarily with asthma and mononeuritis multiplex. Is cardiac evaluation necessary?</div>
+      <div class="trap-a"><strong>CORRECT:</strong> <strong>Echocardiography must be performed in ALL newly diagnosed EGPA patients</strong>. Clinically recognizable heart disease occurs in ~14% and is the most important cause of mortality (responsible for 39% of patient deaths). Cardiac involvement influences therapeutic decisions.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">Mepolizumab for Life-Threatening EGPA?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with EGPA presents with fulminant cardiac involvement. Should mepolizumab be initiated?</div>
+      <div class="trap-a"><strong>CORRECT:</strong> Mepolizumab is <strong>NOT for life-threatening EGPA</strong>. Patients with life-threatening EGPA were excluded from the mepolizumab RCT. Life-threatening/fulminant disease (especially cardiac involvement) requires daily <strong>cyclophosphamide + prednisone</strong>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Plasma Exchange in GPA/MPA for ESRD Prevention?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with severe ANCA-associated vasculitis is being treated. Should plasma exchange be added to reduce risk of end-stage renal disease?</div>
+      <div class="trap-a"><strong>CORRECT:</strong> A large RCT showed plasma exchange provides <strong>NO added benefit</strong> in reducing the composite outcome of ESRD or death. Do NOT routinely add plasma exchange to the induction regimen. Exception: use plasma exchange in GPA/MPA patients who are also <strong>anti-GBM antibody positive</strong>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Cyclophosphamide + Rituximab Together for Induction?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">For severe GPA induction, would combining cyclophosphamide AND rituximab together be more effective?</div>
+      <div class="trap-a"><strong>CORRECT:</strong> There is <strong>no evidence</strong> that using cyclophosphamide and rituximab together for induction is more efficacious. Combined use raises concern for <strong>additive toxicity, particularly infection</strong>. Choose one or the other based on individual patient factors.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">PMR — CK Elevated, RF Positive?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with suspected PMR has elevated creatine kinase and positive rheumatoid factor. Is this consistent with PMR?</div>
+      <div class="trap-a"><strong>CORRECT:</strong> NO — this is NOT consistent with PMR. In PMR: <strong>CK levels are NOT elevated</strong> (distinguishes from inflammatory myositis) and <strong>RF and anti-CCP must be negative</strong> (distinguishes from RA). Positive RF/anti-CCP or elevated CK should prompt reconsideration of the diagnosis.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 12</span><span class="trap-title">Cryoglobulinemic Vasculitis — GC Complete Response?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with HCV-associated cryoglobulinemic vasculitis is started on high-dose glucocorticoids as monotherapy. What is the expected complete response rate?</div>
+      <div class="trap-a"><strong>CORRECT:</strong> GC produces a complete response in only <strong>7%</strong> of patients with cryoglobulinemic vasculitis. The correct first-line treatment for HCV-associated cryoglobulinemic vasculitis is <strong>antiviral therapy</strong>. Rituximab has RCT evidence of benefit and should be considered for active vasculitis.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 13</span><span class="trap-title">Midline Destructive Disease with ANCA = GPA?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient has destructive midline lesions with skin erosion through the face and an ANCA targeting human neutrophil elastase. Is this GPA, and should it be irradiated?</div>
+      <div class="trap-a"><strong>CORRECT:</strong> Erosion through the skin of the face is <strong>extremely rare</strong> in GPA — it's characteristic of other midline destructive diseases (e.g., extranodal NK/T-cell lymphoma). ANCA targeting HNE (not PR3/MPO) suggests cocaine-induced disease. Extranodal NK/T-cell lymphoma → irradiation is appropriate. <strong>Upper airway lesions should NEVER be irradiated in GPA.</strong></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 14</span><span class="trap-title">PAN-Like Vasculitis in a Child — Standard PAN Treatment?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A child presents with early-onset PAN-like vasculitis. Should the treatment approach be the same as for adult PAN?</div>
+      <div class="trap-a"><strong>CORRECT:</strong> In early-onset PAN-like vasculitis, consider <strong>DADA2 (adenosine deaminase type 2 deficiency)</strong>. These patients have a different treatment: <strong>TNF inhibitors</strong> (not standard cyclophosphamide/prednisone used in PAN). This is a critical distinction with major therapeutic implications.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 15</span><span class="trap-title">Mycophenolate vs. Azathioprine for GPA Maintenance?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">After inducing remission in GPA with cyclophosphamide, a patient is switched to mycophenolate mofetil for maintenance. Is this the best choice?</div>
+      <div class="trap-a"><strong>CORRECT:</strong> Mycophenolate mofetil can sustain remission, but it is associated with a <strong>higher relapse rate compared to azathioprine</strong>. The preferred agents for maintenance after cyclophosphamide induction are rituximab (lowest relapse rate in RCT) or azathioprine. Mycophenolate is used when patients are unable to receive MTX or azathioprine or have relapsed on such treatment.</div>
+    </div>
+  </div>
+
+  <hr class="sep">
+  <div class="sub">
+    <h3>Quick Reference Master Table</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Syndrome</th><th>Vessel Size</th><th>Key Features</th><th>ANCA</th><th>5-yr Survival</th><th>Key Treatment</th></tr></thead>
+        <tbody>
+          <tr><td>GPA</td><td>Small</td><td>Sinusitis + lung nodules/cavities + crescentic GN; pauci-immune; saddle nose; subglottic stenosis</td><td>Anti-PR3 (90% active); 20% ANCA-neg</td><td>&gt;80% (treated)</td><td>RTX or CYC + GC ± avacopan → RTX/AZA/MTX maintenance</td></tr>
+          <tr><td>MPA</td><td>Small</td><td>GN (79%); alveolar hemorrhage (12%); NO granuloma; NO upper airway; NO pulmonary nodules</td><td>Anti-MPO (pANCA) 75%</td><td>74% (treated)</td><td>Same as GPA</td></tr>
+          <tr><td>EGPA</td><td>Small + medium</td><td>Asthma + eosinophilia (&gt;1000/μL in &gt;80%) + granuloma + vasculitis; cardiac #1 cause of death</td><td>Anti-MPO ~48%</td><td>72% at 78mo (treated)</td><td>GC alone (many); CYC for fulminant/cardiac; mepolizumab for non-life-threatening</td></tr>
+          <tr><td>PAN</td><td>Medium</td><td>NO pulmonary arteries; NO GN; NO granuloma; NO eosinophilia; aneurysms up to 1 cm; HBV screen</td><td>ANCA rarely found</td><td>10–20% untreated</td><td>Prednisone ± CYC; antiviral if HBV/HCV; TNF inhibitors for DADA2</td></tr>
+          <tr><td>GCA</td><td>Large (medium)</td><td>&gt;50 yrs; temporal headache; jaw claudication; visual loss; 18× thoracic aortic aneurysm risk</td><td>Negative</td><td>Good (acute mortality uncommon)</td><td>Prednisone 40–60 mg/d; tocilizumab SC; aspirin 81 mg; methylpred 1g/d × 3d for ocular Sx</td></tr>
+          <tr><td>Takayasu</td><td>Large</td><td>Young women; aortic arch branches; absent pulses; BP discrepancy; HTN 32–93%</td><td>Negative</td><td>≥94% (North Am)</td><td>GC + surgical/arterioplastic; MTX for GC-refractory</td></tr>
+          <tr><td>IgA Vasculitis (HSP)</td><td>Small</td><td>Children 4–7 yrs; palpable purpura + GI + arthritis + GN; IgA + C3 on IF biopsy</td><td>Negative</td><td>Excellent (mortality exceedingly rare)</td><td>Supportive; GC for edema/arthritis/GI (NOT skin/renal); self-limited in most</td></tr>
+          <tr><td>Cryoglobulinemic</td><td>Small</td><td>HCV-associated; purpura + neuropathy + GN; RF almost always positive; hypocomplementemia 90%</td><td>Usually negative</td><td>15% ESRD if GN</td><td>Antiviral (HCV first-line); rituximab; GC = 7% complete response only</td></tr>
+          <tr><td>Kawasaki</td><td>Medium</td><td>Children ≤2 yrs; coronary aneurysms 25%; fingertip desquamation; complications at 3–4 weeks</td><td>Negative</td><td>Case fatality 0.5–2.8%</td><td>IVIG 2 g/kg + aspirin 100 mg/kg × 14d then 3–5 mg/kg; surgery for giant aneurysms</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">Harrison's Chapter 375 · Langford &amp; Fauci · The Vasculitis Syndromes · Boards Review · Venos 2026</footer>
+
+<script>
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+/* ── HIGHLIGHT SYSTEM ──────────────────────────────── */
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+/* Save all highlights as {text, color} */
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+/* Restore highlights by finding text in DOM */
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+/* ── NOTE SYSTEM ───────────────────────────────────── */
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+/* Restore note anchors by finding ref text in DOM */
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+/* ── POPOVER ───────────────────────────────────────── */
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+/* ── MOUSE SELECTION ───────────────────────────────── */
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+/* ── CLEAR ALL ─────────────────────────────────────── */
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+/* ── SIDEBAR TOGGLE ────────────────────────────────── */
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+/* ── RESIZE ────────────────────────────────────────── */
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+/* ── STATUS BUTTONS ────────────────────────────────── */
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+/* ── NAV TRACKING ──────────────────────────────────── */
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+/* ── INIT — restore everything on page load ──────── */
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
