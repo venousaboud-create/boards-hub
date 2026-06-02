@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DM Part 1 — Diagnosis, Classification & Pathophysiology · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);
+  border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;
+  z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;
+  display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;
+  position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;
+  line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;
+  padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blu);
+  margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'\25B8';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.bl li ul{list-style:none;padding:0;margin:4px 0 0 14px}
+.bl li ul li{position:relative;padding:2px 0 2px 14px;font-size:13px;color:var(--t2)}
+.bl li ul li::before{content:'\2013';position:absolute;left:0;top:2px;color:var(--t3);font-size:11px}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+@media(max-width:700px){.g2,.g3{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:6px}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+/* Flowchart */
+.flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:18px 0}
+.flow-box{background:var(--sf);border:1.5px solid var(--bd2);border-radius:7px;padding:10px 20px;font-size:13px;text-align:center;min-width:220px;color:var(--tx)}
+.flow-box.blu{background:var(--blu-l);border-color:var(--blu);color:var(--blu-d);font-weight:600}
+.flow-box.red{background:var(--red-l);border-color:var(--red);color:var(--red);font-weight:600}
+.flow-box.grn{background:var(--grn-l);border-color:var(--grn);color:var(--grn);font-weight:600}
+.flow-box.amb{background:var(--amb-l);border-color:var(--amb);color:var(--amb);font-weight:600}
+.flow-arrow{font-size:18px;color:var(--t3);line-height:1.2;margin:2px 0}
+.flow-row{display:flex;gap:20px;align-items:center;justify-content:center}
+.flow-line{display:flex;flex-direction:column;align-items:center;gap:0}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}
+  .main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase" onclick="setErase()">&#10005;</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>&#128221; My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">&#9664;</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text &#8594; write note &#8594; Add Note.<br><br>Notes stay connected to sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">&#8212;</em></div>
+    <textarea id="sn-ta" placeholder="Add your note&#8230;"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">&#128221; Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">&#215;</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison&#8217;s Principles · Chapter 415</div>
+  <h1>Diabetes Mellitus<br>Part 1</h1>
+  <div class="hero-sub">Diagnosis · Classification · Pathophysiology · Medical Boards Review</div>
+  <div class="hero-authors">Powers, Niswender, Evans-Molina</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">4</div><div class="stat-l">DM Types</div></div>
+    <div class="stat-box"><div class="stat-n">126</div><div class="stat-l">FPG mg/dL Cutoff</div></div>
+    <div class="stat-box"><div class="stat-n">6.5%</div><div class="stat-l">HbA1c Cutoff</div></div>
+    <div class="stat-box"><div class="stat-n">537M</div><div class="stat-l">Worldwide 2021</div></div>
+    <div class="stat-box"><div class="stat-n">58%</div><div class="stat-l">DPP Lifestyle Reduction</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Definition</a>
+    <a class="toc-a" href="#s2">Classification</a>
+    <a class="toc-a" href="#s3">Insulin Physiology</a>
+    <a class="toc-a" href="#s4">Diagnosis</a>
+    <a class="toc-a" href="#s5">Prediabetes</a>
+    <a class="toc-a" href="#s6">Screening</a>
+    <a class="toc-a" href="#s7">Type 1 DM</a>
+    <a class="toc-a" href="#s8">Type 2 DM</a>
+    <a class="toc-a" href="#s9">MODY</a>
+    <a class="toc-a" href="#s10">GDM</a>
+    <a class="toc-a" href="#s11">Other Forms</a>
+    <a class="toc-a" href="#s12">Prevention</a>
+    <a class="toc-a" href="#s13">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 1: DEFINITION -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s1">
+  <div class="sec-hd"><span class="sec-n">01</span><h2>Definition</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">Core Definition</div>
+    Diabetes mellitus (DM) is a group of common metabolic disorders that all share the phenotype of <strong>hyperglycemia</strong>. It is caused by a complex interaction of genetics and environmental factors.
+  </div>
+
+  <div class="sub">
+    <h3>Three Core Mechanisms Leading to Hyperglycemia</h3>
+    <ul class="bl">
+      <li><strong>Reduced insulin secretion</strong> — beta cell failure or destruction</li>
+      <li><strong>Decreased glucose utilization</strong> — insulin resistance in peripheral tissues (muscle, fat)</li>
+      <li><strong>Increased glucose production</strong> — failure of insulin to suppress hepatic gluconeogenesis</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">Why It Matters</div>
+      The mechanism drives the treatment: secretion defect &#8594; insulin or secretagogues; resistance &#8594; metformin, thiazolidinediones, GLP-1 RA; excess production &#8594; metformin, SGLT-2i.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>End-Organ Consequences (The Big 3 US Statistics)</h3>
+    <ul class="bl">
+      <li>DM is the <strong>leading cause of ESRD</strong> (end-stage renal disease) in the US</li>
+      <li>DM is the <strong>leading cause of nontraumatic lower-extremity amputations</strong></li>
+      <li>DM is the <strong>leading cause of adult blindness</strong> (ages 20&#8211;74)</li>
+      <li>Persons with DM have <strong>increased risk of cardiovascular disease</strong> &#8212; the main cause of morbidity and mortality</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Global Burden</h3>
+    <ul class="bl">
+      <li>Worldwide: <strong>30 million in 1985 &#8594; 537 million in 2021</strong> (prevalence 10.5%)</li>
+      <li>Projected: 643 million by 2030, 783 million by 2045</li>
+      <li>US (2021): <strong>11.6% of population</strong> have DM; 38% have prediabetes</li>
+      <li><strong>22.8% of US adults with DM are undiagnosed</strong></li>
+      <li>~50% of those with DM in middle/low-income countries are undiagnosed</li>
+      <li>2021: DM caused nearly 6.7 million deaths worldwide (12.2% of global all-cause mortality)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 2: CLASSIFICATION -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s2">
+  <div class="sec-hd"><span class="sec-n">02</span><h2>Classification</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">Framework</div>
+    DM is classified by its <strong>pathogenic process</strong>, not by age of onset or insulin use. Getting the classification right matters for personalized therapy. Some patients cannot be neatly classified at diagnosis.
+  </div>
+
+  <div class="g2" style="margin-top:16px">
+    <div class="card">
+      <div class="clabel c-r">Type 1 DM</div>
+      <p><strong>Mechanism:</strong> Immune-mediated destruction of pancreatic beta cells &#8594; absolute insulin deficiency</p>
+      <p><strong>Key feature:</strong> Autoantibodies against islet cell antigens (GAD, IA-2, ZnT8, insulin)</p>
+      <p><strong>Genetics:</strong> HLA region on chromosome 6 (~50% of genetic risk); concordance 30&#8211;70% in identical twins</p>
+      <p><strong>Presentation:</strong> Often dramatic — marked hyperglycemia; 25&#8211;50% present with DKA</p>
+      <p><strong>Age:</strong> Any age; classically adolescent but 40% onset after age 30</p>
+    </div>
+    <div class="card">
+      <div class="clabel c-b">Type 2 DM</div>
+      <p><strong>Mechanism:</strong> Variable degrees of insulin resistance + impaired insulin secretion + increased hepatic glucose production</p>
+      <p><strong>Key feature:</strong> Insulin resistance precedes secretory defect, but DM only develops when secretion becomes inadequate</p>
+      <p><strong>Genetics:</strong> Polygenic; concordance 70&#8211;90% in identical twins; &gt;600 genetic loci identified</p>
+      <p><strong>Presentation:</strong> Often insidious; &#8805;80% are obese; may present with chronic complications already present</p>
+      <p><strong>T2DM may be present &gt;10 years before diagnosis</strong></p>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Type 3 — Other Specific Types</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-p">A. Genetic Defects of Beta Cell — MODY</div>
+        <p>Autosomal dominant; onset usually &lt;25 years; impaired insulin secretion without autoimmunity</p>
+        <ul class="bl">
+          <li><strong>HNF-4&#945; (MODY 1)</strong> — progressive glycemic worsening; responds to sulfonylureas</li>
+          <li><strong>Glucokinase (MODY 2)</strong> — mild, stable fasting hyperglycemia; does NOT respond to oral agents; no treatment needed (except possibly in pregnancy)</li>
+          <li><strong>HNF-1&#945; (MODY 3)</strong> — most common; progressive decline; responds well to sulfonylureas; may be initially misdiagnosed as T1DM</li>
+          <li><strong>HNF-1&#946; (MODY 5)</strong> — insulin resistance + secretion defect; requires insulin; associated with renal cysts, pancreatic exocrine insufficiency, abnormal LFTs</li>
+          <li>Others: insulin promoter factor-1, NeuroD1, KLF11, PAX4, GATA4, GATA6, mitochondrial DNA</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">B&#8211;J. Other Causes</div>
+        <ul class="bl">
+          <li><strong>Neonatal DM</strong> — onset &lt;6 months; mutations in ATP-sensitive K&#8314; channel (Kir6.2, ABCC8) &#8594; may respond to sulfonylureas; GATA6 = most common cause of pancreatic agenesis</li>
+          <li><strong>Exocrine pancreas</strong> — pancreatitis, pancreatectomy, cystic fibrosis, hemochromatosis, cancer (&#8220;Type 3c&#8221; or &#8220;pancreatic DM&#8221;) &#8594; insulin preferred</li>
+          <li><strong>Endocrinopathies</strong> — acromegaly, Cushing&#8217;s, glucagonoma, pheochromocytoma, hyperthyroidism &#8594; hormones antagonize insulin</li>
+          <li><strong>Drug-induced</strong> — glucocorticoids, calcineurin/mTOR inhibitors, thiazides, antipsychotics (2nd-gen), PCSK9 inhibitors, statins, HIV antiretrovirals, pentamidine, diazoxide</li>
+          <li><strong>Infections</strong> — congenital rubella, CMV, coxsackievirus (rare)</li>
+          <li><strong>Immune checkpoint inhibitors</strong> — rapid-onset insulin-deficient DM with DKA; rare (&lt;1% of treated)</li>
+          <li><strong>Genetic syndromes</strong> — Wolfram, Down&#8217;s, Turner&#8217;s, Klinefelter&#8217;s, Prader-Willi</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Type 4 — Gestational DM (GDM)</h3>
+    <ul class="bl">
+      <li>Glucose intolerance developing in the <strong>2nd or 3rd trimester</strong> of pregnancy</li>
+      <li>Insulin resistance is driven by metabolic and hormonal changes of pregnancy</li>
+      <li>DM diagnosed in the <strong>1st trimester</strong> = pre-existing diabetes, NOT GDM (ADA 2021)</li>
+      <li>Most women revert to normal glucose tolerance postpartum</li>
+      <li>Risk of developing T2DM within 10&#8211;20 years: <strong>35&#8211;60%</strong></li>
+      <li>Children born to GDM mothers have increased risk of metabolic syndrome and T2DM later in life</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Atypical Diabetes</h3>
+    <ul class="bl">
+      <li>Features of both T1 and T2 DM; not linked to single-gene defects</li>
+      <li>T2 DM phenotype before puberty, T2 DM in very lean individuals, T1 phenotype without autoantibodies</li>
+      <li><strong>Ketosis-prone DM</strong> — present with DKA but do NOT require long-term insulin; often African American or Asian; later treated with oral agents</li>
+      <li><strong>Autoimmune diabetes of adults (LADA)</strong> — phenotypic T2 DM but GAD/ICA positive; 5&#8211;10% of apparent T2 DM; more likely to need insulin within 5 years</li>
+      <li><strong>Fulminant DM</strong> — acute-onset T1 DM noted in Japan; may be viral</li>
+    </ul>
+  </div>
+
+  <div class="co wrn">
+    <div class="co-t">Classification Pitfall</div>
+    Age of onset, obesity, and need for insulin are <strong>not reliable</strong> for classification in adults. Many T1DM adults are now overweight/obese. Some T2DM patients present with DKA. Always check autoantibodies when unsure.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 3: INSULIN PHYSIOLOGY -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s3">
+  <div class="sec-hd"><span class="sec-n">03</span><h2>Insulin Physiology</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">Why This Matters for Boards</div>
+    Glucokinase is the rate-limiting step for glucose-stimulated insulin secretion. Mutations here cause MODY 2. The K-ATP channel is the target of sulfonylureas. Understanding this mechanism explains which drugs work and why.
+  </div>
+
+  <div class="sub">
+    <h3>Insulin Biosynthesis</h3>
+    <ul class="bl">
+      <li>Produced by <strong>beta cells</strong> of pancreatic islets</li>
+      <li>Synthesized as: <strong>Preproinsulin &#8594; Proinsulin &#8594; Insulin + C-peptide</strong></li>
+      <li>C-peptide is co-secreted and co-stored with insulin; cleared more slowly &#8594; useful marker of endogenous insulin secretion</li>
+      <li>Elevated proinsulin = indicator of beta cell dysfunction (seen in both T1 and T2 DM)</li>
+      <li>Beta cells also co-secrete <strong>IAPP (amylin)</strong> — a 37-aa peptide; forms amyloid deposits in islets of T2DM patients</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Glucose-Stimulated Insulin Secretion — Step by Step</h3>
+    <div class="flow">
+      <div class="flow-box blu">Glucose enters beta cell via GLUT transporter (GLUT1/2 in humans)</div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box">Glucokinase phosphorylates glucose &#8594; Glucose-6-phosphate<br><span style="font-size:11px;color:var(--red)">(RATE-LIMITING STEP — altered in MODY 2)</span></div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box">Glycolysis &#8594; ATP production increases</div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box">ATP inhibits ATP-sensitive K&#8314; channel (K-ATP channel)<br><span style="font-size:11px;color:var(--t3)">SUR subunit = sulfonylurea binding site | Kir6.2 = inward rectifier</span></div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box">K&#8314; channel closes &#8594; membrane depolarization</div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box">Voltage-dependent Ca&#178;&#8314; channels open &#8594; Ca&#178;&#8314; influx</div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box grn">Insulin secretion from secretory granules</div>
+    </div>
+    <div class="co prl">
+      <div class="co-t">Sulfonylurea Mechanism</div>
+      Sulfonylureas bind the <strong>SUR subunit</strong> of the K-ATP channel and close it directly (bypassing glucose/ATP). This stimulates insulin secretion <strong>independent of blood glucose level</strong> &#8212; which is why they cause hypoglycemia even when glucose is normal.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Two Phases of Insulin Secretion</h3>
+    <ul class="bl">
+      <li><strong>First phase</strong> — rapid, immediate response to glucose spike; often the earliest defect lost in T1 and T2 DM</li>
+      <li><strong>Second phase</strong> — prolonged, sustained release</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Incretin Hormones</h3>
+    <ul class="bl">
+      <li><strong>GLP-1</strong> (glucagon-like peptide 1) and <strong>GIP</strong> (glucose-dependent insulinotropic peptide)</li>
+      <li>Released from gut L-cells after food ingestion</li>
+      <li>Stimulate insulin secretion via cAMP — <strong>only when blood glucose is above fasting level</strong> (glucose-dependent) &#8594; therefore do NOT cause hypoglycemia alone</li>
+      <li>Also suppress glucagon production and secretion</li>
+      <li>Targeted by: GLP-1 receptor agonists (e.g., semaglutide, liraglutide) and DPP-4 inhibitors (prolong endogenous GLP-1 activity)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Glucose Homeostasis: Organ Roles</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">Fasting State</div>
+        <p>Low insulin + modest glucagon increase &#8594; hepatic gluconeogenesis + glycogenolysis &#8594; glucose output</p>
+        <p>Insulin-sensitive tissues: reduced glucose uptake; increased lipolysis and amino acid mobilization</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Postprandial State</div>
+        <p>Glucose load &#8594; insulin rises + glucagon falls &#8594; optimized glucose disposal</p>
+        <p>Majority of postprandial glucose utilized by <strong>skeletal muscle</strong> (insulin-stimulated)</p>
+        <p>Brain utilizes glucose in insulin-independent fashion</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Insulin Actions</div>
+        <p>Anabolic: promotes carbohydrate, fat, and protein storage</p>
+        <p>50% of secreted insulin cleared by liver (first pass) &#8594; portal:peripheral ratio ~2:1</p>
+        <p>GLUT4 translocation to cell surface in muscle/fat &#8594; crucial for glucose uptake</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 4: DIAGNOSIS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s4">
+  <div class="sec-hd"><span class="sec-n">04</span><h2>Diagnosis</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">Fundamental Principle</div>
+    DM is defined as the level of glycemia at which a <strong>diabetes-specific complication</strong> (e.g., retinopathy) occurs — not merely a deviation from a population mean. The threshold of 126 mg/dL (FPG) and 6.5% (HbA1c) were chosen because below these levels, retinopathy is essentially absent.
+  </div>
+
+  <div class="sub">
+    <h3>Diagnostic Criteria — Any ONE of the Following Confirms DM</h3>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>Test</th><th>Normal</th><th>Prediabetes</th><th>Diabetes</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>HbA1c</td>
+            <td>&lt;5.6% (&lt;38 mmol/mol)</td>
+            <td>5.7&#8211;6.4% (39&#8211;47 mmol/mol)</td>
+            <td><strong>&#8805;6.5%</strong> (&#8805;48 mmol/mol)</td>
+          </tr>
+          <tr>
+            <td>Fasting Plasma Glucose (FPG)</td>
+            <td>&lt;5.6 mmol/L (&lt;100 mg/dL)</td>
+            <td>5.6&#8211;6.9 mmol/L (100&#8211;125 mg/dL)</td>
+            <td><strong>&#8805;7.0 mmol/L (&#8805;126 mg/dL)</strong></td>
+          </tr>
+          <tr>
+            <td>2-hour PG (OGTT)</td>
+            <td>&lt;7.8 mmol/L (&lt;140 mg/dL)</td>
+            <td>7.8&#8211;11.0 mmol/L (140&#8211;199 mg/dL)</td>
+            <td><strong>&#8805;11.1 mmol/L (&#8805;200 mg/dL)</strong></td>
+          </tr>
+          <tr>
+            <td>Random Plasma Glucose + Symptoms</td>
+            <td>&#8212;</td>
+            <td>&#8212;</td>
+            <td><strong>&#8805;11.1 mmol/L (&#8805;200 mg/dL)</strong> + polyuria / polydipsia / weight loss</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co dan">
+      <div class="co-t">Critical Rule — Confirmation Required</div>
+      In the absence of unequivocal hyperglycemia and acute metabolic decompensation, <strong>any abnormal screening test must be confirmed by repeat testing on a different day</strong>. A single HbA1c or FPG finding is not enough to diagnose DM definitively. Exception: if two different tests are both abnormal at the same visit &#8594; diagnosis confirmed.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Why is the FPG Threshold 126 mg/dL? (Not 110 or 140?)</h3>
+    <ul class="bl">
+      <li>Derived from population studies (Pima Indians and others) showing that <strong>retinopathy begins to appear when FPG consistently exceeds 116&#8211;126 mg/dL</strong></li>
+      <li>Below this threshold: essentially no diabetes-specific retinopathy</li>
+      <li>This is the key concept — DM is defined by complication threshold, not arbitrary statistical deviation</li>
+      <li>The threshold reflects where microvascular damage begins in the retina — a highly glucose-sensitive tissue</li>
+    </ul>
+    <div class="co prl">
+      <div class="co-t">Board Application</div>
+      "Why is FPG &#8805;126 used?" &#8594; Answer: because this is the glucose level at which diabetes-specific complications (particularly retinopathy) begin to occur. It is a complication-based threshold, not a statistical one.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>HbA1c — Details</h3>
+    <ul class="bl">
+      <li>Must be performed in a laboratory using a <strong>NGSP-approved method</strong> (National Glycohemoglobin Standardization Program) traceable to the DCCT reference assay</li>
+      <li>Some point-of-care HbA1c assays meet these criteria — can be used diagnostically</li>
+      <li>Fasting is defined as <strong>no caloric intake for at least 8 hours</strong> (for FPG)</li>
+      <li>Certain conditions affect HbA1c accuracy: <strong>hemoglobinopathies</strong> (sickle cell, thalassemia), certain ancestries &#8594; may falsely alter HbA1c; use glucose-based tests instead</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>OGTT (Oral Glucose Tolerance Test)</h3>
+    <ul class="bl">
+      <li>75g of anhydrous glucose dissolved in water; 2-hour plasma glucose measured</li>
+      <li>Not recommended for routine clinical use in non-pregnant adults</li>
+      <li>Preferred (over HbA1c) in:
+        <ul>
+          <li>Pregnancy / gestational diabetes screening</li>
+          <li>Cystic fibrosis-related diabetes (beginning age 10)</li>
+          <li>Post-organ transplantation diabetes</li>
+        </ul>
+      </li>
+      <li>The OGTT detects IGT (impaired glucose tolerance) more sensitively than FPG alone</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Symptoms of Hyperglycemia</h3>
+    <ul class="bl">
+      <li><strong>Polyuria</strong> — osmotic diuresis from glucosuria</li>
+      <li><strong>Polydipsia</strong> — secondary to osmotic fluid loss</li>
+      <li><strong>Weight loss</strong> — urinary loss of glucose + calories; muscle breakdown from catabolism</li>
+      <li>Fatigue, weakness, blurry vision (lens water content changes — resolves with glycemic control)</li>
+      <li>Frequent superficial infections (vaginitis, fungal skin infections)</li>
+      <li>Slow healing of skin lesions</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Stress Hyperglycemia — Important Distinction</h3>
+    <div class="co wrn">
+      <div class="co-t">Stress Hyperglycemia vs. True DM</div>
+      A patient hospitalized with acute illness (pneumonia, MI, surgery) may have elevated blood glucose due to stress hormones (cortisol, catecholamines, glucagon). This is NOT necessarily DM. Key features of stress hyperglycemia:
+    </div>
+    <ul class="bl">
+      <li>Blood glucose elevated during acute illness but patient lacks classic DM symptoms (no polyuria, polydipsia)</li>
+      <li>No DKA, no prior DM history, no other corroborating evidence</li>
+      <li><strong>The correct next step</strong> is to <strong>recheck glucose after recovery</strong> from the acute illness, NOT to diagnose DM or start long-term hypoglycemic therapy immediately</li>
+      <li>Glucose 140&#8211;180 mg/dL in ICU patients is very common and should be managed with insulin drip — but does not confirm DM diagnosis</li>
+      <li>Repeat HbA1c or FPG 4&#8211;8 weeks after discharge to confirm or exclude true DM</li>
+    </ul>
+    <div class="co suc">
+      <div class="co-t">Board Answer</div>
+      Hospitalized patient with high glucose, no symptoms, no prior history &#8594; <strong>first manage acutely, then recheck glucose after recovery before diagnosing DM</strong>.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 5: PREDIABETES -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s5">
+  <div class="sec-hd"><span class="sec-n">05</span><h2>Prediabetes</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">Definition</div>
+    Prediabetes = impaired glucose homeostasis that does not yet meet criteria for DM. Three overlapping but non-identical categories — they identify different individuals via different biological mechanisms.
+  </div>
+
+  <div class="sub">
+    <h3>Three Categories of Prediabetes</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">IFG — Impaired Fasting Glucose</div>
+        <p><strong>FPG: 5.6&#8211;6.9 mmol/L (100&#8211;125 mg/dL)</strong></p>
+        <p>ADA definition. WHO uses &gt;6.1 mmol/L (110 mg/dL) as the lower cutoff for IFG.</p>
+        <p>Primarily reflects hepatic insulin resistance and increased basal hepatic glucose output</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">IGT — Impaired Glucose Tolerance</div>
+        <p><strong>2-h PG: 7.8&#8211;11.0 mmol/L (140&#8211;199 mg/dL)</strong></p>
+        <p>Reflects primarily peripheral (muscle) insulin resistance and delayed insulin secretion in response to postprandial glucose</p>
+        <p>More predictive of cardiovascular risk than IFG alone</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">HbA1c 5.7&#8211;6.4%</div>
+        <p>ADA definition of prediabetes by HbA1c</p>
+        <p>Individuals with HbA1c <strong>6.0&#8211;6.5%</strong> have a <strong>25.5% 5-year risk</strong> of progressing to T2DM</p>
+        <p>IFG, IGT, and HbA1c 5.7&#8211;6.4% do NOT identify the same individuals</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Consequences of Prediabetes</h3>
+    <ul class="bl">
+      <li>All three categories: <strong>greater risk of progressing to T2DM</strong></li>
+      <li>All three categories: <strong>increased cardiovascular disease risk</strong></li>
+      <li>All three: should be counseled about lifestyle modification</li>
+      <li>Risk is <strong>continuous</strong>, not discrete — the higher the HbA1c/glucose within the prediabetes range, the higher the risk</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Management of Prediabetes / Glucose Intolerance</h3>
+    <div class="co suc">
+      <div class="co-t">First-Line Approach</div>
+      Lifestyle modification is the cornerstone: <strong>structured program</strong> to reduce body weight and increase physical activity. The correct approach for glucose intolerance with elevated HbA1c is to address lifestyle AND consider pharmacologic therapy — not simply to observe.
+    </div>
+    <ul class="bl">
+      <li><strong>Lifestyle intervention (DPP data):</strong> diet + 30 min/day exercise, 5 days/week &#8594; 58% reduction in T2DM onset; patients lost 5&#8211;7% body weight; effect persisted &#8805;15 years</li>
+      <li><strong>Metformin:</strong> 31% reduction in T2DM onset vs placebo (DPP)</li>
+      <li>Other agents shown to delay T2DM: &#945;-glucosidase inhibitors, thiazolidinediones, GLP-1 RA, SGLT-2i, orlistat</li>
+      <li><strong>GLP-1 receptor agonists and tirzepatide</strong> (GLP-1 + GIP dual agonist) currently transforming pharmacologic prevention due to greater weight loss</li>
+      <li>Individuals with prediabetes also need <strong>cardiovascular disease screening</strong></li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">Boards Distinction</div>
+      A patient with HbA1c of 6.0% and glucose intolerance &#8212; the answer is NOT just "diet and exercise alone" and NOT "start metformin without lifestyle." The correct approach is: <strong>lifestyle modification + pharmacologic consideration</strong> (diet is not sufficient as the sole intervention when there is documented glucose intolerance with clinical risk factors). The pharmacologic choice depends on individual factors (obesity = GLP-1 RA preferred; BMI-independent = metformin is standard first option for pharmacotherapy in prediabetes).
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 6: SCREENING -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s6">
+  <div class="sec-hd"><span class="sec-n">06</span><h2>Screening for Type 2 DM</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">Why Screen?</div>
+    (1) Large number of DM patients are asymptomatic and unaware. (2) T2DM may be present for up to a decade before diagnosis. (3) Some have complications at diagnosis. (4) Early treatment may alter natural history. (5) Prediabetes diagnosis spurs prevention efforts.
+  </div>
+
+  <div class="sub">
+    <h3>ADA Screening Criteria for T2DM in Adults (Table 415-2)</h3>
+
+    <div class="co blu-l" style="background:var(--blu-l);border-left:3.5px solid var(--blu);border-radius:7px;padding:13px 16px;margin:12px 0">
+      <div class="co-t" style="color:var(--blu);font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px">Group 1 — Any Age, Overweight/Obese + &#8805;1 Risk Factor</div>
+      <p style="font-size:13px;color:var(--t2)">BMI &#8805;25 kg/m&#178; (or &#8805;23 in Asian Americans) + at least ONE of:</p>
+      <ul class="bl" style="margin-top:6px">
+        <li>Family history: parent or sibling with T2DM</li>
+        <li>Race/ethnicity: African American, Latino, Native American, Asian American, Pacific Islander</li>
+        <li>Hypertension (BP &#8805;130/80 mmHg)</li>
+        <li>HDL &lt;35 mg/dL and/or triglycerides &gt;250 mg/dL</li>
+        <li>Polycystic ovary syndrome (PCOS) or acanthosis nigricans</li>
+        <li>History of cardiovascular disease</li>
+        <li>Physical inactivity</li>
+        <li>Severe obesity or other condition associated with insulin resistance</li>
+      </ul>
+    </div>
+
+    <ul class="bl" style="margin-top:12px">
+      <li><strong>Group 2:</strong> Previously identified IFG, IGT, or HbA1c 5.7&#8211;6.4% &#8594; screen <strong>annually</strong></li>
+      <li><strong>Group 3:</strong> Women with history of GDM &#8594; screen <strong>at least every 3 years</strong></li>
+      <li><strong>Group 4:</strong> All others &#8594; initiate testing at <strong>age 35</strong>, repeat every 3 years</li>
+      <li><strong>Group 5:</strong> HIV medications or medications associated with DM (2nd-gen antipsychotics, glucocorticoids)</li>
+      <li><strong>Group 6:</strong> History of pancreatitis &#8594; screen within <strong>3&#8211;6 months</strong> of episode</li>
+      <li><strong>Group 7:</strong> Cystic fibrosis &#8594; beginning at <strong>age 10</strong>; use OGTT (not HbA1c)</li>
+      <li><strong>Group 8:</strong> After organ transplantation &#8594; use OGTT</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Key Screening Facts</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Missing Criterion — No "Beta Cell Function"</div>
+        <p>A woman with BMI 31, family Hx of T2DM, presenting for screening — the <strong>finding that SHOULD prompt screening</strong> is the combination of overweight + family history (both present).</p>
+        <p>The answer that says "no beta cell function" is WRONG for screening — that is a diagnostic or therapeutic concept, not a screening criterion. Screening is about <strong>risk factors</strong>, not beta cell status.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Preferred Screening Tests</div>
+        <p>HbA1c or FPG are preferred (most reliable and convenient for asymptomatic individuals)</p>
+        <p>OGTT is NOT recommended for routine screening (reserved for pregnancy, CF, post-transplant)</p>
+        <p>Continuous glucose monitoring (CGM) is being studied as a diagnostic tool but not yet standard</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Asian Americans — Special Consideration</h3>
+    <ul class="bl">
+      <li>Screening threshold: BMI &#8805;<strong>23 kg/m&#178;</strong> (lower than general population &#8805;25)</li>
+      <li>Reason: East and South Asians develop T2DM at <strong>lower BMI and younger age</strong></li>
+      <li>Greater visceral adiposity at lower absolute BMI</li>
+      <li>Reduced insulin secretory capacity compared to other groups</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 7: TYPE 1 DM -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s7">
+  <div class="sec-hd"><span class="sec-n">07</span><h2>Type 1 DM — Pathogenesis</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">Core Concept</div>
+    T1DM = immune-mediated destruction of beta cells &#8594; absolute insulin deficiency. The process is staged, occurring over years before clinical presentation. Beta cell destruction is primarily CD8+ T cell-mediated (not antibody-mediated, despite ICA being the marker).
+  </div>
+
+  <div class="sub">
+    <h3>Three-Stage Model of T1DM Development</h3>
+    <div class="flow">
+      <div class="flow-box">Genetic predisposition (HLA alleles + &gt;60 non-HLA loci) + Environmental trigger</div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box blu"><strong>Stage 1:</strong> &#8805;2 islet cell autoantibodies (ICAs) present; normoglycemia maintained<br><span style="font-size:11px">No symptoms — this IS the onset of T1DM by current staging</span></div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box amb"><strong>Stage 2:</strong> Continued autoimmunity + development of dysglycemia (IFG or IGT)<br><span style="font-size:11px">Still no symptoms; teplizumab approved for this stage</span></div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box red"><strong>Stage 3:</strong> Overt hyperglycemia meeting diagnostic criteria for DM<br><span style="font-size:11px">Symptomatic; 25&#8211;50% present with DKA</span></div>
+    </div>
+    <ul class="bl" style="margin-top:12px">
+      <li>The time course between Stage 1 and Stage 3 varies widely — from months to years</li>
+      <li>A &#8220;honeymoon phase&#8221; may occur in the first 1&#8211;2 years after Stage 3 onset &#8212; reduced insulin requirements due to residual beta cell function</li>
+      <li>Many with long-standing T1DM still produce small amounts of insulin (detectable C-peptide); beta cells can persist in pancreas decades after diagnosis</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Islet Cell Autoantibodies (ICAs)</h3>
+    <ul class="bl">
+      <li>Target antigens: <strong>insulin, GAD (glutamic acid decarboxylase), IA-2, ZnT8</strong></li>
+      <li>Present in &gt;85% of new-onset T1DM</li>
+      <li>Two or more ICAs &#8594; nearly 70% risk of T1DM at 10 years; &gt;80% at 15 years in high-risk children</li>
+      <li>ICAs are <strong>markers</strong>, not causative — beta cell destruction is primarily CD8+ T cell cytotoxicity</li>
+      <li>Measurement recommended when: younger age at diagnosis, ketoacidosis, rapid need for insulin, personal/family history of autoimmune disease</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Genetics of T1DM</h3>
+    <ul class="bl">
+      <li>Concordance in identical twins: <strong>30&#8211;70%</strong> (environmental factors also required)</li>
+      <li><strong>HLA region on chromosome 6</strong> accounts for ~50% of genetic risk</li>
+      <li>High-risk haplotypes: DRB1*0301-DQB1*0201 (DR3-DQ2) and DRB1*0401-DQB1*0302 (DR4-DQ8)</li>
+      <li>Protective haplotype: DRB1*1501</li>
+      <li>&gt;60 additional non-HLA loci contribute (CTLA-4, IL-2 receptor, PTPN22, insulin gene promoter)</li>
+      <li>Family risk: <strong>1&#8211;9%</strong> if parent has T1DM; <strong>6&#8211;7%</strong> if sibling; &gt;80% of T1DM patients have NO affected relative</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Disease-Modifying Therapy — Teplizumab</h3>
+    <div class="co suc">
+      <div class="co-t">Teplizumab</div>
+      A single 14-day course of <strong>teplizumab</strong> (Fc receptor-nonbinding anti-CD3 monoclonal antibody) delayed onset of Stage 3 T1DM by a <strong>median of 32.5 months</strong> in high-risk individuals with Stage 2 T1DM (multiple autoantibodies + dysglycemia). <strong>FDA approved for Stage 2 T1DM.</strong> Used at selected centers.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Alpha Cell Dysfunction in T1DM</h3>
+    <ul class="bl">
+      <li>Alpha cells (glucagon-producing) are spared from autoimmune destruction</li>
+      <li>However, they lose normal regulation: <strong>fasting and postprandial hyperglucagonemia</strong></li>
+      <li>Crucially: <strong>impaired glucagon response to hypoglycemia</strong> &#8212; this is why T1DM patients have defective counter-regulation and severe hypoglycemia unawareness over time</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 8: TYPE 2 DM -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s8">
+  <div class="sec-hd"><span class="sec-n">08</span><h2>Type 2 DM — Pathogenesis</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">Core Concept</div>
+    T2DM = insulin resistance (primary, precedes secretory defect) + progressive beta cell failure. Glucose tolerance remains normal initially because beta cells compensate. DM manifests only when compensation fails.
+  </div>
+
+  <div class="sub">
+    <h3>Sequence of Events in T2DM Development</h3>
+    <div class="flow">
+      <div class="flow-box">Genetic susceptibility + Obesity + Metabolic inflammation</div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box blu">Insulin resistance in muscle, liver, fat<br>(glucose utilization 30&#8211;60% lower than normal)</div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box">Beta cells compensate &#8594; hyperinsulinemia &#8594; normal glucose tolerance (Point A&#8594;B on insulin secretion/sensitivity curve)</div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box amb">Compensation begins to fail &#8594; IGT (elevated postprandial glucose, Point C)</div>
+      <div class="flow-arrow">&#8595;</div>
+      <div class="flow-box red">Frank beta cell failure &#8594; overt T2DM (Point D)<br>Beta cell function reduced ~50% at T2DM onset</div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Mechanisms of Insulin Resistance</h3>
+    <ul class="bl">
+      <li>Insulin resistance is <strong>relative</strong> — supranormal insulin levels CAN normalize glucose (key: beta cells simply cannot sustain that level)</li>
+      <li><strong>Lipid intermediates</strong> accumulate in skeletal myocytes &#8594; impair mitochondrial oxidative phosphorylation &#8594; reduce insulin-stimulated ATP production &#8594; impair GLUT4 translocation</li>
+      <li>Impaired fatty acid oxidation &#8594; reactive oxygen species generation &#8594; metabolic inflammation &#8594; feeds back to worsen insulin resistance</li>
+      <li>Insulin receptor levels and tyrosine kinase activity are reduced but this is <strong>secondary</strong> to hyperinsulinemia, not the primary defect</li>
+      <li>Primary defect: <strong>postreceptor signaling</strong> — defects in PI3-kinase pathway that mediates GLUT4 translocation</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Role of Adipose Tissue (Visceral Fat)</h3>
+    <ul class="bl">
+      <li>&#8805;80% of T2DM patients are obese; visceral/central adiposity is the dangerous pattern</li>
+      <li>Adipocytes secrete: free fatty acids, retinol-binding protein 4, leptin, TNF-&#945;, resistin, IL-6 (pro-inflammatory), and <strong>adiponectin</strong> (insulin-sensitizing &#8212; <strong>reduced</strong> in obesity)</li>
+      <li>Adipose resident macrophages: important source of metabolic inflammation</li>
+      <li>Visceral fat drains into <strong>portal circulation</strong> &#8594; hepatic dysfunction, hepatic insulin resistance</li>
+      <li>Free fatty acids: impair glucose utilization in muscle, promote hepatic glucose production, impair beta cell function (&#8220;lipotoxicity&#8221;)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Hepatic Contribution</h3>
+    <ul class="bl">
+      <li><strong>Increased FPG</strong> = primarily driven by increased hepatic glucose output (failure to suppress gluconeogenesis)</li>
+      <li><strong>Postprandial hyperglycemia</strong> = primarily driven by decreased peripheral glucose utilization (muscle)</li>
+      <li>Dyslipidemia of T2DM: elevated TG, reduced HDL, increased small dense LDL &#8212; all from increased VLDL-TG synthesis due to insulin resistance in adipose and liver</li>
+      <li>If hepatic lipid is retained &#8594; MASLD (metabolic dysfunction-associated steatotic liver disease)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Impaired Insulin Secretion in T2DM</h3>
+    <ul class="bl">
+      <li>Initially mild; selectively involves <strong>glucose-stimulated secretion</strong> (first-phase response is greatly reduced)</li>
+      <li>Response to non-glucose secretagogues (e.g., arginine) is initially preserved</li>
+      <li>Overall beta cell function reduced by <strong>~50% at onset of T2DM</strong></li>
+      <li>Eventually progressive beta cell failure ensues</li>
+      <li>Mechanisms of decline: glucose toxicity, lipotoxicity, islet amyloid deposits (IAPP), proinflammatory cytokines from islet-associated macrophages</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Ethnic and Population Differences in T2DM</h3>
+    <ul class="bl">
+      <li>Latinos: greater insulin resistance</li>
+      <li>East Asians and South Asians: more beta cell dysfunction; develop T2DM at lower BMI and younger age</li>
+      <li>African Americans: more prone to nonketotic hyperosmolar presentation</li>
+      <li>Social determinants of health play a major role in T2DM rates globally</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 9: MODY -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s9">
+  <div class="sec-hd"><span class="sec-n">09</span><h2>MODY — Monogenic Diabetes</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">Core Concept</div>
+    MODY = Maturity-Onset Diabetes of the Young. Autosomal dominant; onset &lt;25 years (sometimes neonatal); impaired insulin secretion without autoimmunity. Each subtype has distinct characteristics and treatment implications that boards love to test.
+  </div>
+
+  <div class="sub">
+    <h3>When to Suspect MODY</h3>
+    <ul class="bl">
+      <li>Diabetes in a young person (&lt;25 years, sometimes in neonatal period)</li>
+      <li>Autosomal dominant family history (parent and grandparent with DM)</li>
+      <li>Absence of typical T1 or T2 DM features (no autoantibodies, not obese)</li>
+      <li>Stable mild fasting hyperglycemia without progression</li>
+      <li>Onset within first 6 months of life (consider neonatal DM)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Key MODY Types — Board-Tested Distinctions</h3>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>MODY Type</th><th>Gene Mutation</th><th>Clinical Features</th><th>Treatment</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MODY 1</td>
+            <td>HNF-4&#945;</td>
+            <td>Progressive glycemic worsening; severe hypoglycemia with sulfonylureas</td>
+            <td>Sulfonylureas (responsive)</td>
+          </tr>
+          <tr>
+            <td><strong>MODY 2</strong></td>
+            <td><strong>Glucokinase</strong></td>
+            <td><strong>Mild, STABLE fasting hyperglycemia</strong>; does NOT progress; retinopathy rare; diagnosis often incidental</td>
+            <td><strong>NO treatment needed</strong> (except possibly in pregnancy). Does NOT respond to oral agents or insulin for long-term glycemic control</td>
+          </tr>
+          <tr>
+            <td><strong>MODY 3</strong></td>
+            <td><strong>HNF-1&#945;</strong></td>
+            <td>Most common MODY; progressive decline in glycemic control; renal glucosuria (low glucose threshold); may initially be diagnosed as T1DM</td>
+            <td><strong>Sulfonylureas — highly responsive</strong>; some were on insulin and successfully switched to sulfonylurea</td>
+          </tr>
+          <tr>
+            <td>MODY 5</td>
+            <td>HNF-1&#946;</td>
+            <td>Insulin resistance + secretion defect; renal cysts; pancreatic exocrine insufficiency; abnormal LFTs</td>
+            <td>Requires insulin; minimal response to sulfonylureas</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Glucokinase MODY (MODY 2) — The Classic Board Scenario</h3>
+    <div class="co prl">
+      <div class="co-t">Mechanism</div>
+      Glucokinase is the rate-limiting enzyme that converts glucose to glucose-6-phosphate in the beta cell — this is the &#8220;glucose sensor.&#8221; Mutations raise the threshold for insulin secretion. A higher glucose level is required to trigger insulin release &#8594; the set point for blood glucose is shifted upward. This produces <strong>stable, mild fasting hyperglycemia (116&#8211;126 mg/dL)</strong> that does not progress to microvascular complications and does NOT respond to oral hypoglycemic agents.
+    </div>
+    <div class="co suc">
+      <div class="co-t">Board Answer — MODY 2 Patient</div>
+      Young patient (19&#8211;25y), lean, family Hx of mild DM, FPG consistently 116&#8211;130 mg/dL, no autoantibodies, no T1/T2 features &#8594; <strong>Glucokinase MODY (MODY 2)</strong> &#8594; correct answer = <strong>dietary advice only / no pharmacologic treatment</strong>. Oral agents and insulin will NOT correct the underlying set-point defect and are not indicated for long-term management. Exception: may treat during pregnancy.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Neonatal Diabetes (onset &lt;6 months)</h3>
+    <ul class="bl">
+      <li>Any DM onset before 6 months of age &#8594; must do genetic screening</li>
+      <li>Most common mutations: ATP-sensitive K&#8314; channel subunits (Kir6.2 / ABCC8) &#8594; impair glucose-stimulated insulin secretion</li>
+      <li>Key board point: <strong>these patients may respond to sulfonylureas</strong> and can discontinue insulin</li>
+      <li>GATA6 mutations = most common cause of pancreatic agenesis</li>
+      <li>Homozygous glucokinase mutations &#8594; severe neonatal DM</li>
+      <li>Mitochondrial DNA mutations &#8594; associated with diabetes AND deafness</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 10: GDM -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s10">
+  <div class="sec-hd"><span class="sec-n">10</span><h2>Gestational DM (GDM)</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">Core Concept</div>
+    GDM = glucose intolerance developing in the 2nd or 3rd trimester. Most women revert to normal glucose tolerance after delivery, but carry a <strong>35&#8211;60% lifetime risk of developing T2DM in the next 10&#8211;20 years</strong>. This number is a classic board fact.
+  </div>
+
+  <div class="sub">
+    <h3>Mechanism</h3>
+    <ul class="bl">
+      <li>Pregnancy creates physiological insulin resistance via metabolic and hormonal changes (human placental lactogen, cortisol, progesterone)</li>
+      <li>Increased insulin demands during 2nd and 3rd trimester may exceed beta cell capacity</li>
+      <li>Women who develop GDM have underlying beta cell susceptibility that is unmasked by pregnancy</li>
+      <li>IDF 2021: <strong>16% of pregnancies</strong> worldwide affected by GDM or pre-existing DM</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Classification Detail</h3>
+    <ul class="bl">
+      <li>DM diagnosed in the <strong>1st trimester = pre-existing diabetes</strong> (NOT GDM) — per ADA 2021 recommendation</li>
+      <li>GDM = specifically 2nd or 3rd trimester onset</li>
+      <li>Screening for GDM is NOT discussed in Chapter 415 (covered separately)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Long-Term Consequences</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">For the Mother</div>
+        <p><strong>35&#8211;60% risk of T2DM</strong> in the next 10&#8211;20 years after delivery</p>
+        <p>ADA recommends <strong>lifelong screening</strong> for DM/prediabetes at <strong>least every 3 years</strong></p>
+        <p>Increased cardiovascular risk</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">For the Child</div>
+        <p>Increased risk of metabolic syndrome later in life</p>
+        <p>Increased risk of T2DM later in life</p>
+        <p>The in utero hyperglycemic environment programs metabolic dysfunction</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>The Board Scenario — GDM Postpartum</h3>
+    <div class="co suc">
+      <div class="co-t">Classic Board Question</div>
+      A 50-year-old woman, 3rd trimester of her current pregnancy, glucose 130 mg/dL before pregnancy. Her 3rd trimester HbA1c was 91 mg/dL. What is the next best step after delivery?
+      <br><br>
+      The answer is: <strong>Arrange follow-up screening for T2DM</strong>. She has a 35&#8211;60% chance of developing T2DM in the next 10&#8211;20 years. The ADA mandates at least every-3-year screening for DM/prediabetes postpartum — for life. Additionally, monitor for metabolic syndrome in offspring.
+    </div>
+    <ul class="bl" style="margin-top:8px">
+      <li>Women with GDM should be <strong>screened for T2DM at 4&#8211;12 weeks postpartum</strong> with OGTT (not HbA1c — as HbA1c may be inaccurate in the postpartum period due to increased RBC turnover)</li>
+      <li>Then lifelong screening every 3 years</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 11: OTHER FORMS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s11">
+  <div class="sec-hd"><span class="sec-n">11</span><h2>Other Forms of DM</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="sub">
+    <h3>Pancreatic (Type 3c) DM</h3>
+    <ul class="bl">
+      <li>Caused by damage/destruction of exocrine pancreas &#8594; islet damage &#8594; insulin AND glucagon deficiency</li>
+      <li>Causes: pancreatitis, pancreatectomy, cystic fibrosis, hemochromatosis, pancreatic cancer, fibrocalculous pancreatopathy</li>
+      <li>An episode of <strong>pancreatitis should prompt screening for DM</strong></li>
+      <li>Pancreatic cancer + new-onset T2DM have an association (new-onset DM may be a harbinger)</li>
+      <li>Cystic fibrosis-related DM: prevalence ~50% (rising as CF survival improves); use OGTT beginning age 10</li>
+      <li><strong>Insulin is the preferred therapy</strong> for most pancreatic DM (both insulin and glucagon deficient)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Immune Checkpoint Inhibitor DM</h3>
+    <ul class="bl">
+      <li>Anti-PD-1, anti-PD-L1, anti-CTLA-4 therapies &#8594; rare (&lt;1% of treated patients)</li>
+      <li>Rapid-onset insulin-deficient DM, often with DKA</li>
+      <li>Occurs at variable time after starting immunotherapy</li>
+      <li>Some similarities to T1DM (HLA associations, occasional ICA) but likely different pathogenesis</li>
+      <li>Requires insulin therapy</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>COVID-19 and DM</h3>
+    <ul class="bl">
+      <li>Hyperglycemia more common in those with SARS-CoV-2 infection</li>
+      <li>Pre-existing DM worsens COVID-19 outcomes</li>
+      <li>Most likely: SARS-CoV-2 does NOT directly cause T1DM or T2DM but increases DM ascertainment and creates conditions that worsen hyperglycemia (as in other serious illnesses)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Insulin Resistance Syndromes</h3>
+    <ul class="bl">
+      <li><strong>Type A insulin resistance:</strong> young women; severe hyperinsulinemia + obesity + hyperandrogenism; undefined insulin-signaling defect</li>
+      <li><strong>Type B insulin resistance:</strong> middle-aged women; anti-insulin receptor antibodies &#8594; may block or stimulate the receptor (causing hypoglycemia)</li>
+      <li><strong>PCOS:</strong> very common; chronic anovulation + hyperandrogenism; significant subset have insulin resistance; substantially increases T2DM risk independent of obesity</li>
+      <li><strong>Lipodystrophies:</strong> selective loss of adipose tissue &#8594; severe insulin resistance + hypertriglyceridemia; can be inherited or acquired</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 12: PREVENTION -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s12">
+  <div class="sec-hd"><span class="sec-n">12</span><h2>Prevention of T2DM</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">Diabetes Prevention Program (DPP) — The Key Trial</div>
+    Landmark randomized trial in individuals with IGT demonstrating that T2DM can be prevented or delayed.
+  </div>
+
+  <div class="sub">
+    <h3>DPP Results — Numbers to Know</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-g">Intensive Lifestyle</div>
+        <p><strong>58% reduction</strong> in T2DM incidence vs placebo</p>
+        <p>Diet + exercise 30 min/day, 5 days/week</p>
+        <p>Lost 5&#8211;7% body weight over 3 years</p>
+        <p>Effect seen regardless of age, sex, or ethnicity</p>
+        <p>Effects persisted for <strong>&#8805;15 years</strong></p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Metformin</div>
+        <p><strong>31% reduction</strong> in T2DM incidence vs placebo</p>
+        <p>Less effective than lifestyle in the trial overall</p>
+        <p>Most effective in: younger patients, higher BMI, higher baseline glucose</p>
+        <p>Remains standard first-line pharmacotherapy for prediabetes when pharmacologic treatment is indicated</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Emerging Pharmacotherapy</div>
+        <p>GLP-1 receptor agonists (semaglutide, liraglutide) and tirzepatide (GLP-1 + GIP dual agonist) are transforming prevention due to superior weight loss</p>
+        <p>Also shown to prevent DM: &#945;-glucosidase inhibitors, thiazolidinediones, SGLT-2 inhibitors, orlistat</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Bariatric Surgery — The Most Effective Intervention for T2DM Prevention/Remission</h3>
+    <ul class="bl">
+      <li>Swedish Obese Subjects study: <strong>78% reduction</strong> in incidence of T2DM development</li>
+      <li>68.2% of patients with existing T2DM achieved complete remission within 5 years of surgery</li>
+      <li>However, <strong>one-third redeveloped T2DM within 5 years</strong> of remission</li>
+      <li>Better outcomes with: earlier-stage T2DM, not on insulin, shorter disease duration, lower HbA1c</li>
+      <li>Mechanism: caloric restriction + reduced insulin resistance + altered gut hormones (GLP-1, GIP)</li>
+      <li>Mortality of bariatric surgery: generally &lt;1%</li>
+      <li>Most common RYGB complication: stomal stenosis/marginal ulcers (5&#8211;15%) &#8594; treated with endoscopic dilation + acid suppression</li>
+      <li>Restrictive-malabsorptive procedures (RYGB) &#8594; lifelong supplementation needed: vitamin B12, iron, folate, calcium, vitamin D</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 13: EXAM TRAPS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="sec" id="s13">
+  <div class="sec-hd"><span class="sec-n">13</span><h2>Exam Traps</h2></div>
+  <div class="sbar">
+    <button class="lbtn">&#10003; Learned</button>
+    <button class="fbtn">&#9873; Review</button>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">MODY 2 — Don't Treat What Doesn't Need Treatment</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Young lean patient, family Hx of &#8220;mild&#8221; DM in parent and grandparent, FPG consistently 116&#8211;130 mg/dL, no autoantibodies, no DKA, no obesity. Question: &#8220;What is the most appropriate management?&#8221;</div>
+      <div class="trap-a"><strong>Correct Answer: Dietary advice only — no pharmacologic treatment.</strong> This is MODY 2 (glucokinase mutation). The hyperglycemia is mild, stable, and does NOT progress to microvascular complications. Sulfonylureas and insulin will not correct the set-point defect. Treating this patient with oral agents is wrong and causes unnecessary hypoglycemia. Exception: may consider treatment during pregnancy only.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Sulfonylureas in MODY 3 — Better Than Insulin</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Young patient initially diagnosed as T1DM, on insulin for years, now reclassified as having MODY (HNF-1&#945; mutation). What is the preferred treatment?</div>
+      <div class="trap-a"><strong>Correct Answer: Switch to sulfonylureas.</strong> HNF-1&#945; (MODY 3) patients are exquisitely sensitive to sulfonylureas and can achieve excellent glycemic control. Many patients were placed on insulin unnecessarily due to misclassification as T1DM. The key is: sulfonylureas &#8594; MODY 3, NOT insulin.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Stress Hyperglycemia — Don&#39;t Label It DM Yet</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 50-year-old with BMI 29.5 admitted for community-acquired pneumonia (CURB65 score good). Blood glucose found to be 220 mg/dL. No polyuria, no polydipsia, no prior DM history. What is the next step?</div>
+      <div class="trap-a"><strong>Correct Answer: Treat the acute hyperglycemia, then recheck glucose after recovery before diagnosing DM.</strong> Stress hyperglycemia from acute illness is common. Blood glucose 140&#8211;180 mg/dL (even higher) occurs in ICU patients due to counter-regulatory hormones. This is NOT diagnostic of DM without confirmation after the acute illness resolves. Diagnosing DM during acute illness (without prior evidence) and starting long-term oral hypoglycemics is incorrect.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">GDM — The 35&#8211;60% Number</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A woman had gestational diabetes during her last pregnancy. What is her long-term risk of developing T2DM?</div>
+      <div class="trap-a"><strong>Correct Answer: 35&#8211;60% risk of T2DM in the next 10&#8211;20 years.</strong> This is a high-yield number. The ADA recommends lifelong screening for DM/prediabetes at least every 3 years postpartum. Most women revert to normal glucose tolerance after delivery — but this false reassurance masks a very high long-term risk. Also screen at 4&#8211;12 weeks postpartum with OGTT (preferred over HbA1c postpartum).</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">The FPG 126 mg/dL Threshold — Why This Number?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Question asks why the diagnostic threshold for DM was set at FPG &#8805;126 mg/dL and not at another value.</div>
+      <div class="trap-a"><strong>Correct Answer: Because 126 mg/dL is the level at which diabetes-specific complications (specifically retinopathy) begin to appear.</strong> It is NOT a statistical cutoff from a normal distribution. The threshold is complication-based. The Pima Indian population studies showed retinopathy starts when FPG exceeds ~116&#8211;126 mg/dL. Below this: retinopathy is essentially absent. This is the fundamental principle of DM diagnosis.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Screening Criterion — BMI Threshold for Asians</span></div>
+    <div class="trap-body">
+      <div class="trap-q">An Asian American patient with BMI 24 kg/m&#178; comes for routine screening. No other risk factors mentioned. Should DM screening be recommended?</div>
+      <div class="trap-a"><strong>Correct Answer: Yes — for Asian Americans, the BMI screening threshold is &#8805;23 kg/m&#178;</strong> (not &#8805;25). With BMI 24, this patient meets the threshold. Reason: Asian populations develop T2DM at a lower BMI due to greater visceral adiposity and reduced insulin secretory capacity at lower body weights. Using the standard 25 kg/m&#178; threshold would miss many at-risk Asian Americans.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Glucokinase — The &#8220;Rate-Limiting Step&#8221;</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Question: &#8220;What is the primary regulator/signal for glucose-stimulated insulin secretion from the beta cell?&#8221;</div>
+      <div class="trap-a"><strong>Correct Answer: Glucokinase-mediated phosphorylation of glucose to glucose-6-phosphate is the rate-limiting step that controls glucose-regulated insulin secretion.</strong> It is the glucose sensor. ATP generated from this metabolism closes the K-ATP channel &#8594; depolarization &#8594; Ca²&#8314; influx &#8594; insulin secretion. Mutations in glucokinase = MODY 2 (higher glucose level required to trigger secretion &#8594; elevated set point). The SUR subunit (K-ATP channel) is the target of sulfonylureas.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">Glucose Intolerance + HbA1c 6% — What&#39;s the Right Management?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">40-year-old with HbA1c of 6.0%, FPG 108 mg/dL, family history of T2DM, BMI elevated. What is the best management?</div>
+      <div class="trap-a"><strong>Correct Answer: Lifestyle modification (diet + exercise) AND consider pharmacologic therapy — specifically evaluate individual factors to choose agent.</strong> The trap is selecting &#8220;diet alone&#8221; (insufficient for this level of risk/glucose intolerance with multiple risk factors) or &#8220;start metformin without lifestyle&#8221; (incomplete). The DPP showed both lifestyle and metformin reduce progression to DM — lifestyle being more effective. The correct approach is structured lifestyle program + pharmacologic consideration based on BMI, cardiovascular risk, and patient preference. Pharmacological options: metformin (31% reduction), GLP-1 RA (greater weight loss benefit).</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Neonatal DM — Don&#39;t Default to Insulin</span></div>
+    <div class="trap-body">
+      <div class="trap-q">An infant develops DM at 3 months of age. Genetic testing shows an activating mutation in the Kir6.2 subunit of the ATP-sensitive K&#8314; channel. Current treatment: insulin. What should be considered?</div>
+      <div class="trap-a"><strong>Correct Answer: Switch to sulfonylureas.</strong> Activating mutations in K-ATP channel subunits (Kir6.2/ABCC8) cause neonatal DM by keeping the channel open (so ATP cannot close it). Sulfonylureas close the K-ATP channel independently of ATP &#8594; can restore insulin secretion. Many of these children can completely discontinue insulin. This is one of the best examples of precision/personalized medicine in diabetes.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Single Abnormal Test — Not Enough</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient has a single fasting glucose of 130 mg/dL on routine labs. They are asymptomatic. The question asks: &#8220;What is the diagnosis?&#8221;</div>
+      <div class="trap-a"><strong>Correct Answer: You cannot diagnose DM from a single asymptomatic abnormal test.</strong> In the absence of unequivocal hyperglycemia and acute metabolic decompensation, the blood glucose criteria must be confirmed by repeat testing on a different day (or a second different diagnostic test on the same day). A single FPG &#8805;126 in an asymptomatic patient requires CONFIRMATION before diagnosis. Exception: two different abnormal tests at the same visit = diagnosis confirmed.</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- Quick Reference Table -->
+<hr class="sep">
+<section class="sec" id="qr">
+  <div class="sec-hd"><span class="sec-n">QR</span><h2>Quick Reference Master Table</h2></div>
+  <div class="tw">
+    <table>
+      <thead>
+        <tr><th>Topic</th><th>Key Number / Fact</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>FPG threshold for DM</td><td>&#8805;126 mg/dL (&#8805;7.0 mmol/L) — complication-based (retinopathy)</td></tr>
+        <tr><td>HbA1c threshold for DM</td><td>&#8805;6.5% (&#8805;48 mmol/mol)</td></tr>
+        <tr><td>2h OGTT threshold for DM</td><td>&#8805;200 mg/dL (&#8805;11.1 mmol/L)</td></tr>
+        <tr><td>Random glucose + symptoms</td><td>&#8805;200 mg/dL + polyuria/polydipsia/weight loss</td></tr>
+        <tr><td>Prediabetes HbA1c</td><td>5.7&#8211;6.4%</td></tr>
+        <tr><td>Prediabetes FPG (IFG)</td><td>100&#8211;125 mg/dL</td></tr>
+        <tr><td>Prediabetes 2h PG (IGT)</td><td>140&#8211;199 mg/dL</td></tr>
+        <tr><td>Screening start age (general)</td><td>35 years, every 3 years</td></tr>
+        <tr><td>Asian Americans BMI screening threshold</td><td>&#8805;23 kg/m&#178; (vs &#8805;25 general)</td></tr>
+        <tr><td>GDM screening post-delivery</td><td>Every 3 years for life (OGTT preferred 4&#8211;12 wk postpartum)</td></tr>
+        <tr><td>GDM &#8594; T2DM risk</td><td>35&#8211;60% in next 10&#8211;20 years</td></tr>
+        <tr><td>T1DM twin concordance</td><td>30&#8211;70%</td></tr>
+        <tr><td>T2DM twin concordance</td><td>70&#8211;90%</td></tr>
+        <tr><td>T1DM HLA contribution</td><td>~50% of genetic risk</td></tr>
+        <tr><td>T1DM sibling risk</td><td>6&#8211;7%; &gt;80% of T1DM have NO affected relative</td></tr>
+        <tr><td>Beta cell function at T2DM onset</td><td>Reduced ~50%</td></tr>
+        <tr><td>Teplizumab</td><td>Delays Stage 3 T1DM by median 32.5 months; approved for Stage 2 T1DM</td></tr>
+        <tr><td>DPP — Lifestyle</td><td>58% T2DM reduction; 5&#8211;7% weight loss; effect persists &#8805;15 years</td></tr>
+        <tr><td>DPP — Metformin</td><td>31% T2DM reduction</td></tr>
+        <tr><td>MODY 2 (Glucokinase)</td><td>Mild stable hyperglycemia; NO treatment needed; doesn&#8217;t respond to oral agents</td></tr>
+        <tr><td>MODY 3 (HNF-1&#945;)</td><td>Progressive; responds well to sulfonylureas</td></tr>
+        <tr><td>Neonatal DM (K-ATP mutations)</td><td>May respond to sulfonylureas; can discontinue insulin</td></tr>
+        <tr><td>Bariatric surgery T2DM remission</td><td>68.2% complete remission within 5 years; 1/3 redevelop DM</td></tr>
+        <tr><td>CF-related DM prevalence</td><td>~50%; screen with OGTT from age 10</td></tr>
+        <tr><td>50% insulin first-pass clearance</td><td>By liver; portal:peripheral ratio ~2:1</td></tr>
+        <tr><td>Glucokinase in secretion</td><td>Rate-limiting step in glucose-stimulated insulin secretion</td></tr>
+        <tr><td>Sulfonylurea target</td><td>SUR subunit of K-ATP channel; closes it independent of glucose</td></tr>
+        <tr><td>GLP-1/GIP action</td><td>Stimulate insulin only when glucose &gt; fasting level (glucose-dependent) &#8594; no hypoglycemia alone</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">Harrison&#8217;s Principles Ch. 415 · DM Part 1: Diagnosis, Classification &amp; Pathophysiology · Boards Review 2026</footer>
+
+<script>
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '\u2014', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '\u2014';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '\u2014' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">\u283f</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '\u2014' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">\u00d7</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '\u2014' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '\u2026' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '\ud83d\udcdd Notes' : '\u25c4';
+}
+
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
