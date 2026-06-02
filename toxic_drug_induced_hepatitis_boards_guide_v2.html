@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Toxic &amp; Drug-Induced Hepatitis · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+
+/* TOOLBAR */
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+
+/* SIDEBAR */
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);
+  border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;
+  z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;
+  display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;
+  position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;
+  line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+
+/* NAV */
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;
+  padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blu);
+  margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}
+  .main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+
+/* FLOWCHART */
+.flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:18px auto;max-width:520px}
+.flow-box{background:var(--sf);border:1.5px solid var(--bd2);border-radius:7px;
+  padding:9px 18px;text-align:center;font-size:12.5px;color:var(--tx);width:100%;line-height:1.45}
+.flow-box.blue{background:var(--blu-l);border-color:var(--blu);color:var(--blu-d)}
+.flow-box.red{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.flow-box.green{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.flow-box.amber{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.flow-arrow{font-size:18px;color:var(--t3);line-height:1.2;margin:2px 0}
+.flow-split{display:flex;gap:12px;width:100%;margin:4px 0}
+.flow-split .flow-box{flex:1}
+.flow-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t3);margin:2px 0}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles · Chapter 351</div>
+  <h1>Toxic &amp; Drug-Induced Hepatitis</h1>
+  <div class="hero-sub">DILI — Mechanisms · Drug Profiles · Treatment · Boards Review</div>
+  <div class="hero-authors">William M. Lee &amp; Jules L. Dienstag</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">2</div><div class="stat-l">DILI Types</div></div>
+    <div class="stat-box"><div class="stat-n">6</div><div class="stat-l">Injury Mechanisms</div></div>
+    <div class="stat-box"><div class="stat-n">10%</div><div class="stat-l">DILI → Acute Liver Failure</div></div>
+    <div class="stat-box"><div class="stat-n">&gt;20%</div><div class="stat-l">DILI from Herbal/CAM</div></div>
+    <div class="stat-box"><div class="stat-n">#1</div><div class="stat-l">Cause of Acute Liver Failure</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Overview</a>
+    <a class="toc-a" href="#s2">Drug Metabolism</a>
+    <a class="toc-a" href="#s3">DILI Types</a>
+    <a class="toc-a" href="#s4">Morphologic Patterns</a>
+    <a class="toc-a" href="#s5">Drug Profiles</a>
+    <a class="toc-a" href="#s6">Acetaminophen</a>
+    <a class="toc-a" href="#s7">Key Drugs</a>
+    <a class="toc-a" href="#s8">CAM &amp; Immunotherapy</a>
+    <a class="toc-a" href="#s9">Treatment</a>
+    <a class="toc-a" href="#s10">Quick Reference</a>
+    <a class="toc-a" href="#s11">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══════════════════════════════════════════ SECTION 1 -->
+<section class="sec" id="s1">
+  <div class="sec-hd">
+    <span class="sec-n">01</span>
+    <h2>Overview &amp; Key Concepts</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Why DILI Matters</h3>
+    <ul class="bl">
+      <li><strong>Leading cause of acute liver failure</strong> in the Western world — more than viral hepatitis</li>
+      <li><strong>Most common reason</strong> for failure of new compounds to reach drug approval — hepatotoxicity detected in clinical trials kills more candidates than any other organ signal</li>
+      <li>Any xenobiotic can cause injury: <strong>prescription drugs, OTC drugs, industrial toxins, herbal/CAM products</strong></li>
+      <li>A thorough drug history must include: prescription medications, OTC agents, herbal and dietary supplements, industrial/occupational exposures, body-building supplements</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Six Mechanisms of Hepatocyte Injury</h3>
+    <p>Drugs can damage the liver through six distinct pathways — understanding the mechanism predicts the clinical and histologic pattern:</p>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Mechanism A</div>
+        <p><strong>Rupture of cell membrane</strong> — disruption of intracellular calcium homeostasis → disassembly of actin fibrils → membrane blebbing → cell lysis</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Mechanism B</div>
+        <p><strong>Bile canaliculus injury</strong> — disruption of actin filaments next to canaliculus → loss of villous processes → interruption of transport pumps (MRP3) → failure to excrete bilirubin &amp; organic compounds → cholestasis</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Mechanism C</div>
+        <p><strong>P-450 drug covalent binding</strong> — cytochrome P450 binds covalently to drug → nonfunctioning adducts formed in endoplasmic reticulum</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Mechanism D</div>
+        <p><strong>Drug adducts as immunogens</strong> — adducts migrate to cell surface in vesicles → targeted by cytolytic T cells (CTLs) and cytokines → immune-mediated hepatocyte destruction</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Mechanism E</div>
+        <p><strong>Apoptosis via TNF-α / Fas</strong> — activation of death domain (DD) receptors → caspase cascade → programmed cell death</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-t">Mechanism F</div>
+        <p><strong>Mitochondrial dysfunction</strong> — dual inhibition of β-oxidation AND respiratory chain → failure of fatty acid metabolism → lactic acidosis + accumulation of reactive oxygen species → microvesicular steatosis histologically</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">💡 Board Pearl — Immune-Mediated Injury</div>
+    Current data implicate the <strong>adaptive immune system</strong> as the dominant driver of idiosyncratic DILI: phase I metabolism of the offending drug generates immune-stimulatory compounds that trigger an adaptive response. HLA haplotypes (e.g., specific HLA-B and HLA-DR alleles) have been linked to hepatotoxicity from amoxicillin-clavulanate and flucloxacillin. Nuclear transporters (CAR, PXR) also play a role in drug hepatotoxicity induction.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 2 -->
+<section class="sec" id="s2">
+  <div class="sec-hd">
+    <span class="sec-n">02</span>
+    <h2>Drug Metabolism</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Metabolic Pathway</h3>
+    <p>Most drugs are water-insoluble and must be converted to water-soluble forms for excretion. The two-phase process:</p>
+
+    <div class="flow">
+      <div class="flow-box blue"><strong>Water-insoluble Drug enters body</strong></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box amber"><strong>Phase I</strong> — Oxidation / methylation via CYP450 (mixed-function oxygenases)<br><small>→ generates reactive intermediate metabolites</small></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-split">
+        <div class="flow-box green"><strong>Phase II</strong><br>Glucuronidation or sulfation<br><small>→ innocuous, water-soluble metabolites → renal/biliary excretion</small></div>
+        <div class="flow-box green"><strong>Glutathione pathway</strong><br>GSH binds toxic metabolites → inactivated → excreted as mercapturic acid</div>
+      </div>
+    </div>
+
+    <div class="co dan">
+      <div class="co-t">⚠ Critical Concept</div>
+      <strong>Most drug hepatotoxicity results from phase I toxic metabolites.</strong> When these are produced in excess, or when glutathione levels are depleted, the glutathione S-transferase inactivation pathway is overwhelmed → toxic metabolites bind covalently to hepatocyte macromolecules → hepatocyte injury. Glutathione depletion is central to acetaminophen toxicity (see Section 6).
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 3 -->
+<section class="sec" id="s3">
+  <div class="sec-hd">
+    <span class="sec-n">03</span>
+    <h2>Two Types of DILI</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="clabel c-r">Type 1 — Direct Toxic</div>
+      <ul class="bl">
+        <li><strong>Predictable</strong> — occurs in all individuals exposed to sufficient dose</li>
+        <li><strong>Dose-dependent</strong> — clear dose-response relationship</li>
+        <li><strong>Short latency</strong> — usually hours; clinical manifestations possibly delayed 24–48 h</li>
+        <li>Reproducible <strong>characteristic histologic pattern</strong> for each toxin</li>
+        <li>Agents: systemic poisons or hepatically metabolized to toxic intermediates</li>
+        <li><strong>Examples:</strong> acetaminophen (prime example), carbon tetrachloride (centrilobular zonal necrosis), trichloroethylene, Amanita phalloides toxin (massive necrosis; lethal dose ~10 mg — found in a single deathcap mushroom)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel c-p">Type 2 — Idiosyncratic</div>
+      <ul class="bl">
+        <li><strong>Unpredictable</strong> — incidence 1 in 10³–10⁵ patients</li>
+        <li><strong>Not clearly dose-dependent</strong> (but most agents given at doses &gt;100 mg/day — higher dose → more off-target effects)</li>
+        <li><strong>Variable latency</strong> — typically 5–90 days after starting the drug</li>
+        <li>More variable morphologic pattern; a single agent can cause multiple patterns</li>
+        <li><strong>Adaptation:</strong> mild, transient, nonprogressive aminotransferase elevations that resolve despite continued drug use (recognized for INH, valproate, phenytoin, statins) — unknown mechanism</li>
+        <li>Extrahepatic hypersensitivity features (rash, fever, eosinophilia, arthralgias) occur in a minority — characteristic for phenytoin, TMP-SMX; absent in others</li>
+        <li><strong>Examples:</strong> isoniazid, amoxicillin-clavulanate, nitrofurantoin, statins</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Hy's Law — A Board Favourite</h3>
+    <div class="co wrn">
+      <div class="co-t">📋 Hy's Law (Dr. Hyman Zimmerman)</div>
+      If <strong>jaundice</strong> occurs in a patient enrolled in a clinical drug trial, this predicts serious hepatotoxicity:
+      <ul class="bl" style="margin-top:8px">
+        <li>Ratio of <strong>10:1 — jaundice cases : acute liver failure cases</strong></li>
+        <li>10 patients with jaundice in a trial → 1 will develop acute liver failure</li>
+        <li><strong>Troglitazone</strong> is the classic example: Hy's Law cases occurred in Phase 3 trials but went unrecognized until post-marketing liver failure emerged → withdrawn 2001</li>
+        <li>Rosiglitazone and pioglitazone (second-generation TZDs) do NOT have this hepatotoxicity — aminotransferase elevations same as placebo</li>
+        <li>Since troglitazone withdrawal in 2001, no fully approved drugs have been withdrawn by the FDA for hepatotoxicity</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Causality Assessment</h3>
+    <p>DILI is nearly always a <strong>presumptive diagnosis</strong>. Many disorders mimic DILI. Establishing causality requires:</p>
+    <ul class="bl">
+      <li><strong>Temporal association</strong> — time of onset, time to resolution after withdrawal</li>
+      <li>Clinical-biochemical features and type of injury (hepatocellular vs cholestatic)</li>
+      <li>Extrahepatic features (rash, eosinophilia)</li>
+      <li>Prior record of the suspect agent's hepatotoxicity</li>
+      <li>Exclusion of other causes (viral hepatitis, autoimmune hepatitis, etc.)</li>
+    </ul>
+    <div class="co tel">
+      <div class="co-t">📊 Causality Tools</div>
+      <ul class="bl">
+        <li><strong>RUCAM</strong> (Roussel-Uclaf Causality Assessment Method) — yields residual uncertainty; not widely adopted</li>
+        <li><strong>DILIN</strong> (Drug-Induced Liver Injury Network) — structured expert consensus on 5-degree likelihood scale (definite, highly likely, probable, possible, unlikely); not practical for routine clinical use</li>
+        <li><strong>RECAM</strong> (Revised Electronic Causality Assessment Method) — newest, most improved tool; available at <em>dilirecam.com</em>; not yet in widespread use</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 4 -->
+<section class="sec" id="s4">
+  <div class="sec-hd">
+    <span class="sec-n">04</span>
+    <h2>Morphologic Patterns of Injury</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>R-Value — Hepatocellular vs Cholestatic</h3>
+    <div class="co key">
+      <div class="co-t">🔢 R-Value Formula</div>
+      <strong>R = (ALT / ULN) ÷ (ALP / ULN)</strong><br>
+      Both expressed as multiples of the upper limit of normal.
+      <div class="g3" style="margin-top:10px">
+        <div class="card"><div class="clabel c-r">R &gt; 5.0</div><p>Hepatocellular injury</p></div>
+        <div class="card"><div class="clabel c-a">R 2.0 – 5.0</div><p>Mixed hepatocellular-cholestatic</p></div>
+        <div class="card"><div class="clabel c-b">R &lt; 2.0</div><p>Cholestatic injury</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Cholestatic Injury — Four Grades of Severity</h3>
+    <ul class="bl">
+      <li><strong>Bland cholestasis</strong> (limited hepatocellular injury) — estrogens, 17α-substituted androgens</li>
+      <li><strong>Inflammatory cholestasis</strong> — amoxicillin-clavulanic acid (most frequently implicated antibiotic in DILI), oxacillin, erythromycin estolate</li>
+      <li><strong>Sclerosing cholangitis</strong> — intrahepatic infusion of floxuridine (chemotherapy for hepatic metastases from colon cancer); also seen after long-term ketamine use</li>
+      <li><strong>Vanishing bile duct syndrome (ductopenic cholestasis)</strong> — disappearance of bile ducts, similar to chronic rejection after liver transplant. Caused by carbamazepine, levofloxacin, amoxicillin-clavulanate (occasionally)</li>
+    </ul>
+    <p>Mechanisms of cholestasis: binding of drugs to canalicular membrane transporters; accumulation of toxic bile acids from canalicular pump failure; genetic defects in canalicular transporter proteins.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Other Morphologic Patterns</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Pattern</th><th>Drug Class / Examples</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Hepatocellular necrosis (viral-like)</td><td>INH, ciprofloxacin</td><td>Spotty necrosis + lymphocytic infiltrate; indistinguishable from acute viral hepatitis A, B, or C</td></tr>
+          <tr><td>Centrilobular necrosis</td><td>Acetaminophen, carbon tetrachloride</td><td>Zone 3 injury; characteristic of direct toxins</td></tr>
+          <tr><td>Microvesicular steatosis</td><td>Tetracycline (IV), valproate, NRTI antivirals</td><td>Mitochondrial toxicity — failure of β-oxidation</td></tr>
+          <tr><td>Macrovesicular steatosis / steatohepatitis</td><td>Amiodarone, tamoxifen, methotrexate</td><td>Amiodarone causes "pseudoalcoholic" hepatitis with Mallory's hyaline</td></tr>
+          <tr><td>Granulomas</td><td>Sulfonamides, quinidine, allopurinol, carbamazepine</td><td>Often hypersensitivity-mediated</td></tr>
+          <tr><td>Venoocclusive disease</td><td>Cyclophosphamide, melphalan, busulfan</td><td>High-dose chemo pre-bone marrow transplant → sinusoidal lining cell injury</td></tr>
+          <tr><td>Nodular regenerative hyperplasia</td><td>Oxaliplatin, vitamin A (excess)</td><td>Portal hypertension without cirrhosis; vascular injury to portal/hepatic venous endothelium</td></tr>
+          <tr><td>Peliosis hepatis</td><td>Anabolic steroids, contraceptive steroids</td><td>Blood cysts in liver</td></tr>
+          <tr><td>Hepatic adenoma / focal nodular hyperplasia</td><td>Oral contraceptives</td><td>Rarely hepatocellular carcinoma or Budd-Chiari syndrome</td></tr>
+          <tr><td>Cirrhosis</td><td>Methotrexate, tamoxifen, amiodarone</td><td>Chronic insidious injury</td></tr>
+          <tr><td>Autoimmune hepatitis-like</td><td>Nitrofurantoin, minocycline, hydralazine, α-methyldopa</td><td>High likelihood of positive ANA; requires immunosuppression; can cause cirrhosis</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="co wrn">
+    <div class="co-t">💡 DILI in Pre-existing Liver Disease</div>
+    DILI is generally <strong>not more frequent</strong> in persons with underlying chronic liver disease — but <strong>severity may be amplified</strong>. Exceptions where DILI risk IS increased in liver disease: <strong>aspirin, methotrexate, INH (some data), antiretroviral therapy for HIV</strong>, and conditioning regimens for bone marrow transplant in patients with hepatitis C.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 5 -->
+<section class="sec" id="s5">
+  <div class="sec-hd">
+    <span class="sec-n">05</span>
+    <h2>Drug-Specific Morphology Table</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <p>Key drugs to know by injury pattern (board-tested associations):</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Drug</th><th>Pattern</th><th>Key Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Amoxicillin-clavulanate</td><td>Mixed / primarily cholestatic</td><td><strong>#1 most common DILI agent</strong> in USA &amp; Europe; delayed onset after drug stopped; can → vanishing bile duct syndrome</td></tr>
+        <tr><td>Isoniazid (INH)</td><td>Hepatocellular</td><td>Adaptation in 10%; serious injury age-related (↑ after 35, highest &gt;50); fatal if continued despite jaundice</td></tr>
+        <tr><td>Nitrofurantoin</td><td>Hepatocellular / autoimmune-like</td><td>Can mimic autoimmune hepatitis; + ANA/SMA/AMA; may need steroids; also → pulmonary fibrosis</td></tr>
+        <tr><td>Minocycline</td><td>Autoimmune hepatitis-like</td><td>Repeat use for acne in teenagers; similar to nitrofurantoin</td></tr>
+        <tr><td>Hydralazine</td><td>Autoimmune hepatitis-like</td><td>+ ANA; drug-induced lupus overlap</td></tr>
+        <tr><td>α-Methyldopa</td><td>Autoimmune hepatitis-like / chronic hepatitis</td><td>+ ANA; can → cirrhosis</td></tr>
+        <tr><td>Amiodarone</td><td>Steatohepatitis ("pseudoalcoholic")</td><td>Phospholipid-laden lysosomal lamellar bodies on EM; long half-life → injury persists months after stopping; can → cirrhosis</td></tr>
+        <tr><td>Valproate</td><td>Microvesicular steatosis + necrosis</td><td>Metabolite 4-pentenoic acid is the culprit; ↑ risk with mitochondrial enzyme deficiencies; carnitine depletion; HLA associations (DR4, B*1502)</td></tr>
+        <tr><td>Methotrexate</td><td>Fibrosis / cirrhosis</td><td>Cumulative dose toxicity; also fatty liver</td></tr>
+        <tr><td>Tetracycline (IV, high-dose)</td><td>Microvesicular steatosis</td><td>Mitochondrial toxicity</td></tr>
+        <tr><td>Anabolic steroids</td><td>Cholestasis (bland) ± peliosis</td><td>Young male with cholestatic picture → think body-building supplements; bilirubin often &gt;20 mg/dL; ALT usually &lt;100 IU/L; resolves but may take weeks–months</td></tr>
+        <tr><td>Oral contraceptives</td><td>Cholestasis / hepatic adenoma / Budd-Chiari</td><td>No necrosis, no hypersensitivity features; genetically determined susceptibility; linked to cholestasis of pregnancy (same canalicular transporter defect)</td></tr>
+        <tr><td>Statins</td><td>Mixed hepatocellular-cholestatic (rare)</td><td>1–2% have mild ↑ AST/ALT; monitoring NOT required (expert consensus); safe in chronic hepatitis C and NAFLD</td></tr>
+        <tr><td>Oxaliplatin</td><td>Nodular regenerative hyperplasia / vascular</td><td>Adjuvant colon cancer therapy → portal hypertension without cirrhosis</td></tr>
+        <tr><td>Ipilimumab / pembrolizumab / nivolumab</td><td>Active hepatitis (immune checkpoint)</td><td>CD8+ lymphocyte-mediated; + ANA; responds to glucocorticoids; can restart after resolution</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 6 -->
+<section class="sec" id="s6">
+  <div class="sec-hd">
+    <span class="sec-n">06</span>
+    <h2>Acetaminophen Hepatotoxicity — Direct Toxin Prototype</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co dan">
+    <div class="co-t">🔴 Big Picture</div>
+    Acetaminophen is the <strong>#1 cause of acute liver failure in the Western world</strong>. Up to 72% of patients with acetaminophen hepatotoxicity in Scandinavia (somewhat lower in UK and USA) progress to encephalopathy and coagulopathy.
+  </div>
+
+  <div class="sub">
+    <h3>Mechanism — Why Acetaminophen Is Toxic</h3>
+
+    <div class="flow">
+      <div class="flow-box blue"><strong>Acetaminophen ingested</strong></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-split">
+        <div class="flow-box green"><strong>Phase II (major pathway)</strong><br>Sulfation + glucuronidation<br>→ innocuous, excreted renally</div>
+        <div class="flow-box red"><strong>Phase I (minor pathway, CYP2E1)</strong><br>→ <strong>NAPQI</strong><br>(N-acetyl-p-benzoquinone-imine)</div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-split">
+        <div class="flow-box green"><strong>Normal state</strong><br>NAPQI + glutathione (GSH) → mercapturic acid → renal excretion ✓</div>
+        <div class="flow-box red"><strong>Overdose / GSH depletion</strong><br>GSH overwhelmed → NAPQI binds covalently to hepatocyte macromolecules → <strong>protein adducts</strong> → hepatocyte necrosis</div>
+      </div>
+    </div>
+
+    <div class="co wrn">
+      <div class="co-t">⚡ Potentiating Factors — These Lower the Toxic Threshold</div>
+      <ul class="bl">
+        <li><strong>Alcohol (chronic use)</strong> — induces CYP2E1 (↑ NAPQI production) AND suppresses hepatic glutathione synthesis → toxic dose may be as low as <strong>2 g/day</strong> in alcoholics</li>
+        <li><strong>Fasting / starvation</strong> — depletes hepatic glutathione (↓ GSH available to neutralize NAPQI); includes inability to maintain oral intake during febrile illness</li>
+        <li><strong>Phenobarbital, rifampin, INH</strong> — all induce CYP450 → ↑ NAPQI generation</li>
+        <li><strong>Hepatitis C co-infection</strong> — associated with increased risk of acute liver injury at overdose doses</li>
+        <li><strong>Opioid-acetaminophen combinations</strong> — habituation to the opioid leads to gradual dose escalation over days/weeks, inadvertently increasing acetaminophen intake</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Presentation — Timeline</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Timepoint</th><th>Clinical Features</th></tr></thead>
+        <tbody>
+          <tr><td>0–12 h (early)</td><td>Nausea, vomiting, diarrhea, abdominal pain, shock — direct GI and hemodynamic effects</td></tr>
+          <tr><td>24–48 h</td><td>Early features abate → hepatic injury becomes apparent</td></tr>
+          <tr><td>3–5 days</td><td>Maximal hepatic abnormalities and liver failure — aminotransferases &gt;10,000 IU/L are not uncommon (far exceeding viral hepatitis levels)</td></tr>
+          <tr><td>Concurrent</td><td>Renal failure, myocardial injury may co-occur</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="co key">
+      <div class="co-t">🎯 Biochemical Signature — Boards Favourite</div>
+      Acetaminophen hepatotoxicity produces a <strong>hyperacute pattern</strong>:
+      <ul class="bl" style="margin-top:8px">
+        <li>Extremely <strong>high aminotransferases</strong> (&gt;10,000 IU/L)</li>
+        <li>Disproportionately <strong>LOW bilirubin</strong> (early stage)</li>
+        <li>This combination is highly characteristic — should trigger further questioning even if history is denied</li>
+        <li>Acute renal injury occurs in nearly <strong>75% of severe cases</strong> but is virtually always self-limited</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Dose Thresholds</h3>
+    <ul class="bl">
+      <li>Single dose of <strong>10–15 g</strong> (occasionally less) → clinical liver injury</li>
+      <li>Fatal fulminant disease usually with ingestion of <strong>≥25 g</strong> (though not invariably)</li>
+      <li>Chronic unintentional overdose: <strong>8 g/day over several days</strong> (twice the daily maximum) → liver failure</li>
+      <li>Blood level <strong>&gt;300 μg/mL at 4 h after ingestion</strong> → predictive of severe damage</li>
+      <li>Blood level <strong>&lt;150 μg/mL at 4 h</strong> → hepatic injury highly unlikely</li>
+      <li>For patients with <strong>high acetaminophen blood levels</strong> (&gt;200 μg/mL at 4 h OR &gt;100 μg/mL at 8 h) → administer N-acetylcysteine</li>
+      <li><strong>Chronic alcoholics</strong>: warn about dangers even at standard doses; toxic dose as low as 2 g/day</li>
+      <li>FDA-recommended daily limit: reduced from 4 g to <strong>3 g/day</strong> (even lower for chronic alcohol users); acetaminophen component in opioid combinations limited to <strong>325 mg per tablet</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of Acetaminophen Overdose</h3>
+    <ul class="bl">
+      <li><strong>Gastric lavage</strong> — early decontamination</li>
+      <li><strong>Activated charcoal or cholestyramine</strong> — effective only if given within <strong>30 min of ingestion</strong>; stomach lavage should precede oral agents</li>
+      <li><strong>N-acetylcysteine (NAC)</strong> — the proven antidote; provides sulfhydryl groups to replete glutathione → prevents covalent binding of NAPQI to hepatocyte proteins
+        <ul class="bl" style="margin-left:16px">
+          <li>Effective if given within <strong>8 h of ingestion</strong> (best outcome)</li>
+          <li>At least partially effective when given up to <strong>24–36 h</strong> post-overdose</li>
+          <li>IV route preferred; loading dose <strong>140 mg/kg over 1 h</strong>, then <strong>70 mg/kg q4h × 15–20 doses</strong></li>
+          <li>Routine use has <strong>substantially reduced fatal acetaminophen hepatotoxicity</strong></li>
+          <li>NAC for <em>non-acetaminophen</em> acute liver failure showed benefit (especially early encephalopathy) in a double-blind RCT but <strong>not yet FDA-approved</strong> for this indication</li>
+        </ul>
+      </li>
+      <li><strong>Nomogram</strong> — plot acetaminophen levels at 4–8 h to determine risk (readily available in emergency departments)</li>
+      <li>Contact local <strong>poison control center</strong> whenever acetaminophen hepatotoxicity is suspected</li>
+      <li><strong>Liver transplantation</strong> — if progressive jaundice, coagulopathy, confusion despite NAC therapy</li>
+      <li>Early arterial blood lactate &gt;3.5 mmol/L → high likelihood of requiring transplantation</li>
+    </ul>
+    <div class="co suc">
+      <div class="co-t">✓ Survivors</div>
+      Survivors of acute acetaminophen overdose <strong>rarely have ongoing liver injury or sequelae</strong>, but may be at risk for repeat overdosing episodes.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 7 -->
+<section class="sec" id="s7">
+  <div class="sec-hd">
+    <span class="sec-n">07</span>
+    <h2>Key Drug Profiles — High-Yield for Boards</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Isoniazid (INH) — Idiosyncratic</h3>
+    <ul class="bl">
+      <li><strong>10%</strong> of patients develop elevated aminotransferases in first few weeks — usually mild (ALT &lt;200 IU/L), <strong>self-limited, resolves despite continued use (adaptation)</strong></li>
+      <li>Serious hepatocellular DILI has variable latency up to <strong>6 months</strong></li>
+      <li>More frequent in: <strong>alcoholics</strong> and those taking barbiturates, rifampin, pyrazinamide concurrently</li>
+      <li><strong>Age-related risk</strong>: substantially increases after age 35; highest frequency &gt;50 years; lowest &lt;20 years. Even in &gt;50 with careful monitoring, incidence only ~2%</li>
+      <li>Fever, rash, eosinophilia are <strong>distinctly unusual</strong> (unlike many other idiosyncratic reactions)</li>
+      <li>Liver biopsy: morphology similar to <strong>viral hepatitis</strong> or bridging hepatic necrosis</li>
+      <li><strong>Fatal outcome</strong> almost always occurs in the setting of continued INH use despite clinically apparent illness → educate patients about symptoms (nausea, fatigue, jaundice)</li>
+      <li>A clinical picture resembling <strong>chronic hepatitis</strong> has been observed in a few patients</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Sodium Valproate — Toxic + Idiosyncratic</h3>
+    <ul class="bl">
+      <li><strong>45%</strong> of patients have asymptomatic aminotransferase elevations — "adaptive," clinically unimportant (majority can continue therapy)</li>
+      <li>Rare patients develop <strong>jaundice, encephalopathy, hepatic failure</strong>: biopsy shows microvesicular fat + bridging hepatic necrosis in centrilobular zone</li>
+      <li>Most likely <strong>not directly hepatotoxic</strong> — metabolite <strong>4-pentenoic acid</strong> appears to be responsible</li>
+      <li>Predominantly affects <strong>children</strong> (#1 antiepileptic drug causing liver transplant candidacy in children) but also adults</li>
+      <li><strong>Mitochondrial enzyme deficiencies</strong> markedly increase susceptibility</li>
+      <li><strong>Carnitine depletion</strong> — valproate depletes carnitine; IV carnitine may ameliorate toxicity</li>
+      <li><strong>HLA associations</strong>: DR4 and B*1502; also mutations in mitochondrial DNA polymerase gamma 1</li>
+      <li>Bile duct injury may also occur</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Nitrofurantoin — Idiosyncratic</h3>
+    <ul class="bl">
+      <li>Common UTI antibiotic — frequently used and <strong>reused</strong> for recurrent cystitis in women → prolonged, intermittent cumulative exposure</li>
+      <li>May cause <strong>acute hepatitis</strong> (can be fatal) OR more frequently <strong>chronic hepatitis indistinguishable from autoimmune hepatitis</strong></li>
+      <li>Longer latency than most DILI agents — because of intermittent, recurrent use</li>
+      <li><strong>Autoantibodies</strong>: anti-nuclear (ANA), anti-smooth muscle (SMA), anti-mitochondrial (AMA) — may subside after drug withdrawal</li>
+      <li><strong>Glucocorticoids or other immunosuppressives</strong> may be needed to resolve the autoimmune injury</li>
+      <li><strong>Cirrhosis</strong> can develop if not recognized quickly</li>
+      <li>Also causes <strong>interstitial pulmonary fibrosis</strong> (chronic cough and dyspnea) — resolves slowly after drug withdrawal</li>
+      <li><strong>Similar pattern</strong> seen with minocycline (repeat acne treatment in teenagers), hydralazine, and α-methyldopa</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Amoxicillin-Clavulanate — Idiosyncratic Mixed</h3>
+    <ul class="bl">
+      <li><strong>#1 most common DILI agent</strong> in the United States AND Europe</li>
+      <li>Mixed or primarily <strong>cholestatic injury</strong></li>
+      <li><strong>Delayed onset</strong> — liver injury may manifest <em>after</em> the drug has been stopped (long latency)</li>
+      <li>High prevalence reflects the very frequent use for respiratory infections (community-acquired pneumonia)</li>
+      <li><strong>Mechanism unclear</strong>: amoxicillin is thought responsible, potentiated by clavulanate (which itself is not toxic)</li>
+      <li>HLA haplotypes linked (like flucloxacillin)</li>
+      <li>Symptoms: nausea, anorexia, fatigue, jaundice (may be prolonged), pruritus; <strong>rash is uncommon</strong></li>
+      <li>Occasionally → <strong>vanishing bile duct syndrome</strong> (permanent injury to small bile ducts → progressive paucity of ducts on biopsy)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Amiodarone — Toxic + Idiosyncratic</h3>
+    <ul class="bl">
+      <li><strong>15–50%</strong> of patients develop modest aminotransferase elevations — may remain stable or diminish despite continuation; also causes hepatomegaly in a proportion</li>
+      <li>Clinically important liver disease in <strong>&lt;5%</strong></li>
+      <li><strong>Direct effects</strong> common to all long-term users: ultrastructural <strong>phospholipidosis</strong> (no clinical disease) + interference with CYP450 metabolism of other drugs</li>
+      <li>Drug and its metabolite (desethylamiodarone) accumulate in <strong>hepatocyte lysosomes and mitochondria</strong> and in bile duct epithelium</li>
+      <li>Rare clinically apparent disease: <strong>pseudoalcoholic liver injury</strong> — ranges from steatosis → alcoholic hepatitis–like picture (neutrophilic infiltration + <strong>Mallory's hyaline</strong>) → cirrhosis</li>
+      <li><strong>Phospholipid-laden lysosomal lamellar bodies on electron microscopy</strong> — distinguishes amiodarone from true alcoholic hepatitis</li>
+      <li>Rarely: acute idiosyncratic hepatocellular or cholestatic hepatitis; granulomas</li>
+      <li><strong>Long half-life</strong> → liver injury may persist for <strong>months after stopping the drug</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Anabolic Steroids — Cholestatic Reaction</h3>
+    <ul class="bl">
+      <li>Most common CAM-type DILI = profound <strong>cholestasis from anabolic steroids</strong> used by body builders</li>
+      <li>Young male + <strong>cholestatic profile</strong> (rather than hepatitic) → almost always body-building supplement or androgen congener</li>
+      <li>Mechanism: injury to bile transport pumps → intense cholestasis</li>
+      <li>Serum ALT usually <strong>&lt;100 IU/L</strong>; serum bilirubin frequently <strong>&gt;342 μmol/L (20 mg/dL)</strong></li>
+      <li>ALP moderately elevated; <strong>no substantial inflammation or necrosis</strong> on biopsy</li>
+      <li>Resolution is the rule but may take <strong>10 weeks or more of jaundice</strong></li>
+      <li>In prescription use for bone marrow failure: also associated with <strong>hepatic centrizonal sinusoidal dilatation, peliosis hepatis, hepatic adenoma, hepatocellular carcinoma</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Statins (HMG-CoA Reductase Inhibitors) — Idiosyncratic</h3>
+    <ul class="bl">
+      <li><strong>1–2%</strong> of patients taking any statin have asymptomatic, reversible aminotransferase elevations &gt;3× ULN</li>
+      <li>Minor aminotransferase rises in larger proportion during first few weeks — usually transient</li>
+      <li>Clinically meaningful aminotransferase elevations are <strong>so rare</strong> that they do not differ in meta-analyses from placebo recipients</li>
+      <li><strong>Expert consensus (National Lipid Association)</strong>: liver test monitoring <strong>NOT necessary</strong> in patients treated with statins; statin therapy need not be stopped for asymptomatic aminotransferase elevations</li>
+      <li>Statin hepatotoxicity is <strong>NOT increased</strong> in chronic hepatitis C, hepatic steatosis, or other underlying liver diseases → statins can be used safely in these patients</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>TMP-SMX — Idiosyncratic Hypersensitivity</h3>
+    <ul class="bl">
+      <li>Hepatotoxicity caused by the <strong>sulfamethoxazole</strong> component</li>
+      <li>Relatively <strong>uniform latency of several weeks</strong></li>
+      <li>Often accompanied by <strong>eosinophilia, rash</strong>, and other hypersensitivity features — including <strong>DRESS syndrome</strong></li>
+      <li>Biochemically and histologically: predominant <strong>acute hepatocellular necrosis</strong>, cholestatic features also frequent; rarely severe cholangiolytic pattern</li>
+      <li>Tissue eosinophilia and granulomas may be seen on biopsy</li>
+      <li>Most cases self-limited; rare fatalities</li>
+      <li>Risk <strong>increased in HIV-infected persons</strong></li>
+      <li>Unique HLA associations in European Americans and African Americans identified</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 8 -->
+<section class="sec" id="s8">
+  <div class="sec-hd">
+    <span class="sec-n">08</span>
+    <h2>Herbal/CAM &amp; Immunotherapy DILI</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Herbal and Complementary Medicines</h3>
+    <ul class="bl">
+      <li>Account for <strong>&gt;20% of DILI</strong> in the United States currently</li>
+      <li>Lack prospective safety oversight; efficacy often unproven</li>
+      <li><strong>Most common category</strong> besides anabolic steroids: <strong>weight loss agents</strong></li>
+      <li>Implicated herbal products: Jin Bu Huan, xiao-chai-hu-tang, germander, chaparral, senna, mistletoe, skullcap, ma huang (ephedra), kava, celandine, comfrey (pyrrolizidine alkaloids), green tea extract (Camellia sinensis), Hydroxycut, OxyElite Pro, LipoKinetix, Herbalife</li>
+      <li><strong>Jin Bu Huan histology</strong>: focal hepatocellular necrosis, mixed mononuclear portal tract infiltration, coagulative necrosis, apoptotic degeneration, tissue eosinophilia, microvesicular steatosis</li>
+      <li><strong>Pyrrolizidine alkaloids</strong> (often contaminants in Chinese herbal preparations) → venoocclusive injury → sinusoidal hepatic vein obstruction</li>
+      <li><strong>Megadoses of vitamin A</strong> → hepatic injury</li>
+      <li>Herbal medicines may <strong>induce CYP450</strong> → amplify toxicity of conventional drugs (and vice versa)</li>
+      <li>Many "herbal" products actually contain synthetic chemicals (e.g., "antirheumatic herbs" found to contain diclofenac)</li>
+      <li><strong>Always ask about herbal/dietary supplements</strong> in every patient with liver disease — they often don't disclose without direct questioning</li>
+    </ul>
+
+    <div class="co key">
+      <div class="co-t">📋 Reference Resource</div>
+      <strong>LiverTox</strong> website (livertox.nih.gov) — comprehensive, authoritative, up-to-date DILI information maintained by NIH/National Library of Medicine. Use as reference for any drug-liver association.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Immune Checkpoint Inhibitor Hepatotoxicity</h3>
+    <ul class="bl">
+      <li>New class of cancer immunotherapy → new kind of hepatotoxicity via <strong>immune activation</strong></li>
+      <li>Three classes:
+        <ul class="bl" style="margin-left:16px">
+          <li><strong>CTLA-4 inhibitor:</strong> ipilimumab</li>
+          <li><strong>PD-1 inhibitors:</strong> pembrolizumab, nivolumab</li>
+          <li><strong>PD-L1 inhibitors</strong></li>
+        </ul>
+      </li>
+      <li>Active hepatitis develops within <strong>weeks of starting</strong> any of these agents</li>
+      <li>Associated with <strong>positive ANAs</strong>; responds to <strong>glucocorticoid therapy</strong></li>
+      <li>Histology: nonspecific acute hepatic injury mediated predominantly by <strong>CD8+ lymphocytes</strong>; does NOT resemble chronic autoimmune hepatitis</li>
+      <li><strong>Immune-mediated injury to other organs</strong> also seen: thyroid, muscle, colon</li>
+      <li>Rarely fatal; agents may need to be <strong>halted temporarily</strong> but can often be <strong>restarted</strong> if patient showing favorable antitumor response (and tolerated better on retreatment)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>HAART (HIV Antiretroviral Therapy)</h3>
+    <ul class="bl">
+      <li>Drug hepatotoxicity is common but complex in HIV due to many competing causes (viral co-infections, fatty liver, infiltrative disease, mycobacterial infection)</li>
+      <li>Most implicated agents:
+        <ul class="bl" style="margin-left:16px">
+          <li><strong>NRTI:</strong> zidovudine, didanosine, stavudine (mitochondrial toxicity → microvesicular steatosis + lactic acidosis)</li>
+          <li><strong>Protease inhibitors:</strong> ritonavir, indinavir, tipranavir, amprenavir (with ritonavir)</li>
+          <li><strong>NNRTI:</strong> nevirapine (most), efavirenz (less)</li>
+        </ul>
+      </li>
+      <li><strong>Didanosine or stavudine + ribavirin</strong> = <strong>contraindicated</strong> in HIV/HCV co-infection → severe mitochondrial toxicity and lactic acidosis</li>
+      <li>HAART immune reconstitution can cause immunologically mediated liver injury in HBV co-infection if HBV-active antivirals are withdrawn</li>
+      <li>HIV + low CD4+ → ↑ rate of hepatic fibrosis in HCV co-infection</li>
+      <li>HAART can ↑ aminotransferases and HCV RNA in HCV co-infection</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 9 -->
+<section class="sec" id="s9">
+  <div class="sec-hd">
+    <span class="sec-n">09</span>
+    <h2>Treatment of DILI — General Principles</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <ul class="bl">
+    <li>Treatment is largely <strong>supportive</strong> — except acetaminophen (NAC) and a few special cases</li>
+    <li><strong>Withdraw the suspected agent</strong> at the first sign of adverse reaction OR when aminotransferases reach <strong>5× ULN</strong>
+      <ul class="bl" style="margin-left:16px">
+        <li>Multiple studies show lethal outcomes follow continued use despite symptoms and signs of liver injury</li>
+      </ul>
+    </li>
+    <li>Acute liver failure develops in <strong>10% of DILI patients</strong>; once reached:
+      <ul class="bl" style="margin-left:16px">
+        <li>Spontaneous recovery: <strong>&lt;30%</strong></li>
+        <li>Liver transplantation: <strong>&gt;40%</strong> of those who reach liver failure severity</li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="sub">
+    <h3>Specific Treatments (Evidence-Limited)</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Agent</th><th>Indication</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td>N-acetylcysteine (NAC)</td><td>Acetaminophen overdose — first-line antidote</td><td>Proven effective; IV loading 140 mg/kg then 70 mg/kg q4h × 15–20 doses</td></tr>
+          <tr><td>N-acetylcysteine (NAC)</td><td>Non-acetaminophen acute liver failure (including DILI)</td><td>RCT showed benefit (especially early encephalopathy); NOT FDA-approved for this indication</td></tr>
+          <tr><td>Glucocorticoids</td><td>DILI with allergic features; checkpoint inhibitor hepatitis</td><td>Occasional use; uncertain overall value; corticosteroids can virtually always be discontinued after 6 months in nitrofurantoin/autoimmune-like DILI</td></tr>
+          <tr><td>Silibinin (milk thistle active compound)</td><td>Amanita phalloides (mushroom) poisoning</td><td>Occasionally used; questionable value</td></tr>
+          <tr><td>Ursodeoxycholic acid (UDCA)</td><td>Cholestatic drug hepatotoxicity</td><td>Occasionally used; uncertain value</td></tr>
+          <tr><td>IV Carnitine</td><td>Valproate hepatotoxicity</td><td>May ameliorate; valproate depletes carnitine</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="co wrn">
+    <div class="co-t">⚠ Direct Toxin — Don't Miss Other Organs</div>
+    In cases of direct hepatotoxins (e.g., acetaminophen, carbon tetrachloride), <strong>liver involvement should not divert attention from renal or other organ involvement</strong>, which may also threaten survival independently.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 10 -->
+<section class="sec" id="s10">
+  <div class="sec-hd">
+    <span class="sec-n">10</span>
+    <h2>Quick Reference Master Table</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Drug</th><th>Type</th><th>Pattern</th><th>Key Clinical Pearl</th></tr></thead>
+      <tbody>
+        <tr><td>Acetaminophen</td><td>Direct toxic</td><td>Centrilobular necrosis</td><td>Very high ALT, low bilirubin; antidote = NAC; toxicity ↑ in alcoholics and with fasting</td></tr>
+        <tr><td>Amoxicillin-clavulanate</td><td>Idiosyncratic</td><td>Mixed/cholestatic</td><td>#1 DILI drug; delayed onset (after course ends); can → vanishing bile duct syndrome</td></tr>
+        <tr><td>INH</td><td>Idiosyncratic</td><td>Hepatocellular (viral-like)</td><td>Adaptation common (10%); age-related severity; fatal if continued despite jaundice</td></tr>
+        <tr><td>Valproate</td><td>Toxic + idiosyncratic</td><td>Microvesicular steatosis</td><td>Children &gt; adults; mitochondrial disease ↑ risk; carnitine depleted; metabolite = 4-pentenoic acid</td></tr>
+        <tr><td>Nitrofurantoin</td><td>Idiosyncratic</td><td>Hepatocellular/autoimmune</td><td>+ ANA/SMA/AMA; may need steroids; also pulmonary fibrosis; cirrhosis if missed</td></tr>
+        <tr><td>Minocycline</td><td>Idiosyncratic</td><td>Autoimmune hepatitis-like</td><td>Teenage acne treatment; repeat exposure; similar to nitrofurantoin</td></tr>
+        <tr><td>Hydralazine</td><td>Idiosyncratic</td><td>Autoimmune hepatitis-like</td><td>+ ANA; drug-induced lupus overlap</td></tr>
+        <tr><td>α-Methyldopa</td><td>Idiosyncratic</td><td>Autoimmune/chronic hepatitis</td><td>+ ANA; can → cirrhosis</td></tr>
+        <tr><td>Amiodarone</td><td>Toxic + idiosyncratic</td><td>Pseudoalcoholic hepatitis</td><td>Mallory's hyaline; lamellar bodies on EM; injury persists months after stopping</td></tr>
+        <tr><td>Statins</td><td>Idiosyncratic</td><td>Mixed (rare)</td><td>No monitoring needed; safe in HCV and NAFLD</td></tr>
+        <tr><td>TMP-SMX</td><td>Idiosyncratic</td><td>Hepatocellular ± cholestatic</td><td>Eosinophilia + rash + DRESS; risk ↑ in HIV</td></tr>
+        <tr><td>Anabolic steroids</td><td>Direct cholestatic</td><td>Bland cholestasis</td><td>Young male; very high bilirubin, low ALT; body-building supplement</td></tr>
+        <tr><td>Oral contraceptives</td><td>Other</td><td>Cholestasis/adenoma</td><td>No necrosis; genetically determined; links to cholestasis of pregnancy</td></tr>
+        <tr><td>Methotrexate</td><td>Toxic (cumulative)</td><td>Fibrosis/cirrhosis</td><td>Dose-dependent; monitor for fibrosis with cumulative exposure</td></tr>
+        <tr><td>Oxaliplatin</td><td>Vascular</td><td>Nodular regenerative hyperplasia</td><td>Portal hypertension without cirrhosis; colon cancer adjuvant therapy</td></tr>
+        <tr><td>Checkpoint inhibitors</td><td>Idiosyncratic immune</td><td>Active hepatitis</td><td>+ ANA; CD8+ lymphocytes; responds to glucocorticoids; can restart</td></tr>
+        <tr><td>Carbon tetrachloride</td><td>Direct toxic</td><td>Centrilobular zonal necrosis</td><td>Industrial toxin; classic direct hepatotoxin</td></tr>
+        <tr><td>Amanita phalloides</td><td>Direct toxic</td><td>Massive necrosis</td><td>Lethal dose ~10 mg (one deathcap mushroom); silibinin possibly useful</td></tr>
+        <tr><td>Tetracycline (IV)</td><td>Direct/toxic</td><td>Microvesicular steatosis</td><td>High-dose IV; mitochondrial toxicity</td></tr>
+        <tr><td>NRTI antivirals</td><td>Mitochondrial toxic</td><td>Microvesicular steatosis + lactic acidosis</td><td>Didanosine + ribavirin contraindicated (severe mitochondrial toxicity)</td></tr>
+        <tr><td>Pyrrolizidine alkaloids</td><td>Toxic</td><td>Venoocclusive disease</td><td>Contaminate Chinese herbal preparations; sinusoidal hepatic vein obstruction</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 11 -->
+<section class="sec" id="s11">
+  <div class="sec-hd">
+    <span class="sec-n">11</span>
+    <h2>Exam Traps</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">Amoxicillin-clavulanate hepatotoxicity — the timing trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 55-year-old woman was treated for community-acquired pneumonia with amoxicillin-clavulanate 10 days ago. The antibiotic course has been completed. She now presents with jaundice and pruritus. Her bilirubin is 8 mg/dL, ALP is 4× ULN, ALT is 2.5× ULN. What is the most likely diagnosis?</div>
+      <div class="trap-a"><strong>Drug-induced cholestatic hepatitis from amoxicillin-clavulanate.</strong> The key trap: liver injury from amoxicillin-clavulanate can manifest AFTER the drug has already been stopped (delayed onset is characteristic). The cholestatic pattern (low R-value, high ALP, pruritus) and the recent antibiotic course (even though completed) are the clues. This is the #1 most common DILI agent.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Acetaminophen — the low bilirubin paradox</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient arrives in the ED. Aminotransferases are 11,000 IU/L. Bilirubin is 2.1 mg/dL. The patient denies any drug ingestion. What is the diagnosis and what should you do?</div>
+      <div class="trap-a"><strong>Presumptive acetaminophen hepatotoxicity.</strong> The biochemical signature is extremely high aminotransferases (far exceeding viral hepatitis) with disproportionately LOW bilirubin early — this combination is the hallmark of acetaminophen's hyperacute injury. Do NOT let denial or altered mentation stop you. Measure acetaminophen levels, start N-acetylcysteine immediately, contact poison control. NAC is safe even if diagnosis is uncertain.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">INH adaptation — when to continue vs stop</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 48-year-old with a positive QuantiFERON test is started on INH prophylaxis. At month 1, ALT is 180 IU/L (ULN = 40). She is asymptomatic. What do you do?</div>
+      <div class="trap-a"><strong>Continue INH and monitor closely.</strong> Up to 10% of patients on INH develop mild aminotransferase elevations (ALT &lt;200 IU/L) in the first few weeks — this is adaptive and resolves despite continued drug use. The threshold for stopping INH is: ALT &gt;5× ULN, OR any elevation with symptoms (nausea, fatigue, jaundice, RUQ pain). Stopping for adaptive mild elevations is unnecessary. Fatal outcomes almost always occur when the drug is continued DESPITE clinically apparent illness — educate patients about symptom awareness.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Autoimmune hepatitis — or is it a drug?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 35-year-old woman presents with chronic hepatitis — elevated aminotransferases, positive ANA, elevated IgG. Liver biopsy shows interface hepatitis identical to autoimmune hepatitis. What is the most important step before diagnosing autoimmune hepatitis?</div>
+      <div class="trap-a"><strong>Obtain a thorough drug history, specifically asking about nitrofurantoin, minocycline, hydralazine, and α-methyldopa.</strong> These four drugs are the most likely to produce a phenotype of autoimmune hepatitis with high-likelihood positive ANA. Drug-induced autoimmune hepatitis is histologically indistinguishable from idiopathic AIH. If a drug is the cause, stopping it (with or without a course of corticosteroids) may resolve the disease — whereas idiopathic AIH requires long-term immunosuppression.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Anabolic steroid DILI — the profile mismatch</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 22-year-old male bodybuilder presents with jaundice. Bilirubin = 22 mg/dL. ALT = 85 IU/L. ALP is mildly elevated. No fever, no rash, no eosinophilia. He says he is only using "supplements from the gym." What is happening?</div>
+      <div class="trap-a"><strong>Anabolic steroid-induced cholestasis.</strong> The mismatch between profound jaundice (very high bilirubin) and very low ALT is the key clue — this is bland cholestasis (disruption of bile transport pumps) with minimal hepatocellular injury. Young male + cholestatic biochemistry = assume anabolic steroid until proven otherwise. "Gym supplements" often contain androgen congeners that are not declared. Resolution typically takes 10+ weeks of jaundice but is the rule.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Statins in liver disease — are they safe?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 58-year-old with well-compensated chronic hepatitis C and hypercholesterolemia is started on atorvastatin. Should his liver enzymes be monitored more closely?</div>
+      <div class="trap-a"><strong>No. Statin hepatotoxicity is NOT increased in patients with chronic hepatitis C, hepatic steatosis, or other underlying liver diseases.</strong> Statins are safe to use in these patients. Expert consensus (National Lipid Association) states that routine liver test monitoring is not required for patients on statins, and that therapy need not be discontinued for asymptomatic aminotransferase elevations. Clinically meaningful statin-related hepatotoxicity occurs at the same frequency as placebo in meta-analyses.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Valproate toxicity — the wrong patient gets the blame</span></div>
+    <div class="trap-body">
+      <div class="trap-q">An 8-year-old child on valproate for epilepsy develops jaundice, encephalopathy, and coagulopathy. ALT and bilirubin are elevated. Biopsy shows microvesicular fat and centrilobular bridging necrosis. What special workup should be considered?</div>
+      <div class="trap-a"><strong>Evaluate for mitochondrial enzyme deficiencies.</strong> Valproate hepatotoxicity is predominantly seen in children and is MORE common in persons with mitochondrial enzyme deficiencies. The mechanism involves the toxic metabolite 4-pentenoic acid, and valproate also depletes carnitine — IV carnitine may ameliorate toxicity. HLA-DR4 and B*1502 haplotypes and mutations in mitochondrial DNA polymerase gamma 1 are associated. Valproate is the #1 antiepileptic drug causing candidacy for liver transplantation in children.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">The "safe" dose of acetaminophen in alcoholics</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A known alcoholic takes 2 g/day of acetaminophen for chronic back pain, staying well within the standard recommended dose of 4 g/day. Can he safely continue this?</div>
+      <div class="trap-a"><strong>No — the toxic threshold in chronic alcoholics is as low as 2 g/day.</strong> Chronic alcohol use both induces CYP2E1 (increasing NAPQI production) AND suppresses hepatic glutathione synthesis (reducing the ability to neutralize NAPQI). Alcoholics should be explicitly warned about the dangers of even standard doses of acetaminophen. The FDA has recommended the general daily limit be reduced from 4 g to 3 g/day, with an even lower limit for chronic alcohol users.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Hy's Law — what it means and what it predicts</span></div>
+    <div class="trap-body">
+      <div class="trap-q">During Phase 3 trials of a new drug, 5 of 1,200 enrolled patients develop jaundice. No cases of liver failure have occurred yet. Should this prompt concern?</div>
+      <div class="trap-a"><strong>Yes — this is a strong Hy's Law signal that should raise serious concern.</strong> Hy's Law (named after Dr. Hyman Zimmerman) states that jaundice in clinical trials predicts a 10:1 ratio: for every 10 jaundice cases, approximately 1 acute liver failure will occur. Even if no liver failures have been seen yet in the trial, the presence of Hy's Law cases often portends failure of regulatory approval. Troglitazone is the classic example where post-marketing failure occurred because this signal was not acted upon during trials.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">CAM hepatotoxicity — asking the right question</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 40-year-old woman presents with unexplained elevated aminotransferases for 3 months. She denies taking any medications. Viral hepatitis serology is negative. What critical question remains?</div>
+      <div class="trap-a"><strong>Ask specifically about herbal remedies, dietary supplements, vitamins, and products bought at health food stores or online.</strong> Herbal and dietary supplement-related DILI now accounts for &gt;20% of all DILI cases in the USA. Patients frequently do not consider these "medications" and will not mention them unless specifically asked. Common culprits include green tea extract (Camellia sinensis), Hydroxycut, OxyElite Pro, kava, and weight-loss supplements. LiverTox (livertox.nih.gov) is the go-to reference.</div>
+    </div>
+  </div>
+
+</section>
+
+<hr class="sep">
+<footer class="footer">Harrison's Principles of Internal Medicine 22nd Ed · Chapter 351 · Toxic &amp; Drug-Induced Hepatitis · Boards Review 2026</footer>
+</main>
+
+<script>
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+/* ── HIGHLIGHT SYSTEM ──────────────────────────────── */
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+/* Save all highlights as {text, color} */
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+/* Restore highlights by finding text in DOM */
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+/* ── NOTE SYSTEM ───────────────────────────────────── */
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+/* Restore note anchors by finding ref text in DOM */
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+/* ── POPOVER ───────────────────────────────────────── */
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+/* ── MOUSE SELECTION ───────────────────────────────── */
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+/* ── CLEAR ALL ─────────────────────────────────────── */
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+/* ── SIDEBAR TOGGLE ────────────────────────────────── */
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+/* ── RESIZE ────────────────────────────────────────── */
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+/* ── STATUS BUTTONS ────────────────────────────────── */
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+/* ── NAV TRACKING ──────────────────────────────────── */
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+/* ── INIT — restore everything on page load ──────── */
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
