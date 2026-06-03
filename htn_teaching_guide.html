@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Hypertension · Exam Teaching Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);
+  border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;
+  z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;
+  display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;
+  position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;
+  line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;
+  padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blu);
+  margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}
+  .main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+/* flowchart */
+.flow{display:flex;flex-direction:column;align-items:center;gap:4px;margin:16px 0}
+.flow-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.fbox{border-radius:7px;padding:9px 14px;font-size:12.5px;text-align:center;border:1.5px solid;min-width:140px}
+.fb-n{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.fb-e{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.fb-1{background:var(--blu-l);border-color:var(--blu);color:var(--blu)}
+.fb-2{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.fb-r{background:var(--pur-l);border-color:var(--pur);color:var(--pur)}
+.farr{font-size:20px;color:var(--t3);text-align:center}
+.flab{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+
+/* ─── EXTRA COMPONENTS ─────────────────── */
+.vs2{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin:14px 0;align-items:stretch}
+.vsl{background:var(--red-l);border:1.5px solid var(--red);border-right:none;border-radius:8px 0 0 8px;padding:14px 16px}
+.vsr{background:var(--grn-l);border:1.5px solid var(--grn);border-left:none;border-radius:0 8px 8px 0;padding:14px 16px}
+.vsm{background:#fff;border-top:1.5px solid var(--bd);border-bottom:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;padding:0 10px;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:11px;color:var(--t3)}
+.vsl-lbl{font-family:"JetBrains Mono",monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;font-weight:600;margin-bottom:6px;color:var(--red)}
+.vsr-lbl{font-family:"JetBrains Mono",monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;font-weight:600;margin-bottom:6px;color:var(--grn)}
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin:12px 0}
+.fn{background:var(--blu-l);border:1.5px solid var(--blu);border-radius:6px;padding:6px 12px;font-size:12.5px;color:var(--blu-d);font-weight:500;white-space:nowrap}
+.fn.r{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.fn.g{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.fn.a{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.fn.p{background:var(--pur-l);border-color:var(--pur);color:var(--pur)}
+.fn.t{background:var(--tel-l);border-color:var(--tel);color:var(--tel)}
+.fa{font-size:18px;color:var(--t3);padding:0 2px}
+.pill{display:inline-block;padding:2px 8px;border-radius:20px;font-family:"JetBrains Mono",monospace;font-size:9px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;margin:2px}
+.pr{background:var(--red-l);color:var(--red);border:1px solid #fca5a5}
+.pg{background:var(--grn-l);color:var(--grn);border:1px solid #86efac}
+.pb{background:var(--blu-l);color:var(--blu);border:1px solid #93c5fd}
+.pa{background:var(--amb-l);color:var(--amb);border:1px solid #fcd34d}
+.pp{background:var(--pur-l);color:var(--pur);border:1px solid #c4b5fd}
+.pt{background:var(--tel-l);color:var(--tel);border:1px solid #67e8f9}
+.dblock{border:1.5px solid var(--bd);border-radius:8px;margin:14px 0;overflow:hidden}
+.dhd{background:linear-gradient(90deg,var(--sf2) 0%,#fff 100%);padding:10px 15px;font-family:"Playfair Display",serif;font-size:15px;font-weight:700;color:var(--tx);display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--bd)}
+.dbd{padding:14px 15px}
+.trial{background:#fff;border:1.5px solid var(--tel);border-radius:8px;margin:10px 0;overflow:hidden}
+.trial-hd{background:var(--tel-l);padding:9px 14px;font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--tel)}
+.trial-bd{padding:11px 14px;font-size:13px;color:var(--t2);line-height:1.65}
+.step-list{counter-reset:step;list-style:none;padding:0;margin:8px 0}
+.step-list li{position:relative;padding:6px 0 6px 36px;font-size:13.5px;color:var(--t2);line-height:1.6;border-bottom:1px dashed var(--bd)}
+.step-list li:last-child{border-bottom:none}
+.step-list li::before{counter-increment:step;content:counter(step);position:absolute;left:0;top:5px;background:var(--blu);color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono",monospace;font-size:9px;font-weight:600}
+.step-list li b,.step-list li strong{color:var(--tx)}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+
+<header class="hero">
+  <div class="hero-badge">Stage A Boards · Exam-Focused Teaching Guide · HTN #4365931</div>
+  <h1>Hypertension</h1>
+  <div class="hero-sub">Built from 21 Past Exam Questions + Full Harrison's Review</div>
+  <div class="hero-authors">Pathophysiology · Pharmacology · Trials · Treatment Algorithm · Crises · Special Populations</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">21</div><div class="stat-l">Exam Qs</div></div>
+    <div class="stat-box"><div class="stat-n">12</div><div class="stat-l">Drug Classes</div></div>
+    <div class="stat-box"><div class="stat-n">5</div><div class="stat-l">Special Pops</div></div>
+    <div class="stat-box"><div class="stat-n">12</div><div class="stat-l">Traps</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Physiology</a>
+    <a class="toc-a" href="#s2">Measurement</a>
+    <a class="toc-a" href="#s3">Lifestyle</a>
+    <a class="toc-a" href="#s4">First-Line Drugs</a>
+    <a class="toc-a" href="#s5">Second-Line Drugs</a>
+    <a class="toc-a" href="#s6">Other Drugs</a>
+    <a class="toc-a" href="#s7">Combinations &amp; Trials</a>
+    <a class="toc-a" href="#s8">Treatment Algorithm</a>
+    <a class="toc-a" href="#s9">Special Populations</a>
+    <a class="toc-a" href="#s10">HTN Crisis</a>
+    <a class="toc-a" href="#s11">MAHA</a>
+    <a class="toc-a" href="#s12">Pulse Pressure</a>
+    <a class="toc-a" href="#s13">Quick Ref</a>
+    <a class="toc-a" href="#s14">★ Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══ SECTION 1: PHYSIOLOGY ═══════════════════════════════════════════════ -->
+<section class="sec" id="s1">
+  <div class="sec-hd"><span class="sec-n">01</span><h2>BP Physiology &amp; Pathophysiology</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key"><div class="co-t">Core Equation</div>
+    <strong>BP = Cardiac Output × Total Peripheral Resistance</strong><br>
+    CO = Heart Rate × Stroke Volume. TPR set by small arteries and arterioles.
+  </div>
+
+  <div class="sub"><h3>Regulatory Systems</h3>
+    <div class="g2">
+      <div class="card"><div class="clabel c-r">Vasoconstrictors (raise BP)</div>
+        <ul class="bl">
+          <li><strong>Sympathetic nervous system</strong> — epinephrine/norepinephrine → vasoconstriction, ↑ HR</li>
+          <li><strong>RAAS</strong> — Angiotensin II: vasoconstricts + stimulates aldosterone release → Na⁺/water retention</li>
+          <li><strong>Endothelin</strong> — potent vasoconstrictor from endothelium</li>
+        </ul>
+      </div>
+      <div class="card"><div class="clabel c-g">Vasodilators (lower BP)</div>
+        <ul class="bl">
+          <li><strong>Nitric oxide (NO)</strong> — endothelium-derived vasodilator</li>
+          <li><strong>Bradykinin</strong> — promotes vasodilation (ACEi prevents its breakdown)</li>
+          <li><strong>Atrial natriuretic peptide (ANP)</strong> — promotes Na⁺ excretion</li>
+          <li><strong>Prostaglandins (PGE₂, PGI₂)</strong> — vasodilatory</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub"><h3>Guyton's Pressure-Natriuresis Model</h3>
+    <ul class="bl">
+      <li>The kidney ultimately dictates long-term BP by controlling sodium excretion</li>
+      <li>↑ Na intake → ↑ extracellular volume → ↑ CO → eventually ↑ PVR → sustained HTN</li>
+      <li>Salt-sensitive patients (Black adults, elderly, CKD, DM): greater BP rise per gram of Na ingested</li>
+    </ul>
+  </div>
+
+  <div class="sub"><h3>Drug Mechanisms Linked to Physiology</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Drug Class</th><th>Where It Acts</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td>Thiazides</td><td>Distal convoluted tubule (Na/Cl cotransporter)</td><td>↑ Na excretion → ↓ volume → ↓ BP</td></tr>
+        <tr><td>Loop diuretics</td><td>Loop of Henle (NKCC2)</td><td>↑ Na/water excretion — powerful but short-acting</td></tr>
+        <tr><td>K-sparing diuretics</td><td>Collecting duct (ENaC channel)</td><td>Retain K⁺; weak diuresis</td></tr>
+        <tr><td>MRAs</td><td>Mineralocorticoid receptor in collecting duct</td><td>Block aldosterone → ↑ Na excretion + K retention</td></tr>
+        <tr><td>ACEi</td><td>ACE enzyme</td><td>↓ Ang II + ↑ bradykinin → vasodilation + ↓ aldosterone</td></tr>
+        <tr><td>ARBs</td><td>AT1 receptor</td><td>Block Ang II action; no bradykinin effect</td></tr>
+        <tr><td>DHP-CCBs</td><td>Vascular L-type Ca²⁺ channel</td><td>Arteriolar vasodilation → ↓ PVR</td></tr>
+        <tr><td>Non-DHP CCBs</td><td>Cardiac + vascular Ca²⁺ channel</td><td>↓ HR + ↓ contractility + vasodilation</td></tr>
+        <tr><td>Beta-blockers</td><td>β₁/β₂ adrenergic receptors</td><td>↓ HR, ↓ SV, ↓ renin release</td></tr>
+        <tr><td>Alpha-1 blockers</td><td>α₁ adrenergic receptors on vessels</td><td>Vasodilation → ↓ PVR</td></tr>
+        <tr><td>Central α₂ agonists</td><td>Brainstem α₂ receptors</td><td>↓ Central sympathetic outflow</td></tr>
+        <tr><td>Direct vasodilators</td><td>Vascular smooth muscle directly</td><td>Arteriolar dilation → ↓ PVR</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ SECTION 2: MEASUREMENT ══════════════════════════════════════════════ -->
+<section class="sec" id="s2">
+  <div class="sec-hd"><span class="sec-n">02</span><h2>BP Measurement, Classification &amp; Monitoring</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub"><h3>ACC/AHA 2017 Classification</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Category</th><th>SBP (mmHg)</th><th>DBP (mmHg)</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>Normal</td><td>&lt;120</td><td>&lt;80</td><td>Monitor annually; encourage healthy lifestyle</td></tr>
+        <tr><td>Elevated</td><td>120–129</td><td>&lt;80</td><td>Active lifestyle modification; reassess 3–6 months</td></tr>
+        <tr><td><strong>Stage 1 HTN</strong></td><td>130–139</td><td>80–89</td><td>Lifestyle ± drug (if 10-yr CVD risk ≥10%)</td></tr>
+        <tr><td><strong>Stage 2 HTN</strong></td><td>≥140</td><td>≥90</td><td>Lifestyle + drug therapy immediately</td></tr>
+        <tr><td>Hypertensive Crisis</td><td>≥180</td><td>≥110</td><td>Urgency or Emergency — see Section 10</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="sub"><h3>White Coat vs. Masked Hypertension</h3>
+    <div class="vs2">
+      <div class="vsl"><div class="vsl-lbl">White Coat HTN</div>
+        <ul class="bl">
+          <li>Office BP: elevated (≥130/80)</li>
+          <li>Out-of-office BP: <strong>normal</strong></li>
+          <li>Not fully benign — some CV risk remains</li>
+          <li>Avoid overtreatment → confirm with ABPM</li>
+        </ul>
+      </div>
+      <div class="vsm">BP</div>
+      <div class="vsr"><div class="vsr-lbl">Masked HTN</div>
+        <ul class="bl">
+          <li>Office BP: normal</li>
+          <li>Out-of-office BP: <strong>elevated</strong></li>
+          <li>Higher CV risk than white coat HTN</li>
+          <li>Commonly missed → under-treated</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub"><h3>Ambulatory BP Monitoring (ABPM) — Exam Tested (Q15)</h3>
+    <p>Records BP every 15–30 min over 24 hours. The gold standard for true BP assessment.</p>
+    <div class="g2">
+      <div class="card"><div class="clabel c-b">What ABPM Provides</div>
+        <ul class="bl">
+          <li>Confirms white coat vs masked HTN</li>
+          <li>Detects <strong>nocturnal dipping</strong> (normal ≥10% fall at night; non-dippers = higher CV risk)</li>
+          <li>Identifies <strong>morning BP surge</strong> (peak on waking — links to stroke/MI timing)</li>
+          <li>24-hour BP burden — predicts CV outcomes better than office BP</li>
+          <li>Evaluates true treatment efficacy (vs trough-level effect)</li>
+          <li>Distinguishes true resistant HTN from white coat pseudo-resistance</li>
+        </ul>
+      </div>
+      <div class="card"><div class="clabel c-g">HBPM (Home BP Monitoring)</div>
+        <ul class="bl">
+          <li>Use validated <strong>upper-arm</strong> device (not wrist)</li>
+          <li>≥2 readings AM and PM × 5–7 days</li>
+          <li>Normal HBPM: &lt;135/85 mmHg (lower threshold than office)</li>
+          <li>Improves adherence; monitors treatment response</li>
+          <li><strong>Cannot assess nocturnal dipping</strong> — ABPM needed for that</li>
+        </ul>
+      </div>
+    </div>
+    <div class="co prl"><div class="co-t">DIP Pattern (ABPM)</div>
+      Non-dippers (fail to drop BP ≥10% at night) and reverse-dippers have significantly higher rates of LVH, stroke, CKD progression, and cardiovascular events. <strong>OSA is the classic cause of non-dipping.</strong>
+    </div>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ SECTION 3: LIFESTYLE ══════════════════════════════════════════════════ -->
+<section class="sec" id="s3">
+  <div class="sec-hd"><span class="sec-n">03</span><h2>Nonpharmacologic Interventions (Lifestyle)</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key"><div class="co-t">General Principle</div>
+    All lifestyle interventions show a <strong>linear dose-response</strong>. Benefit is greater in patients WITH hypertension. Combining ≥2 interventions provides additive BP reduction. Lifestyle also enhances medication effects.
+  </div>
+
+  <div class="sub"><h3>Summary Table — Expected SBP Reductions</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Intervention</th><th>SBP ↓ (with HTN)</th><th>SBP ↓ (without HTN)</th><th>Key Mechanism / Dose Target</th></tr></thead>
+      <tbody>
+        <tr><td><strong>DASH Diet</strong></td><td>~5 mmHg</td><td>~2–3 mmHg</td><td>High fruits/veg/low-fat dairy, low sat fat; no specialty foods needed</td></tr>
+        <tr><td><strong>Weight Loss</strong></td><td>~1 mmHg per kg lost</td><td>~2–3 mmHg</td><td>~5 mmHg for 10 lb (4.5 kg) loss; BMI target &lt;25</td></tr>
+        <tr><td><strong>Sodium Reduction</strong></td><td>~5 mmHg</td><td>~2–3 mmHg</td><td>Target &lt;1500–2300 mg Na/day; ~5.5 mmHg per 2300 mg reduction</td></tr>
+        <tr><td><strong>Potassium Supplementation</strong></td><td>~5 mmHg</td><td>~3 mmHg</td><td>Target 3500 mg/d; DASH provides 4700 mg/d; ~3× benefit in Black adults</td></tr>
+        <tr><td><strong>Aerobic Exercise</strong></td><td>~5 mmHg</td><td>~3–5 mmHg</td><td>40–60 min, ≥3×/wk, ≥150 min/wk total</td></tr>
+        <tr><td><strong>Aerobic + Resistance</strong></td><td>~7 mmHg</td><td>—</td><td>Greatest combined effect in meta-analysis of ~400 trials</td></tr>
+        <tr><td><strong>Alcohol Reduction</strong></td><td>&gt;5 mmHg</td><td>Varies</td><td>Target ≤2 drinks/day (men), ≤1 (women); each drink ≈ 1.5 mmHg SBP</td></tr>
+        <tr><td><strong>Smoking Cessation</strong></td><td>Minimal direct BP effect</td><td>—</td><td>Massive CV mortality benefit; does NOT significantly lower BP numbers</td></tr>
+      </tbody>
+    </table></div>
+    <div class="co dan"><div class="co-t">Trap: Smoking Cessation vs BP Lowering (Q20)</div>
+      Smoking cessation is the most impactful single lifestyle change for <em>overall cardiovascular mortality</em> — but it barely moves the BP number. If the question asks "what reduces CV risk most" → smoking cessation. If it asks "what lowers BP most" → DASH diet + sodium restriction.
+    </div>
+  </div>
+
+  <div class="sub"><h3>Potassium — Key Details (Often Missed)</h3>
+    <ul class="bl">
+      <li>Dietary potassium preferred over pills — naturally lowers sodium too</li>
+      <li>Optimal supplemental dose: ~1200 mg/day additional (U-shaped dose-response)</li>
+      <li><strong>Contraindications to K⁺ supplementation:</strong> hyperkalemia, advanced CKD, patients on K-sparing diuretics, ACEi, ARBs, or MRAs</li>
+      <li>Salt substitutes (25% KCl replacing NaCl) → ↓ stroke 14%, CVD 13%, all-cause mortality 12% (Chinese RCT)</li>
+    </ul>
+  </div>
+
+  <div class="sub"><h3>Weight Loss Methods</h3>
+    <ul class="bl">
+      <li>Behavioral counseling: calorie reduction + physical activity → avg 10 lb loss in 6–12 months → ~5 mmHg SBP</li>
+      <li><strong>GLP-1 receptor agonists</strong> (semaglutide, liraglutide): FDA-approved for weight loss; also reduce CV events; modest direct BP effect</li>
+      <li><strong>SGLT2 inhibitors</strong>: modest BP reduction ~5/2 mmHg; primarily for DM/CKD/HF; not FDA-approved as antihypertensives</li>
+      <li>Bariatric surgery: for BMI ≥40 (or ≥35 + comorbidity) — significant and sustained weight/BP reduction</li>
+    </ul>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ SECTION 4: FIRST-LINE DRUGS ═══════════════════════════════════════════ -->
+<section class="sec" id="s4">
+  <div class="sec-hd"><span class="sec-n">04</span><h2>First-Line Antihypertensive Drugs</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key"><div class="co-t">Meta-Analysis of 123 RCTs — Active vs Placebo</div>
+    Antihypertensive treatment: CVD ↓20% | CHD ↓17% | Stroke ↓27% | Heart Failure ↓28% | All-cause mortality ↓13%<br>
+    Benefit extends to baseline SBP 130–139 mmHg. <strong>First-line: Thiazides, CCBs, ACEi, ARBs.</strong> Beta-blockers inferior in head-to-head trials.
+  </div>
+
+  <!-- THIAZIDES -->
+  <div class="dblock">
+    <div class="dhd">1 · Thiazide &amp; Thiazide-like Diuretics <span class="pill pb">Best in Class</span></div>
+    <div class="dbd">
+      <div class="g2">
+        <div class="card"><div class="clabel c-b">Mechanism &amp; Drugs</div>
+          <ul class="bl">
+            <li>Block <strong>Na⁺/Cl⁻ cotransporter (NCC)</strong> in the distal convoluted tubule</li>
+            <li>Long-term: also ↓ peripheral vascular resistance</li>
+            <li><strong>Chlorthalidone</strong> 12.5–25 mg QD — preferred (longer half-life, used in ALLHAT)</li>
+            <li><strong>HCTZ</strong> 12.5–50 mg QD — widely used but inferior to chlorthalidone</li>
+            <li><strong>Indapamide</strong> 1.25–2.5 mg QD — fewer metabolic effects</li>
+            <li>Expected SBP reduction: <strong>~12 mmHg</strong></li>
+          </ul>
+        </div>
+        <div class="card"><div class="clabel c-r">Side Effects</div>
+          <ul class="bl">
+            <li><strong>Hypokalemia</strong> ↓K⁺ — most common clinically important SE; treat with amiloride or Slow-K</li>
+            <li><strong>Hyponatremia</strong> — especially elderly women; risk of seizures</li>
+            <li><strong>Hyperuricemia / Gout</strong> — compete with urate for excretion</li>
+            <li><strong>Hyperglycemia</strong> — impair insulin; worse with K⁺ depletion</li>
+            <li><strong>Dyslipidemia</strong> — mild, transient ↑ TG and LDL</li>
+            <li><strong>Hypercalcemia</strong> ↑Ca²⁺ — retain calcium in DCT → PREVENTS kidney stones; ↑ bone density</li>
+          </ul>
+        </div>
+      </div>
+      <div class="co dan"><div class="co-t">Trap: Thiazides vs Loop for Calcium</div>
+        <strong>Thiazides → ↑Ca²⁺ (retain calcium)</strong> → prevent calcium nephrolithiasis, protect bone<br>
+        <strong>Loop diuretics → ↓Ca²⁺ (waste calcium)</strong> → used to treat hypercalcemia crisis<br>
+        Mnemonic: <em>"Thiazides keep Ca in — Loops let Ca out"</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACEi -->
+  <div class="dblock">
+    <div class="dhd">2 · ACE Inhibitors (ACEi) <span class="pill pb">First-Line</span></div>
+    <div class="dbd">
+      <div class="g2">
+        <div class="card"><div class="clabel c-b">Mechanism &amp; Drugs</div>
+          <ul class="bl">
+            <li>Block ACE → ↓ Angiotensin II + ↑ Bradykinin (bradykinin not broken down)</li>
+            <li><strong>Lisinopril</strong> 10–40 mg QD (preferred — longer-acting)</li>
+            <li><strong>Enalapril</strong> 5–40 mg QD/BID</li>
+            <li><strong>Ramipril</strong> 2.5–20 mg QD</li>
+            <li><strong>Benazepril</strong> 10–40 mg QD</li>
+            <li><strong>Trandolapril</strong> 1–4 mg QD</li>
+            <li>Expected SBP reduction: <strong>~12 mmHg</strong></li>
+          </ul>
+        </div>
+        <div class="card"><div class="clabel c-r">Side Effects &amp; CI</div>
+          <ul class="bl">
+            <li><strong>Dry cough</strong> — bradykinin-mediated; 5–15% (higher in Asian women) → switch to ARB</li>
+            <li><strong>Angioedema</strong> — bradykinin-mediated; life-threatening; STOP drug</li>
+            <li><strong>Hyperkalemia</strong> — ↓ aldosterone → ↑ K⁺; especially CKD</li>
+            <li><strong>AKI</strong> in bilateral renal artery stenosis (remove efferent tone → lose GFR)</li>
+            <li><strong>Hypotension</strong> — especially first dose with volume depletion</li>
+            <li><strong>CI: Pregnancy</strong> (teratogenic), bilateral RAS, prior angioedema; NEVER with ARB</li>
+          </ul>
+        </div>
+      </div>
+      <div class="co suc"><div class="co-t">Compelling Indications for ACEi</div>
+        <strong>DM + proteinuria, CKD with albuminuria, HFrEF, post-MI with reduced EF, high CV risk (HOPE trial)</strong><br>
+        In CKD: ACEi dilates efferent arteriole → ↓ intraglomerular pressure → slows progression.
+      </div>
+    </div>
+  </div>
+
+  <!-- ARBs -->
+  <div class="dblock">
+    <div class="dhd">3 · Angiotensin Receptor Blockers (ARBs) <span class="pill pb">First-Line</span></div>
+    <div class="dbd">
+      <div class="g2">
+        <div class="card"><div class="clabel c-b">Mechanism &amp; Drugs</div>
+          <ul class="bl">
+            <li>Block AT1 receptor → Ang II cannot bind; NO bradykinin effect</li>
+            <li><strong>Losartan</strong> 50–100 mg QD/BID</li>
+            <li><strong>Valsartan</strong> 80–320 mg QD</li>
+            <li><strong>Candesartan</strong> 8–32 mg QD</li>
+            <li><strong>Olmesartan</strong> 20–40 mg QD</li>
+            <li><strong>Azilsartan</strong> 40–80 mg QD</li>
+            <li>Expected SBP reduction: <strong>~12 mmHg</strong></li>
+          </ul>
+        </div>
+        <div class="card"><div class="clabel c-g">Key Advantage vs ACEi</div>
+          <ul class="bl">
+            <li><strong>No cough</strong> (no bradykinin effect)</li>
+            <li><strong>Angioedema very rare</strong></li>
+            <li>Same indications as ACEi</li>
+            <li>Use when ACEi causes intolerable cough</li>
+            <li>Same CI: pregnancy, bilateral RAS</li>
+            <li><strong>NEVER combine with ACEi</strong> (ONTARGET: ↑ AKI, hyperkalemia, hypotension, no CV benefit)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CCBs -->
+  <div class="dblock">
+    <div class="dhd">4 · Calcium Channel Blockers (CCBs) <span class="pill pb">First-Line</span></div>
+    <div class="dbd">
+      <div class="vs2">
+        <div class="vsl"><div class="vsl-lbl">Dihydropyridines (DHP) — Preferred for HTN</div>
+          <ul class="bl">
+            <li>Act primarily on <strong>vascular smooth muscle</strong></li>
+            <li>Potent vasodilation, little cardiac effect</li>
+            <li><strong>Amlodipine</strong> 2.5–10 mg QD — preferred (long t½ 35–50h)</li>
+            <li><strong>Nifedipine LA</strong> 30–90 mg QD</li>
+            <li><strong>Felodipine</strong> 2.5–10 mg QD</li>
+            <li>SEs: peripheral edema (~10%), gingival hyperplasia, flushing</li>
+            <li>CI: HFrEF</li>
+            <li><strong>SAFE with beta-blockers</strong></li>
+            <li>Expected SBP reduction: <strong>~10 mmHg</strong></li>
+          </ul>
+        </div>
+        <div class="vsm">CCB</div>
+        <div class="vsr"><div class="vsr-lbl">Non-Dihydropyridines (Rate-Limiting)</div>
+          <ul class="bl">
+            <li>Act on heart AND vessels → ↓ HR + vasodilation</li>
+            <li><strong>Diltiazem ER</strong> 120–360 mg QD</li>
+            <li><strong>Verapamil ER</strong> 100–300 mg QD (evening)</li>
+            <li>Used for: rate control AFib, angina</li>
+            <li>SEs: bradycardia, AV block, constipation</li>
+            <li>CI: HFrEF, high-grade AV/SA block</li>
+            <li><strong>NEVER with beta-blockers</strong> — risk of severe bradycardia, cardiac arrest</li>
+            <li>Expected SBP reduction: <strong>~9 mmHg</strong></li>
+          </ul>
+        </div>
+      </div>
+      <div class="co prl"><div class="co-t">Amlodipine — Why It Wins (Q4)</div>
+        ALLHAT: amlodipine = chlorthalidone for primary CV outcome (fatal CHD/MI). ACCOMPLISH: amlodipine + ACEi superior to HCTZ + ACEi for CV events. Best stroke prevention among all drug classes. No metabolic side effects. Preferred in elderly.
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ SECTION 5: SECOND-LINE DRUGS ═════════════════════════════════════════ -->
+<section class="sec" id="s5">
+  <div class="sec-hd"><span class="sec-n">05</span><h2>Second-Line &amp; Add-On Drugs</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <!-- BETA-BLOCKERS -->
+  <div class="dblock">
+    <div class="dhd">1 · Beta-Blockers <span class="pill pa">First-Step Only if IHD/HF</span></div>
+    <div class="dbd">
+      <div class="co wrn"><div class="co-t">Role in Hypertension</div>
+        Beta-blockers are <strong>NOT first-step for uncomplicated HTN</strong>. They are inferior to thiazides, CCBs, and RAAS blockers for stroke prevention and overall CV events in head-to-head trials. They are first-step ONLY when clinically indicated (IHD, HF, rate control).
+      </div>
+      <div class="tw"><table>
+        <thead><tr><th>Generation</th><th>Selectivity</th><th>Key Drugs</th><th>Key Features</th></tr></thead>
+        <tbody>
+          <tr><td>1st Gen (non-selective)</td><td>β₁ + β₂</td><td><strong>Propranolol</strong>, Nadolol, Timolol</td><td>Bronchoconstriction risk; blocks peripheral T4→T3 conversion; treats thyrotoxicosis, tremor, portal HTN, migraine</td></tr>
+          <tr><td>2nd Gen (cardioselective)</td><td>β₁ only</td><td><strong>Metoprolol</strong> 50–200 mg QD, <strong>Atenolol</strong>, Bisoprolol</td><td>Safer in lung disease; preferred in HFrEF (metoprolol succinate CR)</td></tr>
+          <tr><td>3rd Gen (vasodilatory)</td><td>α₁ + β₁ + β₂</td><td><strong>Carvedilol</strong> 20–80 mg QD, <strong>Labetalol</strong></td><td>Vasodilation via α₁-blockade; carvedilol in HFrEF; labetalol IV for HTN emergency</td></tr>
+          <tr><td>3rd Gen (vasodilatory)</td><td>β₁ + NO release</td><td><strong>Nebivolol</strong> 5–40 mg QD</td><td>Newest; releases NO → vasodilation; very low side-effect profile; well-tolerated in elderly</td></tr>
+        </tbody>
+      </table></div>
+      <div class="co dan"><div class="co-t">Propranolol — Non-Selective (Q9)</div>
+        Propranolol blocks <strong>β₁ AND β₂</strong>. It is NOT cardioselective. β₂-blockade → bronchoconstriction (CI in asthma/COPD); masks hypoglycemia symptoms. Cardioselective: atenolol, metoprolol, bisoprolol. Alpha+Beta: labetalol, carvedilol. <em>Avoid atenolol for HTN: inferior per meta-analyses.</em>
+      </div>
+      <div class="tw"><table>
+        <thead><tr><th>Side Effect</th><th>Mechanism</th></tr></thead>
+        <tbody>
+          <tr><td>Bronchoconstriction</td><td>β₂ blockade (non-selective only; cardioselective safer but still caution)</td></tr>
+          <tr><td>Masks hypoglycemia</td><td>β₂ blockade prevents tachycardia/tremor warning; sweating preserved (α-mediated)</td></tr>
+          <tr><td>Bradycardia / AV block</td><td>β₁ blockade → ↓ HR and AV conduction</td></tr>
+          <tr><td>Fatigue, depression, sexual dysfunction</td><td>CNS β-blockade</td></tr>
+          <tr><td>Hyperglycemia, dyslipidemia</td><td>Metabolic effects</td></tr>
+          <tr><td>Raynaud phenomenon</td><td>β₂ blockade → peripheral vasoconstriction</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- MRAs -->
+  <div class="dblock">
+    <div class="dhd">2 · Mineralocorticoid Receptor Antagonists (MRAs) <span class="pill pp">Best 4th-Line for Resistant HTN</span></div>
+    <div class="dbd">
+      <div class="g2">
+        <div class="card"><div class="clabel c-b">Mechanism</div>
+          <ul class="bl">
+            <li>Block <strong>aldosterone receptor (mineralocorticoid receptor)</strong> in DCT, connecting tubule, and cortical collecting duct</li>
+            <li>↑ Na⁺/water excretion + ↑ K⁺ retention (potassium-sparing)</li>
+            <li>Expected SBP reduction: <strong>~9 mmHg</strong></li>
+          </ul>
+        </div>
+        <div class="card"><div class="clabel c-a">Indications</div>
+          <ul class="bl">
+            <li><strong>Primary aldosteronism</strong> — first-line treatment</li>
+            <li><strong>Resistant HTN</strong> — best 4th-line agent; highly effective especially with subclinical aldosteronism</li>
+            <li>HFrEF (RALES: spironolactone; EMPHASIS-HF: eplerenone)</li>
+            <li>Post-MI with EF ≤40% + DM or HF (EPHESUS: eplerenone)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="vs2">
+        <div class="vsl"><div class="vsl-lbl">Spironolactone 25–100 mg QD — Non-Selective</div>
+          <ul class="bl">
+            <li>Blocks mineralocorticoid receptor</li>
+            <li>Also blocks androgen and progesterone receptors</li>
+            <li>SE: <strong>gynecomastia</strong>, breast tenderness, menstrual irregularity, ↓ libido, erectile dysfunction (9–20%)</li>
+            <li>Older, cheaper, more potent</li>
+          </ul>
+        </div>
+        <div class="vsm">vs</div>
+        <div class="vsr"><div class="vsr-lbl">Eplerenone 50–100 mg BID — Selective</div>
+          <ul class="bl">
+            <li>Selective for mineralocorticoid receptor ONLY</li>
+            <li><strong>No gynecomastia or sexual side effects</strong></li>
+            <li>Shorter half-life, more expensive</li>
+            <li>Use when spironolactone causes intolerable SEs</li>
+          </ul>
+        </div>
+      </div>
+      <div class="co key"><div class="co-t">Finerenone — New Non-Steroidal MRA</div>
+        <strong>Finerenone</strong> 10–20 mg QD: newest MRA; non-steroidal structure → better cardiac/renal selectivity; fewer sex hormone side effects than spironolactone. Evidence in diabetic CKD (FIDELIO-DKD, FIGARO-DKD trials): reduced CKD progression and CV events. Better tolerated than spironolactone and eplerenone.
+      </div>
+      <div class="co dan"><div class="co-t">Key SE for All MRAs</div>
+        <strong>Hyperkalemia</strong> — most dangerous. Avoid in CKD with K⁺ &gt;5.0, or with ACEi/ARB without careful monitoring. Monitor K⁺ and creatinine regularly.
+      </div>
+    </div>
+  </div>
+
+  <!-- K-SPARING -->
+  <div class="dblock">
+    <div class="dhd">3 · Potassium-Sparing Diuretics <span class="pill pg">Adjunct</span></div>
+    <div class="dbd">
+      <ul class="bl">
+        <li>Block <strong>ENaC (epithelial Na⁺ channel)</strong> in collecting duct — aldosterone-independent</li>
+        <li><strong>Amiloride</strong> 5–10 mg QD/BID — drug of choice for thiazide-induced hypokalemia</li>
+        <li><strong>Triamterene</strong> 50–100 mg QD/BID — often combined with HCTZ (Dyazide)</li>
+        <li>Minimal direct BP effect — always combined with another diuretic</li>
+        <li>Main SE: <strong>hyperkalemia</strong> — avoid in CKD, with ACEi/ARB</li>
+      </ul>
+      <div class="co prl"><div class="co-t">Amiloride vs Spironolactone — Different Mechanisms</div>
+        <strong>Amiloride</strong> → blocks ENaC directly (aldosterone-independent)<br>
+        <strong>Spironolactone</strong> → blocks mineralocorticoid receptor (competes with aldosterone)<br>
+        Both are potassium-sparing but through completely different mechanisms.
+      </div>
+    </div>
+  </div>
+
+  <!-- LOOP -->
+  <div class="dblock">
+    <div class="dhd">4 · Loop Diuretics <span class="pill pa">Volume / CKD</span></div>
+    <div class="dbd">
+      <ul class="bl">
+        <li>Block <strong>NKCC2 cotransporter</strong> in thick ascending loop of Henle — most powerful diuretic site</li>
+        <li><strong>Furosemide</strong> 20–80 mg BID, <strong>Torsemide</strong> 5–10 mg QD, <strong>Bumetanide</strong> 1 mg ≈ 40 mg furosemide</li>
+        <li><strong>NOT first-line for chronic HTN</strong> — short-acting; counterregulatory activation; poor sustained BP control</li>
+        <li>Preferred when <strong>GFR &lt;30</strong> (thiazides lose efficacy); symptomatic HF; using potent vasodilator (minoxidil)</li>
+        <li>Recent RCT: chlorthalidone effective even in eGFR &lt;23 (↓ 10.5 mmHg + halved albumin/creatinine ratio)</li>
+        <li>SEs: hypokalemia, <strong>hypocalcemia</strong> (opposite of thiazides), hypomagnesemia, ototoxicity (high-dose IV)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ SECTION 6: OTHER DRUGS ═══════════════════════════════════════════════ -->
+<section class="sec" id="s6">
+  <div class="sec-hd"><span class="sec-n">06</span><h2>Other Antihypertensive Drugs</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <!-- ALPHA BLOCKERS -->
+  <div class="dblock">
+    <div class="dhd">1 · α₁-Receptor Blockers <span class="pill pr">Not First-Line (ALLHAT)</span></div>
+    <div class="dbd">
+      <ul class="bl">
+        <li>Block α₁ adrenergic receptors on vascular smooth muscle → vasodilation → ↓ PVR</li>
+        <li><strong>Doxazosin</strong> 1–16 mg QD | <strong>Prazosin</strong> | <strong>Terazosin</strong></li>
+        <li>Expected SBP reduction: <strong>~5 mmHg</strong></li>
+        <li><strong>Also block α₁ in prostate</strong> → relax bladder neck → improve urine flow → primary use in <strong>BPH</strong></li>
+        <li>SE: first-dose orthostatic hypotension (~9% older adults) — take at <strong>bedtime</strong>, start low</li>
+      </ul>
+      <div class="trial"><div class="trial-hd">ALLHAT — Doxazosin Arm Terminated Early (2000)</div>
+        <div class="trial-bd">Doxazosin vs chlorthalidone: <strong>2× more heart failure events</strong> with doxazosin. Trial stopped early. Alpha-blockers lower BP but do NOT provide adequate cardiovascular protection. Not first-line for HTN; use primarily for BPH or as 4th/5th-line in resistant HTN.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIRECT VASODILATORS -->
+  <div class="dblock">
+    <div class="dhd">2 · Direct Vasodilators <span class="pill pr">4th–5th Line / Resistant HTN Only</span></div>
+    <div class="dbd">
+      <div class="vs2">
+        <div class="vsl"><div class="vsl-lbl">Hydralazine 100–200 mg BID/TID</div>
+          <ul class="bl">
+            <li>Direct arteriolar smooth muscle relaxation</li>
+            <li>Used in <strong>pregnancy</strong> (IV for severe pre-eclampsia)</li>
+            <li>SE: reflex tachycardia, fluid retention, palpitations</li>
+            <li>Rare: drug-induced lupus (hydralazine-induced SLE, + ANA)</li>
+            <li><strong>Must combine</strong> with diuretic + beta-blocker to prevent reflex activation</li>
+          </ul>
+        </div>
+        <div class="vsm">vs</div>
+        <div class="vsr"><div class="vsr-lbl">Minoxidil 5–100 mg QD/TID</div>
+          <ul class="bl">
+            <li>Potent arteriolar vasodilation (opens K⁺ channels)</li>
+            <li>Reserved for truly refractory resistant HTN</li>
+            <li>SE: severe fluid retention, reflex tachycardia, <strong>hirsutism</strong> (especially women)</li>
+            <li>Up to 80% adverse event rate!</li>
+            <li><strong>Must combine</strong> with <strong>loop diuretic</strong> (not thiazide) + beta-blocker</li>
+          </ul>
+        </div>
+      </div>
+      <div class="co dan"><div class="co-t">Why Combine Vasodilators with BB + Diuretic?</div>
+        Direct vasodilators → reflex sympathetic activation → tachycardia + Na/water retention → negate BP effect and cause edema. Beta-blocker prevents tachycardia; diuretic (loop for minoxidil) prevents fluid retention. Without these, the vasodilator alone often fails.
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTRAL AGENTS -->
+  <div class="dblock">
+    <div class="dhd">3 · Central α₂-Agonists <span class="pill pa">Infrequently Used</span></div>
+    <div class="dbd">
+      <div class="tw"><table>
+        <thead><tr><th>Drug &amp; Dose</th><th>Key Features</th><th>Special Indication</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Clonidine</strong> oral 0.1–0.8 mg BID; patch 0.1–0.3 mg/wk</td><td>Sedation, dry mouth, bradycardia, orthostatic hypotension; <strong>rebound HTN crisis on abrupt withdrawal</strong></td><td>Resistant HTN (add-on), ADHD, opioid withdrawal, alcohol withdrawal</td></tr>
+          <tr><td><strong>Guanfacine</strong> 0.5–2.0 mg QD</td><td>Longer-acting, less sedating than clonidine</td><td>HTN add-on; also ADHD</td></tr>
+          <tr><td><strong>Methyldopa</strong> 250–1000 mg BID/TID</td><td>Sedation, hepatotoxicity, positive Coombs test; good safety record in pregnancy; ↓ BP via central α₂ agonism</td><td><strong>Pregnancy HTN</strong> — preferred agent (decades of safety data)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="co dan"><div class="co-t">Clonidine Rebound (Q21) — Hypertensive Emergency</div>
+        Abrupt clonidine discontinuation → massive sympathetic surge → extreme BP elevation, sweating, anxiety — can resemble pheochromocytoma. Treatment: <strong>restart clonidine and taper slowly</strong>, or add alpha + beta-blocker. Doxazosin or ACEi withdrawal does NOT cause this syndrome.
+      </div>
+    </div>
+  </div>
+
+  <!-- SGLT2i -->
+  <div class="dblock">
+    <div class="dhd">4 · SGLT2 Inhibitors (Gliflozins) <span class="pill pt">Emerging / CKD+DM+HF</span></div>
+    <div class="dbd">
+      <ul class="bl">
+        <li>Block SGLT2 in proximal tubule → ↑ glucose + Na⁺ excretion in urine</li>
+        <li>Modest BP reduction: <strong>~5/2 mmHg</strong> (does not meet FDA threshold for antihypertensive classification)</li>
+        <li><strong>Empagliflozin, Dapagliflozin, Canagliflozin</strong></li>
+        <li>Major benefits: ↓ HF hospitalization, ↓ CKD progression, ↓ CV mortality in DM + CVD</li>
+        <li>SE: genital mycotic infections (UTI), DKA risk, polyuria; small ↑ fracture risk</li>
+        <li>Indicated primarily for: DM, CKD (eGFR ≥20), HFrEF — not as standalone antihypertensives</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- RENAL DENERVATION -->
+  <div class="dblock">
+    <div class="dhd">5 · Renal Denervation <span class="pill pg">FDA Approved 2023</span></div>
+    <div class="dbd">
+      <ul class="bl">
+        <li>Catheter-based procedure: ultrasound or radiofrequency energy ablates renal sympathetic nerves</li>
+        <li>Approved as <strong>adjunctive treatment for resistant HTN</strong></li>
+        <li>Indication: <strong>true resistant HTN + office SBP ≥160 mmHg</strong> despite ≥3 medications</li>
+        <li>Consider secondary causes and confirm adherence before referring</li>
+        <li>Evidence: SYMPLICITY HTN trials (mixed earlier results); RADIANCE TRIO (ultrasound-based: strong evidence)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ SECTION 7: COMBINATIONS & TRIALS ════════════════════════════════════ -->
+<section class="sec" id="s7">
+  <div class="sec-hd"><span class="sec-n">07</span><h2>Drug Combinations &amp; Key Trials</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key"><div class="co-t">Combination Principles</div>
+    Starting 2-drug combination → better BP control + fewer side effects than one drug at high dose. Single-pill combinations → better adherence. Most patients need 2 drugs; average 3 drugs for &lt;130/80 target.
+    <ul class="bl">
+      <li>Dual therapy: diuretic OR CCB + ACEi or ARB</li>
+      <li>Triple therapy: diuretic + CCB + ACEi or ARB</li>
+    </ul>
+  </div>
+
+  <div class="sub"><h3>Combination Safety Table</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Combination</th><th>Verdict</th><th>Key Evidence</th></tr></thead>
+      <tbody>
+        <tr><td>ACEi + CCB (amlodipine)</td><td>✅ Preferred dual combination</td><td>ACCOMPLISH — superior to ACEi+thiazide</td></tr>
+        <tr><td>ACEi + Thiazide</td><td>✅ Acceptable</td><td>ALLHAT — effective, slightly inferior combination</td></tr>
+        <tr><td>ARB + Thiazide</td><td>✅ Acceptable</td><td>Standard guideline recommendation</td></tr>
+        <tr><td>ARB + CCB</td><td>✅ Effective</td><td>Reasonable, common in practice</td></tr>
+        <tr><td>Thiazide + CCB</td><td>✅ Rational</td><td>Complementary mechanisms</td></tr>
+        <tr><td>DHP-CCB + Beta-Blocker</td><td>✅ Safe and synergistic</td><td>Amlodipine + BB = additive BP lowering</td></tr>
+        <tr><td><strong>ACEi + ARB</strong></td><td>❌ <strong>Contraindicated</strong></td><td>ONTARGET: ↑AKI, ↑hyperkalemia, ↑hypotension, no CV benefit</td></tr>
+        <tr><td><strong>Non-DHP CCB + Beta-Blocker</strong></td><td>❌ <strong>Dangerous</strong></td><td>Severe bradycardia, AV block, cardiac arrest risk</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="sub"><h3>Three Key Trials — Detailed</h3>
+    <div class="trial"><div class="trial-hd">ALLHAT — Antihypertensive and Lipid-Lowering Treatment to Prevent Heart Attack Trial (2002)</div>
+      <div class="trial-bd">
+        <p><strong>N = 33,357</strong> | Age ≥55 | HTN + ≥1 CV risk factor | Chlorthalidone vs Amlodipine vs Lisinopril vs Doxazosin</p>
+        <div class="g2">
+          <div class="card"><div class="clabel c-b">Findings</div><ul class="bl">
+            <li>Primary outcome (fatal CHD/MI): <strong>equivalent</strong> for all 3 active arms</li>
+            <li>Chlorthalidone SUPERIOR for HF prevention and combined CVD</li>
+            <li>Amlodipine superior to lisinopril for stroke</li>
+            <li>Doxazosin arm <strong>terminated early</strong>: 2× HF with doxazosin</li>
+          </ul></div>
+          <div class="card"><div class="clabel c-g">Takeaway</div><ul class="bl">
+            <li>Thiazide is the best single agent for overall CVD prevention</li>
+            <li>CCB excellent for stroke</li>
+            <li>ACEi comparable but inferior for stroke vs CCB</li>
+            <li>Alpha-blocker: NEVER first-line</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+    <div class="trial"><div class="trial-hd">ACCOMPLISH — Avoiding Cardiovascular Events in Combination Therapy in Patients Living with Systolic Hypertension (2008)</div>
+      <div class="trial-bd">
+        <p><strong>N = 11,506</strong> | High-risk HTN on ACEi (benazepril) | Amlodipine + Benazepril vs HCTZ + Benazepril</p>
+        <div class="co suc"><div class="co-t">Result</div>
+          <strong>ACEi + CCB (amlodipine) SUPERIOR</strong> to ACEi + thiazide: ↓CV events by 20%.<br>
+          → When adding a 2nd drug to ACEi/ARB, prefer CCB over thiazide.
+        </div>
+      </div>
+    </div>
+    <div class="trial"><div class="trial-hd">ONTARGET — ONgoing Telmisartan Alone and in combination with Ramipril Global Endpoint Trial (2008)</div>
+      <div class="trial-bd">
+        <p>ACEi (ramipril) + ARB (telmisartan) vs either alone | High-risk CVD patients</p>
+        <div class="co dan"><div class="co-t">Result</div>
+          Combination ACEi + ARB: <strong>no additional CV benefit + more AKI, hyperkalemia, hypotension</strong>.<br>
+          → ACEi + ARB is <strong>contraindicated</strong> for general use.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ SECTION 8: TREATMENT ALGORITHM ═════════════════════════════════════ -->
+<section class="sec" id="s8">
+  <div class="sec-hd"><span class="sec-n">08</span><h2>Treatment Algorithm, BP Targets &amp; Resistant HTN</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub"><h3>Drug Selection by BP Category (Q13)</h3>
+    <div class="tw"><table>
+      <thead><tr><th>BP (mmHg)</th><th>Non-Drug</th><th>Drug: Grade 1</th><th>Drug: Grade 2</th><th>Drug: Grade 3</th></tr></thead>
+      <tbody>
+        <tr><td>Elevated (120–129/&lt;80)</td><td>Active lifestyle only</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Stage 1 (130–139/80–89) + low risk</td><td>Lifestyle only × 6 months</td><td>Consider 1 drug</td><td>—</td><td>—</td></tr>
+        <tr><td>Stage 1 + high risk (CVD risk ≥10% or DM/CKD)</td><td>Lifestyle</td><td>Thiazide OR CCB OR ACEi/ARB</td><td>ACEi + CCB (ACCOMPLISH)</td><td>Add thiazide</td></tr>
+        <tr><td><strong>Stage 2 (≥140/90)</strong></td><td>Lifestyle</td><td>Usually start 2-drug combo</td><td>ACEi + CCB + thiazide</td><td>MRA or other</td></tr>
+        <tr><td>SBP &gt;20 above target</td><td>—</td><td>Start with 2-drug combo</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="sub"><h3>BP Treatment Targets</h3>
+    <div class="g2">
+      <div class="card"><div class="clabel c-b">Standard</div><ul class="bl">
+        <li>Most patients with HTN: <strong>SBP/DBP &lt;130/80 mmHg</strong> (ACC/AHA 2017)</li>
+        <li>Average 2 drugs needed for &lt;140/90; average 3 drugs for &lt;130/80</li>
+        <li>All 4 RCTs comparing 120 vs 140 target: fewer events in lower-goal group</li>
+        <li>Incremental benefit diminishes as achieved BP gets progressively lower</li>
+      </ul></div>
+      <div class="card"><div class="clabel c-p">Special Populations</div><ul class="bl">
+        <li>Elderly community-dwelling ≥65: <strong>SBP &lt;130 mmHg</strong></li>
+        <li>High comorbidity / limited life expectancy: individualize</li>
+        <li>CKD + proteinuria: &lt;130/80</li>
+        <li>DM: &lt;130/90 (most guidelines; some say &lt;130/80)</li>
+        <li>Post-stroke: &lt;130/80</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="sub"><h3>Resistant HTN — 8-Step Investigation Algorithm</h3>
+    <div class="co key"><div class="co-t">Definition</div>
+      SBP/DBP ≥130/80 on <strong>3 optimally dosed drugs including a diuretic</strong> — OR needing ≥4 drugs to achieve target.
+    </div>
+    <ol class="step-list">
+      <li><strong>Exclude pseudo-resistance</strong> — check measurement technique; ensure correct cuff size</li>
+      <li><strong>Confirm with out-of-office BP (ABPM)</strong> — exclude white coat hypertension</li>
+      <li><strong>Evaluate lifestyle factors</strong> — high sodium intake, excessive alcohol, obesity, inactivity</li>
+      <li><strong>Exclude medications raising BP</strong> — NSAIDs, stimulants, OCP, decongestants, licorice, cocaine, sympathomimetics</li>
+      <li><strong>Confirm medication adherence</strong> — pill count, pharmacy refill records, supervised dosing</li>
+      <li><strong>Switch to long-acting diuretics</strong> — replace HCTZ with chlorthalidone or indapamide</li>
+      <li><strong>Add MRA (spironolactone)</strong> as 4th drug — most evidence-based 4th-line agent</li>
+      <li><strong>Add vasodilator (hydralazine or minoxidil)</strong>; refer to specialist if uncontrolled after 6 months; consider renal denervation if SBP ≥160 mmHg</li>
+    </ol>
+    <div class="co prl"><div class="co-t">OSA — Most Common Cause of True Resistant HTN</div>
+      Screen all resistant HTN patients for OSA: snoring, daytime sleepiness, witnessed apneas, non-dipping on ABPM. CPAP treatment → moderate additional BP lowering. Evaluate with sleep study (polysomnography).
+    </div>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ SECTION 9: SPECIAL POPULATIONS ═════════════════════════════════════ -->
+<section class="sec" id="s9">
+  <div class="sec-hd"><span class="sec-n">09</span><h2>Treatment in Special Populations</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <!-- CVD -->
+  <div class="dblock">
+    <div class="dhd">HTN + Cardiovascular Disease (CVD)</div>
+    <div class="dbd">
+      <ul class="bl">
+        <li>Target: <strong>SBP/DBP &lt;130/80 mmHg</strong> (if well tolerated)</li>
+        <li>Preferred agents: <strong>ACEi, ARB, or beta-blockers</strong> (depending on type of CVD) + diuretics + CCB + MRA</li>
+        <li>Post-MI: ACEi + beta-blocker + MRA (if EF ≤40%) + aspirin + statin</li>
+        <li>Stable angina: beta-blocker or CCB (non-DHP) preferred</li>
+        <li>HFrEF: ACEi + beta-blocker + MRA + SGLT2i; <strong>avoid non-DHP CCB</strong> (negative inotropy)</li>
+        <li><strong>SGLT2 inhibitors</strong> strongly indicated in HF + DM</li>
+        <li>Caution with non-DHP CCBs if bradycardia or AV block risk</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CKD -->
+  <div class="dblock">
+    <div class="dhd">HTN + Chronic Kidney Disease (CKD)</div>
+    <div class="dbd">
+      <p>HTN prevalence in advanced CKD: <strong>80–85%</strong>. BP is both a cause AND consequence of CKD progression.</p>
+      <ul class="bl">
+        <li>Target: <strong>&lt;130/80 mmHg</strong></li>
+        <li><strong>ACEi or ARB</strong> central — dilate efferent arteriole → ↓ intraglomerular pressure → slow progression (especially with proteinuria)</li>
+        <li><strong>NEVER combine ACEi + ARB</strong> in CKD — dangerous hyperkalemia + GFR decline</li>
+        <li>Diuretics: important for volume/resistance management</li>
+        <li>Loop diuretics traditionally for eGFR &lt;30 — but recent RCT showed chlorthalidone effective even at eGFR &lt;23</li>
+        <li><strong>CCBs</strong>: good safety record when combined with ACEi/ARB (dilate afferent arteriole)</li>
+        <li><strong>SGLT2 inhibitors</strong> (eGFR ≥20): ↓ CKD progression + CV events (CREDENCE, DAPA-CKD trials)</li>
+        <li>Monitor K⁺ and creatinine closely with any K-sparing or RAAS agent</li>
+        <li>Single-pill combinations strongly preferred — patients often on many medications</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DIABETES -->
+  <div class="dblock">
+    <div class="dhd">HTN + Diabetes Mellitus</div>
+    <div class="dbd">
+      <ul class="bl">
+        <li>Target: <strong>SBP/DBP &lt;130/90 mmHg</strong> (most guidelines; some say &lt;130/80)</li>
+        <li>Most require <strong>3–4 agents</strong> for target</li>
+        <li>Include <strong>ACEi or ARB</strong> (especially with heavy proteinuria or kidney insufficiency)</li>
+        <li>Most also need a diuretic; CCBs commonly part of regimen</li>
+        <li>Resistant HTN with DM: MRA effective but monitor K⁺ carefully</li>
+        <li><strong>SGLT2 inhibitors</strong>: ~5/2 mmHg modest direct BP reduction; major benefit on CV and renal outcomes</li>
+        <li><strong>GLP-1 agonists</strong>: modest BP reduction + weight loss + CV event reduction (LEADER, SUSTAIN trials)</li>
+        <li>Watch for <strong>orthostatic hypotension</strong> in longstanding DM (autonomic neuropathy)</li>
+        <li>Single-pill triple therapy useful given polypharmacy burden</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ELDERLY -->
+  <div class="dblock">
+    <div class="dhd">Older Adults (≥65 Years)</div>
+    <div class="dbd">
+      <ul class="bl">
+        <li>Vascular stiffening → <strong>isolated systolic HTN</strong> + <strong>wide pulse pressure</strong> common</li>
+        <li>High CV risk → <strong>disproportionately large treatment benefit</strong> from treating HTN</li>
+        <li>Target (community-dwelling ≥65): <strong>SBP &lt;130 mmHg</strong></li>
+        <li>High comorbidity + limited life expectancy: base decisions on clinical judgment + patient preference</li>
+        <li>Start at <strong>lower doses</strong> than younger patients (delayed renal/hepatic excretion)</li>
+        <li>Congestive HF common → prefer diuretic over CCB as second agent with ACEi/ARB</li>
+        <li>RCTs show <strong>no increase in falls, syncope, or infarctions</strong> with intensive treatment in older adults</li>
+        <li>Intensive treatment → <strong>reduced risk of cognitive impairment and dementia</strong></li>
+        <li>Avoid atenolol: inferior per meta-analyses; prefer nebivolol, metoprolol, or carvedilol if BB needed</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BLACK ADULTS -->
+  <div class="dblock">
+    <div class="dhd">Non-Hispanic Black Adults</div>
+    <div class="dbd">
+      <ul class="bl">
+        <li>Highest HTN prevalence in US: <strong>59%</strong>; onset at younger age; higher CVD and kidney disease risk</li>
+        <li>Control rate: &lt;140/90 = 37% in Black vs 52% in White adults (NHANES 2017–2020)</li>
+        <li>Disparity driven primarily by <strong>social determinants of health</strong>, not genetics</li>
+        <li><strong>Diuretics and CCBs</strong> especially effective for BP lowering in Black Americans (lower renin states)</li>
+        <li>ACEi and ARBs less effective as monotherapy (lower renin → less RAAS dependence) but still indicated for comorbidities</li>
+        <li>Most require combination therapy including agents for comorbidities</li>
+        <li>Requires team-based care + structural health system interventions</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SEX -->
+  <div class="dblock">
+    <div class="dhd">Sex Differences</div>
+    <div class="dbd">
+      <ul class="bl">
+        <li>Similar CV prevention benefit from antihypertensive therapy in both sexes</li>
+        <li>Women more likely to be aware, treated, and controlled vs men (especially at younger ages)</li>
+        <li><strong>ACEi/ARBs contraindicated in pregnancy</strong> and women of child-bearing age contemplating pregnancy (teratogenic)</li>
+        <li>For pregnancy HTN: <strong>methyldopa, labetalol, or nifedipine</strong> preferred; hydralazine IV for acute severe HTN</li>
+        <li><strong>Thiazides</strong>: reduce fracture risk in women (↑ calcium reabsorption + osteoblast formation)</li>
+        <li>Loop diuretics: ↑ Ca excretion; not associated with fractures per observational data</li>
+        <li>Women report more cough with ACEi and more ankle edema with CCBs than men</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ SECTION 10: HTN CRISIS ══════════════════════════════════════════════ -->
+<section class="sec" id="s10">
+  <div class="sec-hd"><span class="sec-n">10</span><h2>Hypertensive Crisis — Urgency vs. Emergency</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key"><div class="co-t">Threshold</div>
+    SBP/DBP <strong>≥180/100 mmHg</strong> classifies as either urgency or emergency. The critical difference is <strong>the presence of acute end-organ damage</strong>.
+  </div>
+
+  <div class="vs2">
+    <div class="vsl"><div class="vsl-lbl">Hypertensive Urgency</div>
+      <ul class="bl">
+        <li>BP ≥180/100, <strong>no acute end-organ damage</strong></li>
+        <li>FAR more common than emergency</li>
+        <li>Typically asymptomatic or mild headache</li>
+        <li>Tx: <strong>Restart/reinstitute/intensify oral antihypertensive agents</strong></li>
+        <li>Setting: outpatient</li>
+        <li>Reduce BP gradually over 24–48 hours</li>
+        <li>Follow-up within 1–7 days</li>
+      </ul>
+    </div>
+    <div class="vsm">vs</div>
+    <div class="vsr"><div class="vsr-lbl">Hypertensive Emergency</div>
+      <ul class="bl">
+        <li>BP ≥180/100 + <strong>acute hypertensive end-organ damage</strong></li>
+        <li>Requires immediate supervised <strong>IV antihypertensives</strong></li>
+        <li>Setting: emergency room or ICU</li>
+        <li>Goal: ↓ SBP by 20–25% in first hour — NOT to normal</li>
+        <li>Then gradual further reduction with oral agents</li>
+        <li>Especially rapid care: acute aortic dissection, eclampsia, pheo crisis</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub"><h3>Signs of End-Organ Damage (Q14)</h3>
+    <div class="g2">
+      <div class="card"><div class="clabel c-r">Brain &amp; Eyes</div>
+        <ul class="bl">
+          <li><strong>Severe headache</strong> (progressive, occipital) — most common presenting symptom</li>
+          <li><strong>Papilledema</strong> — hallmark; flame hemorrhages, AV nicking on fundoscopy</li>
+          <li>Hypertensive encephalopathy — confusion, agitation, seizures</li>
+          <li>Acute stroke (ischemic or hemorrhagic)</li>
+          <li>Visual disturbances</li>
+        </ul>
+      </div>
+      <div class="card"><div class="clabel c-r">Heart, Vessels &amp; Kidneys</div>
+        <ul class="bl">
+          <li>Acute left ventricular failure / pulmonary edema</li>
+          <li><strong>Acute aortic dissection</strong> — requires SBP &lt;120 immediately (different target!)</li>
+          <li>Acute coronary syndrome</li>
+          <li><strong>Acute kidney injury</strong> (↑ Cr, oliguria)</li>
+          <li>Microangiopathic hemolytic anemia (MAHA)</li>
+          <li><strong>Eclampsia / severe preeclampsia</strong></li>
+          <li>Pheochromocytoma crisis</li>
+        </ul>
+      </div>
+    </div>
+    <div class="co wrn"><div class="co-t">What Is NOT a Sign of HTN Emergency (Q14)</div>
+      <strong>RBBB (right bundle branch block)</strong> is a conduction abnormality — not caused by hypertensive emergency. Fundoscopic papilledema, fresh hemorrhages, and neurological symptoms define the emergency. Normal fundoscopy + no organ damage = urgency, not emergency.
+    </div>
+  </div>
+
+  <div class="sub"><h3>IV Agents for Hypertensive Emergency</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Agent</th><th>Class</th><th>Best For</th><th>Key Contraindication</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Nicardipine</strong></td><td>IV DHP-CCB</td><td>Most HE situations; most commonly used; stroke; post-op HTN</td><td>Severe aortic stenosis</td></tr>
+        <tr><td><strong>Labetalol</strong></td><td>IV α+β-blocker</td><td>Most HE; pregnancy (pre-eclampsia); aortic dissection (with nitroprusside)</td><td>Asthma, COPD, severe bradycardia, HF</td></tr>
+        <tr><td><strong>Sodium Nitroprusside</strong></td><td>NO donor</td><td>Potent; most emergencies; aortic dissection</td><td>Renal failure (thiocyanate toxicity); pregnancy</td></tr>
+        <tr><td><strong>Nitroglycerin</strong></td><td>Nitrate (venodilator)</td><td>ACS, pulmonary edema (reduces preload)</td><td>Hypotension, RV infarction, sildenafil use</td></tr>
+        <tr><td><strong>Hydralazine</strong></td><td>Direct vasodilator</td><td>Pregnancy (pre-eclampsia/eclampsia)</td><td>Aortic dissection (reflex tachycardia worsens shear)</td></tr>
+        <tr><td><strong>Esmolol</strong></td><td>IV β₁-blocker (short)</td><td>Aortic dissection (rate control), perioperative</td><td>Asthma, decompensated HF</td></tr>
+        <tr><td><strong>Fenoldopam</strong></td><td>Dopamine D1 agonist</td><td>HE with AKI — renoprotective; increases renal perfusion</td><td>Glaucoma</td></tr>
+        <tr><td><strong>Clevidipine</strong></td><td>IV ultra-short CCB</td><td>Peri-operative HTN</td><td>—</td></tr>
+      </tbody>
+    </table></div>
+    <div class="co dan"><div class="co-t">Critical Safety Rule: Never Lower BP Too Fast</div>
+      Reduce SBP by <strong>20–25% in the first hour only</strong>. The brain, kidney, and heart have adapted to high BP; rapid normalization → ischemic stroke, AKI, myocardial ischemia.<br>
+      <strong>Exception: Aortic dissection</strong> → target SBP &lt;120 mmHg within minutes (minimize shear force).
+    </div>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ SECTION 11: MAHA ══════════════════════════════════════════════════════ -->
+<section class="sec" id="s11">
+  <div class="sec-hd"><span class="sec-n">11</span><h2>MAHA in Hypertensive Emergency (Q1)</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub"><h3>Pathophysiology — How Extreme HTN Causes MAHA</h3>
+    <div class="flow">
+      <div class="fn r">Extreme HTN<br>± Cocaine</div><div class="fa">→</div>
+      <div class="fn r">Necrotizing<br>vasculitis</div><div class="fa">→</div>
+      <div class="fn a">Fibrin deposits<br>in microvasculature</div><div class="fa">→</div>
+      <div class="fn a">RBCs sheared<br>by fibrin strands</div><div class="fa">→</div>
+      <div class="fn g">Schistocytes<br>Hemolysis</div>
+    </div>
+  </div>
+
+  <div class="sub"><h3>Lab Findings — Know Each One</h3>
+    <div class="g2">
+      <div class="card"><div class="clabel c-r">Hemolysis Panel</div><ul class="bl">
+        <li><strong>Low Hgb</strong> — hemolytic anemia</li>
+        <li><strong>Elevated LDH</strong> — released from lysed RBCs</li>
+        <li><strong>Elevated indirect bilirubin</strong> — Hgb breakdown product</li>
+        <li><strong>Low haptoglobin</strong> — binds free Hgb; consumed</li>
+        <li><strong>Schistocytes on smear</strong> — helmet cells; the pathognomonic finding</li>
+        <li>Negative direct Coombs (non-immune hemolysis)</li>
+      </ul></div>
+      <div class="card"><div class="clabel c-a">Organ Involvement</div><ul class="bl">
+        <li><strong>Low platelets</strong> — consumed in microthrombi</li>
+        <li><strong>Elevated creatinine</strong> — renal arteriolar injury → AKI</li>
+        <li>Elevated BUN</li>
+        <li>Normal ADAMTS13 (unlike TTP)</li>
+      </ul></div>
+    </div>
+    <div class="co prl"><div class="co-t">Cocaine = Classic Cause (Q1)</div>
+      Young patient + very high BP + schistocytes + low PLT + ↑LDH + ↑Cr + ↑indirect bili = HTN emergency from cocaine. Cocaine → extreme sympathomimetic HTN + vasospasm → necrotizing vasculitis → MAHA. Cannabis does NOT cause severe HTN or MAHA. Benzodiazepines TREAT cocaine toxicity.
+    </div>
+  </div>
+
+  <div class="sub"><h3>MAHA Differential Diagnosis</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Condition</th><th>Distinguishing Feature</th><th>Treatment</th></tr></thead>
+      <tbody>
+        <tr><td><strong>HTN Emergency</strong></td><td>Extreme BP; normal ADAMTS13; no mandatory fever</td><td>IV antihypertensives</td></tr>
+        <tr><td><strong>TTP</strong></td><td>ADAMTS13 &lt;10%; fever; neurological symptoms; low BP typical</td><td>Plasma exchange (PLEX) ± rituximab</td></tr>
+        <tr><td><strong>HUS</strong></td><td>Diarrhea prodrome (E. coli O157:H7); children; AKI predominates</td><td>Supportive ± eculizumab</td></tr>
+        <tr><td><strong>DIC</strong></td><td>↑PT, ↑PTT, ↓fibrinogen; sepsis context</td><td>Treat underlying cause, FFP/platelets</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ SECTION 12: PULSE PRESSURE ══════════════════════════════════════════ -->
+<section class="sec" id="s12">
+  <div class="sec-hd"><span class="sec-n">12</span><h2>Pulse Pressure &amp; Key Clinical Distinctions (Q3)</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key"><div class="co-t">Definition</div>
+    <strong>Pulse Pressure (PP) = SBP − DBP</strong> (normal ~40 mmHg)<br>
+    PP reflects stroke volume and arterial compliance. Wide PP = large SV or stiff arteries. Narrow PP = reduced SV or outflow obstruction.
+  </div>
+
+  <div class="vs2">
+    <div class="vsl"><div class="vsl-lbl">Wide Pulse Pressure (PP &gt;60 mmHg)</div>
+      <ul class="bl">
+        <li><strong>Aortic Regurgitation (AR)</strong> — huge SV + backflow; DBP drops dramatically; water-hammer pulse</li>
+        <li><strong>PVD / Arteriosclerosis</strong> — stiff aorta; SBP spikes; elderly</li>
+        <li><strong>Thyrotoxicosis</strong> — high-output state</li>
+        <li><strong>Fever</strong> — peripheral vasodilation → ↓ DBP</li>
+        <li><strong>Severe anemia</strong> — high-output state</li>
+        <li><strong>AV fistula / PDA</strong> — runoff into low-resistance circuit</li>
+        <li><strong>Paget's disease</strong> — AV shunting in bone</li>
+      </ul>
+    </div>
+    <div class="vsm">PP</div>
+    <div class="vsr"><div class="vsr-lbl">Narrow Pulse Pressure (PP &lt;25 mmHg)</div>
+      <ul class="bl">
+        <li><strong>Severe Aortic Stenosis (AS)</strong> — reduced SV; pulsus parvus et tardus</li>
+        <li><strong>HOCM</strong> — dynamic LVOT obstruction; murmur ↑ with Valsalva/standing</li>
+        <li><strong>Cardiac tamponade</strong> — ↓ filling → ↓ SV; pulsus paradoxus</li>
+        <li><strong>Cardiogenic shock</strong> — severely ↓ SV</li>
+        <li><strong>Severe mitral stenosis</strong> — ↓ forward output</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="co dan"><div class="co-t">Classic Trap: AS vs AR</div>
+    <strong>AS (Aortic Stenosis) = NARROW PP</strong> (reduced SV, pulsus parvus et tardus)<br>
+    <strong>AR (Aortic Regurgitation) = WIDE PP</strong> (large SV + regurgitant drop in DBP, water-hammer pulse)<br>
+    Mnemonic: <em>"AR gives a WIDE PP; AS gives a NARROW PP."</em>
+  </div>
+
+  <div class="sub"><h3>Propranolol — Quick Reference (Q9)</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Beta-Blocker</th><th>Receptor Profile</th><th>Key Features</th></tr></thead>
+      <tbody>
+        <tr><td>Propranolol</td><td>β₁ + β₂ (non-selective)</td><td>Treats thyrotoxicosis, tremor, portal HTN, migraine; CI in asthma</td></tr>
+        <tr><td>Atenolol, Metoprolol, Bisoprolol</td><td>β₁ only (cardioselective)</td><td>Safer in lung disease; preferred for HFrEF, post-MI</td></tr>
+        <tr><td>Labetalol, Carvedilol</td><td>α₁ + β₁ + β₂</td><td>Vasodilation via alpha blockade; labetalol IV for HTN emergency; carvedilol for HFrEF</td></tr>
+        <tr><td>Nebivolol</td><td>β₁ + NO release</td><td>Vasodilation; fewest side effects; well tolerated in elderly</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+<hr class="sep">
+
+<!-- ═══ SECTION 13: QUICK REFERENCE ════════════════════════════════════════ -->
+<section class="sec" id="s13">
+  <div class="sec-hd"><span class="sec-n">REF</span><h2>Quick-Reference Master Table</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+  <div class="tw"><table>
+    <thead><tr><th>Drug Class</th><th>Key Drugs &amp; Doses</th><th>SBP ↓</th><th>Site</th><th>K⁺ Effect</th><th>Ca²⁺ Effect</th><th>Line</th><th>Key CI</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Thiazides</strong></td><td>Chlorthalidone 12.5–25 mg | HCTZ 12.5–50 mg | Indapamide 1.25–2.5 mg</td><td>~12</td><td>DCT</td><td>↓K</td><td>↑Ca (prevents stones)</td><td>1st</td><td>Gout (caution)</td></tr>
+      <tr><td><strong>ACEi</strong></td><td>Lisinopril 10–40 mg | Ramipril 2.5–20 mg | Enalapril 5–40 mg</td><td>~12</td><td>ACE enzyme</td><td>↑K (mild)</td><td>—</td><td>1st</td><td>Pregnancy, bilateral RAS, angioedema</td></tr>
+      <tr><td><strong>ARBs</strong></td><td>Losartan 50–100 mg | Valsartan 80–320 mg | Candesartan 8–32 mg</td><td>~12</td><td>AT1 receptor</td><td>↑K (mild)</td><td>—</td><td>1st</td><td>Pregnancy, bilateral RAS; never + ACEi</td></tr>
+      <tr><td><strong>DHP-CCB</strong></td><td>Amlodipine 2.5–10 mg | Nifedipine LA 30–90 mg | Felodipine 2.5–10 mg</td><td>~10</td><td>Vascular Ca²⁺ channel</td><td>—</td><td>—</td><td>1st</td><td>HFrEF</td></tr>
+      <tr><td><strong>Non-DHP CCB</strong></td><td>Diltiazem ER 120–360 mg | Verapamil ER 100–300 mg</td><td>~9</td><td>Cardiac + vascular</td><td>—</td><td>—</td><td>2nd</td><td>HFrEF, with BB, high-grade block</td></tr>
+      <tr><td><strong>Beta-Blocker (selective)</strong></td><td>Metoprolol 50–200 mg | Bisoprolol | Atenolol</td><td>~10</td><td>β₁</td><td>—</td><td>—</td><td>2nd (unless IHD/HF)</td><td>High-grade AV block, decompensated HF</td></tr>
+      <tr><td><strong>Beta-Blocker (non-selective)</strong></td><td>Propranolol | Nadolol</td><td>~10</td><td>β₁+β₂</td><td>—</td><td>—</td><td>Special only</td><td>Asthma, COPD; never + non-DHP CCB</td></tr>
+      <tr><td><strong>Alpha+Beta BB</strong></td><td>Carvedilol 20–80 mg | Labetalol | Nebivolol 5–40 mg</td><td>~10</td><td>α₁+β₁(+β₂)</td><td>—</td><td>—</td><td>HFrEF / HTN emergency</td><td>—</td></tr>
+      <tr><td><strong>MRA (non-selective)</strong></td><td>Spironolactone 25–100 mg QD</td><td>~9</td><td>Mineralocorticoid receptor</td><td>↑K</td><td>—</td><td>4th-line resistant HTN</td><td>Hyperkalemia, severe CKD; gynecomastia SE</td></tr>
+      <tr><td><strong>MRA (selective)</strong></td><td>Eplerenone 50–100 mg BID | Finerenone 10–20 mg</td><td>~9</td><td>Mineralocorticoid receptor</td><td>↑K</td><td>—</td><td>4th-line; HFrEF; CKD+DM (finerenone)</td><td>Hyperkalemia</td></tr>
+      <tr><td><strong>K-sparing</strong></td><td>Amiloride 5–10 mg | Triamterene 50–100 mg</td><td>Minimal</td><td>ENaC (collecting duct)</td><td>↑K</td><td>—</td><td>Adjunct (prevent hypoK)</td><td>CKD, hyperkalemia</td></tr>
+      <tr><td><strong>Loop Diuretics</strong></td><td>Furosemide 20–80 mg BID | Torsemide 5–10 mg | Bumetanide</td><td>Variable</td><td>Loop of Henle (NKCC2)</td><td>↓K</td><td>↓Ca</td><td>CKD GFR&lt;30, HF</td><td>Not for chronic HTN</td></tr>
+      <tr><td><strong>Alpha-1 Blocker</strong></td><td>Doxazosin 1–16 mg</td><td>~5</td><td>α₁ vascular + prostate</td><td>—</td><td>—</td><td>BPH; resistant HTN 4th+</td><td>Not 1st-line (ALLHAT)</td></tr>
+      <tr><td><strong>Direct Vasodilators</strong></td><td>Hydralazine 100–200 mg BID | Minoxidil 5–100 mg</td><td>Potent</td><td>Vascular smooth muscle</td><td>—</td><td>—</td><td>4th–5th resistant HTN; pregnancy (hydralazine)</td><td>Must add BB + diuretic; minoxidil needs loop</td></tr>
+      <tr><td><strong>Central α₂ Agonists</strong></td><td>Clonidine 0.1–0.8 mg BID | Guanfacine | Methyldopa</td><td>Variable</td><td>Brainstem α₂</td><td>—</td><td>—</td><td>Resistant HTN add-on; pregnancy (methyldopa)</td><td>Abrupt withdrawal → rebound crisis</td></tr>
+      <tr><td><strong>SGLT2 Inhibitors</strong></td><td>Empagliflozin | Dapagliflozin | Canagliflozin</td><td>~5/2</td><td>Proximal tubule SGLT2</td><td>—</td><td>—</td><td>DM, CKD (eGFR≥20), HFrEF</td><td>Not standalone antihypertensive</td></tr>
+    </tbody>
+  </table></div>
+</section>
+<hr class="sep">
+
+<!-- ═══ SECTION 14: EXAM TRAPS ══════════════════════════════════════════════ -->
+<section class="sec" id="s14">
+  <div class="sec-hd"><span class="sec-n">★</span><h2>Exam Traps — 12 Direct Question Insights</h2></div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">TRAP 01 — Q10</span><span class="trap-title">Hypertensive Urgency: Oral Meds, Not IV</span></div>
+    <div class="trap-body">
+      <div class="trap-q"><strong>Vignette:</strong> BP 200/110 mmHg. No headache, no papilledema, no chest pain, ECG normal. Distractor: Give IV labetalol — the BP is dangerously high.
+      </div>
+      <div class="trap-a">✓ <strong>Restart/adjust oral antihypertensive agents + close follow-up within 1–7 days.</strong><br>No end-organ damage = Urgency. IV meds are not indicated and may cause harmful rapid BP drop. <em>Keyword: no organ damage → oral meds only.</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">TRAP 02 — Q1</span><span class="trap-title">MAHA: Cocaine Is the Trigger</span></div>
+    <div class="trap-body">
+      <div class="trap-q"><strong>Vignette:</strong> 25-year-old, BP 220/140, Hgb 10, PLT 125k, LDH 680, Cr 2.4, schistocytes. Options: cannabis, benzodiazepines, antihypertensives, cocaine, cannabinoids.
+      </div>
+      <div class="trap-a">✓ <strong>Cocaine.</strong><br>Cocaine → sympathomimetic HTN → necrotizing vasculitis → fibrin deposition → RBC shearing → MAHA. Cannabis doesn't cause this. Benzos TREAT cocaine toxicity. <em>Keyword: young + extreme HTN + schistocytes = cocaine.</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">TRAP 03 — Q2</span><span class="trap-title">Mineralocorticoid Antagonists: Selective vs Non-Selective</span></div>
+    <div class="trap-body">
+      <div class="trap-q"><strong>Vignette:</strong> Patient develops gynecomastia on spironolactone. What's the advantage of eplerenone/finerenone? Distractor: switch to amiloride (different mechanism entirely).
+      </div>
+      <div class="trap-a">✓ <strong>Eplerenone (or finerenone) = selective MRA → no gynecomastia, no sexual side effects.</strong><br>Spironolactone is non-selective → also blocks androgen/progesterone receptors → gynecomastia. Amiloride blocks ENaC directly — not an aldosterone antagonist. <em>Keyword: gynecomastia on spironolactone → switch to eplerenone.</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">TRAP 04 — Q3</span><span class="trap-title">Pulse Pressure: AR vs AS vs HOCM</span></div>
+    <div class="trap-body">
+      <div class="trap-q"><strong>Vignette:</strong> 72-year-old with PVD, hard peripheral arteries. What is expected to be elevated? Distractor: confuse AR (wide PP) with AS (narrow PP).
+      </div>
+      <div class="trap-a">✓ <strong>Wide PP in PVD, AR, thyrotoxicosis. Narrow PP in AS, HOCM, tamponade.</strong><br>AR → water-hammer pulse, wide PP. AS → pulsus parvus et tardus, narrow PP. HOCM → narrow PP (dynamic obstruction). PVD/arteriosclerosis → stiff aorta → wide PP. <em>Keyword: AR = wide; AS + HOCM = narrow.</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">TRAP 05 — Q4</span><span class="trap-title">Best CV Protection: CCB or Thiazide — Not Beta-Blocker</span></div>
+    <div class="trap-body">
+      <div class="trap-q"><strong>Vignette:</strong> Uncomplicated HTN. Best CV protection? Distractor: atenolol or doxazosin.
+      </div>
+      <div class="trap-a">✓ <strong>Amlodipine (CCB) or Chlorthalidone (thiazide) — NOT beta-blocker or alpha-blocker.</strong><br>ALLHAT: doxazosin → 2× HF events (terminated). Beta-blockers inferior to CCB/thiazides for stroke. ACCOMPLISH: amlodipine + ACEi best combination. <em>Keyword: CV protection = CCB or thiazide; NOT beta-blocker.</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">TRAP 06 — Q5 &amp; Q12</span><span class="trap-title">Thiazide/Loop Hypokalemia → Add Amiloride</span></div>
+    <div class="trap-body">
+      <div class="trap-q"><strong>Vignette:</strong> Patient on thiazide or furosemide, K⁺ = 3.0. What to add? Distractor: add ARB (mildly raises K⁺ but not the right choice for this purpose), or add more diuretic.
+      </div>
+      <div class="trap-a">✓ <strong>Add Amiloride (ENaC blocker) or Slow-K (oral KCl supplement).</strong><br>Amiloride directly prevents K⁺ loss in collecting duct. Furosemide + amiloride: the amiloride corrects the K loss. ARBs raise K mildly but are chosen for other indications, not electrolyte correction. <em>Keyword: diuretic hypokalemia → amiloride first.</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">TRAP 07 — Q6</span><span class="trap-title">Resistant HTN: Rule Out White Coat + OSA First</span></div>
+    <div class="trap-body">
+      <div class="trap-q"><strong>Vignette:</strong> 50-year-old on 2 drugs, BP still elevated. What to do first? Distractor: add 3rd drug immediately.
+      </div>
+      <div class="trap-a">✓ <strong>Confirm with ABPM (exclude white coat HTN), then screen for OSA, non-adherence, offending medications.</strong><br>Before adding drugs: step 1 = exclude pseudo-resistance. OSA is the most common cause of true resistant HTN. If confirmed resistant, add MRA (spironolactone) as 4th drug. <em>Keyword: apparent resistance → ABPM first, then OSA screen.</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">TRAP 08 — Q7</span><span class="trap-title">Sodium Target — Exact Numbers</span></div>
+    <div class="trap-body">
+      <div class="trap-q"><strong>Vignette:</strong> What is the recommended sodium limit for HTN? Distractor: 10 mg/day or 10 g NaCl/day.
+      </div>
+      <div class="trap-a">✓ <strong>&lt;1500–2300 mg sodium per day (= &lt;5–6 g NaCl/day).</strong><br>Dose-response: ~5.5 mmHg SBP per 2300 mg Na reduction. Most patients consume 3400–4400 mg/day. 6g NaCl = 2400 mg Na (NaCl is 40% Na by weight). <em>Keyword: Na target = 2000–2300 mg/day.</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">TRAP 09 — Q8</span><span class="trap-title">ACEi + ARB = Contraindicated (ONTARGET)</span></div>
+    <div class="trap-body">
+      <div class="trap-q"><strong>Vignette:</strong> Not at target on ACEi alone. Add ARB? Distractor: yes — double RAAS blockade = better.
+      </div>
+      <div class="trap-a">✓ <strong>NO. Add CCB (ACCOMPLISH principle) or thiazide — not ARB.</strong><br>ONTARGET: ACEi+ARB → more AKI, hyperkalemia, hypotension, no CV benefit. ARB is only for patients who cannot tolerate ACEi (cough/angioedema). <em>Keyword: ACEi+ARB = ONTARGET = harmful = contraindicated.</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">TRAP 10 — Q9</span><span class="trap-title">Propranolol: β₁ + β₂ Non-Selective</span></div>
+    <div class="trap-body">
+      <div class="trap-q"><strong>Vignette:</strong> Which receptor does propranolol block? Distractor: β₁ only (like atenolol), or α₁+β₁ (like labetalol).
+      </div>
+      <div class="trap-a">✓ <strong>Propranolol = β₁ + β₂ = non-selective.</strong><br>β₂-blockade → bronchoconstriction (CI in asthma/COPD), masks hypoglycemia. Treats thyrotoxicosis (blocks T4→T3 conversion), essential tremor, portal HTN, migraine prophylaxis. Cardioselective = atenolol, metoprolol, bisoprolol. Alpha+beta = labetalol, carvedilol. <em>Keyword: propranolol = non-selective β₁+β₂.</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">TRAP 11 — Q14</span><span class="trap-title">RBBB Is NOT a Sign of Hypertensive Emergency</span></div>
+    <div class="trap-body">
+      <div class="trap-q"><strong>Vignette:</strong> BP 220/100, RBBB on ECG, fundoscopy unremarkable, normal labs. Emergency? Distractor: RBBB = cardiac involvement = emergency.
+      </div>
+      <div class="trap-a">✓ <strong>NO. Normal fundoscopy + no organ damage = Urgency, not emergency. RBBB ≠ HTN emergency.</strong><br>RBBB is often a pre-existing or benign finding. Signs of emergency: papilledema, fresh hemorrhages, rising Cr, AKI, neurological changes, acute HF. <em>Keyword: RBBB ≠ emergency; papilledema = emergency.</em></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">TRAP 12 — Q21</span><span class="trap-title">Clonidine Withdrawal = Rebound Hypertensive Crisis</span></div>
+    <div class="trap-body">
+      <div class="trap-q"><strong>Vignette:</strong> 78-year-old on multiple drugs. A medication was recently stopped. BP now 250/130. Which drug caused rebound? Distractor: stopping ACEi or thiazide causes rebound HTN.
+      </div>
+      <div class="trap-a">✓ <strong>Clonidine (central α₂-agonist) withdrawal → massive sympathetic surge → rebound hypertensive emergency.</strong><br>Mechanism: clonidine suppresses CNS sympathetic outflow. Abrupt stop → catecholamine surge → extreme BP. Mimics pheochromocytoma. Treatment: restart clonidine + slow taper, or add α+β-blocker. ACEi/thiazide withdrawal does not cause this. <em>Keyword: abruptly stopped central agent → clonidine rebound crisis.</em></div>
+    </div>
+  </div>
+
+</section>
+</main>
+
+<footer class="footer">Hypertension · Stage A Boards Teaching Guide · All 21 Exam Questions + Full Harrison's Review · 2025</footer>
+
+<script>
+/* ── ACCORDION TOGGLE ── */
+function tog(hd) {
+  const item = hd.closest('.toggle-item') || hd.parentElement;
+  const body = item.querySelector('.toggle-body');
+  const arrow = hd.querySelector('.toggle-arrow');
+  if (!body) return;
+  const isOpen = body.style.display === 'block';
+  body.style.display = isOpen ? 'none' : 'block';
+  if (arrow) arrow.textContent = isOpen ? '▶' : '▼';
+}
+
+
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
