@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Polycythemia Vera &amp; MPNs · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+
+/* TOOLBAR */
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+
+/* SIDEBAR */
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);
+  border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;
+  z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;
+  display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;
+  position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#7b1c1c 60%,#1a2f5c 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:38px;font-weight:900;
+  line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+
+/* NAV */
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;
+  padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blu);
+  margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.bl.sub-bl li::before{color:var(--pur);content:'–'}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}
+  .main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+
+/* Flowchart */
+.flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:16px 0}
+.flow-box{background:var(--sf);border:1.5px solid var(--bd2);border-radius:8px;padding:10px 20px;
+  font-size:12.5px;color:var(--tx);text-align:center;min-width:220px;position:relative}
+.flow-box.primary{background:var(--blu-l);border-color:var(--blu);font-weight:600;color:var(--blu-d)}
+.flow-box.warn{background:var(--red-l);border-color:var(--red);font-weight:600;color:var(--red)}
+.flow-box.suc{background:var(--grn-l);border-color:var(--grn);font-weight:600;color:var(--grn)}
+.flow-arrow{font-size:18px;color:var(--t3);line-height:1.2;text-align:center}
+.flow-branch{display:flex;gap:16px;justify-content:center;align-items:flex-start;flex-wrap:wrap}
+.flow-branch-box{display:flex;flex-direction:column;align-items:center;gap:0;min-width:140px}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles · Chapter 108</div>
+  <h1>Polycythemia Vera &amp; Myeloproliferative Neoplasms</h1>
+  <div class="hero-sub">PV · PMF · Essential Thrombocytosis · Medical Boards Review</div>
+  <div class="hero-authors">Jerry L. Spivak</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">3</div><div class="stat-l">MPNs Covered</div></div>
+    <div class="stat-box"><div class="stat-n">&gt;95%</div><div class="stat-l">PV JAK2 V617F</div></div>
+    <div class="stat-box"><div class="stat-n">8</div><div class="stat-l">WHO MPN Classes</div></div>
+    <div class="stat-box"><div class="stat-n">Decades</div><div class="stat-l">PV/ET Natural Hx</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">MPN Overview</a>
+    <a class="toc-a" href="#s2">PV Etiology</a>
+    <a class="toc-a" href="#s3">PV Clinical</a>
+    <a class="toc-a" href="#s4">PV Diagnosis</a>
+    <a class="toc-a" href="#s5">PV Complications</a>
+    <a class="toc-a" href="#s6">PV Treatment</a>
+    <a class="toc-a" href="#s7">Myelofibrosis</a>
+    <a class="toc-a" href="#s8">PMF Diagnosis</a>
+    <a class="toc-a" href="#s9">PMF Treatment</a>
+    <a class="toc-a" href="#s10">Thrombocytosis</a>
+    <a class="toc-a" href="#s11">ET Treatment</a>
+    <a class="toc-a" href="#s12">Quick Reference</a>
+    <a class="toc-a" href="#s13">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══════════════════════════════════ SECTION 1 ═══════════════════════════════════ -->
+<section class="sec" id="s1">
+  <div class="sec-hd">
+    <span class="sec-n">01</span>
+    <h2>Myeloproliferative Neoplasms — Overview</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>WHO Classification (8 Disorders)</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Primary Myeloid Phenotype</div>
+        <ul class="bl">
+          <li><strong>Chronic myeloid leukemia</strong> (CML) — BCR-ABL positive</li>
+          <li><strong>Chronic neutrophilic leukemia</strong> (CNL)</li>
+          <li><strong>Chronic eosinophilic leukemia</strong> (CEL), NOS</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Erythroid/Megakaryocytic Predominance</div>
+        <ul class="bl">
+          <li><strong>Polycythemia vera</strong> (PV)</li>
+          <li><strong>Primary myelofibrosis</strong> (PMF)</li>
+          <li><strong>Essential thrombocytosis</strong> (ET)</li>
+          <li>Mastocytosis</li>
+          <li>MPN, unclassifiable</li>
+        </ul>
+      </div>
+    </div>
+    <div class="co key">
+      <div class="co-t">🔑 Critical Distinction</div>
+      PV, PMF, and ET can <strong>transform into each other</strong>. CML, CNL, and CEL cannot. This chapter focuses on PV, PMF, and ET because their clinical features and driver mutation overlap are substantial.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Shared Features of All MPNs</h3>
+    <ul class="bl">
+      <li>Origin in a <strong>hematopoietic stem cell</strong></li>
+      <li>Overproduction of one or more <strong>formed blood elements without significant dysplasia</strong></li>
+      <li>Predilection to <strong>extramedullary hematopoiesis</strong>, myelofibrosis, and transformation to acute leukemia at varying rates</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Genetic Basis of Each MPN</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Disease</th><th>Genetic Driver</th><th>Natural History</th></tr></thead>
+        <tbody>
+          <tr><td>CML</td><td>t(9;22)(q34;11) → BCR-ABL</td><td>Measured in <strong>years</strong>; high leukemic transformation</td></tr>
+          <tr><td>CNL</td><td>CSF3R mutation; t(15;19)</td><td>Measured in <strong>years</strong>; high leukemic transformation</td></tr>
+          <tr><td>CEL</td><td>PDGFRα deletion/translocation (FIP1L1, PDGFRβ, FGFR1, PCM1-JAK2)</td><td>Measured in <strong>years</strong>; high leukemic transformation</td></tr>
+          <tr><td>PV</td><td>JAK2 V617F (&gt;95%) or exon 12 mutation</td><td>Measured in <strong>decades</strong>; leukemia uncommon without chemo</td></tr>
+          <tr><td>PMF</td><td>JAK2 V617F (~55%), MPL (~4%), CALR (~36%)</td><td>Measured in <strong>decades</strong>; leukemia uncommon without chemo</td></tr>
+          <tr><td>ET</td><td>JAK2 V617F (~50%), CALR (~30%), MPL (~8%)</td><td>Measured in <strong>decades</strong>; leukemia uncommon without chemo</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>JAK2 — The Master Kinase</h3>
+    <p>JAK2 is an evolutionarily well-conserved, <strong>nonreceptor tyrosine kinase</strong>. It serves as the cognate tyrosine kinase for the <strong>erythropoietin (EPO) and thrombopoietin (TPO) receptors</strong>, and is also utilized by the granulocyte colony-stimulating factor (G-CSF) receptor.</p>
+    <ul class="bl">
+      <li>Functions as an <strong>obligate chaperone</strong> for EPO and TPO receptors in the Golgi apparatus — responsible for their cell-surface expression</li>
+      <li>Ligand binding → conformational change → JAK2 autophosphorylation → receptor phosphorylation → proteins involved in <strong>cell proliferation, differentiation, and resistance to apoptosis</strong></li>
+      <li>Transgenic animals <strong>lacking JAK2 die as embryos</strong> from severe anemia</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">⚠️ JAK2 V617F Mutation</div>
+      Mutation in the <strong>autoinhibitory pseudokinase domain</strong> of JAK2 — replaces <strong>valine with phenylalanine (V617F)</strong> → constitutive kinase activation. This is found in &gt;95% of PV, ~55% PMF, ~50% ET. However, it is <strong>probably NOT the initiating lesion</strong> in any of the MPNs.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SECTION 2 ═══════════════════════════════════ -->
+<section class="sec" id="s2">
+  <div class="sec-hd">
+    <span class="sec-n">02</span>
+    <h2>Polycythemia Vera — Etiology &amp; Pathophysiology</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Definition &amp; Epidemiology</h3>
+    <p>PV is a <strong>clonal hematopoietic stem cell disorder</strong> in which phenotypically normal red cells, granulocytes, and platelets accumulate in the <strong>absence of a recognizable physiologic stimulus</strong>.</p>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">Incidence</div>
+        <p><strong>2.5 per 100,000</strong> persons; spares no adult age group; increases with age to rates <strong>&gt;10/100,000</strong></p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Demographics</div>
+        <p>Familial transmission <strong>infrequent</strong>; <strong>women under age 50</strong> predominate among sporadic cases</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Rank</div>
+        <p><strong>Most common</strong> of the myeloproliferative neoplasms</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Genetics &amp; Molecular Pathogenesis</h3>
+    <ul class="bl">
+      <li>Nonrandom chromosome abnormalities (<strong>del20q, del13q, trisomy 9</strong>) in up to <strong>30%</strong> of untreated PV — but NO consistent cytogenetic abnormality (unlike CML)</li>
+      <li><strong>JAK2 V617F</strong>: &gt;95% of PV patients express this mutation</li>
+      <li>The <strong>JAK2 gene is located on chromosome 9p</strong>; loss of heterozygosity on 9p (via mitotic recombination → uniparental disomy) leads to <strong>homozygosity for JAK2 V617F in ~60% of PV</strong></li>
+      <li>Most PV without JAK2 V617F express a <strong>JAK2 exon 12 mutation</strong> — not clinically different, except higher frequency of isolated erythrocytosis</li>
+      <li>Predisposition to acquire JAK2 mutations is associated with a specific JAK2 haplotype: <strong>GGCC</strong></li>
+    </ul>
+    <div class="co prl">
+      <div class="co-t">🔬 Why JAK2 V617F Is Not the Whole Story</div>
+      <ul class="bl">
+        <li>PV patients with same phenotype and documented clonal disease can have <strong>LNK mutations</strong> (a JAK2 inhibitor) or rarely <strong>CALR mutations</strong></li>
+        <li>ET and PMF patients have the same JAK2 mutations but <strong>different clinical phenotypes</strong></li>
+        <li>Familial PV can occur <strong>without the mutation</strong>, even when other family members express it</li>
+        <li>In some JAK2 V617F–positive PV/ET patients, acute leukemia occurs in a <strong>JAK2 V617F–negative progenitor cell</strong> → evidence of an ancestral precursor cell</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Consequences of Constitutive JAK2 Activation</h3>
+    <ul class="bl">
+      <li><strong>EPO hypersensitivity</strong> — cells respond to much lower EPO levels than normal</li>
+      <li><strong>EPO-independent erythroid colony formation</strong> — colonies form even without EPO</li>
+      <li>Rapid terminal differentiation</li>
+      <li>Increased <strong>Bcl-XL expression</strong> → apoptosis resistance even in the absence of EPO</li>
+      <li>Increased <strong>blood cell production</strong> and inflammatory cytokine production</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SECTION 3 ═══════════════════════════════════ -->
+<section class="sec" id="s3">
+  <div class="sec-hd">
+    <span class="sec-n">03</span>
+    <h2>Polycythemia Vera — Clinical Features</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Presenting Manifestations</h3>
+    <p>Although PV is a <strong>panmyelopathy</strong> (all lineages involved), isolated thrombocytosis, leukocytosis, or splenomegaly can be the presenting manifestation. Most often, the disorder is first recognized by <strong>incidental discovery of a high hemoglobin, hematocrit, or red cell count</strong>.</p>
+    <div class="co key">
+      <div class="co-t">🔑 Pathognomonic Symptoms</div>
+      With the exception of <strong>aquagenic pruritus</strong> or <strong>erythromelalgia</strong>, no symptoms distinguish PV from other causes of erythrocytosis. These two symptoms, when present, are strong clues to PV.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Symptoms from Hyperviscosity (Erythrocytosis)</h3>
+    <ul class="bl">
+      <li><strong>Neurologic symptoms</strong>: vertigo, tinnitus, headache, visual disturbances, transient ischemic attacks (TIAs)</li>
+      <li><strong>Systolic hypertension</strong> — from red cell mass elevation</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Thrombotic Manifestations</h3>
+    <p>Venous or arterial thrombosis may be the <strong>presenting manifestation</strong> of PV. Any vessel can be affected, but cerebral, cardiac, and mesenteric vessels are most commonly involved.</p>
+    <ul class="bl">
+      <li><strong>Hepatic venous thrombosis (Budd-Chiari syndrome)</strong>: particularly common in <strong>young women</strong>; may be catastrophic if sudden and complete hepatic vein obstruction occurs</li>
+      <li><strong>Portal vein thrombosis</strong>: more common in <strong>male</strong> PV patients</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">🚨 Board Pearl — Budd-Chiari</div>
+      PV should be <strong>suspected in any woman who develops hepatic vein thrombosis</strong>. This is the <strong>only type of thrombosis</strong> specifically associated with JAK2 V617F expression.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Hemorrhagic Manifestations (From Extreme Thrombocytosis)</h3>
+    <p>When platelet count is <strong>&gt;900,000/mL</strong>, absorption and proteolysis of high-molecular-weight von Willebrand multimers by the large platelet mass causes <strong>acquired von Willebrand's disease</strong>.</p>
+    <ul class="bl">
+      <li>Digital ischemia, easy bruising, epistaxis</li>
+      <li>Acid-peptic disease, gastrointestinal hemorrhage</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Erythromelalgia</h3>
+    <p>A syndrome of <strong>erythema, burning, and pain in the extremities</strong> — primarily lower extremities. It is a complication of thrombocytosis due to <strong>increased platelet stickiness</strong>. Some CNS symptoms in PV (e.g., ocular migraine) appear to represent a <strong>variant of erythromelalgia</strong>.</p>
+    <div class="co suc">
+      <div class="co-t">✅ Treatment</div>
+      Usually responsive to <strong>salicylates</strong> (platelet cyclooxygenase-1 inhibitors). Platelet number reduction can help if salicylates are not effective.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Metabolic Manifestations</h3>
+    <ul class="bl">
+      <li><strong>Hyperuricemia</strong> with secondary gout, uric acid stones — due to large turnover of hematopoietic cells</li>
+      <li>Constitutional symptoms — from inflammatory cytokine production</li>
+      <li><strong>Peptic ulcer disease</strong> — also related to H. pylori (increased incidence in PV)</li>
+      <li><strong>Pruritus</strong> — thought to be a consequence of <strong>mast cell activation by JAK2 V617F</strong></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SECTION 4 ═══════════════════════════════════ -->
+<section class="sec" id="s4">
+  <div class="sec-hd">
+    <span class="sec-n">04</span>
+    <h2>Polycythemia Vera — Diagnosis</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>When Diagnosis Is Apparent vs Complex</h3>
+    <ul class="bl">
+      <li><strong>Apparent</strong>: erythrocytosis + leukocytosis + thrombocytosis + splenomegaly (any combination)</li>
+      <li><strong>Complex</strong>: elevated Hgb/Hct/RBC alone → requires ruling out many causes</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">⚠️ Critical Diagnostic Pitfall</div>
+      Unless the hemoglobin level is <strong>≥20 g/dL (hematocrit ≥60%)</strong>, it is not possible to distinguish true erythrocytosis from disorders causing <strong>plasma volume contraction</strong>. This is because — uniquely in PV — there is <strong>expansion of the plasma volume</strong>, which can mask the elevated red cell mass (especially in women). Therefore, <strong>red cell mass AND plasma volume determinations</strong> are necessary to establish absolute erythrocytosis vs relative erythrocytosis (Gaisböck's syndrome).
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnostic Approach to Isolated Erythrocytosis</h3>
+    <div class="flow">
+      <div class="flow-box primary">Elevated Hgb / Hct / RBC count</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box">Check arterial O₂ saturation</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-branch">
+        <div class="flow-branch-box">
+          <div class="flow-box warn">Reduced O₂ sat → Secondary cause (hypoxia)</div>
+        </div>
+        <div class="flow-branch-box">
+          <div class="flow-box primary">Normal O₂ sat → Test JAK2 V617F / exon 12</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box suc">Positive → Supports PV diagnosis</div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--t3);margin-top:6px;">Note: Isolated erythrocytosis is uncommon as an initial PV manifestation. Not all low JAK2 V617F allele burden (VAF ≤5%) indicate actual blood disease.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Role of Erythropoietin Level</h3>
+    <ul class="bl">
+      <li>A <strong>normal serum EPO level does NOT exclude PV</strong></li>
+      <li>An <strong>elevated EPO level is most consistent with a secondary cause</strong> of erythrocytosis</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Other Helpful Laboratory Tests</h3>
+    <ul class="bl">
+      <li><strong>RBC count, MCV, RDW</strong> — particularly when Hct/Hgb &lt;60%/20 g/dL</li>
+      <li>Only <strong>3 causes of microcytic erythrocytosis</strong>: β-thalassemia trait, hypoxic erythrocytosis, and PV
+        <ul class="bl sub-bl">
+          <li>β-thal trait: RDW usually <strong>normal</strong></li>
+          <li>Hypoxic erythrocytosis or PV: RDW may be <strong>elevated</strong> (due to associated iron deficiency)</li>
+        </ul>
+      </li>
+      <li>Today: <strong>quantitative JAK2 V617F or JAK2 exon 12 mutation assay by next-generation sequencing</strong> has superseded other surrogate tests</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>What Bone Marrow Does (and Doesn't) Tell You</h3>
+    <div class="co wrn">
+      <div class="co-t">⚠️ Boards Trap</div>
+      Bone marrow aspirate and biopsy provide <strong>no specific diagnostic information</strong> — may be normal or indistinguishable from ET or PMF. Similarly, <strong>no specific cytogenetic abnormality</strong> is associated with PV, and absence of a cytogenetic marker does NOT exclude the diagnosis.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Causes of Erythrocytosis (Table 108-2)</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Category</th><th>Examples</th></tr></thead>
+        <tbody>
+          <tr><td>Relative Erythrocytosis</td><td>Hemoconcentration: dehydration, diuretics, ethanol abuse, androgens, tobacco abuse</td></tr>
+          <tr><td>Hypoxia</td><td>CO intoxication, high O₂-affinity Hgb, high altitude, pulmonary disease, R→L cardiac/vascular shunts, sleep apnea, hepatopulmonary syndrome</td></tr>
+          <tr><td>Tumors</td><td>Hypernephroma, hepatoma, cerebellar hemangioblastoma, uterine myoma, adrenal tumors, meningioma, pheochromocytoma</td></tr>
+          <tr><td>Renal Disease</td><td>Renal artery stenosis, focal sclerosing/membranous GN, post-renal transplant, renal cysts, Bartter's syndrome</td></tr>
+          <tr><td>Drugs</td><td>Androgens, SGLT2 inhibitors, recombinant erythropoietin</td></tr>
+          <tr><td>Familial (normal Hgb function)</td><td>EPO receptor mutations, VHL mutations (Chuvash polycythemia), 2,3-BPG mutation, PHD2 (EGLN1) and HIF2α (EPAS1) mutations, LNK mutations</td></tr>
+          <tr><td>Clonal</td><td><strong>Polycythemia vera</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SECTION 5 ═══════════════════════════════════ -->
+<section class="sec" id="s5">
+  <div class="sec-hd">
+    <span class="sec-n">05</span>
+    <h2>Polycythemia Vera — Complications</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Mechanism of Complications</h3>
+    <p>Complications relate <strong>directly</strong> to increased blood viscosity from red cell mass elevation and <strong>indirectly</strong> to increased turnover of red cells, leukocytes, and platelets → increased uric acid and inflammatory cytokine production.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Myelofibrosis as a Complication of PV</h3>
+    <ul class="bl">
+      <li>Myelofibrosis in PV is a <strong>reactive, reversible process</strong> that does not itself impede hematopoiesis and <strong>has no prognostic significance</strong> per se in PV</li>
+      <li>In <strong>~15% of patients</strong>, myelofibrosis is associated with <strong>hematopoietic stem cell failure</strong> → substantial extramedullary hematopoiesis in liver and spleen + transfusion-dependent anemia</li>
+      <li>Organomegaly → mechanical discomfort, portal hypertension, progressive cachexia</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Acute Leukemia Transformation</h3>
+    <ul class="bl">
+      <li>Incidence of AML is <strong>increased</strong> in PV — but incidence in patients NOT exposed to chemotherapy or radiation is <strong>very low</strong></li>
+      <li>Interestingly, chemotherapy (including <strong>hydroxyurea</strong>) has been associated with AML in <strong>JAK2 V617F–negative HSCs</strong> in some PV patients</li>
+      <li>Hydroxyurea <strong>antagonizes TP53</strong> and causes <strong>del17p → TP53 haploinsufficiency</strong> → chronic use should be constrained</li>
+      <li>Acquisition of <strong>TP53 mutations</strong> (detected by NGS) is usually associated with leukemic transformation</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Thrombosis and Splenomegaly</h3>
+    <ul class="bl">
+      <li>Left uncontrolled, erythrocytosis can lead to thrombosis of vital organs: <strong>liver, heart, brain, lungs</strong></li>
+      <li>Patients with massive splenomegaly: particularly prone to thrombotic events because the associated <strong>increase in plasma volume masks the true extent of the red cell mass elevation</strong></li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">🚨 Critical Clinical Pearl</div>
+      A "normal" hematocrit or hemoglobin level in a PV patient with massive splenomegaly should be considered <strong>indicative of an elevated red cell mass until proven otherwise</strong>.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SECTION 6 ═══════════════════════════════════ -->
+<section class="sec" id="s6">
+  <div class="sec-hd">
+    <span class="sec-n">06</span>
+    <h2>Polycythemia Vera — Treatment</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">🔑 Core Principle</div>
+    PV is generally an <strong>indolent disorder</strong> measured in decades. Management should reflect its tempo. <strong>Thrombosis due to erythrocytosis</strong> is the most significant complication and often the presenting manifestation.
+  </div>
+
+  <div class="sub">
+    <h3>Hematocrit Targets (MANDATORY)</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Men</div>
+        <p>Hgb ≤ <strong>14 g/dL</strong> (140 g/L)<br>Hematocrit &lt; <strong>45%</strong></p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Women</div>
+        <p>Hgb ≤ <strong>12 g/dL</strong> (120 g/L)<br>Hematocrit &lt; <strong>42%</strong></p>
+      </div>
+    </div>
+    <p>These targets are mandatory to avoid thrombotic complications.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Phlebotomy — First-Line</h3>
+    <ul class="bl">
+      <li><strong>Initially</strong>: reduces hyperviscosity by reducing red cell mass to normal while <strong>further expanding the plasma volume</strong></li>
+      <li><strong>Periodic phlebotomies</strong>: maintain red cell mass within normal range and induce a state of <strong>iron deficiency</strong> that prevents accelerated reexpansion of the red cell mass</li>
+      <li>Once iron-deficient state achieved: phlebotomy usually only required at <strong>3-month intervals</strong></li>
+      <li>Neither phlebotomy nor iron deficiency increases the platelet count relative to the effect of the disease itself</li>
+      <li><strong>Neither thrombocytosis nor leukocytosis is correlated with thrombosis in PV</strong>, in contrast to the strong correlation between erythrocytosis and thrombosis</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">🚨 Chemotherapy for RCM Control — NEVER</div>
+      <strong>Chemotherapy is NEVER indicated to control the red cell mass in PV.</strong> If venous access is an issue, ruxolitinib or pegylated IFN is the preferred therapy.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Drug Therapies — Mechanisms, Indications, Pearls</h3>
+
+    <h4>Ruxolitinib (JAK1/2 Inhibitor) ⭐ Key Drug</h4>
+    <ul class="bl">
+      <li><strong>Mechanism</strong>: Nonspecific JAK1/2 inhibitor</li>
+      <li><strong>Indications in PV</strong>:
+        <ul class="bl sub-bl">
+          <li>Symptomatic splenomegaly (reduces spleen size)</li>
+          <li>Alleviates constitutional symptoms and pruritus (via cytokine inhibition)</li>
+          <li>Reduces phlebotomy requirement</li>
+          <li>Effective in PV <strong>without myelofibrosis</strong> who are intolerant or refractory to hydroxyurea (Phase 3 trial)</li>
+        </ul>
+      </li>
+      <li><strong>Targets involved HSCs</strong> in PV and is <strong>not mutagenic</strong></li>
+    </ul>
+
+    <h4>Pegylated IFN-α ⭐ Key Drug</h4>
+    <ul class="bl">
+      <li><strong>Targets involved HSCs</strong> in PV and is <strong>not mutagenic</strong></li>
+      <li>Allows <strong>biweekly administration</strong></li>
+      <li>Produced <strong>complete hematologic and molecular remissions in ~20%</strong> of PV patients</li>
+      <li>Preferred with ruxolitinib when venous access is an issue</li>
+    </ul>
+
+    <h4>Hydroxyurea — Use with Caution</h4>
+    <ul class="bl">
+      <li>Does <strong>NOT target the involved HSCs</strong> in PV and is <strong>mutagenic</strong></li>
+      <li>Does <strong>NOT prevent thrombosis or myelofibrosis</strong> in PV</li>
+      <li>Itself <strong>leukemogenic</strong></li>
+      <li>Antagonizes <strong>TP53</strong> and causes <strong>del17p → TP53 haploinsufficiency</strong></li>
+      <li>Should be considered as <strong>short-duration therapy only</strong></li>
+    </ul>
+
+    <h4>Anagrelide (Phosphodiesterase Inhibitor)</h4>
+    <ul class="bl">
+      <li>Reduces platelet count</li>
+      <li>Preferable to hydroxyurea: <strong>lacks marrow toxicity</strong>; also <strong>protective against venous thrombosis</strong> (hydroxyurea is not)</li>
+      <li>Chronic use: <strong>cardiotoxic and nephrotoxic</strong>, particularly in older PV patients</li>
+    </ul>
+
+    <h4>Other JAK2 Inhibitors (After Ruxolitinib Failure)</h4>
+    <ul class="bl">
+      <li>Three agents approved for PV <strong>with myelofibrosis</strong> after ruxolitinib failure/intolerance:
+        <ul class="bl sub-bl">
+          <li><strong>Fedratinib</strong></li>
+          <li><strong>Pacritinib</strong></li>
+          <li><strong>Momelotinib</strong></li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>Agents to AVOID</h4>
+    <div class="co dan">
+      <div class="co-t">🚨 Leukemogenic — Avoid</div>
+      <strong>Alkylating agents</strong> and <strong>radioactive sodium phosphate (³²P)</strong> are leukemogenic in PV. Their use should be avoided.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Symptom-Specific Management</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Problem</th><th>Management</th></tr></thead>
+        <tbody>
+          <tr><td>Thrombosis occurred</td><td>Anticoagulation; newer oral anticoagulants preferred (no monitoring required)</td></tr>
+          <tr><td>Asymptomatic hyperuricemia (&lt;10 mg/dL)</td><td>No therapy needed</td></tr>
+          <tr><td>Hyperuricemia when chemo used</td><td>Allopurinol to prevent further elevation</td></tr>
+          <tr><td>Pruritus intractable to antihistamines/doxepin</td><td>Ruxolitinib, pegylated IFN-α, PUVA therapy, hydroxyurea</td></tr>
+          <tr><td>Asymptomatic thrombocytosis</td><td>No therapy unless platelet count high enough to cause bleeding from acquired vWD</td></tr>
+          <tr><td>Bleeding from acquired vWD</td><td>Tranexamic acid or ε-aminocaproic acid (not usually spontaneous)</td></tr>
+          <tr><td>Erythromelalgia</td><td>Salicylates; if refractory, reduce platelet count</td></tr>
+          <tr><td>Symptomatic splenomegaly</td><td>Ruxolitinib or pegylated IFN-α</td></tr>
+          <tr><td>Salicylates in PV</td><td>Potentially harmful if RCM not controlled; increased bleeding risk especially age &gt;60</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co suc">
+      <div class="co-t">✅ Hepcidin Pearl</div>
+      Hepcidin production is <strong>suppressed (but not absent)</strong> in PV. A hepcidin agonist has been shown to reduce phlebotomy requirements in PV.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SECTION 7 ═══════════════════════════════════ -->
+<section class="sec" id="s7">
+  <div class="sec-hd">
+    <span class="sec-n">07</span>
+    <h2>Primary Myelofibrosis — Etiology &amp; Clinical Features</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Definition &amp; Epidemiology</h3>
+    <p>Chronic PMF (also called <em>idiopathic myelofibrosis, agnogenic myeloid metaplasia, myelofibrosis with myeloid metaplasia</em>) is a <strong>clonal HSC disorder</strong> associated with mutations in <strong>JAK2, MPL, or CALR</strong>, characterized by marrow fibrosis, extramedullary hematopoiesis, variable suppression of hematopoiesis, and splenomegaly.</p>
+    <ul class="bl">
+      <li><strong>Least common MPN</strong></li>
+      <li>Primarily afflicts <strong>men in their sixth decade or later</strong> (contrast: acute/malignant myelofibrosis can occur at any age)</li>
+      <li>Diagnosis of PMF is one of <strong>exclusion</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Molecular Biology of Fibrosis</h3>
+    <ul class="bl">
+      <li>Fibrosis associated with overproduction of <strong>TGF-β</strong> and tissue inhibitors of metalloproteinases and thrombopoietin</li>
+      <li>Osteosclerosis: overproduction of <strong>osteoprotegerin</strong> (osteoclast inhibitor)</li>
+      <li>Marrow angiogenesis: increased production of <strong>VEGF</strong></li>
+      <li><strong>Key point</strong>: Fibroblasts in PMF are <strong>polyclonal and NOT part of the neoplastic clone</strong> — but can be induced by the clone to produce inflammatory cytokines</li>
+      <li>The <strong>degree of myelofibrosis and the extent of extramedullary hematopoiesis are NOT related</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Mutation Landscape</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">JAK2 V617F</div>
+        <p><strong>~55%</strong> of PMF; often as homozygotes; usually older patients with higher hematocrits</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">CALR</div>
+        <p><strong>~36%</strong>; exon 9 somatic mutations (type 1 = deletions, type 2 = insertions); binds and activates MPL at cell surface. Type 1 has survival advantage</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">MPL</div>
+        <p><strong>~4%</strong>; thrombopoietin receptor mutations; more anemic + lower leukocyte counts than JAK2 V617F patients</p>
+      </div>
+    </div>
+    <div class="co dan">
+      <div class="co-t">🚨 Triple-Negative PMF</div>
+      PMF patients lacking a known MPN driver mutation (<strong>triple-negative: no JAK2, MPL, or CALR</strong>) appear to have the <strong>worst prognosis</strong>.
+    </div>
+    <ul class="bl">
+      <li>Small number with <strong>low JAK2 V617F allele burden (≤25%)</strong>: faster time to anemia/leukopenia and <strong>shortened survival</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Features</h3>
+    <ul class="bl">
+      <li>No specific signs or symptoms</li>
+      <li>Many asymptomatic at presentation — detected by <strong>splenic enlargement and/or abnormal blood counts</strong> on routine exam</li>
+      <li><strong>Night sweats, fatigue, and weight loss</strong>: common presenting complaints (contrast to companion MPNs)</li>
+    </ul>
+
+    <h4>Peripheral Blood Smear — Characteristic Findings</h4>
+    <ul class="bl">
+      <li><strong>Teardrop-shaped red cells (dacrocytes)</strong> — membrane damage from passage through fibrotic marrow/spleen</li>
+      <li>Nucleated red cells (normoblasts)</li>
+      <li>Myelocytes, promyelocytes</li>
+      <li>Myeloblasts may be present</li>
+      <li>This is a <strong>leukoerythroblastic smear</strong> — indicative of extramedullary hematopoiesis (not specific to PMF)</li>
+    </ul>
+
+    <h4>Other Findings</h4>
+    <ul class="bl">
+      <li>Anemia: usually mild initially; common</li>
+      <li>Leukocyte and platelet counts: normal or increased; either can be depressed</li>
+      <li>Mild hepatomegaly may accompany splenomegaly; <strong>isolated lymphadenopathy → suggest another diagnosis</strong></li>
+      <li>Elevated serum <strong>LDH and alkaline phosphatase</strong></li>
+      <li>Marrow <strong>inaspirable ("dry tap")</strong> due to myelofibrosis</li>
+      <li>Bone x-rays: <strong>osteosclerosis</strong></li>
+      <li>Markedly increased circulating <strong>CD34+ cells (&gt;15,000/μL)</strong> — due to impaired CXCL4 expression</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Complications of Extramedullary Hematopoiesis</h3>
+    <ul class="bl">
+      <li>Ascites</li>
+      <li>Portal, pulmonary, or intracranial hypertension</li>
+      <li>Intestinal or ureteral obstruction</li>
+      <li>Pericardial tamponade</li>
+      <li>Spinal cord compression</li>
+      <li>Skin nodules</li>
+      <li>Splenic infarction with rapid spleen enlargement → fever + pleuritic chest pain</li>
+      <li>Hyperuricemia, secondary gout</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Autoimmune Abnormalities in PMF</h3>
+    <p>An intriguing feature of PMF is the occurrence of autoimmune abnormalities: <strong>immune complexes, antinuclear antibodies, rheumatoid factor, positive Coombs' test</strong>. Whether these represent a host reaction to the disorder or are involved in its pathogenesis is unknown.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Disorders Causing Myelofibrosis (Table 108-3)</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Malignant</div>
+        <ul class="bl">
+          <li>Acute leukemia (lymphocytic, myelogenous, megakaryocytic)</li>
+          <li>CML, Hairy cell leukemia</li>
+          <li>Hodgkin's disease</li>
+          <li>Primary myelofibrosis</li>
+          <li>Lymphoma, Multiple myeloma</li>
+          <li>Myelodysplasia</li>
+          <li>Metastatic carcinoma</li>
+          <li>Polycythemia vera</li>
+          <li>Systemic mastocytosis</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Nonmalignant</div>
+        <ul class="bl">
+          <li>HIV infection</li>
+          <li>Hyperparathyroidism</li>
+          <li>Renal osteodystrophy</li>
+          <li>Systemic lupus erythematosus</li>
+          <li>Tuberculosis</li>
+          <li>Vitamin D deficiency</li>
+          <li>Thorium dioxide exposure</li>
+          <li>Gray platelet syndrome</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SECTION 8 ═══════════════════════════════════ -->
+<section class="sec" id="s8">
+  <div class="sec-hd">
+    <span class="sec-n">08</span>
+    <h2>Primary Myelofibrosis — Diagnosis &amp; Prognosis</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Key Diagnostic Points</h3>
+    <ul class="bl">
+      <li>All clinical features of PMF can be seen in <strong>PV or CML</strong> → PMF is a <strong>diagnosis of exclusion</strong></li>
+      <li>Massive splenomegaly in PV commonly <strong>masks erythrocytosis</strong> → intraabdominal thrombosis in PMF most likely represents unrecognized PV</li>
+      <li>Bone marrow biopsy: usually reveals <strong>hypercellular marrow with trilineage hyperplasia</strong> + <strong>increased megakaryocytes in clusters with large, dysplastic nuclei</strong></li>
+      <li>No specific bone marrow morphologic abnormalities distinguish PMF from other MPNs</li>
+      <li>Cytogenetic analysis: useful to <strong>exclude CML</strong> and for prognosis (<strong>complex karyotype → poor prognosis</strong>)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Prognostic Scoring Systems (Tables 108-4 &amp; 108-5)</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Risk Factor</th><th>IPSS (2009)</th><th>DIPSS (2010)</th><th>DIPSS Plus (2011)</th></tr></thead>
+        <tbody>
+          <tr><td>Anemia (&lt;10 g/dL)</td><td>✓ (1 pt)</td><td>✓ <strong>(2 pts)</strong></td><td>✓</td></tr>
+          <tr><td>Leukocytosis (&gt;25,000/μL)</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><td>Peripheral blood blasts (≥1%)</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><td>Constitutional symptoms</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><td>Age (&gt;65 years)</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><td>Unfavorable karyotype</td><td>—</td><td>—</td><td>✓</td></tr>
+          <tr><td>Platelet count (&lt;100,000/μL)</td><td>—</td><td>—</td><td>✓</td></tr>
+          <tr><td>Transfusion dependence</td><td>—</td><td>—</td><td>✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Risk Category</th><th>IPSS score</th><th>DIPSS score</th><th>DIPSS Plus score</th></tr></thead>
+        <tbody>
+          <tr><td>Low</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>Intermediate-1</td><td>1</td><td>1–2</td><td>1</td></tr>
+          <tr><td>Intermediate-2</td><td>2</td><td>3–4</td><td>2–3</td></tr>
+          <tr><td>High</td><td>≥3</td><td>&gt;4</td><td>4–6</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co key">
+      <div class="co-t">🔑 Additional Prognostic Factors</div>
+      Mutations in <strong>ASXL1, EZH2, SRSF2, and IDH1/2</strong> have been identified as risk factors for early death or leukemic transformation. These have proved more useful for PMF risk assessment than clinical scoring systems. Complex cytogenetic abnormalities also portend poor prognosis.
+    </div>
+    <div class="co wrn">
+      <div class="co-t">⚠️ Scoring Caveat</div>
+      These prognostic scoring systems are <strong>NOT accurate</strong> for risk assessment in polycythemia vera or essential thrombocytosis patients who have developed myelofibrosis.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Complications and Natural History</h3>
+    <ul class="bl">
+      <li>Survival in PMF is <strong>much shorter than in PV and ET</strong></li>
+      <li>Natural history: increasing marrow failure → <strong>transfusion-dependent anemia</strong> + increasing organomegaly</li>
+      <li>Can evolve from chronic to <strong>accelerated phase</strong>: constitutional symptoms + increasing marrow failure</li>
+      <li><strong>~10% spontaneous transformation</strong> to aggressive acute leukemia → usually refractory to treatment</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SECTION 9 ═══════════════════════════════════ -->
+<section class="sec" id="s9">
+  <div class="sec-hd">
+    <span class="sec-n">09</span>
+    <h2>Primary Myelofibrosis — Treatment</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co wrn">
+    <div class="co-t">⚠️ Core Challenge</div>
+    <strong>No specific therapy exists for PMF.</strong> Treatment is supportive and targeted at symptoms.
+  </div>
+
+  <div class="sub">
+    <h3>Anemia Management</h3>
+    <p>Causes are multifactorial: ineffective erythropoiesis, hemodilution (splenomegaly), splenic sequestration, blood loss (thrombocytopenia/portal hypertension), folic acid deficiency, systemic inflammation, autoimmune hemolysis.</p>
+    <ul class="bl">
+      <li>Recombinant EPO: <strong>not consistently effective</strong>; may <strong>worsen splenomegaly</strong>; ineffective if serum EPO &gt;125 mU/L</li>
+      <li>Androgens (danazol): not consistently effective</li>
+      <li><strong>Glucocorticoids</strong>: can ameliorate anemia + constitutional symptoms (fever, chills, night sweats, anorexia, weight loss)</li>
+      <li><strong>Low-dose thalidomide + prednisone</strong>: effective for both anemia and thrombocytopenia</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Splenomegaly — Most Distressing Problem</h3>
+    <p>Splenomegaly causes abdominal pain, portal hypertension, easy satiety, and cachexia.</p>
+    <ul class="bl">
+      <li><strong>Splenectomy</strong>: associated with significant postoperative complications:
+        <ul class="bl sub-bl">
+          <li>Mesenteric venous thrombosis</li>
+          <li>Hemorrhage</li>
+          <li>Rebound leukocytosis and thrombocytosis</li>
+          <li>Hepatic extramedullary hematopoiesis</li>
+          <li>No amelioration of anemia or thrombocytopenia when present</li>
+          <li><strong>Also increases risk of blastic transformation</strong></li>
+        </ul>
+      </li>
+      <li><strong>Splenic irradiation</strong>: at best temporarily palliative; significant risk of neutropenia, infection, subsequent operative hemorrhage if splenectomy attempted</li>
+      <li><strong>Ruxolitinib</strong>: effective in reducing splenomegaly + alleviating constitutional symptoms in majority of advanced PMF; possibly prolongs survival; side effects: anemia + thrombocytopenia (dose-dependent)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Targeted Agents</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug</th><th>Class</th><th>Indication/Pearl</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Ruxolitinib</strong></td><td>JAK1/2 inhibitor</td><td>First-line for splenomegaly/constitutional symptoms; possibly prolongs survival; associated with RAS mutations in some patients</td></tr>
+          <tr><td><strong>Fedratinib</strong></td><td>Tyrosine kinase inhibitor (anti-FLT3 activity)</td><td>Ruxolitinib-refractory disease</td></tr>
+          <tr><td><strong>Pacritinib</strong></td><td>JAK2 inhibitor</td><td>Useful when <strong>thrombocytopenia</strong> is present</td></tr>
+          <tr><td><strong>Momelotinib</strong></td><td>JAK2 inhibitor</td><td>May be useful in <strong>improving red cell production</strong></td></tr>
+          <tr><td><strong>Pegylated IFN-α</strong></td><td>Interferon</td><td>Can ameliorate fibrosis in <strong>early PMF</strong>; may exacerbate marrow failure in advanced disease</td></tr>
+          <tr><td><strong>Azacytidine / Decitabine</strong></td><td>Hypomethylating agents</td><td>With high-dose ruxolitinib — to control disease or prepare for BMT</td></tr>
+          <tr><td><strong>Allopurinol</strong></td><td>Xanthine oxidase inhibitor</td><td>Control significant hyperuricemia</td></tr>
+          <tr><td><strong>Local irradiation</strong></td><td>—</td><td>Bone pain</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Allogeneic Bone Marrow Transplantation</h3>
+    <div class="co suc">
+      <div class="co-t">✅ Only Curative Therapy</div>
+      Allogeneic BMT is the <strong>only curative treatment for PMF</strong>. Should be considered in:
+      <ul class="bl" style="margin-top:8px">
+        <li>Younger patients</li>
+        <li>Older patients with <strong>high-risk disease</strong></li>
+        <li>Nonmyeloablative conditioning regimens permit extension to older individuals</li>
+      </ul>
+      Transformation to acute leukemia in PMF is usually <strong>refractory to treatment</strong>.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SECTION 10 ═══════════════════════════════════ -->
+<section class="sec" id="s10">
+  <div class="sec-hd">
+    <span class="sec-n">10</span>
+    <h2>Essential Thrombocytosis — Etiology, Diagnosis &amp; Complications</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Definition &amp; Epidemiology</h3>
+    <p>ET is a <strong>clonal hematopoietic stem cell disorder</strong> with mutations in <strong>JAK2 (V617F), MPL, or CALR</strong>, manifested clinically by overproduction of platelets without a definable cause.</p>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">Incidence</div>
+        <p>1–2 per 100,000; distinct <strong>female predominance</strong></p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Mutations</div>
+        <p>JAK2 V617F ~50%, CALR ~30%, MPL ~8%; <strong>canonical mutations in 90%</strong></p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Prognosis</div>
+        <p>ET lacking canonical driver mutation: usually <strong>benign prognosis</strong>. Survival = general population</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Thrombopoietin Physiology (Key Concepts)</h3>
+    <ul class="bl">
+      <li>Thrombopoietin produced <strong>only in the liver</strong></li>
+      <li>Maintains HSCs <strong>quiescent in endosteal niches</strong>; once released, promotes proliferation in sinusoidal niches</li>
+      <li>Plasma thrombopoietin level controlled by <strong>size of platelet and megakaryocyte progenitor pool</strong></li>
+      <li>Unlike EPO: thrombopoietin is <strong>only constitutively produced</strong></li>
+      <li>Paradoxically in MPNs: plasma thrombopoietin is <strong>increased despite increased megakaryocytes and platelets</strong> — because MPL expression is impaired</li>
+      <li>Terminal megakaryocyte maturation and platelet production <strong>do NOT require thrombopoietin</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Features</h3>
+    <ul class="bl">
+      <li>Most often identified <strong>incidentally</strong> on routine platelet count; often present but overlooked for years</li>
+      <li>No specific symptoms or signs</li>
+      <li><strong>Hemorrhagic tendencies</strong>: easy bruising</li>
+      <li><strong>Thrombotic tendencies (microvascular occlusive events)</strong>: erythromelalgia, ocular migraine, TIA</li>
+      <li>Physical exam: generally <strong>unremarkable</strong></li>
+      <li><strong>Splenomegaly indicates ANOTHER MPN</strong> (PV, PMF, or CML), not ET</li>
+    </ul>
+
+    <h4>Laboratory Findings</h4>
+    <ul class="bl">
+      <li>Anemia: <strong>unusual</strong>; mild neutrophilic leukocytosis: not unusual</li>
+      <li>Blood smear: remarkable for number of platelets (some very large)</li>
+      <li><strong>Spurious hyperkalemia</strong>: large platelet mass → potassium release on clotting → test-tube artifact; NO EKG abnormalities</li>
+      <li>Arterial O₂ measurements: inaccurate unless collected <strong>on ice</strong></li>
+      <li>PT/PTT: <strong>NORMAL</strong></li>
+      <li>Platelet function: prolonged bleeding time, impaired platelet aggregation — but no test predicts bleeding/thrombosis risk</li>
+      <li>Marrow biopsy: <strong>megakaryocyte hypertrophy and hyperplasia</strong> + overall increase in marrow cellularity</li>
+      <li>If marrow reticulin increased → <strong>consider another diagnosis</strong></li>
+      <li>Absent marrow iron demands explanation — iron deficiency can cause thrombocytosis; absent iron + marrow hypercellularity is a feature of PV</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnosis &amp; Key Distinctions</h3>
+    <ul class="bl">
+      <li>Absolute platelet count level is <strong>NOT a useful diagnostic aid</strong> to distinguish benign from clonal thrombocytosis</li>
+      <li>If JAK2 V617F absent → <strong>cytogenetic evaluation mandatory</strong> to rule out CML or myelodysplastic disorders (5q– syndrome)</li>
+      <li>BCR-ABL RT-PCR associated with false-positives → <strong>FISH for BCR-ABL is preferred assay</strong> when cytogenetic Ph study is negative</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">🚨 ET vs PV — Critical Distinction</div>
+      In ET, the quantitative JAK2 V617F neutrophil allele is <strong>NEVER greater than 50%</strong>. Importantly, 64% of JAK2 V617F–positive ET patients in one study were actually found to have <strong>PV</strong> when red cell mass and plasma volume determinations were performed. <strong>ET and PV do NOT form a biological continuum</strong> — different gene expression profiles and different natural histories.
+    </div>
+    <ul class="bl">
+      <li>ET can evolve into:
+        <ul class="bl sub-bl">
+          <li><strong>PV</strong>: usually in women with JAK2 V617F</li>
+          <li><strong>PMF</strong>: usually in men with type 1 CALR mutations</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Causes of Thrombocytosis (Table 108-6)</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Clonal</div>
+        <ul class="bl">
+          <li>MPNs: PV, PMF, ET, CML</li>
+          <li>Myelodysplastic: 5q– syndrome, idiopathic refractory sideroblastic anemia</li>
+          <li>Familial: thrombopoietin overproduction, JAK2/CALR/MPL mutations</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Reactive</div>
+        <ul class="bl">
+          <li>Tissue inflammation: collagen vascular disease, IBD</li>
+          <li>Malignancy, Infection, Surgery, Hemorrhage</li>
+          <li>Iron-deficiency anemia, Hemolysis</li>
+          <li>Post-splenectomy or hyposplenism</li>
+          <li>Rebound: correction of B₁₂/folate, post-ethanol, post-splenectomy</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Complications — Rethinking Thrombocytosis</h3>
+    <div class="co key">
+      <div class="co-t">🔑 The Truth About Platelet Count and Thrombosis</div>
+      No controlled clinical study has ever established that a high platelet count causes thrombosis. In patients <strong>younger than age 60 years</strong>, the incidence of thrombosis was <strong>not greater</strong> in patients with thrombocytosis than in age-matched controls. <strong>Tobacco use</strong> appears to be the most important risk factor for thrombosis in ET patients.
+    </div>
+    <ul class="bl">
+      <li><strong>Very high platelet counts</strong>: associated primarily with <strong>HEMORRHAGE</strong> due to acquired vWD (high-MW vWF multimers removed from circulation)</li>
+      <li>Migraine-related neurologic problems: respond <strong>only to lowering the platelet count</strong></li>
+      <li>Erythromelalgia: responds to <strong>platelet cyclooxygenase-1 inhibitors (aspirin, ibuprofen) WITHOUT reducing platelet number</strong></li>
+    </ul>
+    <p>Focus should be on <strong>the patient, not the platelet count</strong>.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SECTION 11 ═══════════════════════════════════ -->
+<section class="sec" id="s11">
+  <div class="sec-hd">
+    <span class="sec-n">11</span>
+    <h2>Essential Thrombocytosis — Treatment</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co suc">
+    <div class="co-t">✅ Survival Context</div>
+    Survival of ET patients is <strong>not different from the general population</strong> regardless of driver mutation. An elevated platelet count in an asymptomatic patient without cardiovascular risk factors or tobacco use <strong>requires no therapy</strong>.
+  </div>
+
+  <div class="sub">
+    <h3>When Treatment Is Needed</h3>
+    <p>Before any therapy is initiated, the cause of symptoms must be <strong>clearly identified as due to the elevated platelet count</strong>.</p>
+    <ul class="bl">
+      <li>Platelet count &gt;1 × 10⁶/μL → substantial quantity of high-MW vWF multimers removed → <strong>acquired vWD</strong>
+        <ul class="bl sub-bl">
+          <li>Identified by <strong>reduction in ristocetin cofactor activity</strong></li>
+          <li>In this situation: <strong>aspirin could PROMOTE hemorrhage</strong></li>
+          <li>Bleeding: rarely spontaneous; responds to <strong>tranexamic acid or ε-aminocaproic acid</strong></li>
+          <li>These can be given prophylactically before/after elective minor surgery</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">🚨 Avoid Leukemogenic Therapy</div>
+      ET patients treated with <strong>³²P or alkylating agents</strong> are at risk of developing acute leukemia without any proof of benefit. Combining either with hydroxyurea <strong>increases this risk further</strong>.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Platelet-Reducing Agents (If Deemed Necessary)</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Pegylated IFN-α</strong></td><td>Can produce complete molecular remission in some ET patients; role not yet established in ET management</td></tr>
+          <tr><td><strong>Anagrelide</strong> (quinazoline derivative)</td><td>Reduces platelet count; may be used if platelet reduction needed</td></tr>
+          <tr><td><strong>Hydroxyurea</strong></td><td>Can reduce platelet count; but leukemogenic; not uniformly effective</td></tr>
+          <tr><td><strong>Plateletpheresis</strong></td><td>At best temporary and inefficient; rarely required</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>None of the above agents are uniformly effective or without significant side effects.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Hydroxyurea vs Anagrelide — Key Comparison</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Hydroxyurea + Aspirin</div>
+        <ul class="bl">
+          <li><strong>More effective</strong> than anagrelide + aspirin for prevention of <strong>TIA</strong> (hydroxyurea is a nitric oxide donor)</li>
+          <li>NOT more effective for other arterial thromboses</li>
+          <li><strong>LESS effective</strong> for venous thrombosis</li>
+          <li>Higher risk of GI bleeding with anagrelide + aspirin</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Critical Note</div>
+        <p><strong>Normalizing the platelet count does NOT prevent either arterial or venous thrombosis</strong> in ET.</p>
+        <p style="margin-top:8px">Evolution to acute leukemia is more likely to be a <strong>consequence of therapy</strong> than of the disease itself.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>JAK Inhibitors in ET</h3>
+    <ul class="bl">
+      <li>Pegylated IFN: can produce complete molecular remission in some ET patients</li>
+      <li><strong>Role of ruxolitinib in ET management has not yet been established</strong></li>
+    </ul>
+    <div class="co key">
+      <div class="co-t">🔑 Guiding Principle</div>
+      As more clinical experience is acquired, ET appears more benign than previously thought. In managing patients with thrombocytosis, <strong>the physician's first obligation is to do no harm</strong>.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SECTION 12 ═══════════════════════════════════ -->
+<section class="sec" id="s12">
+  <div class="sec-hd">
+    <span class="sec-n">12</span>
+    <h2>Quick-Reference Master Table</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Feature</th><th>PV</th><th>PMF</th><th>ET</th></tr></thead>
+      <tbody>
+        <tr><td>Key mutation</td><td>JAK2 V617F &gt;95%</td><td>JAK2 55%, CALR 36%, MPL 4%</td><td>JAK2 50%, CALR 30%, MPL 8%</td></tr>
+        <tr><td>Incidence</td><td>2.5/100,000; most common MPN</td><td>Least common MPN</td><td>1–2/100,000</td></tr>
+        <tr><td>Demographics</td><td>Women &lt;50 predominate</td><td>Men, 6th decade+</td><td>Female predominance (unexplained)</td></tr>
+        <tr><td>Pathognomonic symptoms</td><td>Aquagenic pruritus, erythromelalgia</td><td>None specific</td><td>None specific</td></tr>
+        <tr><td>Splenomegaly</td><td>Present; masks RCM elevation</td><td>Dominant, distressing problem</td><td>Indicates another MPN, not ET</td></tr>
+        <tr><td>Blood smear</td><td>Panmyelosis</td><td>Leukoerythroblastic (teardrop cells)</td><td>Thrombocytosis, large platelets</td></tr>
+        <tr><td>EPO level</td><td>Normal or low; elevated favors secondary</td><td>Variable</td><td>Normal</td></tr>
+        <tr><td>Thrombosis type</td><td>Any; Budd-Chiari in women</td><td>Intraabdominal (often masked PV)</td><td>Microvascular (erythromelalgia, TIA)</td></tr>
+        <tr><td>Hemorrhage mechanism</td><td>Acquired vWD if plt &gt;900K</td><td>Thrombocytopenia</td><td>Acquired vWD if plt &gt;1M</td></tr>
+        <tr><td>Bone marrow</td><td>No specific findings (indistinguishable from ET/PMF)</td><td>Inaspirable (dry tap); reticulin fibrosis</td><td>Megakaryocyte hypertrophy/hyperplasia</td></tr>
+        <tr><td>Cytogenetics</td><td>No specific abnormality; no consistent pattern</td><td>No specific; complex = poor prognosis</td><td>No specific abnormality</td></tr>
+        <tr><td>Survival</td><td>Decades (longest)</td><td>Much shorter than PV/ET</td><td>Same as general population</td></tr>
+        <tr><td>Leukemia risk (without chemo)</td><td>Very low</td><td>~10% spontaneous; higher overall</td><td>Very low</td></tr>
+        <tr><td>First-line therapy</td><td>Phlebotomy (Hct target)</td><td>Ruxolitinib for splenomegaly; no curative medical therapy</td><td>Watchful waiting if asymptomatic</td></tr>
+        <tr><td>Curative therapy</td><td>None defined for BMT</td><td>Allogeneic BMT (only curative)</td><td>None needed; evolution usually from therapy</td></tr>
+        <tr><td>Hydroxyurea</td><td>Short duration only; leukemogenic; mutagenic; does not prevent thrombosis/fibrosis</td><td>Used but leukemogenic</td><td>Can reduce plt; leukemogenic; for TIA prevention better than anagrelide</td></tr>
+        <tr><td>Ruxolitinib role</td><td>Splenomegaly, pruritus, HU-refractory; reduces phlebotomy</td><td>Splenomegaly, constitutional symptoms; possibly prolongs survival</td><td>Role NOT yet established</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="sep">
+
+  <div class="sub">
+    <h3>Drug Comparison Table</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug</th><th>Mechanism</th><th>Mutagenic?</th><th>Targets Involved HSCs?</th><th>Key Use</th><th>Avoid / Caution</th></tr></thead>
+        <tbody>
+          <tr><td>Ruxolitinib</td><td>JAK1/2 inhibitor</td><td>No</td><td>Yes</td><td>Splenomegaly, pruritus, HU-refractory PV; PMF</td><td>RAS mutations (PMF); anemia/thrombocytopenia (dose-dependent)</td></tr>
+          <tr><td>Pegylated IFN-α</td><td>Interferon</td><td>No</td><td>Yes</td><td>PV (20% complete molecular remission); early PMF</td><td>May worsen advanced PMF marrow failure</td></tr>
+          <tr><td>Hydroxyurea</td><td>Ribonucleotide reductase inhibitor</td><td>Yes</td><td>No</td><td>Short-term cytoreduction; TIA prevention in ET &gt; anagrelide</td><td>Does NOT prevent thrombosis/fibrosis; antagonizes TP53; del17p; chronic use constrained</td></tr>
+          <tr><td>Anagrelide</td><td>Phosphodiesterase inhibitor</td><td>No</td><td>—</td><td>Platelet reduction; protective against venous thrombosis</td><td>Cardiotoxic + nephrotoxic (chronic use, especially elderly); less effective for TIA than HU</td></tr>
+          <tr><td>Fedratinib</td><td>TKI (anti-FLT3)</td><td>—</td><td>—</td><td>PMF/PV after ruxolitinib failure</td><td>—</td></tr>
+          <tr><td>Pacritinib</td><td>JAK2 inhibitor</td><td>—</td><td>—</td><td>PMF/PV when thrombocytopenia present</td><td>—</td></tr>
+          <tr><td>Momelotinib</td><td>JAK2 inhibitor</td><td>—</td><td>—</td><td>PMF/PV — may improve red cell production</td><td>—</td></tr>
+          <tr><td>Alkylating agents / ³²P</td><td>DNA damage</td><td>Yes</td><td>—</td><td>AVOID in PV (leukemogenic)</td><td>Leukemogenic; no benefit in ET</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SECTION 13 ═══════════════════════════════════ -->
+<section class="sec" id="s13">
+  <div class="sec-hd">
+    <span class="sec-n">13</span>
+    <h2>Exam Traps — Board Coach Format</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">The Bone Marrow in PV</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 58-year-old woman is found to have elevated hemoglobin and platelet count. JAK2 V617F is positive. A bone marrow biopsy is performed. The result is "normal or indistinguishable from ET/PMF." The question asks: does this result change the diagnosis of PV?</div>
+      <div class="trap-a"><strong>NO.</strong> Bone marrow biopsy provides NO specific diagnostic information in PV. It may be normal or indistinguishable from ET or PMF. No specific cytogenetic abnormality is associated with PV, and absence of a cytogenetic marker does NOT exclude the diagnosis. The JAK2 mutation assay is the key diagnostic test.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Budd-Chiari in a Young Woman</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 32-year-old woman presents with acute hepatic vein thrombosis (Budd-Chiari syndrome). Her CBC shows a hematocrit of 44% and platelets of 550,000. What should be the next step?</div>
+      <div class="trap-a"><strong>Test for JAK2 V617F mutation.</strong> PV should be suspected in ANY woman who develops hepatic vein thrombosis. This is the ONLY type of thrombosis specifically associated with JAK2 V617F expression. The hematocrit may appear "normal" in PV due to plasma volume expansion masking the elevated red cell mass.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Normal Hematocrit in PV with Splenomegaly</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A known PV patient develops massive splenomegaly. His hematocrit is now 42%. Is he adequately treated?</div>
+      <div class="trap-a"><strong>NO — a "normal" hematocrit in a PV patient with massive splenomegaly should be considered indicative of an elevated red cell mass until proven otherwise.</strong> Massive splenomegaly increases plasma volume, which masks the true red cell mass elevation. Red cell mass and plasma volume determinations are needed.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">High Platelet Count ≠ Thrombosis Risk</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 45-year-old ET patient has a platelet count of 1.4 million. She is asymptomatic with no cardiovascular risk factors and does not smoke. She is worried about thrombosis. What is the best management?</div>
+      <div class="trap-a"><strong>Watchful waiting — NO therapy required.</strong> No controlled clinical study has ever established that a high platelet count causes thrombosis. In patients younger than 60, thrombosis incidence is not greater than age-matched controls. Tobacco use is the most important thrombosis risk factor in ET. Very high platelet counts are primarily associated with HEMORRHAGE (acquired vWD), not thrombosis. The physician's first obligation is to do no harm.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Aspirin in Acquired vWD</span></div>
+    <div class="trap-body">
+      <div class="trap-q">An ET patient has a platelet count of 1.2 million. Ristocetin cofactor activity is reduced, consistent with acquired von Willebrand's disease. Should you give aspirin to prevent thrombosis?</div>
+      <div class="trap-a"><strong>NO — aspirin could PROMOTE hemorrhage</strong> in this situation. When platelet count exceeds 1 × 10⁶/μL, high-MW von Willebrand multimers are removed from circulation → acquired vWD. In this setting, aspirin inhibits platelet function and worsens the bleeding risk. Instead, tranexamic acid or ε-aminocaproic acid are appropriate for bleeding management.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">EPO Level in PV</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient has erythrocytosis. Her serum erythropoietin level is in the normal range. Does this exclude polycythemia vera?</div>
+      <div class="trap-a"><strong>NO — a normal serum EPO level does NOT exclude PV.</strong> Only an ELEVATED EPO level is most consistent with a secondary cause of erythrocytosis. The JAK2 V617F mutation assay is necessary to properly evaluate suspected PV.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Hydroxyurea — The Leukemogen Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A PV patient is on long-term hydroxyurea. A question asks: does this therapy protect against myelofibrosis or leukemia? What are the concerns with chronic hydroxyurea?</div>
+      <div class="trap-a"><strong>Hydroxyurea does NOT prevent thrombosis or myelofibrosis in PV, is itself leukemogenic, and antagonizes TP53 (causing del17p → TP53 haploinsufficiency).</strong> It does not target the involved HSCs in PV and is mutagenic. Chronic use should be constrained. Acute leukemia associated with hydroxyurea occurs in JAK2 V617F–NEGATIVE HSCs. It should be considered short-duration therapy only.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">Splenomegaly in ET</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with presumed essential thrombocytosis has an elevated platelet count AND significant splenomegaly. What does the splenomegaly suggest?</div>
+      <div class="trap-a"><strong>Splenomegaly in a patient thought to have ET indicates ANOTHER MPN — specifically PV, PMF, or CML.</strong> Splenomegaly is NOT a feature of true ET. It can mask the presence of erythrocytosis in PV. Red cell mass and plasma volume determinations should be performed to evaluate for occult PV.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Microcytic Erythrocytosis — Three Causes Only</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient has elevated RBC count with a low MCV. What are the only three conditions that cause microcytic erythrocytosis? How do you distinguish them?</div>
+      <div class="trap-a"><strong>Only three causes: β-thalassemia trait, hypoxic erythrocytosis, and polycythemia vera.</strong> Key distinction: in β-thalassemia trait, the RDW is usually NORMAL. In hypoxic erythrocytosis or PV, the RDW may be elevated due to associated iron deficiency. Today, JAK2 V617F/exon 12 NGS assay is the definitive test for PV diagnosis.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">PMF Prognosis — Scoring Nuance</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A question asks about the IPSS/DIPSS/DIPSS Plus scoring in a patient with PV who has developed myelofibrosis. Are these scoring systems appropriate?</div>
+      <div class="trap-a"><strong>NO — these prognostic scoring systems are NOT accurate for risk assessment in PV or ET patients who have developed myelofibrosis.</strong> These systems were designed and validated for primary myelofibrosis (PMF) at diagnosis, not for post-PV or post-ET myelofibrosis. The distinction between "primary myelofibrosis" and "myelofibrosis as a complication of PV" is critical for applying the correct prognostic tool.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">ET vs PV — The 50% JAK2 Neutrophil Allele Burden Rule</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient appears to have ET by history. The JAK2 V617F quantitative assay shows a neutrophil allele burden of 60%. What does this mean?</div>
+      <div class="trap-a"><strong>In ET, the quantitative JAK2 V617F neutrophil allele is NEVER greater than 50%.</strong> A JAK2 neutrophil allele burden &gt;50% should prompt re-evaluation for PV. In one study, 64% of JAK2 V617F–positive "ET" patients actually had PV when red cell mass and plasma volume determinations were performed. ET and PV are NOT a biological continuum.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 12</span><span class="trap-num">Curative Therapy in PMF</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A young patient with PMF asks about curative options. Which therapy offers a potential cure?</div>
+      <div class="trap-a"><strong>Allogeneic bone marrow transplantation is the ONLY curative treatment for PMF.</strong> Ruxolitinib and other agents reduce splenomegaly and constitutional symptoms and may prolong survival but are not curative. No role for BMT in PV has been defined. Nonmyeloablative conditioning regimens permit BMT to be extended to older PMF patients.</div>
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<footer class="footer">Harrison's Principles of Internal Medicine · Chapter 108 · Polycythemia Vera &amp; MPNs · Boards Review · 2026</footer>
+
+<script>
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+/* ── HIGHLIGHT SYSTEM ──────────────────────────────── */
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+/* Save all highlights as {text, color} */
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+/* Restore highlights by finding text in DOM */
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+/* ── NOTE SYSTEM ───────────────────────────────────── */
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+/* Restore note anchors by finding ref text in DOM */
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+/* ── POPOVER ───────────────────────────────────────── */
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+/* ── MOUSE SELECTION ───────────────────────────────── */
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+/* ── CLEAR ALL ─────────────────────────────────────── */
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+/* ── SIDEBAR TOGGLE ────────────────────────────────── */
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+/* ── RESIZE ────────────────────────────────────────── */
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+/* ── STATUS BUTTONS ────────────────────────────────── */
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+/* ── NAV TRACKING ──────────────────────────────────── */
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+/* ── INIT — restore everything on page load ──────── */
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
