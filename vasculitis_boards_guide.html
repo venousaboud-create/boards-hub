@@ -121,11 +121,11 @@ tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}tbody td:first-chil
 </style></head><body>
 <div id="toolbar">
   <span class="albl">Highlight</span>
-  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
-  <button class="hbtn" id="h-g" title="Green" onclick="setHL('g')"></button>
-  <button class="hbtn" id="h-b" title="Blue" onclick="setHL('b')"></button>
-  <button class="hbtn" id="h-p" title="Pink" onclick="setHL('p')"></button>
-  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <button class="hbtn" id="h-y" title="Yellow"></button>
+  <button class="hbtn" id="h-g" title="Green"></button>
+  <button class="hbtn" id="h-b" title="Blue"></button>
+  <button class="hbtn" id="h-p" title="Pink"></button>
+  <button class="hbtn" id="h-o" title="Orange"></button>
   <div class="tsep"></div>
   <button class="tbtn" title="Erase" onclick="setErase()">&#10005;</button>
   <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
@@ -1207,12 +1207,12 @@ function wrapText(node, start, end, colorId) {
   const uid = 'hl-' + Date.now() + '-' + Math.random().toString(36).slice(2,7);
   mark.dataset.uid = uid;
   mark.dataset.color = colorId;
-  mark.style.background = colorMap[colorId];
-  mark.style.borderRadius = '2px';
-  mark.style.cursor = 'pointer';
+  mark.style.cssText = 'background:' + colorMap[colorId] + ';border-radius:2px;cursor:pointer;';
   mark.title = 'Click to remove highlight';
   mark.addEventListener('click', () => removeHL(uid));
-  range.surroundContents(mark);
+  const frag = range.extractContents();
+  mark.appendChild(frag);
+  range.insertNode(mark);
   savedHL[uid] = { color: colorId, text: mark.textContent };
   saveHL();
 }
@@ -1229,26 +1229,27 @@ document.addEventListener('mouseup', () => {
   if (!activeColor) return;
   const sel = window.getSelection();
   if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+  const range = sel.getRangeAt(0);
+  const common = range.commonAncestorContainer;
+  const mainEl = document.querySelector('.main');
+  if (!mainEl || !mainEl.contains(common)) return;
+  const uid = 'hl-' + Date.now() + '-' + Math.random().toString(36).slice(2,7);
+  const color = activeColor;
+  // extractContents + insertNode works across element boundaries (surroundContents does not)
   try {
-    const range = sel.getRangeAt(0);
-    const common = range.commonAncestorContainer;
-    const mainEl = document.querySelector('.main');
-    if (mainEl && mainEl.contains(common)) {
-      const mark = document.createElement('mark');
-      const uid = 'hl-' + Date.now() + '-' + Math.random().toString(36).slice(2,7);
-      mark.dataset.uid = uid;
-      mark.dataset.color = activeColor;
-      mark.style.background = colorMap[activeColor];
-      mark.style.borderRadius = '2px';
-      mark.style.cursor = 'pointer';
-      mark.title = 'Click to remove highlight';
-      mark.addEventListener('click', () => removeHL(uid));
-      range.surroundContents(mark);
-      savedHL[uid] = { color: activeColor, text: mark.textContent };
-      saveHL();
-      sel.removeAllRanges();
-    }
-  } catch(e) { /* Ignore complex selection errors */ }
+    const frag = range.extractContents();
+    const mark = document.createElement('mark');
+    mark.dataset.uid = uid;
+    mark.dataset.color = color;
+    mark.style.cssText = 'background:' + colorMap[color] + ';border-radius:2px;cursor:pointer;';
+    mark.title = 'Click to remove highlight';
+    mark.appendChild(frag);
+    range.insertNode(mark);
+    mark.addEventListener('click', () => removeHL(uid));
+    savedHL[uid] = { color: color, text: mark.textContent };
+    saveHL();
+  } catch(e) { console.warn('Highlight error:', e); }
+  sel.removeAllRanges();
 });
 
 // ---- Note system ----
