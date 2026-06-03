@@ -118,31 +118,62 @@ tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}tbody td:first-chil
 .sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
 .footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
 @media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}.main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd,#ddd9d2);background:#fff;flex-shrink:0}
+#sn-selref{font-size:8px;font-family:monospace;color:var(--t3,#857f77);margin-bottom:5px}
+#sn-selref em{color:#6d28d9;font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2,#b8b3aa);border-radius:5px;font-size:12px;resize:none;height:60px;background:var(--bg,#f8f7f4);color:var(--tx,#1c1a17);display:block}
+#sn-ta:focus{outline:2px solid #6d28d9}
+#sn-add{margin-top:6px;width:100%;padding:8px;background:#6d28d9;color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer;display:block}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;display:flex;flex-direction:column;min-height:80px;position:relative;overflow:hidden;margin-bottom:6px}
+.sn-note-hd{background:#fef08a;padding:6px 10px;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.sn-drag-icon{color:#a89a30;font-size:12px}
+.sn-note-ref{font-size:8px;color:#78610a;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;overflow-y:auto}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize}
+.note-anchor{cursor:pointer;border-bottom:2px dotted #6d28d9;padding-bottom:1px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid #6d28d9;border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;max-width:280px;min-width:160px;display:none;font-size:12.5px}
+#note-popover.show{display:block}
+#np-pop-ref{font-size:8px;font-family:monospace;color:#6d28d9;margin-bottom:5px}
+#np-pop-text{color:#4a4540;line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid #ddd9d2}
+.pop-btn{font-size:8px;padding:3px 8px;border-radius:4px;border:1.5px solid #b8b3aa;cursor:pointer;background:#f8f7f4;color:#857f77}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:#857f77}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:18px;color:#857f77}
 </style></head><body>
 <div id="toolbar">
   <span class="albl">Highlight</span>
-  <button class="hbtn" id="h-y" title="Yellow"></button>
-  <button class="hbtn" id="h-g" title="Green"></button>
-  <button class="hbtn" id="h-b" title="Blue"></button>
-  <button class="hbtn" id="h-p" title="Pink"></button>
-  <button class="hbtn" id="h-o" title="Orange"></button>
+  <button class="hbtn" id="h-y" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" onclick="setHL('o')"></button>
   <div class="tsep"></div>
-  <button class="tbtn" title="Erase" onclick="setErase()">&#10005;</button>
+  <button class="tbtn" onclick="setErase()">✕</button>
   <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
 </div>
-<div id="sn-sidebar">
-  <div id="sn-hd"><span>&#128221; My Notes</span><button id="sn-toggle-btn" onclick="toggleSidebar()">&#9664;</button></div>
-  <div id="sn-body"><div id="sn-empty">Select text &#8594; write note &#8594; Add Note.<br><br>Notes stay connected to sentences even after closing.</div></div>
+<div id="sn-sidebar" class="hidden">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">×</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select any text,<br>write a note below,<br>click + Add Note.<br><br>Notes stay connected<br>even after closing.</div>
+  </div>
   <div id="sn-input">
-    <div id="sn-selref">Selected: <em id="sn-ref-txt">&mdash;</em></div>
-    <textarea id="sn-ta" placeholder="Add your note&hellip;"></textarea>
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
     <button id="sn-add" onclick="addNote()">+ Add Note</button>
   </div>
 </div>
-<button id="sn-tab" onclick="toggleSidebar()">&#128221; Notes</button>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
 <div id="note-popover">
-  <div id="np-pop-ref"></div><div id="np-pop-text"></div>
-  <div id="np-pop-actions"><button class="pop-btn" id="pop-del-btn">Delete</button><button class="pop-close" onclick="closePopover()">&#215;</button></div>
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
 </div>
 <header class="hero">
   <div class="hero-badge">Harrison's Principles of Internal Medicine &middot; Chapter 375</div>
@@ -1151,267 +1182,130 @@ Infection can mimic vasculitis AND cause vasculitis. Immunosuppression for what 
 </div>
 
 <script>
-// ============================================================
-// VENOS ANNOTATION SYSTEM v4 — COMPLETE
-// ============================================================
-
-const TITLE_KEY = 'vasculitis_syndromes';
-const HL_KEY = 'venos_' + TITLE_KEY + '_hl';
-const SN_KEY = 'venos_' + TITLE_KEY + '_notes';
-
-// ---- State ----
-let activeColor = null;
-let savedHL = {};
-let savedNotes = {};
-let selRef = null;
-let activePop = null;
-
-// ---- Load persisted data ----
-function loadData() {
-  try { savedHL = JSON.parse(localStorage.getItem(HL_KEY) || '{}'); } catch(e) { savedHL = {}; }
-  try { savedNotes = JSON.parse(localStorage.getItem(SN_KEY) || '{}'); } catch(e) { savedNotes = {}; }
-}
-function saveHL() { localStorage.setItem(HL_KEY, JSON.stringify(savedHL)); }
-function saveNotes() { localStorage.setItem(SN_KEY, JSON.stringify(savedNotes)); }
-
-// ---- Highlight colors ----
-const colorMap = {
-  'h-y': 'rgba(253,224,71,.5)',
-  'h-g': 'rgba(134,239,172,.5)',
-  'h-b': 'rgba(147,197,253,.5)',
-  'h-p': 'rgba(249,168,212,.5)',
-  'h-o': 'rgba(253,186,116,.5)'
-};
-
-// ---- Initialize highlight buttons ----
-document.querySelectorAll('.hbtn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const id = btn.id;
-    if (activeColor === id) {
-      activeColor = null;
-      btn.classList.remove('active');
-    } else {
-      document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
-      activeColor = id;
-      btn.classList.add('active');
-    }
-  });
-});
-
-// ---- Wrap spans for highlighting ----
-function wrapText(node, start, end, colorId) {
-  const range = document.createRange();
-  range.setStart(node, start);
-  range.setEnd(node, end);
-  const mark = document.createElement('mark');
-  const uid = 'hl-' + Date.now() + '-' + Math.random().toString(36).slice(2,7);
-  mark.dataset.uid = uid;
-  mark.dataset.color = colorId;
-  mark.style.cssText = 'background:' + colorMap[colorId] + ';border-radius:2px;cursor:pointer;';
-  mark.title = 'Click to remove highlight';
-  mark.addEventListener('click', () => removeHL(uid));
-  const frag = range.extractContents();
-  mark.appendChild(frag);
-  range.insertNode(mark);
-  savedHL[uid] = { color: colorId, text: mark.textContent };
-  saveHL();
+/* ── ACCORDION TOGGLE ── */
+function tog(hd) {
+  const item = hd.closest('.toggle-item') || hd.parentElement;
+  const body = item.querySelector('.toggle-body');
+  const arrow = hd.querySelector('.toggle-arrow');
+  if (!body) return;
+  const isOpen = body.style.display === 'block';
+  body.style.display = isOpen ? 'none' : 'block';
+  if (arrow) arrow.textContent = isOpen ? '▶' : '▼';
 }
 
-function removeHL(uid) {
-  const el = document.querySelector('[data-uid="' + uid + '"]');
-  if (el) { el.replaceWith(document.createTextNode(el.textContent)); }
-  delete savedHL[uid];
-  saveHL();
-}
-
-// ---- Mouse selection for highlighting ----
-document.addEventListener('mouseup', () => {
-  if (!activeColor) return;
-  const sel = window.getSelection();
-  if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
-  const range = sel.getRangeAt(0);
-  const common = range.commonAncestorContainer;
-  const mainEl = document.querySelector('.main');
-  if (!mainEl || !mainEl.contains(common)) return;
-  const uid = 'hl-' + Date.now() + '-' + Math.random().toString(36).slice(2,7);
-  const color = activeColor;
-  // extractContents + insertNode works across element boundaries (surroundContents does not)
-  try {
-    const frag = range.extractContents();
-    const mark = document.createElement('mark');
-    mark.dataset.uid = uid;
-    mark.dataset.color = color;
-    mark.style.cssText = 'background:' + colorMap[color] + ';border-radius:2px;cursor:pointer;';
-    mark.title = 'Click to remove highlight';
-    mark.appendChild(frag);
-    range.insertNode(mark);
-    mark.addEventListener('click', () => removeHL(uid));
-    savedHL[uid] = { color: color, text: mark.textContent };
-    saveHL();
-  } catch(e) { console.warn('Highlight error:', e); }
-  sel.removeAllRanges();
-});
-
-// ---- Note system ----
-function genNoteId() { return 'sn-' + Date.now() + '-' + Math.random().toString(36).slice(2,6); }
-
-// Make text elements note-anchors on click
-const mainEl = document.querySelector('.main');
-if (mainEl) {
-  mainEl.addEventListener('click', function(e) {
-    const pop = document.getElementById('note-popover');
-    if (pop.contains(e.target)) return;
-    if (e.target.closest('.note-anchor')) {
-      const anchor = e.target.closest('.note-anchor');
-      showNotePopover(anchor, e.clientX, e.clientY);
-      return;
-    }
-    if (e.target.tagName === 'MARK') return;
-    pop.classList.remove('show');
-    activePop = null;
-    // Set selection reference for note
-    const sel = window.getSelection();
-    if (sel && !sel.isCollapsed) {
-      const txt = sel.toString().trim();
-      if (txt.length > 2) {
-        selRef = txt.length > 50 ? txt.slice(0,50) + '…' : txt;
-        const refEl = document.getElementById('sn-selref');
-        const em = document.getElementById('sn-selref') ? document.querySelector('#sn-selref em') : null;
-        document.getElementById('sn-selref').innerHTML = 'Anchored to: <em>' + escHtml(selRef) + '</em>';
-        sel.removeAllRanges();
-      }
-    }
-  });
-}
-
-function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-// Sidebar toggle
-const sidebar = document.getElementById('sn-sidebar');
-const sidebarTab = document.getElementById('sn-tab');
-document.getElementById('sn-toggle-btn').addEventListener('click', () => {
-  sidebar.classList.toggle('hidden');
-  const isHidden = sidebar.classList.contains('hidden');
-  document.querySelector('.main').style.paddingRight = isHidden ? '52px' : 'calc(var(--snw) + 52px)';
-});
-sidebarTab.addEventListener('click', () => {
-  sidebar.classList.toggle('hidden');
-  const isHidden = sidebar.classList.contains('hidden');
-  document.querySelector('.main').style.paddingRight = isHidden ? '52px' : 'calc(var(--snw) + 52px)';
-});
-
-// Add note button
-document.getElementById('sn-add').addEventListener('click', () => {
-  const ta = document.getElementById('sn-ta');
-  const text = ta.value.trim();
-  if (!text) return;
-  const id = genNoteId();
-  const ref = selRef || 'General note';
-  savedNotes[id] = { ref: ref, text: text };
-  saveNotes();
-  renderNote(id, ref, text);
-  ta.value = '';
-  selRef = null;
-  document.getElementById('sn-selref').innerHTML = 'Select text to anchor note, or leave blank for general note';
-  document.getElementById('sn-empty').style.display = 'none';
-});
-
-function renderNote(id, ref, text) {
-  const body = document.getElementById('sn-body');
-  const empty = document.getElementById('sn-empty');
-  if (empty) empty.style.display = 'none';
-  const div = document.createElement('div');
-  div.className = 'sn-note';
-  div.dataset.id = id;
-  div.innerHTML =
-    '<div class="sn-note-hd">' +
-      '<span class="sn-drag-icon">&#9776;</span>' +
-      '<span class="sn-note-ref">' + escHtml(ref) + '</span>' +
-      '<button class="sn-del" title="Delete note">&#215;</button>' +
-    '</div>' +
-    '<div class="sn-note-body" contenteditable="true">' + escHtml(text) + '</div>' +
-    '<div class="sn-resize"></div>';
-  div.querySelector('.sn-del').addEventListener('click', () => {
-    delete savedNotes[id];
-    saveNotes();
-    div.remove();
-    if (!Object.keys(savedNotes).length) document.getElementById('sn-empty').style.display = '';
-  });
-  div.querySelector('.sn-note-body').addEventListener('blur', function() {
-    if (savedNotes[id]) { savedNotes[id].text = this.textContent; saveNotes(); }
-  });
-  body.insertBefore(div, body.firstChild);
-}
-
-function showNotePopover(anchor, x, y) {
-  const pop = document.getElementById('note-popover');
-  const id = anchor.dataset.noteId;
-  if (!id || !savedNotes[id]) { pop.classList.remove('show'); return; }
-  document.getElementById('np-pop-ref').textContent = savedNotes[id].ref;
-  document.getElementById('np-pop-text').textContent = savedNotes[id].text;
-  activePop = id;
-  pop.style.left = Math.min(x, window.innerWidth - 300) + 'px';
-  pop.style.top = (y + 16) + 'px';
-  pop.classList.add('show');
-}
-
-document.getElementById('np-del').addEventListener('click', () => {
-  if (activePop && savedNotes[activePop]) {
-    delete savedNotes[activePop];
-    saveNotes();
-    document.getElementById('note-popover').classList.remove('show');
-    activePop = null;
-  }
-});
-document.getElementById('np-close').addEventListener('click', () => {
-  document.getElementById('note-popover').classList.remove('show');
-  activePop = null;
-});
-
-// ---- Load persisted notes on startup ----
-function loadNotes() {
-  const ids = Object.keys(savedNotes);
-  if (ids.length) {
-    ids.reverse().forEach(id => renderNote(id, savedNotes[id].ref, savedNotes[id].text));
-  }
-}
-
-// ---- Learned/Review toggles ----
-function tog(btn) {
-  btn.classList.toggle('on');
-}
-
-// ---- Sticky nav active section tracking ----
-const sections = document.querySelectorAll('.sec');
-const navLinks = document.querySelectorAll('.toc-a');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navLinks.forEach(l => l.classList.remove('on'));
-      const link = document.querySelector('.toc-a[href="#' + entry.target.id + '"]');
-      if (link) {
-        link.classList.add('on');
-        link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      }
-    }
-  });
-}, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
-sections.forEach(s => observer.observe(s));
-
-// ---- Clear highlights & notes ----
-document.getElementById('clr-btn').addEventListener('click', () => {
-  if (!confirm('Clear ALL highlights? This cannot be undone.')) return;
-  document.querySelectorAll('mark[data-uid]').forEach(m => m.replaceWith(document.createTextNode(m.textContent)));
-  savedHL = {};
-  saveHL();
-});
-
-// ---- Print ----
-document.getElementById('prt-btn').addEventListener('click', () => window.print());
-
-// ---- Init ----
-loadData();
-loadNotes();
+const FILE_KEY='venos_'+(document.title||'guide').replace(/[^a-z0-9]/gi,'_').toLowerCase();
+const HL_KEY=FILE_KEY+'_hl',NT_KEY=FILE_KEY+'_notes';
+let curColor=null,eraseMode=false,selText='',savedRange=null;
+function setHL(c){curColor=c;eraseMode=false;document.body.style.cursor='crosshair';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));
+  const m={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};
+  if(document.getElementById(m[c]))document.getElementById(m[c]).classList.add('active');}
+function setErase(){eraseMode=true;curColor=null;document.body.style.cursor='cell';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));}
+function applyHL(range,color){try{const s=document.createElement('span');
+  s.className='hl hl-'+color;s.dataset.hlColor=color;range.surroundContents(s);saveHighlights();}
+  catch(e){try{const f=range.extractContents();const s=document.createElement('span');
+  s.className='hl hl-'+color;s.dataset.hlColor=color;s.appendChild(f);
+  range.insertNode(s);saveHighlights();}catch(e2){}}}
+function saveHighlights(){const data=[];
+  document.querySelectorAll('.hl[data-hl-color]').forEach(s=>{const t=s.textContent.trim();
+  if(t.length>1)data.push({text:t,color:s.dataset.hlColor});});
+  try{localStorage.setItem(HL_KEY,JSON.stringify(data));}catch(e){}}
+function restoreHighlights(){let saved;
+  try{saved=JSON.parse(localStorage.getItem(HL_KEY))||[];}catch(e){return;}
+  if(!saved.length)return;
+  saved.forEach(function(item){if(!item.text||!item.color)return;
+    const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);let node;
+    while(node=w.nextNode()){
+      if(node.parentElement&&(node.parentElement.classList.contains('hl')||
+        node.parentElement.classList.contains('note-anchor')))continue;
+      const i=node.nodeValue.indexOf(item.text);
+      if(i!==-1){try{const r=document.createRange();r.setStart(node,i);
+        r.setEnd(node,i+item.text.length);applyHL(r,item.color);}catch(e){}break;}}});}
+function getNotes(){try{return JSON.parse(localStorage.getItem(NT_KEY)||'[]');}catch(e){return[];}}
+function saveNotes(n){try{localStorage.setItem(NT_KEY,JSON.stringify(n));}catch(e){}}
+function addNote(){const ta=document.getElementById('sn-ta');if(!ta)return;
+  const txt=ta.value.trim();if(!txt)return;const id=Date.now();const notes=getNotes();
+  notes.unshift({id,ref:selText.substring(0,100)||'—',text:txt});saveNotes(notes);
+  if(savedRange){try{const s=document.createElement('span');s.className='note-anchor';
+    s.dataset.noteId=id;savedRange.surroundContents(s);bindAnchor(s,id);}
+    catch(e){try{const f=savedRange.extractContents();const s=document.createElement('span');
+    s.className='note-anchor';s.dataset.noteId=id;s.appendChild(f);
+    savedRange.insertNode(s);bindAnchor(s,id);}catch(e2){}}savedRange=null;}
+  ta.value='';selText='';const r=document.getElementById('sn-ref-txt');if(r)r.textContent='—';renderNotes();}
+function bindAnchor(span,id){span.addEventListener('click',function(e){e.stopPropagation();
+  const note=getNotes().find(n=>n.id===id);if(note)showPopover(span,note);});}
+function restoreAnchors(){const notes=getNotes();if(!notes.length)return;
+  notes.forEach(function(note){if(!note.ref||note.ref==='—'||!note.id)return;
+    const rt=note.ref.trim();if(rt.length<2)return;
+    if(document.querySelector('.note-anchor[data-note-id="'+note.id+'"]'))return;
+    const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);let node;
+    while(node=w.nextNode()){
+      if(node.parentElement&&(node.parentElement.classList.contains('note-anchor')||
+        node.parentElement.classList.contains('hl')))continue;
+      const i=node.nodeValue.indexOf(rt);
+      if(i!==-1){try{const r=document.createRange();r.setStart(node,i);r.setEnd(node,i+rt.length);
+        const s=document.createElement('span');s.className='note-anchor';s.dataset.noteId=String(note.id);
+        r.surroundContents(s);bindAnchor(s,note.id);}catch(e){}break;}}});}
+function deleteNote(id){saveNotes(getNotes().filter(n=>n.id!==id));
+  document.querySelectorAll('.note-anchor[data-note-id="'+id+'"]').forEach(el=>{
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});
+  closePopover();renderNotes();}
+function renderNotes(){const body=document.getElementById('sn-body'),empty=document.getElementById('sn-empty');
+  if(!body)return;const notes=getNotes();body.querySelectorAll('.sn-note').forEach(el=>el.remove());
+  if(!notes.length){if(empty)empty.style.display='';return;}if(empty)empty.style.display='none';
+  notes.forEach(note=>{const card=document.createElement('div');card.className='sn-note';
+    card.dataset.noteId=note.id;
+    card.innerHTML='<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>'+
+      '<span class="sn-note-ref">'+(note.ref!=='—'?'"'+note.ref+'"':'General note')+'</span>'+
+      '<button class="sn-del" onclick="deleteNote('+note.id+')">×</button></div>'+
+      '<div class="sn-note-body">'+note.text.replace(/\n/g,'<br>')+'</div>'+
+      '<div class="sn-resize"></div>';body.appendChild(card);});}
+let activePopNoteId=null;
+function showPopover(anchorEl,note){const pop=document.getElementById('note-popover');if(!pop)return;
+  document.getElementById('np-pop-ref').textContent=note.ref!=='—'?'"'+note.ref.substring(0,55)+'"':'Note';
+  document.getElementById('np-pop-text').innerHTML=note.text.replace(/\n/g,'<br>');
+  document.getElementById('pop-del-btn').onclick=()=>deleteNote(note.id);activePopNoteId=note.id;
+  const rect=anchorEl.getBoundingClientRect();
+  pop.style.left=Math.min(rect.left,window.innerWidth-300)+'px';
+  pop.style.top=(rect.bottom+8)+'px';pop.classList.add('show');}
+function closePopover(){const pop=document.getElementById('note-popover');
+  if(pop)pop.classList.remove('show');activePopNoteId=null;}
+document.addEventListener('click',function(e){const pop=document.getElementById('note-popover');
+  if(pop&&!pop.contains(e.target))closePopover();});
+document.addEventListener('mouseup',function(e){
+  const tb=document.getElementById('toolbar'),sb=document.getElementById('sn-sidebar'),
+    np=document.getElementById('note-popover');
+  if(tb&&tb.contains(e.target))return;if(sb&&sb.contains(e.target))return;if(np&&np.contains(e.target))return;
+  if(eraseMode&&e.target.classList.contains('hl')){const el=e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);
+    el.parentNode.normalize();saveHighlights();return;}
+  const sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+  const txt=sel.toString().trim();if(!txt)return;
+  selText=txt;savedRange=sel.getRangeAt(0).cloneRange();
+  const ref=document.getElementById('sn-ref-txt');
+  if(ref)ref.textContent=txt.length>48?txt.substring(0,48)+'…':txt;
+  if(curColor){try{applyHL(sel.getRangeAt(0),curColor);sel.removeAllRanges();}catch(err){}}});
+function clearAll(){if(!confirm('Clear ALL highlights and notes?'))return;
+  document.querySelectorAll('.hl').forEach(el=>{
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});
+  document.querySelectorAll('.note-anchor').forEach(el=>{
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});
+  try{localStorage.removeItem(HL_KEY);localStorage.removeItem(NT_KEY);}catch(e){}
+  curColor=null;eraseMode=false;document.body.style.cursor='';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));
+  closePopover();renderNotes();}
+function toggleSidebar(){const sb=document.getElementById('sn-sidebar'),tab=document.getElementById('sn-tab');
+  if(!sb)return;sb.classList.toggle('hidden');
+  if(tab)tab.textContent=sb.classList.contains('hidden')?'📝 Notes':'◀';}
+const _secs=document.querySelectorAll('.sec[id]');
+const _navs=document.querySelectorAll('.toc-a');
+_secs.forEach(s=>new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){_navs.forEach(l=>l.classList.remove('on'));
+    const lnk=document.querySelector('.toc-a[href="#'+s.id+'"]');
+    if(lnk){lnk.classList.add('on');lnk.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}}
+},{rootMargin:'-15% 0px -75% 0px'}).observe(s));
+restoreHighlights();restoreAnchors();renderNotes();
 </script>
 </body>
 </html>
