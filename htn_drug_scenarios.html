@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Antihypertensive Drug Selection — All Clinical Scenarios</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --nav:52px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:"Source Sans 3",sans-serif;font-size:14px;line-height:1.7}
+
+/* TOOLBAR */
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:"JetBrains Mono",monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:"JetBrains Mono",monospace;font-size:8.5px}
+
+/* SIDEBAR */
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:"JetBrains Mono",monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-ref{font-family:"JetBrains Mono",monospace;font-size:8.5px;font-weight:500;color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:"";display:block;width:8px;height:8px;border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;padding:12px 6px;cursor:pointer;font-family:"JetBrains Mono",monospace;font-size:9px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:"";position:absolute;width:10px;height:10px;background:#fff;border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:"";position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:"JetBrains Mono",monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:"JetBrains Mono",monospace;font-size:8px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+
+/* NAV */
+#navbar{position:fixed;top:0;left:0;right:0;height:var(--nav);background:#fff;border-bottom:1.5px solid var(--bd2);z-index:900;display:flex;align-items:center;gap:0;overflow-x:auto;padding:0 14px}
+#navbar::-webkit-scrollbar{height:3px}
+#navbar::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:2px}
+.nav-brand{font-family:"Playfair Display",serif;font-size:14px;font-weight:700;color:var(--tx);white-space:nowrap;margin-right:16px;flex-shrink:0}
+.nav-brand span{color:var(--blu)}
+.nav-sep{width:1px;height:28px;background:var(--bd);margin-right:10px;flex-shrink:0}
+.toc-a{font-family:"JetBrains Mono",monospace;font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);text-decoration:none;white-space:nowrap;padding:5px 9px;border-radius:6px;transition:all .15s;flex-shrink:0}
+.toc-a:hover{color:var(--blu);background:var(--blu-l)}
+.toc-a.on{color:var(--blu);background:var(--blu-l);font-weight:500}
+
+/* MAIN */
+#main{padding-top:calc(var(--nav) + 28px);padding-bottom:80px;max-width:1000px;margin:0 auto;padding-left:24px;padding-right:24px}
+.guide-hero{margin-bottom:36px;border-bottom:2px solid var(--bd2);padding-bottom:24px}
+.guide-hero h1{font-family:"Playfair Display",serif;font-size:36px;font-weight:900;color:var(--tx);line-height:1.2;margin-bottom:8px}
+.guide-hero .subtitle{font-size:15px;color:var(--t2);margin-bottom:12px}
+.guide-hero .meta{display:flex;gap:12px;flex-wrap:wrap}
+.meta-pill{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:var(--sf2);border:1.5px solid var(--bd);border-radius:5px;padding:3px 9px;color:var(--t3)}
+
+/* SECTIONS */
+.sec{margin-bottom:52px}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.sec-title{font-family:"Playfair Display",serif;font-size:24px;font-weight:700;color:var(--tx)}
+.sec-line{flex:1;height:1.5px;background:var(--bd2)}
+.sec-btns{display:flex;gap:6px;flex-shrink:0}
+.lbtn{font-family:"JetBrains Mono",monospace;font-size:8.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid var(--grn);color:var(--grn);background:none;border-radius:5px;padding:3px 9px;cursor:pointer;transition:all .15s}
+.lbtn.on{background:var(--grn);color:#fff}
+.fbtn{font-family:"JetBrains Mono",monospace;font-size:8.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid var(--amb);color:var(--amb);background:none;border-radius:5px;padding:3px 9px;cursor:pointer;transition:all .15s}
+.fbtn.on{background:var(--amb);color:#fff}
+
+/* SCENARIO CARDS */
+.sc-card{background:var(--sf);border:1.5px solid var(--bd);border-radius:10px;margin-bottom:16px;overflow:hidden}
+.sc-card-head{display:flex;justify-content:space-between;align-items:flex-start;padding:12px 16px 10px;border-bottom:1.5px solid var(--bd);background:var(--sf2)}
+.sc-card-title-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sc-card-title{font-family:"Playfair Display",serif;font-size:16px;font-weight:700;color:var(--tx)}
+.sc-badge{font-family:"JetBrains Mono",monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;background:var(--red-l);color:var(--red);border:1.5px solid #fca5a5;border-radius:5px;padding:2px 8px;white-space:nowrap}
+.sc-bptgt{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--t3);white-space:nowrap;margin-left:10px;flex-shrink:0;letter-spacing:.05em}
+.sc-bptgt strong{color:var(--blu);font-weight:500}
+.sc-drug-grid{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid var(--bd)}
+.sc-col{padding:10px 14px;border-right:1px solid var(--bd);flex:1;min-width:120px}
+.sc-col:last-child{border-right:none}
+.sc-col-hd{font-family:"JetBrains Mono",monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.sc-drug{font-size:12.5px;font-weight:600;margin-bottom:5px;line-height:1.3}
+.sc-drug small{display:block;font-size:10.5px;font-weight:400;color:var(--t3);margin-top:1px}
+.sc-pref .sc-col-hd{color:var(--grn)}
+.sc-pref .sc-drug{color:var(--grn)}
+.sc-acc .sc-col-hd{color:var(--blu)}
+.sc-acc .sc-drug{color:var(--blu)}
+.sc-cau .sc-col-hd{color:var(--amb)}
+.sc-cau .sc-drug{color:var(--amb)}
+.sc-avo .sc-col-hd{color:var(--red)}
+.sc-avo .sc-drug{color:var(--red)}
+.sc-note{padding:10px 14px;font-size:12.5px;color:var(--t2);line-height:1.65;display:flex;gap:8px;align-items:flex-start}
+.sc-note-icon{flex-shrink:0;margin-top:1px;font-size:14px}
+.hl{border-radius:2px;padding:0 1px}
+.hl-y{background:rgba(253,224,71,.5)}
+.hl-g{background:rgba(134,239,172,.5)}
+.hl-b{background:rgba(147,197,253,.5)}
+.hl-p{background:rgba(249,168,212,.5)}
+.hl-o{background:rgba(253,186,116,.5)}
+
+/* QUICK TABLE */
+.qt-wrap{overflow-x:auto;border:1.5px solid var(--bd);border-radius:8px;margin-bottom:8px}
+.qt{width:100%;border-collapse:collapse;font-size:11.5px}
+.qt thead tr{background:var(--sf2)}
+.qt th{padding:7px 8px;font-family:"JetBrains Mono",monospace;font-size:8.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);border-bottom:1.5px solid var(--bd);text-align:center;white-space:nowrap}
+.qt th:first-child{text-align:left}
+.qt td{padding:6px 8px;border-bottom:1px solid var(--bd);text-align:center;vertical-align:middle}
+.qt tr:last-child td{border-bottom:none}
+.qt tr:hover td{background:#f5f3ee}
+.qt-cond{text-align:left;font-weight:600;color:var(--tx);white-space:nowrap;font-size:12px}
+.qt-tgt{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--blu);white-space:nowrap;font-weight:500}
+.qt-legend{font-size:11px;color:var(--t3);margin-bottom:8px}
+.tp{color:var(--grn);font-weight:700;font-size:11px}
+.ta{color:var(--blu);font-weight:700;font-size:11px}
+.tc{color:var(--amb);font-weight:700;font-size:11px}
+.tx{color:var(--red);font-weight:700;font-size:11px}
+.tn{color:var(--t3);font-size:11px}
+
+/* EXAM TRAPS */
+.trap-card{background:var(--sf);border:1.5px solid var(--bd);border-radius:10px;margin-bottom:12px;overflow:hidden}
+.trap-q{background:#1a2f5c;color:#fff;padding:10px 16px;font-weight:600;font-size:13px;display:flex;gap:10px;align-items:flex-start}
+.trap-num{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,255,255,.15);border-radius:4px;padding:2px 7px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.trap-a{padding:10px 16px 12px;font-size:13px;line-height:1.65;color:var(--t2);border-top:1px solid var(--bd)}
+.trap-a strong{color:var(--red)}
+</style>
+</head>
+<body>
+
+<!-- TOOLBAR -->
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <div id="h-y" class="hbtn" title="Yellow" onclick="setColor('hl-y','h-y')"></div>
+  <div id="h-g" class="hbtn" title="Green" onclick="setColor('hl-g','h-g')"></div>
+  <div id="h-b" class="hbtn" title="Blue" onclick="setColor('hl-b','h-b')"></div>
+  <div id="h-p" class="hbtn" title="Pink" onclick="setColor('hl-p','h-p')"></div>
+  <div id="h-o" class="hbtn" title="Orange" onclick="setColor('hl-o','h-o')"></div>
+  <div class="tsep"></div>
+  <button class="tbtn" id="erase-btn" title="Erase highlights" onclick="toggleErase()">✕</button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Add note to selection" onclick="addNoteFromSelection()">✎</button>
+  <div class="tsep"></div>
+  <button class="tbtn wide" onclick="clearAll()">Clear all</button>
+</div>
+
+<!-- NOTES SIDEBAR -->
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>Study notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body"><div id="sn-empty">Select text + click ✎ to add a note</div></div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">Notes</button>
+
+<!-- NOTE POPOVER -->
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-edit-btn">Edit</button>
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-brand">HTN Drug Selection <span>— All Scenarios</span></div>
+  <div class="nav-sep"></div>
+  <a class="toc-a" href="#s0">Quick reference table</a> <a class="toc-a" href="#s1">BP stage scenarios</a> <a class="toc-a" href="#s2">Cardiac scenarios</a> <a class="toc-a" href="#s3">Renal scenarios</a> <a class="toc-a" href="#s4">Metabolic scenarios</a> <a class="toc-a" href="#s5">Special populations</a> <a class="toc-a" href="#s6">Secondary HTN</a> <a class="toc-a" href="#s7">Complex combinations</a> <a class="toc-a" href="#s8">Exam traps</a>
+</nav>
+
+<!-- MAIN -->
+<div id="main">
+  <div class="guide-hero">
+    <h1>Antihypertensive drug selection</h1>
+    <div class="subtitle">If patient has condition 1 + condition 2 → give this drug — all possible scenarios</div>
+    <div class="meta">
+      <span class="meta-pill">Harrison's Ch.288 — Whelton</span>
+      <span class="meta-pill">ACC/AHA Hypertension Guidelines</span>
+      <span class="meta-pill">Stage A Boards · June 2026</span>
+      <span class="meta-pill">52 clinical scenarios</span>
+      <span class="meta-pill">18 exam traps</span>
+    </div>
+  </div>
+
+  <section class="sec" id="s0"><div class="sec-head"><h2 class="sec-title">Quick reference — single condition summary</h2><div class="sec-line"></div><div class="sec-btns"><button class="lbtn">Learned</button><button class="fbtn">Review</button></div></div><div class="qt-wrap"><table class="qt"><thead><tr><th>Condition</th><th>Thiazide</th><th>ACEI</th><th>ARB</th><th>DHP CCB</th><th>Non-DHP CCB</th><th>BB</th><th>MRA</th><th>Loop</th><th>α₁</th><th>Vasodilator</th><th>SGLT2i</th><th>Methyldopa</th><th>Labetalol</th><th>Surgery</th><th>Target</th></tr></thead><tbody><tr><td class="qt-cond">Uncomplicated HTN</td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">Stage 1, low risk</td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">Stage 1, high risk</td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">Stage 2 HTN</td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">IHD / Angina</td><td><span class="ta">A</span></td><td><span class="tp">P</span></td><td><span class="ta">A</span></td><td><span class="tp">P</span></td><td><span class="ta">A</span></td><td><span class="tp">P</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">Post-MI</td><td><span class="ta">A</span></td><td><span class="tp">P</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="tc">C</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">HFrEF</td><td><span class="tc">C</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tx">X</span></td><td><span class="tx">X</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tp">P</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">Atrial fibrillation</td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">Bradycardia / AV block</td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="tx">X</span></td><td><span class="tx">X</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tx">X</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">CKD (eGFR ≥30)</td><td><span class="ta">A</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="ta">A</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tc">C</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="ta">A</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">CKD + proteinuria</td><td><span class="ta">A</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="ta">A</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tc">C</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="ta">A</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">Advanced CKD (eGFR &lt;30)</td><td><span class="tc">C</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tc">C</span></td><td><span class="tp">P</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tc">C</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">Diabetes mellitus</td><td><span class="ta">A</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="ta">A</span></td><td><span class="tn">—</span></td><td><span class="tc">C</span></td><td><span class="ta">A</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tp">P</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">Gout / hyperuricemia</td><td><span class="tc">C</span></td><td><span class="ta">A</span></td><td><span class="tp">P</span></td><td><span class="ta">A</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tc">C</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="ta">A</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">Asthma / COPD</td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="tp">P</span></td><td><span class="ta">A</span></td><td><span class="tx">X</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tx">X</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">Pregnancy</td><td><span class="tc">C</span></td><td><span class="tx">X</span></td><td><span class="tx">X</span></td><td><span class="tp">P</span></td><td><span class="tc">C</span></td><td><span class="tc">C</span></td><td><span class="tc">C</span></td><td><span class="tc">C</span></td><td><span class="tc">C</span></td><td><span class="ta">A</span></td><td><span class="tx">X</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tx">X</span></td><td class="qt-tgt">&lt;140/90</td></tr><tr><td class="qt-cond">Elderly ≥65</td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="ta">A</span></td><td><span class="tc">C</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="tc">C</span></td><td><span class="tc">C</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">SBP &lt;130</td></tr><tr><td class="qt-cond">Black adult</td><td><span class="tp">P</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="tp">P</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">BPH</td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tp">P</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">Osteoporosis (women)</td><td><span class="tp">P</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tc">C</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">Aldosteronism — adenoma</td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tp">P</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tp">P</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">Aldosteronism — bilateral</td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tp">P</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tx">X</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">OSA</td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr><tr><td class="qt-cond">Resistant HTN</td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tp">P</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tp">P</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="ta">A</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td><span class="tn">—</span></td><td class="qt-tgt">&lt;130/80</td></tr></tbody></table></div><div class="qt-legend"><span class="tp">P</span> Preferred &nbsp;<span class="ta">A</span> Acceptable &nbsp;<span class="tc">C</span> Caution &nbsp;<span class="tx">X</span> Avoid/CI &nbsp;<span class="tn">—</span> Neutral</div></section>
+
+  
+<section class="sec" id="s1">
+  <div class="sec-head">
+    <h2 class="sec-title">BP stage scenarios</h2>
+    <div class="sec-line"></div>
+    <div class="sec-btns">
+      <button class="lbtn" title="Mark learned">Learned</button>
+      <button class="fbtn" title="Flag for review">Review</button>
+    </div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">Uncomplicated HTN — Stage 1, low risk</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Try nonpharmacologic therapy alone for 3–6 months first (DASH diet, sodium &lt;2g/day, weight loss, aerobic exercise, limit alcohol). Add drug only if SBP/DBP ≥130/80 after lifestyle changes. If drug needed, any of the 4 standard first-line classes is acceptable. Reassess every 3–6 months.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">Uncomplicated HTN — Stage 1, high risk</h3>
+        <span class="sc-badge">High risk</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>High risk = prior CVD event, or ASCVD 10-year risk ≥10%, or DM, or CKD. Start drug therapy immediately alongside lifestyle changes. Any one of: Chlorthalidone, ACEI/ARB, or DHP CCB is first-line. Single agent usually sufficient initially. Reassess in 1 month.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">Stage 2 HTN — no comorbidities</h3>
+        <span class="sc-badge">Combination</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Almost always requires combination therapy from the start. Average: 2 drugs to reach &lt;140/90, 3 drugs to reach &lt;130/80 mmHg. Preferred dual combo: ACEI/ARB + DHP CCB, or ACEI/ARB + Chlorthalidone. Start both simultaneously or use fixed-dose combination pill for adherence.</div>
+  </div>
+</section>
+
+<section class="sec" id="s2">
+  <div class="sec-head">
+    <h2 class="sec-title">Cardiac scenarios</h2>
+    <div class="sec-line"></div>
+    <div class="sec-btns">
+      <button class="lbtn" title="Mark learned">Learned</button>
+      <button class="fbtn" title="Flag for review">Review</button>
+    </div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + IHD / Stable angina</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Beta-blocker is first-line for angina (reduces demand) and improves survival in IHD. ACEI reduces cardiac remodeling — add to all IHD patients. DHP CCB (amlodipine) is excellent for angina relief and BP. Non-DHP CCB (diltiazem/verapamil) may be used for angina if NO HFrEF — never combine with beta-blocker (severe bradycardia + AV block risk).</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Post-MI</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Beta-blocker reduces post-MI mortality by ~20%. ACEI/ARB reduce ventricular remodeling and dilation. MRA (spironolactone): start if EF &lt;40% develops. Avoid non-DHP CCBs if any LV dysfunction — caution even with preserved EF. DHP CCB (amlodipine) safe if LV function preserved.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + HFrEF</h3>
+        <span class="sc-badge">⚡ Key trap</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>⚡ BOARDS TRAP: DHP CCB and Non-DHP CCB are BOTH ABSOLUTELY CONTRAINDICATED in HFrEF (negative inotropy → worsens HF). The 4 pillars: Beta-blocker (carvedilol/metoprolol/bisoprolol) + ACEI/ARB + MRA + SGLT2i. Add loop diuretic for volume overload. Average 3–4 drugs needed for adequate BP control.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Atrial fibrillation</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Rate control goal: HR &lt;110 at rest (lenient) or &lt;80 at rest (strict, symptomatic patients). First-line rate control: Beta-blocker OR Non-DHP CCB. Choose based on comorbidities — see combination cards below. If NO comorbidities, either is appropriate.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Bradycardia / AV block</h3>
+        <span class="sc-badge">⚡ Key trap</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">Labetalol<small>&alpha;/&beta; blocker, pregnancy-safe</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Both beta-blockers (including labetalol) AND non-DHP CCBs (diltiazem, verapamil) are CONTRAINDICATED — both cause further slowing of HR and can cause complete AV block. Safe alternatives: DHP CCB (amlodipine — no HR effect), ACEI, ARB, thiazide, MRA.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + HFrEF + Atrial fibrillation</h3>
+        <span class="sc-badge">⚡ Key trap</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>⚡ KEY COMBINATION: Rate control in A-fib usually requires BB or Non-DHP CCB. Non-DHP CCB is CONTRAINDICATED in HFrEF. Therefore → use BETA-BLOCKER for rate control (works for both A-fib rate control and HFrEF survival). The HFrEF CI for non-DHP CCB OVERRIDES the A-fib indication. Non-DHP CCB: doubly avoided here.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + HFrEF + Asthma</h3>
+        <span class="sc-badge">Complex</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">Labetalol<small>&alpha;/&beta; blocker, pregnancy-safe</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Double contradiction: Beta-blocker preferred in HFrEF but CONTRAINDICATED in asthma. Resolution: ACEI/ARB + MRA + SGLT2i + Loop diuretic (4 pillars minus the BB). For additional BP or rate control: use DHP CCB carefully (CI in HFrEF but in severe refractory HTN with careful monitoring). Consult specialist. ACEI can cause cough — switch to ARB if needed.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + IHD + HFrEF</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>DHP CCB is preferred for IHD/angina BUT CONTRAINDICATED in HFrEF. Resolution: Rely on beta-blocker for angina (anti-anginal + anti-HF). All 4 HFrEF pillars apply. Add nitrates (not antihypertensives) for supplemental angina relief. Loop diuretic for volume overload. Avoid ALL CCBs.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + A-fib + Asthma (rate control)</h3>
+        <span class="sc-badge">⚡ Key trap</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">Labetalol<small>&alpha;/&beta; blocker, pregnancy-safe</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Beta-blocker CONTRAINDICATED in asthma. For A-fib rate control in asthma → use Non-DHP CCB (diltiazem or verapamil). Only safe if NO HFrEF. For overall BP: DHP CCBs (amlodipine) also safe in asthma.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + A-fib + Bradycardia</h3>
+        <span class="sc-badge">⚡ Danger</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">Labetalol<small>&alpha;/&beta; blocker, pregnancy-safe</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>⚡ MOST DANGEROUS COMBINATION: A-fib needs rate control (BB or Non-DHP CCB) but BOTH rate control agents are CONTRAINDICATED in bradycardia. Requires cardiologist consultation. Consider: rhythm control with amiodarone (without rate-slowing agents), or pacemaker implantation before starting any rate-limiting drug.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + IHD + Bradycardia</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">Labetalol<small>&alpha;/&beta; blocker, pregnancy-safe</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>BB preferred in IHD but CI in bradycardia. Non-DHP CCB useful for angina but CI in bradycardia. Solution: DHP CCBs (amlodipine, nifedipine) for both angina relief and BP. Add ACEI/ARB. Supplement with nitrates for angina.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Post-MI + HFrEF</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Post-MI developing HFrEF = all 4 pillars especially compelled. BB + ACEI/ARB + MRA + SGLT2i. Loop diuretic for volume. Non-DHP CCB doubly contraindicated (post-MI with reduced EF + active HFrEF). Monitor K+ closely (ACEI/ARB + MRA = hyperkalemia risk).</div>
+  </div>
+</section>
+
+<section class="sec" id="s3">
+  <div class="sec-head">
+    <h2 class="sec-title">Renal scenarios</h2>
+    <div class="sec-line"></div>
+    <div class="sec-btns">
+      <button class="lbtn" title="Mark learned">Learned</button>
+      <button class="fbtn" title="Flag for review">Review</button>
+    </div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + CKD (eGFR ≥30, no proteinuria)</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>ACEI or ARB preferred (dilate efferent arteriole → reduce intraglomerular pressure → slow CKD progression). Do NOT combine ACEI + ARB: hyperkalemia + AKI. MRA: use with caution (hyperkalemia risk). CCBs are safe and well-tolerated in CKD. Thiazides effective when eGFR ≥30.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + CKD + Proteinuria</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>ACEI or ARB is ESSENTIAL — reduces proteinuria AND slows CKD progression (↓ intraglomerular pressure + ↓ TGF-&beta;). Use ONE, not both. Monitor K+ and creatinine at 1–2 weeks after starting. SGLT2 inhibitors: proven additional nephroprotection (CREDENCE, DAPA-CKD, EMPA-KIDNEY trials). A small rise in creatinine ≤25–30% on starting ACEI/ARB is expected and acceptable.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Advanced CKD (eGFR &lt;30)</h3>
+        <span class="sc-badge">⚡ New data</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>NEW BOARDS POINT (CLICK trial 2021): Chlorthalidone reduced ambulatory SBP by 10.5 mmHg in stage 4 CKD (eGFR &lt;23) — updates old teaching that thiazides fail when creatinine &gt;3. Loop diuretics: preferred when volume overload present. Finerenone (nonsteroidal MRA): safer than spironolactone at low eGFR (less hyperkalemia; proven in DM + CKD).</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + DM + CKD + Proteinuria</h3>
+        <span class="sc-badge">⚡ Triple protect</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>⚡ THE most important renal/metabolic combination. THREE-DRUG CORE: (1) ACEI or ARB — essential (2) SGLT2 inhibitor — proven CV + renal benefit in DM + CKD (CREDENCE, EMPA-KIDNEY) (3) Finerenone (MRA) — proven benefit in DM + CKD + proteinuria (FIDELIO-DKD). Monitor K+ closely (all three raise K+). Avoid combining ACEI + ARB.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + DM + CKD + Proteinuria + HFrEF</h3>
+        <span class="sc-badge">Complex</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Maximum convergence scenario. SGLT2 inhibitor is the STAR — proven simultaneously in HFrEF, DM, and CKD. Use all 4 HFrEF pillars. Finerenone preferred over spironolactone (safer in CKD). No CCBs. SGLT2i treats all 3 conditions at once. Monitor K+, creatinine, and volume status closely.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + CKD + Resistant HTN</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Resistant HTN + CKD: (1) Switch to chlorthalidone as long-acting diuretic (2) Add MRA (finerenone preferred at low eGFR — less hyperkalemia risk) as 4th drug (3) Add vasodilator if still uncontrolled. Monitor K+ extremely closely — both MRA and CKD raise K+. Renal denervation (FDA 2023) may be an option for true resistant HTN.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Advanced CKD + HFrEF</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Loop diuretic preferred for both conditions. Finerenone preferred MRA (less hyperkalemia at low eGFR). BB + ACEI/ARB still appropriate but monitor K+ and creatinine closely. SGLT2 inhibitors: proven benefit in both conditions; maintained efficacy down to eGFR ~20. No CCBs in HFrEF.</div>
+  </div>
+</section>
+
+<section class="sec" id="s4">
+  <div class="sec-head">
+    <h2 class="sec-title">Metabolic scenarios</h2>
+    <div class="sec-line"></div>
+    <div class="sec-btns">
+      <button class="lbtn" title="Mark learned">Learned</button>
+      <button class="fbtn" title="Flag for review">Review</button>
+    </div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Diabetes mellitus</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>ACEI or ARB preferred — especially with microalbuminuria (slow diabetic nephropathy). SGLT2 inhibitors: additional CV (EMPA-REG, CANVAS) + renal (CREDENCE, DAPA-CKD) + HF benefits beyond BP lowering. Beta-blockers: use with caution — blunt tachycardia symptoms of hypoglycemia. Thiazides: minor glucose elevation, acceptable given CV benefits.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Gout / Hyperuricemia</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Thiazide diuretics and loop diuretics RAISE uric acid (↓ renal excretion) → can precipitate gout attacks. Losartan (ARB) has UNIQUE uricosuric properties — blocks URAT1 urate transporter → lowers serum uric acid. Best ARB choice in gout. DHP CCBs (amlodipine) are safe — may slightly lower uric acid. SGLT2 inhibitors also mildly uricosuric (via GLUT9).</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + DM + Gout</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>SGLT2 inhibitors are ideal here — lower blood glucose (DM), lower uric acid via GLUT9 (gout), and add CV/renal benefit. Losartan preferred ARB (uricosuric + nephroprotective). Avoid thiazides and loop diuretics if gout is problematic. If gout attacks persist: add allopurinol or febuxostat.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + DM + Elderly (≥65)</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Start all drugs at lower doses. ACEI/ARB + SGLT2i as preferred core. Thiazide preferred over CCB as add-on with ACEI/ARB in elderly (HF more common). Beta-blockers: caution (hypoglycemia masking + risk of bradycardia in elderly). SGLT2i: monitor volume status (increased dehydration/falls risk in elderly). Target &lt;130/80 if tolerated.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + DM + Black adult</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>ACEI/ARB must be added for DM nephroprotection — even though thiazide + DHP CCB are especially effective in Black adults for BP. Recommended approach: Thiazide + DHP CCB + ACEI/ARB (triple therapy). Add SGLT2i for additional CV/renal benefit. Most Black patients with DM + HTN require 3+ drugs.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + DM + Resistant HTN</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Add MRA (spironolactone) as 4th drug. Monitor K+ closely (DM impairs K+ handling; ACEI/ARB already raises K+). SGLT2 inhibitors may help resistant HTN via osmotic diuresis. Ensure on chlorthalidone (not HCTZ). Renal denervation approved for true resistant HTN. SGLT2i: can lower SBP 2–5 mmHg as add-on.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Gout + HFrEF</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Loop diuretics worsen uric acid but may be essential for HFrEF volume overload. Thiazides also worsen uric acid and are relatively contraindicated in HFrEF (loop preferred). Strategy: use loop diuretic as needed for HFrEF volume + add urate-lowering therapy (allopurinol or febuxostat). Losartan as ARB (uricosuric). SGLT2i: benefits HFrEF and lowers urate.</div>
+  </div>
+</section>
+
+<section class="sec" id="s5">
+  <div class="sec-head">
+    <h2 class="sec-title">Special populations</h2>
+    <div class="sec-line"></div>
+    <div class="sec-btns">
+      <button class="lbtn" title="Mark learned">Learned</button>
+      <button class="fbtn" title="Flag for review">Review</button>
+    </div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Pregnancy</h3>
+        <span class="sc-badge">⚡ Key trap</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;140/90</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Methyldopa<small>Central &alpha;&#8322;-agonist</small></div><div class="sc-drug">Labetalol<small>&alpha;/&beta; blocker, pregnancy-safe</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div><div class="sc-drug">Adrenalectomy<small>Laparoscopic or surgical</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>ABSOLUTE CI: ACEI, ARB (teratogenic — fetal renal agenesis, skull ossification failure, oligohydramnios, death). SGLT2i also contraindicated. Safe first-line agents: (1) Labetalol (&alpha;/&beta; block, preferred) (2) Nifedipine LA (DHP CCB, preferred) (3) Methyldopa (safe, extensive experience). Hydralazine: used IV for acute severe HTN. Target &lt;140/90 — no benefit from tighter control in pregnancy.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Pregnancy + DM</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;140/90</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Methyldopa<small>Central &alpha;&#8322;-agonist</small></div><div class="sc-drug">Labetalol<small>&alpha;/&beta; blocker, pregnancy-safe</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div><div class="sc-drug">Adrenalectomy<small>Laparoscopic or surgical</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>ACEI/ARB teratogenic, SGLT2i contraindicated — cannot use drugs ideal for diabetic nephropathy. Use Labetalol, Nifedipine, or Methyldopa for BP. Monitor fetal growth closely. Monitor glucose — beta-blockers (labetalol) blunt hypoglycemia symptoms. Target BP &lt;140/90. Postpartum: immediately restart ACEI/ARB for renal protection.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Pregnancy + Asthma</h3>
+        <span class="sc-badge">Complex</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;140/90</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Methyldopa<small>Central &alpha;&#8322;-agonist</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div><div class="sc-drug">Labetalol<small>&alpha;/&beta; blocker, pregnancy-safe</small></div><div class="sc-drug">Adrenalectomy<small>Laparoscopic or surgical</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Triple constraint: No ACEI/ARB (teratogenic), No BB or labetalol (bronchospasm). Narrow window of safe options: (1) Nifedipine LA (DHP CCB) — FIRST CHOICE (2) Methyldopa — second choice (3) Hydralazine (IV) for acute control. Monitor closely.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Pregnancy + CKD + Proteinuria</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;140/90</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Methyldopa<small>Central &alpha;&#8322;-agonist</small></div><div class="sc-drug">Labetalol<small>&alpha;/&beta; blocker, pregnancy-safe</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div><div class="sc-drug">Adrenalectomy<small>Laparoscopic or surgical</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>ACEI/ARB ideal for proteinuria but teratogenic — cannot use. This is a significant therapeutic gap. Use Labetalol or Nifedipine. Monitor renal function very closely throughout pregnancy. Plan early delivery if maternal renal function deteriorates. Postpartum: restart ACEI/ARB immediately (do not breastfeed while on ACEI/ARB).</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Elderly (≥65)</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>SBP &lt;130</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Same drug classes as younger patients — do NOT withhold treatment from elderly! Start with lower doses. Target SBP &lt;130 mmHg. Prefer diuretic over CCB for 2nd drug when adding to ACEI/ARB (HF more common). Avoid alpha-1 blockers if fall risk elevated. SPRINT trial: more intensive treatment reduces dementia risk. Watch for J-curve in CAD (avoid DBP &lt;60–65).</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Black adult</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Thiazides (chlorthalidone) and DHP CCBs especially effective in Black adults — low-renin, volume-sensitive physiology. Most require combination therapy from the start. ACEI/ARB: less effective as monotherapy (add for DM or CKD). ALLHAT trial: chlorthalidone superior to lisinopril for stroke prevention in Black adults.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Black adult + CKD + Proteinuria</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>ACEI or ARB must be included for renal protection — even though thiazide + DHP CCB are preferred for BP in Black adults. Combination: Chlorthalidone + DHP CCB + ACEI/ARB. Add SGLT2i for additional nephroprotection. Most require 3+ drugs. Monitor K+ and creatinine closely.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + BPH</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Doxazosin (alpha-1 blocker): DUAL BENEFIT — lowers BP and relieves BPH obstructive symptoms. However, alpha-1 blockers are less cardioprotective than diuretics (ALLHAT: doxazosin arm stopped early — higher HF rates vs chlorthalidone). Combine with standard first-line agents for CV protection. Warning: first-dose hypotension — start low, especially in elderly.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Osteoporosis (women)</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Thiazide diuretics are BONE-PROTECTIVE in women: ↓ urinary calcium excretion + ↑ osteoblast activity → reduced fracture risk in observational studies. Preferred agent. Loop diuretics increase urinary calcium excretion — use with caution (though large observational studies have not shown significantly increased fracture risk in postmenopausal women).</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Elderly + HFrEF</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Do not withhold HFrEF guideline therapy from elderly patients. Start all 4 pillars at lower doses and titrate. Prefer diuretic-based combinations. Monitor closely for orthostatic hypotension with every drug addition. SGLT2 inhibitors: excellent in elderly with HFrEF (well-tolerated). Avoid alpha-1 blockers (falls).</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Elderly + Bradycardia</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">Labetalol<small>&alpha;/&beta; blocker, pregnancy-safe</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>BB and non-DHP CCBs contraindicated. Use DHP CCBs (amlodipine), ACEI/ARB, and thiazides. Avoid alpha-1 blockers in elderly with bradycardia (orthostatic hypotension + low HR = syncope/falls risk). Low-dose chlorthalidone is safe and effective.</div>
+  </div>
+</section>
+
+<section class="sec" id="s6">
+  <div class="sec-head">
+    <h2 class="sec-title">Secondary HTN</h2>
+    <div class="sec-line"></div>
+    <div class="sec-btns">
+      <button class="lbtn" title="Mark learned">Learned</button>
+      <button class="fbtn" title="Flag for review">Review</button>
+    </div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Primary aldosteronism — unilateral adenoma</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Adrenalectomy<small>Laparoscopic or surgical</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>GOAL = ADRENALECTOMY. Laparoscopic adrenalectomy can CURE or substantially improve HTN in 50–70% of patients. Pre-op workup: (1) Aldosterone/renin ratio &gt;30 (2) CT adrenals (3) Adrenal vein sampling (AVS) — gold standard to confirm lateralization before surgery. Bridge until surgery: MRA (spironolactone). Post-adrenalectomy: aldosterone excess resolves, HTN may resolve.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Primary aldosteronism — bilateral hyperplasia</h3>
+        <span class="sc-badge">⚡ Key trap</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">Adrenalectomy<small>Laparoscopic or surgical</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Surgery NOT indicated (bilateral hyperplasia = both adrenal glands hypersecreting, surgery removes one side only). Medical treatment is definitive: MRA (spironolactone) is first-line. Switch to eplerenone (MR-selective, fewer side effects) or finerenone if gynecomastia or breast tenderness develops. Amiloride: alternative if MRA not tolerated. Add dietary sodium restriction.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + OSA</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>CPAP provides only limited BP reduction (~1–2 mmHg per meta-analysis) — does NOT replace antihypertensive drugs. Standard antihypertensive therapy required regardless of CPAP use. OSA is the most common identifiable cause of secondary HTN (&gt;50% of OSA patients have HTN). Screen for OSA in ALL resistant HTN patients. Weight loss essential for both.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Resistant HTN</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Resistant = SBP/DBP ≥130/80 on ≥3 drugs (including diuretic) OR on ≥4 drugs. STEPS: (1) Confirm true resistance (exclude white coat, non-adherence, secondary causes, drug interactions) (2) Switch to chlorthalidone (long-acting) (3) Add MRA (spironolactone) as 4th drug ⭐ — most effective add-on (4) Add direct vasodilator (hydralazine or minoxidil) if needed (5) Refer specialist. FDA approved renal denervation 2023 for office SBP ≥160.</div>
+  </div>
+</section>
+
+<section class="sec" id="s7">
+  <div class="sec-head">
+    <h2 class="sec-title">Complex multi-condition scenarios</h2>
+    <div class="sec-line"></div>
+    <div class="sec-btns">
+      <button class="lbtn" title="Mark learned">Learned</button>
+      <button class="fbtn" title="Flag for review">Review</button>
+    </div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + HFrEF + DM + CKD</h3>
+        <span class="sc-badge">Complex</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>SGLT2 inhibitor is the STAR of this combination — proven in HFrEF (EMPEROR-Reduced, DAPA-HF), DM (EMPA-REG), and CKD (EMPA-KIDNEY) simultaneously. All 4 HFrEF pillars. Finerenone may be preferred MRA (safer in CKD than spironolactone). No CCBs. Monitor K+ closely (ACEI/ARB + MRA + CKD = triple hyperkalemia risk).</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + IHD + DM + Elderly</h3>
+        
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Start all drugs at lower doses. Beta-blocker + ACEI/ARB form the core (IHD + DM nephroprotection). SGLT2i for DM benefit (also mild BP lowering). DHP CCB (amlodipine) for angina — well tolerated in elderly. Non-DHP CCB: caution in elderly (constipation, AV block risk). Monitor for hypoglycemia masking with beta-blocker.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + IHD + A-fib + HFrEF</h3>
+        <span class="sc-badge">Complex</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Beta-blocker handles all three simultaneously: anti-anginal (IHD), rate control (A-fib), mortality reduction (HFrEF). ACEI/ARB + MRA + SGLT2i for HFrEF. Non-DHP CCB doubly contraindicated (HFrEF + A-fib rate control would conflict with HFrEF CI). DHP CCB contraindicated in HFrEF. Loop diuretic for volume. Refer to heart failure specialist.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Black adult + DM + Resistant HTN</h3>
+        <span class="sc-badge">Complex</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Anchor combination especially effective in Black adults: Chlorthalidone + DHP CCB + ACEI/ARB. Add 4th drug: MRA (spironolactone). SGLT2i: add for DM + CV/renal benefit + mild additional BP lowering. Monitor K+ (MRA + ACEI/ARB + DM). Typically requires 4–5 drugs. Renal denervation appropriate if true resistant HTN confirmed.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Elderly + Resistant HTN + CKD</h3>
+        <span class="sc-badge">Complex</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>Chlorthalidone now evidence-based across all eGFR levels (CLICK trial). Add MRA (finerenone preferred at low eGFR — less hyperkalemia). Start vasodilator at very low dose (hydralazine — avoid minoxidil in elderly: reflex tachycardia + fluid retention). Monitor for orthostatic hypotension with each drug addition. Renal denervation appropriate for true resistant HTN.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Post-MI + DM + CKD + Proteinuria</h3>
+        <span class="sc-badge">Complex</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>ACEI or ARB essential for all three (cardiac remodeling + DM nephroprotection + CKD proteinuria). Beta-blocker essential (post-MI). SGLT2i adds CV + renal benefit. MRA if HFrEF develops. Monitor K+ closely (multiple K+-raising drugs). DHP CCB acceptable for additional BP lowering — safe in post-MI with preserved EF.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Pregnancy + HFrEF (peripartum cardiomyopathy)</h3>
+        <span class="sc-badge">Complex</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;140/90</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">Methyldopa<small>Central &alpha;&#8322;-agonist</small></div><div class="sc-drug">Labetalol<small>&alpha;/&beta; blocker, pregnancy-safe</small></div></div><div class="sc-col sc-acc"><div class="sc-col-hd">◎ Acceptable</div><div class="sc-drug">Direct vasodilator<small>Hydralazine, Minoxidil</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div><div class="sc-drug">Alpha-1 blocker<small>Doxazosin</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div><div class="sc-drug">Adrenalectomy<small>Laparoscopic or surgical</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>All usual HFrEF drugs are contraindicated in pregnancy (ACEI/ARB teratogenic; BB, CCBs, MRA — limited safety data). Safe agents in pregnancy: Labetalol, Nifedipine (DHP CCB carefully), Methyldopa, Hydralazine (IV). Postpartum: immediately start all 4 HFrEF pillars. Bromocriptine may be used for peripartum cardiomyopathy specifically. Do not breastfeed on ACEI/ARB.</div>
+  </div>
+
+  <div class="sc-card">
+    <div class="sc-card-head">
+      <div class="sc-card-title-row">
+        <h3 class="sc-card-title">HTN + Gout + DM + HFrEF</h3>
+        <span class="sc-badge">Complex</span>
+      </div>
+      <div class="sc-bptgt">BP target: <strong>&lt;130/80</strong></div>
+    </div>
+    <div class="sc-drug-grid"><div class="sc-col sc-pref"><div class="sc-col-hd">✓ Preferred</div><div class="sc-drug">ACEI<small>Lisinopril, Enalapril, Ramipril</small></div><div class="sc-drug">ARB<small>Losartan ★<sub>gout</sub>, Valsartan, Olmesartan</small></div><div class="sc-drug">MRA<small>Spironolactone, Eplerenone, Finerenone</small></div><div class="sc-drug">SGLT2 inhibitor<small>Empagliflozin, Dapagliflozin</small></div></div><div class="sc-col sc-cau"><div class="sc-col-hd">⚠ Caution</div><div class="sc-drug">Thiazide / thiazide-like<small>Chlorthalidone ★, HCTZ, Indapamide</small></div><div class="sc-drug">Beta-blocker<small>Metoprolol, Carvedilol, Nebivolol</small></div><div class="sc-drug">Loop diuretic<small>Furosemide, Torsemide</small></div></div><div class="sc-col sc-avo"><div class="sc-col-hd">✗ Avoid</div><div class="sc-drug">DHP CCB<small>Amlodipine ★, Nifedipine LA, Felodipine</small></div><div class="sc-drug">Non-DHP CCB<small>Diltiazem ER, Verapamil ER</small></div></div></div>
+    <div class="sc-note"><span class="sc-note-icon">💡</span>SGLT2 inhibitor benefits all three simultaneously: ↓ glucose (DM), ↓ uric acid via GLUT9 (gout), improves HF outcomes. Losartan preferred ARB (uricosuric). Thiazides: doubly harmful (worsen gout + relatively CI in HFrEF where loop preferred). Loop diuretic for HFrEF volume — if gout worsens, add allopurinol/febuxostat. No CCBs in HFrEF.</div>
+  </div>
+</section>
+
+  <section class="sec" id="s8"><div class="sec-head"><h2 class="sec-title">Exam traps — antihypertensive drug selection</h2><div class="sec-line"></div><div class="sec-btns"><button class="lbtn">Learned</button><button class="fbtn">Review</button></div></div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 01</span>A-fib rate control in a patient with HFrEF</div>
+  <div class="trap-a">Use <strong>BETA-BLOCKER</strong>, NOT non-DHP CCB. Non-DHP CCBs (diltiazem, verapamil) are absolutely contraindicated in HFrEF. The HFrEF CI overrides the A-fib rate-control indication for non-DHP CCB.</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 02</span>A-fib rate control in a patient with asthma</div>
+  <div class="trap-a">Use <strong>NON-DHP CCB</strong> (diltiazem/verapamil), NOT beta-blocker. Beta-blockers are absolutely contraindicated in asthma (bronchospasm). Only safe if NO HFrEF is also present.</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 03</span>"Give a diuretic to a patient with primary aldosteronism bilateral"</div>
+  <div class="trap-a"><strong>WRONG</strong>. Bilateral hyperplasia → give <strong>MRA (spironolactone)</strong> as definitive medical treatment. Surgery is NOT indicated (would only remove one gland).</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 04</span>"Surgery is too risky for this adrenal adenoma patient, just give MRA"</div>
+  <div class="trap-a">MRA is the correct bridge and an option if surgery is declined or high-risk, but <strong>surgery (adrenalectomy) is the goal</strong> and can CURE hypertension. Always recommend surgery first for unilateral adenoma.</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 05</span>"Give ACEI + ARB for maximum renal protection in CKD"</div>
+  <div class="trap-a"><strong>NEVER combine ACEI + ARB</strong>. This doubles the hyperkalemia and AKI risk without additional benefit. Use ONE class: ACEI or ARB (not both).</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 06</span>"Stage 1 HTN — start antihypertensives immediately"</div>
+  <div class="trap-a">Depends on risk. Stage 1, LOW RISK (ASCVD &lt;10%, no CVD/DM/CKD): try <strong>nonpharmacologic therapy alone for 3–6 months first</strong>. Stage 1, HIGH RISK: start drugs immediately.</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 07</span>"Thiazides don't work in advanced CKD (creatinine >3)"</div>
+  <div class="trap-a">This was the old teaching. <strong>NEW: CLICK trial (2021)</strong> showed chlorthalidone reduced ambulatory SBP by 10.5 mmHg even in stage 4 CKD (eGFR &lt;23). Chlorthalidone is now evidence-based in advanced CKD.</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 08</span>"CPAP will control my patient's hypertension — no antihypertensives needed"</div>
+  <div class="trap-a"><strong>WRONG</strong>. CPAP provides only ~1–2 mmHg BP reduction per meta-analysis. Standard antihypertensive drug therapy is REQUIRED in patients with OSA and HTN.</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 09</span>Pregnant patient with HTN — what drugs to avoid?</div>
+  <div class="trap-a"><strong>ACEI, ARB, and SGLT2 inhibitors are absolutely contraindicated</strong> (teratogenic). Safe agents: Labetalol, Nifedipine (DHP CCB), Methyldopa, Hydralazine (IV). BP target in pregnancy: &lt;140/90 (not &lt;130/80).</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 10</span>4th drug for resistant hypertension</div>
+  <div class="trap-a">The 4th drug is <strong>MRA (spironolactone)</strong> — this is the most effective add-on agent in resistant HTN (PATHWAY-2 trial). Also ensure the patient is on chlorthalidone (long-acting diuretic), not HCTZ.</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 11</span>"Losartan and lisinopril are interchangeable in all scenarios"</div>
+  <div class="trap-a"><strong>Not exactly</strong>. Losartan has UNIQUE uricosuric properties (blocks URAT1 transporter) — it lowers serum uric acid. In patients with HTN + gout, <strong>Losartan is the preferred ARB</strong>.</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 12</span>"DHP CCB is contraindicated in HFrEF — use non-DHP CCB instead"</div>
+  <div class="trap-a"><strong>WRONG</strong>. BOTH DHP CCB AND Non-DHP CCB are contraindicated in HFrEF. Non-DHP CCBs have stronger negative inotropic effects and are especially dangerous. Do not substitute one for the other in HFrEF.</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 13</span>Black adult with Stage 2 HTN — start with ACEI alone</div>
+  <div class="trap-a">ACEI/ARB are less effective as monotherapy in Black adults (low-renin physiology). In Black adults, <strong>thiazide (chlorthalidone) + DHP CCB</strong> are especially effective. Most need combination therapy. Add ACEI/ARB if DM or CKD present.</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 14</span>Post-MI patient — should you give an MRA?</div>
+  <div class="trap-a">Give MRA <strong>IF EF &lt;40% develops post-MI</strong> (i.e., post-MI HFrEF). Not routinely for all post-MI patients without HFrEF. The indication is specifically for post-MI with reduced EF.</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 15</span>"Beta-blockers are safe in gout"</div>
+  <div class="trap-a"><strong>True — beta-blockers do NOT affect uric acid</strong>. The drugs to AVOID in gout are thiazide diuretics and loop diuretics (both raise uric acid by reducing renal excretion). ACEI, ARB (especially losartan), DHP CCBs, and beta-blockers are all safe in gout.</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 16</span>Which antihypertensive has bone-protective properties?</div>
+  <div class="trap-a"><strong>Thiazide diuretics</strong> reduce urinary calcium excretion and increase osteoblast activity — bone-protective in women with osteoporosis. In contrast, loop diuretics increase calcium excretion (though observational studies haven't shown increased fracture risk).</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 17</span>"DM patient needs HTN treatment — just give a diuretic"</div>
+  <div class="trap-a">While thiazides are first-line for uncomplicated HTN, in DM the <strong>PREFERRED agents are ACEI or ARB</strong> (especially with microalbuminuria/proteinuria) + SGLT2 inhibitor (additional CV/renal benefit). Thiazides are acceptable as add-on but should not be the primary choice.</div>
+</div>
+<div class="trap-card">
+  <div class="trap-q"><span class="trap-num">Trap 18</span>"Doxazosin (alpha-1 blocker) is ideal for elderly patients with prostate issues"</div>
+  <div class="trap-a">Doxazosin has dual benefit for BPH + HTN but <strong>is less cardioprotective</strong> than diuretics. ALLHAT trial stopped the doxazosin arm early due to higher heart failure rates vs chlorthalidone. Always combine with standard agents for CV protection.</div>
+</div>
+</section>
+
+
+  <!-- FOOTER -->
+  <div style="font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace;line-height:1.8;margin-top:40px;padding-top:20px;border-top:1px solid var(--bd)">
+    P = Preferred &nbsp;|&nbsp; A = Acceptable &nbsp;|&nbsp; C = Use with caution &nbsp;|&nbsp; X = Avoid / contraindicated<br>
+    ★ Use ACEI OR ARB — never both (hyperkalemia + AKI risk) &nbsp;|&nbsp; Chlorthalidone preferred over HCTZ &nbsp;|&nbsp; Losartan preferred ARB in gout (uricosuric)<br>
+    For educational/boards use only — not for direct clinical decision-making.
+  </div>
+</div>
+
+<script>
+const FILE_KEY = 'htn-scenarios-2026';
+const HL_KEY = FILE_KEY + '-hl';
+const NT_KEY = FILE_KEY + '-nt';
+let curColor = null, eraseMode = false, selText = '', savedRange = null, activePopNoteId = null;
+let notes = [];
+
+/* HIGHLIGHT */
+function setColor(cls, btnId) {
+  eraseMode = false; document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  if (curColor === cls) { curColor = null; return; }
+  curColor = cls;
+  document.getElementById(btnId).classList.add('active');
+}
+function toggleErase() {
+  curColor = null;
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  eraseMode = !eraseMode;
+  document.body.style.cursor = eraseMode ? 'crosshair' : '';
+  document.getElementById('erase-btn').style.background = eraseMode ? '#fee2e2' : '';
+}
+function applyHL(range, cls) {
+  const sp = document.createElement('span');
+  sp.className = 'hl ' + cls;
+  sp.dataset.hlClass = cls;
+  try { range.surroundContents(sp); } catch(e) {
+    const frag = range.extractContents();
+    sp.appendChild(frag); range.insertNode(sp);
+  }
+  saveHighlights();
+}
+function saveHighlights() {
+  const items = [];
+  document.querySelectorAll('.hl').forEach(el => {
+    items.push({ cls: el.dataset.hlClass, text: el.textContent, xpath: getXPath(el) });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(items)); } catch(e) {}
+}
+function restoreHighlights() {
+  let saved; try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { saved = []; }
+  saved.forEach(item => {
+    try {
+      const walker = document.createTreeWalker(document.getElementById('main'), NodeFilter.SHOW_TEXT);
+      let node;
+      while(node = walker.nextNode()) {
+        const idx = node.textContent.indexOf(item.text);
+        if (idx < 0) continue;
+        const range = document.createRange();
+        range.setStart(node, idx); range.setEnd(node, idx + item.text.length);
+        const sp = document.createElement('span');
+        sp.className = 'hl ' + item.cls; sp.dataset.hlClass = item.cls;
+        try { range.surroundContents(sp); } catch(e) {}
+        break;
+      }
+    } catch(e) {}
+  });
+}
+function getXPath(el) {
+  const parts = [];
+  while (el && el.nodeType === 1) {
+    let idx = 1, sib = el.previousSibling;
+    while (sib) { if (sib.nodeType === 1 && sib.tagName === el.tagName) idx++; sib = sib.previousSibling; }
+    parts.unshift(el.tagName.toLowerCase() + '[' + idx + ']');
+    el = el.parentNode;
+  }
+  return '/' + parts.join('/');
+}
+
+/* NOTES */
+function addNoteFromSelection() {
+  if (!selText) { alert('Select some text first, then click ✎'); return; }
+  const noteText = prompt('Note for: "' + selText.substring(0,50) + (selText.length>50?'…':'') + '"');
+  if (!noteText || !noteText.trim()) return;
+  const id = 'n' + Date.now();
+  const note = { id, ref: selText.substring(0,60), text: noteText };
+  notes.push(note);
+  if (savedRange) {
+    try {
+      const anchor = document.createElement('span');
+      anchor.className = 'note-anchor'; anchor.dataset.noteId = id;
+      anchor.title = 'Click to view note';
+      anchor.onclick = (e) => { e.stopPropagation(); showNotePopover(note, anchor); };
+      savedRange.surroundContents(anchor);
+    } catch(e) {}
+  }
+  saveNotes(); renderNotes(); selText = ''; savedRange = null;
+}
+function saveNotes() {
+  const data = notes.map(n => ({ id: n.id, ref: n.ref, text: n.text }));
+  try { localStorage.setItem(NT_KEY, JSON.stringify(data)); } catch(e) {}
+}
+function restoreAnchors() {
+  let saved; try { saved = JSON.parse(localStorage.getItem(NT_KEY)) || []; } catch(e) { saved = []; }
+  notes = saved;
+  saved.forEach(note => {
+    try {
+      const walker = document.createTreeWalker(document.getElementById('main'), NodeFilter.SHOW_TEXT);
+      let node;
+      while(node = walker.nextNode()) {
+        const idx = node.textContent.indexOf(note.ref.replace(/…$/,''));
+        if (idx < 0) continue;
+        const range = document.createRange();
+        range.setStart(node, idx); range.setEnd(node, idx + note.ref.length);
+        const anchor = document.createElement('span');
+        anchor.className = 'note-anchor'; anchor.dataset.noteId = note.id;
+        anchor.title = 'Click to view note';
+        anchor.onclick = (e) => { e.stopPropagation(); showNotePopover(note, anchor); };
+        try { range.surroundContents(anchor); } catch(e) {}
+        break;
+      }
+    } catch(e) {}
+  });
+}
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  if (!notes.length) { body.innerHTML = ''; body.appendChild(empty); return; }
+  body.innerHTML = '';
+  notes.forEach(note => {
+    const card = document.createElement('div'); card.className = 'sn-note';
+    card.innerHTML = '<div class="sn-note-hd"><span class="sn-note-ref">' + escH(note.ref) + '</span><button class="sn-del" onclick="deleteNote('' + note.id + '')" title="Delete">×</button></div><div class="sn-note-body" contenteditable="true" onblur="saveNoteText('' + note.id + '', this.textContent)">' + escH(note.text) + '</div><div class="sn-resize"></div>';
+    body.appendChild(card);
+  });
+}
+function escH(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function deleteNote(id) {
+  notes = notes.filter(n => n.id !== id);
+  document.querySelectorAll('[data-note-id="' + id + '"]').forEach(el => {
+    const parent = el.parentNode;
+    while(el.firstChild) parent.insertBefore(el.firstChild, el);
+    parent.removeChild(el);
+    parent.normalize();
+  });
+  saveNotes(); renderNotes(); closePopover();
+}
+function saveNoteText(id, text) {
+  const n = notes.find(x => x.id === id);
+  if (n) { n.text = text; saveNotes(); }
+}
+function showNotePopover(note, anchorEl) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref.substring(0,40) + (note.ref.length>40?'…':'');
+  document.getElementById('np-pop-text').textContent = note.text;
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() { document.getElementById('note-popover').classList.remove('show'); activePopNoteId = null; }
+document.addEventListener('click', function(e) { if (!document.getElementById('note-popover').contains(e.target)) closePopover(); });
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar'), sb = document.getElementById('sn-sidebar'), np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target; el.parentNode.replaceChild(document.createTextNode(el.textContent), el); el.parentNode.normalize(); saveHighlights(); return;
+  }
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt; savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt') && (document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt);
+  if (curColor) { try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {} }
+});
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => { el.parentNode.replaceChild(document.createTextNode(el.textContent), el); el.parentNode.normalize(); });
+  document.querySelectorAll('.note-anchor').forEach(el => { el.parentNode.replaceChild(document.createTextNode(el.textContent), el); el.parentNode.normalize(); });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false; document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover(); renderNotes();
+}
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar'), tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? 'Notes' : '◀';
+}
+
+document.querySelectorAll('.lbtn').forEach(b => b.addEventListener('click', function() { this.classList.toggle('on'); }));
+document.querySelectorAll('.fbtn').forEach(b => b.addEventListener('click', function() { this.classList.toggle('on'); }));
+
+const _secs = document.querySelectorAll('.sec[id]'), _navLinks = document.querySelectorAll('.toc-a');
+_secs.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
