@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aortic Stenosis &amp; Aortic Regurgitation — Boards Study Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --bg:#fbfaf7;
+    --ink:#23211c;
+    --muted:#6b6557;
+    --line:#e4ded2;
+    --card:#ffffff;
+    --as:#8b3a5c;
+    --as-bg:#f6e6ed;
+    --ar:#2c6e7a;
+    --ar-bg:#e3f0f2;
+    --gold:#b07b2c;
+    --gold-bg:#f7efdf;
+    --green:#3f6f47;
+    --green-bg:#eaf1ea;
+    --trap:#7a2e2e;
+    --trap-bg:#f6e9e7;
+    --purple:#6b4a8c;
+    --purple-bg:#efe8f6;
+    --shadow:0 1px 2px rgba(40,35,25,.04),0 8px 24px rgba(40,35,25,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Newsreader',Georgia,serif;
+    font-size:18px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px 120px}
+
+  /* Masthead */
+  header.top{padding:64px 0 36px;border-bottom:3px double var(--line);margin-bottom:8px}
+  .kicker{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+  h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(38px,6vw,62px);
+    line-height:1.02;letter-spacing:-.015em;margin-bottom:18px}
+  .sub{font-size:19px;color:var(--muted);max-width:680px;font-style:italic}
+  .meta{margin-top:22px;font-family:'IBM Plex Mono',monospace;font-size:12px;
+    color:var(--muted);letter-spacing:.04em}
+
+  /* TOC */
+  nav.toc{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:24px 28px;margin:34px 0 48px;box-shadow:var(--shadow)}
+  nav.toc h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+  nav.toc ol{list-style:none;counter-reset:t;columns:2;column-gap:40px}
+  nav.toc li{counter-increment:t;margin-bottom:9px;break-inside:avoid}
+  nav.toc a{color:var(--ink);text-decoration:none;font-size:15.5px;display:flex;gap:10px}
+  nav.toc a:hover{color:var(--ar)}
+  nav.toc a::before{content:counter(t,decimal-leading-zero);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--gold);
+    padding-top:3px;flex-shrink:0}
+
+  section{margin:56px 0;scroll-margin-top:24px}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:8px;
+    padding-bottom:14px;border-bottom:2px solid var(--ink)}
+  .sec-num{font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--gold);
+    font-weight:500;flex-shrink:0}
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:30px;line-height:1.1;letter-spacing:-.01em}
+  h3{font-family:'Fraunces',serif;font-weight:600;font-size:22px;margin:30px 0 12px}
+  h4{font-family:'Newsreader',serif;font-weight:500;font-size:19px;margin:20px 0 8px;color:var(--ink)}
+  p{margin-bottom:14px}
+  p.lead{font-size:20px;color:#3a362e}
+  ul,ol{margin:6px 0 18px 4px;padding-left:24px}
+  li{margin-bottom:9px}
+  li::marker{color:var(--gold)}
+  ul ul,ol ul,ul ol{margin:8px 0 8px 2px}
+  ul ul li::marker{color:var(--muted)}
+  b,strong{font-weight:600;color:#1a1813}
+  em.term{font-style:normal;font-weight:600;color:var(--ar)}
+  .why{color:var(--as);font-weight:600;font-style:italic}
+
+  /* Cards */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:22px 26px;margin:22px 0;box-shadow:var(--shadow)}
+  .card-as{border-left:5px solid var(--as)}
+  .card-ar{border-left:5px solid var(--ar)}
+  .card-gold{border-left:5px solid var(--gold)}
+  .card-green{border-left:5px solid var(--green)}
+  .card-purple{border-left:5px solid var(--purple)}
+  .card h4:first-child{margin-top:0}
+  .tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+    letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:5px;
+    margin-bottom:12px;font-weight:500}
+  .tag-as{background:var(--as-bg);color:var(--as)}
+  .tag-ar{background:var(--ar-bg);color:var(--ar)}
+  .tag-gold{background:var(--gold-bg);color:var(--gold)}
+  .tag-green{background:var(--green-bg);color:var(--green)}
+  .tag-purple{background:var(--purple-bg);color:var(--purple)}
+
+  .why-box{background:linear-gradient(180deg,#fdfbf6,#faf6ed);
+    border:1px solid var(--gold);border-radius:10px;padding:16px 20px;margin:18px 0}
+  .why-box::before{content:'▶ WHY IT HAPPENS';font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;letter-spacing:.16em;color:var(--gold);display:block;margin-bottom:7px}
+  .pearl{background:var(--green-bg);border:1px solid #c2d4c2;border-radius:10px;
+    padding:14px 20px;margin:18px 0}
+  .pearl::before{content:'✦ CLINICAL PEARL';font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;letter-spacing:.16em;color:var(--green);display:block;margin-bottom:6px}
+
+  /* Tables */
+  .tbl-wrap{overflow-x:auto;margin:22px 0;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow)}
+  table{width:100%;border-collapse:collapse;background:var(--card);font-size:15px;font-family:'Newsreader',serif}
+  th{background:var(--ink);color:#f7f3ea;font-weight:500;text-align:left;padding:12px 14px;
+    font-size:13px;letter-spacing:.03em;vertical-align:top}
+  td{padding:10px 14px;border-top:1px solid var(--line);vertical-align:top;line-height:1.5}
+  tr:nth-child(even) td{background:#faf8f3}
+  .col-as{color:var(--as);font-weight:600}
+  .col-ar{color:var(--ar);font-weight:600}
+  td.yes{color:var(--green);font-weight:600}
+  td.no{color:var(--as);font-weight:600}
+
+  /* Flowchart */
+  .flow{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:30px 26px;margin:26px 0;box-shadow:var(--shadow)}
+  .flow-title{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:24px}
+  .node{border:1.5px solid var(--ink);border-radius:10px;padding:13px 18px;text-align:center;
+    background:#fff;max-width:560px;margin:0 auto;font-size:15.5px}
+  .node small{color:var(--muted);font-size:13.5px;display:block;margin-top:3px}
+  .node-q{background:var(--gold-bg);border-color:var(--gold)}
+  .node-as{background:var(--as-bg);border-color:var(--as)}
+  .node-ar{background:var(--ar-bg);border-color:var(--ar)}
+  .node-green{background:var(--green-bg);border-color:var(--green)}
+  .arrow{text-align:center;color:var(--muted);font-size:22px;line-height:1;margin:8px 0}
+  .branch{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin:8px 0}
+  .branch .col{flex:1;min-width:230px;max-width:340px}
+  .lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;
+    text-align:center;color:var(--muted);margin-bottom:6px}
+
+  /* Trap cards */
+  .trap{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:0;
+    margin:24px 0;overflow:hidden;box-shadow:var(--shadow)}
+  .trap-head{background:var(--trap);color:#fbeeec;padding:14px 22px;font-family:'Fraunces',serif;
+    font-size:19px;font-weight:600;display:flex;align-items:center;gap:12px}
+  .trap-head .n{font-family:'IBM Plex Mono',monospace;font-size:13px;
+    background:rgba(255,255,255,.18);padding:3px 9px;border-radius:6px}
+  .trap-body{padding:20px 24px}
+  .trap-row{margin-bottom:14px;padding-bottom:14px;border-bottom:1px dashed var(--line)}
+  .trap-row:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+  .trap-row .k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;display:block;margin-bottom:5px}
+  .k-think{color:var(--trap)}.k-truth{color:var(--green)}.k-why{color:var(--gold)}.k-case{color:var(--ar)}
+  .trap-row.case{background:var(--ar-bg);border:1px solid #c2dde2;border-radius:8px;
+    padding:13px 16px;border-bottom:none}
+  .ans{font-weight:700;color:var(--ink);background:#fff6cf;padding:1px 6px;border-radius:4px}
+
+  .divider{text-align:center;color:var(--gold);margin:40px 0;letter-spacing:.5em;font-size:14px}
+  footer{border-top:3px double var(--line);padding-top:24px;margin-top:60px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);text-align:center;line-height:1.8}
+
+  /* Sign grid */
+  .sign-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+  @media (max-width:680px){.sign-grid{grid-template-columns:1fr}}
+  .sign{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;box-shadow:var(--shadow)}
+  .sign h5{font-family:'Fraunces',serif;font-weight:600;font-size:17px;margin-bottom:6px}
+  .sign small{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+    letter-spacing:.12em;color:var(--gold);margin-bottom:8px;text-transform:uppercase}
+  .sign p{font-size:14.5px;line-height:1.55;margin-bottom:6px}
+
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:rgba(253,224,71,.5)}.hl-g{background:rgba(134,239,172,.5)}
+.hl-b{background:rgba(147,197,253,.5)}.hl-p{background:rgba(249,168,212,.5)}
+.hl-o{background:rgba(253,186,116,.5)}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid #b8b3aa;border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:#857f77;margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}.hbtn.active{outline:2.5px solid #1e4db7;outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:#ddd9d2;margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid #ddd9d2;border-radius:6px;background:#f8f7f4;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:#4a4540}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:0;width:300px;height:100vh;background:#f0ede8;
+  border-left:1.5px solid #b8b3aa;display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-sidebar.hidden~#sn-tab{right:0!important}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid #ddd9d2;background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:#4a4540}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:18px;color:#857f77}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:#857f77;font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+#sn-tab{position:fixed;right:300px;top:50%;transform:translateY(-50%);z-index:801;
+  background:#6d28d9;color:#fff;border:none;border-radius:6px 0 0 6px;padding:12px 6px;
+  cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;
+  letter-spacing:.1em;text-transform:uppercase;box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s}
+#sn-input{padding:10px;border-top:1.5px solid #ddd9d2;background:#fff;flex-shrink:0}
+#sn-selref{font-size:8px;font-family:monospace;color:#857f77;margin-bottom:5px}
+#sn-selref em{color:#6d28d9;font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid #b8b3aa;border-radius:5px;font-size:12px;
+  resize:none;height:60px;background:#f8f7f4;color:#1c1a17;display:block}
+#sn-ta:focus{outline:2px solid #6d28d9}
+#sn-add{margin-top:6px;width:100%;padding:8px;background:#6d28d9;color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer;display:block}
+#sn-add:hover{background:#5b21b6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  display:flex;flex-direction:column;min-height:80px;position:relative;overflow:hidden;margin-bottom:6px}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;flex-shrink:0}
+.sn-drag-icon{color:#a89a30;font-size:12px}
+.sn-note-ref{font-size:8px;color:#78610a;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1}
+.sn-del:hover{color:#b91c1c}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;overflow-y:auto}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize}
+.note-anchor{cursor:pointer;border-bottom:2px dotted #6d28d9;padding-bottom:1px}
+.note-anchor:hover{background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid #6d28d9;
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px}
+#note-popover.show{display:block}
+#np-pop-ref{font-size:8px;font-family:monospace;color:#6d28d9;margin-bottom:5px}
+#np-pop-text{color:#4a4540;line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid #ddd9d2}
+.pop-btn{font-size:8px;padding:3px 8px;border-radius:4px;border:1.5px solid #b8b3aa;
+  cursor:pointer;background:#f8f7f4;color:#857f77}
+.pop-btn:hover{background:#fef2f2;border-color:#fca5a5;color:#b91c1c}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:#857f77}
+</style>
+</head>
+<body>
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+<div id="sn-sidebar" class="hidden">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">×</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select any text,<br>write a note below,<br>click + Add Note.<br><br>Notes stay connected<br>even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+<header class="top">
+  <div class="kicker">Internal Medicine · Boards Review · Valvular Heart Disease</div>
+  <h1>Aortic Stenosis &amp; Aortic Regurgitation</h1>
+  <p class="sub">A mechanism-first teaching guide. Every murmur, peripheral sign, echo criterion, and surgical threshold traced back to the underlying physics of the lesion. Built strictly from Harrison's Ch. 272 and Ch. 273.</p>
+  <div class="meta">SOURCE: HARRISON'S CH. 272 (AS) · CH. 273 (AR) · SCOPE: PATHOPHYSIOLOGY · EXAM FINDINGS · ECHO · SURGICAL/TAVI INDICATIONS · TRAPS</div>
+</header>
+
+<nav class="toc">
+  <h4>What this guide covers</h4>
+  <ol>
+    <li><a href="#frame">Framing: pressure vs volume overload</a></li>
+    <li><a href="#as-etio">AS — etiology &amp; pathogenesis</a></li>
+    <li><a href="#bav">Bicuspid aortic valve (BAV)</a></li>
+    <li><a href="#as-patho">AS — pathophysiology</a></li>
+    <li><a href="#as-sx">AS — the three cardinal symptoms</a></li>
+    <li><a href="#as-exam">AS — physical exam &amp; murmur</a></li>
+    <li><a href="#as-echo">AS — echo criteria &amp; severity</a></li>
+    <li><a href="#as-nh">AS — natural history</a></li>
+    <li><a href="#as-tx">AS — medical, SAVR, TAVI</a></li>
+    <li><a href="#ar-etio">AR — etiology (valve vs root)</a></li>
+    <li><a href="#ar-patho">AR — pathophysiology (acute vs chronic)</a></li>
+    <li><a href="#ar-sx">AR — symptoms &amp; the latent period</a></li>
+    <li><a href="#ar-exam">AR — peripheral signs &amp; murmurs</a></li>
+    <li><a href="#ar-echo">AR — echo &amp; severity</a></li>
+    <li><a href="#ar-tx">AR — medical &amp; surgical management</a></li>
+    <li><a href="#compare">AS vs AR — side-by-side master table</a></li>
+    <li><a href="#traps">Exam traps (board coach)</a></li>
+  </ol>
+</nav>
+
+<!-- 1 FRAMING -->
+<section id="frame">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Framing: pressure vs volume overload</h2></div>
+  <p class="lead">Before any detail — fix the two diseases in your mind by the type of load they place on the left ventricle. Everything else follows.</p>
+
+  <div class="branch">
+    <div class="card card-as col">
+      <span class="tag tag-as">AORTIC STENOSIS</span>
+      <h4 style="margin-top:0">Pressure overload</h4>
+      <p>A fixed obstruction at the valve. The LV must generate a much higher systolic pressure to push blood through a narrowed orifice.</p>
+      <p><b>Response:</b> <em class="term">concentric hypertrophy</em> — wall thickens, chamber size stays normal. Laplace's law: thicker wall normalizes wall stress.</p>
+      <p><b>Late failure:</b> diastolic dysfunction → systolic dysfunction → afterload mismatch → drop in EF and CO.</p>
+    </div>
+    <div class="card card-ar col">
+      <span class="tag tag-ar">AORTIC REGURGITATION</span>
+      <h4 style="margin-top:0">Volume overload (chronic) — also pressure</h4>
+      <p>Each beat, the LV ejects a normal forward stroke volume <b>PLUS</b> the regurgitant volume that leaked back. The chamber gets repeatedly stretched.</p>
+      <p><b>Response:</b> <em class="term">eccentric hypertrophy + dilation</em> — the LV becomes one of the largest hearts encountered at autopsy (sometimes &gt;1000 g).</p>
+      <p><b>Late failure:</b> end-diastolic volume rises, forward stroke volume falls, EF drops.</p>
+    </div>
+  </div>
+
+  <div class="why-box">
+    AS and AR are both "left-sided regurgitant/obstructive" diseases, but they are mechanically opposite.
+    <ul style="margin-top:8px;margin-bottom:0">
+      <li>AS = <b>thick wall, normal cavity</b> → preserves EF for years, then decompensates suddenly.</li>
+      <li>AR = <b>dilated cavity, eccentric hypertrophy</b> → preserves EF for years through Frank-Starling, then deteriorates often <b>before</b> symptoms appear.</li>
+    </ul>
+    <span class="why">This is why AS is followed by symptoms (wait for them), but AR is often followed by serial echo measurements (intervene before symptoms).</span>
+  </div>
+</section>
+
+<!-- 2 AS ETIOLOGY -->
+<section id="as-etio">
+  <div class="sec-head"><span class="sec-num">02</span><h2>AS — etiology &amp; pathogenesis</h2></div>
+  <p>AS is the <b>most common valve lesion</b> in adults with chronic valvular disease, and the majority of symptomatic adult patients are male. Three major causes:</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Etiology</th><th>Typical age</th><th>Key features</th></tr>
+      <tr><td><b>Degenerative calcific</b> (trileaflet)</td><td>70–80s</td><td>Most common in high-income countries. Active fibrocalcific process, not passive wear.</td></tr>
+      <tr><td><b>Bicuspid aortic valve (BAV)</b></td><td>50–60s (one to two decades earlier)</td><td>Congenital. ~53% of surgical AS specimens are bicuspid; 4% unicuspid. Associated aortopathy in 30–40%.</td></tr>
+      <tr><td><b>Rheumatic</b></td><td>Younger in endemic areas</td><td>Commissural fusion → bicuspid appearance. <b>Almost always</b> with mitral involvement and some AR.</td></tr>
+      <tr><td><b>Radiation</b></td><td>Variable</td><td>Late scarring/fibrosis/calcification — also affects mitral annulus.</td></tr>
+    </table>
+  </div>
+
+  <h3>The pathogenesis is active, not passive</h3>
+  <p>Calcific AS shares many features with vascular atherosclerosis:</p>
+  <ul>
+    <li><b>Endothelial dysfunction</b> → lipid (LDL, Lp(a)) and inflammatory cell infiltration of leaflets</li>
+    <li>Cytokine release → cellular activation</li>
+    <li><b>Valvular myofibroblasts differentiate into osteoblasts</b> → actively produce bone matrix proteins</li>
+    <li>Deposition of <b>calcium hydroxyapatite crystals</b> → fibrocalcific stenosis</li>
+  </ul>
+
+  <h3>Risk factors (same as atherosclerosis)</h3>
+  <ul>
+    <li>Hypertension, LDL cholesterol, <b>Lp(a)</b></li>
+    <li>Diabetes mellitus, smoking, chronic kidney disease, metabolic syndrome</li>
+    <li>Hypertension, DM, and dyslipidemia account for ~1/3 of attributable risk for severe AS</li>
+  </ul>
+
+  <div class="pearl"><b>Aortic sclerosis</b> = leaflet thickening/calcification without obstruction. Jet velocity &lt;2.5 m/s, peak gradient &lt;25 mmHg. Affects ~30% of people &gt;65. Carries an <b>excess risk of CV death and MI</b> — it's a marker of systemic atherosclerotic burden, not a benign finding.</div>
+
+  <div class="why-box">
+    Despite the shared pathogenesis with atherosclerosis, <b>statins do NOT slow progression of established AS</b>. Neither do ACE inhibitors or ARBs. Statins are used for the standard atherosclerotic CV prevention indications, not to treat the valve. <span class="why">The lesson: once the osteoblast-driven mineralization process is underway, the calcium machinery operates somewhat independently of LDL — and trials have repeatedly failed to show benefit.</span>
+  </div>
+</section>
+
+<!-- 3 BAV -->
+<section id="bav">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Bicuspid aortic valve (BAV)</h2></div>
+  <p class="lead">The most common <b>congenital heart valve defect</b>. Affects 0.5–1.4% of the population, with a 2–4:1 male predominance.</p>
+
+  <ul>
+    <li><b>Inheritance:</b> autosomal dominant with incomplete penetrance. ~10% prevalence in first-degree relatives. Genes include NOTCH1, GATA5, GATA4.</li>
+    <li><b>Presentation:</b> AS, AR, or both — usually <b>one to two decades earlier</b> than degenerative AS.</li>
+    <li><b>Associated aortopathy in 30–40%:</b> root or ascending aortic aneurysm; less commonly aortic coarctation. Develops <b>independently of valve severity</b> — directional shear forces from the abnormal valve geometry drive the aortic wall changes.</li>
+    <li><b>Risk:</b> aneurysm formation and dissection.</li>
+    <li><b>Auscultation:</b> systolic ejection sound (click) — usually disappears when the valve becomes calcified and rigid.</li>
+    <li><b>Surgical threshold for the aorta:</b>
+      <ul>
+        <li>Aneurysm diameter <b>&gt;5.5 cm</b> → surgery indicated</li>
+        <li><b>4.5–5.0 cm</b> if family history of aortic catastrophe or rapid growth (&gt;0.5 cm/year)</li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="pearl">When a BAV patient is referred for AVR, the surgeon must also assess the <b>aortic root and ascending aorta</b>. Concomitant aortic replacement may be needed. This is why echocardiography in BAV must always measure root and ascending aortic dimensions, and CT angiography is often used pre-op.</div>
+</section>
+
+<!-- 4 AS PATHO -->
+<section id="as-patho">
+  <div class="sec-head"><span class="sec-num">04</span><h2>AS — pathophysiology</h2></div>
+
+  <h3>The pressure gradient and the LV response</h3>
+  <p>Obstruction at the valve creates a <b>systolic pressure gradient</b> between the LV and aorta. The LV compensates with <b>concentric hypertrophy</b>, normalizing wall stress (Laplace: σ = Pr/h — increase h to offset increase P).</p>
+  <p>This compensation is so effective that a large gradient may exist for years with normal cardiac output and no LV dilation. But eventually:</p>
+  <ul>
+    <li>Hypertrophy becomes <b>maladaptive</b></li>
+    <li>Diastolic function abnormalities progress (stiff ventricle → ↑ LVEDP)</li>
+    <li>Afterload mismatch → systolic dysfunction (↓ EF)</li>
+    <li>Irreversible myocardial fibrosis develops</li>
+  </ul>
+
+  <h3>Definition of severe AS</h3>
+  <div class="card card-as">
+    <span class="tag tag-as">Severe AS hemodynamics</span>
+    <ul style="margin-bottom:0">
+      <li><b>Mean systolic gradient &gt;40 mmHg</b> with normal cardiac output, OR</li>
+      <li><b>Aortic valve area &lt;1 cm²</b> (~&lt;0.6 cm²/m² BSA) — less than a third of normal</li>
+      <li><b>Peak jet velocity (Vmax) ≥4 m/s</b> on Doppler</li>
+    </ul>
+  </div>
+
+  <h3>Three reasons cardiac output falls late in AS</h3>
+  <ol>
+    <li><b>Afterload mismatch:</b> the hypertrophied LV can no longer generate enough pressure → contractility declines.</li>
+    <li><b>Loss of atrial kick:</b> a stiff hypertrophied LV depends heavily on the atrial contribution to filling. Onset of <b>atrial fibrillation or AV dissociation can cause rapid clinical deterioration</b>.</li>
+    <li><b>Small LV cavity with preserved EF (paradoxical low-flow AS):</b> stroke volume can be reduced despite normal EF because the cavity is small.</li>
+  </ol>
+
+  <h3>Why AS causes ischemia even without CAD</h3>
+  <div class="why-box">
+    The hypertrophied LV has:
+    <ul style="margin-top:8px;margin-bottom:0">
+      <li><b>Increased oxygen demand</b> — more muscle to perfuse</li>
+      <li><b>Reduced capillary density</b> relative to wall thickness</li>
+      <li><b>Increased compressive forces</b> on intramural vessels</li>
+      <li><b>Elevated LVEDP</b> → reduces coronary driving pressure (which is aortic diastolic − LVEDP)</li>
+    </ul>
+    <span class="why">The subendocardium is especially vulnerable. This is why angina occurs in severe AS even with completely normal coronary arteries.</span>
+  </div>
+
+  <h3>Low-flow, low-gradient AS — the diagnostic challenge</h3>
+  <p><b>Definitions:</b></p>
+  <ul>
+    <li><b>Low-flow:</b> stroke volume index &lt;35 mL/m²</li>
+    <li><b>Low-gradient:</b> mean gradient &lt;40 mmHg</li>
+  </ul>
+  <p>Two flavors:</p>
+  <ul>
+    <li><b>With reduced EF (stage D2):</b> the failing LV can't generate the gradient. <b>Dobutamine stress echo</b> distinguishes true severe AS (gradient rises with augmented flow) from pseudo-severe AS. Flow reserve = ≥20% increase in stroke volume.</li>
+    <li><b>With preserved EF (stage D3, "paradoxical"):</b> small, hypertrophied LV with low stroke volume despite normal EF. <b>Don't use dobutamine.</b> Control hypertension first, recheck Doppler. <b>CT calcium scoring</b> of the valve can confirm severity when uncertain.</li>
+  </ul>
+</section>
+
+<!-- 5 AS SX -->
+<section id="as-sx">
+  <div class="sec-head"><span class="sec-num">05</span><h2>AS — the three cardinal symptoms</h2></div>
+  <p class="lead">AS is asymptomatic for years, sometimes decades. <b>Once symptoms appear, the prognosis worsens dramatically</b> — and valve replacement is indicated.</p>
+
+  <div class="flow">
+    <div class="flow-title">The three classic symptoms and survival without surgery</div>
+    <div class="branch">
+      <div class="col">
+        <div class="node node-as"><b>Angina pectoris</b><small>Mean survival: ~3 years</small></div>
+      </div>
+      <div class="col">
+        <div class="node node-as"><b>Syncope (exertional)</b><small>Mean survival: ~3 years</small></div>
+      </div>
+      <div class="col">
+        <div class="node node-as"><b>Dyspnea / heart failure</b><small>Mean survival: ~1.5–2 years</small></div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Mechanisms</h3>
+  <ul>
+    <li><b>Exertional dyspnea:</b> ↑ pulmonary capillary pressure from elevated LVEDP (impaired LV relaxation, reduced compliance). Often the earliest symptom.</li>
+    <li><b>Angina:</b> mismatch between elevated O₂ demand (hypertrophy) and reduced supply (compression of intramural vessels, reduced coronary driving pressure). May or may not have concurrent CAD. <b>CAD is common in AS patients &gt;65.</b></li>
+    <li><b>Exertional syncope:</b>
+      <ul>
+        <li>Exercise → vasodilation in working muscles + <b>inadequate compensatory vasoconstriction</b> elsewhere</li>
+        <li>Cardiac output is <b>fixed</b> by the stenosis → can't increase to maintain BP</li>
+        <li>OR sudden CO drop from arrhythmia</li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="pearl">In &gt;80% of patients who die with AS, symptoms had existed for &lt;4 years. <b>Sudden death</b> occurs in 10–20% but almost exclusively in <b>previously symptomatic</b> patients. Sudden death as the FIRST manifestation of severe AS is rare (~1% per year). This is the basis for the watchful-waiting approach in asymptomatic patients.</div>
+</section>
+
+<!-- 6 AS EXAM -->
+<section id="as-exam">
+  <div class="sec-head"><span class="sec-num">06</span><h2>AS — physical exam &amp; murmur</h2></div>
+
+  <h3>The classic peripheral signs</h3>
+  <div class="sign-grid">
+    <div class="sign">
+      <small>CAROTID PULSE</small>
+      <h5>Pulsus parvus et tardus</h5>
+      <p>Rises slowly to a delayed, low-amplitude peak. A palpable thrill or "anacrotic shudder" may be felt over the carotids — more often on the left.</p>
+      <p style="font-size:13px;color:var(--muted)"><b>In the elderly:</b> stiff arterial walls can mask this finding.</p>
+    </div>
+    <div class="sign">
+      <small>BLOOD PRESSURE</small>
+      <h5>Narrow pulse pressure (late)</h5>
+      <p>Hypertension is common with mild-moderate AS. Late in severe AS, stroke volume falls → systolic pressure drops → <b>narrow pulse pressure</b>.</p>
+    </div>
+    <div class="sign">
+      <small>JVP</small>
+      <h5>Prominent a wave</h5>
+      <p>From hypertrophied septum bulging into the RV → reduced RV compliance.</p>
+    </div>
+    <div class="sign">
+      <small>PRECORDIUM</small>
+      <h5>Sustained / double apical impulse</h5>
+      <p>Double impulse = palpable S₄ + LV systole. LV impulse may displace laterally late. Systolic thrill at upper right sternal border or suprasternal notch.</p>
+    </div>
+  </div>
+
+  <h3>Auscultation</h3>
+  <div class="card card-as">
+    <span class="tag tag-as">Murmur of AS</span>
+    <ul style="margin-bottom:0">
+      <li><b>Type:</b> ejection (mid) systolic, <b>crescendo-decrescendo</b> ("diamond")</li>
+      <li><b>Timing:</b> starts shortly after S₁, peaks toward mid-systole, ends just before A₂</li>
+      <li><b>Quality:</b> low-pitched, rough, rasping</li>
+      <li><b>Location:</b> loudest at the <b>base, 2nd right intercostal space</b></li>
+      <li><b>Radiation:</b> upward to the carotids</li>
+      <li><b>Gallavardin phenomenon:</b> can also radiate to the apex with a more musical quality → may be confused with mitral regurgitation</li>
+      <li><b>Severity correlate:</b> the <b>later</b> the peak, the <b>more severe</b> the stenosis. In severe AS with preserved CO, the murmur is at least grade III/VI.</li>
+      <li><b>Counter-intuitive:</b> in <em>very</em> severe AS with low CO/HF, the murmur may be <b>soft and brief</b> — because there isn't enough flow to generate it.</li>
+    </ul>
+  </div>
+
+  <h3>Heart sounds</h3>
+  <ul>
+    <li><b>Ejection click</b> — heard in young patients with mobile BAV. <b>Disappears when valve calcifies.</b></li>
+    <li><b>A₂ becomes soft or absent</b> as the valve calcifies and stiffens.</li>
+    <li><b>Paradoxical splitting of S₂:</b> prolonged LV systole delays A₂ so it follows P₂ (instead of preceding it).</li>
+    <li><b>S₄</b> — common; reflects LVH and elevated LVEDP.</li>
+    <li><b>S₃</b> — late finding; LV dilation and systolic failure.</li>
+  </ul>
+
+  <div class="why-box">
+    Why does AS cause <b>paradoxical splitting of S₂</b>? Normally A₂ precedes P₂, and inspiration delays P₂ further (normal splitting widens with inspiration). In severe AS, the LV takes <b>longer to eject</b> through the narrow orifice — so A₂ is delayed and falls <b>after</b> P₂. Now inspiration (which still delays P₂) brings A₂ and P₂ closer together — the split narrows on inspiration. That's "paradoxical."
+  </div>
+</section>
+
+<!-- 7 AS ECHO -->
+<section id="as-echo">
+  <div class="sec-head"><span class="sec-num">07</span><h2>AS — echo criteria &amp; severity</h2></div>
+
+  <h3>Echo findings</h3>
+  <ul>
+    <li><b>Leaflet</b> thickening, calcification, reduced systolic opening</li>
+    <li><b>LV hypertrophy</b> (concentric)</li>
+    <li><b>Eccentric leaflet closure</b> = characteristic of bicuspid valve</li>
+    <li><b>Doppler</b> measures jet velocity → calculates gradient and valve area</li>
+    <li><b>Longitudinal strain</b> imaging can detect early LV dysfunction <b>before EF falls</b></li>
+  </ul>
+
+  <h3>Severity criteria</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Severity</th><th>Valve area</th><th>Peak velocity (Vmax)</th><th>Mean gradient</th></tr>
+      <tr><td><b>Aortic sclerosis</b></td><td>—</td><td>&lt;2.5 m/s</td><td>&lt;25 mmHg</td></tr>
+      <tr><td><b>Mild AS</b></td><td>1.6–2.0 cm²</td><td>—</td><td>—</td></tr>
+      <tr><td><b>Moderate AS</b></td><td>1.0–1.5 cm²</td><td>3.0–3.9 m/s</td><td>—</td></tr>
+      <tr><td><b>Severe AS</b></td><td>&lt;1.0 cm²</td><td>≥4.0 m/s</td><td>≥40 mmHg</td></tr>
+      <tr><td><b>Very severe AS</b></td><td>—</td><td>≥5.0 m/s</td><td>≥60 mmHg</td></tr>
+    </table>
+  </div>
+
+  <h3>Echo follow-up frequency (asymptomatic)</h3>
+  <ul>
+    <li><b>Mild (Vmax 2.0–2.9 m/s):</b> every 3–5 years</li>
+    <li><b>Moderate (Vmax 3.0–3.9 m/s):</b> every 1–2 years</li>
+    <li><b>Severe asymptomatic (Vmax ≥4 m/s):</b> every 6–12 months</li>
+  </ul>
+
+  <div class="pearl">When jet velocity / mean gradient disagree with valve area (low-flow scenarios), turn to <b>dobutamine stress echo</b> (only if EF is low) or <b>CT calcium scoring</b> of the valve. Men have more calcium, women more fibrosis — sex-specific calcium-score cutoffs apply.</div>
+</section>
+
+<!-- 8 AS NH -->
+<section id="as-nh">
+  <div class="sec-head"><span class="sec-num">08</span><h2>AS — natural history</h2></div>
+  <ul>
+    <li><b>Annual progression rates</b> in calcific AS:
+      <ul>
+        <li>Valve area: ↓ ~0.1 cm²/year</li>
+        <li>Peak jet velocity: ↑ ~0.3 m/s/year</li>
+        <li>Mean gradient: ↑ ~7 mmHg/year</li>
+      </ul>
+    </li>
+    <li><b>BAV patients:</b> develop significant dysfunction one to two decades sooner than degenerative AS.</li>
+    <li><b>AS rarely matters clinically</b> until valve area is around 1 cm².</li>
+    <li><b>Severe AS may be silent for years</b> — once symptoms appear or EF falls, AVR is indicated.</li>
+  </ul>
+</section>
+
+<!-- 9 AS TX -->
+<section id="as-tx">
+  <div class="sec-head"><span class="sec-num">09</span><h2>AS — medical, SAVR, TAVI</h2></div>
+
+  <h3>Medical management</h3>
+  <ul>
+    <li><b>Avoid dehydration / hypovolemia</b> — the stenotic LV is preload-dependent.</li>
+    <li><b>Avoid strenuous exercise / competitive sports</b> if severe AS.</li>
+    <li><b>Beta-blockers and ACE-Is</b> are generally <b>safe</b> in asymptomatic patients with preserved LV function. Control BP carefully — two resistance circuits in series (valve + arterial) amplify each other.</li>
+    <li><b>Nitroglycerin</b> can be used cautiously for angina (with CAD).</li>
+    <li><b>Statins</b> do NOT slow AS progression — use them per ASCVD prevention guidelines, not for the valve.</li>
+    <li><b>Endocarditis prophylaxis</b> only for AS patients with <b>prior history of endocarditis</b>.</li>
+  </ul>
+
+  <div class="why-box">
+    Old teaching said "avoid nitrates and ACE-Is in AS." Current Harrison's teaching: <b>they are generally safe</b> in asymptomatic patients with preserved LV function and adequate BP. The principle is still real — anything that drops preload too much can crash these patients — but careful use is acceptable. <span class="why">The dangerous combinations are: severe AS + IV nitrates in a hypovolemic patient + tachycardia → catastrophic drop in CO.</span>
+  </div>
+
+  <h3>Indications for AVR (SAVR or TAVI)</h3>
+  <div class="card card-as">
+    <span class="tag tag-as">Class I (definitely operate)</span>
+    <ul style="margin-bottom:0">
+      <li><b>Symptomatic severe AS</b> (stage D)</li>
+      <li><b>Asymptomatic severe AS + LV EF &lt;50%</b> (stage C2)</li>
+      <li><b>Asymptomatic severe AS + another cardiac surgery</b> (e.g., CABG, aortic aneurysm repair)</li>
+    </ul>
+  </div>
+  <div class="card card-purple">
+    <span class="tag tag-purple">Class IIa (reasonable to operate)</span>
+    <ul style="margin-bottom:0">
+      <li><b>Very severe AS</b>: Vmax ≥5 m/s or mean gradient ≥60 mmHg, with low surgical risk</li>
+      <li><b>Abnormal exercise treadmill test</b> (↓ BP, ↓ exercise capacity, symptoms)</li>
+      <li><b>Rapid progression</b></li>
+      <li><b>Low-flow, low-gradient severe AS</b> with reduced EF and demonstrable flow reserve on dobutamine echo</li>
+      <li><b>Low-flow, low-gradient severe AS</b> with normal EF (stage D3) when symptomatic</li>
+    </ul>
+  </div>
+  <div class="card card-green">
+    <span class="tag tag-green">Class IIb (may consider)</span>
+    <ul style="margin-bottom:0">
+      <li><b>EF falling &lt;60% on serial studies</b> (asymptomatic)</li>
+      <li><b>BNP &gt;3× upper limit</b> in low-risk surgical patient</li>
+    </ul>
+  </div>
+
+  <h3>SAVR vs TAVI — choosing</h3>
+  <p>TAVI surpassed SAVR for isolated AS in the US in 2016. Symptomatic patients are eligible across the entire surgical-risk spectrum.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Age</th><th>Recommendation</th></tr>
+      <tr><td><b>&lt;65 years</b></td><td><span class="col-as">SAVR preferred</span> — scant long-term TAVI data in this age group</td></tr>
+      <tr><td><b>65–80 years</b></td><td>Either SAVR or TAVI (shared decision)</td></tr>
+      <tr><td><b>&gt;80 years</b></td><td><span class="col-ar">TAVI preferred</span> (if transfemoral access feasible)</td></tr>
+    </table>
+  </div>
+
+  <h3>Factors favoring each option</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Favors SAVR</th><th>Favors TAVI</th><th>Favors palliation</th></tr>
+      <tr>
+        <td>Younger age / longer life expectancy<br>Bicuspid valve<br>Rheumatic disease<br>Need for concurrent surgery (aneurysm, CABG)<br>Endocarditis<br>Mechanical valve preferred<br>Severe LVOT calcification<br>Anatomy unsuitable for TAVI</td>
+        <td>Older age<br>High surgical risk / frailty<br>Calcific trileaflet AS<br>Porcelain aorta<br>Prior chest irradiation<br>Patient prefers bioprosthesis &amp; shorter recovery<br>Severe MAC with MR (limits surgical options)</td>
+        <td>Severe dementia<br>Limited life expectancy &lt;1 year<br>Severe frailty unlikely to improve<br>Multi-organ involvement</td>
+      </tr>
+    </table>
+  </div>
+
+  <h3>SAVR vs TAVI — outcomes</h3>
+  <ul>
+    <li><b>TAVI advantages:</b> fewer periprocedural deaths, lower risk of stroke, less bleeding, less AF, shorter hospital stay, faster recovery</li>
+    <li><b>SAVR advantages:</b> lower rates of permanent pacemaker, less perivalvular AR, less bioprosthetic leaflet thrombosis, fewer vascular complications</li>
+    <li><b>Transfemoral TAVI is preferred</b> — non-femoral access has higher complication rates</li>
+  </ul>
+
+  <h3>Prosthesis choice — mechanical vs bioprosthetic</h3>
+  <ul>
+    <li><b>Bioprosthesis:</b> generally favored for patients <b>&gt;65 years</b>. ~10–20% primary valve failure by 15 years → may need re-replacement (or valve-in-valve TAVI).</li>
+    <li><b>Mechanical:</b> very durable but requires <b>lifelong anticoagulation</b>. ~10–20% develop hemorrhagic complications.</li>
+    <li>Increasing numbers of patients &lt;65 opt for bioprosthesis (with future valve-in-valve TAVI as a fallback).</li>
+  </ul>
+
+  <h3>Percutaneous aortic balloon valvuloplasty (PABV)</h3>
+  <ul>
+    <li><b>NOT definitive therapy</b> in adult calcific AS — 80% restenosis within 1 year.</li>
+    <li>Useful as a <b>bridge</b> to SAVR/TAVI in patients with severe LV dysfunction and shock.</li>
+    <li>Routinely performed <b>as part of the TAVI procedure</b>.</li>
+    <li>Reasonable definitive therapy only in <b>children/young adults with congenital non-calcific AS</b>.</li>
+  </ul>
+</section>
+
+<!-- 10 AR ETIO -->
+<section id="ar-etio">
+  <div class="sec-head"><span class="sec-num">10</span><h2>AR — etiology (valve vs root)</h2></div>
+  <p class="lead">AR results from <b>primary valve disease</b>, <b>aortic root disease</b>, or both. The distinction matters because the treatment of root-driven AR may involve sparing the native valve.</p>
+
+  <div class="branch">
+    <div class="card card-ar col">
+      <span class="tag tag-ar">PRIMARY VALVE</span>
+      <ul style="margin-bottom:0">
+        <li><b>Congenital bicuspid</b> — ~20% of BAV patients need surgery between 10–40 yrs</li>
+        <li><b>Infective endocarditis</b> — perforation/destruction; can be acute</li>
+        <li><b>Rheumatic fever</b> — almost always with mitral involvement</li>
+        <li><b>Myxomatous prolapse</b></li>
+        <li><b>Radiation</b></li>
+        <li><b>Trauma</b> — most frequent serious lesion in nonpenetrating cardiac injury survivors</li>
+        <li><b>Syphilis, ankylosing spondylitis</b> — leaflet scarring/retraction</li>
+        <li><b>Membranous subaortic stenosis</b> — high-velocity jet damages leaflets</li>
+      </ul>
+    </div>
+    <div class="card card-ar col">
+      <span class="tag tag-ar">AORTIC ROOT</span>
+      <ul style="margin-bottom:0">
+        <li><b>Aortic dissection</b> (type A) — retrograde involvement of annulus</li>
+        <li><b>Medial degeneration</b></li>
+        <li><b>Marfan syndrome</b></li>
+        <li><b>Bicuspid aortic valve aortopathy</b></li>
+        <li><b>Nonsyndromic familial aneurysm</b></li>
+        <li><b>Aortitis</b> (syphilis, Takayasu, giant cell)</li>
+        <li><b>Severe chronic hypertension</b></li>
+        <li><b>Osteogenesis imperfecta, annuloaortic ectasia</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pearl">If the AR murmur is <b>louder on the right sternal border</b> than the left, it suggests the regurgitation is driven by <b>aortic root dilation</b> rather than primary leaflet disease. Useful exam clue.</div>
+
+  <div class="why-box">
+    <b>Hemodynamically significant AS + AR coexistence</b> essentially excludes the rarer causes of AR — because both lesions in the same valve usually mean <b>rheumatic</b> or <b>congenital (bicuspid)</b> disease. This is a practical exam shortcut.
+  </div>
+</section>
+
+<!-- 11 AR PATHO -->
+<section id="ar-patho">
+  <div class="sec-head"><span class="sec-num">11</span><h2>AR — pathophysiology (acute vs chronic)</h2></div>
+  <p class="lead">The same lesion (regurgitation back into the LV) produces two completely different clinical pictures depending on whether the LV has had time to adapt.</p>
+
+  <div class="branch">
+    <div class="card card-ar col">
+      <span class="tag tag-ar">CHRONIC AR — the slow adapter</span>
+      <ul style="margin-bottom:0">
+        <li><b>Total stroke volume</b> = forward SV + regurgitant volume → increased</li>
+        <li>LV dilates (<b>eccentric hypertrophy</b>) → can eject larger SV without ↑ shortening of each myofibril</li>
+        <li><b>EF preserved</b> for years — even with severe AR</li>
+        <li>Both <b>preload AND afterload are increased</b> (Laplace: dilated chamber → higher wall tension)</li>
+        <li>Long <b>latent period of 10–15 years</b> often asymptomatic</li>
+        <li>Eventually: end-diastolic volume rises further → forward SV and EF fall</li>
+        <li><b>LV dysfunction often precedes symptoms</b> — major reason for serial echo follow-up</li>
+      </ul>
+    </div>
+    <div class="card card-as col">
+      <span class="tag tag-as">ACUTE SEVERE AR — the unprepared LV</span>
+      <ul style="margin-bottom:0">
+        <li>LV has had no time to dilate — <b>normal-sized, non-compliant chamber</b></li>
+        <li>Regurgitant volume into a small, stiff cavity → <b>LVEDP rises rapidly</b> (sometimes &gt;40 mmHg)</li>
+        <li>LV pressure may exceed LA pressure in late diastole → <b>premature mitral valve closure</b></li>
+        <li><b>Tachycardia</b> develops to try to maintain CO</li>
+        <li><b>Pulse pressure not particularly wide</b> (only mildly), absent peripheral signs</li>
+        <li><b>Pulmonary edema / cardiogenic shock</b> develops rapidly</li>
+        <li>Diastolic murmur is <b>short and soft</b>, not the classic long blowing decrescendo</li>
+        <li><b>Soft S₁</b> from premature mitral closure</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Why myocardial ischemia occurs in AR</h3>
+  <div class="why-box">
+    Three reasons coronary perfusion is impaired in severe AR — and they all matter for understanding the <b>nocturnal angina</b> classically described:
+    <ul style="margin-top:8px;margin-bottom:0">
+      <li><b>Increased O₂ demand</b> — LV is dilated, hypertrophied, and ejecting against high wall tension</li>
+      <li><b>Reduced O₂ supply</b> — most coronary flow occurs in diastole, when aortic pressure is at its <b>lowest</b> (driving the regurgitation back into the LV instead of forward through the coronaries)</li>
+      <li><b>The subendocardium</b> is particularly vulnerable</li>
+    </ul>
+    <span class="why">That's why severe AR can cause angina even without coronary disease — and why the angina may be worse at night (slower HR → longer diastole → more regurgitation, lower aortic diastolic pressure, worse coronary perfusion).</span>
+  </div>
+</section>
+
+<!-- 12 AR SX -->
+<section id="ar-sx">
+  <div class="sec-head"><span class="sec-num">12</span><h2>AR — symptoms &amp; the latent period</h2></div>
+  <ul>
+    <li>~3/4 of patients with pure valvular AR are <b>male</b>.</li>
+    <li><b>Chronic severe AR has a long latent period</b> — patients may be asymptomatic for 10–15 years.</li>
+    <li><b>Earliest complaint:</b> uncomfortable awareness of the heartbeat, especially lying down ("head pounding"); palpitations from the large stroke volume.</li>
+    <li><b>First true symptom of decreased reserve:</b> exertional dyspnea.</li>
+    <li><b>Progression:</b> orthopnea → PND → diaphoresis → frank LV failure.</li>
+    <li><b>Angina</b> — can occur even in younger patients without CAD. <b>Nocturnal angina</b> is classic, often unrelieved by sublingual nitroglycerin, with marked diaphoresis.</li>
+    <li>Late: hepatomegaly, ankle edema.</li>
+  </ul>
+
+  <h3>Acute severe AR — the contrast</h3>
+  <p>Acute severe AR (endocarditis, type A dissection, trauma) presents with:</p>
+  <ul>
+    <li>Sudden <b>pulmonary edema</b></li>
+    <li>Often <b>cardiogenic shock</b></li>
+    <li><b>Tachycardia</b></li>
+    <li>None of the chronic peripheral signs</li>
+    <li><b>Surgical emergency</b> — operate within 24 hours</li>
+  </ul>
+</section>
+
+<!-- 13 AR EXAM -->
+<section id="ar-exam">
+  <div class="sec-head"><span class="sec-num">13</span><h2>AR — peripheral signs &amp; murmurs</h2></div>
+  <p class="lead">Chronic severe AR is the disease with the longest list of named physical signs in cardiology. They all reflect <b>wide pulse pressure</b> from a high stroke volume hitting a relatively empty diastolic aorta.</p>
+
+  <h3>The eponymous signs</h3>
+  <div class="sign-grid">
+    <div class="sign">
+      <small>ARTERIAL PULSE</small>
+      <h5>Corrigan's pulse ("water-hammer")</h5>
+      <p>Rapidly rising, bounding pulse that collapses suddenly as diastolic pressure falls.</p>
+    </div>
+    <div class="sign">
+      <small>NAIL BED</small>
+      <h5>Quincke's pulse</h5>
+      <p>Capillary pulsations — alternate flushing and paling of the skin at the nail root with light pressure on the tip.</p>
+    </div>
+    <div class="sign">
+      <small>FEMORAL ARTERY</small>
+      <h5>Traube's sign ("pistol shot")</h5>
+      <p>Booming systolic sound audible over the femoral artery.</p>
+    </div>
+    <div class="sign">
+      <small>FEMORAL ARTERY (compressed)</small>
+      <h5>Duroziez's sign</h5>
+      <p>To-and-fro murmur over the femoral when lightly compressed with the stethoscope.</p>
+    </div>
+    <div class="sign">
+      <small>HEAD</small>
+      <h5>De Musset's sign</h5>
+      <p>Head bobbing with each heartbeat — from the violent arterial pulsation.</p>
+    </div>
+    <div class="sign">
+      <small>CAROTID</small>
+      <h5>Pulsus bisferiens</h5>
+      <p>Two systolic peaks — seen in AR or mixed AS+AR. Apex shows systolic expansion and diastolic retraction.</p>
+    </div>
+  </div>
+
+  <h3>Blood pressure findings</h3>
+  <ul>
+    <li><b>Wide pulse pressure</b> — systolic hypertension + low diastolic. Hallmark of chronic severe AR.</li>
+    <li><b>Korotkoff sounds may be heard with the cuff fully deflated</b> — use phase IV (muffling) as the diastolic.</li>
+    <li>As the disease progresses and LVEDP rises, <b>diastolic BP may paradoxically rise</b> — because aortic diastolic pressure can't fall below LVEDP.</li>
+    <li><b>Acute severe AR:</b> pulse pressure only mildly widened; <b>tachycardia</b> dominates.</li>
+  </ul>
+
+  <h3>Auscultation</h3>
+  <div class="card card-ar">
+    <span class="tag tag-ar">Murmurs of AR</span>
+    <ul style="margin-bottom:0">
+      <li><b>Primary murmur:</b> high-pitched, <b>blowing, decrescendo</b>, early-diastolic murmur. Heard best at the <b>third left intercostal space</b>, patient <b>leaning forward, breath held in expiration</b>, diaphragm of stethoscope.</li>
+      <li><b>Severity → length:</b> mild AR is brief; severe AR is <b>holodiastolic</b>.</li>
+      <li><b>Right vs left sternal border:</b> louder on left → valvular cause. Louder on <b>right → root cause</b> (aneurysmal dilation).</li>
+      <li><b>Cooing / musical</b> diastolic murmur → suggests an everted aortic cusp vibrating in the regurgitant stream.</li>
+      <li><b>Systolic ejection murmur:</b> commonly present even in pure AR — from the large stroke volume crossing the valve. Does NOT mean coexisting AS.</li>
+      <li><b>Austin Flint murmur:</b> soft, low-pitched, rumbling, mid-to-late <b>diastolic</b> murmur at the apex. Caused by the AR jet hitting the anterior mitral leaflet → functional mitral inflow obstruction. <b>NOT</b> from real MS.</li>
+    </ul>
+  </div>
+
+  <h3>Heart sounds</h3>
+  <ul>
+    <li><b>A₂ usually absent</b> in severe AR (leaflets can't coapt to make the sound).</li>
+    <li><b>Ejection sound</b> in BAV.</li>
+    <li>Possible <b>S₄</b>.</li>
+    <li><b>Acute severe AR:</b> soft S₁ (premature mitral closure), short diastolic murmur.</li>
+  </ul>
+
+  <h3>Maneuvers</h3>
+  <p><b>Handgrip</b> (sustained, strenuous) → ↑ systemic vascular resistance → ↑ LV afterload → <b>louder AR murmur</b>. Useful to bring out a faint diastolic murmur.</p>
+</section>
+
+<!-- 14 AR ECHO -->
+<section id="ar-echo">
+  <div class="sec-head"><span class="sec-num">14</span><h2>AR — echo &amp; severity</h2></div>
+
+  <h3>Key echo findings</h3>
+  <ul>
+    <li><b>Increased LV size</b> (chronic) with preserved or supernormal systolic function until late</li>
+    <li><b>Rapid high-frequency diastolic fluttering of the anterior mitral leaflet</b> — from the AR jet hitting it</li>
+    <li>Identification of <b>cause</b>: dilated annulus/root, dissection, primary leaflet pathology</li>
+  </ul>
+
+  <h3>Severe AR — quantitative criteria</h3>
+  <div class="card card-ar">
+    <span class="tag tag-ar">Echo definition of severe AR</span>
+    <ul style="margin-bottom:0">
+      <li>Central jet width <b>&gt;65% of LVOT width</b> on color Doppler</li>
+      <li><b>Vena contracta &gt;0.6 cm</b></li>
+      <li><b>Regurgitant volume ≥60 mL/beat</b></li>
+      <li><b>Regurgitant fraction ≥50%</b></li>
+      <li><b>Effective regurgitant orifice (ERO) ≥0.3 cm²</b></li>
+      <li><b>Holodiastolic flow reversal in the proximal descending thoracic aorta</b></li>
+    </ul>
+  </div>
+
+  <h3>Acute severe AR on echo</h3>
+  <ul>
+    <li><b>Rapid deceleration time</b> of the AR jet on continuous-wave Doppler — because LV diastolic pressure rises so quickly that aorta-LV gradient equalizes fast.</li>
+    <li><b>Premature mitral closure</b> — pathognomonic for hemodynamically significant acute AR.</li>
+  </ul>
+
+  <h3>Tools beyond echo</h3>
+  <ul>
+    <li><b>CMR:</b> accurate LV volumes, extracellular volume (interstitial fibrosis), late gadolinium enhancement (replacement fibrosis). Useful when echo is limited.</li>
+    <li><b>TEE:</b> detailed valve/root anatomy.</li>
+    <li><b>CT angiography:</b> root and ascending aorta dimensions.</li>
+  </ul>
+</section>
+
+<!-- 15 AR TX -->
+<section id="ar-tx">
+  <div class="sec-head"><span class="sec-num">15</span><h2>AR — medical &amp; surgical management</h2></div>
+
+  <h3>Acute severe AR</h3>
+  <div class="card card-as">
+    <span class="tag tag-as">Surgical emergency</span>
+    <ul style="margin-bottom:0">
+      <li><b>IV diuretics + vasodilators</b> (sodium nitroprusside) — only as a temporizing measure</li>
+      <li><b>Intra-aortic balloon counterpulsation is CONTRAINDICATED</b> — IABP inflates in diastole and would <b>worsen</b> AR</li>
+      <li><b>Beta-blockers should be AVOIDED</b> — slowing the heart rate gives more time for regurgitation; the patient depends on tachycardia to maintain CO</li>
+      <li><b>Surgery is the treatment of choice, usually within 24 hours</b></li>
+    </ul>
+  </div>
+
+  <div class="why-box">
+    Two counterintuitive rules in acute severe AR:
+    <ol style="margin-top:8px;margin-bottom:0">
+      <li><b>No IABP.</b> In other cardiogenic shock, IABP helps by inflating in diastole and augmenting coronary flow. But in AR, diastolic balloon inflation pushes blood backward into the already-overwhelmed LV. <b>Worsens hemodynamics.</b></li>
+      <li><b>No beta-blockers.</b> The compensatory tachycardia <em>shortens diastole</em>, which limits regurgitant filling and preserves CO. Slowing the heart removes that protection and may precipitate collapse.</li>
+    </ol>
+  </div>
+
+  <h3>Chronic AR — medical management</h3>
+  <ul>
+    <li><b>Diuretics and vasodilators</b> (ACE-I, ARB, dihydropyridine CCBs, hydralazine) — useful as a <b>temporizing measure</b> in symptomatic patients awaiting surgery.</li>
+    <li><b>Vasodilators do NOT extend the compensated phase</b> of asymptomatic chronic severe AR.</li>
+    <li><b>Treat hypertension</b> aggressively (SBP &gt;140 → treat). Hard to control because of the high stroke volume.</li>
+    <li><b>Beta-blockers</b> were once considered relatively contraindicated but observational data now suggest functional benefit in some patients; useful for BP control and reducing forceful heartbeat sensation.</li>
+    <li><b>Marfan syndrome with root dilation:</b> beta-blockers OR losartan retard root growth (no difference between them in RCT).</li>
+    <li><b>Nitrates</b> — worth a trial for angina, less effective than in CAD.</li>
+    <li>Avoid <b>isometric exercise</b>, especially with aortopathy.</li>
+  </ul>
+
+  <h3>Chronic AR — indications for AVR</h3>
+  <div class="card card-ar">
+    <span class="tag tag-ar">When to operate</span>
+    <ul style="margin-bottom:0">
+      <li><b>Symptomatic severe AR</b> — regardless of LV function (Class I)</li>
+      <li><b>Asymptomatic severe AR + EF ≤55%</b> on serial studies (stage C2) (Class I)</li>
+      <li><b>Asymptomatic severe AR + LVESD &gt;50 mm (or &gt;25 mm/m²)</b> (Class I)</li>
+      <li><b>Asymptomatic severe AR undergoing other cardiac surgery</b> (Class I)</li>
+      <li><b>Asymptomatic severe AR + EF 55–60% with progressive changes on ≥3 serial studies, or LVEDD &gt;65 mm</b> in low-surgical-risk patients (Class IIb)</li>
+      <li><b>Moderate AR + other cardiac surgery</b> (Class IIa)</li>
+    </ul>
+  </div>
+
+  <div class="pearl">The clinical principle to remember: in AR, <b>LV dysfunction often precedes symptoms</b>. If you wait for symptoms, you may be too late — surgery delayed &gt;1 year after onset of LV dysfunction often fails to restore normal LV size and function. <b>Serial echo every 6–12 months</b> is the surveillance strategy.</div>
+
+  <h3>Surgical options</h3>
+  <ul>
+    <li><b>AVR</b> with mechanical or bioprosthetic valve — most patients.</li>
+    <li><b>Valve-sparing aortic root reconstruction (David procedure)</b> — when AR is driven by root dilation with normal leaflets. Valve is reimplanted inside a contoured graft.</li>
+    <li><b>Primary leaflet repair</b> — possible after IE perforation or trauma.</li>
+    <li><b>Resuspension of native leaflets</b> — possible in ~50% of acute type A aortic dissection.</li>
+    <li><b>Composite valve-graft conduit</b> — when valve AND root both require replacement.</li>
+    <li><b>TAVI is NOT recommended for chronic severe AR in surgical candidates</b> — technical success limited by lack of leaflet/annular calcium for anchoring and degree of annular dilation.</li>
+  </ul>
+
+  <h3>Operative mortality</h3>
+  <ul>
+    <li>Isolated AVR for pure AR: <b>~1–2%</b></li>
+    <li>AVR + aortic surgery: <b>~2–4%</b> (doubles)</li>
+    <li>AVR with established LV dysfunction + marked cardiac enlargement: <b>~5–10%</b> operative mortality, <b>~3–5%/year</b> late mortality</li>
+  </ul>
+</section>
+
+<!-- 16 COMPARE -->
+<section id="compare">
+  <div class="sec-head"><span class="sec-num">16</span><h2>AS vs AR — side-by-side master table</h2></div>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th></th><th class="col-as">AORTIC STENOSIS</th><th class="col-ar">AORTIC REGURGITATION</th></tr>
+      <tr><td><b>LV load</b></td><td>Pressure overload</td><td>Volume overload (+ pressure)</td></tr>
+      <tr><td><b>LV response</b></td><td>Concentric hypertrophy, normal cavity</td><td>Eccentric hypertrophy + dilation (massive heart at autopsy)</td></tr>
+      <tr><td><b>Cardinal symptoms</b></td><td>Angina, syncope, dyspnea/HF</td><td>Dyspnea, awareness of heartbeat, nocturnal angina, palpitations</td></tr>
+      <tr><td><b>Survival once symptomatic (untreated)</b></td><td>Angina 3y · Syncope 3y · HF 1.5–2y</td><td>Variable; LV dysfunction often precedes symptoms</td></tr>
+      <tr><td><b>Pulse</b></td><td>Pulsus parvus et tardus</td><td>Corrigan's (water-hammer), bisferiens</td></tr>
+      <tr><td><b>Pulse pressure</b></td><td>Narrow late</td><td>Wide</td></tr>
+      <tr><td><b>Apex</b></td><td>Sustained / double impulse, palpable S₄</td><td>Heaving, displaced down and left; systolic expansion + diastolic retraction</td></tr>
+      <tr><td><b>Murmur</b></td><td>Crescendo-decrescendo systolic, RUSB, radiates to carotids; <b>later peak = worse</b></td><td>High-pitched <b>diastolic decrescendo</b>, LLSB (or RLSB if root cause); leaning forward, expiration</td></tr>
+      <tr><td><b>S₂</b></td><td>Soft/absent A₂; paradoxical splitting</td><td>A₂ usually absent in severe AR</td></tr>
+      <tr><td><b>S₁</b></td><td>Normal</td><td>Soft in acute severe (premature mitral closure)</td></tr>
+      <tr><td><b>Maneuvers</b></td><td>Valsalva ↓ murmur; squat ↑</td><td>Handgrip ↑ murmur</td></tr>
+      <tr><td><b>Echo severe</b></td><td>AVA &lt;1 cm²; Vmax ≥4 m/s; mean gradient ≥40 mmHg</td><td>Vena contracta &gt;0.6 cm; regurgitant fraction ≥50%; holodiastolic flow reversal in descending aorta</td></tr>
+      <tr><td><b>Surgery indication (Class I)</b></td><td>Symptomatic severe; asymptomatic + EF &lt;50%; asymptomatic + other cardiac surgery</td><td>Symptomatic severe (any EF); asymptomatic + EF ≤55%; LVESD &gt;50 mm</td></tr>
+      <tr><td><b>TAVI</b></td><td>Symptomatic patients all risk levels (preferred &gt;80; SAVR &lt;65)</td><td><b>Not recommended</b> for chronic AR surgical candidates</td></tr>
+      <tr><td><b>Acute presentation</b></td><td>Rare (often progressive)</td><td>Endocarditis, dissection, trauma — pulmonary edema/shock; surgery within 24h</td></tr>
+      <tr><td><b>Acute mgmt traps</b></td><td>Don't crash preload (no aggressive nitrates if hypovolemic)</td><td><b>No IABP. No beta-blockers.</b> Vasodilators + diuretics → surgery</td></tr>
+    </table>
+  </div>
+</section>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<!-- 17 TRAPS -->
+<section id="traps">
+  <div class="sec-head"><span class="sec-num">17</span><h2>Exam traps — board coach mode</h2></div>
+  <p class="lead">Each trap: what the question wants you to think, the truth, why it matters, and how it shows up in a case.</p>
+
+  <div class="trap">
+    <div class="trap-head"><span class="n">TRAP 01</span> Late-peaking AS murmur is reassuring (it sounds milder).</div>
+    <div class="trap-body">
+      <div class="trap-row"><span class="k k-think">The trap</span> A loud early-peaking AS murmur sounds severe; a softer murmur peaking late sounds mild.</div>
+      <div class="trap-row"><span class="k k-truth">The truth</span> The <b>later the peak</b>, the <b>more severe</b> the stenosis — because higher gradients require more of systole to drive flow through the narrow orifice. <b>Severe AS with low CO can have a soft, brief murmur</b> because there isn't enough flow to generate volume.</div>
+      <div class="trap-row"><span class="k k-why">Why it matters</span> A "soft" murmur in a sick AS patient doesn't mean mild disease — it may mean critical AS with failing LV.</div>
+      <div class="trap-row case"><span class="k k-case">In a case</span> "Soft, late-peaking systolic murmur + signs of heart failure" → <span class="ans">critically severe AS with low cardiac output</span>, not mild AS.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-head"><span class="n">TRAP 02</span> Statins slow AS progression.</div>
+    <div class="trap-body">
+      <div class="trap-row"><span class="k k-think">The trap</span> AS pathogenesis resembles atherosclerosis → statins must slow valve disease.</div>
+      <div class="trap-row"><span class="k k-truth">The truth</span> <b>Statins do NOT slow established AS</b>. Neither do ACE-Is or ARBs. The osteoblast-driven calcification operates somewhat independently of LDL once initiated.</div>
+      <div class="trap-row"><span class="k k-why">Why it matters</span> Use statins for the patient's ASCVD risk, not to treat the valve. Don't promise the patient the statin will slow their AS.</div>
+      <div class="trap-row case"><span class="k k-case">In a case</span> "Asymptomatic moderate AS — does adding a statin slow progression?" → <span class="ans">No — statins do not slow AS progression</span>. Use per usual ASCVD prevention indications.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-head"><span class="n">TRAP 03</span> Aortic sclerosis is benign because it doesn't obstruct.</div>
+    <div class="trap-body">
+      <div class="trap-row"><span class="k k-think">The trap</span> Sclerosis ≠ stenosis → just a calcified valve, no obstruction, no problem.</div>
+      <div class="trap-row"><span class="k k-truth">The truth</span> Aortic sclerosis carries an <b>excess risk of CV death and MI</b> in patients &gt;65 — it's a marker of systemic atherosclerotic burden.</div>
+      <div class="trap-row"><span class="k k-why">Why it matters</span> Sclerosis should trigger comprehensive ASCVD risk assessment, not reassurance.</div>
+      <div class="trap-row case"><span class="k k-case">In a case</span> "70yo with aortic sclerosis (Vmax 2.0 m/s) — significance?" → <span class="ans">Marker of increased CV risk; treat ASCVD risk factors</span>. Not "benign."</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-head"><span class="n">TRAP 04</span> Sudden cardiac death is a common first presentation of severe AS.</div>
+    <div class="trap-body">
+      <div class="trap-row"><span class="k k-think">The trap</span> Severe AS = sudden death risk → operate everyone immediately.</div>
+      <div class="trap-row"><span class="k k-truth">The truth</span> Sudden death as the <b>first manifestation</b> of severe AS is <b>uncommon (~1%/year)</b>. The 10–20% sudden death rate occurs <b>in patients who were already symptomatic</b>. This justifies watchful waiting in truly asymptomatic patients.</div>
+      <div class="trap-row"><span class="k k-why">Why it matters</span> Guides timing of intervention — symptoms drive surgery, not asymptomatic severe disease alone (unless EF falls or other criteria are met).</div>
+      <div class="trap-row case"><span class="k k-case">In a case</span> "Asymptomatic severe AS with normal EF — best management?" → <span class="ans">Echocardiographic surveillance every 6–12 months</span>, not immediate AVR.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-head"><span class="n">TRAP 05</span> AVR is indicated for any severe AS, regardless of symptoms.</div>
+    <div class="trap-body">
+      <div class="trap-row"><span class="k k-think">The trap</span> Severe AS (Vmax ≥4, gradient ≥40, AVA &lt;1) = automatic AVR.</div>
+      <div class="trap-row"><span class="k k-truth">The truth</span> AVR is Class I for: <b>symptomatic severe AS</b>, asymptomatic severe AS with <b>EF &lt;50%</b>, or asymptomatic severe AS undergoing <b>other cardiac surgery</b>. Otherwise, surveillance.</div>
+      <div class="trap-row"><span class="k k-why">Why it matters</span> Operating early on truly asymptomatic patients with normal LV function may not improve survival.</div>
+      <div class="trap-row case"><span class="k k-case">In a case</span> "Asymptomatic severe AS (Vmax 4.2 m/s), EF 60% — next step?" → <span class="ans">Echocardiography every 6–12 months</span>, exercise testing to confirm asymptomatic status. Not immediate AVR.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-head"><span class="n">TRAP 06</span> TAVI is for all comers in 2024.</div>
+    <div class="trap-body">
+      <div class="trap-row"><span class="k k-think">The trap</span> TAVI surpassed SAVR in volume → TAVI for everyone with severe AS.</div>
+      <div class="trap-row"><span class="k k-truth">The truth</span> TAVI is preferred in patients <b>&gt;80</b>. Patients <b>&lt;65</b> should generally have <b>SAVR</b> due to scant long-term TAVI data. 65–80 is shared decision. TAVI is NOT recommended for surgical candidates with <b>chronic severe AR</b>.</div>
+      <div class="trap-row"><span class="k k-why">Why it matters</span> Age, anatomy (BAV, calcium pattern, root size, vascular access), and concurrent surgical needs all matter.</div>
+      <div class="trap-row case"><span class="k k-case">In a case</span> "58yo with symptomatic severe AS, no comorbidities — TAVI or SAVR?" → <span class="ans">SAVR</span> (age &lt;65, limited TAVI durability data in this group).</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-head"><span class="n">TRAP 07</span> All blowing diastolic murmurs are valvular AR.</div>
+    <div class="trap-body">
+      <div class="trap-row"><span class="k k-think">The trap</span> Decrescendo diastolic murmur at LLSB = leaflet disease.</div>
+      <div class="trap-row"><span class="k k-truth">The truth</span> If the murmur is <b>louder along the right sternal border</b>, the AR is likely due to <b>aortic root dilation</b>, not primary valve disease. Root etiology mandates imaging the ascending aorta (CT/MR) and may permit a <b>valve-sparing</b> repair.</div>
+      <div class="trap-row"><span class="k k-why">Why it matters</span> Drives the imaging workup AND the surgical strategy (David procedure for root disease).</div>
+      <div class="trap-row case"><span class="k k-case">In a case</span> "AR murmur louder on right sternal border" → <span class="ans">Suspect aortic root dilation; image the ascending aorta</span>. May be amenable to valve-sparing root reconstruction.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-head"><span class="n">TRAP 08</span> Wait for symptoms in chronic severe AR.</div>
+    <div class="trap-body">
+      <div class="trap-row"><span class="k k-think">The trap</span> Like AS — watch and wait until the patient is dyspneic.</div>
+      <div class="trap-row"><span class="k k-truth">The truth</span> <b>LV dysfunction in AR often precedes symptoms.</b> Waiting for symptoms can mean irreversible LV dysfunction. Operate when <b>EF ≤55%</b>, <b>LVESD &gt;50 mm</b>, or symptoms appear — whichever comes first.</div>
+      <div class="trap-row"><span class="k k-why">Why it matters</span> Surgery delayed &gt;1 year after onset of LV dysfunction often fails to restore normal LV.</div>
+      <div class="trap-row case"><span class="k k-case">In a case</span> "Asymptomatic severe AR, EF 52%, LVESD 48 mm" → <span class="ans">AVR indicated (EF ≤55%)</span>, not surveillance.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-head"><span class="n">TRAP 09</span> Acute severe AR — give beta-blockers and IABP, just like cardiogenic shock.</div>
+    <div class="trap-body">
+      <div class="trap-row"><span class="k k-think">The trap</span> Pulmonary edema and shock → start beta-blocker + IABP, standard care.</div>
+      <div class="trap-row"><span class="k k-truth">The truth</span> Both are <b>contraindicated</b> in acute severe AR. <b>Beta-blockers</b> slow HR → longer diastole → more regurgitation → worse CO. <b>IABP</b> inflates in diastole → pushes blood backward through the incompetent valve. The patient depends on tachycardia and needs <b>emergency surgery</b>.</div>
+      <div class="trap-row"><span class="k k-why">Why it matters</span> Reflexive shock management can kill these patients. They need vasodilators, diuretics, and the OR within 24 hours.</div>
+      <div class="trap-row case"><span class="k k-case">In a case</span> "Endocarditis + new severe AR + pulmonary edema — initial management?" → <span class="ans">IV diuretics + nitroprusside; emergency surgery within 24h</span>. NOT beta-blocker, NOT IABP.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-head"><span class="n">TRAP 10</span> Austin Flint = mitral stenosis.</div>
+    <div class="trap-body">
+      <div class="trap-row"><span class="k k-think">The trap</span> A diastolic rumble at the apex → mitral stenosis.</div>
+      <div class="trap-row"><span class="k k-truth">The truth</span> The <b>Austin Flint murmur</b> is a soft, low-pitched <b>mid-to-late diastolic apical rumble</b> in severe <b>AR</b>. It results from the AR jet hitting the anterior mitral leaflet → <b>functional</b> mitral inflow disturbance. The mitral valve itself is normal.</div>
+      <div class="trap-row"><span class="k k-why">Why it matters</span> Distinguishing it from true MS changes management entirely — no MS-directed therapy needed.</div>
+      <div class="trap-row case"><span class="k k-case">In a case</span> "Severe AR + apical diastolic rumble" → <span class="ans">Austin Flint murmur</span> — not mitral stenosis.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-head"><span class="n">TRAP 11</span> Systolic murmur + diastolic murmur = mixed AS + AR.</div>
+    <div class="trap-body">
+      <div class="trap-row"><span class="k k-think">The trap</span> Hearing a systolic and diastolic murmur means combined AS + AR.</div>
+      <div class="trap-row"><span class="k k-truth">The truth</span> <b>Pure severe AR commonly has a systolic ejection murmur</b> from the large stroke volume crossing the aortic valve — without coexisting AS. A systolic thrill and murmur in AR do <b>not</b> mean AS is also present.</div>
+      <div class="trap-row"><span class="k k-why">Why it matters</span> Avoid over-diagnosing mixed disease — echo will sort it out.</div>
+      <div class="trap-row case"><span class="k k-case">In a case</span> "Severe AR with a loud systolic ejection murmur" → <span class="ans">Common finding from increased stroke volume</span>, not necessarily coexisting AS.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-head"><span class="n">TRAP 12</span> Bicuspid valve = just a valve problem.</div>
+    <div class="trap-body">
+      <div class="trap-row"><span class="k k-think">The trap</span> BAV → calcifies earlier, treat the valve, end of story.</div>
+      <div class="trap-row"><span class="k k-truth">The truth</span> <b>30–40% of BAV patients have aortopathy</b> — root or ascending aortic aneurysm — independent of valve severity. Aortic surgery thresholds: <b>&gt;5.5 cm</b>, or <b>4.5–5.0 cm</b> with family history or rapid growth. Always image the aorta.</div>
+      <div class="trap-row"><span class="k k-why">Why it matters</span> Missed aortopathy → risk of dissection. Pre-op planning must consider the ascending aorta.</div>
+      <div class="trap-row case"><span class="k k-case">In a case</span> "BAV referred for AVR — additional pre-op imaging?" → <span class="ans">Assess root and ascending aortic dimensions</span>; consider concomitant aortic replacement.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-head"><span class="n">TRAP 13</span> Marfan + root dilation — use beta-blocker; losartan is inferior.</div>
+    <div class="trap-body">
+      <div class="trap-row"><span class="k k-think">The trap</span> Beta-blockers are the standard for Marfan; ARBs are newer/less proven.</div>
+      <div class="trap-row"><span class="k k-truth">The truth</span> A randomized controlled trial showed <b>no difference in efficacy</b> between <b>atenolol and losartan</b> for retarding aortic root enlargement in Marfan syndrome. Either is acceptable.</div>
+      <div class="trap-row"><span class="k k-why">Why it matters</span> Treatment choice can be individualized to tolerability.</div>
+      <div class="trap-row case"><span class="k k-case">In a case</span> "Young Marfan patient with progressive root dilation — best medical therapy?" → <span class="ans">Beta-blocker OR losartan — equivalent</span>.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-head"><span class="n">TRAP 14</span> Low-gradient AS = mild AS.</div>
+    <div class="trap-body">
+      <div class="trap-row"><span class="k k-think">The trap</span> Mean gradient &lt;40 mmHg → not severe AS.</div>
+      <div class="trap-row"><span class="k k-truth">The truth</span> <b>Low-flow, low-gradient severe AS</b> exists in two forms: with low EF (D2) and with normal EF + small ventricle ("paradoxical," D3). Both can be truly severe AS — the gradient is low because flow is low.</div>
+      <div class="trap-row"><span class="k k-why">Why it matters</span> Missing these patients means denying them an intervention that improves outcomes. Use <b>dobutamine echo</b> (if low EF) or <b>CT calcium scoring</b> to confirm severity.</div>
+      <div class="trap-row case"><span class="k k-case">In a case</span> "Symptomatic patient, AVA 0.8 cm², mean gradient 30 mmHg, EF 30%" → <span class="ans">Low-flow, low-gradient severe AS with reduced EF — dobutamine stress echo</span> to confirm true severity and flow reserve.</div>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  AORTIC STENOSIS · AORTIC REGURGITATION · BOARDS TEACHING GUIDE<br>
+  Built strictly from the provided Harrison's Ch. 272 (AS) and Ch. 273 (AR)<br>
+  Pressure vs volume overload — mechanism, exam, echo, surgical decision, every step
+</footer>
+
+</div>
+<script>
+/* ── ACCORDION TOGGLE ── */
+function tog(hd){const item=hd.closest('.toggle-item')||hd.parentElement;
+  const body=item.querySelector('.toggle-body');const arrow=hd.querySelector('.toggle-arrow');
+  if(!body)return;const isOpen=body.style.display==='block';
+  body.style.display=isOpen?'none':'block';if(arrow)arrow.textContent=isOpen?'▶':'▼';}
+const FILE_KEY='venos_'+(document.title||'guide').replace(/[^a-z0-9]/gi,'_').toLowerCase();
+const HL_KEY=FILE_KEY+'_hl',NT_KEY=FILE_KEY+'_notes';
+let curColor=null,eraseMode=false,selText='',savedRange=null;
+function setHL(c){curColor=c;eraseMode=false;document.body.style.cursor='crosshair';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));
+  const m={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};
+  if(document.getElementById(m[c]))document.getElementById(m[c]).classList.add('active');}
+function setErase(){eraseMode=true;curColor=null;document.body.style.cursor='cell';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));}
+function applyHL(range,color){try{const s=document.createElement('span');
+  s.className='hl hl-'+color;s.dataset.hlColor=color;range.surroundContents(s);saveHighlights();}
+  catch(e){try{const f=range.extractContents();const s=document.createElement('span');
+  s.className='hl hl-'+color;s.dataset.hlColor=color;s.appendChild(f);
+  range.insertNode(s);saveHighlights();}catch(e2){}}}
+function saveHighlights(){const data=[];
+  document.querySelectorAll('.hl[data-hl-color]').forEach(s=>{const t=s.textContent.trim();
+  if(t.length>1)data.push({text:t,color:s.dataset.hlColor});});
+  try{localStorage.setItem(HL_KEY,JSON.stringify(data));}catch(e){}}
+function restoreHighlights(){let saved;
+  try{saved=JSON.parse(localStorage.getItem(HL_KEY))||[];}catch(e){return;}
+  if(!saved.length)return;
+  saved.forEach(function(item){if(!item.text||!item.color)return;
+    const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);let node;
+    while(node=w.nextNode()){
+      if(node.parentElement&&(node.parentElement.classList.contains('hl')||
+        node.parentElement.classList.contains('note-anchor')))continue;
+      const i=node.nodeValue.indexOf(item.text);
+      if(i!==-1){try{const r=document.createRange();r.setStart(node,i);
+        r.setEnd(node,i+item.text.length);applyHL(r,item.color);}catch(e){}break;}}});}
+function getNotes(){try{return JSON.parse(localStorage.getItem(NT_KEY)||'[]');}catch(e){return[];}}
+function saveNotes(n){try{localStorage.setItem(NT_KEY,JSON.stringify(n));}catch(e){}}
+function addNote(){const ta=document.getElementById('sn-ta');if(!ta)return;
+  const txt=ta.value.trim();if(!txt)return;const id=Date.now();const notes=getNotes();
+  notes.unshift({id,ref:selText.substring(0,100)||'—',text:txt});saveNotes(notes);
+  if(savedRange){try{const s=document.createElement('span');s.className='note-anchor';
+    s.dataset.noteId=id;savedRange.surroundContents(s);bindAnchor(s,id);}
+    catch(e){try{const f=savedRange.extractContents();const s=document.createElement('span');
+    s.className='note-anchor';s.dataset.noteId=id;s.appendChild(f);
+    savedRange.insertNode(s);bindAnchor(s,id);}catch(e2){}}savedRange=null;}
+  ta.value='';selText='';const r=document.getElementById('sn-ref-txt');if(r)r.textContent='—';renderNotes();}
+function bindAnchor(span,id){span.addEventListener('click',function(e){e.stopPropagation();
+  const note=getNotes().find(n=>n.id===id);if(note)showPopover(span,note);});}
+function restoreAnchors(){const notes=getNotes();if(!notes.length)return;
+  notes.forEach(function(note){if(!note.ref||note.ref==='—'||!note.id)return;
+    const rt=note.ref.trim();if(rt.length<2)return;
+    if(document.querySelector('.note-anchor[data-note-id="'+note.id+'"]'))return;
+    const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);let node;
+    while(node=w.nextNode()){
+      if(node.parentElement&&(node.parentElement.classList.contains('note-anchor')||
+        node.parentElement.classList.contains('hl')))continue;
+      const i=node.nodeValue.indexOf(rt);
+      if(i!==-1){try{const r=document.createRange();r.setStart(node,i);r.setEnd(node,i+rt.length);
+        const s=document.createElement('span');s.className='note-anchor';s.dataset.noteId=String(note.id);
+        r.surroundContents(s);bindAnchor(s,note.id);}catch(e){}break;}}});}
+function deleteNote(id){saveNotes(getNotes().filter(n=>n.id!==id));
+  document.querySelectorAll('.note-anchor[data-note-id="'+id+'"]').forEach(el=>{
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});
+  closePopover();renderNotes();}
+function renderNotes(){const body=document.getElementById('sn-body'),empty=document.getElementById('sn-empty');
+  if(!body)return;const notes=getNotes();body.querySelectorAll('.sn-note').forEach(el=>el.remove());
+  if(!notes.length){if(empty)empty.style.display='';return;}if(empty)empty.style.display='none';
+  notes.forEach(note=>{const card=document.createElement('div');card.className='sn-note';
+    card.dataset.noteId=note.id;
+    card.innerHTML='<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>'+
+      '<span class="sn-note-ref">'+(note.ref!=='—'?'"'+note.ref+'"':'General note')+'</span>'+
+      '<button class="sn-del" onclick="deleteNote('+note.id+')">×</button></div>'+
+      '<div class="sn-note-body">'+note.text.replace(/\n/g,'<br>')+'</div>'+
+      '<div class="sn-resize"></div>';body.appendChild(card);});}
+let activePopNoteId=null;
+function showPopover(anchorEl,note){const pop=document.getElementById('note-popover');if(!pop)return;
+  document.getElementById('np-pop-ref').textContent=note.ref!=='—'?'"'+note.ref.substring(0,55)+'"':'Note';
+  document.getElementById('np-pop-text').innerHTML=note.text.replace(/\n/g,'<br>');
+  document.getElementById('pop-del-btn').onclick=()=>deleteNote(note.id);activePopNoteId=note.id;
+  const rect=anchorEl.getBoundingClientRect();
+  pop.style.left=Math.min(rect.left,window.innerWidth-300)+'px';
+  pop.style.top=(rect.bottom+8)+'px';pop.classList.add('show');}
+function closePopover(){const pop=document.getElementById('note-popover');
+  if(pop)pop.classList.remove('show');activePopNoteId=null;}
+document.addEventListener('click',function(e){const pop=document.getElementById('note-popover');
+  if(pop&&!pop.contains(e.target))closePopover();});
+document.addEventListener('mouseup',function(e){
+  const tb=document.getElementById('toolbar'),sb=document.getElementById('sn-sidebar'),
+    np=document.getElementById('note-popover');
+  if(tb&&tb.contains(e.target))return;if(sb&&sb.contains(e.target))return;if(np&&np.contains(e.target))return;
+  if(eraseMode&&e.target.classList.contains('hl')){const el=e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);
+    el.parentNode.normalize();saveHighlights();return;}
+  const sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+  const txt=sel.toString().trim();if(!txt)return;
+  selText=txt;savedRange=sel.getRangeAt(0).cloneRange();
+  const ref=document.getElementById('sn-ref-txt');
+  if(ref)ref.textContent=txt.length>48?txt.substring(0,48)+'…':txt;
+  if(curColor){try{applyHL(sel.getRangeAt(0),curColor);sel.removeAllRanges();}catch(err){}}});
+function clearAll(){if(!confirm('Clear ALL highlights and notes?'))return;
+  document.querySelectorAll('.hl').forEach(el=>{
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});
+  document.querySelectorAll('.note-anchor').forEach(el=>{
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});
+  try{localStorage.removeItem(HL_KEY);localStorage.removeItem(NT_KEY);}catch(e){}
+  curColor=null;eraseMode=false;document.body.style.cursor='';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));
+  closePopover();renderNotes();}
+function toggleSidebar(){const sb=document.getElementById('sn-sidebar'),tab=document.getElementById('sn-tab');
+  if(!sb)return;sb.classList.toggle('hidden');
+  if(tab)tab.textContent=sb.classList.contains('hidden')?'📝 Notes':'◀';}
+const _secs=document.querySelectorAll('.sec[id]');
+const _navs=document.querySelectorAll('.toc-a');
+_secs.forEach(s=>new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){_navs.forEach(l=>l.classList.remove('on'));
+    const lnk=document.querySelector('.toc-a[href="#'+s.id+'"]');
+    if(lnk){lnk.classList.add('on');lnk.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}}
+},{rootMargin:'-15% 0px -75% 0px'}).observe(s));
+restoreHighlights();restoreAnchors();renderNotes();
+</script>
+</body>
+</html>
