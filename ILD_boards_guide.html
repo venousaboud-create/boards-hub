@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Interstitial Lung Disease · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);
+  border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;
+  z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;
+  display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;
+  position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;
+  line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;
+  padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blu);
+  margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.bl li .bl{margin:4px 0 4px 14px}
+.bl li .bl li::before{color:var(--t3)}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}
+  .main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+
+/* flow diagram */
+.flow{display:flex;flex-direction:column;gap:0;margin:16px 0;align-items:flex-start}
+.flow-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.flow-box{background:var(--blu-l);border:1.5px solid var(--blu);border-radius:6px;
+  padding:7px 14px;font-size:12px;font-weight:600;color:var(--blu);white-space:nowrap}
+.flow-box.red{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.flow-box.grn{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.flow-box.amb{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.flow-box.pur{background:var(--pur-l);border-color:var(--pur);color:var(--pur)}
+.flow-arr{font-size:18px;color:var(--t3)}
+.flow-down{font-size:20px;color:var(--t3);padding:2px 0 2px 20px}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles · Chapter 304</div>
+  <h1>Interstitial Lung Disease</h1>
+  <div class="hero-sub">IPF · NSIP · COP · Drug-Induced ILD · PFTs · Treatment · Boards Review</div>
+  <div class="hero-authors">Gary M. Hunninghake, Ivan O. Rosas · Compiled from clinical question bank</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">6</div><div class="stat-l">Disease Types</div></div>
+    <div class="stat-box"><div class="stat-n">16</div><div class="stat-l">Board Questions</div></div>
+    <div class="stat-box"><div class="stat-n">50%</div><div class="stat-l">IPF 3–5yr Mortality</div></div>
+    <div class="stat-box"><div class="stat-n">>80%</div><div class="stat-l">NSIP 5yr Survival</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Overview</a>
+    <a class="toc-a" href="#s2">Diagnostic Approach</a>
+    <a class="toc-a" href="#s3">PFTs in ILD</a>
+    <a class="toc-a" href="#s4">IPF</a>
+    <a class="toc-a" href="#s5">NSIP</a>
+    <a class="toc-a" href="#s6">COP</a>
+    <a class="toc-a" href="#s7">Drug-Induced ILD</a>
+    <a class="toc-a" href="#s8">CTD-Associated ILD</a>
+    <a class="toc-a" href="#s9">Master Comparison</a>
+    <a class="toc-a" href="#s10">Exam Traps</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══════════════════════════════════════════ SECTION 1 -->
+<section class="sec" id="s1">
+  <div class="sec-hd">
+    <span class="sec-n">01</span>
+    <h2>Overview & Classification of ILD</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>What is ILD?</h3>
+    <p>Diffuse parenchymal lung diseases (ILDs) include <strong>over 200</strong> heterogeneous conditions affecting the lung parenchyma with varying degrees of inflammation and fibrosis. The dominant site of injury is the <strong>interstitial space</strong> — the region between the alveolar epithelium and the endothelium — though alveolar epithelium and endothelial cells are also critically involved.</p>
+    <div class="co key">
+      <div class="co-t">Core Concept</div>
+      Most patients present with <strong>progressive exertional dyspnea</strong> or <strong>persistent dry cough</strong>. Because some ILDs are multisystem, patients may also present with nonrespiratory features (e.g., skin thickening in scleroderma, ulnar deviation in RA). ILD can also be discovered <strong>incidentally</strong> on chest CT or abnormal PFTs.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Classification Framework</h3>
+    <p>The classic approach divides ILDs into <strong>known</strong> and <strong>unknown</strong> causes:</p>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Known Causes</div>
+        <ul class="bl">
+          <li><strong>Occupational exposures:</strong> Asbestosis, Silicosis</li>
+          <li><strong>Medications:</strong> Nitrofurantoin, Amiodarone, Methotrexate, Bleomycin</li>
+          <li><strong>Systemic disease:</strong> CTD-associated ILD (scleroderma, RA, polymyositis)</li>
+          <li><strong>Granulomatous (known):</strong> Hypersensitivity pneumonitis</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Unknown Causes</div>
+        <ul class="bl">
+          <li><strong>Idiopathic Interstitial Pneumonias (IIPs):</strong>
+            <ul class="bl">
+              <li>IPF (most common)</li>
+              <li>NSIP</li>
+              <li>COP (Cryptogenic Organizing Pneumonia)</li>
+              <li>AIP (Acute Interstitial Pneumonia)</li>
+              <li>RB-ILD, DIP (smoking-related)</li>
+            </ul>
+          </li>
+          <li><strong>Granulomatous (unknown):</strong> Sarcoidosis</li>
+          <li><strong>Other:</strong> LAM, Pulmonary alveolar proteinosis, PLCH</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Epidemiology — Most Common ILDs</h3>
+    <p>Among all ILDs, <strong>IPF</strong>, <strong>sarcoidosis</strong>, and <strong>CTD-associated ILDs</strong> are the most common forms encountered in clinical practice and on boards.</p>
+    <div class="co wrn">
+      <div class="co-t">Prevalence Clue</div>
+      IPF prevalence is estimated at <strong>50–200:100,000</strong>. It is the most common ILD of unknown cause. Prevalence increases with age — most common in patients over 60.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 2 -->
+<section class="sec" id="s2">
+  <div class="sec-hd">
+    <span class="sec-n">02</span>
+    <h2>Diagnostic Approach to ILD</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co key">
+    <div class="co-t">Central Tenet of ILD Diagnosis</div>
+    No single piece of data makes the diagnosis. The combined weight of <strong>clinical data + laboratory + PFTs + imaging + histopathology</strong> (if obtained) are jointly required. A multidisciplinary team (pulmonologist, rheumatologist, radiologist, pathologist) is standard of care.
+  </div>
+
+  <div class="sub">
+    <h3>History — Key Clues</h3>
+    <div class="g2">
+      <div>
+        <h4>Age (Critical!)</h4>
+        <ul class="bl">
+          <li>IPF: almost always <strong>&gt;60 years</strong>; rare under 50</li>
+          <li>In patients &gt;65 with atypical CT → still most likely UIP/IPF histopathologically</li>
+          <li>Sarcoidosis, CTD-ILD, LAM, PLCH: typically present <strong>ages 20–40</strong></li>
+          <li>NSIP: typically fifth decade, nonsmoking females</li>
+        </ul>
+        <h4>Sex</h4>
+        <ul class="bl">
+          <li>LAM: almost exclusively <strong>young women</strong></li>
+          <li>CTD-ILD: mostly women (except RA-ILD which is more common in men)</li>
+          <li>IPF and occupational ILDs: more common in <strong>men</strong></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Duration of Symptoms</h4>
+        <ul class="bl">
+          <li><strong>Acute (days–weeks):</strong> Eosinophilic pneumonia, AIP, HP, GPA — also consider acute exacerbation of IPF</li>
+          <li><strong>Subacute (weeks–months):</strong> Sarcoidosis, COP, CTD-ILD, drug-induced ILD</li>
+          <li><strong>Chronic indolent (months–years):</strong> Typified by IPF</li>
+        </ul>
+        <h4>Smoking History</h4>
+        <ul class="bl">
+          <li>RB-ILD and DIP: <strong>strongly smoking-related</strong> (causative)</li>
+          <li>IPF: ~75% of patients have history of smoking</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4>Medications — Major Offenders (Boards Favorite!)</h4>
+    <div class="co dan">
+      <div class="co-t">Drug-Induced ILD — Must Know List</div>
+      <ul class="bl">
+        <li><strong>Antibiotics:</strong> Nitrofurantoin</li>
+        <li><strong>Antiarrhythmics:</strong> Amiodarone</li>
+        <li><strong>Chemotherapy:</strong> Bleomycin, methotrexate (also used in RA), cyclophosphamide</li>
+        <li><strong>Immunosuppressants:</strong> Azathioprine, rituximab, TNF-α blockers</li>
+      </ul>
+      Note: The same drugs used to treat ILD (e.g., methotrexate, rituximab) can ALSO cause ILD.
+    </div>
+
+    <h4>Exposures &amp; Family History</h4>
+    <ul class="bl">
+      <li><strong>Occupational:</strong> Asbestos → asbestosis; bird or organic dust → hypersensitivity pneumonitis</li>
+      <li><strong>Family history:</strong> Up to 20% of pulmonary fibrosis may be familial (MUC5B promoter variant, TERT gene variants)</li>
+      <li>A close relative with IIP is one of the <strong>strongest risk factors for IPF</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Physical Examination</h3>
+    <ul class="bl">
+      <li><strong>Bibasal end-inspiratory fine crackles (Velcro rales):</strong> Most patients with IPF; may be the earliest sign</li>
+      <li><strong>Digital clubbing:</strong> Common in IPF; less common in NSIP; rare in RB-ILD; very rare in sarcoidosis/HP</li>
+      <li><strong>Wheezing:</strong> Uncommon in ILD — if present, think sarcoidosis, HP, eosinophilic GPA</li>
+      <li><strong>Advanced disease:</strong> Cyanosis, digital clubbing, cor pulmonale</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Chest Imaging — HRCT is Standard of Care</h3>
+    <p>HRCT is the most important imaging study in ILD evaluation. It can be <strong>diagnostic</strong> in the right clinical context (e.g., UIP pattern in the right patient = IPF without biopsy).</p>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>ILD</th><th>Key HRCT Findings</th><th>Distribution</th></tr></thead>
+        <tbody>
+          <tr><td>IPF (UIP pattern)</td><td>Honeycombing, traction bronchiectasis, reticular pattern</td><td>Bilateral, subpleural, <strong>basal predominance</strong></td></tr>
+          <tr><td>NSIP</td><td>Ground-glass opacities (GGO), reticular, <strong>subpleural sparing</strong></td><td>Bilateral, symmetric, lower lobes</td></tr>
+          <tr><td>COP</td><td>Patchy consolidation (often migratory), GGO, reversed halo sign</td><td>Subpleural, peribronchovascular</td></tr>
+          <tr><td>Sarcoidosis</td><td>Hilar/mediastinal lymphadenopathy, peribronchovascular nodules</td><td>Upper and mid lung predominance</td></tr>
+          <tr><td>HP</td><td>GGO, centrilobular nodules, mosaic attenuation</td><td>Upper and mid lung; spares bases</td></tr>
+          <tr><td>RB-ILD</td><td>Centrilobular nodules, GGO, bronchial wall thickening</td><td>Diffuse, centrilobular</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="co prl">
+      <div class="co-t">UIP Pattern Features (= IPF signature)</div>
+      <ul class="bl">
+        <li><strong>Honeycombing</strong> — clustered cysts, basal and subpleural (the "classic" IPF finding)</li>
+        <li><strong>Traction bronchiectasis</strong> — bronchi pulled open by surrounding fibrosis</li>
+        <li><strong>Subpleural reticular markings</strong> — posterior, basal predominance</li>
+        <li><strong>Absence of:</strong> extensive GGO, upper lobe predominance, micronodules, mosaic attenuation → if present, think of alternate diagnosis</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Lung Biopsy</h3>
+    <ul class="bl">
+      <li><strong>Bronchoscopy (BAL + transbronchial biopsy):</strong> Good for sarcoidosis, HP, eosinophilic pneumonia, DAH. Generally insufficient for most IIPs (including IPF).</li>
+      <li><strong>Surgical lung biopsy (VATS):</strong> Gold standard when diagnosis unclear. Short-term mortality up to 5% — weigh risk vs benefit. Higher risk in IPF patients and those presenting acutely.</li>
+      <li><strong>Cryobiopsy:</strong> Emerging technique; larger samples than transbronchial; role still being defined.</li>
+    </ul>
+    <div class="co suc">
+      <div class="co-t">When Can You Skip Biopsy?</div>
+      If HRCT shows a <strong>classic UIP pattern in the right clinical context</strong> (male, &gt;60, smoker, bibasal crackles, no alternate explanation), a diagnosis of IPF can be made WITHOUT surgical biopsy. This is a major boards and clinical point.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 3 -->
+<section class="sec" id="s3">
+  <div class="sec-hd">
+    <span class="sec-n">03</span>
+    <h2>Pulmonary Function Tests in ILD</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>The Classic Restrictive Pattern</h3>
+    <p>Most forms of ILD produce a <strong>restrictive deficit</strong> in pulmonary function. This is the hallmark PFT finding across ILDs. Understanding this pattern is essential for both diagnosis and monitoring progression.</p>
+
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-r">↓ TLC</div>
+        <p>Total Lung Capacity reduced. The defining feature of restriction. Fibrotic lungs are stiff — they cannot inflate fully.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">↓ FVC</div>
+        <p>Forced Vital Capacity reduced. The most important parameter for monitoring IPF progression — a decline in FVC correlates with elevated mortality.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">↓ FEV₁</div>
+        <p>Also reduced in proportion to FVC. The FEV₁/FVC ratio is preserved (≥70%) or even elevated — this is RESTRICTION, not obstruction.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">↓ DLCO</div>
+        <p>Diffusing capacity for CO. Often the <strong>first parameter to fall</strong>, reflecting impaired gas exchange. May precede a reduction in lung volumes. Less specific than other measures.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Normal/↑ FEV₁/FVC</div>
+        <p>Preserved or elevated ratio — this distinguishes restriction from obstruction (COPD, asthma). Boards LOVE to test this distinction.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Normal/↓ RV</div>
+        <p>Residual volume is normal or slightly reduced in pure restriction. Very elevated RV = air trapping = obstruction (COPD).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>PFTs — How to Read a Restrictive Pattern on Boards</h3>
+    <div class="co key">
+      <div class="co-t">The Boards PFT Question — IPF Pattern</div>
+      <p>Look for the option that shows: <strong>↓FVC + ↓TLC + ↓DLCO + Normal or ↑ FEV₁/FVC ratio</strong></p>
+      <p>In IPF specifically: FVC is reduced (e.g., 59–75%), FEV₁ reduced (e.g., 55–80%), FEV₁/FVC preserved or elevated (e.g., 68–91%), TLC reduced (e.g., 69–84%), DLCO significantly reduced (e.g., 42–65%).</p>
+    </div>
+    <div class="co wrn">
+      <div class="co-t">Tricky Scenario — Emphysema + IPF</div>
+      Some IPF patients are smokers and can have concurrent emphysema. In this case, the obstructive emphysema can "mask" the restrictive IPF pattern, resulting in a falsely normal or near-normal FVC — but the DLCO will still be very low. This combination is called "combined pulmonary fibrosis and emphysema" (CPFE).
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>PFTs in Specific ILD Contexts</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Context</th><th>TLC</th><th>FVC</th><th>FEV₁/FVC</th><th>DLCO</th><th>RV</th></tr></thead>
+        <tbody>
+          <tr><td>IPF / UIP pattern</td><td>↓</td><td>↓</td><td>Normal/↑</td><td>↓↓ (often most affected)</td><td>↓</td></tr>
+          <tr><td>NSIP</td><td>↓</td><td>↓</td><td>Normal/↑</td><td>↓</td><td>↓</td></tr>
+          <tr><td>Sarcoidosis (airway involvement)</td><td>↓</td><td>↓</td><td>May be ↓ (airway)</td><td>↓</td><td>Variable</td></tr>
+          <tr><td>Drug-induced ILD (e.g., Amiodarone)</td><td>↓</td><td>↓</td><td>Normal/↑</td><td>↓</td><td>↓</td></tr>
+          <tr><td>LAM (cystic)</td><td>Normal/↑</td><td>↓</td><td>↓ (obstruction)</td><td>↓</td><td>↑</td></tr>
+          <tr><td>COP</td><td>↓</td><td>↓</td><td>Normal/↑</td><td>↓</td><td>↓</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co prl">
+      <div class="co-t">Amiodarone ILD — PFT Key Point</div>
+      Amiodarone causes interstitial lung disease with a <strong>restrictive pattern</strong>. The FEV₁/FVC ratio remains <strong>normal or preserved</strong>. The DLCO is reduced, and lung volumes are reduced. Do NOT expect an obstructive pattern from amiodarone lung toxicity.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>PFTs as a Monitoring Tool</h3>
+    <ul class="bl">
+      <li><strong>FVC decline</strong> is the most important predictor of mortality in IPF — a drop in FVC of ≥10% over 6–12 months significantly increases mortality risk</li>
+      <li><strong>DLCO</strong> decline also correlates with worsening disease and may precede FVC changes</li>
+      <li>PFTs rarely diagnose a specific ILD but help characterize disease extent and guide decisions about antifibrotic therapy initiation</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 4 -->
+<section class="sec" id="s4">
+  <div class="sec-hd">
+    <span class="sec-n">04</span>
+    <h2>Idiopathic Pulmonary Fibrosis (IPF)</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co dan">
+    <div class="co-t">High-Yield Summary</div>
+    IPF = most common ILD of unknown cause. Older male, smoker, dry cough, clubbing, bibasal Velcro crackles, honeycombing + traction bronchiectasis on CT, restrictive PFTs with low DLCO. Treatment: antifibrotic therapy (Pirfenidone or Nintedanib). Steroids are NOT helpful — they are harmful.
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Manifestations</h3>
+    <ul class="bl">
+      <li><strong>Demographics:</strong> Most common in <strong>men &gt;60 years</strong>; rare under 50; ~75% have history of smoking or environmental exposures</li>
+      <li><strong>Prevalence:</strong> 50–200:100,000; increases with age</li>
+      <li><strong>Onset:</strong> Chronic indolent course — months to years</li>
+      <li><strong>Primary symptoms:</strong>
+        <ul class="bl">
+          <li>Progressive exertional dyspnea (hallmark complaint)</li>
+          <li>Persistent <strong>dry cough</strong> — often the most prominent symptom in IPF</li>
+          <li><strong>No hemoptysis</strong> — this is rare in IPF. If hemoptysis present → think bronchiectasis, GPA, aspergilloma, or DAH</li>
+        </ul>
+      </li>
+      <li><strong>Physical exam:</strong>
+        <ul class="bl">
+          <li>Bibasal end-inspiratory <strong>Velcro crackles</strong> (most common finding)</li>
+          <li><strong>Digital clubbing</strong> — common and characteristic</li>
+          <li>Advanced disease: cor pulmonale, cyanosis</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">Why No Hemoptysis in IPF?</div>
+      IPF causes progressive fibrosis of the interstitium without vasculitis or vascular invasion. Hemoptysis in ILD should direct you toward granulomatous vasculitides (GPA, EGPA), diffuse alveolar hemorrhage, bronchiectasis (secondary to traction), or aspergilloma (in a cavity). IPF itself does NOT cause hemoptysis.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Pathology — UIP Pattern</h3>
+    <p>The histopathologic pattern in IPF is called <strong>Usual Interstitial Pneumonia (UIP)</strong>. Its key features are:</p>
+    <ul class="bl">
+      <li><strong>Temporal and spatial heterogeneity</strong> — areas of fibrosis alternate with areas of normal alveolar architecture (this "patchwork" pattern is pathognomonic for UIP)</li>
+      <li><strong>Fibroblast foci</strong> — subepithelial collections of myofibroblasts and collagen (the active leading edge of fibrosis)</li>
+      <li><strong>Honeycombing</strong> — cystic spaces lined by bronchiolar epithelium</li>
+      <li><strong>Subpleural and basal predominance</strong></li>
+    </ul>
+    <div class="co key">
+      <div class="co-t">UIP Is Not Unique to IPF</div>
+      UIP pattern on biopsy can also occur in CTD (RA-ILD, scleroderma). UIP on CT in the right clinical context is enough to diagnose IPF without biopsy. UIP on biopsy without classic clinical context requires excluding CTD.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>HRCT — Classic Findings of IPF (UIP Pattern)</h3>
+    <ul class="bl">
+      <li><strong>Subpleural reticular markings</strong> — posterior, basal predominance (most important finding)</li>
+      <li><strong>Honeycombing</strong> — clustered cystic airspaces (3–10 mm), basal and subpleural (confirms advanced UIP)</li>
+      <li><strong>Traction bronchiectasis</strong> — airways pulled open by surrounding fibrosis</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Findings That Should Make You Question IPF</div>
+      If you see any of these on HRCT → think ALTERNATIVE diagnosis (not IPF):
+      <ul class="bl">
+        <li>Extensive ground-glass opacities (GGO) → more typical of NSIP or drug-induced</li>
+        <li>Upper or mid-lung predominance → think HP or sarcoidosis</li>
+        <li>Micronodules → think sarcoidosis, HP</li>
+        <li>Mosaic attenuation → small airways disease</li>
+        <li>Bronchovascular distribution → sarcoidosis</li>
+        <li>Subpleural sparing → NSIP (GGO sparing the subpleural area)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Prognosis</h3>
+    <ul class="bl">
+      <li>IPF carries a <strong>poor prognosis</strong> — median survival 3–5 years from diagnosis</li>
+      <li><strong>50% mortality at 3–5 years</strong> — this is the key survival number</li>
+      <li>IPF is near one of the most common ILDs AND has the worst prognosis among IIPs</li>
+      <li>Compare: NSIP has &gt;80% 5-year survival; COP responds well to treatment</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of IPF — Antifibrotic Therapy</h3>
+
+    <div class="co suc">
+      <div class="co-t">2014 — A Landmark Year in IPF</div>
+      Before 2014, IPF was considered refractory to all medical therapy. In <strong>2014</strong>, two landmark clinical trials demonstrated that antifibrotic therapy can <strong>slow the decline in FVC</strong> and potentially improve survival. These drugs are now standard of care.
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Pirfenidone</div>
+        <h4>Mechanism</h4>
+        <p>Pleiotropic antifibrotic agent. Inhibits TGF-β–mediated fibroblast proliferation and collagen production. Also has anti-inflammatory properties. Works on multiple pathways simultaneously.</p>
+        <h4>Key Trials</h4>
+        <ul class="bl">
+          <li><strong>CAPACITY trial</strong> (2011): Slowed FVC decline vs placebo</li>
+          <li><strong>ASCEND trial</strong> (2014): Confirmed FVC slowing and reduced mortality trend</li>
+        </ul>
+        <h4>Key Points</h4>
+        <ul class="bl">
+          <li>Oral medication taken with food (reduces GI side effects)</li>
+          <li>Side effects: photosensitivity (counsel to use sunscreen), GI upset, liver enzyme elevation</li>
+          <li>Should be used alongside NAC (N-acetylcysteine) — NAC alone is not beneficial but was used as adjunct</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Nintedanib</div>
+        <h4>Mechanism</h4>
+        <p>A <strong>tyrosine kinase inhibitor</strong> targeting <strong>VEGFR, PDGFR, and FGFR</strong> — three receptor tyrosine kinases critical for fibroblast activation and proliferation. More targeted than Pirfenidone.</p>
+        <h4>Key Trials</h4>
+        <ul class="bl">
+          <li><strong>INPULSIS trial</strong> (2014): Two phase III trials showing significant reduction in FVC decline</li>
+          <li>Meta-analyses suggest also reduces all-cause mortality</li>
+        </ul>
+        <h4>Key Points</h4>
+        <ul class="bl">
+          <li>Primary side effect: <strong>diarrhea</strong> (most common, dose-limiting in some patients)</li>
+          <li>Also approved for: systemic sclerosis-associated ILD and progressive pulmonary fibrosis</li>
+          <li>Does NOT reverse fibrosis — slows progression only</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="co dan">
+      <div class="co-t">⚠ Immunosuppression in IPF — HARMFUL!</div>
+      Historically, IPF patients were treated with steroids and immunosuppression (prednisone, azathioprine, N-acetylcysteine). A landmark trial (PANTHER-IPF, 2012) showed that the combination of <strong>prednisone + azathioprine + NAC was associated with INCREASED mortality and hospitalizations</strong> in IPF. Immunosuppression is now contraindicated in IPF.
+      <br><br>
+      <strong>Key concept: Steroids help COP, sarcoidosis, drug-induced ILD, and eosinophilic pneumonia — but they HARM IPF patients.</strong>
+    </div>
+
+    <div class="sub">
+      <h4>Additional Management in IPF</h4>
+      <ul class="bl">
+        <li><strong>Physical therapy and supplemental oxygen:</strong> Improve exercise tolerance and reduce risk of pulmonary hypertension — helpful as supportive measures</li>
+        <li><strong>Lung transplantation:</strong> Can extend survival and improve quality of life in a select subset of patients who meet transplant criteria. Last resort but a viable option. The only curative option historically before antifibrotic era.</li>
+        <li><strong>Nintedanib reduces acute exacerbation rate</strong> — there is some evidence for this beneficial effect</li>
+        <li><strong>GERD management:</strong> GERD may contribute to microaspiration and lung injury; proton pump inhibitors considered in IPF patients</li>
+      </ul>
+    </div>
+
+    <div class="sub">
+      <h4>What NOT to Give in IPF</h4>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Drug</th><th>Why NOT?</th></tr></thead>
+          <tbody>
+            <tr><td>Prednisone / steroids</td><td>Increases morbidity and mortality in IPF (PANTHER-IPF trial)</td></tr>
+            <tr><td>Azathioprine</td><td>Harmful in IPF; immunosuppression worsens outcomes</td></tr>
+            <tr><td>Mycophenolate mofetil</td><td>No proven benefit in IPF; not part of treatment protocol</td></tr>
+            <tr><td>Rituximab</td><td>Not part of IPF treatment (used in RA-ILD and other CTD-ILD)</td></tr>
+            <tr><td>Riociguat (sGC stimulator)</td><td>Studied in IPF — trial was stopped early due to harm signal</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h4>Acute Exacerbations of IPF</h4>
+      <ul class="bl">
+        <li>Defined as: acute onset (&lt;30 days) of respiratory deterioration in a patient with known IPF, not explained by infection, heart failure, or pulmonary embolism</li>
+        <li><strong>Mortality is extremely high (&gt;85%)</strong></li>
+        <li>Histopathology shows diffuse alveolar damage (DAD) on top of UIP pattern</li>
+        <li>Treatment is supportive; steroids and cytotoxic agents are commonly used without proven benefit</li>
+        <li>Nintedanib may reduce the rate of acute exacerbations</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- IPF vs Others comparison flow -->
+  <div class="sub">
+    <h3>IPF Diagnostic Flow</h3>
+    <div class="flow">
+      <div class="flow-row">
+        <div class="flow-box">Patient &gt;60 + Male + Smoker</div>
+        <div class="flow-arr">→</div>
+        <div class="flow-box">Dry cough + Progressive dyspnea</div>
+        <div class="flow-arr">→</div>
+        <div class="flow-box">Bibasal Velcro crackles + Clubbing</div>
+      </div>
+      <div class="flow-down">↓</div>
+      <div class="flow-row">
+        <div class="flow-box">HRCT: Honeycombing + Traction bronchiectasis (basal, subpleural)</div>
+        <div class="flow-arr">→</div>
+        <div class="flow-box grn">Classic UIP = IPF Diagnosis (no biopsy needed)</div>
+      </div>
+      <div class="flow-down">↓</div>
+      <div class="flow-row">
+        <div class="flow-box">PFTs: ↓FVC ↓TLC ↓DLCO, Normal FEV₁/FVC</div>
+        <div class="flow-arr">→</div>
+        <div class="flow-box amb">Start Antifibrotic: Pirfenidone OR Nintedanib</div>
+      </div>
+      <div class="flow-down">↓</div>
+      <div class="flow-row">
+        <div class="flow-box red">DO NOT give: Steroids, Azathioprine, MMF, Rituximab</div>
+        <div class="flow-arr">→</div>
+        <div class="flow-box pur">Consider lung transplant for eligible patients with progression</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 5 -->
+<section class="sec" id="s5">
+  <div class="sec-hd">
+    <span class="sec-n">05</span>
+    <h2>Nonspecific Interstitial Pneumonia (NSIP)</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co suc">
+    <div class="co-t">Boards Summary</div>
+    NSIP = younger nonsmoking female, often with CTD, GGO on CT with subpleural sparing, no honeycombing. MUCH better prognosis than IPF (&gt;80% 5-year survival). Treatment: steroids + immunosuppression. CAN have progressive pulmonary fibrosis requiring antifibrotic.
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Manifestations</h3>
+    <ul class="bl">
+      <li><strong>Demographics:</strong> Typically <strong>nonsmoking females in their 5th decade</strong> (contrasts with IPF: older males, smokers)</li>
+      <li>Frequently associated with <strong>CTD</strong> (scleroderma, myositis, RA, Sjögren's) — look for CTD features in the history</li>
+      <li>Also occurs idiopathically, with familial ILD, drug toxicity, infection</li>
+      <li><strong>Positive serologies</strong> for CTD are frequently found — always screen</li>
+      <li>Symptoms: progressive dyspnea, dry cough — subacute onset</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>HRCT Findings — Contrasts with IPF</h3>
+    <ul class="bl">
+      <li><strong>Diffuse subpleural, symmetric GGO</strong> — ground-glass opacity dominates (not honeycombing)</li>
+      <li><strong>Reticular pattern</strong> — bilateral</li>
+      <li><strong>Subpleural sparing</strong> — a hallmark feature that helps distinguish from IPF (IPF has subpleural predominance; NSIP has subpleural sparing)</li>
+      <li><strong>Traction bronchiectasis</strong> — present in fibrotic NSIP</li>
+      <li><strong>Honeycombing — uncommon</strong> (if present, think IPF or CTD-ILD with UIP)</li>
+      <li>HRCT of NSIP is <strong>NOT diagnostic</strong> — it can overlap with UIP pattern</li>
+    </ul>
+    <div class="co key">
+      <div class="co-t">IPF vs NSIP on HRCT — The Key Distinction</div>
+      <ul class="bl">
+        <li>IPF: Honeycombing + subpleural predominance + basal predominance = UIP (classic)</li>
+        <li>NSIP: GGO dominant + subpleural SPARING + lower lobes + NO honeycombing = NSIP</li>
+        <li>If you see GGO in a young woman with known CTD → NSIP until proven otherwise</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Histopathology</h3>
+    <ul class="bl">
+      <li>Varying amounts of interstitial inflammation and fibrosis with a <strong>uniform appearance</strong> (in contrast to the temporal and spatial heterogeneity of UIP/IPF)</li>
+      <li><strong>Honeycomb changes usually absent</strong>; fibroblast foci are rare</li>
+      <li><strong>Cellular NSIP</strong> (predominantly inflammatory) → more responsive to therapy, better prognosis</li>
+      <li><strong>Fibrotic NSIP</strong> (predominantly fibrotic) → less responsive to therapy, worse prognosis</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Prognosis</h3>
+    <div class="co suc">
+      <div class="co-t">Prognosis — Much Better Than IPF</div>
+      <ul class="bl">
+        <li>5-year survival: <strong>&gt;80%</strong> (contrast with IPF: 50% at 3–5 years)</li>
+        <li>Cellular NSIP has a more favorable prognosis than fibrotic NSIP</li>
+        <li>NSIP associated with CTD has better prognosis than idiopathic NSIP</li>
+        <li>However: NSIP with progressive pulmonary fibrosis carries worse prognosis</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment</h3>
+    <ul class="bl">
+      <li>CTD-associated pulmonary fibrosis is commonly treated with <strong>immunosuppression</strong> (though randomized trials are limited)</li>
+      <li>Idiopathic NSIP treatment options:
+        <ul class="bl">
+          <li><strong>Oral steroids (prednisone)</strong> — first line</li>
+          <li><strong>Cytotoxic agents:</strong> Mycophenolate (MMF), azathioprine, cyclophosphamide</li>
+          <li><strong>Biologics:</strong> Rituximab, tocilizumab</li>
+        </ul>
+      </li>
+      <li>Recent trials: NSIP patients with <strong>progressive pulmonary fibrosis</strong> may benefit from <strong>antifibrotic therapy (Nintedanib)</strong></li>
+      <li>Oxygen therapy, pulmonary rehabilitation, and lung transplantation may be needed in progressive disease</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 6 -->
+<section class="sec" id="s6">
+  <div class="sec-hd">
+    <span class="sec-n">06</span>
+    <h2>Cryptogenic Organizing Pneumonia (COP)</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co suc">
+    <div class="co-t">Boards Summary</div>
+    COP = subacute flu-like illness (cough, fever, dyspnea), migratory patchy consolidations on CT, restrictive PFTs. RESPONDS VERY WELL to corticosteroids. Relapse rate is high → need ≥6 months of treatment. Confused with pneumonia clinically. NOT antifibrotic therapy.
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Manifestations</h3>
+    <ul class="bl">
+      <li><strong>Demographics:</strong> Typically 50–60s age group</li>
+      <li><strong>Presentation:</strong> Subacute flulike illness — cough, dyspnea, <strong>fever</strong>, fatigue. The presence of fever is important — it's unusual in IPF or NSIP but common in COP.</li>
+      <li>Inspiratory rales on exam; restrictive pattern on PFTs with hypoxemia</li>
+      <li><strong>Commonly mistaken for pneumonia</strong> — this is a major boards trap. Patient gets antibiotics repeatedly for "pneumonia" with no improvement → consider COP</li>
+      <li>Can occur: isolated (idiopathic), secondary to CTD, malignancy, medications, or following infection</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">COP Clinical Clue</div>
+      A patient treated multiple times for "pneumonia" that keeps recurring, or consolidations that are MIGRATORY on serial imaging = strongly suggests COP. Normal antibiotics do not help. Steroids are the answer.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>HRCT Findings</h3>
+    <ul class="bl">
+      <li><strong>Patchy subpleural consolidative opacities</strong> — often bilateral, can be peribronchovascular</li>
+      <li><strong>Ground-glass opacities (GGO)</strong> surrounding the consolidation</li>
+      <li><strong>Migratory pattern</strong> — opacities that change location over time on serial imaging (very characteristic of COP)</li>
+      <li><strong>Reversed halo sign (atoll sign)</strong> — a rim of consolidation surrounding a central area of GGO. Seen in COP and is helpful for diagnosis. Also called "reversed halo" or "atoll sign."</li>
+      <li>Peribronchiolar or perilobar opacities can also be present</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment — Corticosteroids</h3>
+    <div class="co suc">
+      <div class="co-t">COP: The ILD That LOVES Steroids</div>
+      <ul class="bl">
+        <li>Corticosteroids result in <strong>substantial clinical improvement</strong> in most patients with COP</li>
+        <li>Treatment must be continued for <strong>at least 6 months</strong> — relapse rate is high if stopped early</li>
+        <li>Relapse often occurs when steroids are tapered too quickly</li>
+        <li>For relapse or steroid-refractory COP: cytotoxic agents (mycophenolate, cyclophosphamide) or biologics (rituximab) can be helpful</li>
+      </ul>
+    </div>
+    <div class="co dan">
+      <div class="co-t">What NOT to Do in COP</div>
+      Do NOT give antifibrotic therapy (Pirfenidone or Nintedanib) for COP. Antifibrotics are specifically for IPF (and progressive pulmonary fibrosis). COP is inflammatory and responds to steroids — it does not need antifibrotic treatment.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 7 -->
+<section class="sec" id="s7">
+  <div class="sec-hd">
+    <span class="sec-n">07</span>
+    <h2>Drug-Induced Interstitial Lung Disease</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co dan">
+    <div class="co-t">Why Drug-Induced ILD Matters on Boards</div>
+    Many common medications cause ILD. The diagnosis requires a high index of suspicion + careful medication history. Treatment = stop the offending drug. May also need steroids depending on severity.
+  </div>
+
+  <div class="sub">
+    <h3>Major Drug Classes Causing ILD</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug Class</th><th>Drug Names</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Antiarrhythmics</td><td><strong>Amiodarone</strong></td><td>Most common antiarrhythmic to cause ILD. Restrictive pattern + reduced DLCO. Can cause pulmonary toxicity in 5–15% of patients. Accumulated drug in the lung. Phospholipidosis on pathology.</td></tr>
+          <tr><td>Antibiotics</td><td><strong>Nitrofurantoin</strong></td><td>Classic antibiotic causing ILD (used for UTI prophylaxis). Acute or chronic forms. Ask about long-term UTI prevention!</td></tr>
+          <tr><td>Chemotherapy</td><td><strong>Bleomycin</strong>, Cyclophosphamide, Busulfan</td><td><strong>Bleomycin is the #1 boards answer for chemo-induced ILD.</strong> Dose-dependent pulmonary toxicity. Potentiated by supplemental oxygen!</td></tr>
+          <tr><td>DMARDs / Immunomodulators</td><td><strong>Methotrexate</strong>, Azathioprine, Leflunomide</td><td>Methotrexate is paradoxically used to treat RA (which causes ILD) but also causes ILD itself.</td></tr>
+          <tr><td>Biologics</td><td><strong>Rituximab</strong>, TNF-α blockers (infliximab, etanercept)</td><td>TNF blockers and rituximab — used to treat inflammatory diseases — can also cause ILD. Rituximab more commonly associated with organizing pneumonia pattern.</td></tr>
+          <tr><td>Antiepileptics</td><td>Phenytoin</td><td>Less common but recognized cause.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="co key">
+      <div class="co-t">The Boards Mnemonic: "NAIB-TP" — Drug-Induced ILD</div>
+      <ul class="bl">
+        <li><strong>N</strong>itrofurantoin</li>
+        <li><strong>A</strong>miodarone</li>
+        <li><strong>I</strong>nfliximab / biologics (TNF-α inhibitors)</li>
+        <li><strong>B</strong>leomycin (and other chemotherapy)</li>
+        <li><strong>T</strong>ocilizumab / Rituximab (biologics)</li>
+        <li><strong>P</strong>rocainamide / Phenytoin (older drugs, less tested)</li>
+      </ul>
+      Remember: Nitrofurantoin, Amiodarone, Methotrexate, Bleomycin, Rituximab, TNF-α blockers
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Amiodarone Pulmonary Toxicity — In Depth</h3>
+    <p>Amiodarone is an antiarrhythmic drug (Class III) used for serious arrhythmias. It accumulates in the lung tissue and can cause progressive interstitial lung disease.</p>
+    <ul class="bl">
+      <li><strong>Incidence:</strong> 5–15% of patients on long-term amiodarone</li>
+      <li><strong>Presentation:</strong> Progressive dyspnea, dry cough, weight loss, fever (may mimic infection or heart failure)</li>
+      <li><strong>PFT Pattern:</strong> <strong>Restrictive pattern</strong> — ↓TLC, ↓FVC, normal/preserved FEV₁/FVC ratio, significantly <strong>↓DLCO</strong></li>
+      <li><strong>HRCT:</strong> Bilateral ground-glass opacities, consolidation, and interstitial thickening. Pleural effusions possible.</li>
+      <li><strong>Treatment:</strong> Discontinue amiodarone + corticosteroids if severe</li>
+    </ul>
+    <div class="co prl">
+      <div class="co-t">Amiodarone PFT — Boards Key Point</div>
+      Amiodarone-induced ILD causes a RESTRICTIVE PFT pattern. FEV₁/FVC will be NORMAL (not decreased). DLCO will be reduced. This is the same pattern as IPF — but the context (amiodarone use) tells you the cause. Do not be tricked into choosing an obstructive pattern for amiodarone lung toxicity.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Bleomycin Pulmonary Toxicity</h3>
+    <ul class="bl">
+      <li>Bleomycin (used in testicular cancer, lymphoma, germ cell tumors) is the most board-tested chemotherapy causing ILD</li>
+      <li><strong>Mechanism:</strong> Generates reactive oxygen species → direct pulmonary endothelial injury → fibrosis</li>
+      <li><strong>Risk factors:</strong> Cumulative dose, age, renal impairment, <strong>supplemental oxygen</strong> (FiO₂ &gt;25% markedly potentiates bleomycin toxicity — critical surgical/anesthesia pearl)</li>
+      <li><strong>Presentation:</strong> Progressive dyspnea and restrictive pattern on PFTs</li>
+      <li><strong>Management:</strong> Stop bleomycin; steroids for severe cases</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>General Approach to Drug-Induced ILD</h3>
+    <div class="flow">
+      <div class="flow-row">
+        <div class="flow-box">Progressive dyspnea + restrictive PFTs</div>
+        <div class="flow-arr">→</div>
+        <div class="flow-box">Check COMPLETE medication history</div>
+      </div>
+      <div class="flow-down">↓</div>
+      <div class="flow-row">
+        <div class="flow-box">Identify offending drug (Amiodarone? Nitrofurantoin? Bleomycin? MTX?)</div>
+        <div class="flow-arr">→</div>
+        <div class="flow-box amb">Stop the drug immediately</div>
+      </div>
+      <div class="flow-down">↓</div>
+      <div class="flow-row">
+        <div class="flow-box grn">Mild: may improve with drug discontinuation alone</div>
+        <div class="flow-arr">→</div>
+        <div class="flow-box pur">Severe: add corticosteroids</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 8 -->
+<section class="sec" id="s8">
+  <div class="sec-hd">
+    <span class="sec-n">08</span>
+    <h2>CTD-Associated ILD &amp; ILD Steroid Response</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Which ILDs Respond to Steroids?</h3>
+    <p>This is one of the highest-yield distinctions on boards. Understanding steroid response guides treatment decisions across all ILD types.</p>
+
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-g">Good Steroid Response ✓</div>
+        <ul class="bl">
+          <li><strong>COP (Cryptogenic Organizing Pneumonia)</strong> — excellent response; may achieve complete remission</li>
+          <li><strong>Eosinophilic pneumonia</strong> — dramatic, often rapid response</li>
+          <li><strong>Sarcoidosis</strong> — steroids are primary treatment for symptomatic/progressive sarcoidosis</li>
+          <li><strong>Drug-induced ILD</strong> — steroids help after stopping the offending drug</li>
+          <li><strong>Hypersensitivity pneumonitis</strong> — steroids speed recovery</li>
+          <li><strong>AIP (Acute Interstitial Pneumonia)</strong> — commonly given, though not clearly proven effective</li>
+          <li><strong>CTD-associated NSIP</strong> — partial response</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Poor/Harmful Response ✗</div>
+        <ul class="bl">
+          <li><strong>IPF (Idiopathic Pulmonary Fibrosis)</strong> — steroids are HARMFUL. Increased morbidity and mortality (PANTHER-IPF trial). This is the most important "steroid doesn't work" in ILD.</li>
+          <li>RB-ILD / DIP — smoking cessation is the treatment; steroids have no strong evidence</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="co dan">
+      <div class="co-t">The #1 Boards Trap: Steroids in IPF</div>
+      A question describes IPF features (older male, bibasal crackles, honeycombing on CT, restrictive PFTs) and asks for treatment. Never choose steroids/prednisone for IPF. Always choose antifibrotic therapy (Pirfenidone or Nintedanib). Steroids worsen IPF.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>CTD-Associated ILD — Overview</h3>
+    <p>ILD is a common manifestation of many CTDs. The most common CTDs causing ILD are:</p>
+    <ul class="bl">
+      <li><strong>Systemic sclerosis (SSc/scleroderma)</strong> — most common CTD with ILD (~50% of diffuse SSc patients)</li>
+      <li><strong>Rheumatoid arthritis</strong> — RA-ILD more common in men; UIP pattern most common</li>
+      <li><strong>Polymyositis/Dermatomyositis</strong> — NSIP or COP patterns; anti-synthetase antibodies</li>
+      <li>Less common: Sjögren's syndrome, SLE</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Systemic Sclerosis ILD</h3>
+    <ul class="bl">
+      <li>ILD occurs in ~50% of SSc patients with diffuse disease, ~30% with limited disease</li>
+      <li>HRCT: NSIP pattern most common; UIP pattern also seen; also dilated esophagus (characteristic SSc feature)</li>
+      <li><strong>Treatment:</strong> Cyclophosphamide (modest benefit), <strong>Mycophenolate</strong> (similar efficacy, better tolerability), Tocilizumab (anti-IL-6), <strong>Nintedanib</strong> (approved for SSc-ILD)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>RA-Associated ILD</h3>
+    <ul class="bl">
+      <li>Clinically evident in ~10% of RA patients; up to 40–50% have radiologic abnormalities on CT</li>
+      <li>More common in <strong>males</strong> with RA (despite RA being more common in females) — tested frequently</li>
+      <li>UIP pattern is most common histopathologic pattern</li>
+      <li>Treatment: Immunosuppression (prednisone, mycophenolate, azathioprine). Antifibrotic therapy may slow FVC decline in RA-ILD with progressive pulmonary fibrosis</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Progressive Pulmonary Fibrosis (PPF)</h3>
+    <p>A newer concept that encompasses various ILDs (beyond IPF) that show progressive fibrosis despite treatment:</p>
+    <ul class="bl">
+      <li>Includes: NSIP, sarcoidosis, CTD-ILD, HP when they show progressive FVC decline</li>
+      <li><strong>Nintedanib</strong> has been approved for progressive pulmonary fibrosis (INBUILD trial) — a major expansion of its indication beyond IPF</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 9 -->
+<section class="sec" id="s9">
+  <div class="sec-hd">
+    <span class="sec-n">09</span>
+    <h2>Master Comparison Table</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="tw">
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>IPF</th>
+          <th>NSIP</th>
+          <th>COP</th>
+          <th>Drug-Induced</th>
+          <th>Sarcoidosis</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Typical Patient</td>
+          <td>Male &gt;60, smoker</td>
+          <td>Female, 5th decade, non-smoker, CTD</td>
+          <td>50–60s, any sex</td>
+          <td>Any — review drug list</td>
+          <td>20–40s, any sex</td>
+        </tr>
+        <tr>
+          <td>Onset</td>
+          <td>Chronic indolent (months–years)</td>
+          <td>Subacute to chronic</td>
+          <td>Subacute flulike (weeks)</td>
+          <td>Variable (weeks–months after drug)</td>
+          <td>Subacute to chronic</td>
+        </tr>
+        <tr>
+          <td>Symptoms</td>
+          <td>Dry cough, dyspnea. NO fever, NO hemoptysis</td>
+          <td>Dyspnea, dry cough</td>
+          <td>Cough, fever, dyspnea (flu-like)</td>
+          <td>Dyspnea, dry cough</td>
+          <td>Dyspnea, cough; systemic (skin, eyes, joints)</td>
+        </tr>
+        <tr>
+          <td>Clubbing</td>
+          <td>Common</td>
+          <td>Less common</td>
+          <td>Rare</td>
+          <td>Rare</td>
+          <td>Rare</td>
+        </tr>
+        <tr>
+          <td>HRCT Key Findings</td>
+          <td>Honeycombing + Traction bronchiectasis, basal subpleural</td>
+          <td>GGO + subpleural sparing, no honeycombing</td>
+          <td>Migratory patchy consolidation, reversed halo sign</td>
+          <td>GGO, consolidation, interstitial changes</td>
+          <td>Hilar/mediastinal lymphadenopathy, peribronchovascular</td>
+        </tr>
+        <tr>
+          <td>PFTs</td>
+          <td>↓TLC, ↓FVC, ↓DLCO, normal FEV₁/FVC</td>
+          <td>↓TLC, ↓FVC, ↓DLCO, normal FEV₁/FVC</td>
+          <td>↓TLC, ↓FVC, ↓DLCO, normal FEV₁/FVC</td>
+          <td>Restrictive + ↓DLCO (normal FEV₁/FVC)</td>
+          <td>Restrictive or mixed (if airways involved)</td>
+        </tr>
+        <tr>
+          <td>Hemoptysis?</td>
+          <td>NO — very rare</td>
+          <td>No</td>
+          <td>No</td>
+          <td>No</td>
+          <td>Rare (unless massive fibrosis)</td>
+        </tr>
+        <tr>
+          <td>Steroid Response</td>
+          <td>NO — steroids are HARMFUL</td>
+          <td>Yes — partial (cellular &gt; fibrotic)</td>
+          <td>YES — excellent response</td>
+          <td>YES — after stopping drug</td>
+          <td>YES — for symptomatic disease</td>
+        </tr>
+        <tr>
+          <td>Prognosis</td>
+          <td>Poor — 50% mortality at 3–5 years</td>
+          <td>Good — &gt;80% 5-year survival</td>
+          <td>Good — responds to treatment; relapse common</td>
+          <td>Variable — depends on drug and severity</td>
+          <td>Generally low mortality; varies by stage</td>
+        </tr>
+        <tr>
+          <td>Treatment</td>
+          <td>Pirfenidone OR Nintedanib; lung transplant</td>
+          <td>Prednisone, MMF, azathioprine, rituximab; Nintedanib if progressive</td>
+          <td>Prednisone ≥6 months; MMF or rituximab for relapse</td>
+          <td>Stop drug + steroids if severe</td>
+          <td>Prednisone if symptomatic; immunosuppression for refractory</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="sep">
+
+  <div class="sub">
+    <h3>Hemoptysis in ILD — What Does and Doesn't Cause It</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">ILD WITH Hemoptysis (rare but tested)</div>
+        <ul class="bl">
+          <li><strong>Granulomatosis with Polyangiitis (GPA, formerly Wegener's)</strong> — vasculitis + DAH</li>
+          <li><strong>Diffuse Alveolar Hemorrhage (DAH)</strong> — Goodpasture's, Wegener's, SLE, anti-GBM disease</li>
+          <li><strong>Aspergilloma</strong> — fungal ball in pre-existing cavity can bleed massively</li>
+          <li><strong>Bronchiectasis (traction)</strong> — secondary to fibrosis, vessels near dilated airways</li>
+          <li><strong>LAM</strong> — can have hemoptysis via cystic rupture</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">ILD WITHOUT Hemoptysis</div>
+        <ul class="bl">
+          <li><strong>IPF</strong> — No hemoptysis. IPF is purely fibrotic, not vasculitic. If hemoptysis occurs in IPF, look for secondary cause (superinfection, aspergilloma in cavity, lung cancer).</li>
+          <li>NSIP — No hemoptysis</li>
+          <li>COP — No hemoptysis</li>
+          <li>Drug-induced ILD — No hemoptysis</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Antifibrotic Drug Quick Reference</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Pirfenidone</div>
+        <ul class="bl">
+          <li><strong>Mechanism:</strong> Pleiotropic antifibrotic; inhibits TGF-β, anti-inflammatory</li>
+          <li><strong>Indication:</strong> IPF</li>
+          <li><strong>Key trial:</strong> CAPACITY + ASCEND (2014)</li>
+          <li><strong>Outcome:</strong> Slows FVC decline; reduces mortality trend</li>
+          <li><strong>Side effects:</strong> Photosensitivity, GI upset, LFT elevation</li>
+          <li><strong>Dosing:</strong> With food (reduces GI side effects)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Nintedanib</div>
+        <ul class="bl">
+          <li><strong>Mechanism:</strong> Tyrosine kinase inhibitor (VEGFR, PDGFR, FGFR)</li>
+          <li><strong>Indication:</strong> IPF; SSc-ILD; Progressive Pulmonary Fibrosis</li>
+          <li><strong>Key trial:</strong> INPULSIS (2014); INBUILD (PPF); SENSCIS (SSc-ILD)</li>
+          <li><strong>Outcome:</strong> Slows FVC decline; may improve survival; reduces acute exacerbation rate</li>
+          <li><strong>Side effects:</strong> Diarrhea (most common), nausea, LFT elevation</li>
+          <li><strong>Important:</strong> Does not REVERSE fibrosis — only slows progression</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 10 -->
+<section class="sec" id="s10">
+  <div class="sec-hd">
+    <span class="sec-n">10</span>
+    <h2>Exam Traps</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">IPF + Steroids — The Classic Mistake</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 66-year-old male with progressive dry cough, digital clubbing, bibasal Velcro crackles, and CT showing honeycombing with traction bronchiectasis in the lower lobes. PFTs show restrictive pattern with low DLCO. What is the best treatment?<br><br>Options: (A) Prednisone, (B) Nintedanib, (C) Pirfenidone + Prednisone, (D) Azathioprine</div>
+      <div class="trap-a"><strong>Answer: Nintedanib (or Pirfenidone) — antifibrotic therapy only.</strong> This is classic IPF. Steroids, azathioprine, and combination immunosuppression are CONTRAINDICATED — they increase morbidity and mortality in IPF (proven in PANTHER-IPF trial). Antifibrotic monotherapy is the standard of care.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">FEV₁/FVC in ILD — Restriction vs Obstruction</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 75-year-old with IPF has: FVC 59%, FEV₁ 58%, FEV₁/FVC 91%, TLC 69%, DLCO 42%. Which PFT pattern does this represent?<br><br>Options: (A) Obstructive, (B) Restrictive, (C) Mixed, (D) Normal</div>
+      <div class="trap-a"><strong>Answer: Restrictive.</strong> The FEV₁/FVC ratio is 91% — this is ELEVATED (not decreased), which means NO obstruction. Both FVC and FEV₁ are reduced proportionally. TLC is reduced. DLCO is markedly reduced. This is the classic restrictive pattern of IPF. The key: normal or elevated FEV₁/FVC = restriction, not obstruction.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Drug-Induced ILD — Which Drug Is the Culprit?</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A question asks which medication is most likely to cause interstitial lung disease. Options include: Doxycycline, Bleomycin, Vancomycin, Lisinopril.</div>
+      <div class="trap-a"><strong>Answer: Bleomycin.</strong> Bleomycin is the classic chemotherapy drug that causes pulmonary fibrosis/ILD. It is dose-dependent and potentiated by supplemental oxygen. Lisinopril causes cough but not ILD. Doxycycline and vancomycin do not cause ILD. Key drug-ILD associations: <strong>Bleomycin → chemotherapy ILD; Amiodarone → antiarrhythmic ILD; Nitrofurantoin → antibiotic ILD.</strong></div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">NSIP vs IPF — The Key Imaging Distinction</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 64-year-old female café owner with 10 years of progressive cough. CT chest shows bilateral ground-glass opacities in the lower lobes with subpleural sparing. No honeycombing. Serologies positive for anti-CCP. What is the most likely diagnosis?<br><br>Options: IPF, NSIP, COP, Sarcoidosis</div>
+      <div class="trap-a"><strong>Answer: NSIP (nonspecific interstitial pneumonia).</strong> The combination of: young-ish female + CTD serologies (anti-CCP = RA) + GGO with <strong>subpleural sparing</strong> + NO honeycombing = NSIP. IPF would show honeycombing and subpleural PREDOMINANCE (not sparing). COP would show patchy consolidation. Sarcoidosis would show hilar adenopathy + upper lobe nodules.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">COP Mistaken for Pneumonia</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 55-year-old female has been treated 3 times in the past year for "pneumonia" with antibiotics, with partial improvement each time. CT shows bilateral subpleural consolidation with ground-glass opacity. What is the next best management step?<br><br>Options: (A) IV antibiotics, (B) Antifungal, (C) Corticosteroids, (D) Antifibrotic therapy</div>
+      <div class="trap-a"><strong>Answer: Corticosteroids.</strong> Recurrent/non-resolving "pneumonia" + migratory consolidations = COP (Cryptogenic Organizing Pneumonia) until proven otherwise. COP responds dramatically to corticosteroids (need at least 6 months to prevent relapse). Antibiotics won't help. Antifibrotic therapy is for IPF — NOT COP.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Nintedanib vs Riociguat — Look-Alike Trap</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Which drug has been shown in clinical trials to slow the rate of FVC decline in patients with Idiopathic Pulmonary Fibrosis?<br><br>Options: Nintedanib, Rituximab, Mycophenolate mofetil, Riociguat</div>
+      <div class="trap-a"><strong>Answer: Nintedanib.</strong> Rituximab has no role in IPF treatment. MMF has no proven benefit in IPF. Riociguat (a soluble guanylate cyclase stimulator) was actually studied in IPF and the trial was STOPPED EARLY due to harm signals — it is approved for PAH and CTEPH but NOT for IPF. Only Nintedanib and Pirfenidone are approved antifibrotics for IPF.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">Prognosis Comparison — NSIP vs IPF</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 54-year-old woman (no CTD history) is told she has NSIP based on lung biopsy. What is the correct prognosis to communicate?<br><br>Options: (A) &gt;80% 5-year survival, (B) Similar prognosis to IPF (50% at 3–5 years), (C) Self-limiting illness resolving in 6 months, (D) Better prognosis if fibrotic pattern</div>
+      <div class="trap-a"><strong>Answer: &gt;80% 5-year survival (Cellular pattern gives even better prognosis).</strong> NSIP has a much better prognosis than IPF. IPF has 50% 3–5 year mortality. Fibrotic NSIP is WORSE than cellular NSIP (opposite of option D). NSIP does not self-limit — it requires treatment. This is a high-yield prognosis distinction: IPF = poor; NSIP = good.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">Hemoptysis in ILD — IPF Does NOT Cause It</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 73-year-old man with longstanding IPF presents with acute hemoptysis. He coughs up blood-tinged sputum. Which of the following correctly explains the hemoptysis?<br><br>Options: (A) It is a typical symptom of IPF, (B) It is due to a complication (aspergilloma or lung cancer), (C) It confirms acute exacerbation of IPF, (D) It is from traction bronchiectasis naturally</div>
+      <div class="trap-a"><strong>Answer: Complication — aspergilloma or lung cancer.</strong> IPF itself does NOT cause hemoptysis. IPF causes dry cough. When hemoptysis occurs in IPF, always look for a COMPLICATION — aspergilloma in honeycombing cavities, or lung cancer (IPF patients have higher lung cancer risk). Acute exacerbation of IPF causes worsening dyspnea and respiratory failure, not hemoptysis.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Amiodarone PFT — Normal FEV₁/FVC Is Key</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 67-year-old woman on chronic amiodarone develops progressive dyspnea. CXR shows bilateral infiltrates. PFTs are done — what pattern do you expect?<br><br>Options: (A) FEV₁/FVC decreased, (B) FEV₁/FVC normal with low DLCO, (C) Increased TLC with low DLCO, (D) Normal PFTs with elevated RV</div>
+      <div class="trap-a"><strong>Answer: FEV₁/FVC normal (or preserved) with low DLCO.</strong> Amiodarone causes interstitial lung disease → RESTRICTIVE pattern. Restrictive = low FVC, low FEV₁, but NORMAL or elevated FEV₁/FVC ratio. DLCO is reduced. TLC is reduced (not elevated). Elevated TLC + low DLCO suggests emphysema, not drug-induced ILD.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Pirfenidone in UIP Pattern — Even Without Classic Presentation</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 73-year-old male with dry cough and progressive dyspnea. FVC 75%, FEV₁ 80%, DLCO 65%. CT scan shows bilateral subpleural reticular markings, traction bronchiectasis, and honeycombing consistent with UIP pattern. Spirometry available today. What is the most appropriate treatment?<br><br>Options: (A) Pirfenidone, (B) Azathioprine + Prednisone, (C) Levofloxacin, (D) Mepolizumab</div>
+      <div class="trap-a"><strong>Answer: Pirfenidone.</strong> Classic UIP pattern on CT in an older male + restrictive PFTs = IPF. The antifibrotic treatment of choice is Pirfenidone or Nintedanib. Azathioprine + Prednisone is CONTRAINDICATED in IPF (PANTHER trial). Levofloxacin has no role. Mepolizumab (anti-IL-5) is for eosinophilic conditions (EGPA, eosinophilic asthma), not IPF.</div>
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<footer class="footer">Harrison's Principles of Internal Medicine · Chapter 304 · Interstitial Lung Disease · Boards Review 2026 · Venos Edition</footer>
+
+<script>
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
