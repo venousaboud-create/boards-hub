@@ -1321,6 +1321,8 @@ tbody td:first-child{color:var(--tx);font-weight:500}
 <footer class="footer">Harrison's Principles of Internal Medicine · Chapter 304 · Interstitial Lung Disease · Boards Review 2026 · Venos Edition</footer>
 
 <script>
+function tog(hd){const item=hd.closest('.toggle-item')||hd.parentElement;const body=item.querySelector('.toggle-body');const arrow=hd.querySelector('.toggle-arrow');if(!body)return;const isOpen=body.style.display==='block';body.style.display=isOpen?'none':'block';if(arrow)arrow.textContent=isOpen?'▶':'▼';}
+
 const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
 const HL_KEY   = FILE_KEY + '_hl';
 const NT_KEY   = FILE_KEY + '_notes';
