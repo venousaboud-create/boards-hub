@@ -14,117 +14,129 @@
 }
 body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;min-height:100vh}
 
-/* TOP BAR */
 .topbar{position:sticky;top:0;z-index:100;background:rgba(13,17,23,.9);backdrop-filter:blur(12px);
   border-bottom:1px solid var(--bd);padding:12px 28px;display:flex;align-items:center;justify-content:space-between}
-.topbar-left{display:flex;align-items:center;gap:12px}
 .back-btn{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.1em;
   text-transform:uppercase;background:var(--bg3);color:var(--t2);border:1px solid var(--bd);
   border-radius:6px;padding:5px 12px;cursor:pointer;text-decoration:none;transition:all .15s}
 .back-btn:hover{border-color:var(--acc);color:var(--acc)}
-.topbar-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--tx)}
+.topbar-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700}
 .note-count{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);
   background:var(--bg3);border:1px solid var(--bd);border-radius:4px;padding:2px 8px}
 
-/* HERO */
-.hero{padding:40px 28px 28px;max-width:900px;margin:0 auto}
-.hero h1{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;
-  line-height:1.1;margin-bottom:8px}
+.hero{padding:36px 28px 20px;max-width:900px;margin:0 auto}
+.hero h1{font-family:'Playfair Display',serif;font-size:34px;font-weight:900;margin-bottom:6px}
 .hero h1 em{font-style:italic;color:var(--acc)}
-.hero p{color:var(--t2);font-size:14px}
+.hero p{color:var(--t2);font-size:13.5px}
 
-/* ADD NOTE FORM */
-.add-section{max-width:900px;margin:0 auto;padding:0 28px 28px}
-.add-card{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:20px;
-  transition:border-color .2s}
+/* ADD FORM */
+.add-section{max-width:900px;margin:0 auto;padding:0 28px 24px}
+.add-card{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:18px;transition:border-color .2s}
 .add-card:focus-within{border-color:rgba(88,166,255,.4)}
 .add-card-title{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;
   letter-spacing:.15em;text-transform:uppercase;color:var(--t2);margin-bottom:14px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-@media(max-width:600px){.form-row{grid-template-columns:1fr}}
-.form-group label{display:block;font-family:'JetBrains Mono',monospace;font-size:8.5px;
-  font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+.form-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+@media(max-width:640px){.form-row{grid-template-columns:1fr}}
+.form-group label{display:block;font-family:'JetBrains Mono',monospace;font-size:8px;
+  font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:4px}
 .form-group input,.form-group select,.form-group textarea{
   width:100%;background:var(--bg3);border:1px solid var(--bd);border-radius:6px;
   color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:13px;
-  padding:8px 12px;outline:none;transition:border-color .15s}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
-  border-color:var(--acc)}
+  padding:7px 10px;outline:none;transition:border-color .15s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--acc)}
 .form-group select option{background:var(--bg3)}
-.form-group textarea{resize:vertical;min-height:80px;line-height:1.6}
-.form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
-.btn-add{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+.form-group textarea{resize:vertical;min-height:75px;line-height:1.6}
+.topic-suggestions{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.topic-sug{font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 7px;
+  border-radius:3px;border:1px solid var(--bd);color:var(--t3);cursor:pointer;
+  background:var(--bg3);transition:all .12s}
+.topic-sug:hover{border-color:var(--acc);color:var(--acc)}
+.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+.btn-save{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
   letter-spacing:.1em;text-transform:uppercase;background:var(--acc);color:#0d1117;
-  border:none;border-radius:6px;padding:8px 20px;cursor:pointer;transition:opacity .15s}
-.btn-add:hover{opacity:.85}
-.btn-clear-form{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  border:none;border-radius:6px;padding:7px 18px;cursor:pointer;transition:opacity .15s}
+.btn-save:hover{opacity:.85}
+.btn-clr{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
   letter-spacing:.1em;text-transform:uppercase;background:var(--bg3);color:var(--t2);
-  border:1px solid var(--bd);border-radius:6px;padding:8px 16px;cursor:pointer}
+  border:1px solid var(--bd);border-radius:6px;padding:7px 14px;cursor:pointer}
 
-/* FILTERS */
-.filters{max-width:900px;margin:0 auto;padding:0 28px 20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.search-box{flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--bd);border-radius:6px;
-  color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:13px;padding:7px 12px;outline:none}
+/* TOPIC FILTER TAGS */
+.tags-section{max-width:900px;margin:0 auto;padding:0 28px 16px}
+.tags-label{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+.tags-row{display:flex;flex-wrap:wrap;gap:6px}
+.tag-btn{font-family:'JetBrains Mono',monospace;font-size:8.5px;padding:3px 10px;
+  border-radius:4px;border:1px solid var(--bd);color:var(--t2);cursor:pointer;
+  background:var(--bg2);transition:all .12s}
+.tag-btn:hover{border-color:var(--acc);color:var(--acc)}
+.tag-btn.active{background:rgba(88,166,255,.12);border-color:rgba(88,166,255,.4);color:var(--acc)}
+.tag-btn.all-btn{border-color:rgba(88,166,255,.3);color:var(--acc)}
+.tag-btn.all-btn.active{background:rgba(88,166,255,.15)}
+
+/* SUBJECT FILTER */
+.filters{max-width:900px;margin:0 auto;padding:0 28px 16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.search-box{flex:1;min-width:180px;background:var(--bg2);border:1px solid var(--bd);border-radius:6px;
+  color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:13px;padding:6px 12px;outline:none}
 .search-box:focus{border-color:var(--acc)}
-.filter-btn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
-  letter-spacing:.08em;text-transform:uppercase;background:var(--bg2);color:var(--t2);
-  border:1px solid var(--bd);border-radius:6px;padding:6px 12px;cursor:pointer;transition:all .15s}
-.filter-btn:hover,.filter-btn.active{background:rgba(88,166,255,.1);border-color:rgba(88,166,255,.3);color:var(--acc)}
-.sort-select{background:var(--bg2);border:1px solid var(--bd);border-radius:6px;
-  color:var(--t2);font-family:'JetBrains Mono',monospace;font-size:8.5px;padding:6px 10px;outline:none}
+.search-box::placeholder{color:var(--t3)}
+.subj-btn{font-family:'JetBrains Mono',monospace;font-size:9px;padding:5px 10px;
+  border-radius:6px;border:1px solid var(--bd);color:var(--t2);cursor:pointer;
+  background:var(--bg2);transition:all .12s}
+.subj-btn:hover,.subj-btn.active{background:rgba(88,166,255,.1);border-color:rgba(88,166,255,.3);color:var(--acc)}
+.sort-sel{background:var(--bg2);border:1px solid var(--bd);border-radius:6px;
+  color:var(--t2);font-family:'JetBrains Mono',monospace;font-size:8.5px;padding:5px 8px;outline:none}
 
-/* NOTES GRID */
+/* NOTES */
 .notes-section{max-width:900px;margin:0 auto;padding:0 28px 80px}
-.notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
-.empty-state{text-align:center;padding:60px 20px;color:var(--t3)}
-.empty-state .empty-icon{font-size:40px;margin-bottom:12px}
-.empty-state p{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px}
+.empty-state{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--t3)}
+.empty-state .ei{font-size:36px;margin-bottom:10px}
+.empty-state p{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase}
 
-/* NOTE CARD */
 .note-card{background:var(--bg2);border:1px solid var(--bd);border-radius:8px;
-  overflow:hidden;transition:border-color .15s;display:flex;flex-direction:column}
-.note-card:hover{border-color:rgba(88,166,255,.25)}
-.note-card-top{padding:12px 14px 8px;flex:1}
-.note-subject{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
-  letter-spacing:.12em;text-transform:uppercase;border-radius:3px;padding:2px 7px;
-  display:inline-block;margin-bottom:8px}
-.note-topic{font-size:12px;font-weight:600;color:var(--tx);margin-bottom:6px;line-height:1.4}
+  overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s}
+.note-card:hover{border-color:rgba(88,166,255,.2)}
+.note-card-body{padding:12px 14px 8px;flex:1}
+.note-badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px}
+.badge-subj{font-family:'JetBrains Mono',monospace;font-size:7.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;border-radius:3px;padding:2px 6px}
+.badge-topic{font-family:'JetBrains Mono',monospace;font-size:7.5px;font-weight:500;
+  letter-spacing:.06em;border-radius:3px;padding:2px 6px;
+  background:rgba(163,113,247,.12);color:#c084fc;cursor:pointer;border:none;
+  transition:background .12s}
+.badge-topic:hover{background:rgba(163,113,247,.25)}
 .note-text{font-size:12.5px;color:var(--t2);line-height:1.6;white-space:pre-wrap}
-.note-card-bottom{padding:8px 14px;border-top:1px solid var(--bd);
+.note-card-foot{padding:7px 14px;border-top:1px solid var(--bd);
   display:flex;align-items:center;justify-content:space-between}
-.note-date{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--t3)}
-.note-del{background:none;border:none;color:var(--t3);cursor:pointer;font-size:14px;
+.note-date{font-family:'JetBrains Mono',monospace;font-size:7.5px;color:var(--t3)}
+.note-del{background:none;border:none;color:var(--t3);cursor:pointer;font-size:13px;
   padding:2px 4px;border-radius:3px;transition:color .15s}
 .note-del:hover{color:var(--red)}
 
 /* SUBJECT COLORS */
-.subj-cardiology{background:rgba(248,81,73,.12);color:#f87171}
-.subj-rheumatology{background:rgba(163,113,247,.12);color:#c084fc}
-.subj-nephrology{background:rgba(88,166,255,.12);color:#60a5fa}
-.subj-infectious{background:rgba(63,185,80,.12);color:#4ade80}
-.subj-respiratory{background:rgba(14,165,233,.12);color:#38bdf8}
-.subj-hematology{background:rgba(251,113,133,.12);color:#fb7185}
-.subj-endocrinology{background:rgba(251,191,36,.12);color:#fbbf24}
-.subj-gastroenterology{background:rgba(52,211,153,.12);color:#34d399}
-.subj-hepatology{background:rgba(251,146,60,.12);color:#fb923c}
-.subj-general{background:rgba(139,148,158,.12);color:#8b949e}
+.sc-cardiology{background:rgba(248,81,73,.12);color:#f87171}
+.sc-rheumatology{background:rgba(163,113,247,.12);color:#c084fc}
+.sc-nephrology{background:rgba(88,166,255,.12);color:#60a5fa}
+.sc-infectious{background:rgba(63,185,80,.12);color:#4ade80}
+.sc-respiratory{background:rgba(14,165,233,.12);color:#38bdf8}
+.sc-hematology{background:rgba(251,113,133,.12);color:#fb7185}
+.sc-endocrinology{background:rgba(251,191,36,.12);color:#fbbf24}
+.sc-gastroenterology{background:rgba(52,211,153,.12);color:#34d399}
+.sc-hepatology{background:rgba(251,146,60,.12);color:#fb923c}
+.sc-general{background:rgba(139,148,158,.12);color:#8b949e}
 
 /* STATS */
-.stats-row{max-width:900px;margin:0 auto;padding:0 28px 20px;display:flex;gap:10px;flex-wrap:wrap}
-.stat-pill{background:var(--bg2);border:1px solid var(--bd);border-radius:6px;
-  padding:6px 14px;font-family:'JetBrains Mono',monospace;font-size:8.5px;
-  letter-spacing:.08em;text-transform:uppercase;color:var(--t2)}
+.stats-row{max-width:900px;margin:0 auto;padding:0 28px 14px;display:flex;gap:8px;flex-wrap:wrap}
+.stat-pill{background:var(--bg2);border:1px solid var(--bd);border-radius:5px;
+  padding:4px 12px;font-family:'JetBrains Mono',monospace;font-size:8px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--t2)}
 .stat-pill span{color:var(--acc);font-weight:500}
-
-.section-header{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;
-  letter-spacing:.15em;text-transform:uppercase;color:var(--t3);margin-bottom:10px;
-  padding-bottom:6px;border-bottom:1px solid var(--bd)}
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <div class="topbar-left">
+  <div style="display:flex;align-items:center;gap:12px">
     <a class="back-btn" href="index.html">← Hub</a>
     <div class="topbar-title">📋 Exam Notes</div>
   </div>
@@ -133,7 +145,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif
 
 <div class="hero">
   <h1>Exam <em>Notes</em></h1>
-  <p>Capture key points from practice questions — organized by subject, searchable, always saved.</p>
+  <p>Capture key points from practice — organized by subject and topic tag.</p>
 </div>
 
 <div class="add-section">
@@ -156,39 +168,48 @@ body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif
         </select>
       </div>
       <div class="form-group">
-        <label>Topic / Question Tag</label>
-        <input type="text" id="inp-topic" placeholder="e.g. NSTEMI timing, Gout treatment…">
+        <label>Topic Tag</label>
+        <input type="text" id="inp-topic" placeholder="e.g. COPD, Gout, AKI…" oninput="updateSuggestions()">
+        <div class="topic-suggestions" id="topic-sug"></div>
+      </div>
+      <div class="form-group">
+        <label>Note</label>
+        <textarea id="inp-note" placeholder="Key point, correction, important fact… (Ctrl+Enter to save)"></textarea>
       </div>
     </div>
-    <div class="form-group">
-      <label>Note</label>
-      <textarea id="inp-note" placeholder="Write your key learning point, correction, or important fact…"></textarea>
-    </div>
     <div class="form-actions">
-      <button class="btn-clear-form" onclick="clearForm()">Clear</button>
-      <button class="btn-add" onclick="addNote()">+ Save Note</button>
+      <button class="btn-clr" onclick="clearForm()">Clear</button>
+      <button class="btn-save" onclick="addNote()">+ Save Note</button>
     </div>
   </div>
 </div>
 
 <div class="stats-row" id="stats-row"></div>
 
+<!-- TOPIC TAGS -->
+<div class="tags-section">
+  <div class="tags-label">Filter by Topic</div>
+  <div class="tags-row" id="tags-row"></div>
+</div>
+
+<!-- SUBJECT + SEARCH FILTERS -->
 <div class="filters">
   <input class="search-box" type="text" placeholder="🔍 Search notes…" id="search-inp" oninput="render()">
-  <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
-  <button class="filter-btn" onclick="setFilter('cardiology',this)">❤️</button>
-  <button class="filter-btn" onclick="setFilter('rheumatology',this)">🦴</button>
-  <button class="filter-btn" onclick="setFilter('nephrology',this)">🫘</button>
-  <button class="filter-btn" onclick="setFilter('infectious',this)">🦠</button>
-  <button class="filter-btn" onclick="setFilter('respiratory',this)">🫁</button>
-  <button class="filter-btn" onclick="setFilter('hematology',this)">🩸</button>
-  <button class="filter-btn" onclick="setFilter('endocrinology',this)">⚗️</button>
-  <button class="filter-btn" onclick="setFilter('gastroenterology',this)">🫄</button>
-  <button class="filter-btn" onclick="setFilter('hepatology',this)">🫀</button>
-  <select class="sort-select" id="sort-sel" onchange="render()">
+  <button class="subj-btn active" onclick="setSubj('all',this)">All</button>
+  <button class="subj-btn" onclick="setSubj('cardiology',this)">❤️</button>
+  <button class="subj-btn" onclick="setSubj('rheumatology',this)">🦴</button>
+  <button class="subj-btn" onclick="setSubj('nephrology',this)">🫘</button>
+  <button class="subj-btn" onclick="setSubj('infectious',this)">🦠</button>
+  <button class="subj-btn" onclick="setSubj('respiratory',this)">🫁</button>
+  <button class="subj-btn" onclick="setSubj('hematology',this)">🩸</button>
+  <button class="subj-btn" onclick="setSubj('endocrinology',this)">⚗️</button>
+  <button class="subj-btn" onclick="setSubj('gastroenterology',this)">🫄</button>
+  <button class="subj-btn" onclick="setSubj('hepatology',this)">🫀</button>
+  <select class="sort-sel" id="sort-sel" onchange="render()">
     <option value="newest">Newest first</option>
     <option value="oldest">Oldest first</option>
     <option value="subject">By subject</option>
+    <option value="topic">By topic</option>
   </select>
 </div>
 
@@ -197,113 +218,139 @@ body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif
 </div>
 
 <script>
-const KEY = 'venos_exam_notes_v1';
-let activeFilter = 'all';
+const KEY = 'venos_exam_notes_v2';
+let activeSubj = 'all';
+let activeTopic = 'all';
 
-const SUBJECTS = {
-  cardiology:      { label: 'Cardiology',      emoji: '❤️' },
-  rheumatology:    { label: 'Rheumatology',    emoji: '🦴' },
-  nephrology:      { label: 'Nephrology',      emoji: '🫘' },
-  infectious:      { label: 'Infectious',      emoji: '🦠' },
-  respiratory:     { label: 'Respiratory',     emoji: '🫁' },
-  hematology:      { label: 'Hematology',      emoji: '🩸' },
-  endocrinology:   { label: 'Endocrinology',   emoji: '⚗️' },
-  gastroenterology:{ label: 'Gastro',          emoji: '🫄' },
-  hepatology:      { label: 'Hepatology',      emoji: '🫀' },
-  general:         { label: 'General',         emoji: '📌' },
+const SUBJ = {
+  cardiology:      {label:'Cardiology',      emoji:'❤️'},
+  rheumatology:    {label:'Rheumatology',    emoji:'🦴'},
+  nephrology:      {label:'Nephrology',      emoji:'🫘'},
+  infectious:      {label:'Infectious',      emoji:'🦠'},
+  respiratory:     {label:'Respiratory',     emoji:'🫁'},
+  hematology:      {label:'Hematology',      emoji:'🩸'},
+  endocrinology:   {label:'Endocrinology',   emoji:'⚗️'},
+  gastroenterology:{label:'Gastro',          emoji:'🫄'},
+  hepatology:      {label:'Hepatology',      emoji:'🫀'},
+  general:         {label:'General',         emoji:'📌'},
 };
 
-function getNotes() {
-  try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch(e) { return []; }
-}
-function saveNotes(n) {
-  try { localStorage.setItem(KEY, JSON.stringify(n)); } catch(e) {}
-}
+function getNotes(){try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return[];}}
+function saveNotes(n){try{localStorage.setItem(KEY,JSON.stringify(n));}catch(e){}}
 
-function addNote() {
-  const subject = document.getElementById('inp-subject').value;
-  const topic   = document.getElementById('inp-topic').value.trim();
-  const text    = document.getElementById('inp-note').value.trim();
-  if (!text) { document.getElementById('inp-note').focus(); return; }
+function addNote(){
+  const subj  = document.getElementById('inp-subject').value;
+  const topic = document.getElementById('inp-topic').value.trim();
+  const text  = document.getElementById('inp-note').value.trim();
+  if(!text){document.getElementById('inp-note').focus();return;}
   const notes = getNotes();
   notes.unshift({
-    id: Date.now(),
-    subject,
-    topic: topic || '—',
+    id:Date.now(), subject:subj,
+    topic: topic || 'General',
     text,
-    date: new Date().toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'})
+    date: new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})
   });
   saveNotes(notes);
   clearForm();
   render();
 }
 
-function clearForm() {
-  document.getElementById('inp-topic').value = '';
-  document.getElementById('inp-note').value = '';
+function clearForm(){
+  document.getElementById('inp-topic').value='';
+  document.getElementById('inp-note').value='';
+  document.getElementById('topic-sug').innerHTML='';
 }
 
-function deleteNote(id) {
-  if (!confirm('Delete this note?')) return;
-  saveNotes(getNotes().filter(n => n.id !== id));
+function deleteNote(id){
+  if(!confirm('Delete this note?'))return;
+  saveNotes(getNotes().filter(n=>n.id!==id));
   render();
 }
 
-function setFilter(f, btn) {
-  activeFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+function setSubj(s,btn){
+  activeSubj=s;
+  document.querySelectorAll('.subj-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   render();
 }
 
-function render() {
+function setTopic(t){
+  activeTopic = activeTopic===t ? 'all' : t;
+  render();
+}
+
+function updateSuggestions(){
+  const val = document.getElementById('inp-topic').value.toLowerCase();
+  const topics = getTopics();
+  const sug = document.getElementById('topic-sug');
+  if(!val){sug.innerHTML='';return;}
+  const matches = topics.filter(t=>t.toLowerCase().includes(val) && t.toLowerCase()!==val);
+  sug.innerHTML = matches.slice(0,6).map(t=>
+    `<button class="topic-sug" onclick="document.getElementById('inp-topic').value='${t}';document.getElementById('topic-sug').innerHTML='';">${t}</button>`
+  ).join('');
+}
+
+function getTopics(){
+  const notes = getNotes();
+  const set = new Set();
+  notes.forEach(n=>{if(n.topic && n.topic!=='General') set.add(n.topic);});
+  return [...set].sort();
+}
+
+function render(){
   const q    = document.getElementById('search-inp').value.toLowerCase();
   const sort = document.getElementById('sort-sel').value;
   let notes  = getNotes();
+  const all  = notes;
+
+  // Update count
+  document.getElementById('note-count').textContent = all.length + ' note' + (all.length!==1?'s':'');
+
+  // Stats
+  const counts={};
+  all.forEach(n=>{counts[n.subject]=(counts[n.subject]||0)+1;});
+  document.getElementById('stats-row').innerHTML = Object.entries(counts)
+    .sort((a,b)=>b[1]-a[1])
+    .map(([s,c])=>`<div class="stat-pill">${SUBJ[s]?.emoji||''} ${SUBJ[s]?.label||s}: <span>${c}</span></div>`)
+    .join('');
+
+  // Topic tags cloud
+  const topics = getTopics();
+  const tagsRow = document.getElementById('tags-row');
+  tagsRow.innerHTML = `<button class="tag-btn all-btn ${activeTopic==='all'?'active':''}" onclick="setTopic('all')">All Topics</button>` +
+    topics.map(t=>`<button class="tag-btn ${activeTopic===t?'active':''}" onclick="setTopic('${t.replace(/'/g,"\\'")}')">${t}</button>`).join('');
 
   // Filter
-  if (activeFilter !== 'all') notes = notes.filter(n => n.subject === activeFilter);
-  if (q) notes = notes.filter(n =>
-    n.text.toLowerCase().includes(q) ||
-    n.topic.toLowerCase().includes(q) ||
-    (SUBJECTS[n.subject]?.label || '').toLowerCase().includes(q)
+  if(activeSubj!=='all') notes=notes.filter(n=>n.subject===activeSubj);
+  if(activeTopic!=='all') notes=notes.filter(n=>n.topic===activeTopic);
+  if(q) notes=notes.filter(n=>
+    n.text.toLowerCase().includes(q)||
+    n.topic.toLowerCase().includes(q)||
+    (SUBJ[n.subject]?.label||'').toLowerCase().includes(q)
   );
 
   // Sort
-  if (sort === 'oldest') notes = [...notes].reverse();
-  if (sort === 'subject') notes = [...notes].sort((a,b) => a.subject.localeCompare(b.subject));
+  if(sort==='oldest') notes=[...notes].reverse();
+  if(sort==='subject') notes=[...notes].sort((a,b)=>a.subject.localeCompare(b.subject));
+  if(sort==='topic') notes=[...notes].sort((a,b)=>a.topic.localeCompare(b.topic));
 
-  // Update count
-  const all = getNotes();
-  document.getElementById('note-count').textContent = all.length + ' note' + (all.length !== 1 ? 's' : '');
-
-  // Stats
-  const statsRow = document.getElementById('stats-row');
-  const counts = {};
-  all.forEach(n => { counts[n.subject] = (counts[n.subject] || 0) + 1; });
-  statsRow.innerHTML = Object.entries(counts)
-    .sort((a,b) => b[1]-a[1])
-    .map(([s,c]) => `<div class="stat-pill">${SUBJECTS[s]?.emoji || ''} ${SUBJECTS[s]?.label || s}: <span>${c}</span></div>`)
-    .join('');
-
-  // Grid
   const grid = document.getElementById('notes-grid');
-  if (!notes.length) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-      <div class="empty-icon">📋</div>
-      <p>${q || activeFilter !== 'all' ? 'No notes match your filter' : 'No notes yet — add your first one above'}</p>
-    </div>`;
+  if(!notes.length){
+    grid.innerHTML=`<div class="empty-state"><div class="ei">📋</div>
+      <p>${q||activeSubj!=='all'||activeTopic!=='all'?'No notes match your filter':'Add your first exam note above'}</p></div>`;
     return;
   }
 
-  grid.innerHTML = notes.map(note => `
+  grid.innerHTML = notes.map(note=>`
     <div class="note-card">
-      <div class="note-card-top">
-        <span class="note-subject subj-${note.subject}">${SUBJECTS[note.subject]?.emoji || ''} ${SUBJECTS[note.subject]?.label || note.subject}</span>
-        ${note.topic !== '—' ? `<div class="note-topic">${note.topic}</div>` : ''}
+      <div class="note-card-body">
+        <div class="note-badges">
+          <span class="badge-subj sc-${note.subject}">${SUBJ[note.subject]?.emoji||''} ${SUBJ[note.subject]?.label||note.subject}</span>
+          ${note.topic&&note.topic!=='General'?`<button class="badge-topic" onclick="setTopic('${note.topic.replace(/'/g,"\\'")}')" title="Filter by this topic">#${note.topic}</button>`:''}
+        </div>
         <div class="note-text">${note.text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
       </div>
-      <div class="note-card-bottom">
+      <div class="note-card-foot">
         <span class="note-date">${note.date}</span>
         <button class="note-del" onclick="deleteNote(${note.id})" title="Delete">🗑</button>
       </div>
@@ -311,9 +358,8 @@ function render() {
   `).join('');
 }
 
-// Enter to save
-document.getElementById('inp-note').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter' && e.ctrlKey) addNote();
+document.getElementById('inp-note').addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&e.ctrlKey)addNote();
 });
 
 render();
