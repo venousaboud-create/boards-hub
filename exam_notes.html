@@ -196,6 +196,13 @@ body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif
   z-index:9999;align-items:center;justify-content:center;cursor:zoom-out}
 .lightbox.show{display:flex}
 .lightbox img{max-width:90vw;max-height:90vh;border-radius:8px}
+
+.fmt-bar{display:flex;gap:5px;margin-bottom:5px}
+.fmt-btn{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  width:26px;height:26px;border:1.5px solid var(--bd);border-radius:5px;
+  background:var(--sf2);color:var(--t2);cursor:pointer;transition:all .12s;
+  display:flex;align-items:center;justify-content:center}
+.fmt-btn:hover{border-color:var(--pur);color:var(--pur);background:var(--pur-l)}
 </style>
 </head>
 <body>
@@ -255,6 +262,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif
     </div>
     <div class="form-group" style="margin-bottom:12px">
       <label>Note</label>
+      <div class="fmt-bar"><button class="fmt-btn" type="button" onclick="fmtBold()" title="Bold selected text"><b>B</b></button></div>
       <textarea id="inp-note" placeholder="Key learning point, correction, or important fact…"></textarea>
     </div>
     <div class="form-group">
@@ -507,7 +515,7 @@ function render(){
           <span class="badge-subj sc-${note.subject}">${SUBJ[note.subject]?.emoji||''} ${SUBJ[note.subject]?.label||note.subject}</span>
           ${note.topic&&note.topic!=='General'?`<button class="badge-topic" onclick="setTopic('${note.topic.replace(/'/g,"\\'")}')">#${note.topic}</button>`:''}
         </div>
-        <div class="note-text">${note.text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+        <div class="note-text">${note.text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\*\*(.+?)\*\*/g,'<strong></strong>')}</div>
         ${note.img?`<img class="note-img" src="${note.img}" onclick="openLightbox('${note.img}')" title="Click to enlarge">`:''}
       </div>
       <div class="note-card-foot">
@@ -519,6 +527,17 @@ function render(){
 }
 
 document.getElementById('inp-note').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.ctrlKey)addNote();});
+function fmtBold(){
+  const ta = document.getElementById('inp-note');
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  if(start===end){ta.focus();return;}
+  const sel = ta.value.substring(start, end);
+  const before = ta.value.substring(0, start);
+  const after = ta.value.substring(end);
+  ta.value = before + '**' + sel + '**' + after;
+  ta.setSelectionRange(start, end+4);
+  ta.focus();
+}
 render();
 </script>
 </body>
