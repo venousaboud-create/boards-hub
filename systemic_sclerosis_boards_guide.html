@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Systemic Sclerosis · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;padding:0 12px;display:flex;align-items:center;white-space:nowrap;border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blu);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}.c-tel{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:4px}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}.main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green" onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue" onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink" onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+<div id="sn-sidebar">
+  <div id="sn-hd"><span>📝 My Notes</span><button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button></div>
+  <div id="sn-body"><div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div></div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles · Chapter 372 · Rheumatology</div>
+  <h1>Systemic Sclerosis</h1>
+  <div class="hero-sub">Scleroderma &amp; Related Disorders · Medical Boards Review</div>
+  <div class="hero-authors">Comprehensive Stage A Internal Medicine Boards Guide · 2026</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">3</div><div class="stat-l">Pathogenic Pillars</div></div>
+    <div class="stat-box"><div class="stat-n">90%</div><div class="stat-l">GI Involvement</div></div>
+    <div class="stat-box"><div class="stat-n">30%</div><div class="stat-l">Deaths from PAH</div></div>
+    <div class="stat-box"><div class="stat-n">4 yrs</div><div class="stat-l">Critical Window dcSSc</div></div>
+    <div class="stat-box"><div class="stat-n">&gt;70%</div><div class="stat-l">3-yr Survival w/ ACEi</div></div>
+  </div>
+</header>
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Classification</a>
+    <a class="toc-a" href="#s2">Epidemiology</a>
+    <a class="toc-a" href="#s3">Pathogenesis I: Vascular</a>
+    <a class="toc-a" href="#s4">Pathogenesis II: Immunity &amp; Fibrosis</a>
+    <a class="toc-a" href="#s5">Pathology</a>
+    <a class="toc-a" href="#s6">Clinical: Skin &amp; Raynaud's</a>
+    <a class="toc-a" href="#s7">Clinical: Internal Organs</a>
+    <a class="toc-a" href="#s8">Diagnosis &amp; Monitoring</a>
+    <a class="toc-a" href="#s9">Treatment</a>
+    <a class="toc-a" href="#s10">Prognosis &amp; Related Disorders</a>
+    <a class="toc-a" href="#s11">⚠ Exam Traps</a>
+  </div>
+</nav>
+<main class="main">
+
+<!-- SECTION 1: CLASSIFICATION -->
+<section class="sec" id="s1">
+<div class="sec-hd"><span class="sec-n">01</span><h2>Definition, Classification &amp; Subsets</h2></div>
+
+<div class="co key"><div class="co-t">Core Definition</div>
+Systemic Sclerosis (SSc) — Scleroderma — is an <strong>acquired, sporadic, autoimmune disease</strong> characterized by three simultaneous, interacting pathological processes: <strong>(1) Diffuse microangiopathy</strong> (small vessel disease), <strong>(2) Inflammation and autoimmunity</strong>, and <strong>(3) Visceral and vascular fibrosis</strong> affecting multiple organs. The word "systemic" is critical — this is not a skin disease with occasional organ complications; it is a multi-organ disease in which the skin is simply the most visible component.</div>
+
+<div class="sub"><h3>ACR/EULAR Classification Criteria — Score ≥9 Classifies as SSc</h3>
+<p>&gt;90% sensitivity and specificity. Designed for <strong>clinical research</strong>, not routine clinical practice.</p>
+<div class="tw"><table>
+<thead><tr><th>Feature</th><th>Sub-item</th><th>Score</th></tr></thead>
+<tbody>
+<tr><td>Skin thickening — fingers proximal to MCP (bilateral)</td><td>—</td><td><strong>9 (essentially pathognomonic alone)</strong></td></tr>
+<tr><td>Skin thickening of fingers only</td><td>Puffy fingers / Sclerodactyly (distal to MCP)</td><td>2 / 4</td></tr>
+<tr><td>Fingertip lesions</td><td>Digital tip ulcer / Pitting scar</td><td>2 / 3</td></tr>
+<tr><td>Mucocutaneous telangiectasia</td><td>—</td><td>2</td></tr>
+<tr><td>Abnormal nailfold capillary pattern</td><td>—</td><td>2</td></tr>
+<tr><td>Lung involvement</td><td>PAH / ILD</td><td>2 / 2</td></tr>
+<tr><td>Raynaud's phenomenon</td><td>—</td><td>3</td></tr>
+<tr><td>SSc-specific autoantibodies</td><td>ACA / Scl-70 / RNA pol III</td><td>3</td></tr>
+</tbody></table></div>
+<div class="co prl"><div class="co-t">Why These Scores</div>
+Bilateral skin induration crossing the MCP joints is <strong>essentially pathognomonic</strong> for SSc — hence 9 points alone classifies the patient. SSc-specific autoantibodies (ACA, Scl-70, RNA pol III) each earn 3 points because they are <strong>mutually exclusive</strong> (one patient, one dominant antibody), <strong>highly specific</strong>, and simultaneously define disease subtype and organ risk profile — they are diagnostically and prognostically powerful.</div>
+</div>
+
+<div class="sub"><h3>The Two Major Subsets — A Fundamental Clinical Division</h3>
+<p>The subset determines likely organ complications, autoantibody profile, rate of progression, and prognosis. This is not classification for its own sake — it is clinical decision-making architecture.</p>
+<div class="g2">
+<div class="card"><div class="clabel c-b">Limited Cutaneous SSc (lcSSc)</div>
+<p><strong>Skin rule:</strong> Confined to fingers, distal limbs (below elbows and knees), and face. <strong>Trunk always spared.</strong> Slow, indolent progression.</p>
+<p><strong>Vascular:</strong> Raynaud's precedes other manifestations by years–decades (10–15 yr prodrome). This long prodrome creates a diagnostic opportunity: Raynaud's + SSc-specific autoantibody + abnormal nailfold capillaries = close monitoring even without overt skin disease.</p>
+<p><strong>Late complications:</strong> Isolated PAH (obliterative pulmonary vasculopathy without ILD — different from dcSSc where PAH usually co-exists with ILD). Digital ischemic ulcers common (50%). Hypothyroidism, Sjögren's features, primary biliary cirrhosis. Renal crisis very rare (ACA is protective).</p>
+<p><strong>Characteristic antibody:</strong> Anti-centromere (ACA)<br><strong>Prognosis:</strong> Generally more benign; long survival; morbidity driven by vascular complications.</p></div>
+<div class="card"><div class="clabel c-r">Diffuse Cutaneous SSc (dcSSc)</div>
+<p><strong>Skin rule:</strong> Starts in fingers (sclerodactyly) and <strong>ascends</strong> from distal to proximal extremities and onto the <strong>trunk</strong> — this proximal/truncal involvement is the hallmark of dcSSc. Rapid onset. Early edema → rapid fibrosis.</p>
+<p><strong>Temporal:</strong> Interval between Raynaud's and other manifestations = <strong>weeks to months</strong> (not years). Rapid progression reflects more aggressive systemic inflammatory/fibrotic process.</p>
+<p><strong>Why truncal skin matters:</strong> The same fibrotic process infiltrating the trunk also reaches the viscera — lungs, renal vasculature, heart, GI tract — at an earlier point and with greater intensity. Truncal skin involvement = surrogate biomarker for systemic severity of fibrosis.</p>
+<p><strong>Dominant complications:</strong> ILD (65%), Scleroderma Renal Crisis (10–15%, almost exclusively within first 4 years), Tendon friction rubs (marker of active, aggressive disease).</p>
+<p><strong>Characteristic antibodies:</strong> Anti-Scl-70 (topoisomerase I) or Anti-RNA polymerase III<br><strong>Critical window:</strong> First 4 years from onset = most rapidly evolving and potentially irreversible lung and renal damage.</p></div>
+</div></div>
+
+<div class="sub"><h3>CREST — Phenotypic Subset of lcSSc (NOT a Separate Disease)</h3>
+<div class="g2">
+<ul class="bl">
+<li><strong>C</strong> — Calcinosis cutis (calcium hydroxyapatite deposits under the skin)</li>
+<li><strong>R</strong> — Raynaud's phenomenon</li>
+<li><strong>E</strong> — Esophageal dysmotility (reduced LES pressure, reflux, dysphagia)</li>
+<li><strong>S</strong> — Sclerodactyly (tight skin of the fingers)</li>
+<li><strong>T</strong> — Telangiectasia (dilated skin capillaries)</li>
+</ul>
+<div class="co wrn"><div class="co-t">Digital Ulcers Paradox — Critical Exam Point</div>
+<strong>Digital ischemic ulcers are MORE common in lcSSc (50%) than in dcSSc (25%)</strong> — despite the "limited" designation. The reason: lcSSc patients have a longer disease duration, and cumulative vascular damage accumulates over a more extended timeline. "Limited" refers to skin distribution, not severity of vascular disease.</div>
+</div></div>
+
+<div class="sub"><h3>SSc Sine Scleroderma &amp; Autoantibody Profiles</h3>
+<p><strong>SSc Sine Scleroderma:</strong> Patient has Raynaud's, SSc-specific autoantibodies, and characteristic clinical/laboratory features of SSc — but <strong>NO detectable skin thickening.</strong> These patients can still develop significant pulmonary, cardiac, and renal complications. Without visible skin changes, the diagnosis is frequently delayed or missed.</p>
+<div class="tw"><table>
+<thead><tr><th>Antibody</th><th>Subset</th><th>Key Clinical Associations</th></tr></thead>
+<tbody>
+<tr><td>Anti-topoisomerase I (Scl-70)</td><td>dcSSc</td><td>Extensive skin, early ILD, tendon friction rubs, cardiac, digital ulcers. Speckled ANA pattern.</td></tr>
+<tr><td>Anti-centromere (ACA)</td><td>lcSSc</td><td>Digital ulcers, calcinosis, isolated PAH. <strong>Protective against renal crisis.</strong> Lower ILD risk. Discrete speckled (centromere) ANA pattern.</td></tr>
+<tr><td>Anti-RNA polymerase III</td><td>dcSSc</td><td>Rapidly progressive skin, <strong>renal crisis</strong>, GAVE, <strong>contemporaneous cancer</strong> (screen for malignancy!). Digital ulcers rare. Speckled pattern.</td></tr>
+<tr><td>U3-RNP (fibrillarin)</td><td>dc/lcSSc</td><td>PAH, ILD, renal crisis, GI involvement, myositis. Nucleolar pattern.</td></tr>
+<tr><td>PM/Scl</td><td>lcSSc</td><td>Calcinosis, ILD, myositis overlap. Nucleolar pattern.</td></tr>
+<tr><td>U1-RNP</td><td>MCTD</td><td>PAH, inflammatory arthritis, myositis overlap.</td></tr>
+</tbody></table></div>
+<div class="co dan"><div class="co-t">Cancer Alert — Anti-RNA Pol III</div>
+Anti-RNA pol III–positive SSc has a paraneoplastic mechanism: the tumor harbors genomic alterations in RNApol3 → T-cell immunity → cross-reactive autoantibodies (molecular mimicry). <strong>Any patient with anti-RNA pol III must be screened for occult malignancy</strong> — breast, lung, ovarian carcinomas, and lymphomas tend to occur in close temporal association with SSc onset.</div>
+</div>
+
+<div class="sub"><h3>Differential Diagnosis — Scleroderma-Like Skin Changes</h3>
+<p>Skin induration is NOT synonymous with SSc. The key distinguishing feature: <strong>none of the localized forms cause Raynaud's phenomenon or significant internal organ involvement.</strong></p>
+<ul class="bl">
+<li><strong>Morphea:</strong> Localized skin fibrosis — no systemic involvement, no Raynaud's, no SSc-specific autoantibodies</li>
+<li><strong>Linear scleroderma:</strong> Unilateral linear bands of fibrosis — can affect bone growth in children</li>
+<li><strong>Coup de sabre:</strong> Linear scleroderma on forehead/scalp — can involve calvaria and brain</li>
+<li><strong>Nephrogenic systemic fibrosis:</strong> Gadolinium exposure in renal failure patients — critical iatrogenic consideration in any MRI patient</li>
+<li><strong>Bleomycin, PD-1 checkpoint inhibitors:</strong> Drug-induced SSc-like illness</li>
+<li><strong>Eosinophilia-myalgia syndrome:</strong> Contaminated L-tryptophan supplements</li>
+<li><strong>Paraneoplastic SSc:</strong> Especially with anti-RNA pol III antibodies</li>
+</ul>
+</div>
+
+<div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+</section>
+
+<!-- SECTION 2: EPIDEMIOLOGY -->
+<section class="sec" id="s2">
+<div class="sec-hd"><span class="sec-n">02</span><h2>Epidemiology &amp; Genetics</h2></div>
+
+<div class="sub"><h3>Key Epidemiological Numbers</h3>
+<div class="g3">
+<div class="card"><div class="clabel c-b">Incidence (US)</div><p>9–46 cases per million per year. Lower in England, northern Europe, Japan vs. North America and Australia — reflects differences in case definition, environmental exposures, and genetic susceptibility across ancestral populations.</p></div>
+<div class="card"><div class="clabel c-r">Sex Ratio — 4.6:1 F:M</div><p>Strong female predominance. Most pronounced during childbearing years. Declines after menopause — directly implicates sex hormones. Multiple mechanisms including estrogen-driven immune stimulation and skewed X-inactivation (TLR7, TLR8, CD40L overexpression).</p></div>
+<div class="card"><div class="clabel c-a">Ancestry — Risk Modifier</div><p><strong>Black patients:</strong> Higher incidence rates, higher mortality, earlier age of onset, greater likelihood of dcSSc, higher rates of ILD, worse overall prognosis. Peak onset in women: 65–74 years for both limited and diffuse forms.</p></div>
+</div></div>
+
+<div class="sub"><h3>Familial Risk — Genetics Loads the Gun, Environment Pulls the Trigger</h3>
+<div class="g2">
+<ul class="bl">
+<li><strong>1.6%</strong> of SSc patients have a first-degree relative with SSc</li>
+<li>Having an affected first-degree relative <strong>increases risk 13-fold</strong></li>
+<li>First-degree relatives also have increased risk of Raynaud's, ILD, SLE, RA, autoimmune thyroiditis</li>
+<li><strong>Monozygotic twin concordance: only 4.7%</strong> — the most important conceptual anchor. Even in genetically identical individuals, SSc develops in only ~1 in 20 affected twins. Environmental and epigenetic factors account for the vast majority of disease susceptibility.</li>
+</ul>
+<div class="co prl"><div class="co-t">Genetic Associations (GWAS Data)</div>
+<strong>HLA region (Chromosome 6):</strong> Strongest and most consistent association.<br>
+<strong>B and T cell activation genes:</strong> BANK1, BLK, CD247, IL2RA, CCR6, PTPN22, TNFSF4/OX40L, TNIP1 — collectively lower the threshold for lymphocyte activation and impair immunological tolerance.<br>
+<strong>Type I IFN pathway:</strong> STAT4, IRF5 — pDCs detect self-nucleic acids → IRF5 → type I IFN → amplified immune activation → self-sustaining loop.<br>
+<strong>ECM/Fibrosis genes:</strong> CSK, CAV1, PPARG, GRB10<br>
+<strong>ADRA2A:</strong> Genetic basis for Raynaud's (α2-adrenergic receptor heightened sensitivity on vascular smooth muscle).<br>
+No single variant is sufficient — combinations create a permissive immunological state.</div>
+</div></div>
+
+<div class="sub"><h3>Environmental Factors &amp; Occupational Exposures</h3>
+<div class="g2">
+<ul class="bl">
+<li><strong>Particulate silica (quartz):</strong> Most consistently associated occupational exposure</li>
+<li><strong>Polyvinyl chloride (PVC):</strong> Associated with acro-osteolysis and scleroderma-like skin changes</li>
+<li><strong>Epoxy resins, welding fumes, organic solvents:</strong> Aromatic hydrocarbons (toluene, xylene, trichloroethylene) — linked in occupational cohorts</li>
+<li><strong>Bleomycin:</strong> The classic mouse model of SSc uses bleomycin injection to induce skin and lung fibrosis</li>
+<li><strong>PD-1 checkpoint inhibitors:</strong> Remove immunological brakes on T cells → SSc-like illness</li>
+<li><strong>Radiation therapy:</strong> Linked to de novo SSc onset and exacerbation of pre-existing SSc</li>
+<li><strong>Infectious triggers (parvovirus B19, EBV, CMV):</strong> Proposed but unproven — molecular mimicry, TLR activation, epigenetic dysregulation</li>
+</ul>
+<div class="co suc"><div class="co-t">Important Negatives — Know for Boards</div>
+<strong>Cigarette smoking does NOT increase SSc risk.</strong><br>
+<strong>Silicone breast implants do NOT increase SSc risk.</strong><br>
+These are classic exam "traps" — don't attribute SSc to smoking in a patient history.</div>
+</div></div>
+
+<div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+</section>
+
+<!-- SECTION 3: PATHOGENESIS I - VASCULAR -->
+<section class="sec" id="s3">
+<div class="sec-hd"><span class="sec-n">03</span><h2>Pathogenesis I — The Vascular Pillar</h2></div>
+
+<div class="co key"><div class="co-t">The Three Pillars of SSc Pathogenesis</div>
+SSc arises from the simultaneous interaction of three pathological processes: <strong>(1) Vasculopathy</strong> — small vessel injury and structural remodeling; <strong>(2) Immune activation and autoimmunity</strong> — T and B cells, autoantibodies, type I interferon; <strong>(3) Fibroblast activation and fibrosis</strong> — TGF-β-driven myofibroblast transdifferentiation and ECM deposition. The vascular pillar is considered the <em>initiating</em> event in most models, but all three pillars become self-sustaining and interact bidirectionally once established.</div>
+
+<div class="sub"><h3>Vascular Injury — The Initiating Event</h3>
+<div class="g2">
+<ul class="bl">
+<li><strong>Endothelial injury:</strong> The trigger is unknown but results in endothelial activation, surface expression of adhesion molecules (ICAM-1, E-selectin, VCAM-1), and increased vascular permeability</li>
+<li><strong>CXCL4 (PF4) — the master vascular mediator:</strong> Released by activated platelets and plasmacytoid dendritic cells (pDCs). CXCL4 levels correlate with PAH severity, skin score, and ILD progression. It inhibits the anti-fibrotic PPAR-γ axis, promotes fibroblast activation, and suppresses angiogenesis — a triple threat</li>
+<li><strong>Endothelin-1 (ET-1) and VEGF paradox:</strong> ET-1 is elevated and drives vasoconstriction and fibrosis. VEGF is also elevated but leads to abnormal, disorganized angiogenesis (telangiectasias, GAVE) rather than productive vasculogenesis — vessels are formed but functionally insufficient</li>
+<li><strong>Loss of eNOS:</strong> Reduced nitric oxide production removes the primary vasodilatory and anti-proliferative brake on vascular smooth muscle</li>
+</ul>
+<div class="co prl"><div class="co-t">EndoMT — Endothelial-to-Mesenchymal Transition</div>
+A critical and underappreciated mechanism: <strong>endothelial cells lose their identity</strong> and acquire mesenchymal (fibroblast-like) characteristics under the influence of TGF-β and other signals. The cell that was supposed to maintain vascular health becomes a source of activated myofibroblasts — directly linking vascular injury to fibrosis at the cellular level. EndoMT reduces endothelial cell number, contributes to intimal thickening, and populates the perivascular fibrotic niche.</div>
+</div></div>
+
+<div class="sub"><h3>Raynaud's Phenomenon — Mechanism and Significance</h3>
+<p>Raynaud's is present in virtually all SSc patients (>95%) and is the most common presenting symptom. Understanding its mechanism is essential for understanding SSc vascular biology.</p>
+<div class="g2">
+<div class="card"><div class="clabel c-b">Mechanism of Vasospasm</div>
+<p><strong>Structural:</strong> Intimal proliferation + adventitial fibrosis = fixed narrowing of digital arteries. Even at rest, luminal area is reduced.</p>
+<p><strong>Functional:</strong> α<sub>2</sub>-adrenergic receptor upregulation on vascular smooth muscle (encoded by ADRA2A) — cold or emotional stress triggers exaggerated vasospasm via norepinephrine-mediated vasoconstriction. Reduced NO and prostacyclin remove the vasodilatory counterbalance.</p>
+<p><strong>Neuropeptide deficiency:</strong> Loss of CGRP (calcitonin gene-related peptide) and substance P from sensory nerves removes the axon reflex vasodilation that should occur after vasospasm. This loss of "neurogenic inflammation" as a protective rebound mechanism is unique to secondary Raynaud's.</p></div>
+<div class="card"><div class="clabel c-r">Primary vs Secondary Raynaud's</div>
+<table class="compact-table">
+<thead><tr><th></th><th>Primary</th><th>Secondary (SSc)</th></tr></thead>
+<tbody>
+<tr><td>Structural damage</td><td>None</td><td>Yes — ulcers, pits</td></tr>
+<tr><td>Autoantibodies</td><td>None</td><td>ACA / Scl-70 / RNApol3</td></tr>
+<tr><td>Nailfold caps</td><td>Normal</td><td>Dilated/dropped out</td></tr>
+<tr><td>Gender</td><td>Young women</td><td>Any SSc demographic</td></tr>
+<tr><td>Prognosis</td><td>Benign</td><td>Progressive, ulcers</td></tr>
+</tbody></table>
+<p>Any Raynaud's patient with abnormal nailfold capillaries OR SSc-specific autoantibody should be followed closely for SSc development even without skin changes.</p></div>
+</div></div>
+
+<div class="sub"><h3>Nailfold Capillaroscopy — The Window into SSc Vasculopathy</h3>
+<div class="g2">
+<ul class="bl">
+<li><strong>Normal nailfold:</strong> Regular U-shaped loops, uniform diameter, no hemorrhages</li>
+<li><strong>"Early" SSc pattern:</strong> Giant/enlarged capillaries, rare hemorrhages, relatively preserved capillary density</li>
+<li><strong>"Active" SSc pattern:</strong> Giant capillaries + frequent hemorrhages + moderate capillary loss (avascular areas beginning)</li>
+<li><strong>"Late" SSc pattern:</strong> Severe capillary loss, extensive avascular areas, irregular remaining vessels — correlates with digital ulcers, PAH, and organ involvement</li>
+</ul>
+<div class="co suc"><div class="co-t">Clinical Application</div>
+Nailfold capillaroscopy is <strong>non-invasive, inexpensive, and highly informative</strong>. The "late" pattern correlates with digital ulcers, PAH, and poor outcomes. A normal nailfold in a patient with Raynaud's strongly suggests primary (benign) Raynaud's. Abnormal findings in a patient with SSc-specific autoantibody = high-risk profile requiring close surveillance even before skin changes appear.</div>
+</div></div>
+
+<div class="sub"><h3>The Vascular Cascade — From Injury to End-Stage Vasculopathy</h3>
+<div class="co prl"><div class="co-t">Step-by-Step Progression</div>
+<strong>1. Endothelial injury</strong> (trigger unknown: ischemia, infection, autoimmune, chemical) →<br>
+<strong>2. Platelet activation + pDC recruitment</strong> → CXCL4 release → type I IFN production →<br>
+<strong>3. Endothelial activation:</strong> ICAM-1↑, E-selectin↑, ET-1↑, NO↓ →<br>
+<strong>4. Vasospasm + structural narrowing</strong> (intimal proliferation, medial hypertrophy, adventitial fibrosis) →<br>
+<strong>5. Impaired angiogenesis</strong> (VEGF present but nonfunctional; telangiectasias form instead of functional vessels) →<br>
+<strong>6. EndoMT</strong> → endothelial cells → myofibroblasts → perivascular fibrosis →<br>
+<strong>7. End-stage:</strong> Obliterative vasculopathy, digital ischemia, pulmonary hypertension, renal crisis, myocardial "Band-like" fibrosis</div>
+</div>
+
+<div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+</section>
+
+<!-- SECTION 4: PATHOGENESIS II - IMMUNITY & FIBROSIS -->
+<section class="sec" id="s4">
+<div class="sec-hd"><span class="sec-n">04</span><h2>Pathogenesis II — Immunity &amp; Fibrosis Pillars</h2></div>
+
+<div class="sub"><h3>The Immune Pillar — Cellular and Humoral Mechanisms</h3>
+<div class="g2">
+<div class="card"><div class="clabel c-b">T Cell Responses</div>
+<p><strong>CD4+ helper T cells</strong> predominate in early SSc lesions. Th2 skewing (IL-4, IL-13) promotes fibroblast activation and M2 macrophage polarization. Th17 cells (IL-17) promote inflammation and directly activate fibroblasts.</p>
+<p><strong>Regulatory T cells (Tregs):</strong> Numerically reduced and functionally impaired in SSc. Loss of Treg suppression removes the brake on both effector T cells and B cells — autoreactive clones expand unchecked.</p>
+<p><strong>CD8+ cytotoxic T cells:</strong> Present in inflammatory infiltrates; may directly damage endothelium and small muscle fibers in the heart and skeletal muscle (SSc myopathy).</p></div>
+<div class="card"><div class="clabel c-r">B Cell Responses &amp; Autoantibodies</div>
+<p>B cells are hyperactivated with elevated serum immunoglobulins and characteristic autoantibodies. The three major autoantibodies (ACA, Scl-70, RNA pol III) are <strong>mutually exclusive</strong> in individual patients — one antibody, one dominant clinical phenotype.</p>
+<p><strong>Mechanisms:</strong> Autoantibodies may directly stimulate fibroblasts through surface receptors (PDGFR), activate complement on endothelium, or mediate antibody-dependent cytotoxicity against endothelial cells.</p>
+<p><strong>B cell depletion (rituximab):</strong> Emerging evidence for efficacy in skin and lung fibrosis — supports pathogenic B cell role.</p></div>
+</div>
+<div class="g2">
+<div class="card"><div class="clabel c-a">Plasmacytoid Dendritic Cells (pDCs) — Type I IFN Axis</div>
+<p>pDCs recognize self-nucleic acids (released from injured cells) via TLR7/TLR8/TLR9 → produce massive type I IFN (IFN-α/β). Type I IFN: activates autoreactive B and T cells, upregulates MHC-I on fibroblasts, promotes EndoMT, and sustains CXCL4 production. The "IFN signature" (measurable in blood) tracks disease activity.</p></div>
+<div class="card"><div class="clabel c-a">Macrophage Polarization</div>
+<p><strong>M1 (classical):</strong> Pro-inflammatory, early lesions<br>
+<strong>M2 (alternative):</strong> Dominant in established SSc. M2 macrophages secrete TGF-β, IL-10, PDGF, and CTGF — directly driving fibroblast activation and ECM deposition. They also impair Treg function and sustain the profibrotic microenvironment.</p></div>
+</div></div>
+
+<div class="sub"><h3>The Fibrosis Pillar — TGF-β and Myofibroblast Activation</h3>
+<div class="co key"><div class="co-t">TGF-β — Master Regulator of Fibrosis</div>
+TGF-β (transforming growth factor beta) is the central mediator of SSc fibrosis. Sources: T cells, macrophages, platelets, endothelial cells (via EndoMT), and activated fibroblasts themselves (autocrine loop). Signals via Smad2/3 phosphorylation → nucleus → transcription of collagen I, collagen III, fibronectin, CTGF (CCN2), and PAI-1 (blocks matrix degradation). Non-Smad pathways (ERK, p38 MAPK, PI3K/AKT) amplify the profibrotic response and are increasingly targeted therapeutically.</div>
+<div class="g2">
+<ul class="bl">
+<li><strong>Myofibroblast transdifferentiation:</strong> Resident fibroblasts (and endothelial cells via EndoMT, and epithelial cells via EMT) acquire α-smooth muscle actin (α-SMA) expression → contractile, ECM-secreting myofibroblasts. Once activated, they are remarkably persistent — continue producing collagen even after the inflammatory stimulus resolves (epigenetic locking)</li>
+<li><strong>Mechanosensing:</strong> Stiff fibrotic ECM itself signals back to fibroblasts through integrins and focal adhesions → YAP/TAZ nuclear translocation → sustained fibroblast activation even without external cytokine stimulation. A self-amplifying, mechano-fibrotic feedback loop that explains why SSc fibrosis is so difficult to reverse</li>
+<li><strong>CTGF (CCN2):</strong> TGF-β induces CTGF, which amplifies and sustains fibrosis independently of TGF-β. CTGF blockade (pamrevlumab) is in clinical trials</li>
+<li><strong>Epigenetic dysregulation:</strong> SSc fibroblasts show reduced DNMT3A (hypomethylation), altered histone acetylation, and altered miRNA expression — these epigenetic changes lock fibroblasts in the activated state across cell generations, long after the initial inflammatory trigger resolves</li>
+</ul>
+<div class="co prl"><div class="co-t">Why Fibrosis Is So Hard to Reverse</div>
+Three mechanisms create a self-sustaining fibrotic state: (1) <strong>Autocrine TGF-β loops</strong> — activated fibroblasts produce their own TGF-β; (2) <strong>Mechanosensing</strong> — the stiff ECM itself drives continued fibroblast activation even without cytokines; (3) <strong>Epigenetic locking</strong> — heritable changes in gene expression maintain the myofibroblast phenotype across cell divisions. This is why anti-fibrotic therapy (nintedanib, pirfenidone) <em>slows progression</em> but rarely achieves reversal.</div>
+</div></div>
+
+<div class="sub"><h3>Cross-Pillar Interactions — The Unified Model</h3>
+<div class="co prl"><div class="co-t">How the Three Pillars Reinforce Each Other</div>
+<strong>Vascular → Immune:</strong> Injured endothelium releases CXCL4 → pDC recruitment → type I IFN → immune activation.<br>
+<strong>Immune → Fibrosis:</strong> T cells (Th2/Th17) + M2 macrophages → TGF-β, IL-4, IL-13, PDGF → fibroblast activation.<br>
+<strong>Fibrosis → Vascular:</strong> Periarteriolar fibrosis compresses vessel lumens → ischemia → more vascular injury → EndoMT → more myofibroblasts.<br>
+<strong>Vascular → Fibrosis (direct):</strong> EndoMT → endothelial cells become myofibroblasts → perivascular and organ fibrosis.<br>
+<strong>Fibrosis → Immune:</strong> Fibrotic ECM creates an altered cytokine milieu, traps inflammatory cells, and generates mechanical signals that sustain macrophage M2 polarization.<br>
+<br>Result: A <strong>self-sustaining fibroinflammatory circuit</strong> that becomes progressively independent of the original triggering event.
+</div></div>
+
+<div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+</section>
+
+<!-- SECTION 5: PATHOLOGY -->
+<section class="sec" id="s5">
+<div class="sec-hd"><span class="sec-n">05</span><h2>Pathology — Organ-by-Organ</h2></div>
+
+<div class="sub"><h3>Skin Pathology — The Three Phases</h3>
+<div class="g3">
+<div class="card"><div class="clabel c-b">Phase 1: Inflammatory/Edematous</div>
+<p>Early dcSSc. Skin is swollen, pitting edema of the hands ("puffy hands"). Histology: perivascular lymphocytic infiltrate (CD4+ T cells), mast cells, activated macrophages. <strong>Endothelial swelling</strong> and early vessel wall changes. Clinically — this is the window of opportunity for immunosuppression before irreversible fibrosis.</p></div>
+<div class="card"><div class="clabel c-r">Phase 2: Fibrotic/Indurated</div>
+<p>Dense dermal collagen deposition. Epidermis is thinned and flattened. Skin appendages (hair follicles, sweat glands, sebaceous glands) are destroyed — explains alopecia, dry skin, anhidrosis in SSc. Dermis expands at the expense of subcutaneous fat. Skin becomes board-like and immobile. Microvascular loss continues.</p></div>
+<div class="card"><div class="clabel c-a">Phase 3: Atrophic (Late)</div>
+<p>Paradoxically, in some dcSSc patients after years of disease, the skin softens. The inflammatory drive has exhausted itself. BUT visceral fibrosis (lung, heart, kidney) continues to progress despite skin softening — do NOT interpret skin softening as disease remission.</p></div>
+</div></div>
+
+<div class="sub"><h3>Lung Pathology — The Most Important Organ for Prognosis</h3>
+<div class="g2">
+<div class="card"><div class="clabel c-b">ILD — Interstitial Lung Disease</div>
+<p><strong>Dominant pattern: NSIP</strong> (Non-Specific Interstitial Pneumonia) — ground-glass opacities, fine reticulation, subpleural sparing on HRCT. Bilateral, symmetric, lower-lobe predominant. Histology: uniform interstitial inflammation and fibrosis without temporal heterogeneity.</p>
+<p><strong>Less common: UIP</strong> (Usual Interstitial Pneumonia) — honeycombing, traction bronchiectasis, no subpleural sparing. Portends worse prognosis when present in SSc-ILD compared to NSIP.</p>
+<p><strong>Key numbers:</strong> ILD in 65% dcSSc, 35% lcSSc. ILD = most common cause of SSc-related death overall.</p></div>
+<div class="card"><div class="clabel c-r">PAH — Pulmonary Arterial Hypertension</div>
+<p>Histology: <strong>plexiform lesions</strong> (chaotic proliferation of endothelial cells and smooth muscle in pulmonary arterioles) + intimal proliferation + medial hypertrophy + adventitial fibrosis. These are essentially vascular SSc lesions in the pulmonary arterioles.</p>
+<p><strong>Key numbers:</strong> 8–12% of all SSc patients develop PAH. Accounts for ~30% of SSc deaths. Particularly common in lcSSc (isolated obliterative vasculopathy). In dcSSc, PAH often co-exists with ILD.</p>
+<p><strong>Important:</strong> SSc-PAH has worse prognosis than idiopathic PAH — concurrent ILD, reduced cardiac reserve from myocardial fibrosis, and venoocclusive component make it more difficult to treat.</p></div>
+</div></div>
+
+<div class="sub"><h3>Gastrointestinal Pathology</h3>
+<p>GI tract is involved in up to <strong>90% of SSc patients</strong> — most common internal organ involved overall. The ENS (enteric nervous system) is injured early; smooth muscle fibrosis follows.</p>
+<div class="tw"><table>
+<thead><tr><th>Segment</th><th>Pathological Change</th><th>Clinical Consequence</th></tr></thead>
+<tbody>
+<tr><td>Esophagus</td><td>Loss of ENS → smooth muscle atrophy → fibrosis of lower 2/3 (striated upper 1/3 spared). LES hypotension.</td><td>Dysphagia, GERD, Barrett's esophagus, microaspiration → worsening ILD</td></tr>
+<tr><td>Stomach</td><td>GAVE (Gastric Antral Vascular Ectasia) — ectatic submucosal vessels in antral folds → "watermelon stomach"</td><td>GI bleeding, chronic iron deficiency anemia. Associated with anti-RNA pol III.</td></tr>
+<tr><td>Small bowel</td><td>Dysmotility → bacterial overgrowth (SIBO). Pseudodiverticula — wide-mouth diverticula on antimesenteric border (pathognomonic pattern)</td><td>Bloating, diarrhea, malabsorption, weight loss</td></tr>
+<tr><td>Large bowel</td><td>Dysmotility, colonic hypomotility, "hide-bound" bowel (tightly packed haustra)</td><td>Constipation, pseudo-obstruction (Ogilvie syndrome)</td></tr>
+<tr><td>Anorectum</td><td>Internal anal sphincter fibrosis</td><td>Fecal incontinence — significantly impairs quality of life</td></tr>
+</tbody></table></div></div>
+
+<div class="sub"><h3>Renal Pathology — The "Onion-Skin" Lesion</h3>
+<div class="g2">
+<ul class="bl">
+<li><strong>Interlobular arteries:</strong> Concentric intimal proliferation of myofibroblasts → classic <strong>"onion-skin" appearance</strong> on histology</li>
+<li><strong>Fibrinoid necrosis:</strong> Present in afferent arterioles and glomerular tuft during acute renal crisis — identical to malignant hypertension / TMA</li>
+<li><strong>Glomeruli:</strong> Ischemic collapse from reduced perfusion. Glomerulonephritis is distinctly rare in SSc — if present, consider overlap with ANCA or lupus</li>
+<li><strong>Pathophysiology:</strong> Vasospasm + structural narrowing → renal cortical ischemia → renin-angiotensin axis activation → angiotensin II → further vasoconstriction → more ischemia. A runaway positive feedback loop. ACEi breaks this loop.</li>
+</ul>
+<div class="co dan"><div class="co-t">SRC vs TTP — Critical Distinction</div>
+Scleroderma Renal Crisis (SRC) and Thrombotic Thrombocytopenic Purpura (TTP) both present with MAHA + thrombocytopenia + renal failure in an SSc patient. <strong>ADAMTS13 is severely reduced in TTP but NORMAL in SRC.</strong> This lab distinguishes them. The clinical urgency: TTP requires plasma exchange/rituximab; SRC requires immediate ACEi (captopril). Getting this wrong is potentially fatal.</div>
+</div></div>
+
+<div class="sub"><h3>Cardiac Pathology</h3>
+<div class="g2">
+<ul class="bl">
+<li><strong>"Band-like" myocardial fibrosis:</strong> Patchy replacement fibrosis not confined to coronary territory — unlike MI scar, which follows a vascular distribution. This patchy pattern causes arrhythmias and conduction defects</li>
+<li><strong>Contraction band necrosis:</strong> Evidence of recurrent ischemia-reperfusion — pathological Raynaud's of coronary microvessels</li>
+<li><strong>Pericardial disease:</strong> Pericardial effusion and fibrinous pericarditis — usually clinically silent but may cause tamponade in severe cases</li>
+<li><strong>RV failure:</strong> Ultimately, PAH leads to right ventricular pressure overload → RV hypertrophy → RV dilation → tricuspid regurgitation → RV failure — the final common pathway of PAH death</li>
+</ul>
+</div></div>
+
+<div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+</section>
+
+<!-- SECTION 6: CLINICAL FEATURES I - SKIN & RAYNAUD'S -->
+<section class="sec" id="s6">
+<div class="sec-hd"><span class="sec-n">06</span><h2>Clinical Features I — Skin &amp; Raynaud's</h2></div>
+
+<div class="sub"><h3>Skin Manifestations — From Fingers to Trunk</h3>
+<div class="g2">
+<div class="card"><div class="clabel c-b">Sclerodactyly &amp; Facial Changes</div>
+<p><strong>Sclerodactyly:</strong> Tight, shiny, bound-down skin of the fingers. Start at fingertips, progress proximally. Loss of finger flexion creases. Cannot make a full fist. "Tapered" fingertip appearance.</p>
+<p><strong>Facial features:</strong> Reduced mouth opening (microstomia) → peri-oral furrows ("purse-string" mouth). Beaked nose, taut shiny face. Difficulty eating large food pieces. Dental hygiene impaired by limited oral aperture.</p>
+<p><strong>Modified Rodnan Skin Score (mRSS):</strong> 0–3 scale at 17 body sites (max 51). Primary clinical trial endpoint for skin assessment. Changes in mRSS parallel organ involvement in dcSSc — an improving mRSS in the first 2 years is a favorable prognostic sign.</p></div>
+<div class="card"><div class="clabel c-r">Digital Complications</div>
+<p><strong>Digital ischemic ulcers:</strong> Common, painful, slow to heal. <strong>MORE common in lcSSc (50%) than dcSSc (25%)</strong> because cumulative vascular damage accumulates over a longer disease duration. Predilect fingertip pads and over bony prominences (PIP joints). Secondary infection is common — can lead to osteomyelitis and amputation.</p>
+<p><strong>Pitting scars:</strong> Residual atrophic scars at fingertip pads from healed ischemic ulcers.</p>
+<p><strong>Calcinosis cutis:</strong> Calcium hydroxyapatite deposits in subcutaneous tissue. Most common in lcSSc/CREST. Over the fingers, forearms, elbows. Can ulcerate through the skin → painful, with chalky discharge. Can become superinfected. No reliable treatment — excision rarely curative as deposits recur.</p>
+<p><strong>Acro-osteolysis:</strong> Resorption of the distal phalangeal tufts from ischemia → "pencil-pointing" on X-ray. Unique to SSc among rheumatic diseases.</p></div>
+</div></div>
+
+<div class="sub"><h3>Telangiectasia &amp; Other Skin Features</h3>
+<div class="g2">
+<ul class="bl">
+<li><strong>Telangiectasia:</strong> Mat-like dilated capillaries on face (especially lips and tongue), hands, and trunk. Result of abnormal angiogenesis (VEGF-driven disorganized vessel formation). Important in CREST/lcSSc. Can occur on GI mucosa → occult GI bleeding</li>
+<li><strong>Hyperpigmentation and hypopigmentation:</strong> "Salt-and-pepper" appearance — mixed hyper- and hypopigmented macules, especially on trunk. Pathognomonic pattern when present</li>
+<li><strong>Pruritus:</strong> Very common in early inflammatory phase. Driven by mast cell degranulation in the dermis. Responds to antihistamines; may respond to narrow-band UVB</li>
+<li><strong>Alopecia:</strong> Destruction of hair follicles by fibrosis → diffuse scalp hair loss</li>
+<li><strong>Dry eyes/mouth (sicca syndrome):</strong> Secondary Sjögren's overlap common in lcSSc</li>
+</ul>
+</div></div>
+
+<div class="sub"><h3>Raynaud's Phenomenon — Clinical Assessment</h3>
+<div class="co key"><div class="co-t">The Classic Three-Phase Color Change</div>
+<strong>White (pallor):</strong> Vasospasm → cessation of blood flow → ischemia. Triggered by cold or emotional stress. Sharply demarcated at a digital joint.<br>
+<strong>Blue (cyanosis):</strong> Deoxygenation of static blood in the digit.<br>
+<strong>Red (rubor):</strong> Reactive hyperemia as the spasm releases and blood returns — can be painful, throbbing. Not all patients have all three phases. The classic sequence is White → Blue → Red but may be incomplete.
+</div>
+<div class="g2">
+<ul class="bl">
+<li><strong>Prevalence:</strong> >95% of SSc patients; virtually universal. Often the presenting symptom by years before other manifestations</li>
+<li><strong>Assessment:</strong> Nailfold capillaroscopy (see §3) is the key investigation to distinguish primary from secondary</li>
+<li><strong>Severity grading:</strong> Frequency per week, number of digits, duration of attacks, presence of digital ulcers, healing time</li>
+<li><strong>Triggers:</strong> Cold exposure, emotional stress, caffeine, nicotine, sympathomimetic drugs (decongestants, amphetamines)</li>
+<li><strong>Complications:</strong> Digital ischemic ulcers → chronic pain, non-healing, secondary infection, osteomyelitis, digit amputation</li>
+</ul>
+</div></div>
+
+<div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+</section>
+
+<!-- SECTION 7: CLINICAL FEATURES II - INTERNAL ORGANS -->
+<section class="sec" id="s7">
+<div class="sec-hd"><span class="sec-n">07</span><h2>Clinical Features II — Internal Organs</h2></div>
+
+<div class="sub"><h3>Pulmonary Manifestations — The Main Killer</h3>
+<div class="g2">
+<div class="card"><div class="clabel c-r">ILD — Detection &amp; Monitoring</div>
+<p><strong>Symptoms:</strong> Exertional dyspnea (most common), dry cough, reduced exercise tolerance. Often asymptomatic in early stages — screening is essential.</p>
+<p><strong>Auscultation:</strong> Fine "Velcro" bibasilar crackles (like walking on fresh snow). Identical to IPF crackles.</p>
+<p><strong>PFTs:</strong> Restriction = ↓TLC, ↓FVC, ↓DLCO, FEV1/FVC ratio normal or increased. DLCO is the most sensitive individual PFT parameter — falls before FVC changes. <strong>FVC &lt;70% predicted = high-risk threshold for ILD progression.</strong></p>
+<p><strong>HRCT:</strong> Ground-glass (active alveolitis) + fine reticulation (fibrosis), lower-lobe predominant, subpleural sparing (NSIP pattern). CT is superior to CXR — do not rely on CXR alone for SSc-ILD assessment.</p>
+<p><strong>BAL:</strong> Alveolar lymphocytosis or neutrophilia suggests active alveolitis — may support decision to treat, but not routinely required.</p></div>
+<div class="card"><div class="clabel c-r">PAH — Detection &amp; Monitoring</div>
+<p><strong>Symptoms:</strong> Progressive exertional dyspnea, fatigue, syncope (late), signs of RV failure (JVD, RV heave, loud P2, peripheral edema). Clinically silent until advanced — screening is critical.</p>
+<p><strong>Screening protocol (annual):</strong> Echocardiography (TR jet velocity, RVSP), PFTs, NT-proBNP, 6-minute walk distance (6MWD), anti-centromere antibody status (highest risk for isolated PAH).</p>
+<p><strong>Key PFT clue:</strong> <strong>Disproportionately reduced DLCO relative to FVC</strong> → think PAH (not ILD alone). Isolated DLCO reduction in lcSSc = screen aggressively for PAH.</p>
+<p><strong>Definitive diagnosis:</strong> Right heart catheterization (RHC) — mPAP ≥20 mmHg at rest with PVR ≥2 Wood units = PAH.</p>
+<p><strong>NT-proBNP:</strong> Elevated = increased risk, correlates with RV dysfunction. Useful for monitoring response to therapy.</p></div>
+</div></div>
+
+<div class="sub"><h3>GI Manifestations — 90% Involvement</h3>
+<div class="tw"><table>
+<thead><tr><th>Manifestation</th><th>Key Features</th><th>Management Clue</th></tr></thead>
+<tbody>
+<tr><td>GERD / Esophageal dysmotility</td><td>Heartburn, regurgitation, dysphagia. LES hypotension → reflux. Microaspiration → ILD worsening.</td><td>Aggressive PPI therapy. Head-of-bed elevation. <strong>Nissen fundoplication CONTRAINDICATED</strong> (esophageal peristalsis absent → wrapping creates obstruction).</td></tr>
+<tr><td>GAVE</td><td>"Watermelon stomach" — gastric antral telangiectasias. GI bleeding, iron deficiency anemia. Endoscopy shows pathognomonic vascular stripes. Associated with anti-RNA pol III.</td><td>Endoscopic argon plasma coagulation (APC) or laser. IV iron supplementation for anemia.</td></tr>
+<tr><td>SIBO</td><td>Bacterial overgrowth from small bowel dysmotility. Bloating, diarrhea, weight loss, malabsorption, B12 deficiency.</td><td>Rotating antibiotics (rifaximin, metronidazole, ciprofloxacin). Nutritional supplementation.</td></tr>
+<tr><td>Pseudo-obstruction</td><td>Large bowel dysmotility → Ogilvie-like syndrome. Massive colonic dilation on plain X-ray without mechanical obstruction.</td><td>Neostigmine, colonic decompression, bowel rest. Surgery risks are high — colonic perforation risk.</td></tr>
+<tr><td>Malnutrition</td><td>Combined effect of dysphagia, SIBO, malabsorption. BMI often low in severe SSc-GI. Cachexia predicts poor prognosis.</td><td>Nutritional support — EN preferred over PN when possible. Prokinetics (metoclopramide, erythromycin, prucalopride).</td></tr>
+</tbody></table></div></div>
+
+<div class="sub"><h3>Scleroderma Renal Crisis (SRC)</h3>
+<div class="co dan"><div class="co-t">Scleroderma Renal Crisis — High-Stakes Emergency</div>
+<strong>Who:</strong> Mainly dcSSc, first 4 years of disease, anti-RNA pol III positive.<br>
+<strong>What:</strong> Abrupt-onset accelerated hypertension (BP >150/85 typically) + acute oliguric renal failure. May progress to dialysis within days without treatment.<br>
+<strong>Normotensive SRC:</strong> 10% of SRC cases — no hypertension, but renal function still deteriorates rapidly. <strong>WORSE outcome than hypertensive SRC</strong> because the diagnosis is delayed (no hypertension alert).<br>
+<strong>Triggers:</strong> High-dose glucocorticoids (≥15 mg/day prednisone). Do NOT use glucocorticoids in early dcSSc without recognizing this risk.<br>
+<strong>Labs:</strong> Rising creatinine, MAHA (microangiopathic hemolytic anemia — fragmented RBCs/schistocytes), thrombocytopenia, elevated plasma renin activity.<br>
+<strong>Treatment:</strong> <strong>Captopril</strong> (short-acting ACEi) — start immediately, titrate aggressively to control BP. Continue even if dialysis is required — renal recovery can occur months later if ACEi is maintained. Pre-ACEi survival &lt;10% at 1 year; post-ACEi &gt;70% at 3 years.
+</div></div>
+
+<div class="sub"><h3>Cardiac Manifestations</h3>
+<div class="g2">
+<ul class="bl">
+<li><strong>Arrhythmias:</strong> Most common cardiac manifestation. Ventricular arrhythmias and conduction blocks from patchy myocardial fibrosis. Can be sudden cardiac death (SCD) without warning</li>
+<li><strong>Heart block:</strong> AV block, bundle branch block from fibrosis of the conduction system. May require pacemaker</li>
+<li><strong>Diastolic dysfunction:</strong> Common, from myocardial fibrosis — impairs ventricular filling and exercise capacity. Exacerbates PAH-related symptoms</li>
+<li><strong>Myocardial "Raynaud's":</strong> Coronary microvascular spasm → contraction band necrosis → regional ischemia → troponin elevation without epicardial coronary disease (normal coronary angiogram)</li>
+<li><strong>Pericardial disease:</strong> Clinically silent effusion is common; tamponade is rare but recognized complication</li>
+</ul>
+</div></div>
+
+<div class="sub"><h3>Musculoskeletal &amp; Laboratory Features</h3>
+<div class="g2">
+<ul class="bl">
+<li><strong>Tendon friction rubs:</strong> Palpable and/or audible leathery crepitus over tendon sheaths (wrist extensors, ankle tendons). Pathognomonic of active dcSSc. <strong>Predicts renal crisis, cardiac involvement, and reduced survival.</strong> A critical exam finding — always ask about and examine for.</li>
+<li><strong>Arthritis:</strong> Inflammatory, symmetrical, small joint arthritis resembling RA. Erosions are less common than RA but occur. Overlap with RA/MCTD must be considered if prominent.</li>
+<li><strong>Myopathy:</strong> Two types — (1) Non-inflammatory: simple atrophy and replacement fibrosis, mild CK elevation; (2) Inflammatory (SSc-myositis overlap): elevated CK/aldolase, active inflammation — treat with immunosuppression</li>
+</ul>
+<div class="co prl"><div class="co-t">Laboratory Profile of SSc</div>
+<strong>ANA:</strong> Positive in >95% (nucleolar, speckled, centromere patterns — pattern guides antibody testing)<br>
+<strong>Specific antibodies:</strong> ACA (lcSSc), Scl-70 (dcSSc + ILD), RNA pol III (dcSSc + renal crisis + cancer)<br>
+<strong>ESR/CRP:</strong> Usually <strong>NORMAL in SSc</strong>. If significantly elevated → suspect myositis, malignancy, or infection<br>
+<strong>CBC:</strong> Anemia of chronic disease common; MAHA in SRC; thrombocytopenia in SRC or TTP overlap<br>
+<strong>Complement:</strong> Usually normal (not a complement-consuming disease unlike SLE)<br>
+<strong>NT-proBNP:</strong> Elevated = PAH or cardiac involvement — annual screening biomarker
+</div>
+</div></div>
+
+<div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+</section>
+
+<!-- SECTION 8: DIAGNOSIS & MONITORING -->
+<section class="sec" id="s8">
+<div class="sec-hd"><span class="sec-n">08</span><h2>Diagnosis &amp; Monitoring</h2></div>
+
+<div class="sub"><h3>Diagnostic Approach — Confirming SSc</h3>
+<div class="g2">
+<ul class="bl">
+<li><strong>Clinical diagnosis first:</strong> SSc is a clinical diagnosis supported by serology and investigations. Apply ACR/EULAR 2013 criteria (score ≥9)</li>
+<li><strong>Key history:</strong> Onset of Raynaud's (and interval to other symptoms), skin tightening progression, dysphagia, dyspnea, joint pain, family history</li>
+<li><strong>Physical exam priorities:</strong> Skin score (mRSS), nailfold capillaroscopy, tendon friction rubs, lung auscultation, BP (both arms), heart exam (P2, RV heave)</li>
+<li><strong>ANA first:</strong> If ANA positive, send subset panel: ACA, Scl-70, RNA pol III. These guide the risk profile</li>
+<li><strong>Subset classification:</strong> Limited vs diffuse (skin above elbows/knees/trunk = diffuse)</li>
+</ul>
+</div></div>
+
+<div class="sub"><h3>Baseline Evaluation — At Diagnosis</h3>
+<div class="tw"><table>
+<thead><tr><th>System</th><th>Baseline Tests</th><th>Frequency After Baseline</th></tr></thead>
+<tbody>
+<tr><td>Lung — ILD</td><td>HRCT chest, PFTs (spirometry + DLCO), 6MWD</td><td>PFTs every 3–6 months initially; HRCT if PFTs decline</td></tr>
+<tr><td>Lung — PAH</td><td>Echocardiography, NT-proBNP, 6MWD</td><td>Annual echocardiography; RHC if echo suggests PAH</td></tr>
+<tr><td>GI</td><td>Symptom assessment. Barium swallow or motility study if dysphagia. Upper endoscopy if GI bleeding.</td><td>Symptom-driven reassessment</td></tr>
+<tr><td>Kidney</td><td>Creatinine, eGFR, urine protein, BP monitoring</td><td>Monthly BP self-monitoring in early dcSSc; creatinine quarterly</td></tr>
+<tr><td>Heart</td><td>ECG, echocardiography (look for diastolic dysfunction, pericardial effusion)</td><td>Annual ECG and echo</td></tr>
+<tr><td>Antibodies/CBC</td><td>ANA panel, CBC, CMP, ESR, CRP, NT-proBNP</td><td>Annually or with clinical change</td></tr>
+<tr><td>Other</td><td>TFTs (hypothyroidism risk), 25-OH Vit D, DEXA (corticosteroid users)</td><td>Annually</td></tr>
+</tbody></table></div></div>
+
+<div class="sub"><h3>ILD Monitoring Algorithm</h3>
+<div class="co prl"><div class="co-t">Decision Points for ILD Management</div>
+<strong>Step 1:</strong> Baseline HRCT + PFTs at diagnosis<br>
+<strong>Step 2:</strong> Risk stratify — dcSSc + Scl-70 + FVC &lt;70% = high-risk profile<br>
+<strong>Step 3:</strong> Repeat PFTs every 3–6 months for first 2 years (most rapid progression occurs here)<br>
+<strong>Step 4:</strong> FVC decline ≥10% over 12 months = clinically meaningful decline → initiate/escalate therapy<br>
+<strong>Step 5:</strong> DLCO decline ≥15% over 12 months = also clinically significant<br>
+<strong>Step 6:</strong> Annual HRCT if PFTs stable; repeat sooner if symptoms or PFT decline<br>
+<strong>Step 7:</strong> Consider HRCT for characterization before changing therapy (NSIP vs UIP pattern affects treatment response expectation)
+</div></div>
+
+<div class="sub"><h3>PAH Screening Algorithm</h3>
+<div class="co prl"><div class="co-t">High-Risk Profile for PAH</div>
+<strong>Highest risk:</strong> lcSSc + anti-centromere antibody + disease duration &gt;10 years + isolated DLCO reduction (&lt;60% predicted)<br>
+<strong>Annual screening:</strong> TRV on echo ≥2.5 m/s OR NT-proBNP elevated OR 6MWD declining → proceed to RHC<br>
+<strong>DETECT algorithm:</strong> Validated screening algorithm using 6 variables (FVC/DLCO ratio, NT-proBNP, anti-centromere, telangiectasias, right axis deviation on ECG, RVSP on echo) → guides RHC referral<br>
+<strong>Definitive:</strong> RHC — mPAP ≥20 mmHg + PVR ≥2 Wood units confirms PAH. Essential before starting PAH-specific therapy.
+</div></div>
+
+<div class="sub"><h3>High-Risk Monitoring Profile — Integrating Subset and Antibody</h3>
+<div class="g3">
+<div class="card"><div class="clabel c-r">Anti-RNA pol III</div>
+<p>Watch for: <strong>Renal crisis</strong> (BP monitoring q2 weeks in early dcSSc), rapid skin progression, GAVE. Screen for occult malignancy at diagnosis (age-appropriate cancer screening + chest CT + mammography).</p></div>
+<div class="card"><div class="clabel c-b">Anti-Scl-70</div>
+<p>Watch for: <strong>ILD progression</strong> (more aggressive PFT monitoring), extensive skin disease, digital ulcers, cardiac involvement. PFTs every 3 months initially.</p></div>
+<div class="card"><div class="clabel c-a">Anti-centromere (ACA)</div>
+<p>Watch for: <strong>PAH</strong> (annual echo mandatory), digital ulcers, calcinosis, Sjögren's overlap, primary biliary cirrhosis. Measure NT-proBNP annually.</p></div>
+</div></div>
+
+<div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+</section>
+
+<!-- SECTION 9: TREATMENT -->
+<section class="sec" id="s9">
+<div class="sec-hd"><span class="sec-n">09</span><h2>Treatment</h2></div>
+
+<div class="co key"><div class="co-t">Treatment Philosophy in SSc</div>
+There is NO treatment that reverses established SSc fibrosis. Current therapy aims to: <strong>(1) Slow progression</strong>, <strong>(2) Prevent organ damage</strong>, <strong>(3) Treat complications</strong>, <strong>(4) Improve quality of life</strong>. Treatment is organ-specific and subset-specific. The most important determinant of outcome is <em>early diagnosis and early initiation of organ-appropriate therapy before irreversible damage occurs.</em></div>
+
+<div class="sub"><h3>Immunomodulatory Therapy — Skin and ILD</h3>
+<div class="tw"><table>
+<thead><tr><th>Drug</th><th>Target</th><th>Evidence</th><th>Key Considerations</th></tr></thead>
+<tbody>
+<tr><td><strong>Mycophenolate mofetil (MMF)</strong></td><td>ILD + skin</td><td>SLS-II: comparable to CYC for ILD with better tolerability. Now preferred first-line.</td><td>Preferred over CYC for most SSc-ILD. Contraindicated in pregnancy. Monitor CBC/LFTs.</td></tr>
+<tr><td><strong>Cyclophosphamide (CYC)</strong></td><td>ILD + skin</td><td>SLS-I: FVC stabilization vs placebo. Historical standard.</td><td>Second-line or bridge to MMF. Hemorrhagic cystitis risk → mesna, hydration. Gonadotoxic — fertility preservation discussion essential before use.</td></tr>
+<tr><td><strong>Tocilizumab (TCZ)</b></strong></td><td>ILD (IL-6R blockade)</td><td>focuSSced trial: FVC preservation vs placebo. FDA-approved for SSc-ILD.</td><td>Monthly SC injection. Monitor liver enzymes. Masks fever (risk of occult infection).</td></tr>
+<tr><td><strong>Rituximab (RTX)</strong></td><td>Skin + ILD + muscle</td><td>Case series and small RCTs — skin score and PFT improvement. Used in refractory SSc.</td><td>Anti-CD20. Infusion reactions. PCP prophylaxis recommended. Screening for HBV reactivation.</td></tr>
+<tr><td><strong>Glucocorticoids</strong></td><td>Inflammatory phase / myositis / arthritis</td><td>Useful for acute inflammatory manifestations. No role in established fibrosis.</td><td><strong>CRITICAL:</strong> Doses ≥15 mg/day of prednisone trigger scleroderma renal crisis in susceptible patients (early dcSSc, anti-RNA pol III). Always use the lowest effective dose. Monitor BP closely if used.</td></tr>
+</tbody></table></div></div>
+
+<div class="sub"><h3>Antifibrotic Therapy — ILD Progression</h3>
+<div class="g2">
+<div class="card"><div class="clabel c-b">Nintedanib (Ofev)</div>
+<p>Triple kinase inhibitor: PDGFR, VEGFR, FGFR. <strong>SENSCIS trial:</strong> Significantly reduced rate of FVC decline in SSc-ILD vs placebo (−41 mL/year vs −93 mL/year). FDA-approved for SSc-ILD.</p>
+<p><strong>Key boards point:</strong> Nintedanib is <strong>lung-specific</strong> — it slows ILD progression. It does NOT improve skin score, Raynaud's, or other non-pulmonary manifestations. Use in combination with MMF if needed (not contraindicated).</p>
+<p><strong>Adverse effects:</strong> Diarrhea most common (manage with dose reduction, loperamide), nausea, elevated liver enzymes. Monitor LFTs monthly.</p></div>
+<div class="card"><div class="clabel c-r">Pirfenidone</div>
+<p>Mechanism: anti-fibrotic/anti-inflammatory (TGF-β pathway inhibitor). Approved for IPF. Some off-label use in SSc-ILD but weaker evidence base than nintedanib for SSc specifically.</p>
+<p><strong>HCTS (HSCT):</strong> Autologous hematopoietic stem cell transplant — ASTIS and SCOT trials showed survival benefit over CYC in carefully selected dcSSc patients with significant internal organ involvement but preserved cardiac and pulmonary function. Treatment-related mortality ~10% → patient selection is critical. Consider in young (&lt;50) dcSSc patients with rapidly progressive disease.</p></div>
+</div></div>
+
+<div class="sub"><h3>Vascular Therapy — Raynaud's and Digital Ulcers</h3>
+<div class="tw"><table>
+<thead><tr><th>Drug</th><th>Mechanism</th><th>Indication</th><th>Key Note</th></tr></thead>
+<tbody>
+<tr><td>Nifedipine (or amlodipine)</td><td>CCB — vasodilation</td><td>Raynaud's — first line</td><td><strong>CCBs are first-line for Raynaud's — NOT ACEi.</strong> ACEi is for renal crisis only.</td></tr>
+<tr><td>PDE5 inhibitors (sildenafil, tadalafil)</td><td>↑NO → vasodilation</td><td>Raynaud's refractory to CCB; digital ulcers; PAH</td><td>Sildenafil also used for PAH. Drug interactions with nitrates (hypotension).</td></tr>
+<tr><td>Bosentan</td><td>Dual ET-receptor antagonist</td><td>Prevention of new digital ulcers (not healing existing ones)</td><td>RAPIDS-2 trial: reduced formation of new ulcers. Hepatotoxic — LFTs monthly. Teratogenic.</td></tr>
+<tr><td>IV iloprost (prostacyclin)</td><td>Prostacyclin analog</td><td>Severe Raynaud's; critical ischemia; healing active ulcers</td><td>5-day inpatient infusion course. Effective for crisis management. Flushing, headache common.</td></tr>
+<tr><td>Sympathectomy</td><td>Surgical/chemical ablation of sympathetic fibers</td><td>Refractory digital ischemia threatening digit loss</td><td>Digital sympathectomy (periarterial stripping) for individual digit salvage.</td></tr>
+</tbody></table></div></div>
+
+<div class="sub"><h3>PAH Therapy — Treat the Pulmonary Vasculature</h3>
+<div class="tw"><table>
+<thead><tr><th>Class</th><th>Drug</th><th>Target</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>ERA</td><td>Ambrisentan, Macitentan, Bosentan</td><td>ET-1 receptor</td><td>All teratogenic. LFTs monthly (especially bosentan). Fluid retention. Combination therapy is standard.</td></tr>
+<tr><td>PDE5 inhibitor</td><td>Sildenafil, Tadalafil</td><td>↑cGMP → vasodilation</td><td>Avoid with nitrates. Combination with ERA preferred for WHO FC II-III.</td></tr>
+<tr><td>sGC stimulator</td><td>Riociguat</td><td>↑cGMP directly</td><td>Do NOT combine with PDE5 inhibitors (additive hypotension). Alternative to PDE5i.</td></tr>
+<tr><td>Prostanoids</td><td>Epoprostenol (IV), Treprostinil (SC/inhaled/IV), Iloprost (inhaled)</td><td>↑cAMP → vasodilation</td><td>IV epoprostenol for WHO FC IV or refractory PAH. Most potent class. Complex administration (continuous infusion for IV forms).</td></tr>
+<tr><td>Selexipag</td><td>Oral prostacyclin receptor agonist</td><td>↑cAMP</td><td>GRIPHON trial: reduced morbidity/mortality. Oral — simpler than IV prostanoids.</td></tr>
+</tbody></table></div></div>
+
+<div class="sub"><h3>Renal Crisis — ACEi Protocol</h3>
+<div class="co dan"><div class="co-t">Captopril First — Even on Dialysis</div>
+<strong>Start captopril immediately</strong> — short-acting ACEi preferred for rapid titration. Target: SBP reduction of ~10–20 mmHg/24 hours initially; goal &lt;130/80 ultimately.<br>
+<strong>Continue ACEi even if dialysis is required</strong> — patients may recover renal function months to years after SRC with sustained renin-angiotensin blockade. Documented cases of dialysis patients recovering enough to come off dialysis after 6–18 months of ACEi.<br>
+<strong>Do NOT withhold ACEi in SRC</strong> — this is the therapeutic cornerstone. The concern about ACEi causing hyperkalemia in CKD does NOT outweigh the benefit in acute SRC.<br>
+<strong>ARBs:</strong> Alternative if ACEi not tolerated, but ACEi (especially captopril) is the established agent with the most evidence.
+</div></div>
+
+<div class="sub"><h3>GI Management</h3>
+<div class="g2">
+<ul class="bl">
+<li><strong>GERD/Esophageal dysmotility:</strong> High-dose PPI (twice daily). Elevate head of bed 30°. Prokinetics (metoclopramide — limited use due to CNS effects; erythromycin as prokinetic; prucalopride for intestinal dysmotility). <strong>Avoid Nissen fundoplication — CONTRAINDICATED.</strong></li>
+<li><strong>GAVE:</strong> Argon plasma coagulation (APC) endoscopically. Repeat PRN. IV iron for anemia. Anti-RNA pol III screening for concurrent malignancy.</li>
+<li><strong>SIBO:</strong> Rotating antibiotics — rifaximin (first line, minimal absorption), then metronidazole, ciprofloxacin, trimethoprim-sulfamethoxazole. Cycle 10 days on/20 days off.</li>
+<li><strong>Malnutrition:</strong> Nutritional assessment and supplementation. Enteral nutrition (NG/NJ tube) if oral intake insufficient. Consider parenteral nutrition for refractory cases with significant small bowel dysmotility.</li>
+</ul>
+</div></div>
+
+<div class="sub"><h3>Advanced &amp; Emerging Therapy</h3>
+<div class="g2">
+<ul class="bl">
+<li><strong>CAR-T cell therapy:</strong> CD19-directed CAR-T cells have produced dramatic sustained remissions in early dcSSc cases (2023–2024 reports from Erlangen group). Deep molecular remissions with normalization of skin scores and PFTs. <strong>Still experimental</strong> but potentially paradigm-shifting. Not yet standard of care.</li>
+<li><strong>Lenabasum:</strong> CB2 cannabinoid receptor agonist — anti-inflammatory and anti-fibrotic. Phase III trials in dcSSc ongoing.</li>
+<li><strong>Pamrevlumab:</strong> Anti-CTGF (CCN2) monoclonal antibody — completed Phase III in SSc-ILD. Results pending.</li>
+<li><strong>Belimumab + HSCT combinations:</strong> B cell targeting prior to HSCT to reduce relapse rates under investigation.</li>
+</ul>
+</div></div>
+
+<div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+</section>
+
+<!-- SECTION 10: PROGNOSIS & RELATED DISORDERS -->
+<section class="sec" id="s10">
+<div class="sec-hd"><span class="sec-n">10</span><h2>Prognosis &amp; Related Disorders</h2></div>
+
+<div class="sub"><h3>Prognosis by Subset</h3>
+<div class="g2">
+<div class="card"><div class="clabel c-b">lcSSc Natural History</div>
+<p><strong>Generally more benign</strong> overall, but NOT without significant morbidity.</p>
+<ul class="bl">
+<li>Long prodrome (Raynaud's for 10–15 years before other symptoms)</li>
+<li>Slow skin progression — may stabilize for years</li>
+<li>Main threats: Isolated PAH (long-term), digital ulcers, calcinosis complications, Sjögren's overlap</li>
+<li>10-year survival: ~70–80% in most series (PAH-free); drops significantly with PAH onset</li>
+<li>Quality of life often impaired by digital pain, calcinosis, GI symptoms despite absence of major organ failure</li>
+</ul></div>
+<div class="card"><div class="clabel c-r">dcSSc Natural History</div>
+<p><strong>Biphasic course:</strong></p>
+<ul class="bl">
+<li><strong>First 4 years (critical window):</strong> Rapid skin progression, inflammatory phase, peak risk for ILD, SRC, and cardiac involvement. Disease most active and modifiable here.</li>
+<li><strong>After 4–5 years:</strong> Skin often softens (do not interpret as remission — visceral disease may continue or stabilize independently)</li>
+<li>5-year survival: ~70–80%; 10-year survival: ~55–65%</li>
+<li>Main causes of death: ILD, PAH, cardiac fibrosis/arrhythmia, SRC (pre-ACEi era predominantly; now rarer)</li>
+</ul></div>
+</div></div>
+
+<div class="sub"><h3>Markers of Poor Prognosis</h3>
+<div class="g2">
+<ul class="bl">
+<li><strong>dcSSc subset</strong> > lcSSc</li>
+<li><strong>Anti-Scl-70</strong> (extensive ILD risk) or <strong>anti-RNA pol III</strong> (renal crisis, cancer)</li>
+<li><strong>Black/African-American ancestry</strong> — earlier onset, more severe disease, worse outcomes</li>
+<li><strong>Male sex</strong> — worse prognosis than female despite lower prevalence</li>
+<li><strong>ILD with FVC &lt;70% at presentation</strong></li>
+<li><strong>PAH</strong> — especially if SSc-PAH (worse than idiopathic PAH at comparable hemodynamics)</li>
+<li><strong>Tendon friction rubs</strong> — predicts SRC, cardiac involvement, reduced survival</li>
+<li><strong>Elevated NT-proBNP</strong> at baseline</li>
+<li><strong>Malnutrition/cachexia</strong> — weight loss &gt;10% body weight in the first year is a poor prognostic sign</li>
+<li><strong>Normotensive SRC</strong> — worse than hypertensive SRC</li>
+</ul>
+</div></div>
+
+<div class="sub"><h3>The ACEi Revolution in Renal Crisis</h3>
+<div class="co suc"><div class="co-t">Most Dramatic Therapeutic Achievement in SSc History</div>
+<strong>Pre-ACEi era:</strong> SRC 1-year survival &lt;10%. Dialysis-dependent, death from uremia or cardiac failure within weeks to months.<br>
+<strong>Post-ACEi era:</strong> 3-year survival &gt;70%. Renal recovery even after dialysis documented. SRC transformed from a near-universal death sentence to a manageable crisis.<br>
+<strong>Key lesson:</strong> This demonstrates that targeted, mechanism-based intervention (blocking the renin-angiotensin axis that drives the SRC positive feedback loop) can dramatically alter outcomes. It also explains why avoiding glucocorticoids in early dcSSc (which precipitate SRC) is so important.
+</div></div>
+
+<div class="sub"><h3>Related Disorders</h3>
+<div class="g2">
+<div class="card"><div class="clabel c-b">Localized Scleroderma</div>
+<p>Skin-only fibrosis — NO systemic involvement, NO Raynaud's, NO SSc-specific autoantibodies. Does NOT progress to systemic SSc (rarely, if ever). Types:</p>
+<ul class="bl">
+<li><strong>Morphea:</strong> Round/oval plaques of skin induration. Inflammatory center, lilac border. Self-limited in most cases.</li>
+<li><strong>Linear scleroderma:</strong> Linear bands of fibrosis following lines of Blaschko. Can cross joints → joint contractures. Can affect underlying bone → leg-length discrepancy in children. En coup de sabre = linear scleroderma on forehead/scalp → can involve underlying bone and brain → rarely causes seizures.</li>
+<li><strong>Treatment:</strong> Methotrexate ± pulse IV corticosteroids for active/expanding lesions. Phototherapy (UVA1, PUVA) for extensive morphea.</li>
+</ul></div>
+<div class="card"><div class="clabel c-r">Mixed Connective Tissue Disease (MCTD)</div>
+<p><strong>Key features:</strong> Overlap of SSc, SLE, PM/DM, and RA. Defined by high-titer <strong>anti-U1-RNP antibody</strong> (required for diagnosis).</p>
+<p><strong>Clinical:</strong> Raynaud's (universal), puffy hands, inflammatory arthritis, esophageal dysmotility, myositis, mild ILD. PAH is the most serious complication.</p>
+<p><strong>Prognosis:</strong> Generally more benign than SSc, more steroid-responsive than SSc. ILD and PAH drive morbidity.</p>
+<p><strong>Boards point:</strong> MCTD = U1-RNP. If you see U1-RNP without ACA or Scl-70, think MCTD, not pure SSc.</p></div>
+</div>
+<div class="card"><div class="clabel c-a">Eosinophilic Fasciitis (EF) — The "NONE Rule"</div>
+<p>Scleroderma-like skin induration involving the <strong>fascia</strong> (deep to dermis), NOT the skin itself. Skin can be "tethered" (pulled toward underlying fascia) giving an "orange-peel" (peau d'orange) appearance.</p>
+<p><strong>The "NONE" Rule:</strong></p>
+<ul class="bl">
+<li><strong>N</strong>o Raynaud's phenomenon</li>
+<li><strong>N</strong>o SSc-specific autoantibodies (ANA may be weakly positive)</li>
+<li><strong>N</strong>o internal organ involvement</li>
+<li><strong>N</strong>o nailfold capillary changes</li>
+</ul>
+<p><strong>Positive features:</strong> Peripheral eosinophilia + ↑ESR, fasciitis on MRI/biopsy (plasma cells + eosinophils in fascia). Associated with strenuous exercise and occasionally hematologic malignancy (aplastic anemia, lymphoma — screen!).</p>
+<p><strong>Treatment:</strong> Prednisone — dramatic response (unlike true SSc). Excellent prognosis when malignancy excluded.</p></div>
+</div></div>
+
+<div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+</section>
+
+<!-- SECTION 11: EXAM TRAPS -->
+<section class="sec" id="s11">
+<div class="sec-hd"><span class="sec-n">11</span><h2>⚠ Exam Traps &amp; High-Yield Distinctions</h2></div>
+
+<div class="co dan"><div class="co-t">How to Use This Section</div>
+These are the most commonly tested SSc concepts at boards level — presented as the distinction you must make under exam pressure. Each trap is a real answer choice error waiting to happen. Read once, mark the ones that surprise you, and review those flagged ones the night before.</div>
+
+<div class="sub"><h3>The 17 Critical Traps</h3>
+
+<div class="card"><div class="clabel c-r">TRAP 1 — ACEi Is for Renal Crisis, CCBs Are for Raynaud's</div>
+<p>The most commonly tested SSc pharmacology distinction. <strong>ACEi (captopril) = treat SRC.</strong> <strong>CCBs (nifedipine/amlodipine) = treat Raynaud's.</strong> If the vignette says "Raynaud's → give captopril" — that is WRONG. ACEi has no role in Raynaud's treatment. CCB is not used for SRC.</p></div>
+
+<div class="card"><div class="clabel c-r">TRAP 2 — ACA Protects Against Renal Crisis (NOT a Risk Factor)</div>
+<p>Anti-centromere antibody (ACA) = lcSSc. SRC is a dcSSc complication, associated with anti-RNA pol III (not ACA). ACA is explicitly <strong>protective</strong> against renal crisis. A vignette giving ACA + asking about SRC risk: the answer is LOW RISK, not high.</p></div>
+
+<div class="card"><div class="clabel c-r">TRAP 3 — Glucocorticoids Precipitate Renal Crisis</div>
+<p>Prednisone ≥15 mg/day is the most important iatrogenic trigger of SRC in early dcSSc patients, especially those with anti-RNA pol III. Never use high-dose steroids without acknowledging this risk and monitoring BP closely. A vignette where a newly diagnosed dcSSc patient is started on prednisone and develops acute hypertension + renal failure = SRC triggered by steroids.</p></div>
+
+<div class="card"><div class="clabel c-r">TRAP 4 — Digital Ulcers Are MORE Common in lcSSc Than dcSSc</div>
+<p>Counter-intuitive. lcSSc = 50% prevalence of digital ulcers; dcSSc = 25%. "Limited" refers to skin distribution, NOT vascular disease severity. lcSSc patients live longer → cumulative vascular damage over a longer disease course → more digital ischemia.</p></div>
+
+<div class="card"><div class="clabel c-r">TRAP 5 — Anti-RNA Pol III = Screen for Occult Malignancy</div>
+<p>Anti-RNA pol III is a paraneoplastic marker — the tumor drives the autoimmune response via molecular mimicry (tumor-specific RNApol3 mutations → T cell response → cross-reactive autoantibodies against self RNApol3). Any SSc patient with anti-RNA pol III requires thorough age-appropriate cancer screening (mammography, CT chest/abdomen/pelvis, GI scope if indicated). Malignancy typically presents simultaneously with or shortly before SSc onset.</p></div>
+
+<div class="card"><div class="clabel c-r">TRAP 6 — Normotensive SRC Is Worse, Not Better</div>
+<p>Normotensive SRC (10% of SRC cases) — renal function deteriorates without hypertension as a warning sign. Diagnosis is therefore delayed. Prognosis is <strong>worse</strong> than hypertensive SRC precisely because treatment is started later. Do not reassure a patient with SRC features because BP is "only mildly elevated" or normal.</p></div>
+
+<div class="card"><div class="clabel c-r">TRAP 7 — ESR Is NORMAL in SSc</div>
+<p>SSc is not a "hot" inflammatory arthritis. CRP and ESR are characteristically normal (or minimally elevated). If ESR is significantly elevated in an SSc patient → investigate for: (1) Inflammatory myositis overlap, (2) Malignancy, (3) Intercurrent infection. Don't attribute a markedly elevated ESR to SSc itself.</p></div>
+
+<div class="card"><div class="clabel c-r">TRAP 8 — Disproportionate DLCO Reduction → Think PAH First</div>
+<p>In SSc, DLCO can fall for two reasons: ILD (reduced gas exchange surface) or PAH (reduced pulmonary blood flow). When DLCO falls disproportionately to FVC (i.e., DLCO very low, FVC relatively preserved) — this pattern favors PAH over ILD. In lcSSc especially, isolated DLCO &lt;60% predicted = highest-risk PAH signal → proceed to echo and RHC. Do not assume "it's just the ILD."</p></div>
+
+<div class="card"><div class="clabel c-r">TRAP 9 — SSc-ILD Pattern Is NSIP, Not UIP</div>
+<p>IPF = UIP pattern (honeycombing, traction bronchiectasis, no subpleural sparing). SSc-ILD = <strong>NSIP pattern</strong> (ground-glass opacities, fine reticulation, bilateral symmetric, lower-lobe, subpleural sparing). When a boards question shows SSc + HRCT + asks for the dominant ILD pattern, the answer is NSIP. If UIP is present in SSc, it portends worse prognosis.</p></div>
+
+<div class="card"><div class="clabel c-r">TRAP 10 — Nissen Fundoplication Is CONTRAINDICATED in SSc</div>
+<p>Esophageal peristalsis is absent or severely impaired in SSc (smooth muscle atrophy of the lower 2/3 esophagus). Nissen fundoplication creates a 360° wrap around the LES — in a patient without peristalsis, this creates a functional obstruction. The result: severe dysphagia, food impaction, aspiration. Treat GERD in SSc with high-dose PPI + prokinetics, NOT surgical fundoplication.</p></div>
+
+<div class="card"><div class="clabel c-r">TRAP 11 — SRC vs TTP: ADAMTS13 Distinguishes Them</div>
+<p>Both present with MAHA + thrombocytopenia + renal failure in SSc patients. <strong>ADAMTS13 severely reduced (&lt;10%) = TTP.</strong> <strong>ADAMTS13 normal = SRC.</strong> This single lab test determines treatment: TTP → plasma exchange + rituximab; SRC → captopril immediately. Getting them confused is potentially fatal.</p></div>
+
+<div class="card"><div class="clabel c-r">TRAP 12 — Tendon Friction Rubs = Danger Sign</div>
+<p>Palpable leathery crepitus over tendon sheaths (wrist, knee, ankle) is pathognomonic of active, aggressive dcSSc. They predict: (1) renal crisis risk, (2) cardiac involvement, (3) reduced survival. A vignette with SSc + tendon friction rubs → high-risk classification, intensified monitoring, consider aggressive immunosuppression.</p></div>
+
+<div class="card"><div class="clabel c-r">TRAP 13 — Nintedanib Is Lung-Specific, No Skin Benefit</div>
+<p>Nintedanib slows ILD progression (FVC decline reduced by ~50% vs placebo in SENSCIS). It does NOT improve skin score, Raynaud's, or other non-pulmonary SSc manifestations. A boards question asking what nintedanib improves → answer: <em>rate of FVC decline in ILD</em>. It does not reverse fibrosis — it slows the rate of lung function loss.</p></div>
+
+<div class="card"><div class="clabel c-r">TRAP 14 — GERD Worsens ILD via Microaspiration</div>
+<p>GER → microaspiration of acid/pepsin into the airways → triggers and worsens ILD independently of primary fibrosis. This is a critical therapeutic implication: aggressive GERD management (PPI + prokinetics + head-of-bed elevation) is part of ILD management in SSc, not just a GI intervention. An SSc-ILD patient with uncontrolled GERD should be treated for both conditions simultaneously.</p></div>
+
+<div class="card"><div class="clabel c-r">TRAP 15 — Twin Concordance 4.7% → Environment Drives SSc</div>
+<p>Monozygotic twins are genetically identical. If SSc were primarily genetic, concordance should be high (approaching 100% in a purely genetic disease). Only 4.7% concordance in MZ twins = genetics provides susceptibility but environmental and epigenetic triggers are responsible for the vast majority of disease risk. On an exam: "what does the low twin concordance in SSc demonstrate?" → Answer: the predominant role of environmental/epigenetic factors.</p></div>
+
+<div class="card"><div class="clabel c-r">TRAP 16 — SSc-PAH Has WORSE Prognosis Than Idiopathic PAH</div>
+<p>Despite similar hemodynamics at diagnosis, SSc-PAH patients do worse than idiopathic PAH patients on the same PAH-specific therapy. Reasons: (1) Concurrent ILD reduces pulmonary vascular reserve; (2) Myocardial fibrosis reduces cardiac reserve — RV cannot compensate as effectively; (3) Venoocclusive component in some SSc-PAH cases; (4) BMPR2 mutations (the signature of heritable PAH) are NOT associated with SSc-PAH. This explains why SSc-PAH requires earlier and more aggressive PAH therapy.</p></div>
+
+<div class="card"><div class="clabel c-r">TRAP 17 — MMF Is Preferred Over CYC for SSc-ILD</div>
+<p>SLS-II (Scleroderma Lung Study II) showed MMF and CYC had comparable efficacy for SSc-ILD (FVC stabilization), but MMF had significantly better tolerability (less leukopenia, less GI toxicity, no gonadotoxicity, no hemorrhagic cystitis). MMF is therefore now the preferred first-line agent. CYC is reserved for severe, rapidly progressive ILD where rapid response is needed, or as a bridge. A question asking "first-line therapy for SSc-ILD" → MMF (not CYC).</p></div>
+
+</div>
+
+<div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+</section>
+</main>
+
+<script>
+// ── Highlight System ──────────────────────────────────────────────────────
+const HL_STORE = 'ssc_hl_v1';
+const NOTE_STORE = 'ssc_notes_v1';
+let currentMode = null; // 'y','g','b','p','o' or 'erase'
+
+function setHL(color) {
+  currentMode = color;
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('h-' + color);
+  if (btn) btn.classList.add('active');
+  document.getElementById('h-erase') && document.getElementById('h-erase').classList.remove('active');
+  document.body.style.cursor = 'crosshair';
+}
+function setErase() {
+  currentMode = 'erase';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.body.style.cursor = 'crosshair';
+}
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  localStorage.removeItem(HL_STORE);
+  localStorage.removeItem(NOTE_STORE);
+  document.querySelectorAll('.hl-y,.hl-g,.hl-b,.hl-p,.hl-o').forEach(el => {
+    const parent = el.parentNode;
+    while (el.firstChild) parent.insertBefore(el.firstChild, el);
+    parent.removeChild(el);
+  });
+  renderNotes();
+}
+
+// Assign data-wid to every text node wrapper
+function wrapTextNodes() {
+  let idx = 0;
+  const walker = document.createTreeWalker(
+    document.querySelector('.main'), NodeFilter.SHOW_TEXT,
+    { acceptNode: n => n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP }
+  );
+  let node;
+  while ((node = walker.nextNode())) {
+    const span = document.createElement('span');
+    span.dataset.wid = 'w' + (idx++);
+    node.parentNode.insertBefore(span, node);
+    span.appendChild(node);
+  }
+}
+
+function applyHighlight(color, range) {
+  const mark = document.createElement('mark');
+  mark.className = 'hl-' + color;
+  mark.dataset.hlid = 'hl_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
+  try { range.surroundContents(mark); } catch(e) {
+    const frag = range.extractContents();
+    mark.appendChild(frag);
+    range.insertNode(mark);
+  }
+  return mark.dataset.hlid;
+}
+
+function saveHighlights() {
+  const marks = document.querySelectorAll('mark[data-hlid]');
+  const data = [];
+  marks.forEach(m => {
+    data.push({ hlid: m.dataset.hlid, cls: m.className, text: m.textContent.trim().slice(0,80) });
+  });
+  localStorage.setItem(HL_STORE, JSON.stringify(data));
+}
+
+document.addEventListener('mouseup', function() {
+  if (!currentMode) return;
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return;
+  const range = sel.getRangeAt(0);
+  if (currentMode === 'erase') {
+    const marks = document.querySelectorAll('mark[data-hlid]');
+    marks.forEach(m => {
+      if (range.intersectsNode(m)) {
+        const parent = m.parentNode;
+        while (m.firstChild) parent.insertBefore(m.firstChild, m);
+        parent.removeChild(m);
+      }
+    });
+  } else {
+    applyHighlight(currentMode, range);
+  }
+  sel.removeAllRanges();
+  saveHighlights();
+  document.body.style.cursor = '';
+  currentMode = null;
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+});
+
+// ── Notes System ──────────────────────────────────────────────────────────
+let notes = {};
+let activeAnchorText = '';
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NOTE_STORE)) || {}; } catch(e) { return {}; }
+}
+function saveNotes() { localStorage.setItem(NOTE_STORE, JSON.stringify(notes)); }
+
+function renderNotes() {
+  notes = getNotes();
+  const body = document.getElementById('sn-body');
+  const existing = body.querySelectorAll('.sn-item');
+  existing.forEach(e => e.remove());
+  const keys = Object.keys(notes);
+  const empty = document.getElementById('sn-empty');
+  if (keys.length === 0) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  keys.forEach(anchor => {
+    const div = document.createElement('div');
+    div.className = 'sn-item';
+    div.innerHTML = '<div class="sn-anchor">' + anchor.slice(0,50) + '…</div>'
+      + '<div class="sn-text">' + notes[anchor] + '</div>'
+      + '<button class="sn-del" onclick="deleteNote('' + anchor.replace(/'/g, "\'") + '')">✕</button>';
+    div.querySelector('.sn-anchor').addEventListener('click', () => scrollToAnchor(anchor));
+    body.appendChild(div);
+  });
+}
+
+function scrollToAnchor(anchor) {
+  const all = document.querySelectorAll('.main [data-wid]');
+  for (let el of all) {
+    if (el.textContent.trim().startsWith(anchor.slice(0,20))) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.classList.add('note-anchor-flash');
+      setTimeout(() => el.classList.remove('note-anchor-flash'), 1500);
+      return;
+    }
+  }
+}
+
+function deleteNote(anchor) {
+  notes = getNotes();
+  delete notes[anchor];
+  saveNotes();
+  renderNotes();
+}
+
+function addNote() {
+  const text = document.getElementById('sn-ta').value.trim();
+  if (!text || !activeAnchorText) return;
+  notes = getNotes();
+  notes[activeAnchorText] = text;
+  saveNotes();
+  renderNotes();
+  document.getElementById('sn-ta').value = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  activeAnchorText = '';
+}
+
+document.addEventListener('mouseup', function(e) {
+  if (currentMode) return; // highlight mode takes priority
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+  if (document.getElementById('sn-sidebar').contains(e.target)) return;
+  const selectedText = sel.toString().trim().slice(0, 80);
+  activeAnchorText = selectedText;
+  document.getElementById('sn-ref-txt').textContent = selectedText.slice(0,40) + (selectedText.length > 40 ? '…' : '');
+  if (document.getElementById('sn-sidebar').classList.contains('collapsed')) toggleSidebar();
+});
+
+function toggleSidebar() {
+  const sidebar = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  const btn = document.getElementById('sn-toggle-btn');
+  sidebar.classList.toggle('collapsed');
+  const collapsed = sidebar.classList.contains('collapsed');
+  if (btn) btn.textContent = collapsed ? '▶' : '◀';
+  if (tab) tab.style.display = collapsed ? 'flex' : 'none';
+}
+
+// ── Note popover on highlighted text ─────────────────────────────────────
+let popoverTargetHlid = null;
+function closePopover() { document.getElementById('note-popover').style.display = 'none'; }
+document.querySelector('.main') && document.querySelector('.main').addEventListener('click', function(e) {
+  const mark = e.target.closest('mark[data-hlid]');
+  if (!mark) { closePopover(); return; }
+  const anchor = mark.textContent.trim().slice(0,80);
+  const pop = document.getElementById('note-popover');
+  const noteText = (getNotes()[anchor] || '');
+  document.getElementById('np-pop-ref').textContent = anchor.slice(0,50);
+  document.getElementById('np-pop-text').textContent = noteText || '(no note — select text in sidebar to add)';
+  popoverTargetHlid = mark.dataset.hlid;
+  pop.style.display = 'block';
+  pop.style.top = (e.clientY + window.scrollY + 12) + 'px';
+  pop.style.left = Math.min(e.clientX, window.innerWidth - 280) + 'px';
+  document.getElementById('pop-del-btn').onclick = function() {
+    const m = document.querySelector('mark[data-hlid="' + popoverTargetHlid + '"]');
+    if (m) { const p = m.parentNode; while (m.firstChild) p.insertBefore(m.firstChild, m); p.removeChild(m); }
+    saveHighlights();
+    closePopover();
+  };
+});
+
+// ── Section learned/review toggle ─────────────────────────────────────────
+document.querySelectorAll('.lbtn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const sec = btn.closest('.sec');
+    if (!sec) return;
+    sec.classList.toggle('learned');
+    btn.textContent = sec.classList.contains('learned') ? '★ Done' : '✓ Learned';
+  });
+});
+
+// ── Sticky TOC highlighting ───────────────────────────────────────────────
+const tocLinks = document.querySelectorAll('.toc-a');
+const sections = document.querySelectorAll('.sec');
+function updateTOC() {
+  let current = null;
+  sections.forEach(sec => {
+    const rect = sec.getBoundingClientRect();
+    if (rect.top <= 120) current = sec.id;
+  });
+  tocLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}
+window.addEventListener('scroll', updateTOC, { passive: true });
+
+// ── Init ─────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function() {
+  renderNotes();
+  document.getElementById('sn-tab').style.display = 'none';
+  updateTOC();
+});
+</script>
+</body>
+</html>
