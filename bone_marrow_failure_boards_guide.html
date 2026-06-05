@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Bone Marrow Failure Syndromes · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);
+  border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;
+  z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;
+  display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;
+  position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;
+  line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;
+  padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blu);
+  margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}
+  .main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+/* Flow diagram styles */
+.flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin:16px 0;padding:16px;background:var(--sf);border:1.5px solid var(--bd);border-radius:8px}
+.flow-box{background:var(--blu-l);border:1.5px solid var(--blu);border-radius:6px;padding:8px 14px;font-size:12px;font-weight:600;color:var(--blu-d);text-align:center;min-width:110px}
+.flow-box.red{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.flow-box.grn{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.flow-box.amb{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.flow-box.pur{background:var(--pur-l);border-color:var(--pur);color:var(--pur)}
+.flow-box.tel{background:var(--tel-l);border-color:var(--tel);color:var(--tel)}
+.flow-arr{font-size:18px;color:var(--t3);font-weight:300}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles of Internal Medicine · Chapter 107</div>
+  <h1>Bone Marrow Failure Syndromes</h1>
+  <div class="hero-sub">Aplastic Anemia · MDS · PRCA · Myelophthisis · Medical Boards Review</div>
+  <div class="hero-authors">Neal S. Young, Emma M. Groarke</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">4</div><div class="stat-l">Major Syndromes</div></div>
+    <div class="stat-box"><div class="stat-n">70–80%</div><div class="stat-l">IST Response Rate</div></div>
+    <div class="stat-box"><div class="stat-n">~90%</div><div class="stat-l">Sibling Transplant Survival (Children)</div></div>
+    <div class="stat-box"><div class="stat-n">2/million</div><div class="stat-l">AA Incidence (Europe)</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Overview</a>
+    <a class="toc-a" href="#s2">AA — Definition & Epi</a>
+    <a class="toc-a" href="#s3">AA — Etiology</a>
+    <a class="toc-a" href="#s4">AA — Pathophysiology</a>
+    <a class="toc-a" href="#s5">AA — Clinical & Dx</a>
+    <a class="toc-a" href="#s6">AA — Treatment</a>
+    <a class="toc-a" href="#s7">PRCA</a>
+    <a class="toc-a" href="#s8">MDS</a>
+    <a class="toc-a" href="#s9">Myelophthisis</a>
+    <a class="toc-a" href="#s10">Exam Traps</a>
+    <a class="toc-a" href="#s11">Quick Reference</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- SECTION 1: OVERVIEW -->
+<section class="sec" id="s1">
+  <div class="sec-hd">
+    <span class="sec-n">01</span>
+    <h2>Overview & Classification</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>What Is Bone Marrow Failure?</h3>
+    <p>Bone marrow failure diseases cause low blood counts due to <strong>deficient hematopoiesis</strong> — the marrow cannot produce enough cells. This is distinct from peripheral destruction (hemolytic anemia, ITP, immune leukopenias) where the marrow is actually working harder.</p>
+    <ul class="bl">
+      <li><strong>Aplastic Anemia (AA):</strong> Pancytopenia + bone marrow hypocellularity (empty marrow)</li>
+      <li><strong>Myelodysplastic Syndrome (MDS):</strong> Cytopenias + dysplastic (morphologically abnormal) marrow + high AML risk</li>
+      <li><strong>Pure Red Cell Aplasia (PRCA):</strong> Selective erythroid failure — only red cell precursors are absent</li>
+      <li><strong>Single-lineage cytopenias:</strong> Agranulocytosis, amegakaryocytic thrombocytopenia</li>
+    </ul>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">Classification Principle</div>
+    Marrow failure syndromes are classified by the <strong>dominant morphologic features of the bone marrow</strong>. While the distinction is usually clear, some processes — especially aplastic anemia vs. hypoplastic MDS — can overlap or evolve into one another. Many share an immune-mediated mechanism and an element of genomic instability that raises malignant transformation risk.
+  </div>
+
+  <div class="sub">
+    <h3>Differential Diagnosis of Pancytopenia</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-r">Hypocellular Marrow</div>
+        <p>Acquired (immune) aplastic anemia<br>Constitutional AA (Fanconi, telomere disorders)<br>Hypoplastic MDS<br>Rare aleukemic leukemia<br>Some acute lymphoid leukemia<br>Rare bone marrow lymphomas<br>Copper deficiency</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Cellular Marrow</div>
+        <p><strong>Primary BM:</strong> MDS, PNH, Myelofibrosis, Aleukemic leukemia, Myelophthisis, BM lymphoma, Hairy cell leukemia<br><br><strong>Secondary:</strong> SLE, Hypersplenism, B12/folate deficiency, Copper deficiency, Alcohol, HIV, Brucellosis, Sarcoidosis, TB, Leishmaniasis, Sepsis</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Hypocellular ± Pancytopenia</div>
+        <p>Q fever<br>Legionnaires' disease<br>Anorexia nervosa / starvation<br>Mycobacterium</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="co prl">
+    <div class="co-t">Key Clinical Point</div>
+    The internist/GP must recognize marrow failure syndromes because prognosis without treatment is poor, yet effective therapies exist that require hematologist/oncologist input for proper delivery. Genomic testing has revolutionized diagnosis — but results require expert interpretation.
+  </div>
+</section>
+
+<!-- SECTION 2: AA DEFINITION & EPIDEMIOLOGY -->
+<section class="sec" id="s2">
+  <div class="sec-hd">
+    <span class="sec-n">02</span>
+    <h2>Aplastic Anemia — Definition & Epidemiology</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Definition</h3>
+    <p>Aplastic anemia = <strong>pancytopenia + bone marrow hypocellularity</strong>. The marrow is replaced by fat.</p>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-r">Acquired (Immune)</div>
+        <p>Most common form. T-cell mediated destruction of hematopoietic stem cells. The paradigmatic form in clinical boards questions.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Iatrogenic / Secondary</div>
+        <p>After intensive cytotoxic chemotherapy, transplant conditioning, or accidental radiation — this is an <em>expected</em> consequence, not immune in origin.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Constitutional (Inherited)</div>
+        <p>Germline genetic defects. Includes Fanconi anemia, dyskeratosis congenita, telomere biology disorders (TERC, TERT mutations), GATA2 deficiency, RUNX1 familial platelet disorder. Can present in adults without obvious physical anomalies.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Key Epidemiology Numbers</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Incidence</div>
+        <p><strong>Europe/Israel:</strong> 2 per million per year<br><strong>Thailand/China:</strong> 5–7 per million per year<br>Equal M:F ratio<br><strong>Biphasic age distribution:</strong> Major peak teens/20s + second peak in older adults</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Severity Criteria (Classic)</div>
+        <p>Severe AA defined by ≥2 of 3:<br>• ANC &lt;500/μL<br>• Platelets &lt;20,000/μL<br>• Corrected retic &lt;1% (or abs retic &lt;60,000/μL)<br><br><strong>Modern predictors:</strong> Abs retic &gt;25,000 and lymphocytes &gt;1,000/μL predict better IST response</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="co wrn">
+    <div class="co-t">Board Distinction — Inherited vs Acquired</div>
+    Classical IBMFS (Fanconi anemia, dyskeratosis congenita) present in childhood with physical anomalies. However, <strong>telomere biology disorders (TERC/TERT mutations)</strong> and <strong>GATA2 / RUNX1 germline syndromes</strong> can present as marrow failure in completely normal-appearing adults. Always take a family history!
+  </div>
+</section>
+
+<!-- SECTION 3: AA ETIOLOGY -->
+<section class="sec" id="s3">
+  <div class="sec-hd">
+    <span class="sec-n">03</span>
+    <h2>Aplastic Anemia — Etiology</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Pathophysiology Overview</h3>
+    <div class="flow">
+      <div class="flow-box red">Chemical/Physical Damage<br><small>(radiation, benzene)</small></div>
+      <div class="flow-arr">→</div>
+      <div class="flow-box grn">Immune Destruction<br><small>(T-cell driven)</small></div>
+      <div class="flow-arr">→</div>
+      <div class="flow-box pur">Constitutional Defect<br><small>(germline mutations)</small></div>
+      <div style="width:100%;text-align:center;padding:8px 0;color:var(--t3);font-size:12px">↓ All pathways converge on ↓</div>
+      <div class="flow-box amb" style="width:80%;text-align:center">Empty Bone Marrow — Replaced by Fat — Pancytopenia</div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Radiation</h3>
+    <ul class="bl">
+      <li>Damages DNA; actively mitotic tissues (marrow) are most susceptible</li>
+      <li>Radiation dose estimated from rate/degree of blood count decline, or by dosimetry</li>
+      <li><strong>MDS and leukemia</strong> (but NOT aplastic anemia) are late effects of radiation</li>
+      <li>Clinical relevance: estimate prognosis, protect medical staff from radioactive excreta</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Chemicals — Benzene</h3>
+    <ul class="bl">
+      <li>The prototypical marrow toxin: epidemiologic, clinical, and laboratory evidence links it to aplastic anemia, acute leukemia, and marrow abnormalities</li>
+      <li>For leukemia: incidence correlates with <strong>cumulative exposure</strong></li>
+      <li>Not all heavily exposed workers develop myelotoxicity — genetic susceptibility matters</li>
+      <li>Employment history critical (secondary solvent use in industry)</li>
+      <li>Benzene-related disease has declined with industrial regulation</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Drugs</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Dose-Dependent (All Recipients Affected)</div>
+        <p>Cytotoxic chemotherapy drugs: alkylating agents, antimetabolites, antimitotics, some antibiotics — these are <em>expected</em> toxicities</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Frequently but Not Inevitably</div>
+        <p>Benzene — high probability but not universal</p>
+      </div>
+    </div>
+    <h4>Idiosyncratic Reactions (Low Probability, Classic Board Drugs)</h4>
+    <ul class="bl">
+      <li><strong>Chloramphenicol</strong> — the most classically tested antibiotic</li>
+      <li><strong>NSAIDs</strong> — phenylbutazone, indomethacin, ibuprofen, sulindac, aspirin</li>
+      <li><strong>Anticonvulsants</strong> — hydantoins (phenytoin), carbamazepine, phenacemide, felbamate</li>
+      <li><strong>Heavy metals</strong> — gold, arsenic, bismuth, mercury</li>
+      <li><strong>Sulfonamides</strong> — antibiotics, antithyroid (methimazole, PTU), antidiabetics (tolbutamide, chlorpropamide), carbonic anhydrase inhibitors (acetazolamide)</li>
+      <li><strong>Antihistamines</strong> — cimetidine, chlorpheniramine</li>
+      <li><strong>d-Penicillamine</strong></li>
+      <li>Insecticides, antiprotozoals (quinacrine, chloroquine)</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">Causation ≠ Association</div>
+      A drug may have been prescribed for the <em>first symptoms</em> of marrow failure (antibiotics for fever) or provoked the first symptom of a pre-existing disease (NSAIDs → petechiae in thrombocytopenic patient). Even 10–20× risk increase = only a handful of cases per year due to disease rarity.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Infections</h3>
+    <ul class="bl">
+      <li>Transient mild cytopenias are common with many viral and bacterial infections</li>
+      <li><strong>Parvovirus B19</strong> → pure red cell aplasia (rarely generalized marrow failure)</li>
+      <li>EBV (infectious mononucleosis) — rarely causes aplasia</li>
+      <li><strong>Hepatitis (seronegative)</strong> — posthepatitis aplasia accounts for ~5% of cases; young men; very severe pancytopenia 1–2 months after liver inflammation; non-A, non-B, non-C; presumed immune-mediated</li>
+      <li>HIV-1 (AIDS)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Immunologic Diseases</h3>
+    <ul class="bl">
+      <li><strong>Transfusion-associated GVHD</strong> — aplasia is inevitable cause of death; occurs after nonirradiated blood products in immunodeficient recipients</li>
+      <li><strong>Eosinophilic fasciitis</strong> — rare collagen vascular disease; characterized by painful induration of subcutaneous tissues</li>
+      <li>Thymoma and hypoimmunoglobulinemia can co-occur with aplastic anemia</li>
+      <li>Systemic lupus erythematosus (SLE) — pancytopenia with marrow hypoplasia</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Special Associations</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-t">PNH Association</div>
+        <p>Acquired <em>PIG-A</em> mutation in hematopoietic stem cell → clone deficient in GPI-linked surface proteins. PNH clones detectable by flow cytometry in ≥50% of AA patients at presentation. Patients with AA may later develop hemolytic PNH; PNH patients may later develop frank aplasia.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Pregnancy</div>
+        <p>Aplastic anemia can very rarely complicate pregnancy. May resolve with delivery or with spontaneous/induced abortion.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Constitutional Syndromes — High Yield</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Syndrome</th><th>Gene(s)</th><th>Key Features</th><th>Mechanism</th></tr></thead>
+        <tbody>
+          <tr><td>Fanconi Anemia</td><td>FANCA (most common), 23+ genes total</td><td>Short stature, café au lait spots, thumb/radius/GU anomalies; childhood onset</td><td>Defective DNA cross-link repair; chromosomes susceptible to diepoxybutane/mitomycin C → diagnostic test</td></tr>
+          <tr><td>Dyskeratosis Congenita</td><td>DKC1 (X-linked), TERC, TERT, TINF2 (shelterin)</td><td>Triad: mucous membrane leukoplakia + dystrophic nails + reticular hyperpigmentation; early aplasia</td><td>Telomere biology disorder — cannot repair telomeres or protect chromosome ends</td></tr>
+          <tr><td>Shwachman-Diamond</td><td>SBDS (compound heterozygous)</td><td>Neutropenia + pancreatic insufficiency + malabsorption; early life presentation</td><td>Ribosomopathy — defective ribosome assembly</td></tr>
+          <tr><td>Diamond-Blackfan Anemia</td><td>Ribosomal protein genes</td><td>Congenital PRCA; responds to glucocorticoids; childhood diagnosis</td><td>Ribosomopathy</td></tr>
+          <tr><td>Telomere Biology (Adult)</td><td>TERC, TERT mutations</td><td>Normal-appearing adults; early hair graying is a clue; pulmonary fibrosis + hepatic cirrhosis in family; variable penetrance</td><td>Mutations in telomerase complex → short telomeres → limited proliferative capacity</td></tr>
+          <tr><td>GATA2 Deficiency</td><td>GATA2</td><td>Unusual infections (viral, mycobacterial, fungal) + warts; absent B and NK cells by flow cytometry; MonoMAC syndrome</td><td>Signal transduction + transcriptional regulation defect in hematopoietic gene networks</td></tr>
+          <tr><td>RUNX1 Familial Platelet Disorder</td><td>RUNX1</td><td>Years of modest thrombocytopenia; high risk of MDS/leukemia</td><td>Transcriptional regulation defect</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="co prl">
+    <div class="co-t">Pearl — Telomere Biology Disorder in Adults</div>
+    TERT/TERC mutations have variable penetrance — family members with the same mutation may have normal counts but subtle evidence of hematopoietic insufficiency. Clues: early hair graying, pulmonary fibrosis, hepatic cirrhosis in the family. Shorter telomeres in lymphocytes (vs. granulocytes) suggest constitutional telomere disorder rather than reactive shortening.
+  </div>
+</section>
+
+<!-- SECTION 4: PATHOPHYSIOLOGY -->
+<section class="sec" id="s4">
+  <div class="sec-hd">
+    <span class="sec-n">04</span>
+    <h2>Aplastic Anemia — Pathophysiology</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Stem Cell Compartment Destruction</h3>
+    <ul class="bl">
+      <li>CD34+ cells (marker of early hematopoietic cells) are greatly diminished</li>
+      <li>Committed and primitive progenitor cells are virtually absent in functional studies</li>
+      <li>Stem cell pool reduced to <strong>≤1% of normal</strong> in severe disease at presentation</li>
+      <li>Bone marrow replaced by fat — visible on biopsy and MRI of the spine</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Immune-Mediated Stem Cell Destruction (Acquired AA)</h3>
+    <p>First evidence: recovery of marrow function after antilymphocyte globulin given as conditioning for BMT — suggesting immune pathophysiology.</p>
+    <ul class="bl">
+      <li><strong>T-cell driven:</strong> Blood and marrow cells from AA patients suppress normal hematopoietic progenitor growth in vitro; removing T cells from AA marrow improves hematopoiesis</li>
+      <li><strong>Cytotoxic T-cell clones:</strong> Increased activated CD8+ T-cell clones (visualizable by single-cell RNA sequencing, mass cytometry); these decline with successful IST</li>
+      <li><strong>Type 1 cytokines:</strong> IFN-γ induces Fas expression on CD34+ cells → apoptotic death of hematopoietic precursors</li>
+      <li><strong>HLA loss:</strong> Immune selection can cause loss of HLA expression on HSCs; PNH clones are almost exclusively seen in immune marrow failure (GPI-anchor negative cells escape T-cell attack)</li>
+      <li>Genetic susceptibility: polymorphisms in histocompatibility antigens, cytokine genes, and T-cell polarization genes convert a normal immune response into a sustained autoimmune process</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Chemical and Drug Injury Mechanism</h3>
+    <ul class="bl">
+      <li>Massive physical/chemical insults → direct marrow toxicity</li>
+      <li>Idiosyncratic reactions: altered drug metabolism → reactive electrophilic intermediates that bind to cellular macromolecules</li>
+      <li>Benzene → derivative hydroquinones and quinolones → tissue injury</li>
+      <li>Genetic susceptibility in metabolic pathways explains why only rare individuals develop aplasia despite common drug exposures</li>
+    </ul>
+  </div>
+
+  <div class="co key">
+    <div class="co-t">Why PNH Clones Expand in Immune AA</div>
+    In immune aplastic anemia, the T-cell attack targets normal hematopoietic cells bearing HLA. GPI-negative cells (PNH clone) lack the surface proteins recognized by T-cells, so they escape immune destruction and are selectively expanded. PNH clones are therefore a marker of <strong>immune pathophysiology</strong> and predict responsiveness to immunosuppressive therapy.
+  </div>
+</section>
+
+<!-- SECTION 5: CLINICAL FEATURES & DIAGNOSIS -->
+<section class="sec" id="s5">
+  <div class="sec-hd">
+    <span class="sec-n">05</span>
+    <h2>Aplastic Anemia — Clinical Features & Diagnosis</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>History</h3>
+    <ul class="bl">
+      <li><strong>Onset:</strong> Can be abrupt or insidious</li>
+      <li><strong>Most common early symptom: Bleeding</strong> — easy bruising, gum oozing, nosebleeds, heavy menstrual flow, petechiae; days to weeks duration</li>
+      <li>With thrombocytopenia: massive hemorrhage unusual, but CNS bleeding (intracranial or retinal) can be catastrophic — small amounts matter</li>
+      <li>Anemia symptoms: lassitude, weakness, shortness of breath, pounding sensation in ears</li>
+      <li><strong>Infection is an UNUSUAL first symptom</strong> in AA (contrast with agranulocytosis, where pharyngitis/sepsis occur early)</li>
+      <li>Patients often feel/look remarkably well despite drastically reduced blood counts</li>
+      <li><strong>Red flags for other diagnoses:</strong> Systemic complaints, weight loss → not typical AA</li>
+      <li>Always ask: prior drug use, chemical exposure, preceding viral illness, family history of hematologic diseases</li>
+    </ul>
+    <div class="co key">
+      <div class="co-t">Clues to Inherited Syndromes in History</div>
+      Pulmonary fibrosis or liver fibrosis → telomere biology disorder; family history of unusual infections and warts → GATA2 deficiency; early hair graying → telomere disorder; abnormal blood counts since childhood → constitutional
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Physical Examination</h3>
+    <ul class="bl">
+      <li>Petechiae and ecchymoses — typical</li>
+      <li>Retinal hemorrhages — may be present</li>
+      <li>Pallor of skin and mucous membranes — if symptomatic for weeks</li>
+      <li><strong>Lymphadenopathy and splenomegaly = HIGHLY ATYPICAL for aplastic anemia</strong></li>
+      <li>Café au lait spots, short stature → Fanconi anemia</li>
+      <li>Peculiar nails, leukoplakia → dyskeratosis congenita</li>
+      <li>Early hair graying (patient may be using hair dye to hide it!) → telomere biology disorder</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Laboratory Studies</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Peripheral Blood Smear</div>
+        <p>• Large erythrocytes (macro/oval-macrocytes)<br>• Paucity of platelets and granulocytes<br>• Elevated MCV (very common)<br>• Reticulocytes: absent or very few<br>• Lymphocytes: normal or reduced<br>• <strong>Immature myeloid forms → suggest leukemia or MDS, NOT AA</strong><br>• Nucleated RBCs → marrow fibrosis or tumor invasion<br>• Abnormal platelets → peripheral destruction or MDS</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Bone Marrow (Critical for Diagnosis)</div>
+        <p>• Usually readily aspirated but dilute on smear<br>• Fatty biopsy specimen — grossly pale<br>• <strong>"Dry tap"</strong> → suggests fibrosis or myelophthisis (NOT AA)<br>• Severe aplasia: only RBCs, residual lymphocytes, and stromal cells in aspirate<br>• Biopsy (&gt;1 cm): mainly fat; hematopoietic cells &lt;25% of marrow space; sometimes virtually all fat<br>• Residual cells should have normal morphology (mild megaloblastic erythropoiesis acceptable)<br>• Megakaryocytes greatly reduced/absent<br>• Granulomas → infectious etiology</p>
+      </div>
+    </div>
+
+    <h4>Ancillary Studies</h4>
+    <ul class="bl">
+      <li><strong>Chromosome breakage study</strong> (diepoxybutane or mitomycin C on peripheral blood) → children and younger adults → diagnose Fanconi anemia</li>
+      <li><strong>Telomere length</strong> (peripheral blood leukocytes) → very short = telomere biology disorder → pursue family studies + nucleotide sequencing</li>
+      <li><strong>Bone marrow cytogenetics</strong> → should be <em>negative</em> in typical AA (abnormal in MDS)</li>
+      <li><strong>Flow cytometry for PNH</strong> → sensitive test; PNH clone strongly suggests immune-mediated disease</li>
+      <li><strong>Serologic studies</strong> → EBV, HIV; posthepatitis AA is seronegative</li>
+      <li><strong>Next-generation sequencing (genomics)</strong> → Germline panels (&gt;50 genes) for constitutional BMF in children and suspicious adults; somatic myeloid neoplasm panels (~100 genes) when MDS suspected</li>
+    </ul>
+
+    <div class="co wrn">
+      <div class="co-t">Key Genomic Distinction</div>
+      Spliceosome gene mutations and cohesion gene family mutations are frequent in MDS and UNEXPECTED in aplastic anemia. Finding them should prompt reclassification toward MDS.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnosis & Differential Diagnosis</h3>
+    <p>The diagnosis of aplastic anemia is usually straightforward: <strong>pancytopenia + fatty bone marrow</strong>. Immune AA is a disease of the young — it should be the leading diagnosis in a pancytopenic adolescent or young adult.</p>
+    <ul class="bl">
+      <li><strong>Acquired vs Constitutional:</strong> Marrow morphology usually indistinguishable (exception: GATA2 deficiency has characteristic megakaryocyte atypia); distinguished by family history, flow cytometry (GATA2: absent B and NK cells), genomic testing</li>
+      <li><strong>AA vs Hypocellular MDS:</strong> MDS favored by — morphologic abnormalities (especially megakaryocytes and myeloid precursors), cytogenetic abnormalities, somatic mutations in myeloid neoplasm genes; there is an unclear boundary, especially with 13q and 20q deletions</li>
+      <li>Secondary pancytopenia: usually obvious (massive spleen in cirrhosis, metastatic cancer history, miliary TB on CXR)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Prognosis</h3>
+    <ul class="bl">
+      <li>Natural history of severe AA: rapid deterioration and death without treatment</li>
+      <li>Few patients show spontaneous recovery</li>
+      <li><strong>Major prognostic determinant = blood count</strong></li>
+      <li>Additional prognostic factors: presence of PNH clone, short telomeres, somatically mutated white cells</li>
+      <li>ASXL1 mutations → worse prognosis, clonal evolution</li>
+      <li>Clonal evolution (~10–15% over a decade after ATG): isolated chromosome abnormalities, MDS development, or leukemia</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SECTION 6: TREATMENT -->
+<section class="sec" id="s6">
+  <div class="sec-hd">
+    <span class="sec-n">06</span>
+    <h2>Aplastic Anemia — Treatment</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="co dan">
+    <div class="co-t">Critical First Point</div>
+    Glucocorticoids are <strong>NOT of value as primary therapy</strong> for aplastic anemia and among their multiple toxicities is increased susceptibility to fungal infection. Also: awaiting spontaneous recovery is rarely advisable unless blood counts are only modestly depressed.
+  </div>
+
+  <div class="sub">
+    <h3>Treatment Decision Framework</h3>
+    <div class="flow">
+      <div class="flow-box">Newly Diagnosed Severe AA</div>
+      <div class="flow-arr">→</div>
+      <div class="flow-box grn">HLA Type Immediately</div>
+      <div style="width:100%;height:0"></div>
+      <div class="flow-box amb">Age &lt;40 + Matched Sibling</div>
+      <div class="flow-arr">→</div>
+      <div class="flow-box grn">HSCT (1st choice)</div>
+      <div style="width:100%;height:0"></div>
+      <div class="flow-box pur">No Sibling / Older Patient</div>
+      <div class="flow-arr">→</div>
+      <div class="flow-box tel">IST: Triple Therapy (ATG + Cyclosporine + Eltrombopag)</div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Hematopoietic Stem Cell Transplantation (HSCT)</h3>
+    <ul class="bl">
+      <li><strong>First choice for younger patients with a fully histocompatible sibling donor</strong></li>
+      <li>Long-term survival for children with sibling donors: <strong>~90% or better</strong></li>
+      <li>Adults: higher risk of chronic GVHD and infections → reduced but still good outcomes</li>
+      <li><strong>In transplant candidates: avoid transfusions from family members</strong> to prevent sensitization to histocompatibility antigens</li>
+      <li>Unrelated matched donors: outcomes similar to sibling donors with high-resolution HLA matching, though GVHD/infection more frequent</li>
+      <li>Cord blood: source for children especially</li>
+      <li>HLA haploidentical family donor: increasingly popular (donor almost always available); post-transplant cyclophosphamide prevents GVHD</li>
+      <li>Transplant protocols now usually <strong>do NOT include radiation</strong> to avoid late cancer</li>
+      <li>Overall survival equivalent between transplant and IST — but transplant <em>cures</em> AA while IST leaves risk of relapse and malignant evolution</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Immunosuppression: Triple Therapy (Current Standard of Care)</h3>
+    <div class="co suc">
+      <div class="co-t">Standard Regimen (FDA-Approved 2018)</div>
+      <strong>Horse ATG + Cyclosporine + Eltrombopag</strong> ("Triple Therapy")<br>
+      Induces hematologic recovery in <strong>70–80% of patients</strong>; complete response ~50%. FDA-approved standard of care since 2018.
+    </div>
+
+    <h4>1. Horse ATG (Antithymocyte Globulin)</h4>
+    <ul class="bl">
+      <li><strong>Mechanism:</strong> Depletes T-lymphocytes that are destroying hematopoietic precursors</li>
+      <li><strong>Administration:</strong> Intravenous infusions — requires hospitalization</li>
+      <li><strong>Side effect — Serum Sickness:</strong> Flu-like illness with characteristic cutaneous eruption and arthralgias, ~10 days after initiating treatment</li>
+      <li>Methylprednisolone administered alongside ATG to ameliorate serum sickness (heterologous protein reaction) — but excessive/extended glucocorticoid use → avascular joint necrosis</li>
+      <li><strong>Rabbit ATG is much less effective</strong> — possibly because it reduces T-regulatory cell numbers</li>
+    </ul>
+
+    <h4>2. Cyclosporine</h4>
+    <ul class="bl">
+      <li><strong>Mechanism:</strong> Inhibits T-cell activation; helps maintain remissions achieved with ATG</li>
+      <li><strong>Administration:</strong> Oral, high initial dose with adjustment to blood levels</li>
+      <li><strong>Side effects:</strong> Nephrotoxicity, hypertension, seizures</li>
+      <li>Some centers replace with tacrolimus</li>
+      <li>Patients may become cyclosporine-dependent (relapse when tapered)</li>
+    </ul>
+
+    <h4>3. Eltrombopag (TPO Mimetic)</h4>
+    <ul class="bl">
+      <li><strong>Mechanism:</strong> Thrombopoietin mimetic → stimulates hematopoietic stem cell (and iron chelation and increased regulatory T cells as possible additional benefits)</li>
+      <li><strong>Serendipitous discovery:</strong> Initially tried in refractory AA; showed ~40% response rate; then added to first-line IST with dramatic improvement</li>
+      <li><strong>Key trial:</strong> Eltrombopag added to first-line horse ATG → overall response ~80%, complete response ~50%</li>
+      <li><strong>Administration:</strong> Once daily for 6 months</li>
+      <li><strong>Side effect:</strong> Hepatotoxicity (most important)</li>
+      <li>Children have less additional benefit from eltrombopag than adults</li>
+      <li>Romiplostim (another TPO mimetic) also reported effective</li>
+    </ul>
+
+    <div class="co wrn">
+      <div class="co-t">Relapse After IST</div>
+      Relapse (recurrent pancytopenia) is frequent, often when cyclosporine or eltrombopag is tapered. Most but not all patients respond to reinstitution. Bone marrow exams should be performed if unfavorable change in blood counts (may represent clonal evolution to MDS).
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Androgens</h3>
+    <ul class="bl">
+      <li>Effectiveness NOT verified in controlled trials</li>
+      <li>Mechanism: sex hormones upregulate telomerase gene activity → improves marrow function</li>
+      <li>Particularly useful in patients with <strong>moderate disease and a telomere gene defect</strong></li>
+      <li>Trial period: 3–4 months; may improve all blood counts</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Supportive Care</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Infection Management</div>
+        <p>Infection in severe neutropenia must be aggressively treated with prompt parenteral, broad-spectrum antibiotics — therapy is empirical, do NOT wait for culture results. Persistent/recrudescent fever → suspect fungal disease (Candida, Aspergillus — common after antibacterials). Improved antifungal drugs are a major reason for improved AA prognosis. Granulocyte transfusions if bacterial/fungal infection is progressive despite antibiotics. Non-absorbed antibiotics for gut decontamination: poorly tolerated and unproven. Reverse isolation: does NOT reduce infection mortality.</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-b">Transfusion Support</div>
+        <p><strong>Platelets:</strong> Goal platelet count &gt;10,000/μL. Use single donors, leukodepleted products. HLA-matched platelets for alloimmunized patients. Avoid ASA and NSAIDs. Suppress menstruation (oral estrogens or FSH/LH antagonists).<br><br><strong>RBCs:</strong> Transfuse to maintain activity (usually Hb ~70 g/L, or 90 g/L if cardiac/pulmonary disease). ~2 units every 2 weeks if no marrow function.<br><br><strong>Iron chelation:</strong> Add deferoxamine or deferasirox at ~50th transfusion to prevent secondary hemochromatosis.<br><br><strong>HGFs (EPO, G-CSF):</strong> NOT effective in aplastic anemia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7: PRCA -->
+<section class="sec" id="s7">
+  <div class="sec-hd">
+    <span class="sec-n">07</span>
+    <h2>Pure Red Cell Aplasia (PRCA)</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Definition</h3>
+    <p>PRCA = <strong>anemia + reticulocytopenia + absent or rare erythroid precursor cells in bone marrow</strong>. Only the erythroid lineage is selectively absent. Unlike aplastic anemia and MDS, the unaffected lineages (granulocytes, platelets) are quantitatively and qualitatively normal.</p>
+    <ul class="bl">
+      <li>Adults: PRCA usually <em>acquired</em></li>
+      <li>Congenital (Diamond-Blackfan anemia): diagnosed at birth or early childhood; responds to glucocorticoids; ribosomal protein gene mutations</li>
+      <li>In AA and MDS, affected and unaffected lineages coexist; in single-lineage failure, only one line is lost</li>
+      <li>Progression to pancytopenia or leukemia is <em>unusual</em> in single-lineage failure syndromes</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Classification of PRCA</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Self-Limited</div>
+        <p>Transient erythroblastopenia of childhood (TEC)<br>Transient aplastic crisis in hemolytic anemia (acute B19 parvovirus)<br>Fetal red blood cell aplasia (in utero B19 — nonimmune hydrops fetalis)</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Congenital</div>
+        <p>Diamond-Blackfan anemia (ribosomopathy)</p>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-r">Acquired — Immune / Malignancy</div>
+        <p>• Primary immune (idiopathic)<br>• MDS — 5q– syndrome (ribosomal protein gene deletion mimics DBA)<br>• Thymoma (minority of cases)<br>• Lymphoid malignancies (LGL is most frequent) and CLL<br>• Paraneoplastic to solid tumors<br>• Connective tissue disorders: SLE, JRA, RA<br>• Multiple endocrine gland insufficiency</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-a">Acquired — Other Causes</div>
+        <p>• <strong>Parvovirus B19</strong> (persistent infection in immunodeficient)<br>• Hepatitis, adult T-cell leukemia virus, EBV<br>• Pregnancy<br>• Drugs: especially <strong>phenytoin, azathioprine, chloramphenicol, procainamide, isoniazid</strong><br>• Antibodies to erythropoietin (subcutaneous EPO administration)<br>• Hypogammaglobulinemia<br>• Allogeneic SCT complication (antibodies to blood group antigens)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Parvovirus B19 — High Yield Details</h3>
+    <ul class="bl">
+      <li>Common virus → causes fifth disease (benign exanthem of childhood) and polyarthralgia/arthritis in adults</li>
+      <li>In <strong>patients with underlying hemolysis</strong> (any condition with high RBC demand): transient aplastic crisis → acute, temporary worsening of anemia due to failed erythropoiesis</li>
+      <li>In healthy individuals: temporary cessation of RBC production is not clinically apparent (skin/joint symptoms = immune complex deposition)</li>
+      <li>In <strong>immunodeficient patients</strong> (congenital, acquired, or iatrogenic): persistent viral infection → chronic pure red cell aplasia</li>
+      <li>Bone marrow finding: <strong>giant pronormoblasts</strong> — pathognomonic cytopathic sign of B19 infection</li>
+      <li>Viral tropism: uses erythrocyte P antigen as cellular receptor</li>
+      <li>Diagnosis: <strong>Detection of viral DNA in blood</strong> — IgG and IgM antibodies are commonly absent in immunodeficient patients</li>
+      <li>Treatment: <strong>Intravenous immunoglobulin (IVIG)</strong> — almost all respond</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Boards Trap — Parvovirus Diagnosis</div>
+      In immunodeficient patients with parvovirus B19 PRCA, serology (IgG/IgM) may be NEGATIVE because the patient cannot mount an antibody response. Diagnosis requires PCR for viral DNA, not serology.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of Acquired PRCA</h3>
+    <ul class="bl">
+      <li>First: identify and address underlying disease or drug exposure</li>
+      <li>Search for thymoma by radiographic procedures (excision indicated, but anemia may not improve with surgery)</li>
+      <li>Parvovirus B19: IVIG</li>
+      <li>Idiopathic and immune PRCA: majority respond to immunosuppression</li>
+        <ul class="bl" style="padding-left:16px">
+          <li>Glucocorticoids, cyclosporine, ATG, azathioprine, cyclophosphamide — all reported effective</li>
+          <li>Presence of erythroid colonies in vitro is predictive of response to IST</li>
+        </ul>
+      <li>PRCA is compatible with long-term survival with supportive care alone (RBC transfusions + iron chelation)</li>
+      <li>T-cell inhibition is probably the prevalent immune mechanism in most PRCAs</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SECTION 8: MDS -->
+<section class="sec" id="s8">
+  <div class="sec-hd">
+    <span class="sec-n">08</span>
+    <h2>Myelodysplastic Syndromes (MDS)</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Definition</h3>
+    <p>MDS = heterogeneous group of hematologic disorders characterized by: (1) <strong>cytopenias due to bone marrow failure</strong> (ineffective hematopoiesis), AND (2) <strong>high risk of AML development</strong>.</p>
+    <ul class="bl">
+      <li>Anemia due to ineffective erythropoiesis (marrow makes cells but they die before release), often with thrombocytopenia and neutropenia</li>
+      <li>Dysmorphic (abnormal-appearing) bone marrow cells</li>
+      <li>Clonal hematopoietic stem cell disorder: disordered proliferation + impaired differentiation</li>
+      <li>Two current classifications: WHO 5th Edition (2022) and International Consensus Classification (ICC) 2022</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Epidemiology</h3>
+    <ul class="bl">
+      <li><strong>Disease of the elderly:</strong> Mean age at onset &gt;70 years; slight male predominance</li>
+      <li>Incidence: 35–&gt;100 per million general population; 120–&gt;500 per million in older adults</li>
+      <li>US estimates: 30,000–40,000 new cases/year; prevalence 60,000–120,000</li>
+      <li>MDS is rare in children — when it occurs, usually has a constitutional genetic basis</li>
+      <li><strong>Secondary/therapy-related MDS:</strong> Related to alkylating agents, other chemotherapy, or radiation; NOT age-related; latent period 5–7 years (radiomimetic agents) or 2 years (topoisomerase II inhibitors)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Etiology and Pathophysiology</h3>
+    <ul class="bl">
+      <li>Environmental exposures: radiation, benzene, smoking</li>
+      <li>Acquired AA, Fanconi anemia, and other constitutional marrow failure diseases can evolve into MDS</li>
+      <li><strong>Clonal disease:</strong> Mutations accumulate in a single hematopoietic stem cell → clonal expansion with impaired differentiation</li>
+      <li>Both chromosomal and genetic instability → aging-related</li>
+      <li>Cytogenetic abnormalities in ~50% of patients (aneuploidy more common than translocations)</li>
+      <li>Non-random cytogenetic abnormalities: loss of 5, 7, and 20; trisomy 8; 11q23 after topoisomerase II inhibitors</li>
+      <li>Accelerated telomere attrition destabilizes genome → predisposes to chromosomal lesions</li>
+    </ul>
+
+    <h4>Key Genomic Mutations in MDS</h4>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Gene</th><th>Subtype/Association</th><th>Prognosis</th></tr></thead>
+        <tbody>
+          <tr><td>SF3B1</td><td>Sideroblastic anemia (≥15% ring sideroblasts); requires absence of 5q–, –7, or complex karyotype</td><td>Favorable</td></tr>
+          <tr><td>TP53 (biallelic/multi-hit)</td><td>Complex karyotype; aggressive disease</td><td>Poor</td></tr>
+          <tr><td>EZH2, RUNX1, ASXL1</td><td>Various MDS subtypes</td><td>Poor</td></tr>
+          <tr><td>DNMT3A, ASXL1</td><td>Also seen in immune aplastic anemia; clonal hematopoiesis of indeterminate potential</td><td>Worse in context</td></tr>
+          <tr><td>5q– (deletion)</td><td>Heterozygous loss of ribosomal protein gene → mimics constitutional red cell aplasia</td><td>Favorable; responds to lenalidomide</td></tr>
+          <tr><td>IDH1</td><td>MDS; targeted by ivosidenib (FDA approved)</td><td>Variable</td></tr>
+          <tr><td>UBA1 (somatic)</td><td>VEXAS syndrome (vacuoles, E1 enzyme, X-linked, autoinflammatory, somatic)</td><td>Variable</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="co prl">
+      <div class="co-t">Clonal Evolution Concept</div>
+      Driver gene mutations occur early (normal blood counts, normal morphology) → clonal expansion → additional mutations → AML. Deep sequencing of MDS→AML evolution shows founder clones acquiring additional mutations to become dominant clones.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Classification: WHO 2022 and ICC 2022</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>WHO 2022 Subtype</th><th>BM Blasts</th><th>PB Blasts</th><th>Key Features</th></tr></thead>
+        <tbody>
+          <tr><td>MDS-5q (low blasts + isolated 5q del)</td><td>&lt;5%</td><td>&lt;2%</td><td>5q alone or +1 other (not –7/7q del); responds to lenalidomide</td></tr>
+          <tr><td>MDS-SF3B1 (low blasts + SF3B1 mut)</td><td>&lt;5%</td><td>&lt;2%</td><td>SF3B1 mutation; absence of 5q–/–7/complex karyotype; ring sideroblasts; favorable</td></tr>
+          <tr><td>MDS with biallelic TP53</td><td>&lt;20%</td><td>&lt;20%</td><td>Usually complex karyotype; two TP53 mutations or copy number loss; very poor prognosis</td></tr>
+          <tr><td>MDS with low blasts</td><td>&lt;5%</td><td>&lt;2%</td><td>Morphologically defined, low risk</td></tr>
+          <tr><td>MDS, hypoplastic</td><td>&lt;5%</td><td>&lt;2%</td><td>≤25% BM cellularity; can be confused with AA</td></tr>
+          <tr><td>MDS with increased blasts-1 (MDS-IB1)</td><td>5–9%</td><td>2–4%</td><td>Intermediate/high risk</td></tr>
+          <tr><td>MDS with increased blasts-2 (MDS-IB2)</td><td>10–19%</td><td>5–19% or Auer rods</td><td>High risk; approaching AML</td></tr>
+          <tr><td>MDS with fibrosis</td><td>5–19%</td><td>2–19%</td><td>Fibrosis present</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co key">
+      <div class="co-t">AML vs MDS Cutoff</div>
+      WHO considers <strong>≥20% blasts in bone marrow</strong> as the criterion separating AML from MDS. The ICC introduced an MDS/AML category (same outcomes with high blast counts). This distinction matters for treatment planning.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Features</h3>
+    <ul class="bl">
+      <li><strong>Anemia dominates:</strong> Gradual onset of fatigue, weakness, dyspnea, pallor</li>
+      <li>At least 50% of patients are <strong>asymptomatic</strong> — MDS discovered incidentally on routine blood counts</li>
+      <li>Fever and weight loss → more features of myeloproliferative than myelodysplastic process</li>
+      <li>Physical exam: signs of anemia; ~20% of patients have splenomegaly</li>
+      <li><strong>VEXAS syndrome:</strong> MDS + Sweet's syndrome (inflammatory disease) should prompt consideration; somatic UBA1 mutations; vacuolated myeloid/erythroid precursors on marrow</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Laboratory Studies in MDS</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Peripheral Blood</div>
+        <p>• Anemia (most cases) ± neutropenia ± thrombocytopenia<br>• Macrocytosis common<br>• Platelets: large, lack granules; functional abnormalities (bleeding despite adequate numbers)<br>• Neutrophils: hypogranulated, hyposegmented/ring nuclei, Döhle bodies, functionally deficient<br>• Circulating myeloblasts correlate with BM blast count (important for classification)<br>• Total WBC: normal or low (except CMML)<br>• PNH cells possible (clonal population)</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Bone Marrow</div>
+        <p>• Usually normal or hypercellular (but 20% hypocellular — can be confused with AA)<br>• Dysplastic changes: dyserythropoiesis (nuclear abnormalities, ring sideroblasts), hypogranulation/hyposegmentation in granulocytes (increased myeloblasts), megakaryocytes with reduced/disorganized nuclei<br>• Megaloblastic nuclei + defective hemoglobinization in erythroid lineage<br>• <strong>Prognosis correlates with % BM blasts</strong> — must be enumerated manually AND by flow cytometry<br>• Flow cytometry: aberrant hematopoietic differentiation patterns</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Prognosis — IPSS-R</h3>
+    <ul class="bl">
+      <li>Median survival: years (5q– or sideroblastic) to months (high-risk MDS with excess blasts)</li>
+      <li><strong>IPSS-R (2012):</strong> Standard tool — includes marrow blasts (≤2, &gt;2–&lt;5, 5–10, &gt;10–30%), 16 specific cytogenetic abnormalities in 5 risk subgroups, depth of cytopenias (Hb &lt;80/80-100/≥100 g/L; plt &lt;50/50-100/≥100×10³; ANC &lt;800 vs ≥800), age/performance/ferritin/LDH/β2M</li>
+      <li><strong>IPSS-M (2022):</strong> Incorporates molecular data; now emerging as current standard</li>
+      <li>Most die from complications of pancytopenia; ~⅓ succumb to concurrent disease unrelated to MDS</li>
+      <li>Therapy-related MDS: extremely poor; most progress within months to refractory AML</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of MDS</h3>
+    <p>Only hematopoietic stem cell transplantation offers cure of MDS.</p>
+
+    <h4>HSCT in MDS</h4>
+    <ul class="bl">
+      <li>Survival: ~50% at 3 years in selected cohorts but improving</li>
+      <li>Results with unrelated matched donors similar to sibling donors</li>
+      <li>Older patients can be transplanted using reduced-intensity conditioning (RIC) — higher relapse risk</li>
+      <li>The transplant conundrum: high-risk patients have high transplant mortality; low-risk patients may do well for years without transplant</li>
+      <li>In practice, only a small proportion of MDS patients undergo transplantation</li>
+    </ul>
+
+    <h4>Hypomethylating Agents (HMA)</h4>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-t">Azacitidine</div>
+        <p><strong>Mechanism:</strong> DNA demethylating agent (epigenetic modulator) → restores normal gene regulation → allows differentiation from abnormal MDS stem cell<br><br><strong>Administration:</strong> Subcutaneously, daily ×7 days, every 4 weeks; ≥4 cycles before assessing response<br><br><strong>Outcomes:</strong> ~50% improved blood counts with decreased transfusion requirements; improves survival vs. supportive care<br><br><strong>Limitation:</strong> Response dependent on continued administration; most eventually become refractory → AML<br><br><strong>Toxicity:</strong> Myelosuppression (worsening blood counts)</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-tel">Decitabine</div>
+        <p><strong>Mechanism:</strong> Closely related to azacitidine; DNA demethylation<br><br><strong>Administration:</strong> Continuous IV infusion, varying doses/durations 3–10 days in repeating cycles<br><br><strong>Outcomes:</strong> 30–50% response in blood counts; ~1 year duration of response<br><br><strong>Oral formulation:</strong> Decitabine-cedazuridine — FDA approved for high-risk MDS<br><br><strong>Toxicity:</strong> Myelosuppression</p>
+      </div>
+    </div>
+    <p>HMAs frequently used in high-risk patients not candidates for transplant. In lower-risk, also effective but alternatives should be considered first. Likely HMA monotherapy will be replaced by HMA combination therapies.</p>
+
+    <h4>Lenalidomide (5q– Syndrome)</h4>
+    <ul class="bl">
+      <li>Thalidomide derivative with favorable toxicity profile</li>
+      <li><strong>Particularly effective in 5q– syndrome:</strong> High proportion become transfusion-independent with normal/near-normal Hb; cytogenetics also normalize</li>
+      <li>Administration: oral; most improve within 3 months</li>
+      <li>Toxicities: myelosuppression (worsening thrombocytopenia and neutropenia); increased risk of DVT and PE</li>
+    </ul>
+
+    <h4>Immunosuppression</h4>
+    <ul class="bl">
+      <li>May produce sustained transfusion independence and improve survival</li>
+      <li>ATG + cyclosporine + alemtuzumab (anti-CD52 monoclonal antibody) effective in younger MDS patients (&lt;60 years) with more favorable IPSS</li>
+      <li>~50% of patients with mainly refractory anemia responded to ATG/cyclosporine in retrospective reviews — especially those with hypocellular marrow</li>
+    </ul>
+
+    <h4>Targeted and Novel Agents</h4>
+    <ul class="bl">
+      <li><strong>Ivosidenib</strong> (IDH1 inhibitor) — FDA approved for MDS</li>
+      <li><strong>Luspatercept</strong> (TGF-β pathway modulator) — FDA approved for low-risk MDS anemia, particularly SF3B1 mutations</li>
+      <li><strong>Venetoclax</strong> (BCL2 inhibitor) — FDA approved for AML; used with HMA in high-risk MDS but remains investigational in MDS</li>
+      <li><strong>HGFs (EPO ± G-CSF):</strong> Can improve Hb in low serum EPO patients with low transfusion need; EPO improves survival via anemia amelioration; G-CSF alone did NOT improve survival in controlled trial</li>
+      <li><strong>TPO mimetics:</strong> Improve platelet counts in some; may increase leukemic progression in high-risk MDS — no evidence of leukemic transformation in low-risk MDS</li>
+      <li>Promising in trials: TP53/splicing factor targeted therapies, inflammasome inhibitors, imetelstat (telomerase inhibitor)</li>
+    </ul>
+
+    <div class="co key">
+      <div class="co-t">Supportive Care in MDS</div>
+      Same principles as AA. Many patients will be anemic for years. RBC transfusions + iron chelation with deferoxamine or deferasirox to prevent secondary hemochromatosis.
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 9: MYELOPHTHISIS -->
+<section class="sec" id="s9">
+  <div class="sec-hd">
+    <span class="sec-n">09</span>
+    <h2>Myelophthisic Anemias</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Definition and Pathophysiology</h3>
+    <p><strong>Myelophthisis (secondary myelofibrosis)</strong> = reactive fibrosis of the bone marrow. Distinguished from primary myelofibrosis/myeloid metaplasia (Chapter 108).</p>
+    <div class="co key">
+      <div class="co-t">3 Pathophysiologic Features of Myelofibrosis</div>
+      1. Proliferation of fibroblasts in the marrow space (myelofibrosis)<br>
+      2. Extension of hematopoiesis into long bones and extramedullary sites — spleen, liver, lymph nodes (myeloid metaplasia)<br>
+      3. Ineffective erythropoiesis
+    </div>
+    <ul class="bl">
+      <li>Etiology of fibrosis: dysregulated growth factors — platelet-derived growth factor (PDGF) and TGF-β implicated</li>
+      <li>Myelofibrosis is remarkable for <strong>pancytopenia despite very large numbers of circulating hematopoietic progenitor cells</strong></li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Causes of Secondary Myelofibrosis</h3>
+    <ul class="bl">
+      <li><strong>Metastatic cancer</strong> — epithelial cancer of breast, lung, prostate, or neuroblastoma (most common)</li>
+      <li>Infection: mycobacteria (TB, MAI), fungi, HIV, sarcoidosis</li>
+      <li>Gaucher disease — intracellular lipid deposition</li>
+      <li>Congenital osteopetrosis — absence of osteoclast remodeling → obliterates marrow space</li>
+      <li>Late consequence of radiation or radiomimetic drugs</li>
+      <li>Hematologic syndromes: CML, multiple myeloma, lymphomas, hairy cell leukemia</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical and Laboratory Features</h3>
+    <ul class="bl">
+      <li>Anemia dominant — usually normocytic, normochromic</li>
+      <li>Diagnosis suggested by <strong>leukoerythroblastic smear</strong>: characteristic blood smear picture</li>
+      <li>Erythrocyte morphology: circulating nucleated RBCs, teardrop cells (dacrocytes), shape distortions</li>
+      <li>Leukoerythroblastic reaction: circulating myelocytes, promyelocytes, myeloblasts; elevated WBC (mimics leukemoid reaction)</li>
+      <li>Platelets: may be abundant and giant</li>
+      <li><strong>Characteristic "dry tap"</strong> on bone marrow aspiration → presumptive diagnosis before biopsy decalcified</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Management</h3>
+    <ul class="bl">
+      <li>Course determined by etiology (usually metastatic tumor or advanced hematologic malignancy)</li>
+      <li><strong>Treatable causes must be excluded — especially TB and fungal disease</strong></li>
+      <li>Transfusion support can relieve symptoms</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SECTION 10: EXAM TRAPS -->
+<section class="sec" id="s10">
+  <div class="sec-hd">
+    <span class="sec-n">10</span>
+    <h2>Exam Traps</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">Glucocorticoids for Aplastic Anemia</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 22-year-old presents with severe aplastic anemia. The intern proposes starting high-dose methylprednisolone as initial immunosuppression. You should:</div>
+      <div class="trap-a"><strong>REFUSE — Glucocorticoids are NOT of value as primary therapy for aplastic anemia.</strong> They increase susceptibility to fungal infections. The correct first-line treatment is horse ATG + cyclosporine + eltrombopag (triple therapy) for those without a matched sibling donor, or HSCT for younger patients with a matched sibling.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Rabbit ATG vs Horse ATG</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with aplastic anemia is started on rabbit ATG instead of horse ATG. What is the expected difference in outcome?</div>
+      <div class="trap-a"><strong>Rabbit ATG is much less effective than horse ATG</strong> in aplastic anemia — likely because it reduces T-regulatory cell numbers. Always use horse ATG. This is a classic boards distinction.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Parvovirus Serology in Immunodeficient Patient</span></div>
+    <div class="trap-body">
+      <div class="trap-q">An immunocompromised patient presents with severe anemia, reticulocytopenia, and giant pronormoblasts on bone marrow biopsy. Parvovirus B19 IgG and IgM serology are both negative. The correct next step is:</div>
+      <div class="trap-a"><strong>Send PCR for parvovirus B19 DNA in blood.</strong> Immunodeficient patients cannot produce neutralizing antibodies, so serology is commonly NEGATIVE despite active infection. The presence of giant pronormoblasts on marrow is pathognomonic. Treatment is IVIG — almost all immunodeficient patients with B19 PRCA respond.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Splenomegaly in Aplastic Anemia</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 25-year-old with pancytopenia and bone marrow hypocellularity is found to have moderate splenomegaly on exam. Does this support or argue against aplastic anemia?</div>
+      <div class="trap-a"><strong>Lymphadenopathy and splenomegaly are HIGHLY ATYPICAL of aplastic anemia.</strong> Their presence should prompt reconsideration of the diagnosis — think MDS, lymphoma, hairy cell leukemia, infiltrative disease, or another cause of pancytopenia. In classic aplastic anemia, the spleen is normal sized.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Dry Tap on Bone Marrow Aspiration</span></div>
+    <div class="trap-body">
+      <div class="trap-q">You attempt a bone marrow aspiration in a patient with pancytopenia and get a "dry tap." What does this suggest?</div>
+      <div class="trap-a"><strong>A "dry tap" suggests fibrosis or myelophthisis — NOT aplastic anemia.</strong> In aplastic anemia, the marrow is readily aspirated but dilute and fatty. A dry tap should prompt consideration of myelofibrosis, myelophthisis (secondary to metastatic cancer, TB, or fungal infection), or hairy cell leukemia.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">G-CSF and EPO in Aplastic Anemia</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with aplastic anemia has a Hb of 6.5 g/dL. Should you start erythropoietin and G-CSF?</div>
+      <div class="trap-a"><strong>Hematopoietic growth factors (EPO and G-CSF) are NOT effective in aplastic anemia.</strong> They are ineffective because there are no hematopoietic progenitor cells to stimulate. In contrast, EPO improves survival in MDS by ameliorating anemia.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">AML vs MDS Threshold</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient has bone marrow with 18% blasts, dysplastic morphology, and cytogenetic abnormalities. How is this classified?</div>
+      <div class="trap-a"><strong>MDS with increased blasts-2 (MDS-IB2).</strong> WHO uses ≥20% blasts as the threshold separating AML from MDS. 18% = still MDS. The ICC introduced an MDS/AML category, but the WHO cutoff of 20% remains the classic boards answer. Note: Auer rods at any blast percentage → MDS-IB2 per WHO.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">Lenalidomide — Which MDS Subtype</span></div>
+    <div class="trap-body">
+      <div class="trap-q">An elderly woman has MDS with anemia, low blasts, normal karyotype except for isolated 5q deletion, and becomes transfusion dependent. The most appropriate disease-modifying therapy is:</div>
+      <div class="trap-a"><strong>Lenalidomide</strong> — particularly effective in MDS with 5q– syndrome. Not only do patients become transfusion-independent with normal hemoglobin, but their cytogenetics also normalize. This is a highly specific drug-disease pairing on boards.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Infection as First Symptom — AA vs Agranulocytosis</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 30-year-old presents with pharyngitis, fever, and anorectal abscess. Neutrophils are critically low. Blood counts otherwise normal except granulocytes. Most likely diagnosis?</div>
+      <div class="trap-a"><strong>Agranulocytosis, NOT aplastic anemia.</strong> Infection (pharyngitis, anorectal abscess, frank sepsis) is an early and common presenting symptom of agranulocytosis. In aplastic anemia, infection is an UNUSUAL first symptom — patients more typically present with bleeding. Agranulocytosis is also more prevalent in older adults and women, often drug-related.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Telomere Disorder in Normal-Appearing Adult</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 45-year-old with no physical anomalies presents with moderate aplastic anemia. She has early gray hair and her brother has pulmonary fibrosis. No drugs, no chemical exposure. Most important diagnostic consideration?</div>
+      <div class="trap-a"><strong>Telomere biology disorder — measure telomere length and test for TERT/TERC mutations.</strong> Unlike classic dyskeratosis congenita (which presents in childhood with the clinical triad), adult-onset telomere disorders can appear in completely normal-looking adults. Clues: early graying, family history of pulmonary fibrosis or hepatic cirrhosis, variable penetrance. This affects treatment choice — androgens (upregulate telomerase) may be beneficial.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">Clonal Evolution After IST</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient treated for aplastic anemia with horse ATG/cyclosporine/eltrombopag had an excellent initial response 3 years ago. Now presents with recurrent pancytopenia and new dysplastic changes on marrow. What happened?</div>
+      <div class="trap-a"><strong>Clonal evolution — MDS or rarely leukemia developing after IST for aplastic anemia.</strong> This occurs in approximately 10–15% of treated patients over a decade following ATG. May not invariably associate with pancytopenia return. Bone marrow examination should always be performed if unfavorable change in blood counts occurs in a patient with prior AA.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 12</span><span class="trap-title">Family Transfusions Before HSCT</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A 19-year-old with severe aplastic anemia has a matched sibling donor identified. While awaiting transplant, her family wants to donate blood for her transfusions to "help the family." This is:</div>
+      <div class="trap-a"><strong>Contraindicated — transfusion from family members in a transplant candidate must be AVOIDED.</strong> Family member transfusions cause sensitization to histocompatibility antigens, which increases the risk of graft rejection. Only use non-family blood products, ideally leukodepleted, to minimize allosensitization before HSCT.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 11: QUICK REFERENCE -->
+<section class="sec" id="s11">
+  <div class="sec-hd">
+    <span class="sec-n">11</span>
+    <h2>Quick Reference Master Table</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Feature</th><th>Aplastic Anemia</th><th>MDS</th><th>PRCA</th><th>Myelophthisis</th></tr></thead>
+      <tbody>
+        <tr><td>Marrow appearance</td><td>Hypocellular, fatty</td><td>Normo/hypercellular (20% hypocellular); dysplastic</td><td>Absent erythroid precursors; other lineages normal</td><td>Fibrotic; replaced by tumor/fibrosis</td></tr>
+        <tr><td>Blood lineages affected</td><td>All three (pancytopenia)</td><td>Variable; anemia dominant</td><td>Only red cells (reticulocytopenia)</td><td>All (leukoerythroblastic)</td></tr>
+        <tr><td>Age of onset</td><td>Biphasic: teens/20s and elderly</td><td>Mean &gt;70 years</td><td>Any; thymoma association in adults</td><td>Underlying disease dependent</td></tr>
+        <tr><td>Hallmark lab</td><td>MCV↑; absent retics; fatty marrow biopsy</td><td>Dysplastic cells; cytogenetics; somatic mutations</td><td>Absent reticulocytes + absent erythroid precursors</td><td>Leukoerythroblastic smear; teardrops; dry tap</td></tr>
+        <tr><td>Key diagnostic test</td><td>BM biopsy; PNH flow; chromosome breakage (Fanconi); telomere length</td><td>BM biopsy + cytogenetics + NGS myeloid panel; IPSS-R/M</td><td>Parvovirus B19 PCR (not serology if immunocompromised); thymoma imaging</td><td>BM biopsy; identify underlying cause</td></tr>
+        <tr><td>Primary treatment</td><td>HSCT (young + sibling donor) or Horse ATG + CSA + Eltrombopag</td><td>HSCT (curative); HMA (azacitidine/decitabine); lenalidomide (5q–); luspatercept; ivosidenib</td><td>IVIG (parvovirus); IST (glucocorticoids, CSA, ATG, azathioprine); treat underlying cause</td><td>Treat underlying cause; transfusion support</td></tr>
+        <tr><td>Drugs NOT to give</td><td>Glucocorticoids as primary Rx; EPO; G-CSF; rabbit ATG (less effective); ASA/NSAIDs</td><td>TPO agonists caution in high-risk (may increase AML); cytotoxic chemotherapy poorly tolerated</td><td>EPO injections if anti-EPO antibodies suspected</td><td>Avoid useless procedures</td></tr>
+        <tr><td>Malignant risk</td><td>~10–15% clonal evolution (MDS/leukemia) over decade after IST</td><td>Core feature — AML progression; type and number of cytogenetic abnormalities predict risk</td><td>Rare; underlying lymphoma/CLL can be source</td><td>Determined by underlying disease</td></tr>
+        <tr><td>PNH association</td><td>PNH clones in ≥50% at presentation; marker of immune etiology</td><td>PNH clone association possible</td><td>Not typically</td><td>No</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sub">
+    <h3>Drug Summary — Key Numbers to Memorize</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Drug</th><th>Indication</th><th>Mechanism</th><th>Key Outcome / Dose</th><th>Main Toxicity</th></tr></thead>
+        <tbody>
+          <tr><td>Horse ATG</td><td>Severe AA (IST)</td><td>T-cell depletion</td><td>Part of triple therapy; ~80% overall response with triple therapy</td><td>Serum sickness ~day 10; requires hospitalization</td></tr>
+          <tr><td>Cyclosporine</td><td>AA (with ATG); MDS-IST</td><td>T-cell inhibition (calcineurin inhibitor)</td><td>High dose oral; adjusted by blood levels</td><td>Nephrotoxicity, hypertension, seizures</td></tr>
+          <tr><td>Eltrombopag</td><td>AA (first-line and refractory); some MDS</td><td>TPO mimetic → HSC stimulation</td><td>6 months daily; ~40% response in refractory AA; added to ATG/CSA → complete response ~50%</td><td>Hepatotoxicity</td></tr>
+          <tr><td>Azacitidine</td><td>MDS (any risk); high-risk preferred</td><td>DNA hypomethylation (epigenetic)</td><td>SQ daily ×7 days q4wk; ~50% improved counts; improves survival</td><td>Myelosuppression</td></tr>
+          <tr><td>Decitabine</td><td>MDS (high-risk)</td><td>DNA hypomethylation</td><td>IV; 30–50% response; ~1 year duration</td><td>Myelosuppression</td></tr>
+          <tr><td>Lenalidomide</td><td>MDS with 5q–</td><td>Multiple biologic activities</td><td>Most patients improve within 3 months; cytogenetics normalize</td><td>Myelosuppression; DVT/PE</td></tr>
+          <tr><td>Luspatercept</td><td>Low-risk MDS anemia (especially SF3B1)</td><td>TGF-β pathway inhibition → improved erythropoiesis</td><td>FDA approved for low-risk MDS</td><td>Fatigue, hypertension</td></tr>
+          <tr><td>Ivosidenib</td><td>MDS with IDH1 mutation</td><td>IDH1 inhibitor</td><td>FDA approved for MDS</td><td>Differentiation syndrome</td></tr>
+          <tr><td>Deferoxamine / Deferasirox</td><td>Chronic transfusion-dependent (AA, MDS)</td><td>Iron chelation</td><td>Start at ~50th transfusion to prevent hemochromatosis</td><td>Deferoxamine: infusion reactions, ototoxicity; Deferasirox: renal toxicity</td></tr>
+          <tr><td>IVIG</td><td>Parvovirus B19 PRCA (immunodeficient)</td><td>Passive antibody against B19</td><td>Nearly universal response</td><td>Generally well-tolerated</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">Harrison's Principles of Internal Medicine, Ch. 107 · Bone Marrow Failure Syndromes · Boards Review 2026 · Young NS, Groarke EM</footer>
+
+<script>
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '...' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
