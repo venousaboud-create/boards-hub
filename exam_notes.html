@@ -515,7 +515,7 @@ function render(){
           <span class="badge-subj sc-${note.subject}">${SUBJ[note.subject]?.emoji||''} ${SUBJ[note.subject]?.label||note.subject}</span>
           ${note.topic&&note.topic!=='General'?`<button class="badge-topic" onclick="setTopic('${note.topic.replace(/'/g,"\\'")}')">#${note.topic}</button>`:''}
         </div>
-        <div class="note-text">${note.text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\*\*(.+?)\*\*/g,'<strong></strong>')}</div>
+        <div class="note-text">${note.text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')}</div>
         ${note.img?`<img class="note-img" src="${note.img}" onclick="openLightbox('${note.img}')" title="Click to enlarge">`:''}
       </div>
       <div class="note-card-foot">
