@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Bone &amp; Mineral Metabolism · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);
+  --hb:rgba(147,197,253,.5);--hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7}
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;
+  border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;
+  display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);
+  cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}
+#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;
+  background:var(--bg);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);
+  height:calc(100vh - var(--nav));background:var(--sf2);
+  border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;
+  z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;font-style:italic;line-height:1.6}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;
+  box-shadow:2px 3px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;
+  min-height:100px;position:relative;overflow:hidden}
+.sn-note-hd{background:#fef08a;border-bottom:1px solid #f0d060;padding:6px 10px;
+  display:flex;align-items:center;gap:6px;cursor:grab;user-select:none;flex-shrink:0}
+.sn-note-hd:active{cursor:grabbing}
+.sn-drag-icon{color:#a89a30;font-size:12px;flex-shrink:0}
+.sn-note-ref{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  color:#78610a;text-transform:uppercase;letter-spacing:.08em;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1;padding:0 2px;flex-shrink:0}
+.sn-del:hover{color:var(--red)}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;color:var(--t2);overflow-y:auto;min-height:60px}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize;
+  display:flex;align-items:flex-end;justify-content:flex-end;padding:2px}
+.sn-resize::after{content:'';display:block;width:8px;height:8px;
+  border-right:2px solid #c8a800;border-bottom:2px solid #c8a800;border-radius:1px}
+#sn-tab{position:fixed;right:var(--snw);top:50%;transform:translateY(-50%);
+  z-index:801;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;
+  padding:12px 6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;
+  writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:-2px 0 8px rgba(0,0,0,.12);transition:right .25s,background .15s}
+#sn-tab:hover{background:var(--blu)}
+#sn-sidebar.hidden~#sn-tab{right:0}
+.note-anchor{cursor:pointer;border-bottom:2px dotted var(--pur);padding-bottom:1px;
+  position:relative;transition:border-color .15s}
+.note-anchor:hover{border-bottom-color:var(--blu);background:rgba(109,40,217,.06);border-radius:2px}
+#note-popover{position:fixed;z-index:2000;background:#fff;border:1.5px solid var(--pur);
+  border-radius:9px;box-shadow:0 6px 28px rgba(109,40,217,.18);padding:12px 14px;
+  max-width:280px;min-width:160px;display:none;font-size:12.5px;line-height:1.55;color:var(--tx)}
+#note-popover.show{display:block}
+#note-popover::before{content:'';position:absolute;width:10px;height:10px;background:#fff;
+  border-left:1.5px solid var(--pur);border-top:1.5px solid var(--pur);
+  transform:rotate(45deg);top:-6px;left:18px}
+#note-popover::after{content:'';position:absolute;background:#fff;width:14px;height:6px;top:0;left:14px}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--pur);margin-bottom:5px;font-weight:500}
+#np-pop-text{color:var(--t2);line-height:1.5}
+#np-pop-actions{display:flex;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.pop-btn{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.pop-btn:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.pop-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:17px;color:var(--t3);line-height:1}
+.pop-close:hover{color:var(--red)}
+#sn-input{padding:10px;border-top:1.5px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-selref{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+#sn-selref em{color:var(--pur);font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid var(--bd2);border-radius:5px;
+  font-family:'Source Sans 3',sans-serif;font-size:12px;resize:none;height:56px;background:var(--bg);color:var(--tx)}
+#sn-ta:focus{outline:2px solid var(--pur);border-color:transparent}
+#sn-add{margin-top:6px;width:100%;padding:7px;background:var(--pur);color:#fff;
+  border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer}
+#sn-add:hover{background:#5b21b6}
+.sbar{display:flex;gap:7px;margin-top:10px}
+.lbtn,.fbtn{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;
+  border:1.5px solid var(--bd2);cursor:pointer;background:var(--bg);color:var(--t3);transition:all .15s}
+.lbtn.on{background:var(--grn-l);border-color:#86efac;color:var(--grn)}
+.fbtn.on{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.hero{background:linear-gradient(135deg,#1a2f5c 0%,#1e3a6e 60%,#1a2f5c 100%);
+  color:#fff;padding:44px 52px 36px;border-bottom:4px solid #b91c1c;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;
+  line-height:1.05;margin-bottom:8px;position:relative}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);margin-bottom:12px;letter-spacing:.05em}
+.hero-authors{font-size:13px;color:rgba(255,255,255,.65);font-style:italic;margin-bottom:22px}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;position:relative}
+.stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 18px;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fde68a}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1px}
+.toc{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1.5px solid var(--bd);
+  height:var(--nav);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc-inner{display:flex;height:100%;padding:0 52px;min-width:max-content;gap:1px}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--t3);text-decoration:none;
+  padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s}
+.toc-a:hover,.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+.main{max-width:900px;margin:0 auto;padding:44px 52px 88px;transition:padding-right .25s}
+.sec{margin-bottom:60px;scroll-margin-top:calc(var(--nav)+18px)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;
+  padding-bottom:14px;border-bottom:2.5px solid var(--tx)}
+.sec-n{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.sec h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--tx);line-height:1.15}
+.sub{margin:20px 0}
+.sub h3{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--blu);
+  margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--blu-l)}
+.sub h4{font-size:13.5px;font-weight:600;color:var(--tx);margin:14px 0 6px}
+p{margin-bottom:8px;color:var(--t2);font-size:13.5px;line-height:1.65}
+.co{border-radius:7px;padding:13px 16px;margin:12px 0;font-size:13px;line-height:1.65;border-left:3.5px solid}
+.co-t{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.key{background:var(--blu-l);border-color:var(--blu)}.key .co-t{color:var(--blu)}
+.dan{background:var(--red-l);border-color:var(--red)}.dan .co-t{color:var(--red)}
+.wrn{background:var(--amb-l);border-color:var(--amb)}.wrn .co-t{color:var(--amb)}
+.suc{background:var(--grn-l);border-color:var(--grn)}.suc .co-t{color:var(--grn)}
+.prl{background:var(--pur-l);border-color:var(--pur)}.prl .co-t{color:var(--pur)}
+.tel{background:var(--tel-l);border-color:var(--tel)}.tel .co-t{color:var(--tel)}
+.bl{list-style:none;padding:0;margin:6px 0 12px}
+.bl li{position:relative;padding:3px 0 3px 18px;font-size:13.5px;color:var(--t2);line-height:1.6}
+.bl li::before{content:'▸';position:absolute;left:0;top:4px;color:var(--blu);font-size:10px}
+.bl li b,.bl li strong{color:var(--tx);font-weight:600}
+.bl.red li::before{color:var(--red)}
+.bl.grn li::before{color:var(--grn)}
+.bl.pur li::before{color:var(--pur)}
+.tw{overflow-x:auto;margin:12px 0;border:1.5px solid var(--bd);border-radius:7px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--sf2)}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t2);font-weight:500;padding:9px 13px;
+  text-align:left;border-bottom:1px solid var(--bd)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#faf9f7}
+tbody td{padding:7px 13px;vertical-align:top;color:var(--t2)}
+tbody td:first-child{color:var(--tx);font-weight:500}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:13px 15px;transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.clabel{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.c-b{color:var(--blu)}.c-r{color:var(--red)}.c-g{color:var(--grn)}.c-a{color:var(--amb)}.c-p{color:var(--pur)}.c-t{color:var(--tel)}
+.card p{font-size:12.5px;margin-bottom:0}
+.trap{background:#fff;border:1.5px solid var(--red);border-radius:8px;margin:12px 0;overflow:hidden}
+.trap-hd{background:var(--red-l);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.trap-title{font-weight:600;font-size:13px;color:var(--red)}
+.trap-body{padding:14px 16px}
+.trap-q{font-size:13.5px;color:var(--t2);margin-bottom:12px;line-height:1.65}
+.trap-a{background:var(--grn-l);border:1px solid #86efac;border-radius:5px;padding:10px 14px;font-size:13px;color:var(--grn);line-height:1.6}
+.trap-a strong{font-weight:700;color:var(--grn)}
+.hl{border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-y{background:var(--hy)}.hl-g{background:var(--hg)}.hl-b{background:var(--hb)}.hl-p{background:var(--hpk)}.hl-o{background:var(--ho)}
+.sep{border:none;border-top:1px solid var(--bd);margin:44px 0}
+.footer{text-align:center;padding:26px;border-top:1.5px solid var(--bd);
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);letter-spacing:.12em}
+@media print{#toolbar,#sn-sidebar,#sn-tab,#note-popover,.toc{display:none!important}
+  .main{padding:16px;max-width:100%}.sec{page-break-inside:avoid}}
+/* Flowchart styles */
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin:14px 0;padding:14px 16px;background:var(--sf);border:1.5px solid var(--bd);border-radius:8px}
+.fbox{background:var(--blu-l);border:1.5px solid var(--blu);border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--blu);text-align:center;white-space:nowrap}
+.fbox.red{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.fbox.grn{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.fbox.pur{background:var(--pur-l);border-color:var(--pur);color:var(--pur)}
+.fbox.amb{background:var(--amb-l);border-color:var(--amb);color:var(--amb)}
+.farr{color:var(--t3);font-size:16px;font-weight:700}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <button class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></button>
+  <button class="hbtn" id="h-g" title="Green"  onclick="setHL('g')"></button>
+  <button class="hbtn" id="h-b" title="Blue"   onclick="setHL('b')"></button>
+  <button class="hbtn" id="h-p" title="Pink"   onclick="setHL('p')"></button>
+  <button class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlights" onclick="setErase()">✕</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+</div>
+
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>📝 My Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text → write note → Add Note.<br><br>Notes stay connected to sentences even after closing.</div>
+  </div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <div id="np-pop-actions">
+    <button class="pop-btn" id="pop-del-btn">Delete</button>
+    <button class="pop-close" onclick="closePopover()">×</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">Harrison's Principles · Chapter 421</div>
+  <h1>Bone &amp; Mineral Metabolism</h1>
+  <div class="hero-sub">Calcium · Phosphorus · Magnesium · Vitamin D · Medical Boards Review</div>
+  <div class="hero-authors">Bringhurst, Kronenberg, Liu, Wein</div>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="stat-n">4</div><div class="stat-l">Minerals</div></div>
+    <div class="stat-box"><div class="stat-n">99%</div><div class="stat-l">Ca in Bone</div></div>
+    <div class="stat-box"><div class="stat-n">3</div><div class="stat-l">Cell Types</div></div>
+    <div class="stat-box"><div class="stat-n">2026</div><div class="stat-l">Stage A</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-a" href="#s1">Bone Structure</a>
+    <a class="toc-a" href="#s2">Calcium</a>
+    <a class="toc-a" href="#s3">Phosphorus</a>
+    <a class="toc-a" href="#s4">Hypo-PO₄</a>
+    <a class="toc-a" href="#s5">Hyper-PO₄</a>
+    <a class="toc-a" href="#s6">Magnesium</a>
+    <a class="toc-a" href="#s7">Vitamin D</a>
+    <a class="toc-a" href="#s8">Exam Traps</a>
+    <a class="toc-a" href="#s9">Quick Ref</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ══════════ SECTION 1: BONE STRUCTURE ══════════ -->
+<section class="sec" id="s1">
+  <div class="sec-hd">
+    <span class="sec-n">01</span>
+    <h2>Bone Structure &amp; Metabolism</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Types of Bone</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel c-b">Cortical (Compact) Bone</div>
+        <ul class="bl">
+          <li>Forms the <strong>cylindrical shell</strong> of long bones</li>
+          <li>Organized in concentric sheets = <strong>lamellar bone</strong></li>
+          <li>Contains <strong>Haversian systems</strong> (osteons) — lamellae around blood vessels</li>
+          <li>BMUs tunnel through it during remodeling</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Cancellous (Trabecular) Bone</div>
+        <ul class="bl">
+          <li>Plate-like meshwork that <strong>internally supports</strong> cortical shell</li>
+          <li>~4% surface involved in active resorption at any time</li>
+          <li>10–15% surfaces covered with osteoid (new unmineralized bone)</li>
+          <li>BMUs move across trabecular surfaces</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Bone Composition</h3>
+    <ul class="bl">
+      <li><strong>Mineral phase:</strong> Calcium + phosphate → poorly crystalline <strong>hydroxyapatite</strong>; deposited in the "holes" between collagen fibrils</li>
+      <li><strong>Organic matrix:</strong> 90–95% is <strong>Type I collagen</strong>; also serum proteins (albumin), cell attachment proteins (thrombospondin, osteopontin, fibronectin), calcium-binding proteins (osteocalcin, matrix gla protein), proteoglycans (biglycan, decorin)</li>
+      <li><strong>Mineralization:</strong> Requires osteoblast-derived <strong>alkaline phosphatase</strong>, which hydrolyzes inhibitors of mineralization (e.g., pyrophosphate)</li>
+      <li><strong>Primary mineralization:</strong> Begins soon after matrix secretion; <strong>secondary mineralization:</strong> not complete for several weeks</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">⚠ Osteogenesis Imperfecta</div>
+      Single amino acid substitutions in <strong>α1 (COL1A1)</strong> or <strong>α2 (COL1A2)</strong> chains of type I collagen → disrupt bone organization → severe skeletal fragility. Highlights the critical structural role of the fibrillar matrix.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Bone Cells</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">Osteoblasts</div>
+        <ul class="bl">
+          <li><strong>Mesenchymal origin</strong> (periosteum, bone marrow, hypertrophic chondrocytes)</li>
+          <li>Synthesize &amp; secrete organic matrix</li>
+          <li>Regulate mineralization</li>
+          <li>Key markers: <strong>alkaline phosphatase, osteocalcin, procollagen I</strong></li>
+          <li>Fate: become osteocyte, lining cell, or die</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Osteoclasts</div>
+        <ul class="bl">
+          <li><strong>Hematopoietic lineage</strong> (common precursor with macrophages)</li>
+          <li>Multinucleated; form in Howship's lacunae</li>
+          <li>Secrete <strong>protons + cathepsin K</strong> → acidify and digest matrix</li>
+          <li>Ruffled border: specialized proton pump ATPase</li>
+          <li>Attach via <strong>αvβ3 integrin</strong></li>
+          <li>Marker: collagen hydroxypyridinium cross-links (urine/blood)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Osteocytes</div>
+        <ul class="bl">
+          <li>Vast majority of bone cells</li>
+          <li>Embedded in matrix; communicate via <strong>canalicular network</strong></li>
+          <li><strong>Mechanosensors</strong> → transmit signals to osteoblasts &amp; osteoclasts</li>
+          <li>Secrete <strong>sclerostin</strong> (Wnt inhibitor → suppress bone formation)</li>
+          <li>Secrete <strong>FGF23</strong> (phosphate regulator)</li>
+          <li>Also perform <strong>osteocytic osteolysis</strong> (stimulated by PTH/PTHrP)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Osteoblast Development — Key Genes</h3>
+    <div class="flow">
+      <div class="fbox">Skeletal progenitor</div>
+      <div class="farr">→</div>
+      <div class="fbox">Ihh + BMPs</div>
+      <div class="farr">→</div>
+      <div class="fbox pur">Runx2 → OB progenitor</div>
+      <div class="farr">→</div>
+      <div class="fbox pur">Osterix (SP7) → Pre-OB</div>
+      <div class="farr">→</div>
+      <div class="fbox grn">Collagen I → Mature OB</div>
+      <div class="farr">→</div>
+      <div class="fbox">Osteocalcin → Osteocyte</div>
+    </div>
+    <ul class="bl">
+      <li><strong>Runx2:</strong> Master transcription factor for chondrocyte/osteoblast progenitors; regulates osteopontin, bone sialoprotein, collagen I, osteocalcin, RANKL; regulated by BMPs. Runx2-deficient mice = NO osteoblasts. Heterozygous loss → <strong>cleidocranial dysplasia</strong> (delayed clavicle/cranial bone formation)</li>
+      <li><strong>Osterix (SP7):</strong> Second essential transcription factor for osteoblast maturation</li>
+      <li><strong>Indian hedgehog (Ihh):</strong> Critical for endochondral ossification</li>
+      <li><strong>Wnt signaling:</strong> Promotes osteoblast proliferation &amp; differentiation; inhibited by sclerostin from osteocytes</li>
+      <li><strong>PTH + 1,25(OH)₂D:</strong> Activate receptors on osteoblasts → regulate mineral homeostasis</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Osteoclast Regulation — RANK/RANKL/OPG Axis</h3>
+    <div class="co key">
+      <div class="co-t">🔑 Key Mechanism</div>
+      <strong>RANK ligand (RANKL)</strong> — expressed on surface of osteocytes, osteoblasts, stromal fibroblasts — binds <strong>RANK receptor</strong> on osteoclast progenitors → stimulates osteoclast differentiation &amp; activation.<br><br>
+      <strong>Osteoprotegerin (OPG)</strong> — soluble decoy receptor — competes with RANK, binds RANKL → <strong>inhibits</strong> osteoclast differentiation (acts as a brake).<br><br>
+      <strong>M-CSF</strong> (macrophage colony-stimulating factor) — critical at multiple steps → leads to fusion of osteoclast progenitors → multinucleated active osteoclasts.
+    </div>
+    <ul class="bl">
+      <li><strong>PTH &amp; 1,25(OH)₂D:</strong> Increase M-CSF and RANKL on osteoblast-lineage cells → indirectly ↑ osteoclast number and activity</li>
+      <li><strong>Calcitonin:</strong> Binds directly to osteoclasts (basal surface) → directly inhibits osteoclast function</li>
+      <li><strong>Estradiol:</strong> Targets osteoclasts, immune cells, osteoblasts → decreases osteoclast number and bone resorption</li>
+      <li>Cytokines (IL-1, IL-6, IL-11, TNF, IFN-γ) also modulate osteoclast differentiation and function</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Bone Remodeling Cycle (BMU)</h3>
+    <div class="flow">
+      <div class="fbox amb">Activation (osteoclast recruitment)</div>
+      <div class="farr">→</div>
+      <div class="fbox red">Resorption (~3 weeks)</div>
+      <div class="farr">→</div>
+      <div class="fbox">Reversal</div>
+      <div class="farr">→</div>
+      <div class="fbox grn">Bone Formation (~3 months)</div>
+      <div class="farr">→</div>
+      <div class="fbox pur">Mineralization</div>
+    </div>
+    <ul class="bl">
+      <li>Carried out by the <strong>Basic Multicellular Unit (BMU)</strong> = coordinated group of osteoclasts + osteoblasts directed by osteocytes</li>
+      <li>Cortical BMU: tunnels through tissue; Trabecular BMU: moves across surface</li>
+      <li>Up to <strong>18% of total skeletal calcium</strong> is deposited and removed each year</li>
+      <li>Remodeling follows <strong>lines of force from mechanical stress</strong> — sensed by osteocytes</li>
+      <li>Mechanical forces suppress sclerostin → ↑ Wnt → ↑ bone formation</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 2: CALCIUM METABOLISM ══════════ -->
+<section class="sec" id="s2">
+  <div class="sec-hd">
+    <span class="sec-n">02</span>
+    <h2>Calcium Metabolism</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Key Numbers to Memorize</h3>
+    <div class="g4">
+      <div class="card">
+        <div class="clabel c-b">Total Body Ca</div>
+        <p><strong style="font-size:18px">1–2 kg</strong><br>in skeleton</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Serum Total Ca</div>
+        <p><strong style="font-size:18px">2.2–2.6 mM</strong><br>(8.5–10.5 mg/dL)</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Ionized Ca (ECF)</div>
+        <p><strong style="font-size:18px">1.1–1.3 mM</strong><br>~50% of total</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">Intracellular Ca</div>
+        <p><strong style="font-size:18px">~100 nmol/L</strong><br>10,000× lower than ECF</p>
+      </div>
+    </div>
+    <div class="co key">
+      <div class="co-t">🔑 Albumin Correction Formula</div>
+      <strong>Corrected Ca (mg/dL) = measured Ca + 0.8 × (4 − serum albumin g/dL)</strong><br>
+      Also: +0.5 × deficit in immunoglobulin (g/dL)<br>
+      <em>Warning: These are rough approximations — measure ionized Ca directly in acute illness. Acidosis ↑ ionized Ca (reduces protein binding).</em>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Forms of Serum Calcium</h3>
+    <ul class="bl">
+      <li><strong>~50% ionized</strong> (free, biologically active)</li>
+      <li><strong>~40% protein-bound</strong> — predominantly to albumin and immunoglobulins</li>
+      <li><strong>~10% complexed</strong> — loosely bound to phosphate, citrate, sulfate</li>
+    </ul>
+    <p>Serum protein changes alter total calcium WITHOUT changing ionized calcium — this is clinically important (e.g., hypoalbuminemia gives falsely low total Ca).</p>
+  </div>
+
+  <div class="sub">
+    <h3>Hormonal Regulation — PTH &amp; Vitamin D Loop</h3>
+    <div class="flow">
+      <div class="fbox red">↓ Ionized Ca</div>
+      <div class="farr">→</div>
+      <div class="fbox">CaSR on parathyroid</div>
+      <div class="farr">→</div>
+      <div class="fbox pur">↑ PTH secretion</div>
+      <div class="farr">→</div>
+      <div class="fbox grn">↑ Ca from bone + kidney</div>
+    </div>
+    <ul class="bl">
+      <li><strong>CaSR (calcium-sensing receptor):</strong> On parathyroid cells — high Ca suppresses PTH by reducing PTH mRNA, promoting PTH cleavage, suppressing granule release</li>
+      <li><strong>PTH → kidney:</strong> Stimulates 1α-hydroxylase → ↑ 1,25(OH)₂D synthesis</li>
+      <li><strong>1,25(OH)₂D:</strong> Inhibits PTH production (negative feedback); ↑ intestinal Ca absorption; ↑ renal Ca reabsorption</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Intestinal Calcium Absorption</h3>
+    <ul class="bl">
+      <li><strong>Recommended daily intake:</strong> 1000–1200 mg/day (adults, National Academy of Medicine)</li>
+      <li><strong>Active (transcellular):</strong> 20–70% of dietary calcium; via <strong>TRPV6</strong> channels in intestine (TRPV5 in kidney distal tubule); regulated by <strong>1,25(OH)₂D</strong>; mainly in proximal small bowel (duodenum &amp; proximal jejunum)</li>
+      <li><strong>Passive (paracellular):</strong> ~5% of daily intake; nonsaturable; not regulated</li>
+      <li>Requires <strong>gastric acid</strong> — especially calcium carbonate; use calcium citrate in achlorhydrics, those on PPIs, or post-bariatric surgery</li>
+      <li>At high calcium intake: ↓ 1,25(OH)₂D synthesis → ↓ active absorption (adaptive mechanism)</li>
+      <li>Obligate intestinal secretion: ~2.5–5 mmol/d (not regulated)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Renal Calcium Handling</h3>
+    <div class="co key">
+      <div class="co-t">🔑 Filtered Load: 8–10 g/day; only 2–3% appears in urine</div>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Site</th><th>% Reabsorbed</th><th>Mechanism</th><th>Regulation</th></tr></thead>
+        <tbody>
+          <tr><td>Proximal tubule</td><td><strong>65%</strong></td><td>Passive paracellular (coupled to NaCl)</td><td>Not specifically regulated</td></tr>
+          <tr><td>cTAL (cortical thick ascending limb)</td><td><strong>20%</strong></td><td>Paracellular — requires paracellin-1 + Claudin14</td><td>Inhibited by ↑ Ca or Mg via CaSR (basolateral). PTH stimulates Mg but not directly Ca here</td></tr>
+          <tr><td>DCT (distal convoluted tubule)</td><td><strong>10%</strong></td><td>Active transcellular: TRPV5 → calbindin-D28k → Ca²⁺-ATPase + Na⁺/Ca²⁺ exchanger</td><td>Stimulated by PTH + 1,25(OH)₂D</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="bl">
+      <li><strong>Thiazide diuretics:</strong> Act at DCT → induce Na depletion → ↑ proximal Ca reabsorption → ↓ urinary Ca excretion (useful in hypercalciuria/nephrolithiasis)</li>
+      <li><strong>Loop diuretics + Na loads + saline infusion:</strong> Increase distal Na delivery → induce calciuresis</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">⚡ Extremes of Calcium Intake</div>
+      <strong>Very low Ca (&lt;5 mmol/d = &lt;200 mg/d):</strong> Even maximal vitamin D activation cannot replace obligate losses → PTH + 1,25(OH)₂D activate osteoclastic resorption → progressive bone loss + negative Ca balance<br><br>
+      <strong>Very high Ca (&gt;100 mmol/d = &gt;4 g/d):</strong> Passive absorption continues despite maximal downregulation → severe hypercalciuria, nephrocalcinosis, renal failure, hypercalcemia = "milk-alkali syndrome"
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 3: PHOSPHORUS METABOLISM ══════════ -->
+<section class="sec" id="s3">
+  <div class="sec-hd">
+    <span class="sec-n">03</span>
+    <h2>Phosphorus Metabolism</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Key Facts</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">Distribution</div>
+        <ul class="bl">
+          <li><strong>85%</strong> in bone mineral</li>
+          <li>Major intracellular constituent</li>
+          <li>Component of ATP, creatine-PO₄, nucleic acids, structural proteins</li>
+          <li>Unlike Ca: intracellular ≈ ECF (1–2 mmol/L)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Normal Levels</div>
+        <ul class="bl">
+          <li>Adults: <strong>0.75–1.45 mmol/L (2.5–4.5 mg/dL)</strong></li>
+          <li>Children/neonates: up to <strong>2.4 mmol/L (7 mg/dL)</strong></li>
+          <li>Varies by 50% throughout the day</li>
+          <li>Nadir: 7–10 AM</li>
+          <li>Best measured: fasting, basal state</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Forms in ECF</div>
+        <ul class="bl">
+          <li>Mostly <strong>H₂PO₄⁻ or NaHPO₄⁻</strong></li>
+          <li>~10% as HPO₄²⁻</li>
+          <li>~12% protein-bound in serum</li>
+          <li>Referred to collectively as "phosphate"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Intestinal Phosphate Absorption</h3>
+    <ul class="bl">
+      <li>Phosphate is abundant in foods — <strong>65% absorbed</strong> even without vitamin D</li>
+      <li>With 1,25(OH)₂D activation: up to <strong>85–90%</strong> absorbed (activates Na⁺/PO₄²⁻ co-transporter <strong>Npt2b</strong>)</li>
+      <li>Daily net intestinal absorption: <strong>500–1000 mg/d</strong></li>
+      <li>Inhibited by: large calcium salt doses, <strong>sevelamer (Renagel)</strong>, aluminum hydroxide antacids</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Renal Phosphate Regulation — FGF23 &amp; PTH</h3>
+    <ul class="bl">
+      <li><strong>Proximal tubule</strong> is the primary site of regulated reabsorption via apical <strong>NaPi-2a and NaPi-2c</strong> co-transporters</li>
+      <li>Filtered load: <strong>4–6 g/d</strong>; fractional excretion: 10–15%</li>
+      <li><strong>PTH:</strong> Rapidly reduces NaPi-2a/2c levels at apical surface → ↑ phosphaturia</li>
+      <li><strong>FGF23</strong> (synthesized by osteocytes): also inhibits NaPi-2a/2c → ↑ phosphaturia; additionally reduces 1,25(OH)₂D synthesis (↓ 1α-hydroxylase) → worsens hypophosphatemia; induced by 24-hydroxylase → ↓ circulating 1,25(OH)₂D</li>
+      <li>High-phosphate diets → ↑ FGF23; low-phosphate → ↓ FGF23</li>
+      <li>Serum phosphate and 1,25(OH)₂D elevation → ↑ FGF23 (feedback loop)</li>
+      <li>Dietary phosphate restriction → dramatic ↓ urinary phosphate within hours (precedes serum change) — partially via FGF23 changes</li>
+    </ul>
+    <div class="co prl">
+      <div class="co-t">FGF23 Pathophysiology</div>
+      <strong>↑ FGF23 effects:</strong> ↓ proximal tubule phosphate reabsorption + ↓ 1,25(OH)₂D synthesis → hypophosphatemia + osteomalacia<br>
+      <strong>↓ FGF23 (or resistance):</strong> ↑ phosphate reabsorption + ↑ 1,25(OH)₂D → hyperphosphatemia + hypercalcemia = <strong>Tumoral Calcinosis</strong>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Genetic Hypophosphatemic Disorders — FGF23 Related</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Disorder</th><th>Gene / Mutation</th><th>Mechanism</th><th>Treatment</th></tr></thead>
+        <tbody>
+          <tr><td><strong>XLH</strong> (X-linked hypophosphatemic rickets) — most common</td><td>PHEX inactivation (X-linked)</td><td>↑ FGF23 (mechanism unclear — PHEX normally expressed on osteocytes)</td><td>Oral phosphate + 1,25(OH)₂D + <strong>Burosumab</strong></td></tr>
+          <tr><td><strong>ADHR</strong> (autosomal dominant hypophosphatemic rickets)</td><td>Activating FGF23 mutation</td><td>Prevents FGF23 cleavage → intact FGF23 accumulates</td><td>Oral phosphate + calcitriol + Burosumab</td></tr>
+          <tr><td><strong>ARHP</strong> (autosomal recessive)</td><td>DMP1 or ENPP1 inactivation</td><td>Normally suppress FGF23; loss → ↑ FGF23</td><td>Same as above</td></tr>
+          <tr><td><strong>TIO</strong> (tumor-induced osteomalacia)</td><td>Acquired — mesenchymal tumors secrete FGF23</td><td>↑ FGF23 → phosphaturia + ↓ 1,25(OH)₂D</td><td><strong>Surgical tumor resection</strong>; Burosumab if unresectable</td></tr>
+          <tr><td><strong>McCune-Albright / fibrous dysplasia</strong></td><td>GNAS activating mutation</td><td>↑ FGF23</td><td>Supportive</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co suc">
+      <div class="co-t">✓ Burosumab (Crysvita)</div>
+      Human monoclonal antibody that <strong>inhibits FGF23</strong>. Approved for XLH and TIO. Corrects hypophosphatemia, improves bone pain, and heals fractures in adults and children.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 4: HYPOPHOSPHATEMIA ══════════ -->
+<section class="sec" id="s4">
+  <div class="sec-hd">
+    <span class="sec-n">04</span>
+    <h2>Hypophosphatemia</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Three Primary Mechanisms of Hypophosphatemia</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-r">1. Reduced Renal Reabsorption</div>
+        <ul class="bl red">
+          <li>PTH/PTHrP-dependent: primary/secondary hyperPTH, PTHrP-mediated hypercalcemia of malignancy, familial hypocalciuric hypercalcemia</li>
+          <li>PTH/PTHrP-independent: excess FGF23 (XLH, ADHR, ARHP, TIO, McCune-Albright, epidermal nevus), Fanconi syndrome, cystinosis, Wilson's disease, NaPi-2a/2c mutations</li>
+          <li>Drugs: ethanol, acetazolamide, cisplatin, ifosfamide, high-dose estrogens/glucocorticoids, heavy metals</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-amb">2. Impaired Intestinal Absorption</div>
+        <ul class="bl">
+          <li>Aluminum-containing antacids (less common now)</li>
+          <li>Sevelamer (Renagel)</li>
+          <li><em>Note: Phosphate is so abundant in food that dietary deficiency alone is virtually never the cause</em></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel c-p">3. ECF → Intracellular Shift</div>
+        <ul class="bl pur">
+          <li>IV glucose / insulin therapy (DKA treatment — paradigm case)</li>
+          <li>Catecholamines (epinephrine, dopamine, albuterol)</li>
+          <li>Acute respiratory alkalosis</li>
+          <li>Gram-negative sepsis / toxic shock</li>
+          <li>Recovery from starvation or acidosis</li>
+          <li>Rapid cellular proliferation (leukemic blast crisis, erythropoietin therapy)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="co wrn">
+      <div class="co-t">⚠ Hungry Bone Syndrome</div>
+      Transient hypophosphatemia over weeks-to-months after <strong>parathyroidectomy</strong> for severe primary hyperPTH, or treatment of vitamin D deficiency / lytic Paget's disease. Most prominent in patients with very high preoperative bone turnover (↑ alkaline phosphatase). Osteoblastic metastases can also cause this.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Manifestations</h3>
+    <div class="co dan">
+      <div class="co-t">⚡ Pathophysiology: ATP Depletion + Oxidative Phosphorylation Shift</div>
+      All manifestations reflect <strong>generalized cellular energy deficiency</strong>: ATP depletion + shift from oxidative phosphorylation toward glycolysis.
+    </div>
+    <div class="g2">
+      <div>
+        <h4>Neuromuscular (severe, &lt;0.25 mmol/L = &lt;0.8 mg/dL for seizures/paralysis)</h4>
+        <ul class="bl">
+          <li>Muscle weakness, lethargy, confusion</li>
+          <li>Dysarthria, dysphagia, oculomotor palsies, nystagmus</li>
+          <li>Ataxia, hyporeflexia, impaired sphincter control</li>
+          <li>Paresthesia</li>
+          <li>Guillain-Barré–like ascending paralysis</li>
+          <li>Seizures, coma, death</li>
+          <li><strong>Rhabdomyolysis</strong>: CPK peaks 1–2 days AFTER phosphate nadir; up to 30% of acute hypoPO₄ patients</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Cardiopulmonary (0.5–0.8 mmol/L = 1.5–2.5 mg/dL)</h4>
+        <ul class="bl">
+          <li>Respiratory failure (reversible with treatment)</li>
+          <li>Cardiac dysfunction (reversible)</li>
+        </ul>
+        <h4>Hematologic (↓ intracellular ATP + ↓ 2,3-DPG)</h4>
+        <ul class="bl">
+          <li>Erythrocyte microspherocytosis + hemolysis</li>
+          <li>Impaired oxyhemoglobin dissociation</li>
+          <li>Defective leukocyte chemotaxis, phagocytosis, bacterial killing</li>
+          <li>Platelet dysfunction</li>
+        </ul>
+        <h4>Chronic</h4>
+        <ul class="bl">
+          <li>Bone pain, osteomalacia, pseudofractures</li>
+          <li>Proximal muscle weakness</li>
+          <li>Rickets + short stature (children)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of Hypophosphatemia</h3>
+    <div class="co dan">
+      <div class="co-t">🚨 Indication for IV Therapy</div>
+      Severe hypophosphatemia (&lt;0.75 mmol/L = &lt;2 mg/dL) + underlying phosphate depletion = dangerous → correct promptly. Avoid Ca × PO₄ product &gt;50 mg²/dL² (risk of heterotopic calcification). <strong>Correct hypocalcemia FIRST before giving IV phosphate.</strong>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Serum PO₄ mmol/L (mg/dL)</th><th>Rate (mmol/h)</th><th>Duration (h)</th><th>Total (mmol)</th></tr></thead>
+        <tbody>
+          <tr><td>&lt;0.8 (&lt;2.5)</td><td>2</td><td>6</td><td>12</td></tr>
+          <tr><td>&lt;0.5 (&lt;1.5)</td><td>4</td><td>6</td><td>24</td></tr>
+          <tr><td>&lt;0.3 (&lt;1.0)</td><td>8</td><td>6</td><td>48</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="bl">
+      <li>IV given as neutral mixtures of Na or K phosphate salts; doses &gt;20 mmol/6h only for PO₄ &lt;0.5 + normal renal function</li>
+      <li><strong>Reduce dose 50%</strong> if serum creatinine &gt;220 μmol/L (&gt;2.5 mg/dL)</li>
+      <li>Monitor serum Ca and PO₄ <strong>every 6–12 hours</strong> during therapy</li>
+      <li><strong>Mild hypophosphatemia (0.5–0.8 mmol/L):</strong> Oral phosphate 750–2000 mg/d elemental phosphorus in divided doses (caution: bloating, diarrhea at high doses)</li>
+      <li><strong>Chronic management:</strong> Know the cause. Vitamin D deficiency → vitamin D + calcium alone. XLH/ADHR/TIO → oral phosphate + 1,25(OH)₂D + burosumab. Never give Ca + PO₄ simultaneously (precipitates). Thiazides to prevent nephrocalcinosis.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 5: HYPERPHOSPHATEMIA ══════════ -->
+<section class="sec" id="s5">
+  <div class="sec-hd">
+    <span class="sec-n">05</span>
+    <h2>Hyperphosphatemia</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Definition &amp; Causes</h3>
+    <div class="co key">
+      <div class="co-t">Definition</div>
+      Fasting serum PO₄ &gt;<strong>1.8 mmol/L (5.5 mg/dL)</strong> in adults. Higher in children/neonates (up to 2.4 mmol/L / 7 mg/dL).
+    </div>
+    <div class="g2">
+      <div>
+        <h4>Impaired Renal Phosphate Excretion</h4>
+        <ul class="bl">
+          <li><strong>Renal insufficiency</strong> — most common cause (↓ GFR → phosphate retention)</li>
+          <li><strong>Hypoparathyroidism</strong> (↑ NaPi-2 expression in proximal tubule): developmental, autoimmune, post-surgical/radiation, activating CaSR mutations</li>
+          <li><strong>Parathyroid suppression:</strong> PTH-independent hypercalcemia (vitamin D or A intoxication, sarcoidosis, immobilization, milk-alkali), severe hyper/hypomagnesemia, pseudohypoparathyroidism</li>
+          <li>Acromegaly, heparin therapy</li>
+          <li><strong>Tumoral calcinosis</strong>: low active FGF23 (FGF23 gene mutations, GALNT3 inactivation, or Klotho mutations → FGF23 resistance)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Massive ECF Phosphate Loads</h4>
+        <ul class="bl">
+          <li>Overzealous IV phosphate therapy</li>
+          <li>Oral/rectal phosphate-containing laxatives or enemas (especially children)</li>
+          <li>Extensive soft tissue injury/necrosis: crush injuries, rhabdomyolysis, hyperthermia, fulminant hepatitis, cytotoxic chemotherapy</li>
+          <li>Severe hemolytic anemia</li>
+          <li>Transcellular shifts: metabolic acidosis, respiratory acidosis</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="co key">
+      <div class="co-t">Hyperphosphatemia in CKD — Vicious Cycle</div>
+      ↓ GFR → phosphate retention → ↑ FGF23 + ↓ 1,25(OH)₂D synthesis + ↓ ionized Ca → <strong>↑ PTH secretion</strong> → parathyroid hypertrophy → <strong>secondary hyperparathyroidism</strong>. Hyperphosphatemia is thus a major driver of renal osteodystrophy.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Clinical Findings</h3>
+    <p>Due mainly to <strong>calcium-phosphate precipitation</strong> → widespread soft tissue calcification → hypocalcemia:</p>
+    <ul class="bl red">
+      <li>Tetany, seizures</li>
+      <li>Accelerated nephrocalcinosis → renal failure, hyperkalemia, hyperuricemia, metabolic acidosis</li>
+      <li>Pulmonary or cardiac calcifications → <strong>acute heart block</strong></li>
+      <li>PO₄ can reach 7 mmol/L (20 mg/dL) in massive soft tissue injury / tumor lysis syndrome</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">Tumoral Calcinosis</div>
+      Elevated serum 1,25(OH)₂D, parathyroid suppression, increased intestinal Ca absorption, <strong>focal hyperostosis with large lobulated periarticular heterotopic ossifications</strong> (especially shoulders/hips). Caused by loss of active FGF23 (GALNT3 mutations, FGF23 gene mutations, or Klotho resistance mutations).
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of Hyperphosphatemia</h3>
+    <ul class="bl grn">
+      <li><strong>Volume expansion:</strong> Enhances renal phosphate clearance</li>
+      <li><strong>Aluminum hydroxide antacids or sevelamer:</strong> Chelate and limit intestinal phosphate absorption</li>
+      <li><strong>Hemodialysis:</strong> Most effective — consider early in severe hyperphosphatemia, especially with renal failure + symptomatic hypocalcemia</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 6: MAGNESIUM ══════════ -->
+<section class="sec" id="s6">
+  <div class="sec-hd">
+    <span class="sec-n">06</span>
+    <h2>Magnesium Metabolism</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Key Facts</h3>
+    <div class="g3">
+      <div class="card">
+        <div class="clabel c-b">Normal Serum Mg</div>
+        <p><strong>0.7–1 mmol/L</strong><br>(1.5–2 meq/L; 1.7–2.4 mg/dL)<br>30% protein-bound; 15% complexed</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-r">Total Body Mg</div>
+        <p><strong>25 g (1000 mmol)</strong><br>50% in bone (half insoluble in mineral)<br>Almost all extraskeletal Mg is intracellular</p>
+      </div>
+      <div class="card">
+        <div class="clabel c-g">Function</div>
+        <p>Major intracellular divalent cation. Key ATP complex. Cofactor for enzymes, transporters, nucleic acids. Critical for neuromuscular activity.</p>
+      </div>
+    </div>
+    <p><strong>Warning:</strong> Only 1% of body Mg is in ECF → serum Mg levels may NOT accurately reflect total body stores.</p>
+  </div>
+
+  <div class="sub">
+    <h3>Renal Magnesium Handling</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Site</th><th>% Reabsorbed</th><th>Mechanism</th><th>Regulation</th></tr></thead>
+        <tbody>
+          <tr><td>Proximal tubule</td><td><strong>20%</strong></td><td>Passive</td><td>Minimal</td></tr>
+          <tr><td>cTAL</td><td><strong>60%</strong></td><td>Paracellular — requires lumen-positive potential (NaCl reabsorption) + Claudin gene family proteins</td><td>↑ by PTH; <strong>↓ by hypercalcemia or hypermagnesemia</strong> (via CaSR)</td></tr>
+          <tr><td>DCT</td><td><strong>5–10%</strong></td><td>Transcellular — TRPM6 channel</td><td>EGF required for TRPM6 expression</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Hypomagnesemia — Causes</h3>
+    <div class="g2">
+      <div>
+        <h4>Impaired Absorption / Increased Losses</h4>
+        <ul class="bl">
+          <li><strong>Genetic:</strong> TRPM6 mutations (primary infantile hypomagnesemia type 1); with secondary hypocalcemia</li>
+          <li>Malabsorption syndromes + vitamin D deficiency</li>
+          <li>Protracted vomiting/diarrhea; intestinal drainage, fistulas</li>
+          <li><strong>Proton pump inhibitors</strong> (omeprazole etc.) — mechanism unknown, no renal wasting</li>
+        </ul>
+        <h4>Drugs &amp; Toxins (Renal Wasting)</h4>
+        <ul class="bl red">
+          <li>Ethanol (directly impairs tubular Mg reabsorption)</li>
+          <li>Loop diuretics, thiazides, osmotic diuretics</li>
+          <li><strong>Cisplatin</strong>, cyclosporine, aminoglycosides, amphotericin B</li>
+          <li>Pentamidine, foscarnet</li>
+          <li><strong>Cetuximab</strong> (anti-EGFR antibody → ↓ TRPM6 expression in DCT)</li>
+          <li>Persistent glycosuria (osmotic diuresis in DM)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Genetic Renal Wasting Syndromes</h4>
+        <ul class="bl pur">
+          <li><strong>Gitelman's syndrome:</strong> DCT NaCl co-transporter (SLC12A3) inactivation</li>
+          <li><strong>Bartter's syndrome:</strong> cTAL Na-K-2Cl transport proteins</li>
+          <li><strong>Claudin 16 or 19 mutations:</strong> Autosomal recessive; hypomagnesemia + hypercalciuria</li>
+          <li>DCT K⁺ channels (Kv1.1, Kir4.1) mutations</li>
+          <li>Na⁺,K⁺-ATPase γ-subunit (FXYD2) mutations</li>
+          <li>Activating CaSR mutations → hypoMg + hypocalcemia</li>
+        </ul>
+        <h4>Rapid Shifts from ECF</h4>
+        <ul class="bl">
+          <li>Recovery from DKA, refeeding syndrome, correction of respiratory acidosis, catecholamines</li>
+          <li>Rapid bone formation: post-parathyroidectomy, treatment of vitamin D deficiency, osteoblastic metastases</li>
+          <li>Pancreatitis, burns, excessive sweating</li>
+          <li>Pregnancy (third trimester) and lactation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Hypomagnesemia — Clinical Findings</h3>
+    <ul class="bl">
+      <li>Usually asymptomatic when Mg &gt;0.5 mmol/L (1 meq/L; 1.2 mg/dL)</li>
+      <li>Neuromuscular: tetany, seizures, muscle weakness, ataxia, nystagmus, vertigo, depression, irritability, psychosis</li>
+      <li>Cardiac arrhythmias: sinus tachycardia, supraventricular tachycardias, ventricular arrhythmias</li>
+      <li>ECG: prolonged PR/QT, T-wave flattening/inversion, ST straightening; <strong>↑ sensitivity to digitalis toxicity</strong></li>
+      <li><strong>Associated electrolyte abnormalities (resistant to correction without Mg):</strong> hypocalcemia (with hypocalciuria) + hypokalemia</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">Why HypoCa occurs in HypoMg</div>
+      Very low serum Mg (&lt;0.4 mmol/L = &lt;0.8 meq/L = &lt;1 mg/dL) → defects in PTH secretion + impaired 1,25(OH)₂D synthesis + cellular resistance to PTH → all reversible with Mg treatment.
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of Hypomagnesemia</h3>
+    <ul class="bl grn">
+      <li><strong>Mild/asymptomatic:</strong> Oral Mg salts (MgCl₂, MgO, Mg[OH]₂) in divided doses totaling 20–30 mmol/d (40–60 meq/d). Diarrhea may occur with larger doses.</li>
+      <li><strong>Severe:</strong> IV <strong>MgCl₂</strong> — continuous infusion of up to 50 mmol/d (100 meq Mg²⁺/d) if GFR normal. <strong>Reduce 50–75% if GFR reduced</strong></li>
+      <li>Avoid IM MgSO₄ — painful, provides little Mg (2 mL of 50% MgSO₄ = only 4 mmol)</li>
+      <li>MgSO₄ IV acceptable but sulfate anions may bind Ca in serum/urine → worsen hypocalcemia</li>
+      <li>Monitor serum Mg every <strong>12–24 hours</strong> during therapy (therapy may continue days — impaired renal conservation retains only 50–70% of daily IV dose; intracellular deficits may be 1–1.5 mmol/kg)</li>
+      <li>Supplement Ca, K, PO₄ as needed. Treat coexistent vitamin D deficiency (use vitamin D or 25(OH)D, NOT 1,25(OH)₂D — may impair tubular Mg reabsorption via PTH suppression)</li>
+    </ul>
+    <div class="co dan">
+      <div class="co-t">⚠ Pitfall: Severe HypoMg + HypoCa + HypoPO₄</div>
+      IV Mg alone → may worsen hypophosphatemia → provoke neuromuscular symptoms or rhabdomyolysis (rapid stimulation of previously suppressed PTH secretion). <strong>Administer BOTH calcium and magnesium together.</strong>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Hypermagnesemia</h3>
+    <div class="co wrn">
+      <div class="co-t">Causes</div>
+      Rare without renal insufficiency (normal kidneys excrete 250 mmol/d). Causes: <strong>excessive Mg intake</strong> (cathartics/enemas/laxatives with GI ileus, parenteral Mg), rapid soft tissue mobilization (trauma, shock, sepsis, cardiac arrest, burns), <strong>renal failure</strong>, FHH (CaSR mutations → excessive cTAL reabsorption), adrenal insufficiency, hypothyroidism, hypothermia. Also: Mg infusion in eclampsia → hypocalcemia.
+    </div>
+    <div class="co dan">
+      <div class="co-t">Clinical Findings by Level</div>
+      <strong>&gt;2 mmol/L:</strong> Vasodilation, neuromuscular blockade, refractory hypotension<br>
+      <strong>Progressive:</strong> Nausea, lethargy, weakness → respiratory failure, paralysis, coma<br>
+      <strong>&gt;4 mmol/L:</strong> Hypoactive tendon reflexes, GI hypomotility/ileus, facial flushing, pupillary dilation, paradoxical bradycardia, prolonged PR/QRS/QT, heart block<br>
+      <strong>~10 mmol/L:</strong> Asystole<br>
+      <strong>Also:</strong> Hypocalcemia + hypercalciuria (CaSR activation → parathyroid suppression + ↓ cTAL Ca reabsorption)
+    </div>
+    <h4>Treatment</h4>
+    <ul class="bl grn">
+      <li>Identify and interrupt source of Mg</li>
+      <li>Magnesium-free cathartics/enemas to clear intestinal Mg</li>
+      <li>Vigorous IV hydration</li>
+      <li><strong>Hemodialysis</strong> — effective; required in renal insufficiency</li>
+      <li><strong>IV calcium</strong> 100–200 mg over 1–2 h → temporary improvement (antagonizes neuromuscular effects)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 7: VITAMIN D ══════════ -->
+<section class="sec" id="s7">
+  <div class="sec-hd">
+    <span class="sec-n">07</span>
+    <h2>Vitamin D</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Synthesis &amp; Activation Pathway</h3>
+    <div class="flow">
+      <div class="fbox">Skin: 7-dehydrocholesterol</div>
+      <div class="farr">→ UV light</div>
+      <div class="fbox amb">Vitamin D₃</div>
+      <div class="farr">→ Liver</div>
+      <div class="fbox pur">25(OH)D [storage form]</div>
+      <div class="farr">→ Kidney (1α-OH)</div>
+      <div class="fbox grn">1,25(OH)₂D [active hormone]</div>
+    </div>
+    <div class="g2">
+      <div>
+        <h4>Step 1 — Skin (UV-dependent)</h4>
+        <ul class="bl">
+          <li>UV radiation → photochemical cleavage of 7-dehydrocholesterol → Vitamin D</li>
+          <li>Cutaneous production ↓ by: melanin, high-SPF sunblocks</li>
+          <li>D₂ (plant sources) = D₃ (animal sources) — equivalent biologic activity</li>
+          <li>Enters circulation bound to <strong>vitamin D–binding protein</strong> (α-globulin, synthesized in liver)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Step 2 — Liver: 25-Hydroxylation</h4>
+        <ul class="bl">
+          <li>Cytochrome P450 oxidase (mitochondria + microsomes)</li>
+          <li>Not tightly regulated → activity reflects vitamin D intake/production</li>
+          <li><strong>25(OH)D = major circulating &amp; storage form</strong></li>
+          <li>88% bound to binding protein; 0.03% free; rest bound to albumin</li>
+          <li>Half-life: <strong>2–3 weeks</strong> (25(OH)D₂ shorter than D₃)</li>
+          <li>Half-life ↓ with ↓ binding protein (e.g., nephrotic syndrome → ↑ urinary losses)</li>
+        </ul>
+      </div>
+    </div>
+    <h4>Step 3 — Kidney: 1α-Hydroxylation (the critical regulated step)</h4>
+    <ul class="bl">
+      <li><strong>25-hydroxyvitamin D-1α-hydroxylase</strong> (CYP27B1) — in proximal convoluted tubule cells</li>
+      <li><strong>Inducers:</strong> PTH, hypophosphatemia</li>
+      <li><strong>Repressors:</strong> calcium, FGF23, the product itself (1,25(OH)₂D)</li>
+      <li>Also present in: macrophages of granulomas/lymphomas (induced by IFN-γ and TNF-α, NOT regulated by Ca or 1,25(OH)₂D) → hypercalcemia in sarcoidosis</li>
+    </ul>
+    <h4>Inactivation — 24-Hydroxylation</h4>
+    <ul class="bl">
+      <li>Vitamin D 24-hydroxylase — expressed in most tissues</li>
+      <li>Induced by: 1,25(OH)₂D (promotes its own inactivation) and FGF23</li>
+      <li>CYP24A1 mutations → <strong>infantile hypercalcemia</strong>; in less severe: hypercalciuria, nephrocalcinosis, nephrolithiasis</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Actions of 1,25(OH)₂D (via VDR)</h3>
+    <div class="co key">
+      <div class="co-t">Mechanism</div>
+      1,25(OH)₂D binds <strong>VDR (vitamin D receptor)</strong> — nuclear receptor superfamily. VDR binds DNA as heterodimer with retinoid X receptor → recruits coactivators → alters chromatin → induces/represses target genes. VDR affinity for 1,25(OH)₂D is ~1000× greater than for other metabolites.
+    </div>
+    <div class="g2">
+      <div>
+        <h4>Intestine (main site)</h4>
+        <ul class="bl">
+          <li>↑ Calbindin 9K (Ca-binding protein → active Ca transport in enterocytes)</li>
+          <li>↑ TRPV5 and TRPV6 (Ca transporters)</li>
+          <li>↑ Efficiency of intestinal calcium absorption</li>
+          <li>↑ Npt2b → ↑ phosphate absorption</li>
+        </ul>
+        <h4>Bone</h4>
+        <ul class="bl">
+          <li>↑ Osteocalcin and osteopontin (bone matrix proteins)</li>
+          <li>↓ Type I collagen (transcriptionally repressed)</li>
+          <li>↑ RANKL on osteoblasts → ↑ osteoclast differentiation → bone resorption</li>
+          <li>↑ FGF23 expression in osteocytes</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Parathyroid Gland</h4>
+        <ul class="bl">
+          <li>Antiproliferative on parathyroid cells</li>
+          <li>Suppresses PTH gene transcription (negative feedback)</li>
+          <li>Rationale for using vitamin D analogues to treat secondary hyperPTH in CKD</li>
+        </ul>
+        <h4>Extra-mineral Tissues (VDR widespread)</h4>
+        <ul class="bl">
+          <li>Antiproliferative: keratinocytes, breast cancer cells, prostate cancer cells</li>
+          <li>Hair follicle: VDR is primarily a transcriptional repressor in keratinocytes → <strong>alopecia seen with mutant VDR (NOT vitamin D deficiency)</strong> — ligand-independent action</li>
+          <li>Bone-tendon attachment (enthesis) maturation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Vitamin D Deficiency</h3>
+    <h4>Causes (Table 421-6)</h4>
+    <div class="g2">
+      <div>
+        <ul class="bl">
+          <li>↓ Cutaneous production (↑ sunblock use, reduced solar exposure, elderly, dark skin)</li>
+          <li>Dietary absence / malabsorption (short gut, gastric bypass)</li>
+          <li>Accelerated metabolism: barbiturates, phenytoin, rifampin (↑ hepatic CYP P450) or gain-of-function CYP3A4 mutations</li>
+          <li>Impaired enterohepatic circulation: terminal ileal disease</li>
+          <li>Nephrotic syndrome (↑ urinary losses of binding protein)</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="bl">
+          <li>Impaired 25-hydroxylation: severe liver disease, isoniazid, 25-hydroxylase mutation</li>
+          <li>Impaired 1α-hydroxylation: hypoparathyroidism, ketoconazole, CYP27B1 mutation (→ VDDR Type I), FGF23 excess, CKD (creatinine clearance &lt;30 mL/min)</li>
+          <li>Target organ resistance: VDR mutations (→ VDDR Type II, +alopecia)</li>
+          <li>Obesity (poorly understood mechanism)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="co prl">
+      <div class="co-t">VDDR Type I vs Type II</div>
+      <strong>VDDR Type I (Pseudovitamin D-Deficiency Rickets):</strong> CYP27B1 (1α-hydroxylase) mutation — AR. Presents in year 1 of life: growth retardation, rickets, hypocalcemic seizures. Serum 1,25(OH)₂D low; 25(OH)D normal; PTH ↑. Treatment: calcitriol or 1α-hydroxyvitamin D analogues (lifelong).<br><br>
+      <strong>VDDR Type II (Hereditary Vitamin D-Resistant Rickets):</strong> VDR mutation — AR. Same presentation + <strong>alopecia</strong>. Serum 1,25(OH)₂D <em>dramatically elevated</em> (↑ production due to secondary hyperPTH + ↓ 24-hydroxylase induction). Treat: daily IV calcium + phosphate to bypass intestinal absorption defect.
+    </div>
+
+    <h4>Clinical Manifestations</h4>
+    <ul class="bl">
+      <li>Mild-moderate: asymptomatic</li>
+      <li>Long-standing: hypocalcemia + secondary hyperparathyroidism + ↓ bone mineral density (osteopenia on XR) + proximal myopathy (rapid resolution with treatment)</li>
+      <li>Associated with ↑ overall mortality including cardiovascular</li>
+      <li><strong>Rickets (children, pre-epiphyseal fusion):</strong> Growth retardation + expanded growth plate. Expansion due to impaired apoptosis of late hypertrophic chondrocytes. Hypophosphatemia (from secondary hyperPTH) is key etiologic factor. Rachitic rosary (costochondral expansion).</li>
+      <li><strong>Osteomalacia:</strong> Impaired bone matrix mineralization → biomechanically inferior bone → bowing of weight-bearing extremities + fractures. <strong>Pseudofractures (Looser's zones)</strong> = radiolucent lines at sites of large artery pulsation (scapula, pelvis, femoral neck)</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <h3>Diagnosis of Vitamin D Deficiency</h3>
+    <div class="co key">
+      <div class="co-t">🔑 Best Screening Test: Serum 25(OH)D</div>
+      <strong>Deficiency: &lt;37 nmol/L (&lt;15 ng/mL)</strong> — associated with ↑ PTH + ↓ bone density<br>
+      <strong>Sufficiency (National Academy of Medicine): &gt;50 nmol/L (&gt;20 ng/mL)</strong><br>
+      <strong>Do NOT use 1,25(OH)₂D to diagnose</strong> — often normal or even elevated in severe deficiency (because ↑ PTH stimulates 1α-hydroxylase) — misleading in normal renal function
+    </div>
+    <h4>Lab Pattern in Vitamin D Deficiency</h4>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Lab</th><th>Direction</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>25(OH)D</td><td>↓↓</td><td>Deficient substrate</td></tr>
+          <tr><td>Ca (total + ionized)</td><td>↓</td><td>↓ intestinal Ca absorption</td></tr>
+          <tr><td>PTH</td><td>↑</td><td>Secondary hyperparathyroidism (homeostatic)</td></tr>
+          <tr><td>Alkaline phosphatase</td><td>↑</td><td>PTH-induced ↑ bone turnover</td></tr>
+          <tr><td>Phosphate</td><td>↓</td><td>PTH → phosphaturia (worsens mineralization defect)</td></tr>
+          <tr><td>Urinary Ca</td><td>↓</td><td>PTH → ↓ renal Ca excretion</td></tr>
+          <tr><td>1,25(OH)₂D</td><td>Normal or ↑</td><td>PTH stimulates 1α-hydroxylase (paradoxically)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Treatment of Vitamin D Deficiency</h3>
+    <div class="co suc">
+      <div class="co-t">Recommended Daily Intake (National Academy of Medicine 2010)</div>
+      <strong>600 IU:</strong> Ages 1–70 years<br>
+      <strong>800 IU:</strong> Age &gt;70 years (also shown to ↓ hip fracture risk in elderly with calcium supplementation)<br>
+      <strong>Toxicity:</strong> Usually only at doses ≥40,000 IU/day (large safety margin)
+    </div>
+    <ul class="bl grn">
+      <li><strong>Severe deficiency with intact activation pathway:</strong> 50,000 IU weekly × 3–12 weeks, then maintenance 800 IU/day</li>
+      <li><strong>If 1α-hydroxylation is impaired:</strong> Use metabolites that skip this step — <strong>calcitriol [1,25(OH)₂D₃, Rocaltrol]</strong> 0.25–0.5 μg/d; or doxercalciferol [1α-OH-D₂] 2.5–5 μg/d; or alfacalcidol [1α-OH-D₃] 0.25–1.0 μg/d</li>
+      <li>Always replete with <strong>calcium supplementation (1.5–2 g/d elemental Ca)</strong></li>
+      <li><strong>Drug interactions:</strong> Barbiturates, phenytoin, rifampin → ↑ hepatic CYP P450 → accelerate vitamin D catabolism → need higher doses</li>
+      <li>Normocalcemia: usually within 1 week; PTH + alkaline phosphatase may persist ↑ for 3–6 months</li>
+      <li><strong>Monitoring:</strong> Serum and urinary calcium. 24-h urinary Ca: target 100–250 mg/24h (low = poor adherence/absorption; &gt;250 = predisposes to nephrolithiasis → reduce dose)</li>
+      <li><strong>VITAL Trial finding:</strong> Supraphysiologic vitamin D in adults with normal levels does NOT further improve BMD, skeletal microarchitecture, or prevent falls. Small daily doses (e.g., 400 IU) prevent fractures; large bolus intermittent doses can <em>increase</em> fractures and falls.</li>
+    </ul>
+    <div class="co wrn">
+      <div class="co-t">Sarcoidosis-Associated Hypercalcemia</div>
+      Macrophage 1α-hydroxylase induced by IFN-γ + TNF-α (not regulated by Ca or 1,25(OH)₂D) → ↑ 1,25(OH)₂D → hypercalcemia. Treat with <strong>glucocorticoids, ketoconazole, or chloroquine</strong> (reduce 1,25(OH)₂D production). Note: chloroquine does NOT work in lymphoma.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 8: EXAM TRAPS ══════════ -->
+<section class="sec" id="s8">
+  <div class="sec-hd">
+    <span class="sec-n">08</span>
+    <h2>Exam Traps</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 01</span><span class="trap-title">The "Normal" 1,25(OH)₂D in Vitamin D Deficiency</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with severe vitamin D deficiency has a normal serum 1,25(OH)₂D level. You conclude she does NOT have vitamin D deficiency. Is this correct?</div>
+      <div class="trap-a"><strong>WRONG. Do not use 1,25(OH)₂D to diagnose vitamin D deficiency in patients with normal renal function.</strong> In severe deficiency, secondary hyperparathyroidism stimulates the renal 1α-hydroxylase → 1,25(OH)₂D can be paradoxically normal or even elevated. Use <strong>serum 25(OH)D</strong> for screening. Deficiency = &lt;37 nmol/L (&lt;15 ng/mL); sufficiency = &gt;50 nmol/L (&gt;20 ng/mL).</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 02</span><span class="trap-title">Rhabdomyolysis Peak AFTER Phosphate Nadir</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with acute hypophosphatemia is treated and their serum phosphate normalizes. One to two days later, CPK is found to be markedly elevated. The lab is called a mistake. Is this correct?</div>
+      <div class="trap-a"><strong>NOT a mistake — this is expected.</strong> Up to 30% of patients with acute hypophosphatemia (&lt;0.7 mM) develop rhabdomyolysis. <strong>CPK peaks 1–2 days AFTER the phosphate nadir</strong> — by then, phosphate released from injured myocytes may normalize serum phosphate levels, masking the diagnosis. The timing of the CPK elevation is the clue.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 03</span><span class="trap-title">Alopecia — VDR Mutation, NOT Vitamin D Deficiency</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A child with rickets also presents with alopecia. You diagnose severe vitamin D deficiency and start supplementation. Is this the right path?</div>
+      <div class="trap-a"><strong>Alopecia is NOT a feature of vitamin D deficiency.</strong> It is specifically associated with <strong>vitamin D receptor (VDR) mutations</strong> (VDDR Type II / Hereditary Vitamin D-Resistant Rickets). The VDR effect on hair follicle regeneration is ligand-independent. The serum 1,25(OH)₂D will be dramatically elevated (not low). These patients require IV calcium + phosphate infusions to bypass the intestinal defect, not more vitamin D.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 04</span><span class="trap-title">Correcting Hypocalcemia Before IV Phosphate</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with severe hypophosphatemia also has mild hypocalcemia. You go ahead and infuse IV phosphate immediately to correct the phosphate urgently. Is this correct?</div>
+      <div class="trap-a"><strong>WRONG — and potentially dangerous.</strong> <strong>Hypocalcemia must be corrected BEFORE administering IV phosphate.</strong> Giving phosphate in the setting of hypocalcemia can worsen hypocalcemia by forming Ca-PO₄ precipitates and increase risk of heterotopic calcification. Also avoid Ca × PO₄ product &gt;50 mg²/dL² throughout treatment.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 05</span><span class="trap-title">Magnesium and Hypocalcemia Resistant to Ca Replacement</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient has persistent hypocalcemia that fails to respond to calcium supplementation. You keep increasing the calcium dose. What are you missing?</div>
+      <div class="trap-a"><strong>Check magnesium.</strong> Hypomagnesemia causes impaired PTH secretion (at very low Mg &lt;0.4 mmol/L) + cellular resistance to PTH + impaired 1,25(OH)₂D synthesis. <strong>Hypocalcemia CANNOT be corrected without replacing magnesium first.</strong> Similarly, hypokalemia coexisting with hypomagnesemia is refractory to K replacement alone until Mg is repleted.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 06</span><span class="trap-title">Calcitonin vs PTH — Mechanism of Osteoclast Inhibition</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Which hormone directly inhibits osteoclasts, and which works indirectly through osteoblast-lineage cells?</div>
+      <div class="trap-a"><strong>Calcitonin acts DIRECTLY on osteoclasts</strong> (binds receptor on the basal surface of osteoclasts → directly inhibits function).<br><strong>PTH and 1,25(OH)₂D act INDIRECTLY</strong> — they target osteoblast-lineage cells (osteoblasts, osteocytes, stromal cells) → ↑ M-CSF + RANKL production → osteoclast differentiation and activation. PTH does NOT have direct osteoclast receptors in this pathway.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 07</span><span class="trap-title">DKA + Insulin: When to Worry About Phosphate</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with DKA starts insulin therapy. Initial serum phosphate at presentation is only slightly low. When is hypophosphatemia worst?</div>
+      <div class="trap-a"><strong>Hypophosphatemia is greatest HOURS after initiation of insulin therapy</strong> — NOT at baseline. Initial serum phosphate does not predict the nadir. Insulin drives PO₄ into cells. The severity of subsequent hypophosphatemia relates to the extent of antecedent phosphate depletion. This is the paradigm for redistributive hypophosphatemia. Monitor phosphate serially during DKA treatment.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 08</span><span class="trap-title">Calcium Carbonate vs Citrate in Achlorhydria</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient post-bariatric surgery needs calcium supplementation. Which preparation should you recommend, and how should it be taken?</div>
+      <div class="trap-a"><strong>Calcium citrate</strong> is preferred — it does not require gastric acid for absorption. Calcium carbonate requires acid for dissociation; large boluses also neutralize gastric acid → poorly absorbed. For patients on PPIs, with achlorhydria, or post-bariatric surgery: use calcium citrate and <strong>take supplements WITH meals</strong> to optimize absorption through whatever acid is available.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 09</span><span class="trap-title">Thiazides vs Loop Diuretics — Calcium Effects</span></div>
+    <div class="trap-body">
+      <div class="trap-q">A patient with recurrent calcium nephrolithiasis and hypercalciuria is started on a diuretic to reduce urinary calcium. Which diuretic should be used?</div>
+      <div class="trap-a"><strong>Thiazide diuretics</strong> — they act at the DCT to induce sodium depletion → augment proximal calcium reabsorption → <strong>decrease urinary calcium excretion</strong> (calciuric effect reversed). Also used to prevent nephrocalcinosis in patients on phosphate therapy for hypophosphatemic disorders.<br><br><strong>Loop diuretics do the OPPOSITE</strong> — they increase distal sodium delivery → induce calciuresis → increase urinary calcium loss. Never use loop diuretics to treat hypercalciuria.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 10</span><span class="trap-title">Sarcoidosis Hypercalcemia — Why Chloroquine Fails in Lymphoma</span></div>
+    <div class="trap-body">
+      <div class="trap-q">Chloroquine successfully reduced 1,25(OH)₂D and serum calcium in a patient with sarcoidosis. Should it be used similarly for lymphoma-associated hypercalcemia?</div>
+      <div class="trap-a"><strong>No — chloroquine has NOT been shown to lower elevated serum 1,25(OH)₂D in patients with lymphoma.</strong> Both states involve macrophage/lymphoma cell 1α-hydroxylase activity induced by IFN-γ/TNF-α (not regulated by Ca or 1,25(OH)₂D). However, chloroquine works in sarcoidosis but NOT lymphoma. For sarcoidosis: glucocorticoids, ketoconazole, or chloroquine. For lymphoma: treat the underlying disease; glucocorticoids are first-line.</div>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-hd"><span class="trap-num">Trap 11</span><span class="trap-title">Intermittent Large-Bolus Vitamin D — A Trap for Elderly</span></div>
+    <div class="trap-body">
+      <div class="trap-q">An elderly patient is given large intermittent bolus doses of vitamin D₃ as a simpler regimen. Is this safer or equally effective as small daily doses?</div>
+      <div class="trap-a"><strong>WRONG — large intermittent bolus doses can INCREASE incidence of fractures and falls in older adults.</strong> The VITAL trial showed that supraphysiologic doses in adults with normal vitamin D levels do not improve BMD or prevent falls. Small daily doses (e.g., 400 IU D₃) prevent fractures and falls. Always use daily dosing, not large intermittent boluses, for elderly patients.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 9: QUICK REFERENCE ══════════ -->
+<section class="sec" id="s9">
+  <div class="sec-hd">
+    <span class="sec-n">09</span>
+    <h2>Quick Reference Master Table</h2>
+  </div>
+  <div class="sbar"><button class="lbtn">✓ Learned</button><button class="fbtn">⚑ Review</button></div>
+
+  <div class="sub">
+    <h3>Critical Numbers</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Parameter</th><th>Normal Range</th><th>Units</th><th>Key Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Serum total Ca</td><td>2.2–2.6 mM (8.5–10.5)</td><td>mM / mg/dL</td><td>50% ionized; rest bound to albumin, globulins, or complexed</td></tr>
+          <tr><td>Ionized Ca (ECF)</td><td>1.1–1.3 mM</td><td>mmol/L</td><td>10,000× higher than intracellular (~100 nmol/L)</td></tr>
+          <tr><td>Serum PO₄ (adults)</td><td>0.75–1.45 mM (2.5–4.5)</td><td>mM / mg/dL</td><td>Children/neonates: up to 2.4 mM (7 mg/dL)</td></tr>
+          <tr><td>Serum Mg</td><td>0.7–1 mM (1.5–2 meq/L)</td><td>mmol/L</td><td>1.7–2.4 mg/dL; 30% protein-bound</td></tr>
+          <tr><td>25(OH)D sufficiency</td><td>&gt;50 nmol/L (&gt;20 ng/mL)</td><td>nmol/L / ng/mL</td><td>Deficiency: &lt;37 nmol/L (&lt;15 ng/mL)</td></tr>
+          <tr><td>Recommended Ca intake</td><td>1000–1200 mg/d</td><td>mg/day</td><td>National Academy of Medicine</td></tr>
+          <tr><td>Recommended Vit D</td><td>600 IU (1–70 y); 800 IU (&gt;70)</td><td>IU/day</td><td>Toxicity at ≥40,000 IU/day</td></tr>
+          <tr><td>Filtered Ca (renal)</td><td>8–10 g/d; 2–3% in urine</td><td>g/day</td><td>65% proximal, 20% cTAL, 10% DCT</td></tr>
+          <tr><td>Urinary Ca (on therapy)</td><td>100–250 mg/24h</td><td>mg/24h</td><td>&lt;100 = poor adherence; &gt;250 = nephrolithiasis risk</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Hormone Actions on Mineral Metabolism</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Hormone</th><th>↑ Ca</th><th>↓ Ca</th><th>↑ PO₄</th><th>↓ PO₄</th><th>Key Mechanism</th></tr></thead>
+        <tbody>
+          <tr><td><strong>PTH</strong></td><td>✓ bone + kidney</td><td>—</td><td>—</td><td>✓ phosphaturia (NaPi-2a/2c ↓)</td><td>Acts on osteoblast lineage (indirect osteoclast activation); ↑ 1α-hydroxylase</td></tr>
+          <tr><td><strong>1,25(OH)₂D</strong></td><td>✓ gut + bone</td><td>—</td><td>✓ gut (Npt2b)</td><td>—</td><td>VDR → ↑ calbindin, TRPV6; ↑ RANKL on osteoblasts</td></tr>
+          <tr><td><strong>FGF23</strong></td><td>—</td><td>—</td><td>—</td><td>✓ proximal tubule (NaPi-2a/2c ↓) + ↓ 1,25(OH)₂D synthesis</td><td>From osteocytes; induced by high Pi + high 1,25(OH)₂D</td></tr>
+          <tr><td><strong>Calcitonin</strong></td><td>—</td><td>✓ direct osteoclast inhibition</td><td>—</td><td>—</td><td>Direct receptor on osteoclasts (basal surface)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Electrolyte Disorders — Quick Summary</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Disorder</th><th>Key Cause to Know</th><th>Key Clinical Feature</th><th>Key Treatment</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Hypophosphatemia</strong></td><td>DKA insulin therapy (redistributive); XLH (↑ FGF23, most common genetic cause)</td><td>Severe (&lt;0.25 mM): seizures, Guillain-Barré-like paralysis; Rhabdo peaks 1–2d after nadir</td><td>IV phosphate (see table); correct hypocalcemia first; Burosumab for XLH/TIO</td></tr>
+          <tr><td><strong>Hyperphosphatemia</strong></td><td>CKD (most common); hypoparathyroidism</td><td>Tetany, cardiac calcifications (heart block), nephrocalcinosis</td><td>Volume expansion, sevelamer, hemodialysis</td></tr>
+          <tr><td><strong>Hypomagnesemia</strong></td><td>PPIs, cisplatin, cetuximab, alcoholism, loop diuretics</td><td>Refractory hypocalcemia + hypokalemia; arrhythmias; sensitizes to digoxin toxicity</td><td>IV MgCl₂; reduce dose 50–75% in renal failure; give both Ca + Mg if triple deficiency</td></tr>
+          <tr><td><strong>Hypermagnesemia</strong></td><td>Renal failure + Mg-containing antacids/enemas</td><td>Vasodilation, neuromuscular blockade, heart block; asystole at ~10 mM</td><td>IV calcium (temporary); hemodialysis</td></tr>
+          <tr><td><strong>Vitamin D deficiency</strong></td><td>Inadequate sun/diet, elderly, malabsorption, PPIs, CKD</td><td>Secondary hyperPTH, osteomalacia, proximal myopathy, Looser's zones on XR</td><td>50,000 IU wkly × 3–12 wk → 800 IU/d; calcitriol if 1α-hydroxylation impaired</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  Harrison's Principles of Internal Medicine · Chapter 421 · Bone &amp; Mineral Metabolism in Health and Disease · Boards Study Guide · Venos · Stage A · 2026
+</footer>
+
+<script>
+/* ══════════════════════════════════════════
+   VENOS BOARDS HUB — Annotation System v4
+   ✓ Highlights persist across sessions
+   ✓ Note anchors restore on page reload
+   ✓ CLEAR removes everything
+══════════════════════════════════════════ */
+
+const FILE_KEY = 'venos_' + (document.title || 'guide').replace(/\s+/g,'_').toLowerCase();
+const HL_KEY   = FILE_KEY + '_hl';
+const NT_KEY   = FILE_KEY + '_notes';
+
+let curColor = null, eraseMode = false, selText = '', savedRange = null;
+
+function setHL(c) {
+  curColor = c; eraseMode = false;
+  document.body.style.cursor = 'crosshair';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  document.getElementById('h-' + c).classList.add('active');
+}
+
+function setErase() {
+  eraseMode = true; curColor = null;
+  document.body.style.cursor = 'cell';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+}
+
+function applyHL(range, color) {
+  try {
+    const span = document.createElement('span');
+    span.className = 'hl hl-' + color;
+    span.dataset.hlColor = color;
+    range.surroundContents(span);
+    saveHighlights();
+  } catch(e) {
+    try {
+      const frag = range.extractContents();
+      const span = document.createElement('span');
+      span.className = 'hl hl-' + color;
+      span.dataset.hlColor = color;
+      span.appendChild(frag);
+      range.insertNode(span);
+      saveHighlights();
+    } catch(e2) {}
+  }
+}
+
+function saveHighlights() {
+  const spans = document.querySelectorAll('.hl[data-hl-color]');
+  const data = [];
+  spans.forEach(s => {
+    const text = s.textContent.trim();
+    if (text.length > 1) data.push({ text, color: s.dataset.hlColor });
+  });
+  try { localStorage.setItem(HL_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function restoreHighlights() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch(e) { return; }
+  if (!saved.length) return;
+  const main = document.querySelector('main') || document.body;
+  saved.forEach(function(item) {
+    if (!item.text || !item.color) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('hl') ||
+          node.parentElement.classList.contains('note-anchor'))) continue;
+      const idx = node.nodeValue.indexOf(item.text);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + item.text.length);
+          applyHL(range, item.color);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NT_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveNotes(n) {
+  try { localStorage.setItem(NT_KEY, JSON.stringify(n)); } catch(e) {}
+}
+
+function addNote() {
+  const txt = document.getElementById('sn-ta').value.trim();
+  if (!txt) return;
+  const id = Date.now();
+  const notes = getNotes();
+  notes.unshift({ id, ref: selText.substring(0, 100) || '—', text: txt });
+  saveNotes(notes);
+  if (savedRange) {
+    try {
+      const span = document.createElement('span');
+      span.className = 'note-anchor';
+      span.dataset.noteId = id;
+      span.title = 'Click to see your note';
+      savedRange.surroundContents(span);
+      bindAnchor(span, id);
+    } catch(e) {
+      try {
+        const frag = savedRange.extractContents();
+        const span = document.createElement('span');
+        span.className = 'note-anchor';
+        span.dataset.noteId = id;
+        span.title = 'Click to see your note';
+        span.appendChild(frag);
+        savedRange.insertNode(span);
+        bindAnchor(span, id);
+      } catch(e2) {}
+    }
+    savedRange = null;
+  }
+  document.getElementById('sn-ta').value = '';
+  selText = '';
+  document.getElementById('sn-ref-txt').textContent = '—';
+  renderNotes();
+}
+
+function bindAnchor(span, id) {
+  span.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const note = getNotes().find(n => n.id === id);
+    if (note) showPopover(span, note);
+  });
+}
+
+function restoreAnchors() {
+  const notes = getNotes();
+  if (!notes.length) return;
+  const main = document.querySelector('main') || document.body;
+  notes.forEach(function(note) {
+    if (!note.ref || note.ref === '—' || !note.id) return;
+    const refText = note.ref.trim();
+    if (refText.length < 2) return;
+    if (document.querySelector('.note-anchor[data-note-id="' + note.id + '"]')) return;
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.parentElement && (node.parentElement.classList.contains('note-anchor') ||
+          node.parentElement.classList.contains('hl'))) continue;
+      const idx = node.nodeValue.indexOf(refText);
+      if (idx !== -1) {
+        try {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + refText.length);
+          const span = document.createElement('span');
+          span.className = 'note-anchor';
+          span.dataset.noteId = String(note.id);
+          span.title = 'Click to see your note';
+          range.surroundContents(span);
+          bindAnchor(span, note.id);
+        } catch(e) {}
+        break;
+      }
+    }
+  });
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  document.querySelectorAll('.note-anchor[data-note-id="' + id + '"]').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  closePopover();
+  renderNotes();
+}
+
+function renderNotes() {
+  const body = document.getElementById('sn-body');
+  const empty = document.getElementById('sn-empty');
+  const notes = getNotes();
+  body.querySelectorAll('.sn-note').forEach(el => el.remove());
+  if (!notes.length) { if (empty) empty.style.display = ''; return; }
+  if (empty) empty.style.display = 'none';
+  notes.forEach(note => {
+    const card = document.createElement('div');
+    card.className = 'sn-note';
+    card.dataset.noteId = note.id;
+    card.innerHTML =
+      '<div class="sn-note-hd"><span class="sn-drag-icon">⠿</span>' +
+      '<span class="sn-note-ref">' + (note.ref !== '—' ? '"' + note.ref + '"' : 'General note') + '</span>' +
+      '<button class="sn-del" onclick="deleteNote(' + note.id + ')">×</button></div>' +
+      '<div class="sn-note-body">' + note.text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="sn-resize"></div>';
+    body.appendChild(card);
+    makeResizable(card, note.id);
+  });
+}
+
+let activePopNoteId = null;
+
+function showPopover(anchorEl, note) {
+  const pop = document.getElementById('note-popover');
+  document.getElementById('np-pop-ref').textContent = note.ref !== '—' ? '"' + note.ref.substring(0, 55) + '"' : 'Note';
+  document.getElementById('np-pop-text').innerHTML = note.text.replace(/\n/g, '<br>');
+  document.getElementById('pop-del-btn').onclick = () => deleteNote(note.id);
+  activePopNoteId = note.id;
+  const rect = anchorEl.getBoundingClientRect();
+  pop.style.left = Math.min(rect.left, window.innerWidth - 300) + 'px';
+  pop.style.top = (rect.bottom + 8) + 'px';
+  pop.classList.add('show');
+}
+
+function closePopover() {
+  document.getElementById('note-popover').classList.remove('show');
+  activePopNoteId = null;
+}
+
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('note-popover').contains(e.target)) closePopover();
+});
+
+document.addEventListener('mouseup', function(e) {
+  const tb = document.getElementById('toolbar');
+  const sb = document.getElementById('sn-sidebar');
+  const np = document.getElementById('note-popover');
+  if (tb.contains(e.target) || sb.contains(e.target) || np.contains(e.target)) return;
+
+  if (eraseMode && e.target.classList.contains('hl')) {
+    const el = e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+    saveHighlights();
+    return;
+  }
+
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const txt = sel.toString().trim();
+  if (!txt) return;
+  selText = txt;
+  savedRange = sel.getRangeAt(0).cloneRange();
+  document.getElementById('sn-ref-txt').textContent = txt.length > 48 ? txt.substring(0, 48) + '…' : txt;
+
+  if (curColor) {
+    try { applyHL(sel.getRangeAt(0), curColor); sel.removeAllRanges(); } catch(err) {}
+  }
+});
+
+function clearAll() {
+  if (!confirm('Clear ALL highlights and notes?')) return;
+  document.querySelectorAll('.hl').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  document.querySelectorAll('.note-anchor').forEach(el => {
+    el.parentNode.replaceChild(document.createTextNode(el.textContent), el);
+    el.parentNode.normalize();
+  });
+  try { localStorage.removeItem(HL_KEY); localStorage.removeItem(NT_KEY); } catch(e) {}
+  curColor = null; eraseMode = false;
+  document.body.style.cursor = '';
+  document.querySelectorAll('.hbtn').forEach(b => b.classList.remove('active'));
+  closePopover();
+  renderNotes();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sn-sidebar');
+  const tab = document.getElementById('sn-tab');
+  sb.classList.toggle('hidden');
+  tab.textContent = sb.classList.contains('hidden') ? '📝 Notes' : '◀';
+}
+
+function makeResizable(card, noteId) {
+  const handle = card.querySelector('.sn-resize');
+  let startY = 0, startH = 0;
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    startY = e.clientY; startH = card.offsetHeight;
+    function onMove(ev) { card.style.height = Math.max(80, startH + (ev.clientY - startY)) + 'px'; }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+document.querySelectorAll('.lbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+document.querySelectorAll('.fbtn').forEach(b => {
+  b.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+
+const _sections = document.querySelectorAll('.sec[id]');
+const _navLinks = document.querySelectorAll('.toc-a');
+_sections.forEach(s => new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    _navLinks.forEach(l => l.classList.remove('on'));
+    const lnk = document.querySelector('.toc-a[href="#' + s.id + '"]');
+    if (lnk) { lnk.classList.add('on'); lnk.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+  }
+}, { rootMargin: '-15% 0px -75% 0px' }).observe(s));
+
+restoreHighlights();
+restoreAnchors();
+renderNotes();
+</script>
+</body>
+</html>
