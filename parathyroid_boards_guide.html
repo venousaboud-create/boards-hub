@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Parathyroid & Calcium Homeostasis · Boards Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.7;margin-right:var(--snw)}
+:root{
+  --bg:#f8f7f4;--sf:#fff;--sf2:#f0ede8;--bd:#ddd9d2;--bd2:#b8b3aa;
+  --tx:#1c1a17;--t2:#4a4540;--t3:#857f77;
+  --blu:#1e4db7;--blu-l:#eef2fd;--blu-d:#163a8c;
+  --red:#b91c1c;--red-l:#fef2f2;
+  --amb:#b45309;--amb-l:#fffbeb;
+  --grn:#15803d;--grn-l:#f0fdf4;
+  --pur:#6d28d9;--pur-l:#f5f3ff;
+  --tel:#0e7490;--tel-l:#ecfeff;
+  --hy:rgba(253,224,71,.5);--hg:rgba(134,239,172,.5);--hb:rgba(147,197,253,.5);
+  --hpk:rgba(249,168,212,.5);--ho:rgba(253,186,116,.5);
+  --nav:54px;--snw:300px;
+}
+/* TOOLBAR */
+#toolbar{position:fixed;top:10px;left:12px;z-index:999;background:#fff;border:1.5px solid var(--bd2);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:5px;box-shadow:0 3px 16px rgba(0,0,0,.12)}
+.albl{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-right:2px}
+.hbtn{width:23px;height:23px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s,outline .15s;flex-shrink:0}
+.hbtn:hover{transform:scale(1.2)}
+.hbtn.active{outline:2.5px solid var(--blu);outline-offset:1px}
+#h-y{background:#fde047}#h-g{background:#86efac}#h-b{background:#93c5fd}#h-p{background:#f9a8d4}#h-o{background:#fdba74}
+.tsep{width:1px;height:22px;background:var(--bd);margin:0 3px}
+.tbtn{width:30px;height:30px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t2);transition:background .15s}
+.tbtn:hover{background:var(--blu-l);color:var(--blu)}
+.tbtn.wide{width:auto;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:8.5px}
+/* SIDEBAR */
+#sn-sidebar{position:fixed;right:0;top:var(--nav);width:var(--snw);height:calc(100vh - var(--nav));background:var(--sf2);border-left:1.5px solid var(--bd2);display:flex;flex-direction:column;z-index:800;transition:transform .25s}
+#sn-sidebar.hidden{transform:translateX(100%)}
+#sn-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+#sn-hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+#sn-toggle-btn{cursor:pointer;border:none;background:none;font-size:16px;color:var(--t3);padding:0 2px}
+#sn-toggle-btn:hover{color:var(--pur)}
+#sn-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+#sn-empty{text-align:center;color:var(--t3);font-size:11px;padding:28px 10px;line-height:1.6}
+.sn-card{background:#fff;border:1px solid var(--bd);border-radius:8px;padding:10px;position:relative;cursor:grab;min-height:80px;resize:vertical;overflow:auto;font-size:12px;line-height:1.5}
+.sn-card:active{cursor:grabbing}
+.sn-ref{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--pur);margin-bottom:4px;font-style:italic;word-break:break-word}
+.sn-text{color:var(--tx);white-space:pre-wrap;word-break:break-word}
+.sn-del{position:absolute;top:5px;right:6px;background:none;border:none;cursor:pointer;color:var(--t3);font-size:14px;line-height:1}
+.sn-del:hover{color:var(--red)}
+#sn-tab{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:799;background:var(--pur);color:#fff;border:none;border-radius:6px 0 0 6px;padding:10px 6px;cursor:pointer;font-size:11px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.05em;display:none}
+#sn-sidebar.hidden~#sn-tab,body.sb-hidden #sn-tab{display:block}
+/* NOTE POPOVER */
+#note-popover{position:fixed;z-index:1100;background:#fff;border:1.5px solid var(--pur);border-radius:10px;padding:12px;width:290px;box-shadow:0 6px 24px rgba(0,0,0,.15);display:none}
+#note-popover.show{display:block}
+#np-pop-ref{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--pur);margin-bottom:6px;font-style:italic}
+#np-pop-text{font-size:12px;white-space:pre-wrap;color:var(--tx);margin-bottom:8px}
+#pop-del-btn{font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;padding:0}
+/* NAV */
+.sticknav{position:sticky;top:0;z-index:700;background:#fff;border-bottom:1.5px solid var(--bd);display:flex;align-items:center;gap:0;overflow-x:auto;height:var(--nav);scrollbar-width:none}
+.sticknav::-webkit-scrollbar{display:none}
+.toc-a{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);text-decoration:none;padding:0 18px;height:100%;display:flex;align-items:center;border-bottom:2.5px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s}
+.toc-a:hover{color:var(--blu)}
+.toc-a.on{color:var(--blu);border-bottom-color:var(--blu)}
+/* HERO */
+.hero{background:linear-gradient(135deg,#1e3a8a 0%,#1e4db7 55%,#2563eb 100%);color:#fff;padding:52px 40px 44px;margin-bottom:0}
+.hero h1{font-family:'Playfair Display',serif;font-size:38px;font-weight:900;line-height:1.15;margin-bottom:6px}
+.hero .sub{font-size:13px;opacity:.75;font-family:'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px}
+.stat-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:16px}
+.stat-box{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:10px;padding:12px 18px;min-width:120px}
+.stat-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1}
+.stat-lbl{font-size:10px;opacity:.75;font-family:'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+/* MAIN */
+.main{max-width:860px;margin:0 auto;padding:36px 32px 80px}
+.sec{scroll-margin-top:calc(var(--nav) + 16px);margin-bottom:48px}
+.sec-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--blu-d);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--blu-l)}
+.sub-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--tx);margin:22px 0 10px}
+.sub2-title{font-family:'Source Sans 3',sans-serif;font-size:14px;font-weight:600;color:var(--t2);margin:16px 0 8px;letter-spacing:.02em;text-transform:uppercase;font-size:11.5px}
+p{margin-bottom:10px;color:var(--t2)}
+ul,ol{margin:8px 0 12px 20px;color:var(--t2)}
+li{margin-bottom:4px}
+li>ul,li>ol{margin-top:3px}
+b,strong{color:var(--tx);font-weight:600}
+/* CARDS */
+.g4{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:12px;margin:14px 0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.card{background:var(--sf);border:1.5px solid var(--bd);border-radius:10px;padding:14px 16px}
+.card-head{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
+.card-title{font-family:'Source Sans 3',sans-serif;font-weight:600;color:var(--tx);margin-bottom:6px;font-size:13.5px}
+.card-blu{border-color:var(--blu);background:var(--blu-l)}
+.card-red{border-color:var(--red);background:var(--red-l)}
+.card-grn{border-color:var(--grn);background:var(--grn-l)}
+.card-amb{border-color:var(--amb);background:var(--amb-l)}
+.card-pur{border-color:var(--pur);background:var(--pur-l)}
+.card-tel{border-color:var(--tel);background:var(--tel-l)}
+/* PILLS / BADGES */
+.badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:4px;margin-right:4px;margin-bottom:3px}
+.b-blu{background:var(--blu-l);color:var(--blu)}
+.b-red{background:var(--red-l);color:var(--red)}
+.b-grn{background:var(--grn-l);color:var(--grn)}
+.b-amb{background:var(--amb-l);color:var(--amb)}
+.b-pur{background:var(--pur-l);color:var(--pur)}
+/* CALLOUT */
+.callout{border-left:4px solid var(--blu);background:var(--blu-l);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+.callout.red{border-color:var(--red);background:var(--red-l)}
+.callout.grn{border-color:var(--grn);background:var(--grn-l)}
+.callout.amb{border-color:var(--amb);background:var(--amb-l)}
+.callout.pur{border-color:var(--pur);background:var(--pur-l)}
+.callout.tel{border-color:var(--tel);background:var(--tel-l)}
+.callout-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+/* TABLE */
+.tbl-wrap{overflow-x:auto;margin:14px 0}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{background:var(--sf2);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--t2);padding:8px 12px;text-align:left;border-bottom:2px solid var(--bd2)}
+td{padding:8px 12px;border-bottom:1px solid var(--bd);vertical-align:top;color:var(--t2)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--sf2)}
+/* VS BOX */
+.vs-box{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin:14px 0;border:1.5px solid var(--bd);border-radius:10px;overflow:hidden}
+.vs-l,.vs-r{padding:16px}
+.vs-l{background:var(--red-l)}
+.vs-r{background:var(--grn-l)}
+.vs-mid{background:var(--sf2);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--t3);padding:0 10px;border-left:1px solid var(--bd);border-right:1px solid var(--bd)}
+.vs-title{font-weight:700;font-size:13px;margin-bottom:6px}
+/* FLOW */
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:14px 0}
+.flow-box{background:var(--sf);border:1.5px solid var(--bd);border-radius:8px;padding:8px 14px;font-size:12.5px;font-weight:600;color:var(--tx);text-align:center}
+.flow-arr{color:var(--t3);font-size:18px;font-weight:300}
+/* DRUG BOX */
+.drug-box{border:1.5px solid var(--tel);border-radius:10px;background:var(--tel-l);padding:16px;margin:14px 0}
+.drug-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--tel);margin-bottom:8px}
+/* TRAP */
+.trap{background:var(--sf);border:1.5px solid var(--amb);border-radius:10px;padding:18px 20px;margin:14px 0}
+.trap-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--amb);margin-bottom:6px}
+.trap-vignette{background:var(--amb-l);border-radius:6px;padding:10px 14px;margin:8px 0;font-size:13px;font-style:italic;color:var(--tx)}
+.trap-section{margin-top:8px;font-size:12.5px}
+.trap-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);display:block;margin-bottom:2px}
+/* STATUS BUTTONS */
+.status-row{display:flex;gap:10px;margin-top:24px;padding-top:14px;border-top:1px solid var(--bd)}
+.status-btn{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;border-radius:6px;border:1.5px solid var(--bd);background:var(--bg);cursor:pointer;transition:all .2s;color:var(--t3)}
+.status-btn.learned{background:var(--grn-l);border-color:var(--grn);color:var(--grn)}
+.status-btn.review{background:var(--red-l);border-color:var(--red);color:var(--red)}
+hr.sep{border:none;border-top:1.5px solid var(--bd);margin:40px 0}
+/* NOTE ANCHOR */
+.note-anchor{border-bottom:2px dotted var(--pur);cursor:pointer;color:inherit}
+.note-anchor:hover{background:var(--pur-l)}
+/* PRINT */
+@media print{#toolbar,#sn-sidebar,#sn-tab,.sticknav,#note-popover,.status-row{display:none!important}body{margin-right:0}}
+/* NOTE INPUT MODAL */
+#note-modal{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:2000;display:none;align-items:center;justify-content:center}
+#note-modal.show{display:flex}
+#note-modal-inner{background:#fff;border-radius:12px;padding:20px;width:340px;box-shadow:0 8px 32px rgba(0,0,0,.18)}
+#note-modal-inner h3{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--pur);margin-bottom:4px}
+#note-modal-ref{font-size:11px;color:var(--t3);font-style:italic;margin-bottom:10px;word-break:break-word}
+#note-modal-ta{width:100%;border:1.5px solid var(--bd2);border-radius:7px;padding:8px;font-family:'Source Sans 3',sans-serif;font-size:13px;min-height:90px;resize:vertical;margin-bottom:10px;color:var(--tx)}
+#note-modal-ta:focus{outline:none;border-color:var(--pur)}
+.nm-btns{display:flex;gap:8px;justify-content:flex-end}
+.nm-btns button{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;padding:7px 14px;border-radius:6px;cursor:pointer;border:1.5px solid var(--bd)}
+#nm-save{background:var(--pur);color:#fff;border-color:var(--pur)}
+#nm-cancel{background:var(--bg);color:var(--t2)}
+#sn-input{padding:10px;border-top:1.5px solid #ddd9d2;background:#fff;flex-shrink:0}
+#sn-selref{font-size:8px;font-family:monospace;color:#857f77;margin-bottom:5px}
+#sn-selref em{color:#6d28d9;font-style:normal}
+#sn-ta{width:100%;padding:8px;border:1px solid #b8b3aa;border-radius:5px;font-size:12px;resize:none;height:60px;background:#f8f7f4;color:#1c1a17;display:block}
+#sn-ta:focus{outline:2px solid #6d28d9}
+#sn-add{margin-top:6px;width:100%;padding:8px;background:#6d28d9;color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer;display:block}
+.sn-note{background:#fffde7;border:1.5px solid #f0d060;border-radius:8px;display:flex;flex-direction:column;min-height:80px;position:relative;overflow:hidden;margin-bottom:6px}
+.sn-note-hd{background:#fef08a;padding:6px 10px;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.sn-note-ref{font-size:8px;color:#78610a;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sn-del{cursor:pointer;border:none;background:none;font-size:15px;color:#a89a30;line-height:1}
+.sn-note-body{padding:8px 10px;flex:1;font-size:12px;line-height:1.55;overflow-y:auto}
+.sn-resize{position:absolute;bottom:0;right:0;width:16px;height:16px;cursor:se-resize}
+.note-anchor{cursor:pointer;border-bottom:2px dotted #6d28d9;padding-bottom:1px}
+</style>
+</head>
+<body>
+
+<!-- ANNOTATION TOOLBAR -->
+<div id="toolbar">
+  <span class="albl">Highlight</span>
+  <div class="hbtn" id="h-y" title="Yellow" onclick="setHL('y')"></div>
+  <div class="hbtn" id="h-g" title="Green" onclick="setHL('g')"></div>
+  <div class="hbtn" id="h-b" title="Blue" onclick="setHL('b')"></div>
+  <div class="hbtn" id="h-p" title="Pink" onclick="setHL('p')"></div>
+  <div class="hbtn" id="h-o" title="Orange" onclick="setHL('o')"></div>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Erase highlight" onclick="setHL('e',this)">⌫</button>
+  <button class="tbtn wide" onclick="clearAll()">CLEAR</button>
+  <div class="tsep"></div>
+  <button class="tbtn" title="Add sticky note" onclick="addNoteMode()">📝</button>
+</div>
+
+<!-- STICKY NOTE SIDEBAR -->
+<div id="sn-sidebar">
+  <div id="sn-hd">
+    <span>Sticky Notes</span>
+    <button id="sn-toggle-btn" onclick="toggleSidebar()" title="Hide panel">◀</button>
+  </div>
+  <div id="sn-body">
+    <div id="sn-empty">Select text then click 📝<br>to add a sticky note.</div>
+  </div>
+</div>
+  <div id="sn-input">
+    <div id="sn-selref">Selected: <em id="sn-ref-txt">—</em></div>
+    <textarea id="sn-ta" placeholder="Add your note…"></textarea>
+    <button id="sn-add" onclick="addNote()">+ Add Note</button>
+  </div>
+</div>
+<button id="sn-tab" onclick="toggleSidebar()">📝 Notes</button>
+
+<!-- NOTE INPUT MODAL -->
+<div id="note-modal">
+  <div id="note-modal-inner">
+    <h3>Add Note</h3>
+    <div id="note-modal-ref"></div>
+    <textarea id="note-modal-ta" placeholder="Type your note…"></textarea>
+    <div class="nm-btns">
+      <button id="nm-cancel" onclick="closeNoteModal()">Cancel</button>
+      <button id="nm-save" onclick="saveNote()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- NOTE POPOVER -->
+<div id="note-popover">
+  <div id="np-pop-ref"></div>
+  <div id="np-pop-text"></div>
+  <button id="pop-del-btn">🗑 Delete note</button>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:8px">Chapter 422 · Harrison's Endocrinology</div>
+  <h1>Disorders of the Parathyroid Gland<br>& Calcium Homeostasis</h1>
+  <div class="sub">Boards Study Guide · Internal Medicine Stage A</div>
+  <div class="stat-row">
+    <div class="stat-box"><div class="stat-num">4</div><div class="stat-lbl">Parathyroid glands</div></div>
+    <div class="stat-box"><div class="stat-num">50/100K</div><div class="stat-lbl">pHPT incidence/yr (US)</div></div>
+    <div class="stat-box"><div class="stat-num">90%</div><div class="stat-lbl">Hypercalcemia = HPT + cancer</div></div>
+    <div class="stat-box"><div class="stat-num">~80%</div><div class="stat-lbl">pHPT due to single adenoma</div></div>
+    <div class="stat-box"><div class="stat-num">25–35/100K</div><div class="stat-lbl">Hypoparathyroidism prevalence</div></div>
+  </div>
+</div>
+
+<!-- STICKY NAV -->
+<nav class="sticknav">
+  <a class="toc-a" href="#physiology">Physiology</a>
+  <a class="toc-a" href="#phpt">Primary HPT</a>
+  <a class="toc-a" href="#fhh">FHH</a>
+  <a class="toc-a" href="#hypercalc">Hypercalcemia</a>
+  <a class="toc-a" href="#hypoparathyroid">Hypoparathyroidism</a>
+  <a class="toc-a" href="#php">PHP</a>
+  <a class="toc-a" href="#hypocalc">Hypocalcemia Tx</a>
+  <a class="toc-a" href="#quickref">Quick Ref</a>
+  <a class="toc-a" href="#traps">Exam Traps</a>
+</nav>
+
+<main class="main">
+
+<!-- SECTION 1: PHYSIOLOGY -->
+<section class="sec" id="physiology">
+  <h2 class="sec-title">PTH & Calcium Physiology</h2>
+
+  <h3 class="sub-title">PTH Structure & Primary Function</h3>
+  <ul>
+    <li><strong>84-amino acid</strong> single-chain peptide; bioactive N-terminal PTH(1–34) is highly conserved</li>
+    <li>Fragments as small as <strong>PTH(1–11)</strong> can activate the PTH/PTHrP receptor at high concentrations</li>
+    <li>Synthesized as <strong>preproPTH (115 aa)</strong> → cleavage of "pre" (25 aa) then "pro" (6 aa) → mature 84-aa peptide</li>
+    <li>Primary function: <strong>maintain ionized [Ca²⁺] in extracellular fluid within narrow normal range</strong></li>
+  </ul>
+
+  <h3 class="sub-title">PTH Actions by Organ</h3>
+  <div class="g4">
+    <div class="card card-blu">
+      <div class="card-head">Bone</div>
+      <div class="card-title">Calcium Release</div>
+      <ul>
+        <li>Increases osteoclast-mediated resorption (<em>continuous</em> exposure)</li>
+        <li><strong>Intermittent</strong> low-dose PTH → net bone GAIN (anabolic)</li>
+        <li>Acts via osteoblasts → RANKL → activates RANK on osteoclasts</li>
+        <li>Up to 12 mmol (500 mg) Ca²⁺/day transferred bone↔ECF</li>
+      </ul>
+    </div>
+    <div class="card card-grn">
+      <div class="card-head">Kidney</div>
+      <div class="card-title">Multifocal Renal Actions</div>
+      <ul>
+        <li><strong>Proximal tubule:</strong> ↑ phosphate excretion, ↑ 1α-hydroxylase → ↑ 1,25(OH)₂D</li>
+        <li><strong>Distal tubule:</strong> ↑ Ca²⁺ reabsorption</li>
+        <li>Net: hypophosphaturia + hypercalciuria (relative)</li>
+      </ul>
+    </div>
+    <div class="card card-amb">
+      <div class="card-head">Intestine (Indirect)</div>
+      <div class="card-title">Via 1,25(OH)₂D</div>
+      <ul>
+        <li>PTH → ↑ renal 1α-hydroxylase → ↑ calcitriol → ↑ intestinal Ca²⁺ & phosphate absorption</li>
+        <li>Longer-term Ca²⁺ balance mechanism</li>
+      </ul>
+    </div>
+    <div class="card card-pur">
+      <div class="card-head">Immediate Control</div>
+      <div class="card-title">Speed of Effect</div>
+      <ul>
+        <li>Bone effects: within <strong>minutes</strong> (rapid Ca²⁺ release from osteocyte matrix)</li>
+        <li>Chronic effects: hours (↑ osteoblast/osteoclast numbers)</li>
+        <li>Days: cellular replication to ↑ parathyroid mass</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub-title">Feedback Regulation of PTH</h3>
+  <div class="flow">
+    <div class="flow-box">Low [Ca²⁺]</div><div class="flow-arr">→</div>
+    <div class="flow-box">CaSR (inactive)</div><div class="flow-arr">→</div>
+    <div class="flow-box">↑ PTH secretion</div><div class="flow-arr">→</div>
+    <div class="flow-box">↑ bone resorption, ↑ renal Ca reabsorption, ↑ 1,25(OH)₂D</div><div class="flow-arr">→</div>
+    <div class="flow-box">↑ [Ca²⁺] → CaSR activated → PTH suppressed</div>
+  </div>
+  <ul>
+    <li>PTH secretion increases <strong>~5× basal</strong> as Ca²⁺ falls from normal to 1.9–2.0 mmol/L (7.6–8.0 mg/dL)</li>
+    <li><strong>Calcium-sensing receptor (CaSR):</strong> Class C GPCR, obligate homodimer; couples to Gαq, Gα11, Gαi in parathyroids</li>
+    <li>High Ca²⁺ → CaSR activated → ↓ PTH secretion, ↓ distal tubule Ca²⁺ reabsorption</li>
+    <li><strong>1,25(OH)₂D:</strong> strongly suppresses PTH gene transcription</li>
+    <li><strong>FGF23</strong> (phosphaturic hormone): can suppress PTH secretion</li>
+    <li><strong>Severe hypomagnesemia</strong> impairs PTH secretion</li>
+  </ul>
+
+  <h3 class="sub-title">PTH Synthesis Regulation (Speed Tiers)</h3>
+  <div class="g4">
+    <div class="card"><div class="card-head">Minutes</div>Secretion of <strong>preformed hormone</strong> in response to hypocalcemia</div>
+    <div class="card"><div class="card-head">Hours</div>↑ PTH <strong>mRNA expression</strong> induced by sustained hypocalcemia</div>
+    <div class="card"><div class="card-head">Days</div>Cellular <strong>replication</strong> → ↑ parathyroid gland mass</div>
+    <div class="card"><div class="card-head">Post-translational</div>High Ca²⁺ → ↑ proteolytic destruction of stored PTH (rapid control)</div>
+  </div>
+
+  <h3 class="sub-title">PTH Metabolism & Assay Pitfalls</h3>
+  <ul>
+    <li>PTH degraded intraglandularly + in liver/kidney after secretion</li>
+    <li>Removing even the first amino acid → biologically inactive fragment, e.g., <strong>PTH(7–84)</strong></li>
+    <li><strong>1st-gen assays:</strong> measured inactive C-terminal/mid-fragments — unreliable</li>
+    <li><strong>2nd-gen (intact PTH, double-antibody immunometric):</strong> standard of care; captures + detects N/C-terminal portions — still detects some PTH(7–84)</li>
+    <li><strong>3rd-gen assays:</strong> detect only full-length PTH(1–84); theoretically better for CKD management but not yet proven clinically superior</li>
+    <li><strong>CKD pitfall:</strong> PTH(7–84) can accumulate and cross-react with 2nd-gen assays → overestimate biologically active PTH → risk of oversuppression → <strong>adynamic bone disease</strong></li>
+  </ul>
+
+  <h3 class="sub-title">PTHrP — Parathyroid Hormone–Related Peptide</h3>
+  <ul>
+    <li>Responsible for most cases of <strong>Humoral Hypercalcemia of Malignancy (HHM)</strong></li>
+    <li>Produced by nearly all cell types: brain, pancreas, heart, lung, mammary, placenta, endothelial, smooth muscle</li>
+    <li><strong>Structural homology:</strong> first 30 amino acids share close identity with PTH (10 identical aa, 20/30 homologous); PTHrP extends to 139–173 aa</li>
+    <li>Both PTH and PTHrP bind the same <strong>PTH1R (class B GPCR)</strong></li>
+    <li>In adults, PTHrP has little influence on calcium homeostasis <em>except in disease</em> (large squamous, renal cell carcinomas)</li>
+    <li>Paracrine/autocrine roles: endochondral bone formation, breast branching morphogenesis, uterine contraction</li>
+    <li>HHM: PTHrP mimics PTH → ↑ bone resorption + hypercalcemia, but <strong>PTH is suppressed</strong></li>
+  </ul>
+
+  <h3 class="sub-title">Calcitonin</h3>
+  <ul>
+    <li>32-aa peptide from thyroid parafollicular (C) cells; hypocalcemic properties</li>
+    <li>Acts via osteoclast receptors → ↓ bone resorption; also ↑ renal Ca²⁺ clearance</li>
+    <li><strong>Limited physiologic role in humans</strong> — neither deficiency (total thyroidectomy) nor excess (medullary thyroid carcinoma) significantly changes Ca²⁺/phosphate</li>
+    <li>Pharmacologic use: Paget's disease, severe hypercalcemia, osteoporosis adjunct</li>
+    <li>Salmon calcitonin: 10–100× more potent than mammalian forms</li>
+    <li><strong>Tumor marker:</strong> medullary thyroid carcinoma (sporadic and hereditary)</li>
+    <li>Levels elevated in pseudohypoparathyroidism (PHP)</li>
+  </ul>
+
+  <div class="status-row">
+    <button class="status-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="status-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- SECTION 2: PRIMARY HYPERPARATHYROIDISM -->
+<section class="sec" id="phpt">
+  <h2 class="sec-title">Primary Hyperparathyroidism (pHPT)</h2>
+
+  <h3 class="sub-title">Epidemiology & Pathophysiology</h3>
+  <ul>
+    <li>Typically a disease of <strong>postmenopausal women</strong></li>
+    <li>Incidence: <strong>~50 per 100,000 person-years</strong> in the US</li>
+    <li>Most common cause of <strong>asymptomatic hypercalcemia</strong></li>
+    <li>Excess PTH secretion <em>disproportionate</em> to serum calcium → hypercalcemia + hypophosphatemia</li>
+  </ul>
+
+  <h3 class="sub-title">Etiology</h3>
+  <div class="g4">
+    <div class="card card-blu">
+      <div class="card-head">~80%</div>
+      <div class="card-title">Single Adenoma</div>
+      <ul><li>Solitary benign neoplasm</li><li>Very rarely parathyroid carcinoma</li></ul>
+    </div>
+    <div class="card card-amb">
+      <div class="card-head">~15-20%</div>
+      <div class="card-title">Chief Cell Hyperplasia</div>
+      <ul><li>All 4 glands enlarged</li><li>Associated with MEN syndromes</li></ul>
+    </div>
+    <div class="card card-red">
+      <div class="card-head">&lt;1%</div>
+      <div class="card-title">Parathyroid Carcinoma</div>
+      <ul><li>Very aggressive subset</li><li>HRPT2/CDC73 mutations</li></ul>
+    </div>
+    <div class="card card-pur">
+      <div class="card-head">~10%</div>
+      <div class="card-title">Genetic/Hereditary</div>
+      <ul><li>MEN syndromes</li><li>HPT-JT syndrome</li><li>FIHP</li></ul>
+    </div>
+  </div>
+
+  <h3 class="sub-title">Hereditary Syndromes</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Syndrome</th><th>Gene/Chromosome</th><th>Key Features</th></tr>
+      <tr><td><strong>MEN 1 (Wermer's)</strong></td><td>MEN1 (11q13) — MENIN tumor suppressor</td><td>pHPT + pituitary tumors + pancreatic tumors (Zollinger-Ellison syndrome)</td></tr>
+      <tr><td><strong>MEN 2A</strong></td><td>RET protooncogene (gain-of-function)</td><td>pHPT + pheochromocytoma + medullary thyroid carcinoma</td></tr>
+      <tr><td><strong>MEN 2B</strong></td><td>RET protooncogene</td><td>Pheochromocytoma + medullary thyroid ca + multiple neuromas; usually <em>lacks</em> HPT</td></tr>
+      <tr><td><strong>MEN 4</strong></td><td>CDKN1B (p27 CDK inhibitor)</td><td>Similar to MEN 1</td></tr>
+      <tr><td><strong>HPT-JT</strong></td><td>CDC73/HRPT2 (chromosome 1q21–31)</td><td>pHPT (sometimes carcinoma) + jaw tumors (benign ossifying fibromas)</td></tr>
+      <tr><td><strong>FIHP</strong></td><td>GCM2 gain-of-function variants</td><td>Familial isolated HPT without other endocrinopathies</td></tr>
+    </table>
+  </div>
+
+  <div class="callout amb">
+    <div class="callout-lbl">Board Pearl — MEN 1 Genetics</div>
+    In MEN 1: germline mutation in one MEN1 allele + somatic loss of the remaining allele (Knudson two-hit hypothesis). <strong>15–20% of sporadic parathyroid adenomas</strong> also show biallelic somatic loss of MEN1 locus.
+  </div>
+
+  <h3 class="sub-title">Genetic Defects in pHPT — Molecular Overview</h3>
+  <ul>
+    <li><strong>Protooncogene activation:</strong> single mutant allele sufficient (gain-of-function)
+      <ul><li>CCND1 (cyclin D1/PRAD1): reciprocal translocation places CCND1 under PTH promoter → cyclin D1 overexpression in 20–40% of sporadic adenomas</li><li>RET: gain-of-function mutations in MEN 2</li></ul>
+    </li>
+    <li><strong>Tumor suppressor loss:</strong> biallelic loss required
+      <ul><li>MEN1 (MENIN) — MEN 1 and sporadic adenomas</li><li>CDC73/HRPT2 — HPT-JT and parathyroid carcinomas (mutations in 75–80% of carcinomas)</li><li>Rb gene (13q14) — first identified in parathyroid carcinoma</li></ul>
+    </li>
+  </ul>
+
+  <h3 class="sub-title">Pathology of Adenomas</h3>
+  <ul>
+    <li>Most common location: <strong>inferior parathyroid glands</strong></li>
+    <li>Ectopic in 6–10%: thymus, thyroid, pericardium, behind esophagus, mediastinum</li>
+    <li>Size: usually 0.5–5 g; may reach 10–20 g (normal gland ~25 mg)</li>
+    <li>Chief cells predominant in both hyperplasia and adenoma</li>
+  </ul>
+
+  <h3 class="sub-title">Signs & Symptoms</h3>
+  <div class="callout grn">
+    <div class="callout-lbl">Key Point</div>
+    Most patients with pHPT are now <strong>asymptomatic</strong> at diagnosis due to routine serum calcium screening.
+  </div>
+
+  <div class="g2">
+    <div class="card card-red">
+      <div class="card-head">Kidneys</div>
+      <div class="card-title">Nephrolithiasis / Nephrocalcinosis</div>
+      <ul>
+        <li>Occurred in 60–70% pre-1970; now &lt;20%</li>
+        <li>Stones: calcium oxalate or calcium phosphate</li>
+        <li>Nephrocalcinosis → ↓ renal function + phosphate retention</li>
+      </ul>
+    </div>
+    <div class="card card-amb">
+      <div class="card-head">Bone</div>
+      <div class="card-title">Osteitis Fibrosa Cystica</div>
+      <ul>
+        <li>Now very rare (earlier detection)</li>
+        <li>Histology: giant osteoclasts in Howship's lacunae + fibrous tissue replacing marrow</li>
+        <li>X-ray: subperiosteal resorption of phalangeal tufts, "salt and pepper skull"</li>
+        <li>Cortical bone ↓, cancellous (spine) relatively preserved</li>
+      </ul>
+    </div>
+    <div class="card card-pur">
+      <div class="card-head">Neuromuscular</div>
+      <div class="card-title">Proximal Muscle Weakness</div>
+      <ul>
+        <li>Easy fatigability, atrophy</li>
+        <li><strong>Complete regression after parathyroidectomy</strong></li>
+        <li>May mimic primary neuromuscular disorder</li>
+      </ul>
+    </div>
+    <div class="card card-blu">
+      <div class="card-head">GI / Other</div>
+      <div class="card-title">Subtle Manifestations</div>
+      <ul>
+        <li>Peptic ulcers (esp. with MEN 1 — Zollinger-Ellison)</li>
+        <li>Pancreatitis (mechanism unclear)</li>
+        <li>Neuropsychiatric: depression, irritability, cognitive dysfunction</li>
+        <li>Cardiovascular: LV hypertrophy, endothelial dysfunction</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub-title">Diagnosis</h3>
+  <ul>
+    <li><strong>Key finding:</strong> elevated or inappropriately normal PTH in a patient with hypercalcemia</li>
+    <li>Serum phosphate: usually low (but may be normal in renal failure)</li>
+    <li>Immunometric PTH assay is the principal lab test</li>
+    <li>PTH elevated in &gt;90% of parathyroid-related hypercalcemia</li>
+  </ul>
+
+  <h3 class="sub-title">Guidelines for Surgery (Asymptomatic pHPT)</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Parameter</th><th>Threshold for Surgery</th></tr>
+      <tr><td>Serum calcium</td><td>&gt;1 mg/dL above upper normal</td></tr>
+      <tr><td>Renal — creatinine clearance</td><td>&lt;60 mL/min</td></tr>
+      <tr><td>24-h urine calcium</td><td>&gt;300 mg/d (men) or &gt;250 mg/d (women) + increased stone risk</td></tr>
+      <tr><td>Renal imaging</td><td>Nephrolithiasis or nephrocalcinosis</td></tr>
+      <tr><td>Skeletal</td><td>BMD T-score &lt;–2.5 at any site, or vertebral fracture</td></tr>
+      <tr><td>Age</td><td>&lt;50 years</td></tr>
+    </table>
+  </div>
+  <div style="font-size:11px;color:var(--t3);margin-top:4px">Source: Fifth International Workshop guidelines (Bilezikian et al, JBMR 37:2293, 2022)</div>
+
+  <h3 class="sub-title">Monitoring (If No Surgery)</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Parameter</th><th>Frequency</th></tr>
+      <tr><td>Serum calcium + 25OHD</td><td>Annually</td></tr>
+      <tr><td>eGFR / serum creatinine</td><td>Annually</td></tr>
+      <tr><td>Abdominal imaging</td><td>If clinically indicated</td></tr>
+      <tr><td>DXA (3 sites)</td><td>Every 1–2 years</td></tr>
+      <tr><td>Spine X-ray / VFA</td><td>If height loss or back pain</td></tr>
+    </table>
+  </div>
+
+  <h3 class="sub-title">Surgical Treatment</h3>
+  <ul>
+    <li><strong>Definitive therapy:</strong> surgical excision of abnormal parathyroid tissue</li>
+    <li>Two approaches: (1) conventional neck exploration under general anesthesia; (2) minimally invasive parathyroidectomy (local anesthesia, outpatient)</li>
+    <li><strong>Preoperative localization:</strong> neck ultrasound, ⁹⁹ᵐTc sestamibi SPECT, C-11 choline PET/CT, 4D-CT</li>
+    <li><strong>Intraoperative PTH monitoring:</strong> rapid fall &gt;50% to normal levels → successful removal</li>
+    <li>Multiple-gland hyperplasia (familial): more complex; consider forearm reimplantation</li>
+    <li>Postop hypocalcemia: falls within 24 h; low-normal for 3–5 days</li>
+    <li>Risk factors for postop hypocalcemia: "hungry bone" (undermineralized bone matrix), vitamin D deficiency, hypomagnesemia</li>
+    <li>Permanent hypoparathyroidism unlikely if PTH &gt;15 pg/mL at 12–24 h postop</li>
+  </ul>
+
+  <h3 class="sub-title">Medical Management</h3>
+  <ul>
+    <li><strong>Bisphosphonates</strong> (alendronate): ↑ BMD significantly without changing serum calcium</li>
+    <li><strong>Calcimimetics</strong> (cinacalcet): ↓ PTH → lower serum calcium; does NOT affect BMD</li>
+    <li>Scandinavian RCT: parathyroidectomy vs. observation — no difference in morbidity/mortality at 10 years</li>
+    <li>Growing concern about late bone deterioration (&gt;8 years) without surgery</li>
+  </ul>
+
+  <h3 class="sub-title">Parathyroid Carcinoma</h3>
+  <ul>
+    <li>Often not aggressive initially; long-term survival if entire gland removed without capsular rupture</li>
+    <li>Clue: calcium values of <strong>3.5–3.7 mmol/L (14–15 mg/dL)</strong></li>
+    <li>HRPT2/CDC73 mutations in 75–80% of all parathyroid cancers</li>
+    <li>Distinct from benign adenomas pathogenetically; germline mutations found in some sporadic cases → family screening indicated</li>
+    <li>Diagnosis often made in retrospect when metastases occur (lung, liver, bone)</li>
+  </ul>
+
+  <h3 class="sub-title">Lithium-Induced Hypercalcemia</h3>
+  <ul>
+    <li>Occurs in ~10% of lithium-treated patients</li>
+    <li>Lithium shifts PTH secretion curve <strong>rightward</strong> (higher Ca²⁺ needed to suppress PTH) via CaSR effect</li>
+    <li>Reversible when lithium stopped in most patients</li>
+    <li>Cinacalcet effective; parathyroid surgery only if hypercalcemia + elevated PTH persist after lithium discontinued</li>
+  </ul>
+
+  <div class="status-row">
+    <button class="status-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="status-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- SECTION 3: FHH -->
+<section class="sec" id="fhh">
+  <h2 class="sec-title">Genetic Disorders Causing Hyperparathyroidism-Like Syndromes</h2>
+
+  <h3 class="sub-title">Familial Hypocalciuric Hypercalcemia (FHH)</h3>
+  <div class="callout pur">
+    <div class="callout-lbl">Critical Distinction</div>
+    FHH is a <strong>life-long, benign, incurable-by-parathyroidectomy</strong> condition. Distinguishing it from pHPT is essential — surgery will not help and may harm.
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Type</th><th>Gene Defect</th><th>Mechanism</th></tr>
+      <tr><td><strong>FHH1 (most common)</strong></td><td>Heterozygous loss-of-function CaSR mutation</td><td>Sensor can't detect ambient Ca²⁺ → inappropriate PTH secretion + ↑ renal Ca²⁺ reabsorption</td></tr>
+      <tr><td><strong>FHH2</strong></td><td>Heterozygous loss-of-function GNA11 (Gα11)</td><td>Downstream CaSR signaling impaired</td></tr>
+      <tr><td><strong>FHH3</strong></td><td>Heterozygous AP2S1 mutation</td><td>Adaptor protein in clathrin-mediated CaSR endocytosis</td></tr>
+    </table>
+  </div>
+
+  <div class="vs-box">
+    <div class="vs-l">
+      <div class="vs-title" style="color:var(--red)">pHPT</div>
+      <ul>
+        <li>Renal Ca reabsorption &lt;99%</li>
+        <li>CCCR typically <strong>&gt;0.02</strong></li>
+        <li>Surgery curative</li>
+        <li>Family history may be negative</li>
+        <li>Genetic testing: no CaSR mutation</li>
+      </ul>
+    </div>
+    <div class="vs-mid">vs</div>
+    <div class="vs-r">
+      <div class="vs-title" style="color:var(--grn)">FHH</div>
+      <ul>
+        <li>Renal Ca reabsorption <strong>&gt;99%</strong></li>
+        <li>CCCR typically <strong>&lt;0.01</strong></li>
+        <li>Surgery NOT curative — lifelong disease</li>
+        <li>Autosomal dominant — family history often positive</li>
+        <li>Genetic testing: CaSR/GNA11/AP2S1 mutation</li>
+      </ul>
+    </div>
+  </div>
+
+  <p><strong>CCCR</strong> = (urine Ca / urine Cr) ÷ (serum Ca / serum Cr) — can use spot or 24-hour urine. Not perfect; genetic testing confirms diagnosis.</p>
+  <p>Calcium typically mildly elevated (~11 mg/dL); PTH within normal or mildly elevated (inappropriate for hypercalcemia).</p>
+
+  <div class="callout red">
+    <div class="callout-lbl">Exception — Surgery IS Needed</div>
+    Homozygous/compound heterozygous CaSR mutations → <strong>Neonatal Severe Hyperparathyroidism (NSHPT)</strong> → total parathyroidectomy mandatory (typically lethal if untreated in first days of life). Calcimimetics used as temporary bridge.
+  </div>
+
+  <h3 class="sub-title">Jansen's Disease (Activating PTH1R Mutations)</h3>
+  <ul>
+    <li>Rare autosomal dominant; constitutive PTH1R activation</li>
+    <li>Features: severe hypercalcemia + <strong>short-limbed dwarfism</strong> (abnormal chondrocyte maturation in growth plates)</li>
+    <li>Lab: hypercalcemia + hypophosphatemia with <strong>undetectable or low PTH</strong></li>
+    <li>Multiple cystic bone lesions resembling severe hyperparathyroidism in adults</li>
+  </ul>
+
+  <div class="status-row">
+    <button class="status-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="status-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- SECTION 4: HYPERCALCEMIA -->
+<section class="sec" id="hypercalc">
+  <h2 class="sec-title">Hypercalcemia — Classification, Diagnosis & Treatment</h2>
+
+  <h3 class="sub-title">Causes of Hypercalcemia — Classification</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Category</th><th>Causes</th></tr>
+      <tr><td><strong>I. Parathyroid-Related</strong></td><td>pHPT (adenoma, MEN, carcinoma, ectopic PTH, exogenous PTH/analogues); Lithium therapy; FHH</td></tr>
+      <tr><td><strong>II. Malignancy-Related</strong></td><td>Osteolytic mets (breast, myeloma, lymphoma); HHM via PTHrP (squamous, renal, bladder, colorectal); ↑ 1,25(OH)₂D (lymphoma, ovarian dysgerminoma)</td></tr>
+      <tr><td><strong>III. Vitamin D–Related</strong></td><td>Vitamin D intoxication; ↑ 1,25(OH)₂D from granulomatous disease (sarcoidosis, TB, fungi), lymphoma; CYP24A1 biallelic mutations (impaired catabolism); NPT2a/c mutations</td></tr>
+      <tr><td><strong>IV. High Bone Turnover</strong></td><td>Hyperthyroidism; Immobilization; Thiazides; Vitamin A intoxication; Fat necrosis</td></tr>
+      <tr><td><strong>V. Renal Failure–Associated</strong></td><td>Tertiary hyperparathyroidism; Aluminum intoxication + adynamic bone disease; Milk-alkali syndrome</td></tr>
+    </table>
+  </div>
+
+  <div class="callout blu">
+    <div class="callout-lbl">High-Yield Epidemiology</div>
+    <strong>Hyperparathyroidism + cancer = 90% of all hypercalcemia cases.</strong> Disorders other than these two account for &lt;10%.
+  </div>
+
+  <h3 class="sub-title">Clinical Symptoms of Hypercalcemia</h3>
+  <ul>
+    <li>"Bones, groans, moans, stones, psychic overtones"</li>
+    <li>Fatigue, depression, mental confusion, anorexia, nausea, vomiting, constipation</li>
+    <li>Reversible renal tubular defects, polyuria</li>
+    <li>Short QT interval on ECG; cardiac arrhythmias</li>
+    <li>Symptoms more common at Ca²⁺ &gt;2.9–3.0 mmol/L (11.6–12.0 mg/dL)</li>
+    <li>Ca²⁺ &gt;3.2 mmol/L (12.8 mg/dL): calcification in kidneys, skin, vessels, lungs, heart, stomach; renal insufficiency</li>
+    <li><strong>Severe hypercalcemia ≥3.7–4.5 mmol/L (14.8–18.0 mg/dL):</strong> coma, cardiac arrest — medical emergency</li>
+  </ul>
+
+  <h3 class="sub-title">Differential Diagnosis Approach (Figure 422-6)</h3>
+  <div class="flow" style="flex-direction:column;align-items:flex-start">
+    <div style="font-weight:600;margin-bottom:6px">Step 1: Is hypercalcemia chronic (&gt;1 year) or acute?</div>
+    <div class="g2" style="width:100%">
+      <div class="card card-blu">
+        <div class="card-title">Chronic → pHPT most likely</div>
+        <ul>
+          <li>Measure PTH</li>
+          <li>PTH high → pHPT (exclude FHH)</li>
+          <li>PTH low → other chronic causes: granulomatous disease, FHH, medications (lithium, thiazides), vitamin D/A intoxication</li>
+        </ul>
+      </div>
+      <div class="card card-amb">
+        <div class="card-title">Acute/Unknown → Rule out malignancy</div>
+        <ul>
+          <li>Measure PTH + PTHrP assay</li>
+          <li>PTH high → pHPT/MEN (consider FHH)</li>
+          <li>PTH low + clinical evidence → consider malignancy workup (CXR, CT chest/abdomen, bone scan)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub-title">PTH as a Diagnostic Tool</h3>
+  <ul>
+    <li><strong>Elevated (or inappropriately normal) PTH:</strong> &gt;90% of parathyroid-related causes</li>
+    <li><strong>Suppressed/undetectable PTH:</strong> malignancy-related, vitamin D–related, high-bone-turnover causes</li>
+    <li>PTHrP immunoassays: diagnose HHM</li>
+    <li>1,25(OH)₂D: low specificity overall; valuable specifically in sarcoidosis and lymphoma</li>
+  </ul>
+
+  <h3 class="sub-title">Malignancy-Related Hypercalcemia</h3>
+  <div class="g4">
+    <div class="card card-red">
+      <div class="card-head">Mechanism 1: HHM</div>
+      <div class="card-title">PTHrP-mediated</div>
+      <ul><li>Most common mechanism</li><li>Squamous cell, renal, bladder, colorectal tumors</li><li>PTH suppressed; may have low-normal 1,25(OH)₂D</li></ul>
+    </div>
+    <div class="card card-amb">
+      <div class="card-head">Mechanism 2: Local Osteolysis</div>
+      <div class="card-title">Cytokines (IL-1, TNF)</div>
+      <ul><li>Hematologic malignancies: leukemia, lymphoma, myeloma</li><li>Also breast cancer mets to bone</li></ul>
+    </div>
+    <div class="card card-pur">
+      <div class="card-head">Mechanism 3: ↑ 1,25(OH)₂D</div>
+      <div class="card-title">Lymphocyte/Macrophage Synthesis</div>
+      <ul><li>Lymphoma, ovarian dysgerminoma</li><li>Abnormal macrophages convert 25(OH)D → 1,25(OH)₂D</li></ul>
+    </div>
+  </div>
+
+  <h3 class="sub-title">Vitamin D–Related Hypercalcemia</h3>
+  <div class="sub2-title">Vitamin D Intoxication</div>
+  <ul>
+    <li>Requires chronic ingestion &gt;10,000 IU/day in healthy individuals</li>
+    <li>Mechanism: excessive 25(OH)D (not necessarily ↑ 1,25(OH)₂D) → ↑ intestinal absorption + ↑ bone Ca release</li>
+    <li>Diagnosis: 25(OH)D &gt;100 ng/mL</li>
+    <li>Treatment: restrict dietary calcium + hydration + D discontinuation; glucocorticoids 40–100 mg/d prednisone if severe</li>
+    <li>Stores in fat → intoxication may persist weeks after stopping</li>
+  </ul>
+
+  <div class="sub2-title">Sarcoidosis & Granulomatous Disease</div>
+  <ul>
+    <li>Macrophages in granulomas convert 25(OH)D → 1,25(OH)₂D without normal feedback regulation</li>
+    <li>Positive correlation between 25(OH)D intake and circulating 1,25(OH)₂D (unlike normal)</li>
+    <li>PTH low; 1,25(OH)₂D elevated</li>
+    <li>Management: avoid sunlight/vitamin D; glucocorticoids 100 mg/d hydrocortisone equivalent — block excess 1,25(OH)₂D production + blunt target organ response</li>
+  </ul>
+
+  <div class="sub2-title">Williams Syndrome</div>
+  <ul>
+    <li>Autosomal dominant; microdeletions at elastin locus (chromosome 7)</li>
+    <li>Supravalvular aortic stenosis + intellectual disability + elfin facies + hypercalcemia</li>
+    <li>Abnormal sensitivity to vitamin D; 1,25(OH)₂D elevated (46–120 nmol/L)</li>
+  </ul>
+
+  <div class="sub2-title">CYP24A1 Mutations (24-hydroxylase deficiency)</div>
+  <ul>
+    <li>Biallelic inactivating mutations → impaired 1,25(OH)₂D catabolism → hypercalcemia starting in infancy</li>
+    <li>Treatment: avoid sun + vitamin D + reduce calcium; fluconazole/ketoconazole (CYP27B1 inhibitors); rifampin (CYP3A4 inducer)</li>
+  </ul>
+
+  <h3 class="sub-title">Other Causes</h3>
+  <div class="sub2-title">Tertiary Hyperparathyroidism (CKD)</div>
+  <ul>
+    <li>Pathogenesis of secondary HPT in CKD: multifactorial — PTH resistance + ↑ FGF23 → ↓ 1α-hydroxylase → ↓ 1,25(OH)₂D → ↑ PTH</li>
+    <li>Tertiary = autonomous PTH hypersecretion no longer responsive to medical therapy → requires parathyroid surgery</li>
+    <li>Emerge as monoclonal outgrowth of previously hyperplastic gland(s)</li>
+    <li>Medical Rx: dietary phosphate restriction + non-absorbable phosphate binders (sevelamer preferred over calcium carbonate to avoid excess Ca loading) + calcitriol IV pulses</li>
+  </ul>
+
+  <div class="sub2-title">Milk-Alkali Syndrome</div>
+  <ul>
+    <li>Excessive calcium + absorbable alkali intake</li>
+    <li>Cycle: mild hypercalcemia → bicarbonate retention → alkalosis → renal Ca retention → worsening hypercalcemia</li>
+    <li>Chronic form (Burnett's syndrome): irreversible renal damage</li>
+  </ul>
+
+  <h3 class="sub-title">Treatment of Hypercalcemia</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Treatment</th><th>Onset</th><th>Duration</th><th>Notes</th></tr>
+      <tr><td><strong>IV saline hydration</strong></td><td>Hours</td><td>During infusion</td><td>First step always; restores ECF → ↑ urinary Ca excretion 2.5–7.5 mmol/d</td></tr>
+      <tr><td><strong>Forced diuresis</strong> (saline + loop diuretic)</td><td>Hours</td><td>During Rx</td><td>Furosemide/ethacrynic acid; monitor electrolytes; can ↑ urinary Ca to ≥12.5 mmol/d</td></tr>
+      <tr><td><strong>Pamidronate</strong> IV</td><td>1–2 days</td><td>10–14 days to weeks</td><td>30–90 mg single IV dose; normalizes Ca in 80–100%; fever in 20%</td></tr>
+      <tr><td><strong>Zoledronate</strong> IV</td><td>1–2 days</td><td>&gt;3 weeks</td><td>5 mg infusion; faster + more sustained than pamidronate; same SEs</td></tr>
+      <tr><td><strong>Denosumab</strong> SC</td><td>1–2 days</td><td>&gt;3 weeks</td><td>120 mg SC; most powerful antiresorptive; anti-RANKL mAb; for bisphosphonate-refractory cases</td></tr>
+      <tr><td><strong>Calcitonin</strong></td><td>Hours</td><td>1–2 days</td><td>2–8 U/kg IV/SC/IM q6–12h; rapid tachyphylaxis; bridge therapy</td></tr>
+      <tr><td><strong>Glucocorticoids</strong></td><td>Days</td><td>Days–weeks</td><td>Prednisone 40–100 mg/d; active in vitamin D excess, sarcoidosis, certain malignancies (myeloma, lymphoma, breast)</td></tr>
+      <tr><td><strong>Dialysis</strong></td><td>Hours</td><td>24–48h after</td><td>For severe hypercalcemia + renal failure; Ca-free dialysate removes 5–12.5 mmol/24–48 h</td></tr>
+    </table>
+  </div>
+
+  <div class="callout grn">
+    <div class="callout-lbl">Summary Algorithm</div>
+    <ul>
+      <li>Mild hypercalcemia (≤3 mmol/L / ≤12 mg/dL): <strong>hydration alone</strong></li>
+      <li>Moderate (3–3.7 mmol/L / 12–15 mg/dL): <strong>vigorous hydration ± antiresorptives</strong></li>
+      <li>Severe (≥3.7 mmol/L / ≥15 mg/dL): <strong>IV saline diuresis + IV pamidronate/zoledronate or SC denosumab; calcitonin bridge for first 24–48 h</strong></li>
+    </ul>
+  </div>
+
+  <div class="callout amb">
+    <div class="callout-lbl">Bisphosphonate Mechanism</div>
+    Analogues of pyrophosphate; concentrated in areas of high bone turnover → taken up by osteoclasts → inhibit prenylation of proteins → apoptosis (amino group–containing bisphosphonates). Stable in vivo (phosphatase can't hydrolyze C-P-C bond).
+  </div>
+
+  <div class="status-row">
+    <button class="status-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="status-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- SECTION 5: HYPOPARATHYROIDISM -->
+<section class="sec" id="hypoparathyroid">
+  <h2 class="sec-title">Hypoparathyroidism</h2>
+
+  <h3 class="sub-title">Overview</h3>
+  <ul>
+    <li>Rare: ~25–35 patients/100,000 population (US + Danish estimates)</li>
+    <li><strong>Most common cause: post-surgical</strong> (inadvertent removal/damage during thyroid or parathyroid surgery)</li>
+    <li>Surgical frequency ↓ with improved techniques and ↑ nonsurgical therapy for hyperthyroidism</li>
+    <li>Result: absent or inactive PTH → hypocalcemia + hyperphosphatemia</li>
+  </ul>
+
+  <h3 class="sub-title">Genetic/Hereditary Causes</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Syndrome</th><th>Gene/Mechanism</th><th>Key Features</th></tr>
+      <tr><td><strong>DiGeorge / 22q11 deletion (velocardiofacial)</strong></td><td>Microdeletion 22q11.2 or TBX1 point mutation</td><td>Defective thymus + parathyroid development; congenital cardiovascular + facial defects; hypocalcemia + seizures</td></tr>
+      <tr><td><strong>HDR syndrome</strong></td><td>GATA3 mutations (10p14)</td><td>Hypoparathyroidism + Deafness + Renal dysplasia; autosomal dominant</td></tr>
+      <tr><td><strong>Kenney-Caffey type 1</strong></td><td>TBCE mutations (1q42–q43)</td><td>Short stature + osteosclerosis + thick cortical bones</td></tr>
+      <tr><td><strong>Kenney-Caffey type 2</strong></td><td>FAM111A (11q12.1)</td><td>Similar phenotype</td></tr>
+      <tr><td><strong>Sanjad-Sakati</strong></td><td>TBCE mutations</td><td>Growth failure + dysmorphic features</td></tr>
+      <tr><td><strong>APECED (APS-1)</strong></td><td>AIRE gene (21q22.3)</td><td>Autoimmune polyendocrinopathy + candidiasis + ectodermal dystrophy; adrenal failure + hypoparathyroidism + candidiasis + alopecia + vitiligo</td></tr>
+      <tr><td><strong>Kearns-Sayre syndrome</strong></td><td>Mitochondrial DNA deletions</td><td>Ophthalmoplegia + pigmentary retinopathy + hypoparathyroidism</td></tr>
+      <tr><td><strong>MELAS</strong></td><td>Mitochondrial DNA mutations</td><td>Encephalopathy + lactic acidosis + stroke-like episodes</td></tr>
+      <tr><td><strong>Autosomal dominant hypocalcemia type 1 (ADH1)</strong></td><td>Gain-of-function CaSR mutation</td><td>CaSR senses Ca²⁺ as excessive → suppresses PTH; aggravated by vitamin D treatment (↑ urinary Ca → stones)</td></tr>
+      <tr><td><strong>ADH type 2</strong></td><td>Heterozygous Gα11 mutation (gain-of-function)</td><td>Similar to ADH1</td></tr>
+      <tr><td><strong>Isolated HPT — X-linked recessive</strong></td><td>SOX3 gene (Xq26–q27)</td><td>Isolated hypoparathyroidism</td></tr>
+    </table>
+  </div>
+
+  <div class="callout red">
+    <div class="callout-lbl">ADH1 Treatment Trap</div>
+    In ADH1 (gain-of-function CaSR): treating hypocalcemia with vitamin D analogues + oral calcium <strong>exacerbates urinary calcium excretion</strong> → irreversible renal damage from stones + ectopic calcification. Novel therapy: <strong>encaleret</strong> (oral CaSR negative allosteric modulator) — normalized serum/urine Ca in phase 2 trial.
+  </div>
+
+  <h3 class="sub-title">Acquired Causes</h3>
+  <ul>
+    <li><strong>Post-surgical</strong> (most common): thyroid surgery, parathyroid surgery</li>
+    <li>Radiation-induced (radioiodine therapy for hyperthyroidism)</li>
+    <li>Hemochromatosis/hemosiderosis (repeated transfusions)</li>
+    <li>Autoimmune (APECED/APS-1)</li>
+  </ul>
+
+  <h3 class="sub-title">Hypomagnesemia & Hypocalcemia</h3>
+  <ul>
+    <li>Severe hypomagnesemia (&lt;0.4 mmol/L / &lt;0.8 mEq/L) → impaired PTH secretion + impaired PTH responsiveness</li>
+    <li>PTH low despite hypocalcemia (maximum stimulus for PTH); corrects rapidly after Mg repletion</li>
+    <li>Phosphate often not elevated (unlike other hypoparathyroidism) because phosphate deficiency co-exists with hypomagnesemia</li>
+    <li>Treatment: <strong>parenteral magnesium repletion</strong> (must restore intracellular deficit; IV Mg then monitor — serum Mg normalizes transiently, may fall again); oral if renal Mg wasting is the cause (long-term)</li>
+    <li>Hypermagnesemia can also inhibit PTH secretion → hypocalcemia</li>
+  </ul>
+
+  <h3 class="sub-title">Clinical Features of Chronic Hypocalcemia</h3>
+  <ul>
+    <li>Tingling, muscle spasms, carpopedal spasm, laryngeal spasm, convulsions</li>
+    <li><strong>Chvostek's sign</strong>: tap facial nerve → twitching (less sensitive/specific)</li>
+    <li><strong>Trousseau's sign</strong>: inflate BP cuff above systolic for 3 min → carpopedal spasm (more sensitive and specific)</li>
+    <li>Prolonged QT interval (opposite of hypercalcemia)</li>
+    <li>Arrhythmias; ↓ digitalis effectiveness</li>
+    <li>Increased intracranial pressure; papilledema</li>
+    <li>Mental changes: irritability, depression, psychosis</li>
+    <li>Basal ganglia calcification + extrapyramidal syndromes (especially hereditary forms)</li>
+    <li>Lenticular cataracts, papilledema</li>
+    <li>Chronic malabsorption, intestinal cramps</li>
+  </ul>
+
+  <h3 class="sub-title">Treatment of Hypoparathyroidism</h3>
+  <div class="drug-box">
+    <div class="drug-name">Conventional Therapy</div>
+    <ul>
+      <li><strong>Calcitriol (1,25(OH)₂D):</strong> preferred over high-dose plain vitamin D (cleared much faster); doses 0.5–1 μg/d</li>
+      <li><strong>Oral calcium supplementation:</strong> 1.5–2 g/d elemental calcium</li>
+      <li>Maintain blood Ca at <strong>low-normal or just below normal</strong> to avoid hypercalciuria → nephrocalcinosis/stones/CKD</li>
+      <li><strong>Thiazide diuretics:</strong> reduce urine Ca by ~100 mg/d (with low-sodium diet) — useful adjunct</li>
+      <li>Limitation: does not restore other PTH functions; exacerbates hypercalciuria; does not normalize hyperphosphatemia or low bone turnover</li>
+    </ul>
+  </div>
+  <div class="drug-box">
+    <div class="drug-name">PTH Replacement Therapy</div>
+    <ul>
+      <li><strong>Palopegteriparatide:</strong> inactive SC prodrug releasing PTH(1–34) from inert carrier in sustained manner; once daily; normalized blood + urine Ca in phase 3 trial; <strong>approved in US + Europe</strong></li>
+      <li><strong>Eneboparatide:</strong> biased peptide agonist to PTH receptor with prolonged intracellular signaling; phase 2 complete → phase 3 ongoing</li>
+      <li>PTH(1–84): approved by FDA for hypoparathyroidism but no longer available in US</li>
+      <li>Effective half-life of PTH analogues: too short for full 24-h effect with single injection → driving development of long-acting molecules</li>
+    </ul>
+  </div>
+
+  <div class="status-row">
+    <button class="status-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="status-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- SECTION 6: PHP -->
+<section class="sec" id="php">
+  <h2 class="sec-title">Pseudohypoparathyroidism (PHP)</h2>
+
+  <h3 class="sub-title">Overview</h3>
+  <ul>
+    <li>Group of inherited disorders resembling hypoparathyroidism <em>functionally</em></li>
+    <li>Key distinction: <strong>PTH levels are ELEVATED</strong> (resistance, not deficiency) with hypocalcemia + hyperphosphatemia</li>
+    <li>Caused by PTH target organ resistance, primarily in proximal renal tubule</li>
+  </ul>
+
+  <h3 class="sub-title">PHP Classification</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Type</th><th>Hypocalcemia/HyperPO₄</th><th>Urinary cAMP to PTH</th><th>Serum PTH</th><th>Gsα Deficiency</th><th>AHO</th><th>Other Hormone Resistance</th></tr>
+      <tr><td><strong>PHP1A</strong></td><td>Yes</td><td>↓</td><td>↑</td><td>Yes</td><td>Yes</td><td>Yes (TSH resistance esp.)</td></tr>
+      <tr><td><strong>PPHP</strong></td><td>No</td><td>Normal</td><td>Normal</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+      <tr><td><strong>PHP1B</strong></td><td>Yes</td><td>↓</td><td>↑</td><td>No</td><td>Less frequently, less severe</td><td>Yes (some patients)</td></tr>
+      <tr><td><strong>PHP2</strong></td><td>Yes</td><td>Normal (↓ phosphaturic response)</td><td>↑</td><td>No</td><td>No</td><td>No</td></tr>
+    </table>
+  </div>
+
+  <h3 class="sub-title">PHP1A — Albright's Hereditary Osteodystrophy (AHO)</h3>
+  <ul>
+    <li>Caused by inactivating Gsα mutations on the <strong>maternal GNAS allele</strong></li>
+    <li>GNAS gene at chromosome 20q13.3</li>
+    <li>Gsα is paternally silenced in specific tissues (proximal renal tubule, thyroid, pituitary) → maternal allele defect → loss of Gsα → PTH resistance</li>
+    <li><strong>AHO features:</strong> short stature, early-onset obesity, round face, brachydactyly (short 4th/5th metacarpals), intellectual impairment, heterotopic calcifications</li>
+    <li>Additional: TSH resistance (↑ TSH), basal ganglia calcification</li>
+    <li>Short metacarpals: premature epiphyseal closure</li>
+  </ul>
+
+  <div class="callout pur">
+    <div class="callout-lbl">Imprinting Rule — GNAS</div>
+    <ul>
+      <li><strong>PHP1A:</strong> Maternal GNAS mutation → hypocalcemia + AHO (PTH resistance in kidney)</li>
+      <li><strong>PPHP:</strong> Paternal GNAS mutation → AHO only (normal Ca/PTH; no kidney resistance because paternal Gsα is silenced in proximal tubule anyway)</li>
+      <li>Female with PHP1A/PPHP → offspring who inherits mutant allele: <strong>PHP1A</strong></li>
+      <li>Male with PHP1A/PPHP → offspring who inherits mutant allele: <strong>PPHP</strong></li>
+    </ul>
+  </div>
+
+  <h3 class="sub-title">PHP1B</h3>
+  <ul>
+    <li>Caused by loss of methylation at maternal GNAS exon A/B → silences maternal Gsα in proximal renal tubule → PTH resistance</li>
+    <li>Autosomal dominant (AD-PHP1B): microdeletions/duplications/inversions within or upstream of GNAS locus</li>
+    <li>Sporadic PHP1B (sporPHP1B): most common form; some caused by paternal uniparental isodisomy of chromosome 20q</li>
+    <li>Less AHO features than PHP1A; may have osteitis fibrosa–like bone response (bone not resistant to PTH)</li>
+  </ul>
+
+  <h3 class="sub-title">PHP2 / Acrodysostosis</h3>
+  <ul>
+    <li>Normal urinary cAMP response to PTH, but impaired phosphaturic response</li>
+    <li>Acrodysostosis with hormonal resistance: PRKAR1A mutations (regulatory subunit of PKA)</li>
+    <li>Acrodysostosis without hormonal resistance: PDE4D or PDE3A mutations</li>
+    <li>Must exclude vitamin D deficiency before diagnosing PHP2</li>
+  </ul>
+
+  <h3 class="sub-title">Treatment of PHP</h3>
+  <ul>
+    <li>Similar to hypoparathyroidism: calcitriol + oral calcium</li>
+    <li>Doses often <strong>higher</strong> to maintain Ca in normal range and PTH in upper-normal/slightly elevated range</li>
+    <li>PHP1: NO PTH resistance in distal tubules → urinary Ca clearance NOT elevated → <strong>no risk of nephrocalcinosis</strong> (unlike true hypoparathyroidism) <em>unless overtreated</em></li>
+    <li>Reduce doses after puberty (when bone maturation complete)</li>
+  </ul>
+
+  <div class="status-row">
+    <button class="status-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="status-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- SECTION 7: HYPOCALCEMIA TREATMENT -->
+<section class="sec" id="hypocalc">
+  <h2 class="sec-title">Hypocalcemia — Classification & Special Scenarios</h2>
+
+  <h3 class="sub-title">Functional Classification</h3>
+  <div class="g4">
+    <div class="card card-red">
+      <div class="card-head">PTH-Related</div>
+      <ul>
+        <li><strong>Absent PTH:</strong> DiGeorge (22q11DS), isolated hypoparathyroidism, PTH gene mutations, GCM2/GATA3 mutations; post-surgical; APECED; infiltrative</li>
+        <li><strong>Impaired secretion:</strong> ADH1/2 (gain-of-function CaSR or Gα11); hypomagnesemia/hypermagnesemia</li>
+        <li><strong>Target organ resistance:</strong> PHP; hypomagnesemia</li>
+      </ul>
+    </div>
+    <div class="card card-amb">
+      <div class="card-head">Vitamin D–Related</div>
+      <ul>
+        <li>Deficiency: nutritional, ↓ cutaneous, malabsorption</li>
+        <li>Accelerated loss: anticonvulsants, rifampin</li>
+        <li>Impaired 25-hydroxylation: severe liver disease, CYP2R1 mutations</li>
+        <li>Impaired 1α-hydroxylation: renal insufficiency, azole antifungals (ketoconazole), genetic 1α-hydroxylase deficiency, FGF23-related disorders (TIO, XLH, CKD)</li>
+        <li>Target organ resistance: VDR mutations (vitamin D–dependent rickets type II)</li>
+      </ul>
+    </div>
+    <div class="card card-blu">
+      <div class="card-head">Other Causes</div>
+      <ul>
+        <li>Impaired bone resorption: denosumab, bisphosphonates</li>
+        <li>Excessive skeletal deposition: hungry bone syndrome, osteoblastic malignancies</li>
+        <li>Chelation: citrated blood, EDTA, phosphate infusion</li>
+        <li>Critical illness: pancreatitis, ICU</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub-title">Vitamin D–Dependent Rickets</h3>
+  <div class="vs-box">
+    <div class="vs-l">
+      <div class="vs-title" style="color:var(--red)">Type I (Pseudo-VD resistant)</div>
+      <ul>
+        <li>CYP27B1 mutations (25(OH)D-1α-hydroxylase)</li>
+        <li>Impaired synthesis of 1,25(OH)₂D</li>
+        <li>1,25(OH)₂D levels: <strong>LOW</strong></li>
+        <li>Responds to physiologic doses of calcitriol</li>
+        <li>Features: hypocalcemia ± tetany, hypophosphatemia (secondary HPT), osteomalacia, ↑ alkaline phosphatase</li>
+      </ul>
+    </div>
+    <div class="vs-mid">vs</div>
+    <div class="vs-r">
+      <div class="vs-title" style="color:var(--grn)">Type II (True VD resistant)</div>
+      <ul>
+        <li>VDR mutations (end-organ resistance)</li>
+        <li>1,25(OH)₂D levels: <strong>ELEVATED</strong></li>
+        <li>Same metabolic features PLUS <strong>partial or total alopecia</strong></li>
+        <li>Treatment: regular nocturnal calcium infusions (normalizes PTH → ↓ phosphaturia → improves rickets) — does NOT restore hair growth</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub-title">CKD & Hypocalcemia</h3>
+  <ul>
+    <li>Key mediator: ↑ FGF23 → ↓ 1α-hydroxylase → ↓ 1,25(OH)₂D → ↓ intestinal Ca absorption → secondary HPT</li>
+    <li>FGF23 elevated even in early CKD → correlates with disease progression, mortality, LV hypertrophy</li>
+    <li>Treatment targets: PTH 100–300 pg/mL; use calcitriol/analogues carefully to avoid oversuppression → adynamic bone disease</li>
+    <li>Sevelamer (phosphate binder): preferred over calcium carbonate (avoids excess Ca loading → cardiovascular calcification)</li>
+  </ul>
+
+  <h3 class="sub-title">Acute Symptomatic Hypocalcemia — Treatment</h3>
+  <ul>
+    <li>Mild-moderate: oral calcium + calcitriol (0.5–1 μg/d)</li>
+    <li>Severe/symptomatic: <strong>parenteral calcium</strong></li>
+    <li>IV infusion: 0.5–2 mg/kg per hour or 30–100 mL/h of 1 mg/mL solution</li>
+    <li>Usually needed for only a few days; add calcitriol if symptoms persist or IV needed &gt;2–3 days</li>
+  </ul>
+
+  <h3 class="sub-title">Severe Acute Hyperphosphatemia → Hypocalcemia</h3>
+  <ul>
+    <li>Extensive tissue damage/cell destruction → massive phosphate release → Ca precipitation → hypocalcemia</li>
+    <li>Usually reverses with tissue repair + renal function restoration</li>
+    <li>Treatment: phosphate-binding antacids or dialysis; caution with calcium during hyperphosphatemic phase (↑ extraosseous deposition)</li>
+    <li>Mild hypercalcemia may follow in oliguric recovery phase (Ca redistribution from muscle)</li>
+  </ul>
+
+  <h3 class="sub-title">Hungry Bone Syndrome (Post-parathyroidectomy)</h3>
+  <ul>
+    <li>Severe osteitis fibrosa cystica → large bone mineral deficit</li>
+    <li>After parathyroidectomy: hypocalcemia persists for days if Ca replacement inadequate</li>
+    <li>Treatment: parenteral Ca + calcitriol + oral calcium until bone mineral deficits filled; may need weeks to months</li>
+  </ul>
+
+  <div class="status-row">
+    <button class="status-btn" onclick="toggleStatus(this,'learned')">✓ Learned</button>
+    <button class="status-btn" onclick="toggleStatus(this,'review')">⚑ Needs Review</button>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- SECTION 8: QUICK REFERENCE -->
+<section class="sec" id="quickref">
+  <h2 class="sec-title">Quick-Reference Master Table</h2>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Parameter</th><th>Value / Threshold</th><th>Clinical Significance</th></tr>
+      <tr><td>PTH max secretion rate</td><td>~5× basal</td><td>When Ca²⁺ falls to 1.9–2.0 mmol/L (7.6–8.0 mg/dL)</td></tr>
+      <tr><td>Ca²⁺ transferred bone↔ECF daily</td><td>~12 mmol (500 mg)</td><td>PTH regulation critical for this flux</td></tr>
+      <tr><td>pHPT incidence (US)</td><td>~50/100,000/year</td><td>Most common cause of asymptomatic hypercalcemia</td></tr>
+      <tr><td>pHPT — solitary adenoma</td><td>~80% of cases</td><td>Single-gland disease → minimally invasive parathyroidectomy</td></tr>
+      <tr><td>pHPT — genetic basis</td><td>~10%</td><td>Genetic testing warranted (MEN syndromes, HPT-JT)</td></tr>
+      <tr><td>Surgery threshold: serum Ca</td><td>&gt;1 mg/dL above ULN</td><td>5th International Workshop guideline</td></tr>
+      <tr><td>Surgery threshold: creatinine clearance</td><td>&lt;60 mL/min</td><td>Renal criterion</td></tr>
+      <tr
+<script>
+function tog(hd){const item=hd.closest('.toggle-item')||hd.parentElement;
+  const body=item.querySelector('.toggle-body');const arrow=hd.querySelector('.toggle-arrow');
+  if(!body)return;const isOpen=body.style.display==='block';
+  body.style.display=isOpen?'none':'block';if(arrow)arrow.textContent=isOpen?'▶':'▼';}
+const FILE_KEY='venos_'+(document.title||'guide').replace(/[^a-z0-9]/gi,'_').toLowerCase();
+const HL_KEY=FILE_KEY+'_hl',NT_KEY=FILE_KEY+'_notes';
+let curColor=null,eraseMode=false,selText='',savedRange=null;
+function setHL(c){curColor=c;eraseMode=false;document.body.style.cursor='crosshair';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));
+  const m={y:'h-y',g:'h-g',b:'h-b',p:'h-p',o:'h-o'};
+  if(document.getElementById(m[c]))document.getElementById(m[c]).classList.add('active');}
+function setErase(){eraseMode=true;curColor=null;document.body.style.cursor='cell';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));}
+function applyHL(range,color){try{const s=document.createElement('span');
+  s.className='hl hl-'+color;s.dataset.hlColor=color;range.surroundContents(s);saveHighlights();}
+  catch(e){try{const f=range.extractContents();const s=document.createElement('span');
+  s.className='hl hl-'+color;s.dataset.hlColor=color;s.appendChild(f);
+  range.insertNode(s);saveHighlights();}catch(e2){}}}
+function saveHighlights(){const data=[];
+  document.querySelectorAll('.hl[data-hl-color]').forEach(s=>{const t=s.textContent.trim();
+  if(t.length>1)data.push({text:t,color:s.dataset.hlColor});});
+  try{localStorage.setItem(HL_KEY,JSON.stringify(data));}catch(e){}}
+function restoreHighlights(){let saved;
+  try{saved=JSON.parse(localStorage.getItem(HL_KEY))||[];}catch(e){return;}
+  if(!saved.length)return;
+  saved.forEach(function(item){if(!item.text||!item.color)return;
+    const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);let node;
+    while(node=w.nextNode()){
+      if(node.parentElement&&(node.parentElement.classList.contains('hl')||
+        node.parentElement.classList.contains('note-anchor')))continue;
+      const i=node.nodeValue.indexOf(item.text);
+      if(i!==-1){try{const r=document.createRange();r.setStart(node,i);
+        r.setEnd(node,i+item.text.length);applyHL(r,item.color);}catch(e){}break;}}});}
+function getNotes(){try{return JSON.parse(localStorage.getItem(NT_KEY)||'[]');}catch(e){return[];}}
+function saveNotes(n){try{localStorage.setItem(NT_KEY,JSON.stringify(n));}catch(e){}}
+function addNote(){const ta=document.getElementById('sn-ta');if(!ta)return;
+  const txt=ta.value.trim();if(!txt)return;const id=Date.now();const notes=getNotes();
+  notes.unshift({id,ref:selText.substring(0,100)||'—',text:txt});saveNotes(notes);
+  if(savedRange){try{const s=document.createElement('span');s.className='note-anchor';
+    s.dataset.noteId=id;savedRange.surroundContents(s);bindAnchor(s,id);}
+    catch(e){try{const f=savedRange.extractContents();const s=document.createElement('span');
+    s.className='note-anchor';s.dataset.noteId=id;s.appendChild(f);
+    savedRange.insertNode(s);bindAnchor(s,id);}catch(e2){}}savedRange=null;}
+  ta.value='';selText='';const r=document.getElementById('sn-ref-txt');if(r)r.textContent='—';renderNotes();}
+function bindAnchor(span,id){span.addEventListener('click',function(e){e.stopPropagation();
+  const note=getNotes().find(n=>n.id===id);if(note)showPopover(span,note);});}
+function restoreAnchors(){const notes=getNotes();if(!notes.length)return;
+  notes.forEach(function(note){if(!note.ref||note.ref==='—'||!note.id)return;
+    const rt=note.ref.trim();if(rt.length<2)return;
+    if(document.querySelector('.note-anchor[data-note-id="'+note.id+'"]'))return;
+    const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);let node;
+    while(node=w.nextNode()){
+      if(node.parentElement&&(node.parentElement.classList.contains('note-anchor')||
+        node.parentElement.classList.contains('hl')))continue;
+      const i=node.nodeValue.indexOf(rt);
+      if(i!==-1){try{const r=document.createRange();r.setStart(node,i);r.setEnd(node,i+rt.length);
+        const s=document.createElement('span');s.className='note-anchor';s.dataset.noteId=String(note.id);
+        r.surroundContents(s);bindAnchor(s,note.id);}catch(e){}break;}}});}
+function deleteNote(id){saveNotes(getNotes().filter(n=>n.id!==id));
+  document.querySelectorAll('.note-anchor[data-note-id="'+id+'"]').forEach(el=>{
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});
+  closePopover();renderNotes();}
+function renderNotes(){const body=document.getElementById('sn-body'),empty=document.getElementById('sn-empty');
+  if(!body)return;const notes=getNotes();body.querySelectorAll('.sn-note').forEach(el=>el.remove());
+  if(!notes.length){if(empty)empty.style.display='';return;}if(empty)empty.style.display='none';
+  notes.forEach(note=>{const card=document.createElement('div');card.className='sn-note';
+    card.dataset.noteId=note.id;
+    card.innerHTML='<div class="sn-note-hd"><span style="color:#a89a30">⠿</span>'+
+      '<span class="sn-note-ref">'+(note.ref!=='—'?'"'+note.ref+'"':'General note')+'</span>'+
+      '<button class="sn-del" onclick="deleteNote('+note.id+')">×</button></div>'+
+      '<div class="sn-note-body">'+note.text.replace(/\n/g,'<br>')+'</div>'+
+      '<div class="sn-resize"></div>';body.appendChild(card);});}
+let activePopNoteId=null;
+function showPopover(anchorEl,note){const pop=document.getElementById('note-popover');if(!pop)return;
+  document.getElementById('np-pop-ref').textContent=note.ref!=='—'?'"'+note.ref.substring(0,55)+'"':'Note';
+  document.getElementById('np-pop-text').innerHTML=note.text.replace(/\n/g,'<br>');
+  document.getElementById('pop-del-btn').onclick=()=>deleteNote(note.id);activePopNoteId=note.id;
+  const rect=anchorEl.getBoundingClientRect();
+  pop.style.left=Math.min(rect.left,window.innerWidth-300)+'px';
+  pop.style.top=(rect.bottom+8)+'px';pop.classList.add('show');}
+function closePopover(){const pop=document.getElementById('note-popover');
+  if(pop)pop.classList.remove('show');activePopNoteId=null;}
+document.addEventListener('click',function(e){const pop=document.getElementById('note-popover');
+  if(pop&&!pop.contains(e.target))closePopover();});
+document.addEventListener('mouseup',function(e){
+  const tb=document.getElementById('toolbar'),sb=document.getElementById('sn-sidebar'),
+    np=document.getElementById('note-popover');
+  if(tb&&tb.contains(e.target))return;if(sb&&sb.contains(e.target))return;if(np&&np.contains(e.target))return;
+  if(eraseMode&&e.target.classList.contains('hl')){const el=e.target;
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);
+    el.parentNode.normalize();saveHighlights();return;}
+  const sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+  const txt=sel.toString().trim();if(!txt)return;
+  selText=txt;savedRange=sel.getRangeAt(0).cloneRange();
+  const ref=document.getElementById('sn-ref-txt');
+  if(ref)ref.textContent=txt.length>48?txt.substring(0,48)+'…':txt;
+  if(curColor){try{applyHL(sel.getRangeAt(0),curColor);sel.removeAllRanges();}catch(err){}}});
+function clearAll(){if(!confirm('Clear ALL highlights and notes?'))return;
+  document.querySelectorAll('.hl').forEach(el=>{
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});
+  document.querySelectorAll('.note-anchor').forEach(el=>{
+    el.parentNode.replaceChild(document.createTextNode(el.textContent),el);el.parentNode.normalize();});
+  try{localStorage.removeItem(HL_KEY);localStorage.removeItem(NT_KEY);}catch(e){}
+  curColor=null;eraseMode=false;document.body.style.cursor='';
+  document.querySelectorAll('.hbtn').forEach(b=>b.classList.remove('active'));
+  closePopover();renderNotes();}
+function toggleSidebar(){const sb=document.getElementById('sn-sidebar'),tab=document.getElementById('sn-tab');
+  if(!sb)return;sb.classList.toggle('hidden');
+  if(tab)tab.textContent=sb.classList.contains('hidden')?'📝 Notes':'◀';}
+restoreHighlights();restoreAnchors();renderNotes();
+</script>
+</body>
+</html>
