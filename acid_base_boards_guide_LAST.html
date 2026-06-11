@@ -1232,7 +1232,8 @@ function tog(hd) {
   const body = item.querySelector('.toggle-body');
   const arrow = hd.querySelector('.toggle-arrow');
   if (!body) return;
-  const isOpen = body.style.display === 'block';
+  const isOpen = body.classList.contains('open') || body.style.display === 'block';
+  body.classList.toggle('open', !isOpen);
   body.style.display = isOpen ? 'none' : 'block';
   if (arrow) arrow.textContent = isOpen ? '▶' : '▼';
 }
