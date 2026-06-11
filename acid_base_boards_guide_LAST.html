@@ -1229,14 +1229,19 @@ h3[style*="font-family"]{font-size:14px!important;margin:18px 0 8px!important}
 /* ── ACCORDION TOGGLE ── */
 function ntog(hd) {
   const item = hd.closest('.nested-toggle') || hd.parentElement;
-  const body = item.querySelector('.nested-body');
-  const arrow = hd.querySelector('.nested-arrow');
+  const body = item ? item.querySelector('.nested-body') : null;
   if (!body) return;
   const isOpen = body.style.display === 'block' || body.classList.contains('open');
   body.style.display = isOpen ? 'none' : 'block';
   body.classList.toggle('open', !isOpen);
-  if (arrow) arrow.textContent = isOpen ? '▶' : '▼';
+  hd.classList.toggle('open', !isOpen);
 }
+/* event delegation backup for nested toggles */
+document.addEventListener('click', function(e) {
+  const hd = e.target.closest('.nested-hd');
+  if (!hd) return;
+  ntog(hd);
+});
 function tog(hd) {
   const item = hd.closest('.toggle-item') || hd.parentElement;
   const body = item.querySelector('.toggle-body');
